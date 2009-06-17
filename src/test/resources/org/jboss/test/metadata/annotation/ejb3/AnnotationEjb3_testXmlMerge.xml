@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar version="3.0"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd">
+    <enterprise-beans>
+        <session>
+            <ejb-name>InterMediateBean</ejb-name>
+            <ejb-class>org.jboss.test.metadata.annotation.ejb3.runas.InterMediate</ejb-class>
+        </session>
+        <session>
+            <ejb-name>TargetBean</ejb-name>
+            <ejb-class>org.jboss.test.metadata.annotation.ejb3.runas.TargetBean</ejb-class>
+            <remove-method>
+                <bean-method>
+                    <method-name>remove</method-name>
+                </bean-method>
+                <!-- specify it in annotation
+                <retain-if-exception>true</retain-if-exception>
+                -->
+            </remove-method>
+        </session>
+    </enterprise-beans>
+</ejb-jar>

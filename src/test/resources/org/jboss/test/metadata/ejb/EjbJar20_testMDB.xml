@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC
+   "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"
+   "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+   
+<ejb-jar id="ejb-jar_2_0">
+    <description>Basic version tests</description>
+    <enterprise-beans>
+        <message-driven id="strictlyPooledMDB-id">
+            <description>Message driven pooling test</description>
+            <ejb-name>StrictlyPooledMDB</ejb-name>
+            <ejb-class>org.jboss.test.cts.ejb.StrictlyPooledMDB</ejb-class>
+            <transaction-type>Container</transaction-type>
+            <acknowledge-mode>AUTO_ACKNOWLEDGE</acknowledge-mode>
+            <message-driven-destination>
+                <destination-type>javax.jms.Queue</destination-type>
+                <subscription-durability>NonDurable</subscription-durability>
+            </message-driven-destination>
+            <env-entry id="maxActiveCountID">
+                <env-entry-name>maxActiveCount</env-entry-name>
+                <env-entry-type>java.lang.Integer</env-entry-type>
+                <env-entry-value>5</env-entry-value>
+            </env-entry>
+        </message-driven>
+        <message-driven id="SubclassMDB-id">
+            <description>Message driven pooling test</description>
+            <ejb-name>SubclassMDB</ejb-name>
+            <ejb-class>org.jboss.test.cts.ejb.ConcreteMDB</ejb-class>
+            <transaction-type>Container</transaction-type>
+            <acknowledge-mode>AUTO_ACKNOWLEDGE</acknowledge-mode>
+            <message-driven-destination>
+                <destination-type>javax.jms.Topic</destination-type>
+                <subscription-durability>Durable</subscription-durability>
+            </message-driven-destination>
+        </message-driven>        
+    </enterprise-beans>
+</ejb-jar>

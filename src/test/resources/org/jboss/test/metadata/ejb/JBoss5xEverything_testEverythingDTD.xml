@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: JBoss5xEverything_testEverything.xml 67097 2007-11-14 21:23:18Z alex.loubyansky@jboss.com $ -->
+
+  <!DOCTYPE jboss PUBLIC
+      "-//JBoss//DTD JBOSS 5.0//EN"
+      "http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd">
+
+<jboss>
+   <loader-repository loaderRepositoryClass="loaderRepositoryClass">
+      loaderRepositoryName
+      <loader-repository-config configParserClass="loaderRepositoryConfigParserClass1">
+         loaderRepositoryConfig1
+      </loader-repository-config>
+      <loader-repository-config configParserClass="loaderRepositoryConfigParserClass2">
+         loaderRepositoryConfig2
+      </loader-repository-config>
+   </loader-repository>
+   
+   <jmx-name>jboss-jmx-name</jmx-name>
+   <enforce-ejb-restrictions>NO LONGER USED</enforce-ejb-restrictions>
+   <security-domain>jboss-security-domain</security-domain>
+   <missing-method-permissions-excluded-mode>false</missing-method-permissions-excluded-mode>
+   <unauthenticated-principal>jboss-unauthenticated-principal</unauthenticated-principal>
+   <exception-on-rollback>true</exception-on-rollback>
+   
+   <webservices>
+      <context-root>webservicesContextRoot</context-root>
+      <webservice-description>
+         <webservice-description-name>webserviceDescription1Name</webservice-description-name>
+         <config-name>webserviceDescription1ConfigName</config-name>
+         <config-file>webserviceDescription1ConfigFile</config-file>
+         <wsdl-publish-location>webserviceDescription1WsdlPublishLocation</wsdl-publish-location>
+      </webservice-description>
+      <webservice-description>
+         <webservice-description-name>webserviceDescription2Name</webservice-description-name>
+         <config-name>webserviceDescription2ConfigName</config-name>
+         <config-file>webserviceDescription2ConfigFile</config-file>
+         <wsdl-publish-location>webserviceDescription2WsdlPublishLocation</wsdl-publish-location>
+      </webservice-description>
+   </webservices>
+   
+   <enterprise-beans>
+
+      <session>
+         <ejb-name>session0EjbName</ejb-name>
+      </session>
+
+      <session id="session1-id">
+         <ejb-name>session1EjbName</ejb-name>
+
+         <jndi-name>session1JndiName</jndi-name>
+         <home-jndi-name>session1HomeJndiName</home-jndi-name>
+         <local-jndi-name>session1LocalJndiName</local-jndi-name>
+         <call-by-value>true</call-by-value>
+         <exception-on-rollback>true</exception-on-rollback>
+         <timer-persistence>true</timer-persistence>
+         <configuration-name>session1ConfigurationName</configuration-name>
+
+         <invoker-bindings>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding1Name</invoker-proxy-binding-name>
+               <jndi-name>session1Invoker1JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>session1EjbRef1Name</ejb-ref-name>
+                  <jndi-name>session1Invoker1EjbName1</jndi-name>
+               </ejb-ref>
+            </invoker>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding2Name</invoker-proxy-binding-name>
+               <jndi-name>session1Invoker2JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>session1EjbRef1Name</ejb-ref-name>
+                  <jndi-name>session1Invoker2EjbName1</jndi-name>
+               </ejb-ref>
+               <ejb-ref>
+                  <ejb-ref-name>session1EjbRef2Name</ejb-ref-name>
+                  <jndi-name>session1Invoker2EjbName2</jndi-name>
+               </ejb-ref>
+            </invoker>
+         </invoker-bindings>
+         
+         <security-proxy>session1SecurityProxy</security-proxy>
+
+         <ejb-ref>
+            <ejb-ref-name>session1EjbRef1Name</ejb-ref-name>
+            <jndi-name>session1EjbRef1JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-ref>
+            <ejb-ref-name>session1EjbRef2Name</ejb-ref-name>
+            <jndi-name>session1EjbRef2JndiName</jndi-name>
+         </ejb-ref>
+
+         <ejb-local-ref>
+            <ejb-ref-name>session1EjbLocalRef1Name</ejb-ref-name>
+            <local-jndi-name>session1EjbLocalRef1JndiName</local-jndi-name>
+         </ejb-local-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>session1EjbLocalRef2Name</ejb-ref-name>
+            <local-jndi-name>session1EjbLocalRef2JndiName</local-jndi-name>
+         </ejb-local-ref>
+
+         <!-- TODO service-ref -->
+
+         <resource-ref>
+            <res-ref-name>session1ResourceRef1Name</res-ref-name>
+            <jndi-name>session1ResourceRef1JndiName</jndi-name>
+         </resource-ref>
+         <resource-ref>
+            <res-ref-name>session1ResourceRef2Name</res-ref-name>
+            <jndi-name>session1ResourceRef2JndiName</jndi-name>
+         </resource-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>session1ResourceEnvRef1Name</resource-env-ref-name>
+            <jndi-name>session1ResourceEnvRef1JndiName</jndi-name>
+         </resource-env-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>session1ResourceEnvRef2Name</resource-env-ref-name>
+            <jndi-name>session1ResourceEnvRef2JndiName</jndi-name>
+         </resource-env-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>session1MessageDestinationRef1Name</message-destination-ref-name>
+            <jndi-name>session1MessageDestinationRef1JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>session1MessageDestinationRef2Name</message-destination-ref-name>
+            <jndi-name>session1MessageDestinationRef2JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>session1MessageDestinationRef3Name</message-destination-ref-name>
+            <jndi-name>session1MessageDestinationRef3JndiName</jndi-name>
+         </message-destination-ref>
+
+         <security-identity>
+            <run-as-principal>session1SecurityIdentityRunAsPrincipal</run-as-principal>
+         </security-identity>
+
+         <clustered>true</clustered>
+         <cluster-config>
+            <partition-name>session1ClusterConfigPartitionName</partition-name>
+            <home-load-balance-policy>session1ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>session1ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
+            <session-state-manager-jndi-name>session1ClusterConfigSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>
+
+         <method-attributes>
+            <method>
+               <method-name>get*</method-name>
+               <read-only>true</read-only>
+               <idempotent>true</idempotent>
+               <transaction-timeout>5000</transaction-timeout>
+            </method>
+            <method>
+               <method-name>*</method-name>
+            </method>
+         </method-attributes>
+         
+         <depends>session1Depends1</depends>
+         <depends>session1Depends2</depends>
+         
+         <ior-security-config>
+            <transport-config>
+               <integrity>NONE</integrity>
+               <confidentiality>NONE</confidentiality>
+               <establish-trust-in-target>NONE</establish-trust-in-target>
+               <establish-trust-in-client>NONE</establish-trust-in-client>
+               <detect-misordering>NONE</detect-misordering>
+               <detect-replay>NONE</detect-replay>
+            </transport-config>
+            <as-context>
+               <auth-method>USERNAME_PASSWORD</auth-method>
+               <realm>session1ASContextRealm</realm>
+               <required>false</required>
+            </as-context>
+            <sas-context>
+               <caller-propagation>NONE</caller-propagation>
+            </sas-context>
+         </ior-security-config>
+         
+         <port-component>
+            <port-component-name>session1-PortComponent</port-component-name>
+            <port-component-uri>/session1/PortComponentURI</port-component-uri>
+            <auth-method>BASIC</auth-method>
+            <transport-guarantee>NONE</transport-guarantee>
+         </port-component>
+
+         <ejb-timeout-identity>
+            <run-as-principal>session1EjbTimeoutIdentityRunAsPrincipal</run-as-principal>
+         </ejb-timeout-identity>
+      </session>
+
+      <session id="session2-id">
+         <ejb-name>session2EjbName</ejb-name>
+         
+         <jndi-name>session2JndiName</jndi-name>
+         <home-jndi-name>session2HomeJndiName</home-jndi-name>
+         <local-jndi-name>session2LocalJndiName</local-jndi-name>
+         <call-by-value>false</call-by-value>
+         <exception-on-rollback>false</exception-on-rollback>
+         <timer-persistence>false</timer-persistence>
+         <configuration-name>session2ConfigurationName</configuration-name>
+         <invoker-bindings>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding1Name</invoker-proxy-binding-name>
+               <jndi-name>session2Invoker1JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>session2EjbRef1Name</ejb-ref-name>
+                  <jndi-name>session2Invoker1EjbName1</jndi-name>
+               </ejb-ref>
+            </invoker>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding2Name</invoker-proxy-binding-name>
+               <jndi-name>session2Invoker2JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>session2EjbRef1Name</ejb-ref-name>
+                  <jndi-name>session2Invoker2EjbName1</jndi-name>
+               </ejb-ref>
+               <ejb-ref>
+                  <ejb-ref-name>session2EjbRef2Name</ejb-ref-name>
+                  <jndi-name>session2Invoker2EjbName2</jndi-name>
+               </ejb-ref>
+            </invoker>
+         </invoker-bindings>
+         
+         <security-proxy>session2SecurityProxy</security-proxy>
+         <ejb-ref>
+            <ejb-ref-name>session2EjbRef1Name</ejb-ref-name>
+            <jndi-name>session2EjbRef1JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-ref>
+            <ejb-ref-name>session2EjbRef2Name</ejb-ref-name>
+            <jndi-name>session2EjbRef2JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>session2EjbLocalRef1Name</ejb-ref-name>
+            <local-jndi-name>session2EjbLocalRef1JndiName</local-jndi-name>
+         </ejb-local-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>session2EjbLocalRef2Name</ejb-ref-name>
+            <local-jndi-name>session2EjbLocalRef2JndiName</local-jndi-name>
+         </ejb-local-ref>
+
+         <!-- TODO service-ref -->
+
+         <resource-ref>
+            <res-ref-name>session2ResourceRef1Name</res-ref-name>
+            <jndi-name>session2ResourceRef1JndiName</jndi-name>
+         </resource-ref>
+         <resource-ref>
+            <res-ref-name>session2ResourceRef2Name</res-ref-name>
+            <jndi-name>session2ResourceRef2JndiName</jndi-name>
+         </resource-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>session2ResourceEnvRef1Name</resource-env-ref-name>
+            <jndi-name>session2ResourceEnvRef1JndiName</jndi-name>
+         </resource-env-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>session2ResourceEnvRef2Name</resource-env-ref-name>
+            <jndi-name>session2ResourceEnvRef2JndiName</jndi-name>
+         </resource-env-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>session2MessageDestinationRef1Name</message-destination-ref-name>
+            <jndi-name>session2MessageDestinationRef1JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>session2MessageDestinationRef2Name</message-destination-ref-name>
+            <jndi-name>session2MessageDestinationRef2JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>session2MessageDestinationRef3Name</message-destination-ref-name>
+            <jndi-name>session2MessageDestinationRef3JndiName</jndi-name>
+         </message-destination-ref>
+
+         <security-identity>
+            <run-as-principal>session2SecurityIdentityRunAsPrincipal</run-as-principal>
+         </security-identity>
+
+         <clustered>false</clustered>
+         <cluster-config>
+            <partition-name>session2ClusterConfigPartitionName</partition-name>
+            <home-load-balance-policy>session2ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>session2ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
+            <session-state-manager-jndi-name>session2ClusterConfigSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>
+
+         <method-attributes>
+            <method>
+               <method-name>get*</method-name>
+               <read-only>true</read-only>
+               <idempotent>true</idempotent>
+               <transaction-timeout>5000</transaction-timeout>
+            </method>
+            <method>
+               <method-name>*</method-name>
+            </method>
+         </method-attributes>
+         
+         <depends>session2Depends1</depends>
+         <depends>session2Depends2</depends>
+         <ior-security-config>
+            <transport-config>
+               <integrity>NONE</integrity>
+               <confidentiality>NONE</confidentiality>
+               <establish-trust-in-target>NONE</establish-trust-in-target>
+               <establish-trust-in-client>NONE</establish-trust-in-client>
+               <detect-misordering>NONE</detect-misordering>
+               <detect-replay>NONE</detect-replay>
+            </transport-config>
+            <as-context>
+               <auth-method>USERNAME_PASSWORD</auth-method>
+               <realm>session2ASContextRealm</realm>
+               <required>false</required>
+            </as-context>
+            <sas-context>
+               <caller-propagation>NONE</caller-propagation>
+            </sas-context>
+         </ior-security-config>
+         
+         <port-component>
+            <port-component-name>session2-PortComponent</port-component-name>
+            <port-component-uri>/session2/PortComponentURI</port-component-uri>
+            <auth-method>BASIC</auth-method>
+            <transport-guarantee>NONE</transport-guarantee>
+         </port-component>         
+         <ejb-timeout-identity>
+            <run-as-principal>session2EjbTimeoutIdentityRunAsPrincipal</run-as-principal>
+         </ejb-timeout-identity>
+      </session>
+
+      <entity>
+         <ejb-name>entity0EjbName</ejb-name>
+      </entity>
+
+      <entity id="entity1-id">
+         <ejb-name>entity1EjbName</ejb-name>
+
+         <jndi-name>entity1JndiName</jndi-name>
+         <local-jndi-name>entity1LocalJndiName</local-jndi-name>
+         <call-by-value>true</call-by-value>
+         <read-only>true</read-only>
+         <exception-on-rollback>true</exception-on-rollback>
+         <timer-persistence>true</timer-persistence>
+         <configuration-name>entity1ConfigurationName</configuration-name>
+         <invoker-bindings>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding1Name</invoker-proxy-binding-name>
+               <jndi-name>entity1Invoker1JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>entity1EjbRef1Name</ejb-ref-name>
+                  <jndi-name>entity1Invoker1EjbName1</jndi-name>
+               </ejb-ref>
+            </invoker>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding2Name</invoker-proxy-binding-name>
+               <jndi-name>entity1Invoker2JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>entity1EjbRef1Name</ejb-ref-name>
+                  <jndi-name>entity1Invoker2EjbName1</jndi-name>
+               </ejb-ref>
+               <ejb-ref>
+                  <ejb-ref-name>entity1EjbRef2Name</ejb-ref-name>
+                  <jndi-name>entity1Invoker2EjbName2</jndi-name>
+               </ejb-ref>
+            </invoker>
+         </invoker-bindings>
+         
+         <security-proxy>entity1SecurityProxy</security-proxy>
+         <ejb-ref>
+            <ejb-ref-name>entity1EjbRef1Name</ejb-ref-name>
+            <jndi-name>entity1EjbRef1JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-ref>
+            <ejb-ref-name>entity1EjbRef2Name</ejb-ref-name>
+            <jndi-name>entity1EjbRef2JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>entity1EjbLocalRef1Name</ejb-ref-name>
+            <local-jndi-name>entity1EjbLocalRef1JndiName</local-jndi-name>
+         </ejb-local-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>entity1EjbLocalRef2Name</ejb-ref-name>
+            <local-jndi-name>entity1EjbLocalRef2JndiName</local-jndi-name>
+         </ejb-local-ref>
+
+         <!-- TODO service-ref -->
+
+         <resource-ref>
+            <res-ref-name>entity1ResourceRef1Name</res-ref-name>
+            <jndi-name>entity1ResourceRef1JndiName</jndi-name>
+         </resource-ref>
+         <resource-ref>
+            <res-ref-name>entity1ResourceRef2Name</res-ref-name>
+            <jndi-name>entity1ResourceRef2JndiName</jndi-name>
+         </resource-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>entity1ResourceEnvRef1Name</resource-env-ref-name>
+            <jndi-name>entity1ResourceEnvRef1JndiName</jndi-name>
+         </resource-env-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>entity1ResourceEnvRef2Name</resource-env-ref-name>
+            <jndi-name>entity1ResourceEnvRef2JndiName</jndi-name>
+         </resource-env-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>entity1MessageDestinationRef1Name</message-destination-ref-name>
+            <jndi-name>entity1MessageDestinationRef1JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>entity1MessageDestinationRef2Name</message-destination-ref-name>
+            <jndi-name>entity1MessageDestinationRef2JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>entity1MessageDestinationRef3Name</message-destination-ref-name>
+            <jndi-name>entity1MessageDestinationRef3JndiName</jndi-name>
+         </message-destination-ref>
+
+         <security-identity>
+            <run-as-principal>entity1SecurityIdentityRunAsPrincipal</run-as-principal>
+         </security-identity>
+
+         <method-attributes>
+            <method>
+               <method-name>get*</method-name>
+               <read-only>true</read-only>
+               <idempotent>true</idempotent>
+               <transaction-timeout>5000</transaction-timeout>
+            </method>
+            <method>
+               <method-name>*</method-name>
+            </method>
+         </method-attributes>
+
+         <clustered>true</clustered>
+
+         <cluster-config>
+            <partition-name>entity1ClusterConfigPartitionName</partition-name>
+            <home-load-balance-policy>entity1ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>entity1ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
+         </cluster-config>
+         
+         <cache-invalidation>true</cache-invalidation>
+         <cache-invalidation-config>
+            <invalidation-group-name>entity1CacheInvalidationConfigInvalidationGroupName</invalidation-group-name>
+            <invalidation-manager-name>entity1CacheInvalidationConfigInvalidationManagerName</invalidation-manager-name>
+         </cache-invalidation-config>
+         
+         <depends>entity1Depends1</depends>
+         <depends>entity1Depends2</depends>
+
+         <ior-security-config>
+            <transport-config>
+               <integrity>NONE</integrity>
+               <confidentiality>NONE</confidentiality>
+               <establish-trust-in-target>NONE</establish-trust-in-target>
+               <establish-trust-in-client>NONE</establish-trust-in-client>
+               <detect-misordering>NONE</detect-misordering>
+               <detect-replay>NONE</detect-replay>
+            </transport-config>
+            <as-context>
+               <auth-method>USERNAME_PASSWORD</auth-method>
+               <realm>entity1ASContextRealm</realm>
+               <required>false</required>
+            </as-context>
+            <sas-context>
+               <caller-propagation>NONE</caller-propagation>
+            </sas-context>
+         </ior-security-config>
+      </entity>
+
+      <entity id="entity2-id">
+         <ejb-name>entity2EjbName</ejb-name>
+
+         <jndi-name>entity2JndiName</jndi-name>
+         <local-jndi-name>entity2LocalJndiName</local-jndi-name>
+         <call-by-value>false</call-by-value>
+         <read-only>false</read-only>
+         <exception-on-rollback>false</exception-on-rollback>
+         <timer-persistence>false</timer-persistence>
+         <configuration-name>entity2ConfigurationName</configuration-name>
+
+         <invoker-bindings>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding1Name</invoker-proxy-binding-name>
+               <jndi-name>entity2Invoker1JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>entity2EjbRef1Name</ejb-ref-name>
+                  <jndi-name>entity2Invoker1EjbName1</jndi-name>
+               </ejb-ref>
+            </invoker>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding2Name</invoker-proxy-binding-name>
+               <jndi-name>entity2Invoker2JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>entity2EjbRef1Name</ejb-ref-name>
+                  <jndi-name>entity2Invoker2EjbName1</jndi-name>
+               </ejb-ref>
+               <ejb-ref>
+                  <ejb-ref-name>entity2EjbRef2Name</ejb-ref-name>
+                  <jndi-name>entity2Invoker2EjbName2</jndi-name>
+               </ejb-ref>
+            </invoker>
+         </invoker-bindings>
+         
+         <security-proxy>entity2SecurityProxy</security-proxy>
+
+         <ejb-ref>
+            <ejb-ref-name>entity2EjbRef1Name</ejb-ref-name>
+            <jndi-name>entity2EjbRef1JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-ref>
+            <ejb-ref-name>entity2EjbRef2Name</ejb-ref-name>
+            <jndi-name>entity2EjbRef2JndiName</jndi-name>
+         </ejb-ref>
+
+         <ejb-local-ref>
+            <ejb-ref-name>entity2EjbLocalRef1Name</ejb-ref-name>
+            <local-jndi-name>entity2EjbLocalRef1JndiName</local-jndi-name>
+         </ejb-local-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>entity2EjbLocalRef2Name</ejb-ref-name>
+            <local-jndi-name>entity2EjbLocalRef2JndiName</local-jndi-name>
+         </ejb-local-ref>
+
+         <!-- TODO service-ref -->
+
+         <resource-ref>
+            <res-ref-name>entity2ResourceRef1Name</res-ref-name>
+            <jndi-name>entity2ResourceRef1JndiName</jndi-name>
+         </resource-ref>
+         <resource-ref>
+            <res-ref-name>entity2ResourceRef2Name</res-ref-name>
+            <jndi-name>entity2ResourceRef2JndiName</jndi-name>
+         </resource-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>entity2ResourceEnvRef1Name</resource-env-ref-name>
+            <jndi-name>entity2ResourceEnvRef1JndiName</jndi-name>
+         </resource-env-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>entity2ResourceEnvRef2Name</resource-env-ref-name>
+            <jndi-name>entity2ResourceEnvRef2JndiName</jndi-name>
+         </resource-env-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>entity2MessageDestinationRef1Name</message-destination-ref-name>
+            <jndi-name>entity2MessageDestinationRef1JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>entity2MessageDestinationRef2Name</message-destination-ref-name>
+            <jndi-name>entity2MessageDestinationRef2JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>entity2MessageDestinationRef3Name</message-destination-ref-name>
+            <jndi-name>entity2MessageDestinationRef3JndiName</jndi-name>
+         </message-destination-ref>
+
+         <security-identity>
+            <run-as-principal>entity2SecurityIdentityRunAsPrincipal</run-as-principal>
+         </security-identity>
+
+         <method-attributes>
+            <method>
+               <method-name>get*</method-name>
+               <read-only>true</read-only>
+               <idempotent>true</idempotent>
+               <transaction-timeout>5000</transaction-timeout>
+            </method>
+            <method>
+               <method-name>*</method-name>
+            </method>
+         </method-attributes>
+         <clustered>false</clustered>
+         <cluster-config>
+            <partition-name>entity2ClusterConfigPartitionName</partition-name>
+            <home-load-balance-policy>entity2ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>entity2ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
+         </cluster-config>
+         
+         <cache-invalidation>false</cache-invalidation>
+         <cache-invalidation-config>
+            <invalidation-group-name>entity2CacheInvalidationConfigInvalidationGroupName</invalidation-group-name>
+            <invalidation-manager-name>entity2CacheInvalidationConfigInvalidationManagerName</invalidation-manager-name>
+         </cache-invalidation-config>
+         
+         <depends>entity2Depends1</depends>
+         <depends>entity2Depends2</depends>
+         
+         <ior-security-config>
+            <transport-config>
+               <integrity>NONE</integrity>
+               <confidentiality>NONE</confidentiality>
+               <establish-trust-in-target>NONE</establish-trust-in-target>
+               <establish-trust-in-client>NONE</establish-trust-in-client>
+               <detect-misordering>NONE</detect-misordering>
+               <detect-replay>NONE</detect-replay>
+            </transport-config>
+            <as-context>
+               <auth-method>USERNAME_PASSWORD</auth-method>
+               <realm>entity2ASContextRealm</realm>
+               <required>false</required>
+            </as-context>
+            <sas-context>
+               <caller-propagation>NONE</caller-propagation>
+            </sas-context>
+         </ior-security-config>
+      </entity>
+
+      <message-driven>
+         <ejb-name>mdb0EjbName</ejb-name>
+      </message-driven>
+
+      <message-driven id="mdb1-id">
+         <ejb-name>mdb1EjbName</ejb-name>
+
+         <activation-config>
+            <activation-config-property>
+               <activation-config-property-name>mdb1ActivationConfigProperty1Name</activation-config-property-name>
+               <activation-config-property-value>mdb1ActivationConfigProperty1Value</activation-config-property-value>
+            </activation-config-property>
+            <activation-config-property>
+               <activation-config-property-name>mdb1ActivationConfigProperty2Name</activation-config-property-name>
+               <activation-config-property-value>mdb1ActivationConfigProperty2Value</activation-config-property-value>
+            </activation-config-property>
+         </activation-config>
+
+         <destination-jndi-name>mdb1DestinationJndiName</destination-jndi-name>
+         <local-jndi-name>mdb1LocalJndiName</local-jndi-name>
+         <mdb-user>mdb1User</mdb-user>
+         <mdb-passwd>mdb1Password</mdb-passwd>
+         <mdb-client-id>mdb1ClientId</mdb-client-id>
+         <mdb-subscription-id>mdb1SubscriptionId</mdb-subscription-id>
+         <resource-adapter-name>mdb1RAR</resource-adapter-name>
+         <exception-on-rollback>true</exception-on-rollback>
+         <timer-persistence>true</timer-persistence>
+         <configuration-name>mdb1ConfigurationName</configuration-name>
+         <invoker-bindings>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding1Name</invoker-proxy-binding-name>
+               <jndi-name>mdb1Invoker1JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>mdb1EjbRef1Name</ejb-ref-name>
+                  <jndi-name>mdb1Invoker1EjbName1</jndi-name>
+               </ejb-ref>
+            </invoker>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding2Name</invoker-proxy-binding-name>
+               <jndi-name>mdb1Invoker2JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>mdb1EjbRef1Name</ejb-ref-name>
+                  <jndi-name>mdb1Invoker2EjbName1</jndi-name>
+               </ejb-ref>
+               <ejb-ref>
+                  <ejb-ref-name>mdb1EjbRef2Name</ejb-ref-name>
+                  <jndi-name>mdb1Invoker2EjbName2</jndi-name>
+               </ejb-ref>
+            </invoker>
+         </invoker-bindings>
+         
+         <security-proxy>mdb1SecurityProxy</security-proxy>
+         <ejb-ref>
+            <ejb-ref-name>mdb1EjbRef1Name</ejb-ref-name>
+            <jndi-name>mdb1EjbRef1JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-ref>
+            <ejb-ref-name>mdb1EjbRef2Name</ejb-ref-name>
+            <jndi-name>mdb1EjbRef2JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>mdb1EjbLocalRef1Name</ejb-ref-name>
+            <local-jndi-name>mdb1EjbLocalRef1JndiName</local-jndi-name>
+         </ejb-local-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>mdb1EjbLocalRef2Name</ejb-ref-name>
+            <local-jndi-name>mdb1EjbLocalRef2JndiName</local-jndi-name>
+         </ejb-local-ref>
+
+         <!-- TODO service-ref -->
+
+         <resource-ref>
+            <res-ref-name>mdb1ResourceRef1Name</res-ref-name>
+            <jndi-name>mdb1ResourceRef1JndiName</jndi-name>
+         </resource-ref>
+         <resource-ref>
+            <res-ref-name>mdb1ResourceRef2Name</res-ref-name>
+            <jndi-name>mdb1ResourceRef2JndiName</jndi-name>
+         </resource-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>mdb1ResourceEnvRef1Name</resource-env-ref-name>
+            <jndi-name>mdb1ResourceEnvRef1JndiName</jndi-name>
+         </resource-env-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>mdb1ResourceEnvRef2Name</resource-env-ref-name>
+            <jndi-name>mdb1ResourceEnvRef2JndiName</jndi-name>
+         </resource-env-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>mdb1MessageDestinationRef1Name</message-destination-ref-name>
+            <jndi-name>mdb1MessageDestinationRef1JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>mdb1MessageDestinationRef2Name</message-destination-ref-name>
+            <jndi-name>mdb1MessageDestinationRef2JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>mdb1MessageDestinationRef3Name</message-destination-ref-name>
+            <jndi-name>mdb1MessageDestinationRef3JndiName</jndi-name>
+         </message-destination-ref>
+
+         <security-identity>
+            <run-as-principal>mdb1SecurityIdentityRunAsPrincipal</run-as-principal>
+         </security-identity>
+
+         <depends>mdb1Depends1</depends>
+         <depends>mdb1Depends2</depends>
+         <ior-security-config>
+            <transport-config>
+               <integrity>NONE</integrity>
+               <confidentiality>NONE</confidentiality>
+               <establish-trust-in-target>NONE</establish-trust-in-target>
+               <establish-trust-in-client>NONE</establish-trust-in-client>
+               <detect-misordering>NONE</detect-misordering>
+               <detect-replay>NONE</detect-replay>
+            </transport-config>
+            <as-context>
+               <auth-method>USERNAME_PASSWORD</auth-method>
+               <realm>mdb1ASContextRealm</realm>
+               <required>false</required>
+            </as-context>
+            <sas-context>
+               <caller-propagation>NONE</caller-propagation>
+            </sas-context>
+         </ior-security-config>
+         <ejb-timeout-identity>
+            <run-as-principal>mdb1EjbTimeoutIdentityRunAsPrincipal</run-as-principal>
+         </ejb-timeout-identity>
+         
+      </message-driven>
+
+      <message-driven id="mdb2-id">
+         <ejb-name>mdb2EjbName</ejb-name>
+
+         <activation-config>
+            <activation-config-property>
+               <activation-config-property-name>mdb2ActivationConfigProperty1Name</activation-config-property-name>
+               <activation-config-property-value>mdb2ActivationConfigProperty1Value</activation-config-property-value>
+            </activation-config-property>
+            <activation-config-property>
+               <activation-config-property-name>mdb2ActivationConfigProperty2Name</activation-config-property-name>
+               <activation-config-property-value>mdb2ActivationConfigProperty2Value</activation-config-property-value>
+            </activation-config-property>
+         </activation-config>
+
+         <destination-jndi-name>mdb2DestinationJndiName</destination-jndi-name>
+         <local-jndi-name>mdb2LocalJndiName</local-jndi-name>
+         <mdb-user>mdb2User</mdb-user>
+         <mdb-passwd>mdb2Password</mdb-passwd>
+         <mdb-client-id>mdb2ClientId</mdb-client-id>
+         <mdb-subscription-id>mdb2SubscriptionId</mdb-subscription-id>
+         <resource-adapter-name>mdb2RAR</resource-adapter-name>
+         <exception-on-rollback>false</exception-on-rollback>
+         <timer-persistence>false</timer-persistence>
+         <configuration-name>mdb2ConfigurationName</configuration-name>
+         <invoker-bindings>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding1Name</invoker-proxy-binding-name>
+               <jndi-name>mdb2Invoker1JndiName</jndi-name>
+               <ejb-ref>
+                  <ejb-ref-name>mdb2EjbRef1Name</ejb-ref-name>
+                  <jndi-name>mdb2Invoker1EjbName1</jndi-name>
+               </ejb-ref>
+            </invoker>
+            <invoker>
+               <invoker-proxy-binding-name>invokerProxyBinding2Name</invoker-proxy-binding-name>
+               <jndi-name>mdb2Invoker2JndiName</jndi-name>
+
+               <ejb-ref>
+                  <ejb-ref-name>mdb2EjbRef1Name</ejb-ref-name>
+                  <jndi-name>mdb2Invoker2EjbName1</jndi-name>
+               </ejb-ref>
+               <ejb-ref>
+                  <ejb-ref-name>mdb2EjbRef2Name</ejb-ref-name>
+                  <jndi-name>mdb2Invoker2EjbName2</jndi-name>
+               </ejb-ref>
+            </invoker>
+         </invoker-bindings>
+         
+         <security-proxy>mdb2SecurityProxy</security-proxy>
+         
+         <ejb-ref>
+            <ejb-ref-name>mdb2EjbRef1Name</ejb-ref-name>
+            <jndi-name>mdb2EjbRef1JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-ref>
+            <ejb-ref-name>mdb2EjbRef2Name</ejb-ref-name>
+            <jndi-name>mdb2EjbRef2JndiName</jndi-name>
+         </ejb-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>mdb2EjbLocalRef1Name</ejb-ref-name>
+            <local-jndi-name>mdb2EjbLocalRef1JndiName</local-jndi-name>
+         </ejb-local-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>mdb2EjbLocalRef2Name</ejb-ref-name>
+            <local-jndi-name>mdb2EjbLocalRef2JndiName</local-jndi-name>
+         </ejb-local-ref>
+
+         <!-- TODO service-ref -->
+
+         <resource-ref>
+            <res-ref-name>mdb2ResourceRef1Name</res-ref-name>
+            <jndi-name>mdb2ResourceRef1JndiName</jndi-name>
+         </resource-ref>
+         <resource-ref>
+            <res-ref-name>mdb2ResourceRef2Name</res-ref-name>
+            <jndi-name>mdb2ResourceRef2JndiName</jndi-name>
+         </resource-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>mdb2ResourceEnvRef1Name</resource-env-ref-name>
+            <jndi-name>mdb2ResourceEnvRef1JndiName</jndi-name>
+         </resource-env-ref>
+         <resource-env-ref>
+            <resource-env-ref-name>mdb2ResourceEnvRef2Name</resource-env-ref-name>
+            <jndi-name>mdb2ResourceEnvRef2JndiName</jndi-name>
+         </resource-env-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>mdb2MessageDestinationRef1Name</message-destination-ref-name>
+            <jndi-name>mdb2MessageDestinationRef1JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>mdb2MessageDestinationRef2Name</message-destination-ref-name>
+            <jndi-name>mdb2MessageDestinationRef2JndiName</jndi-name>
+         </message-destination-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>mdb2MessageDestinationRef3Name</message-destination-ref-name>
+            <jndi-name>mdb2MessageDestinationRef3JndiName</jndi-name>
+         </message-destination-ref>
+
+         <security-identity>
+            <run-as-principal>mdb2SecurityIdentityRunAsPrincipal</run-as-principal>
+         </security-identity>
+
+         <depends>mdb2Depends1</depends>
+         <depends>mdb2Depends2</depends>
+         <ior-security-config>
+            <transport-config>
+               <integrity>NONE</integrity>
+               <confidentiality>NONE</confidentiality>
+               <establish-trust-in-target>NONE</establish-trust-in-target>
+               <establish-trust-in-client>NONE</establish-trust-in-client>
+               <detect-misordering>NONE</detect-misordering>
+               <detect-replay>NONE</detect-replay>
+            </transport-config>
+            <as-context>
+               <auth-method>USERNAME_PASSWORD</auth-method>
+               <realm>mdb2ASContextRealm</realm>
+               <required>false</required>
+            </as-context>
+            <sas-context>
+               <caller-propagation>NONE</caller-propagation>
+            </sas-context>
+         </ior-security-config>
+         <ejb-timeout-identity>
+            <run-as-principal>mdb2EjbTimeoutIdentityRunAsPrincipal</run-as-principal>
+         </ejb-timeout-identity>
+      </message-driven>
+
+   </enterprise-beans>
+
+   <assembly-descriptor>
+      <security-role>
+         <role-name>securityRoleRef1RoleLink</role-name>
+         <principal-name>securityRole1Principal1</principal-name>
+         <principal-name>securityRole1Principal2</principal-name>
+      </security-role>
+      <security-role>
+         <role-name>securityRoleRef2RoleLink</role-name>
+         <principal-name>securityRole2Principal1</principal-name>
+         <principal-name>securityRole2Principal2</principal-name>
+      </security-role>
+      <message-destination>
+         <message-destination-name>messageDestination1Name</message-destination-name>
+         <jndi-name>messageDestination1JndiName</jndi-name>
+      </message-destination>
+      <message-destination>
+         <message-destination-name>messageDestination2Name</message-destination-name>
+         <jndi-name>messageDestination2JndiName</jndi-name>
+      </message-destination>
+
+   </assembly-descriptor>
+
+   <resource-managers>
+      <resource-manager>
+         <res-name>resourceManager1Name</res-name>
+         <res-jndi-name>resourceManager1JndiName</res-jndi-name>
+      </resource-manager>
+      <resource-manager>
+         <res-name>resourceManager2Name</res-name>
+         <res-url>resourceManager2URL</res-url>
+      </resource-manager>
+   </resource-managers>
+   <invoker-proxy-bindings>
+      <invoker-proxy-binding>
+         <name>invokerProxyBinding1Name</name>
+         <invoker-mbean>invokerProxyBinding1InvokerMBean</invoker-mbean>
+         <proxy-factory>invokerProxyBinding1ProxyFactory</proxy-factory>
+         <proxy-factory-config>
+            <client-interceptors>
+               <home>
+                  <interceptor>org.jboss.proxy.ejb.HomeInterceptor1.1</interceptor>
+                  <interceptor>org.jboss.proxy.ejb.HomeInterceptor2.1</interceptor>
+                  <interceptor call-by-value="false">org.jboss.proxy.ejb.HomeInterceptorcbvf3.1</interceptor>
+                  <interceptor call-by-value="true">org.jboss.proxy.ejb.HomeInterceptorcbvt4.1</interceptor>
+               </home>
+               <bean>
+                  <interceptor>org.jboss.proxy.ejb.BeanInterceptor1.1</interceptor>
+                  <interceptor>org.jboss.proxy.ejb.BeanInterceptor2.1</interceptor>
+                  <interceptor call-by-value="false">org.jboss.proxy.ejb.BeanInterceptorcbvf3.1</interceptor>
+                  <interceptor call-by-value="true">org.jboss.proxy.ejb.BeanInterceptorcbvt4.1</interceptor>
+               </bean>
+               <list-entity>
+                  <interceptor>org.jboss.proxy.ejb.EntityInterceptor1.1</interceptor>
+                  <interceptor>org.jboss.proxy.ejb.EntityInterceptor2.1</interceptor>
+                  <interceptor call-by-value="false">org.jboss.proxy.ejb.EntityInterceptorcbvf3.1</interceptor>
+                  <interceptor call-by-value="true">org.jboss.proxy.ejb.EntityInterceptorcbvt4.1</interceptor>
+               </list-entity>
+            </client-interceptors>
+         </proxy-factory-config>
+      </invoker-proxy-binding>
+      <invoker-proxy-binding>
+         <name>invokerProxyBinding2Name</name>
+         <invoker-mbean>invokerProxyBinding2InvokerMBean</invoker-mbean>
+         <proxy-factory>invokerProxyBinding2ProxyFactory</proxy-factory>
+         <proxy-factory-config>
+            <client-interceptors>
+               <home>
+                  <interceptor>org.jboss.proxy.ejb.HomeInterceptor1.2</interceptor>
+                  <interceptor>org.jboss.proxy.ejb.HomeInterceptor2.2</interceptor>
+                  <interceptor call-by-value="false">org.jboss.proxy.ejb.HomeInterceptorcbvf3.2</interceptor>
+                  <interceptor call-by-value="true">org.jboss.proxy.ejb.HomeInterceptorcbvt4.2</interceptor>
+               </home>
+               <bean>
+                  <interceptor>org.jboss.proxy.ejb.BeanInterceptor1.2</interceptor>
+                  <interceptor>org.jboss.proxy.ejb.BeanInterceptor2.2</interceptor>
+                  <interceptor call-by-value="false">org.jboss.proxy.ejb.BeanInterceptorcbvf3.2</interceptor>
+                  <interceptor call-by-value="true">org.jboss.proxy.ejb.BeanInterceptorcbvt4.2</interceptor>
+               </bean>
+               <list-entity>
+                  <interceptor>org.jboss.proxy.ejb.EntityInterceptor1.2</interceptor>
+                  <interceptor>org.jboss.proxy.ejb.EntityInterceptor2.2</interceptor>
+                  <interceptor call-by-value="false">org.jboss.proxy.ejb.EntityInterceptorcbvf3.2</interceptor>
+                  <interceptor call-by-value="true">org.jboss.proxy.ejb.EntityInterceptorcbvt4.2</interceptor>
+               </list-entity>
+            </client-interceptors>
+         </proxy-factory-config>
+         <!-- Unknown element to test duplicate wildcards 
+         <wildcard />-->
+      </invoker-proxy-binding>
+   </invoker-proxy-bindings>   
+   
+   <container-configurations>
+      <container-configuration>
+         <container-name>containerConfiguration1Extends</container-name>
+      </container-configuration>
+      <container-configuration>
+         <container-name>containerConfiguration2Extends</container-name>
+      </container-configuration>
+
+      <container-configuration extends="Standard Stateless SessionBean">
+         <container-name>session1ConfigurationName</container-name>
+      </container-configuration>
+      <container-configuration extends="Standard Stateless SessionBean">
+         <container-name>session2ConfigurationName</container-name>
+      </container-configuration>
+      <container-configuration extends="Standard CMP 2.x EntityBean">
+         <container-name>entity1ConfigurationName</container-name>
+      </container-configuration>
+      <container-configuration extends="Standard CMP 2.x EntityBean">
+         <container-name>entity2ConfigurationName</container-name>
+      </container-configuration>
+      <container-configuration extends="Standard Message Inflow Driven Bean">
+         <container-name>mdb1ConfigurationName</container-name>
+      </container-configuration>
+      <container-configuration extends="Standard Message Inflow Driven Bean">
+         <container-name>mdb2ConfigurationName</container-name>
+      </container-configuration>
+
+      <container-configuration>
+         <container-name>containerConfiguration0Name</container-name>
+      </container-configuration>
+      <container-configuration extends="containerConfiguration1Extends">
+         <container-name>containerConfiguration1Name</container-name>
+         <call-logging>true</call-logging>
+         <invoker-proxy-binding-name>containerConfiguration1InvokerProxyBindingName1</invoker-proxy-binding-name>
+         <invoker-proxy-binding-name>containerConfiguration1InvokerProxyBindingName2</invoker-proxy-binding-name>
+         <sync-on-commit-only>true</sync-on-commit-only>
+         <insert-after-ejb-post-create>true</insert-after-ejb-post-create>
+         <call-ejb-store-on-clean>true</call-ejb-store-on-clean>
+         <store-not-flushed>true</store-not-flushed>
+	      <container-interceptors>
+	         <interceptor>containerConfiguration1.Interceptor1</interceptor>
+	         <interceptor>containerConfiguration1.Interceptor2</interceptor>
+	        <!-- CMT -->
+	         <interceptor transaction="Container">containerConfiguration1.Interceptor3c</interceptor>
+	        <!-- BMT -->
+	         <interceptor transaction="Bean">containerConfiguration1.Interceptor4b</interceptor>
+	         <interceptor>containerConfiguration1.Interceptor5</interceptor>
+	      </container-interceptors>
+         <instance-pool>containerConfiguration1InstancePool</instance-pool>
+         <instance-cache>containerConfiguration1InstanceCache</instance-cache>
+         <persistence-manager>containerConfiguration1PersistenceManager</persistence-manager>
+         <web-class-loader>containerConfiguration1WebClassLoader</web-class-loader>
+         <locking-policy>containerConfiguration1LockingPolicy</locking-policy>
+	      <container-cache-conf>
+	         <cache-policy>containerConfiguration1.Policy</cache-policy>
+	        <cache-policy-conf>
+	          <min-capacity>50</min-capacity>
+	          <max-capacity>1000000</max-capacity>
+	          <remover-period>1800</remover-period>
+	          <max-bean-life>1800</max-bean-life>
+	          <overager-period>300</overager-period>
+	          <max-bean-age>600</max-bean-age>
+	          <resizer-period>400</resizer-period>
+	          <max-cache-miss-period>60</max-cache-miss-period>
+	          <min-cache-miss-period>1</min-cache-miss-period>
+	          <cache-load-factor>0.75</cache-load-factor>
+	        </cache-policy-conf>
+	      </container-cache-conf>
+         <container-pool-conf>
+           <MaximumSize>100</MaximumSize>
+         </container-pool-conf>
+
+         <commit-option>D</commit-option>
+         <optiond-refresh-rate>10</optiond-refresh-rate>
+         <security-domain>containerConfiguration1SecurityDomain</security-domain>
+         <cluster-config>
+            <partition-name>containerConfiguration1ClusterConfigPartitionName</partition-name>
+            <home-load-balance-policy>containerConfiguration1ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>containerConfiguration1ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
+            <session-state-manager-jndi-name>containerConfiguration1ClusterConfigSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>
+         <depends>containerConfiguration1Depends1</depends>
+         <depends>containerConfiguration1Depends2</depends>
+      </container-configuration>
+      <container-configuration extends="containerConfiguration2Extends">
+         <container-name>containerConfiguration2Name</container-name>
+         <call-logging>false</call-logging>
+         <invoker-proxy-binding-name>containerConfiguration2InvokerProxyBindingName1</invoker-proxy-binding-name>
+         <invoker-proxy-binding-name>containerConfiguration2InvokerProxyBindingName2</invoker-proxy-binding-name>
+         <sync-on-commit-only>false</sync-on-commit-only>
+         <insert-after-ejb-post-create>false</insert-after-ejb-post-create>
+         <call-ejb-store-on-clean>false</call-ejb-store-on-clean>
+         <store-not-flushed>false</store-not-flushed>
+         <container-interceptors>
+            <interceptor>containerConfiguration2.Interceptor1</interceptor>
+            <interceptor>containerConfiguration2.Interceptor2</interceptor>
+            <!-- CMT -->
+            <interceptor transaction="Container">containerConfiguration2.Interceptor3c</interceptor>
+            <!-- BMT -->
+            <interceptor transaction="Bean">containerConfiguration2.Interceptor4b</interceptor>
+            <interceptor>containerConfiguration2.Interceptor5</interceptor>
+         </container-interceptors>         
+         <instance-pool>containerConfiguration2InstancePool</instance-pool>
+         <instance-cache>containerConfiguration2InstanceCache</instance-cache>
+         <persistence-manager>containerConfiguration2PersistenceManager</persistence-manager>
+         <web-class-loader>containerConfiguration2WebClassLoader</web-class-loader>
+         <locking-policy>containerConfiguration2LockingPolicy</locking-policy>
+         <container-cache-conf>
+            <cache-policy>containerConfiguration2.Policy</cache-policy>
+            <cache-policy-conf>
+               <min-capacity>50</min-capacity>
+               <max-capacity>1000000</max-capacity>
+               <remover-period>1800</remover-period>
+               <max-bean-life>1800</max-bean-life>
+               <overager-period>300</overager-period>
+               <max-bean-age>600</max-bean-age>
+               <resizer-period>400</resizer-period>
+               <max-cache-miss-period>60</max-cache-miss-period>
+               <min-cache-miss-period>1</min-cache-miss-period>
+               <cache-load-factor>0.75</cache-load-factor>
+            </cache-policy-conf>
+         </container-cache-conf>
+         <container-pool-conf>
+            <MaximumSize>100</MaximumSize>
+         </container-pool-conf>
+         <commit-option>D</commit-option>
+         <optiond-refresh-rate>10</optiond-refresh-rate>
+         <security-domain>containerConfiguration2SecurityDomain</security-domain>
+         <cluster-config>
+            <partition-name>containerConfiguration2ClusterConfigPartitionName</partition-name>
+            <home-load-balance-policy>containerConfiguration2ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>containerConfiguration2ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
+            <session-state-manager-jndi-name>containerConfiguration2ClusterConfigSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>
+         <depends>containerConfiguration2Depends1</depends>
+         <depends>containerConfiguration2Depends2</depends>
+      </container-configuration>
+      <container-configuration>
+         <container-name>containerConfiguration3Name</container-name>
+         <commit-option>B</commit-option>
+      </container-configuration>
+      <container-configuration>
+         <container-name>containerConfiguration4Name</container-name>
+         <commit-option>C</commit-option>
+      </container-configuration>
+   </container-configurations>
+      
+</jboss>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<jboss
+    xmlns="http://www.jboss.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee
+    http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+    version="3.0">
+    <enterprise-beans>
+    	<ejb>
+    		<ejb-name>TestBean</ejb-name>
+    		<home-jndi-name>TestBeanHomeJndiName</home-jndi-name>
+    		<local-home-jndi-name>TestBeanLocalHomeJndiName</local-home-jndi-name>
+    	</ejb>
+    </enterprise-beans>
+</jboss>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd"
+    version="2.1">
+    <description></description>
+    <enterprise-beans>
+        <session>
+            <ejb-name>WebserviceConsumer</ejb-name>
+            <ejb-class>session0Class</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <service-ref>
+                <service-ref-name>session0ServiceRef0</service-ref-name>
+                <service-interface>javax.xml.rpc.Service</service-interface>
+                <wsdl-file>META-INF/wsdl/TestEndpoint.wsdl</wsdl-file>
+                <jaxrpc-mapping-file>META-INF/jaxrpc-mapping.xml</jaxrpc-mapping-file>
+                <service-qname xmlns:session0="http://x.y.z">session0:serviceRef0Name</service-qname>
+                <handler id="Handler0-id"
+                    xmlns:soap-header_ns__="http://extra-header.org">
+                    <handler-name>Handler0</handler-name>
+                    <handler-class>org.jboss.test.ws.jaxrpc.serviceref.ExampleHandler</handler-class>
+                    <soap-header>soap-header_ns__:extra-header0</soap-header>
+                    <soap-header>soap-header_ns__:extra-header1</soap-header>
+                    <soap-role>Handler0SoapRole0</soap-role>
+                    <soap-role>Handler0SoapRole1</soap-role>
+                    <port-name>Handler0Port0</port-name>
+                    <port-name>Handler0Port1</port-name>
+                </handler>
+            </service-ref>
+        </session>
+    </enterprise-beans>
+</ejb-jar>
+

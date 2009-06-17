@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE jboss PUBLIC
+      "-//JBoss//DTD JBOSS 3.2//EN"
+      "http://www.jboss.org/j2ee/dtd/jboss_3_2.dtd">
+
+<jboss>
+    
+    <enterprise-beans>
+        
+        <entity>
+            <ejb-name>TestEntity</ejb-name>
+            <jndi-name>test/entity/TestEntity</jndi-name>
+            <local-jndi-name>test/entity/TestEntityLocal</local-jndi-name>
+        </entity>
+        
+    </enterprise-beans>
+    
+    <resource-managers>
+    </resource-managers>
+
+    <container-configurations>
+       <container-configuration>
+          <container-name>Standard CMP 2.x EntityBean</container-name>
+          <depends>test:name=Test</depends>
+       </container-configuration>
+    </container-configurations>
+</jboss>

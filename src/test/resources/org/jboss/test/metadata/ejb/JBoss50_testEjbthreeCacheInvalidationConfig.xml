@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!DOCTYPE jboss PUBLIC
+      "-//JBoss//DTD JBOSS 5.0//EN"
+      "http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd">
+<!--
+<jboss xmlns="http://www.jboss.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+    version="3.0">
+-->
+<jboss>
+       
+    <enterprise-beans>
+        
+        <entity>
+            <ejb-name>TestEntity1</ejb-name>
+            <jndi-name>test/entity/TestEntity1</jndi-name>
+            <cache-invalidation>true</cache-invalidation>           
+        </entity>
+        
+        <entity>
+            <ejb-name>TestEntity2</ejb-name>
+            <jndi-name>test/entity/TestEntity2</jndi-name>
+            <cache-invalidation>true</cache-invalidation>      
+            <cache-invalidation-config>
+               <invalidation-group-name>TestEntityGroup2</invalidation-group-name>
+               <invalidation-manager-name>TestInvalidationManager</invalidation-manager-name>
+            </cache-invalidation-config>                
+        </entity>
+        
+    </enterprise-beans>
+</jboss>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+         version="3.0"
+         metadata-complete="true">
+
+   <enterprise-beans>
+
+      <message-driven>
+         <ejb-name>testmdb</ejb-name>
+         <activation-config>
+            <activation-config-property>
+               <activation-config-property-name>ejbjar1</activation-config-property-name>
+               <activation-config-property-value>FromEJBJAR1</activation-config-property-value>
+            </activation-config-property>
+            <activation-config-property>
+               <activation-config-property-name>ejbjar2</activation-config-property-name>
+               <activation-config-property-value>FromEJBJAR2</activation-config-property-value>
+            </activation-config-property>
+            <activation-config-property>
+               <activation-config-property-name>shared1</activation-config-property-name>
+               <activation-config-property-value>FromEJBJARShared1</activation-config-property-value>
+            </activation-config-property>
+            <activation-config-property>
+               <activation-config-property-name>shared2</activation-config-property-name>
+               <activation-config-property-value>FromEJBJARShared2</activation-config-property-value>
+            </activation-config-property>
+         </activation-config>
+      </message-driven>
+
+   </enterprise-beans>
+
+</ejb-jar>
