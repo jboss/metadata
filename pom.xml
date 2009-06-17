@@ -6,7 +6,7 @@
     <version>4.0.CR1</version>
   </parent>
   <groupId>org.jboss.metadata</groupId>
-  <artifactId>ejb</artifactId>
+  <artifactId>metadata-ejb</artifactId>
   <packaging>jar</packaging>
   <version>2.0.0-SNAPSHOT</version>
   <name>JBoss Metadata</name>
@@ -93,13 +93,13 @@
 
     <dependency>
       <groupId>org.jboss.metadata</groupId>
-      <artifactId>common</artifactId>
+      <artifactId>metadata-common</artifactId>
       <version>2.0.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>org.jboss.metadata</groupId>
-      <artifactId>common</artifactId>
+      <artifactId>metadata-common</artifactId>
       <version>2.0.0-SNAPSHOT</version>
       <type>test-jar</type>
       <scope>test</scope>
