@@ -1,5 +1,5 @@
 <projectDescription>
-  <name>ejb</name>
+  <name>metadata-ejb</name>
   <comment>The common JavaEE metadata classes</comment>
   <projects/>
   <buildSpec>
