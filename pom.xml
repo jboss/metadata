@@ -9,7 +9,7 @@
   <artifactId>jboss-metadata-ejb</artifactId>
   <packaging>jar</packaging>
   <version>2.0.0-SNAPSHOT</version>
-  <name>JBoss Metadata</name>
+  <name>JBoss Metadata EJB</name>
   <url>http://www.jboss.org</url>
   <description>The common JavaEE metadata classes</description>
   <scm>
@@ -94,13 +94,13 @@
     <dependency>
       <groupId>org.jboss.metadata</groupId>
       <artifactId>jboss-metadata-common</artifactId>
-      <version>2.0.0-SNAPSHOT</version>
+      <version>2.0.0.Alpha</version>
     </dependency>
 
     <dependency>
       <groupId>org.jboss.metadata</groupId>
       <artifactId>jboss-metadata-common</artifactId>
-      <version>2.0.0-SNAPSHOT</version>
+      <version>2.0.0.Alpha</version>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
