@@ -43,7 +43,8 @@ import org.jboss.xb.annotations.JBossXmlMapValueAttribute;
  *
  * @author <a href="mailto:ales.justin@jboss.com">Ales Justin</a>
  */
-@XmlType(propOrder={"description", "provider", "jtaDataSource", "nonJtaDataSource", "mappingFiles", "jarFiles", "classes", "excludeUnlistedClasses", "properties"})
+@XmlType(propOrder={"description", "provider", "jtaDataSource", "nonJtaDataSource", "mappingFiles",
+      "jarFiles", "classes", "excludeUnlistedClasses", "sharedCacheMode", "validationMode", "properties"})
 public class PersistenceUnitMetaData extends JBossObject implements Serializable
 {
    private String description;
@@ -57,6 +58,30 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
    private Map<String, String> properties;
    private String name;
    private TransactionType transactionType;
+   private SharedCacheMode sharedCacheMode;
+   private ValidationMode validationMode;
+
+   @XmlElement
+   public SharedCacheMode getSharedCacheMode()
+   {
+      return sharedCacheMode;
+   }
+
+   public void setSharedCacheMode(SharedCacheMode sharedCacheMode)
+   {
+      this.sharedCacheMode = sharedCacheMode;
+   }
+
+   @XmlElement
+   public ValidationMode getValidationMode()
+   {
+      return validationMode;
+   }
+
+   public void setValidationMode(ValidationMode validationMode)
+   {
+      this.validationMode = validationMode;
+   }
 
    public String getDescription()
    {
