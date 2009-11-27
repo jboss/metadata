@@ -29,6 +29,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
 
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
+import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
 import org.jboss.metadata.ejb.spec.MethodInterfaceType;
@@ -70,7 +71,7 @@ import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 75470 $
  */
-class JBossSessionGenericWrapper extends JBossSessionBeanMetaData
+class JBossSessionGenericWrapper extends JBossSessionBean31MetaData
 {
    private static final long serialVersionUID = 1;
    private JBossGenericBeanMetaData delegate;
@@ -140,6 +141,11 @@ class JBossSessionGenericWrapper extends JBossSessionBeanMetaData
    public String getAopDomainName()
    {
       return delegate.getAopDomainName();
+   }
+   @Override
+   public AsyncMethodsMetaData getAsyncMethods()
+   {
+      throw new RuntimeException("NYI");
    }
    @Override
    public String getConfigurationName()

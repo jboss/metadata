@@ -34,15 +34,12 @@ import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
+import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
-import org.jboss.metadata.process.chain.ProcessorChain;
-import org.jboss.metadata.process.chain.ejb.jboss.JBossMetaDataProcessorChain;
-import org.jboss.metadata.process.processor.ejb.jboss.JBossMetaDataValidatorChainProcessor;
-import org.jboss.metadata.process.processor.ejb.jboss.SetDefaultLocalBusinessInterfaceProcessor;
 
 /**
  * A JBoss50Creator.
@@ -145,7 +142,7 @@ public class JBoss50Creator extends AbstractCreator<JBossMetaData>
                if (bean.isSession())
                {
                   SessionBeanMetaData sb = (SessionBeanMetaData) bean;
-                  JBossSessionBeanMetaData sessionBean = new JBossSessionBeanMetaData();
+                  JBossSessionBeanMetaData sessionBean = new JBossSessionBean31MetaData();
                   sessionBean.setEjbName(sb.getEjbName());
                   sessionBean.setEjbClass(sb.getEjbClass());
 

@@ -67,6 +67,7 @@ import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SubscriptionDurability;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
@@ -266,7 +267,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
       // normally from the annotation scanner
       EjbJar30MetaData ejbJar = new EjbJar30MetaData();
       ejbJar.setEnterpriseBeans(new EnterpriseBeansMetaData());
-      SessionBeanMetaData sessionBean = new SessionBeanMetaData();
+      SessionBeanMetaData sessionBean = new SessionBean31MetaData();
       sessionBean.setEjbName("MyStatelessBean");
       ejbJar.getEnterpriseBeans().add(sessionBean);
       

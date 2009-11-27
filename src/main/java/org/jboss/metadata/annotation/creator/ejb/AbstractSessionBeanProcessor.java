@@ -30,6 +30,7 @@ import org.jboss.metadata.annotation.creator.Creator;
 import org.jboss.metadata.annotation.creator.Processor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionImpl;
@@ -64,7 +65,7 @@ public abstract class AbstractSessionBeanProcessor extends AbstractEnterpriseBea
    
    protected SessionBeanMetaData create(Class<?> beanClass, String name, String mappedName, String description)
    {
-      SessionBeanMetaData bean = new SessionBeanMetaData();
+      SessionBeanMetaData bean = new SessionBean31MetaData();
       bean.setEjbClass(beanClass.getName());
       String ejbName;
       if(name == null || name.length() == 0)

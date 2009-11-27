@@ -60,7 +60,7 @@ public class JBossEnterpriseBeansMetaData
          throw new IllegalArgumentException("Null data");
       JBossEnterpriseBeanMetaData result = null;
       if (data instanceof SessionBeanMetaData)
-         result = new JBossSessionBeanMetaData();
+         result = new JBossSessionBean31MetaData();
       else if (data instanceof EntityBeanMetaData)
          result = new JBossEntityBeanMetaData();
       else if (data instanceof MessageDrivenBeanMetaData)
@@ -144,7 +144,7 @@ public class JBossEnterpriseBeansMetaData
                JBossGenericBeanMetaData gejb = (JBossGenericBeanMetaData) jejb;
                if(ejb.isSession())
                {
-                  mergedEJB = new JBossSessionBeanMetaData();
+                  mergedEJB = new JBossSessionBean31MetaData();
                   jejb = new JBossSessionGenericWrapper(gejb);
                }
                else if(ejb.isMessageDriven())

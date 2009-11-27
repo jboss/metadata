@@ -30,6 +30,7 @@ import org.jboss.metadata.annotation.creator.Creator;
 import org.jboss.metadata.annotation.creator.Processor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
+import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionImpl;
@@ -60,10 +61,12 @@ public abstract class AbstractSessionBeanProcessor
       addTypeProcessor(new RemoteBindingProcessor(finder));
       addTypeProcessor(new RemoteBindingsProcessor(finder));
       addTypeProcessor(new RemoteHomeBindingProcessor(finder));
+      addTypeProcessor(new AsyncClassProcessor(finder));
 
       addMethodProcessor(new InitProcessor(finder));
       addMethodProcessor(new TimeoutProcessor(finder));
       addMethodProcessor(new AroundInvokeProcessor(finder));
+      addMethodProcessor(new AsyncMethodProcessor(finder));
       
       addTypeProcessor(new JBossCacheConfigProcessor(finder));
       addTypeProcessor(new JBossClusteredProcessor(finder));
@@ -73,7 +76,7 @@ public abstract class AbstractSessionBeanProcessor
 
    protected JBossSessionBeanMetaData create(Class<?> beanClass, String name, String mappedName, String description)
    {
-      JBossSessionBeanMetaData bean = new JBossSessionBeanMetaData();
+      JBossSessionBeanMetaData bean = new JBossSessionBean31MetaData();
       bean.setEjbClass(beanClass.getName());
       String ejbName;
       if(name == null || name.length() == 0)

@@ -67,7 +67,7 @@ import org.jboss.xb.annotations.JBossXmlModelGroup;
 @JBossXmlModelGroup(
       kind=JBossXmlConstants.MODEL_GROUP_CHOICE,
       particles={
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="session"), type=SessionBeanMetaData.class),
+            @JBossXmlModelGroup.Particle(element=@XmlElement(name="session"), type=SessionBean31MetaData.class),
             @JBossXmlModelGroup.Particle(element=@XmlElement(name="entity"), type=EntityBeanMetaData.class),
             @JBossXmlModelGroup.Particle(element=@XmlElement(name="message-driven"), type=MessageDrivenBeanMetaData.class)})
 public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptionGroup
@@ -113,7 +113,7 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
       if(bean instanceof MessageDrivenBeanMetaData)
          nbean = new MessageDrivenBeanMetaData();
       if(bean instanceof SessionBeanMetaData)
-         nbean = new SessionBeanMetaData();
+         nbean = new SessionBean31MetaData();
       return nbean;
    }
 

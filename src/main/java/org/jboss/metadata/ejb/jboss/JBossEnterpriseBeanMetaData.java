@@ -87,8 +87,6 @@ import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 import org.jboss.metadata.javaee.support.NonNullLinkedHashSet;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlModelGroup;
 
 /**
  * enterprise-bean/{session,entity,message-driven} metadata
@@ -208,7 +206,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       if(bean instanceof MessageDrivenBeanMetaData)
          jbean = new JBossMessageDrivenBeanMetaData();
       if(bean instanceof SessionBeanMetaData)
-         jbean = new JBossSessionBeanMetaData();
+         jbean = new JBossSessionBean31MetaData();
       return jbean;
    }
 
