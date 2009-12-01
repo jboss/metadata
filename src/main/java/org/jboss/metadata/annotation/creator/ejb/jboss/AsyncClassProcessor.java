@@ -28,6 +28,8 @@ import javax.ejb.Asynchronous;
 import org.jboss.metadata.annotation.creator.Processor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
+import org.jboss.metadata.ejb.spec.AsyncMethodMetaData;
+import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -47,7 +49,16 @@ public class AsyncClassProcessor extends AbstractAsyncProcessor<Class<?>>
       Asynchronous annotation = finder.getAnnotation(type, Asynchronous.class);
       if(annotation != null)
       {
-         throw new RuntimeException("NYI");
+         AsyncMethodsMetaData asyncMethods = metaData.getAsyncMethods();
+         if(asyncMethods == null)
+         {
+            asyncMethods = new AsyncMethodsMetaData();
+            metaData.setAsyncMethods(asyncMethods);
+         }
+         
+         AsyncMethodMetaData asyncMethod = new AsyncMethodMetaData();
+         asyncMethod.setMethodName("*");
+         asyncMethods.add(asyncMethod);
       }
    }
 }
