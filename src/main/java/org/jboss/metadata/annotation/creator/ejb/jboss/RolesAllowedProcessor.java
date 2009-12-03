@@ -80,6 +80,12 @@ public class RolesAllowedProcessor<T extends AnnotatedElement>
          {
             for (MethodMetaData existingMethod : existingPerm.getMethods())
             {
+               // JBMETA-207; if class-level @RolesAllowed is overridden, avoid NPE
+               if (existingMethod == null || existingMethod.getMethodParams() == null)
+               {
+                  return;
+               }
+               
                // If this method's already been added
                if (existingMethod.getMethodName().equals(mmd.getMethodName())
                      && existingMethod.getMethodParams().equals(mmd.getMethodParams()))
