@@ -68,6 +68,7 @@ import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
 import org.jboss.metadata.ejb.spec.InitMethodMetaData;
 import org.jboss.metadata.ejb.spec.InitMethodsMetaData;
@@ -146,7 +147,7 @@ public class JBossAnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
       JBoss50MetaData metaData = creator.create(classes);
 
       assertTrue(metaData.isEJB3x());
-      assertEquals("3.0", metaData.getEjbVersion());
+      assertEquals(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION, metaData.getEjbVersion());
       assertEquals("5.0", metaData.getVersion());
 
       assertNotNull("no beans defined", metaData.getEnterpriseBeans());
@@ -381,7 +382,7 @@ public class JBossAnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
       JBoss50MetaData metaData = creator.create(classes);
 
       assertTrue(metaData.isEJB3x());
-      assertEquals("3.0", metaData.getEjbVersion());
+      assertEquals(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION, metaData.getEjbVersion());
       assertEquals("5.0", metaData.getVersion());
 
       assertNotNull("no beans defined", metaData.getEnterpriseBeans());
@@ -940,7 +941,7 @@ public class JBossAnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
       JBoss50MetaData metaData = creator.create(classes);
 
       assertTrue(metaData.isEJB3x());
-      assertEquals("3.0", metaData.getEjbVersion());
+      assertEquals(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION, metaData.getEjbVersion());
       assertEquals("5.0", metaData.getVersion());
 
       assertNotNull("no beans defined", metaData.getEnterpriseBeans());

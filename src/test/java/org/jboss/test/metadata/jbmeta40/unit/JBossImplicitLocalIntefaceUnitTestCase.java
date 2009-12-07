@@ -31,6 +31,7 @@ import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.process.processor.ejb.jboss.SetDefaultLocalBusinessInterfaceProcessor;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
@@ -70,7 +71,7 @@ public class JBossImplicitLocalIntefaceUnitTestCase extends TestCase
       jbossMetaData = processor.process(jbossMetaData);
 
       assertTrue(jbossMetaData.isEJB3x());
-      assertEquals("3.0", jbossMetaData.getEjbVersion());
+      assertEquals(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION, jbossMetaData.getEjbVersion());
       assertEquals("5.0", jbossMetaData.getVersion());
 
       assertNotNull("no beans defined", jbossMetaData.getEnterpriseBeans());

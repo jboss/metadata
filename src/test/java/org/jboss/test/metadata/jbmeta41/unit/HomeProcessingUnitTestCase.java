@@ -33,6 +33,7 @@ import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.jbmeta41.MultipleReturnTypeBean;
 import org.jboss.test.metadata.jbmeta41.MyFailingStatelessBean;
@@ -162,7 +163,7 @@ public class HomeProcessingUnitTestCase extends TestCase
       EjbJar30Creator creator = new EjbJar30Creator(finder);
       EjbJar30MetaData specMetaData = creator.create(classes);
       
-      assertEquals("3.0", specMetaData.getVersion());
+      assertEquals(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION, specMetaData.getVersion());
 
       JBossMetaData mergedMetaData = new JBossMetaData();
       JBossMetaData metaData = null;

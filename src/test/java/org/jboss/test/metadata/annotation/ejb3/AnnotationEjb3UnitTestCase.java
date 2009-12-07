@@ -60,6 +60,7 @@ import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
@@ -397,7 +398,7 @@ public class AnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
       EjbJar30MetaData metaData = creator.create(classes);
 
       assertTrue(metaData.isEJB3x());
-      assertEquals("3.0", metaData.getVersion());
+      assertEquals(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION, metaData.getVersion());
 
       assertNotNull("no beans defined", metaData.getEnterpriseBeans());
       assertNotNull("no assembly descriptor defined", metaData.getAssemblyDescriptor());
@@ -611,7 +612,7 @@ public class AnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
       EjbJar30MetaData metaData = creator.create(classes);
 
       assertTrue(metaData.isEJB3x());
-      assertEquals("3.0", metaData.getVersion());
+      assertEquals(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION, metaData.getVersion());
 
       assertNotNull("no beans defined", metaData.getEnterpriseBeans());
       //assertNotNull("no assembly descriptor defined", metaData.getAssemblyDescriptor());

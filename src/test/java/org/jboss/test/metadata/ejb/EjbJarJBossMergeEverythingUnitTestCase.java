@@ -236,7 +236,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
       EjbJar30MetaData ejb3MetaData = creator.create(classes);
       
       assertTrue(ejb3MetaData.isEJB3x());
-      assertEquals("3.0", ejb3MetaData.getVersion());
+      assertEquals(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION, ejb3MetaData.getVersion());
       
       //Parse the ejb-jar.xml
       EjbJarMetaData specResult = unmarshal("EjbJar3xCTSRunAsConfig.xml", 

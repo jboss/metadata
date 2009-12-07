@@ -112,7 +112,11 @@ public class JBoss50Creator extends AbstractCreator<JBossMetaData>
    {
       JBoss50MetaData metaData = new JBoss50MetaData();
       metaData.setVersion("5.0");
-      metaData.setEjbVersion("3.0");
+      // When the ejb version is *not* explicitly set through
+      // ejb-jar.xml (i.e. if the deployment is based purely
+      // on annotations), then the ejb version of the metadata
+      // is always the latest ejb-jar xsd version
+      metaData.setEjbVersion(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION);
       return metaData;
    }
 

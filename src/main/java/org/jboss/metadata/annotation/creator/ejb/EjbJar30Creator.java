@@ -33,6 +33,7 @@ import org.jboss.metadata.annotation.creator.AbstractProcessor.Scope;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 
 /**
  * Create the correct meta data for a set of annotated classes.
@@ -81,7 +82,11 @@ public class EjbJar30Creator extends AbstractCreator<EjbJar3xMetaData>
    protected EjbJar30MetaData create()
    {
       EjbJar30MetaData metaData = new EjbJar30MetaData();
-      metaData.setVersion("3.0");
+      // When the ejb version is *not* explicitly set through
+      // ejb-jar.xml (i.e. if the deployment is based purely
+      // on annotations), then the ejb version of the metadata
+      // is always the latest ejb-jar xsd version
+      metaData.setVersion(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION);
       return metaData;
    }
    

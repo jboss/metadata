@@ -32,6 +32,7 @@ import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.jbmeta41.MultipleReturnTypeBean;
 import org.jboss.test.metadata.jbmeta41.MyFailingStatelessBean;
@@ -162,7 +163,7 @@ public class JBossProcessingUnitTestCase extends TestCase
 
       JBoss50MetaData jbossMetaData = creator.create(classes);
       
-      assertEquals("3.0", jbossMetaData.getEjbVersion());
+      assertEquals(EjbJarMetaData.LATEST_EJB_JAR_XSD_VERSION, jbossMetaData.getEjbVersion());
       assertEquals("5.0", jbossMetaData.getVersion());      
       return (JBossSessionBeanMetaData) jbossMetaData.getEnterpriseBean(enterpriseBean);
    }

@@ -41,7 +41,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    private String dtdPublicId;
    private String dtdSystemId;
-   /** The version */
+   /** The version*/
    private String version;
 
    /** The ejb client jar */
@@ -55,6 +55,11 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /** The assembly descriptor */
    private AssemblyDescriptorMetaData assemblyDescriptor;
+   
+   /**
+    * The latest available ejb-jar xsd version
+    */
+   public static final String LATEST_EJB_JAR_XSD_VERSION = "3.1";
    
    /**
     * Create a new EjbJarMetaData.
