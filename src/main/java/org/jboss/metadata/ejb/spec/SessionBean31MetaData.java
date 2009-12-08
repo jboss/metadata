@@ -21,10 +21,12 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import javax.ejb.LocalBean;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
+import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.xb.annotations.JBossXmlConstants;
 import org.jboss.xb.annotations.JBossXmlType;
 
@@ -33,7 +35,7 @@ import org.jboss.xb.annotations.JBossXmlType;
  * @version $Revision: $
  */
 @XmlType(name="session-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local",
-      "businessLocals", "businessRemotes", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "initMethods", "removeMethods",
+      "businessLocals", "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "initMethods", "removeMethods",
       "asyncMethods",
       "transactionType", "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
 @JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
@@ -43,7 +45,12 @@ public class SessionBean31MetaData extends SessionBeanMetaData
    private static final long serialVersionUID = 1L;
    
    private AsyncMethodsMetaData asyncMethods;
-
+   
+   /**
+    * For &lt;local-bean&gt;
+    */
+   private EmptyMetaData localBean;
+   
    public AsyncMethodsMetaData getAsyncMethods()
    {
       return asyncMethods;
@@ -58,6 +65,54 @@ public class SessionBean31MetaData extends SessionBeanMetaData
       this.asyncMethods = asyncMethods;
    }
    
+   /**
+    *  
+    * @return Returns {@link EmptyMetaData} if the bean represents a no-interface
+    * bean. Else returns null. 
+    * Use the {@link #isNoInterfaceBean()} API which is more intuitive.
+    *   
+    * @see SessionBean31MetaData#isNoInterfaceBean()
+    */
+   public EmptyMetaData getLocalBean()
+   {
+      return this.localBean;
+   }
+   
+   /**
+    * Set the metadata to represent whether this bean
+    * exposes an no-interface view
+    * @param isNoInterfaceBean True if the bean exposes a no-interface
+    *                           view. Else set to false. 
+    */
+   @XmlElement(name="local-bean", required=false)
+   public void setLocalBean(EmptyMetaData localBean)
+   {
+      this.localBean = localBean;
+   }
+   
+   /**
+    * @return Returns true if this bean exposes a no-interface view.
+    * Else returns false. This is similar to {@link #getLocalBean()}, but
+    * is more intuitive
+    * 
+    */
+   public boolean isNoInterfaceBean()
+   {
+      return this.localBean == null ? false : true;
+   }
+   
+   /**
+    * Sets the no-interface information in the metadata  
+    * @param isNoInterfaceBean True if this is a no-interface bean, false otherwise
+    */
+   public void setNoInterfaceBean(boolean isNoInterfaceBean)
+   {
+      this.localBean = isNoInterfaceBean ? new EmptyMetaData() : null;
+   }
+   
+   /**
+    * {@inheritDoc}
+    */
    @Override
    public void merge(EnterpriseBeanMetaData eoverride, EnterpriseBeanMetaData eoriginal)
    {
@@ -70,5 +125,15 @@ public class SessionBean31MetaData extends SessionBeanMetaData
          asyncMethods.addAll(override.asyncMethods);
       if(original != null && original.asyncMethods != null)
          asyncMethods.addAll(original.asyncMethods);
+      // merge the no-interface information
+      if (override != null)
+      {
+         this.localBean = override.getLocalBean();
+      }
+      else if (original != null)
+      {
+         this.localBean = original.getLocalBean();
+      }
+      
    }
 }

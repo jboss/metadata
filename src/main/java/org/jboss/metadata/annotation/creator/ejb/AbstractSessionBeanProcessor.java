@@ -55,6 +55,7 @@ public abstract class AbstractSessionBeanProcessor extends AbstractEnterpriseBea
       addTypeProcessor(new RemoteProcessor(finder));
       addTypeProcessor(new RemoteHomeProcessor(finder));
       addTypeProcessor(new ImplicitLocalProcessor(finder));
+      addTypeProcessor(new LocalBeanProcessor(finder));
 
       addMethodProcessor(new InitProcessor(finder));
       addMethodProcessor(new TimeoutProcessor(finder));

@@ -36,6 +36,11 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData
    private static final long serialVersionUID = 1L;
 
    private AsyncMethodsMetaData asyncMethods;
+   
+   /**
+    * Flag indicating whether this bean has a no-interface view
+    */
+   private boolean noInterfaceBean;
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
@@ -58,6 +63,26 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData
       if(original != null)
          asyncMethods.addAll(original);
    }
+   
+   /**
+    * Returns true if this bean exposes a no-interface view
+    * @return
+    */
+   public boolean isNoInterfaceBean()
+   {
+      return this.noInterfaceBean;
+   }
+   
+   /**
+    * Set the metadata to represent whether this bean
+    * exposes an no-interface view
+    * @param isNoInterfaceBean True if the bean exposes a no-interface
+    *                           view. Else set to false. 
+    */
+   public void setNoInterfaceBean(boolean isNoInterfaceBean)
+   {
+         this.noInterfaceBean = isNoInterfaceBean;
+   }
 
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
@@ -68,6 +93,18 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData
       JBossSessionBean31MetaData soriginal = original instanceof JBossGenericBeanMetaData ? null : (JBossSessionBean31MetaData) original;
       
       merge(joverride != null ? joverride.asyncMethods : null, soriginal != null ? soriginal.asyncMethods : null);
+      
+      // merge the no-interface information
+      if (joverride != null)
+      {
+         this.noInterfaceBean = joverride.isNoInterfaceBean();
+      }
+      else if (soriginal != null)
+      {
+         this.noInterfaceBean = soriginal.isNoInterfaceBean();
+      }
+
+      
    }
    
    @Override
@@ -80,5 +117,15 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData
       SessionBean31MetaData soriginal = (SessionBean31MetaData) original;
       
       merge(joverride != null ? joverride.asyncMethods : null, soriginal != null ? soriginal.getAsyncMethods() : null);
+      
+      // merge the no-interface information
+      if (joverride != null)
+      {
+         this.noInterfaceBean = joverride.isNoInterfaceBean();
+      }
+      else if (soriginal != null)
+      {
+         this.noInterfaceBean = soriginal.isNoInterfaceBean();
+      }
    }
 }
