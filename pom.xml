@@ -21,6 +21,26 @@
     <outputDirectory>${profile.outputDirectory}</outputDirectory>
     <testOutputDirectory>${profile.testOutputDirectory}</testOutputDirectory>
     <plugins>
+        <plugin>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <executions>
+                <!--  Enforce JDK6 -->
+                <execution>
+                    <id>enforce-jdk6</id>
+                    <goals>
+                        <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                        <rules>
+                            <requireJavaVersion>
+                                <version>1.6</version>
+                            </requireJavaVersion>
+                        </rules>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
