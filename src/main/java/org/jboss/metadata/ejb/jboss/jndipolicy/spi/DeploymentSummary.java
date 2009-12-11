@@ -44,6 +44,10 @@ public class DeploymentSummary implements Serializable
    private String deploymentName;
    /** The parent deployment base name without a suffix */
    private String deploymentScopeBaseName;
+   
+   /** The relative path within an EAR */
+   private String deploymentPath;
+   
    /**
     * The packaging structure used
     */
@@ -57,8 +61,20 @@ public class DeploymentSummary implements Serializable
       setDeploymentName(summary.getDeploymentName());
       setDeploymentScopeBaseName(summary.getDeploymentScopeBaseName());
       this.setPackagingType(summary.getPackagingType());
+      // set deployment path after packaging type to maintain invariants
+      setDeploymentPath(summary.getDeploymentPath());
    }
 
+   /**
+    * @return the name of the ear or null if not packaged within an ear
+    */
+   public String getAppName()
+   {
+      if(packagingType == PackagingType.EAR)
+         return getDeploymentScopeBaseName();
+      return null;
+   }
+   
    public String getDeploymentName()
    {
       return deploymentName;
@@ -68,6 +84,35 @@ public class DeploymentSummary implements Serializable
       this.deploymentName = deploymentName;
    }
 
+   /**
+    * Returns the relative path of this deployment within an EAR.
+    * If the deployment is in the root of the EAR it'll return an empty String.
+    * If the deployment is stand-alone it'll return null.
+    * 
+    * @return the relative path of this deployment within an ear or null
+    */
+   public String getDeploymentPath()
+   {
+      return deploymentPath;
+   }
+   
+   public void setDeploymentPath(String deploymentPath)
+   {
+      /* invariant doesn't hold against deprecated usage
+      if(packagingType == PackagingType.EAR)
+      {
+         if(deploymentPath == null)
+            throw new IllegalArgumentException("deploymentPath must not be null for deployments within an EAR");
+      }
+      else
+      {
+         if(deploymentPath != null)
+            throw new IllegalArgumentException("deploymentPath must be null for stand-alone deployments");
+      }
+      */
+      this.deploymentPath = deploymentPath;
+   }
+   
    public String getDeploymentScopeBaseName()
    {
       return deploymentScopeBaseName;

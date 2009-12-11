@@ -104,6 +104,7 @@ public class EjbDeploymentSummary extends DeploymentSummary
    @Deprecated
    public void setEjbName(String ejbName)
    {
+      assert ejbName != null : "ejbName is null";
       this.ejbName = ejbName;
    }
 
