@@ -36,6 +36,7 @@ import org.jboss.metadata.annotation.creator.Processor;
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.spec.MethodMetaData;
+import org.jboss.metadata.ejb.spec.MethodParametersMetaData;
 import org.jboss.metadata.ejb.spec.MethodPermissionMetaData;
 import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
@@ -80,18 +81,30 @@ public class RolesAllowedProcessor<T extends AnnotatedElement>
          {
             for (MethodMetaData existingMethod : existingPerm.getMethods())
             {
-               // JBMETA-207; if class-level @RolesAllowed is overridden, avoid NPE
-               if (existingMethod == null || existingMethod.getMethodParams() == null)
+               /*
+                * JBMETA-207 Only allow overrides if this method signature has 
+                * not been overridden, and do so in a way that avoids all NPEs
+                */
+               // If we've got no predefined existing method, move along
+               if (existingMethod == null)
                {
                   return;
                }
-               
-               // If this method's already been added
-               if (existingMethod.getMethodName().equals(mmd.getMethodName())
-                     && existingMethod.getMethodParams().equals(mmd.getMethodParams()))
+               // If the preexisting method matches what we have described here,
+               // then check the rest of the signature
+               if (existingMethod.getMethodName().equals(mmd.getMethodName()))
                {
-                  // Do nothing
-                  return;
+                  // If this method's already been added (equal signatures), then don't add it again                  
+                  final MethodParametersMetaData existingParams = existingMethod.getMethodParams();
+                  if (existingParams == null && mmd.getMethodParams() == null)
+                  {
+                     return;
+                  }
+                  if (existingParams.equals(mmd.getMethodParams()))
+                  {
+                     return;
+
+                  }
                }
             }
          }
