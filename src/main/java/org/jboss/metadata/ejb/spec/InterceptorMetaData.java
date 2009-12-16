@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.DataSourceMetaData;
+import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
@@ -327,6 +329,26 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
    {
       if (environment != null)
          return environment.getServiceReferences();
+      return null;
+   }
+
+   /**
+    * @see org.jboss.metadata.javaee.spec.Environment#getDataSourceByName(java.lang.String)
+    */
+   @Override
+   public DataSourceMetaData getDataSourceByName(String name)
+   {
+      return AbstractMappedMetaData.getByName(name, getDataSources());
+   }
+
+   /**
+    * @see org.jboss.metadata.javaee.spec.Environment#getDataSources()
+    */
+   @Override
+   public DataSourcesMetaData getDataSources()
+   {
+      if (environment != null)
+         return environment.getDataSources();
       return null;
    }
 }

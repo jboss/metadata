@@ -54,6 +54,8 @@ public class JBoss50XSDBindingUnitTestCase extends SchemaBindingValidationTest
       // actually enterprise-beansType is missing because XmlElements binding specified on enterpriseBeans
       // is bound as local type (specifying XmlType on JBossEnterpriseBeansMetaData breaks XmlElements' choice)
       ignoreType(new QName(JavaEEMetaDataConstants.JBOSS_NS, "enterprise-beansType"));
+      // ignore the mismatch in the number of xsd particles and the binding class http://community.jboss.org/thread/145843
+      setIgnoreParticleCountMisMatch(true);
    }
 
    public void testJBoss50() throws Exception

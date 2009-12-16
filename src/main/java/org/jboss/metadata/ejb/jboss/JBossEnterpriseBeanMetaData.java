@@ -59,6 +59,8 @@ import org.jboss.metadata.javaee.jboss.AnnotationsMetaData;
 import org.jboss.metadata.javaee.jboss.IgnoreDependencyMetaData;
 import org.jboss.metadata.javaee.jboss.JndiRefsMetaData;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.DataSourceMetaData;
+import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
@@ -2050,5 +2052,25 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    public void setJndiBindingPolicy(String jndiBindingPolicy)
    {
       this.jndiBindingPolicy = jndiBindingPolicy;
+   }
+   
+   /**
+    * @see org.jboss.metadata.javaee.spec.Environment#getDataSources()
+    */
+   @Override
+   public DataSourcesMetaData getDataSources()
+   {
+      if (jndiEnvironmentRefsGroup != null)
+         return jndiEnvironmentRefsGroup.getDataSources();
+      return null;
+   }
+   
+   /**
+    * @see org.jboss.metadata.javaee.spec.Environment#getDataSourceByName(java.lang.String)
+    */
+   @Override
+   public DataSourceMetaData getDataSourceByName(String name)
+   {
+      return AbstractMappedMetaData.getByName(name, getDataSources());
    }
 }

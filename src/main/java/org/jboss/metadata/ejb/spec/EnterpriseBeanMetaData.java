@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.DataSourceMetaData;
+import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
@@ -487,7 +489,7 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
          return jndiEnvironmentRefsGroup.getServiceReferences();
       return null;
    }
-
+   
    /**
     * Get the methods permissions
     * 
@@ -622,4 +624,26 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
       else if(original != null && original.securityIdentity != null)
          setSecurityIdentity(original.securityIdentity);
    }
+   
+   /**
+    * @see org.jboss.metadata.javaee.spec.Environment#getDataSources()
+    */
+   @Override
+   public DataSourcesMetaData getDataSources()
+   {
+      if (jndiEnvironmentRefsGroup != null)
+         return jndiEnvironmentRefsGroup.getDataSources();
+      return null;
+   }
+   
+   /**
+    * @see org.jboss.metadata.javaee.spec.Environment#getDataSourceByName(java.lang.String)
+    */
+   @Override
+   public DataSourceMetaData getDataSourceByName(String name)
+   {
+      return AbstractMappedMetaData.getByName(name, getDataSources());
+   }
+
+
 }
