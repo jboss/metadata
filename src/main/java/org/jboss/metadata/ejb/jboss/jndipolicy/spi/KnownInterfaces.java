@@ -38,7 +38,8 @@ public final class KnownInterfaces
       BUSINESS_REMOTE(KnownInterfaces.REMOTE),
       LOCAL_HOME(KnownInterfaces.LOCAL_HOME),
       REMOTE_HOME(KnownInterfaces.HOME),
-      UNKNOWN(KnownInterfaces.UNKNOWN);
+      UNKNOWN(KnownInterfaces.UNKNOWN),
+      NO_INTERFACE(KnownInterfaces.NO_INTERFACE);
 
       /**
        * Get the preferred jndi binding suffix
@@ -59,6 +60,7 @@ public final class KnownInterfaces
    public static final String LOCAL_HOME = "localHome";
    public static final String REMOTE = "remote";
    public static final String HOME = "home";
+   public static final String NO_INTERFACE = "no-interface";
    public static final String UNKNOWN = "unknown";
 
    /**
@@ -72,6 +74,7 @@ public final class KnownInterfaces
          || KnownInterfaces.LOCAL.equalsIgnoreCase(iface)
          || KnownInterfaces.LOCAL_HOME.equalsIgnoreCase(iface)
          || KnownInterfaces.REMOTE.equalsIgnoreCase(iface)
+         || KnownInterfaces.NO_INTERFACE.equalsIgnoreCase(iface)
          ;
       return isKnownInterface;
    }
@@ -92,6 +95,8 @@ public final class KnownInterfaces
          ifaceType = KnownInterfaceType.LOCAL_HOME;
       else if(KnownInterfaces.REMOTE.equalsIgnoreCase(iface))
          ifaceType = KnownInterfaceType.BUSINESS_REMOTE;
+      else if(KnownInterfaces.NO_INTERFACE.equalsIgnoreCase(iface))
+         ifaceType = KnownInterfaceType.NO_INTERFACE;
       return ifaceType;
    }
 }

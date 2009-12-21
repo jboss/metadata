@@ -169,6 +169,11 @@ public class JavaEE6JndiBindingPolicy implements DefaultJndiBindingPolicy
                   // base-name / (local|remote)Home
                   jndiName = baseJndiName + "!" + ifaceType.toSuffix();
                   break;
+                  
+               case NO_INTERFACE:
+                  // base-name ! no-interface
+                  jndiName = baseJndiName + "!" + ifaceType.toSuffix();
+                  break;
             }
          }
          else
