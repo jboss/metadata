@@ -39,6 +39,8 @@ import org.jboss.metadata.ejb.jboss.jndi.resolver.impl.JNDIPolicyBasedSessionBea
 import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBeanJNDINameResolver;
 import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.BasicJndiBindingPolicy;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
+import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DeploymentSummary;
+import org.jboss.metadata.ejb.jboss.jndipolicy.spi.EjbDeploymentSummary;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces.KnownInterfaceType;
 import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
@@ -120,13 +122,16 @@ public class SessionBeanJNDINameResolverTestCase
       // test remote business interface specific binding (per remote business interface)
       BusinessRemotesMetaData businessRemotes = sessionBean.getBusinessRemotes();
       assertNotNull("Business remotes metadata was null", businessRemotes);
+      EjbDeploymentSummary ejbDeploymentSummary = this.getEjbDeploymentSummary(sessionBean);
       for (String businessRemote : businessRemotes)
       {
          String remoteBusinessInterfaceJNDIName = jndiNameResolver.resolveJNDIName(sessionBean, businessRemote);
          logger.debug("Resolved remote business interface specific binding for interface " + businessRemote + " is "
                + remoteBusinessInterfaceJNDIName);
-         assertEquals("Incorrect remote business interface jndi name returned by jndi name resolver", beanName + "/"
-               + KnownInterfaceType.BUSINESS_REMOTE.toSuffix() + "-" + businessRemote, remoteBusinessInterfaceJNDIName);
+         String expectedJNDIName = jndiBindingPolicy.getJndiName(ejbDeploymentSummary, businessRemote,
+               KnownInterfaceType.BUSINESS_REMOTE);
+         assertEquals("Incorrect remote business interface jndi name returned by jndi name resolver", expectedJNDIName,
+               remoteBusinessInterfaceJNDIName);
 
       }
 
@@ -138,8 +143,10 @@ public class SessionBeanJNDINameResolverTestCase
          String localBusinessInterfaceJNDIName = jndiNameResolver.resolveJNDIName(sessionBean, businessLocal);
          logger.debug("Resolved local business interface specific binding for interface " + businessLocal + " is "
                + localBusinessInterfaceJNDIName);
-         assertEquals("Incorrect local business interface jndi name returned by jndi name resolver", beanName + "/"
-               + KnownInterfaceType.BUSINESS_LOCAL.toSuffix() + "-" + businessLocal, localBusinessInterfaceJNDIName);
+         String expectedJNDIName = jndiBindingPolicy.getJndiName(ejbDeploymentSummary, businessLocal,
+               KnownInterfaceType.BUSINESS_LOCAL);
+         assertEquals("Incorrect local business interface jndi name returned by jndi name resolver", expectedJNDIName,
+               localBusinessInterfaceJNDIName);
 
       }
 
@@ -170,25 +177,29 @@ public class SessionBeanJNDINameResolverTestCase
       DefaultJndiBindingPolicy jndiBindingPolicy = new BasicJndiBindingPolicy();
       SessionBeanJNDINameResolver<JBossSessionBeanMetaData> jndiNameResolver = new JNDIPolicyBasedSessionBeanJNDINameResolver<JBossSessionBeanMetaData>(
             jndiBindingPolicy);
-
+      EjbDeploymentSummary ejbDeploymentSummary = this.getEjbDeploymentSummary(sessionBean);
       // ensure that the remote default business interface jndi name is correctly resolved
       String remoteDefaultBusinessJNDIName = jndiNameResolver.resolveRemoteBusinessDefaultJNDIName(sessionBean);
-      assertEquals("Incorrect default remote business jndi name returned by jndi name resolver", beanName + "/"
-            + KnownInterfaceType.BUSINESS_REMOTE.toSuffix(), remoteDefaultBusinessJNDIName);
+      String expectedRemoteDefaultBusinessJNDIName = jndiBindingPolicy.getDefaultRemoteJndiName(ejbDeploymentSummary);
+      assertEquals("Incorrect default remote business jndi name returned by jndi name resolver",
+            expectedRemoteDefaultBusinessJNDIName, remoteDefaultBusinessJNDIName);
       // ensure that the local default business interface jndi name is correctly resolved      
       String localDefaultBusinessJNDIName = jndiNameResolver.resolveLocalBusinessDefaultJNDIName(sessionBean);
-      assertEquals("Incorrect default local business jndi name returned by jndi name resolver", beanName + "/"
-            + KnownInterfaceType.BUSINESS_LOCAL.toSuffix(), localDefaultBusinessJNDIName);
+      String expectedLocalDefaultBusinessJNDIName = jndiBindingPolicy.getDefaultLocalJndiName(ejbDeploymentSummary);
+      assertEquals("Incorrect default local business jndi name returned by jndi name resolver",
+            expectedLocalDefaultBusinessJNDIName, localDefaultBusinessJNDIName);
 
       // ensure that the remote home interface jndi name is correctly resolved      
       String remoteHomeJndiName = jndiNameResolver.resolveRemoteHomeJNDIName(sessionBean);
-      assertEquals("Incorrect remote home jndi name returned by jndi name resolver", beanName + "/"
-            + KnownInterfaceType.REMOTE_HOME.toSuffix(), remoteHomeJndiName);
+      String expectedRemoteHomeJNDIName = jndiBindingPolicy.getDefaultRemoteHomeJndiName(ejbDeploymentSummary);
+      assertEquals("Incorrect remote home jndi name returned by jndi name resolver", expectedRemoteHomeJNDIName,
+            remoteHomeJndiName);
 
       // ensure that the local home jndi name is correctly resolved      
       String localHomeJndiName = jndiNameResolver.resolveLocalHomeJNDIName(sessionBean);
-      assertEquals("Incorrect local home jndi name returned by jndi name resolver", beanName + "/"
-            + KnownInterfaceType.LOCAL_HOME.toSuffix(), localHomeJndiName);
+      String expectedLocalHomeJNDIName = jndiBindingPolicy.getDefaultLocalHomeJndiName(ejbDeploymentSummary);
+      assertEquals("Incorrect local home jndi name returned by jndi name resolver", expectedLocalHomeJNDIName,
+            localHomeJndiName);
 
       // test remote business interface specific binding (per remote business interface)
       BusinessRemotesMetaData businessRemotes = sessionBean.getBusinessRemotes();
@@ -198,8 +209,10 @@ public class SessionBeanJNDINameResolverTestCase
          String remoteBusinessInterfaceJNDIName = jndiNameResolver.resolveJNDIName(sessionBean, businessRemote);
          logger.debug("Resolved remote business interface specific binding for interface " + businessRemote + " is "
                + remoteBusinessInterfaceJNDIName);
-         assertEquals("Incorrect remote business interface jndi name returned by jndi name resolver", beanName + "/"
-               + KnownInterfaceType.BUSINESS_REMOTE.toSuffix() + "-" + businessRemote, remoteBusinessInterfaceJNDIName);
+         String expectedJNDIName = jndiBindingPolicy.getJndiName(ejbDeploymentSummary, businessRemote,
+               KnownInterfaceType.BUSINESS_REMOTE);
+         assertEquals("Incorrect remote business interface jndi name returned by jndi name resolver", expectedJNDIName,
+               remoteBusinessInterfaceJNDIName);
 
       }
 
@@ -211,10 +224,26 @@ public class SessionBeanJNDINameResolverTestCase
          String localBusinessInterfaceJNDIName = jndiNameResolver.resolveJNDIName(sessionBean, businessLocal);
          logger.debug("Resolved local business interface specific binding for interface " + businessLocal + " is "
                + localBusinessInterfaceJNDIName);
-         assertEquals("Incorrect local business interface jndi name returned by jndi name resolver", beanName + "/"
-               + KnownInterfaceType.BUSINESS_LOCAL.toSuffix() + "-" + businessLocal, localBusinessInterfaceJNDIName);
+         String expectedJNDIName = jndiBindingPolicy.getJndiName(ejbDeploymentSummary, businessLocal,
+               KnownInterfaceType.BUSINESS_LOCAL);
+         assertEquals("Incorrect local business interface jndi name returned by jndi name resolver", expectedJNDIName,
+               localBusinessInterfaceJNDIName);
 
       }
 
+   }
+
+   /**
+    * Returns the {@link EjbDeploymentSummary} from the metadata
+    * 
+    * @param metadata Bean metadata
+    * @return
+    */
+   private EjbDeploymentSummary getEjbDeploymentSummary(JBossSessionBeanMetaData metadata)
+   {
+      DeploymentSummary dsummary = metadata.getJBossMetaData().getDeploymentSummary();
+      if (dsummary == null)
+         dsummary = new DeploymentSummary();
+      return new EjbDeploymentSummary(metadata, dsummary);
    }
 }
