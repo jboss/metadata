@@ -21,22 +21,42 @@
 */
 package org.jboss.metadata.ejb.jboss.jndi.resolver.spi;
 
-import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 
 /**
- * EnterpriseBeanJNDIResolver
+ * EntityBeanJNDINameResolver
  *
- * A JNDI name resolver capable of resolving JNDI names for an enterprise bean,
- * from the enterprise bean's metadata 
+ * A JNDI name resolver for EJB2.x entity beans
  * 
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public interface EnterpriseBeanJNDINameResolver
+public interface EntityBeanJNDINameResolver 
 {
+   // For EJB2.x entity beans, only home and local home interfaces
+   // are bound to JNDI, hence this interface doesn't provide 
+   // anything more than resolveRemoteHomeJNDIName and resolveLocalHomeJNDIName
 
    /**
-    * Returns the JNDI name for the <code>interfaceName</code>, of the enterprise bean
+    * Returns the JNDI name for the EJB2.x Remote Home interface, of the entity bean
+    * represented by the <code>metadata</code>.
+    * 
+    * Returns null if the JNDI name EJB2.x Remote Home interface cannot be resolved
+    * @return
+    */
+   public String resolveRemoteHomeJNDIName(JBossEntityBeanMetaData metadata);
+
+   /**
+    * Returns the JNDI name for the EJB2.x Local Home interface, of the entity bean
+    * represented by the <code>metadata</code>.
+    * 
+    * Returns null if the JNDI name for EJB2.x Local Home interface cannot be resolved
+    * @return
+    */
+   public String resolveLocalHomeJNDIName(JBossEntityBeanMetaData metadata);
+   
+   /**
+    * Returns the JNDI name for the <code>interfaceName</code>, of the entity bean
     * represented by the <code>metadata</code>.
     * 
     * Returns null if the JNDI name for the <code>interfaceName</code> cannot be resolved
@@ -44,5 +64,6 @@ public interface EnterpriseBeanJNDINameResolver
     * @param iface The fully qualified interface name 
     * @return
     */
-   String resolveJNDIName(JBossEnterpriseBeanMetaData metadata, String interfaceName);
+   String resolveJNDIName(JBossEntityBeanMetaData metadata, String interfaceName);
+
 }

@@ -537,7 +537,9 @@ public class ResolveJndiNameDecoratorUnitTestCase extends TestCase
       
       // Define expected results
       String expectedRemote = "base/testResolvedJndiNamesWithKnownIfacesEntity-jndi-name";
-      String expectedHome = "base/testResolvedJndiNamesWithKnownIfacesEntity-jndi-name/home";
+      // jndi-name is set in getEntityMetaData(), so the remote home of the bean would be 
+      // bound to that name
+      String expectedHome = beanMD.getJndiName(); 
       String expectedLocalHome = "base/testResolvedJndiNamesWithKnownIfacesEntity-jndi-name/localHome";
       String expectedRandomInterface = "base/testResolvedJndiNamesWithKnownIfacesEntity-jndi-name/" + randomInterface;
       
@@ -560,8 +562,11 @@ public class ResolveJndiNameDecoratorUnitTestCase extends TestCase
       // Test Deprecated, backwards-compat behavior (may be removed when these methods no longer exist, JBMETA-68)
       String resolvedJndiNameD = beanMD.determineResolvedJndiName(null, null);
       assertEquals(expectedRemote, resolvedJndiNameD);
+      // since we are skipping the resolvers, which take into account the "jndi-name" set on metadata
+      // while resolving home jndi name, the resolved home jndi name will be as below 
+      String expectedResolvedHomeJNDIName = "base/testResolvedJndiNamesWithKnownIfacesEntity-jndi-name/home";
       String resolvedJndiNameHomeD = beanMD.determineResolvedJndiName(home, null);
-      assertEquals(expectedHome, resolvedJndiNameHomeD);
+      assertEquals(expectedResolvedHomeJNDIName, resolvedJndiNameHomeD);
       String resolvedJndiNameLocalHomeD = beanMD.determineResolvedJndiName(localHome, null);
       assertEquals(expectedLocalHome, resolvedJndiNameLocalHomeD);
       String resolvedJndiNameIfaceD = beanMD.determineResolvedJndiName(randomInterface, null);
@@ -580,6 +585,7 @@ public class ResolveJndiNameDecoratorUnitTestCase extends TestCase
       JBossSessionBeanMetaData beanMD = this.getEjbMetaData();
       
       // Manually Decorate
+      beanMD.setJndiBindingPolicy(EjbNameJndiBindingPolicy.class.getName());
       beanMD = new JBossSessionPolicyDecorator(beanMD,new EjbNameJndiBindingPolicy());
       
       // Define Expected Results

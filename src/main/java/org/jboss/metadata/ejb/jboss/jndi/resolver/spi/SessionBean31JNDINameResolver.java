@@ -32,9 +32,7 @@ import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public interface SessionBean31JNDINameResolver<T extends JBossSessionBean31MetaData>
-      extends
-         SessionBeanJNDINameResolver<T>
+public interface SessionBean31JNDINameResolver extends SessionBeanJNDINameResolver
 {
 
    /**
@@ -44,5 +42,5 @@ public interface SessionBean31JNDINameResolver<T extends JBossSessionBean31MetaD
     * Returns null if the JNDI name for EJB3.1 no-interface view cannot be resolved
     * @return
     */
-   public String resolveNoInterfaceJNDIName(T metadata);
+   public String resolveNoInterfaceJNDIName(JBossSessionBean31MetaData metadata);
 }

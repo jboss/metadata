@@ -22,6 +22,14 @@
 package org.jboss.metadata.ejb.jboss.jndipolicy.spi;
 
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
+import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
+import org.jboss.metadata.ejb.jboss.jndi.resolver.impl.JNDIPolicyBasedEntityBeanJNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndi.resolver.impl.JNDIPolicyBasedSessionBeanJNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.EnterpriseBeanJNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.EntityBeanJNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBeanJNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.DefaultJNDIBindingPolicyFactory;
 
 /**
  * JbossEnterpriseBeanJndiNameResolver
@@ -31,7 +39,9 @@ import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
  *
  * @author <a href="mailto:andrew.rubinger@jboss.org">ALR</a>
  * @version $Revision: $
+ * @deprecated Since 2.0.0-alpha-5 - Use an implementation of {@link EnterpriseBeanJNDINameResolver} 
  */
+@Deprecated
 public class JbossEnterpriseBeanJndiNameResolver
 {
 
@@ -45,14 +55,22 @@ public class JbossEnterpriseBeanJndiNameResolver
     */
    public static String resolveJndiName(JBossEnterpriseBeanMetaData md, String iface)
    {
-      // Ensure the metadata is able to resolve JNDI names
-      ResolveableJndiNameJbossEnterpriseBeanMetadata rmd = ensureResolvable(md);
 
-      // Resolve
-      String resolved = rmd.determineResolvedJndiName(iface);
+      DefaultJndiBindingPolicy policy = DefaultJNDIBindingPolicyFactory.getDefaultJNDIBindingPolicy();
+      // This if block is a hack to allow for backward compatibility (the days
+      // when decorated metadata was being used)
+      if (md.isSession() || md.isService())
+      {
+         SessionBeanJNDINameResolver sessionBeanJNDINameResolver = new JNDIPolicyBasedSessionBeanJNDINameResolver(policy);
+         return sessionBeanJNDINameResolver.resolveJNDIName((JBossSessionBeanMetaData) md, iface);
+      }
+      else if (md.isEntity())
+      {
+         EntityBeanJNDINameResolver entityBeanJNDINameResolver = new JNDIPolicyBasedEntityBeanJNDINameResolver(policy);
+         return entityBeanJNDINameResolver.resolveJNDIName((JBossEntityBeanMetaData) md, iface);
+      }
+      return null;
 
-      // Return
-      return resolved;
    }
 
    /**

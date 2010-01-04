@@ -22,6 +22,7 @@
 package org.jboss.metadata.ejb.jboss.jndi.resolver.impl;
 
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
+import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBean31JNDINameResolver;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.EjbDeploymentSummary;
@@ -30,17 +31,28 @@ import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces.KnownInterfac
 
 /**
  * JNDIPolicyBasedSessionBean31JNDINameResolver
+ * 
+ * An implementation of {@link SessionBean31JNDINameResolver}, which uses 
+ * a {@link DefaultJndiBindingPolicy} for resolving jndi names for EJB3.1
+ * session beans 
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class JNDIPolicyBasedSessionBean31JNDINameResolver<T extends JBossSessionBean31MetaData>
-      extends
-         JNDIPolicyBasedSessionBeanJNDINameResolver<T> implements SessionBean31JNDINameResolver<T>
+public class JNDIPolicyBasedSessionBean31JNDINameResolver extends JNDIPolicyBasedSessionBeanJNDINameResolver
+      implements
+         SessionBean31JNDINameResolver
 {
 
    /**
-    * @param jndibindingPolicy
+    * Constructs a resolver based on the <code>jndibindingPolicy</code>
+    * 
+    * @param jndibindingPolicy The jndi binding policy which will be used for resolving jndi names 
+    *       out of session bean metadata, if the metadata does not have a jndi binding policy set
+    *       or if {@link #isIgnoreJNDIBindingPolicyOnMetaData()} returns true
+    *       
+    * @see #JNDIPolicyBasedSessionBean31JNDINameResolver(DefaultJndiBindingPolicy)
+    * @throws IllegalArgumentException If the passed <code>jndibindingPolicy</code> is null
     */
    public JNDIPolicyBasedSessionBean31JNDINameResolver(DefaultJndiBindingPolicy jndibindingPolicy)
    {
@@ -48,14 +60,19 @@ public class JNDIPolicyBasedSessionBean31JNDINameResolver<T extends JBossSession
    }
 
    /**
+    * Uses the {@link DefaultJndiBindingPolicy} instance returned by {@link #getJNDIBindingPolicy(JBossSessionBeanMetaData)}
+    * to resolve the no-interface view jndi name for the <code>metadata</code>
+    * 
     * @see org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBean31JNDINameResolver#resolveNoInterfaceJNDIName(org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData)
+    * @see #getJNDIBindingPolicy(JBossSessionBeanMetaData)
     */
    @Override
-   public String resolveNoInterfaceJNDIName(T metadata)
+   public String resolveNoInterfaceJNDIName(JBossSessionBean31MetaData metadata)
    {
       // Get the no-interface view jndi name from the jndi binding policy
       EjbDeploymentSummary ejbDeploymentSummary = this.getEjbDeploymentSummary(metadata);
-      return this.jndiBindingPolicy.getJndiName(ejbDeploymentSummary, KnownInterfaces.NO_INTERFACE, KnownInterfaceType.NO_INTERFACE);
+      DefaultJndiBindingPolicy policy = this.getJNDIBindingPolicy(metadata);
+      return policy.getJndiName(ejbDeploymentSummary, KnownInterfaces.NO_INTERFACE, KnownInterfaceType.NO_INTERFACE);
    }
 
 }

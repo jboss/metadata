@@ -22,6 +22,9 @@
 package org.jboss.metadata.ejb.jboss.jndipolicy.spi;
 
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
+import org.jboss.metadata.ejb.jboss.jndi.resolver.impl.JNDIPolicyBasedSessionBeanJNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBeanJNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.DefaultJNDIBindingPolicyFactory;
 
 /**
  * JbossSessionBeanJndiNameResolver
@@ -31,7 +34,9 @@ import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
  *
  * @author <a href="mailto:andrew.rubinger@jboss.org">ALR</a>
  * @version $Revision: $
+ * @deprecated Since 2.0.0-alpha-5 - Use an implementation of {@link SessionBeanJNDINameResolver} instead
  */
+@Deprecated
 public class JbossSessionBeanJndiNameResolver extends JbossEnterpriseBeanJndiNameResolver
 {
    /**
@@ -42,11 +47,9 @@ public class JbossSessionBeanJndiNameResolver extends JbossEnterpriseBeanJndiNam
     */
    public static String resolveRemoteHomeJndiName(JBossSessionBeanMetaData md)
    {
-      // Ensure Resolveable
-      ResolveableJndiNameJbossSessionBeanMetadata rmd = ensureResolvable(md);
 
       // Resolve
-      String resolved = rmd.determineResolvedRemoteHomeJndiName();
+      String resolved = getSessionBeanJNDINameResolver().resolveRemoteHomeJNDIName(md);
 
       // Return
       return resolved;
@@ -60,11 +63,8 @@ public class JbossSessionBeanJndiNameResolver extends JbossEnterpriseBeanJndiNam
     */
    public static String resolveLocalHomeJndiName(JBossSessionBeanMetaData md)
    {
-      // Ensure Resolveable
-      ResolveableJndiNameJbossSessionBeanMetadata rmd = ensureResolvable(md);
-
       // Resolve
-      String resolved = rmd.determineResolvedLocalHomeJndiName();
+      String resolved = getSessionBeanJNDINameResolver().resolveLocalHomeJNDIName(md);
 
       // Return
       return resolved;
@@ -78,11 +78,8 @@ public class JbossSessionBeanJndiNameResolver extends JbossEnterpriseBeanJndiNam
     */
    public static String resolveRemoteBusinessDefaultJndiName(JBossSessionBeanMetaData md)
    {
-      // Ensure Resolveable
-      ResolveableJndiNameJbossSessionBeanMetadata rmd = ensureResolvable(md);
-
       // Resolve
-      String resolved = rmd.determineResolvedRemoteBusinessDefaultJndiName();
+      String resolved = getSessionBeanJNDINameResolver().resolveRemoteBusinessDefaultJNDIName(md);
 
       // Return
       return resolved;
@@ -96,11 +93,8 @@ public class JbossSessionBeanJndiNameResolver extends JbossEnterpriseBeanJndiNam
     */
    public static String resolveLocalBusinessDefaultJndiName(JBossSessionBeanMetaData md)
    {
-      // Ensure Resolveable
-      ResolveableJndiNameJbossSessionBeanMetadata rmd = ensureResolvable(md);
-
       // Resolve
-      String resolved = rmd.determineResolvedLocalBusinessDefaultJndiName();
+      String resolved = getSessionBeanJNDINameResolver().resolveLocalBusinessDefaultJNDIName(md);
 
       // Return
       return resolved;
@@ -113,7 +107,9 @@ public class JbossSessionBeanJndiNameResolver extends JbossEnterpriseBeanJndiNam
     * 
     * @param md
     * @return
+    * @deprecated
     */
+   @Deprecated
    protected static ResolveableJndiNameJbossSessionBeanMetadata ensureResolvable(JBossSessionBeanMetaData md)
    {
       // Check that castable to a JNDI Resolveable type
@@ -130,6 +126,20 @@ public class JbossSessionBeanJndiNameResolver extends JbossEnterpriseBeanJndiNam
             + ResolveableJndiNameJbossSessionBeanMetadata.class.getSimpleName() + " must be implemented";
       assert resolveable : errorMessage;
       throw new IllegalArgumentException(errorMessage);
+
+   }
+
+   private static SessionBeanJNDINameResolver getSessionBeanJNDINameResolver()
+   {
+      DefaultJndiBindingPolicy jndiBindingPolicy = getDefaultJNDIBindingPolicy();
+      SessionBeanJNDINameResolver sessionBeanJNDINameResolver = new JNDIPolicyBasedSessionBeanJNDINameResolver(
+            jndiBindingPolicy);
+      return sessionBeanJNDINameResolver;
+   }
+
+   private static DefaultJndiBindingPolicy getDefaultJNDIBindingPolicy()
+   {
+      return DefaultJNDIBindingPolicyFactory.getDefaultJNDIBindingPolicy();
 
    }
 }

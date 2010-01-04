@@ -174,6 +174,19 @@ public class BasicJndiBindingPolicy implements DefaultJndiBindingPolicy
                   // base-name / (local|remote)Home
                   jndiName = baseJndiName + "/" + ifaceType.toSuffix();
                   break;
+                  
+               case NO_INTERFACE :
+                  if (iface == null)
+                  {
+                     // base-name / no-interface
+                     jndiName = baseJndiName + "/" + ifaceType.toSuffix();
+                  }
+                  else
+                  {
+                     // base-name / fully-qualified-bean-class-name  
+                     jndiName = baseJndiName + "/" + iface;
+                  }
+                  break;
             }
          }
          else

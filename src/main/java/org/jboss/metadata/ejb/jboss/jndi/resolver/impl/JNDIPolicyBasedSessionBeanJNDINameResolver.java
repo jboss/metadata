@@ -28,7 +28,6 @@ import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.jboss.RemoteBindingMetaData;
 import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBeanJNDINameResolver;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DeploymentSummary;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.EjbDeploymentSummary;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces.KnownInterfaceType;
@@ -44,9 +43,9 @@ import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBeanMetaData>
+public class JNDIPolicyBasedSessionBeanJNDINameResolver extends AbstractJNDIPolicyBasedJNDINameResolver
       implements
-         SessionBeanJNDINameResolver<T>
+         SessionBeanJNDINameResolver
 {
 
    /**
@@ -55,26 +54,28 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBe
    private static Logger logger = Logger.getLogger(JNDIPolicyBasedSessionBeanJNDINameResolver.class);
 
    /**
-    * The jndi binding policy which will be used for resolving the jndi names
-    */
-   protected DefaultJndiBindingPolicy jndiBindingPolicy;
-
-   /**
     * Constructs a {@link JNDIPolicyBasedSessionBeanJNDINameResolver} 
     * 
     * @param jndibindingPolicy The jndi binding policy which will be used for resolving jndi names 
-    *       out of session bean metadata
+    *       out of session bean metadata, if the metadata does not have a jndi binding policy set
+    *       or if {@link #isIgnoreJNDIBindingPolicyOnMetaData()} returns true
+    * @throws IllegalArgumentException If the passed <code>jndibindingPolicy</code> is null
+    * @see #getJNDIBindingPolicy(JBossSessionBeanMetaData)       
     */
    public JNDIPolicyBasedSessionBeanJNDINameResolver(DefaultJndiBindingPolicy jndibindingPolicy)
    {
-      this.jndiBindingPolicy = jndibindingPolicy;
+      super(jndibindingPolicy);
    }
 
    /**
+    * Uses the {@link DefaultJndiBindingPolicy} instance returned by {@link #getJNDIBindingPolicy(JBossSessionBeanMetaData)}
+    * to resolve the local home jndi name for the <code>metadata</code>
+    * 
     * @see org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBeanJNDINameResolver#resolveLocalHomeJNDIName(org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData)
+    * @see #getJNDIBindingPolicy(JBossSessionBeanMetaData)
     */
    @Override
-   public String resolveLocalHomeJNDIName(T metadata)
+   public String resolveLocalHomeJNDIName(JBossSessionBeanMetaData metadata)
    {
       // Check first for explicitly-defined Local Home JNDI Name
       String localHomeJndiName = metadata.getLocalHomeJndiName();
@@ -83,15 +84,19 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBe
 
       // Get the local home jndi name from the jndi binding policy
       EjbDeploymentSummary ejbDeploymentSummary = this.getEjbDeploymentSummary(metadata);
-      return this.jndiBindingPolicy.getJndiName(ejbDeploymentSummary, KnownInterfaces.LOCAL_HOME,
-            KnownInterfaceType.LOCAL_HOME);
+      DefaultJndiBindingPolicy policy = this.getJNDIBindingPolicy(metadata);
+      return policy.getJndiName(ejbDeploymentSummary, KnownInterfaces.LOCAL_HOME, KnownInterfaceType.LOCAL_HOME);
    }
 
    /**
+    * Uses the {@link DefaultJndiBindingPolicy} instance returned by {@link #getJNDIBindingPolicy(JBossSessionBeanMetaData)}
+    * to resolve the remote business default jndi name for the <code>metadata</code>
+    * 
     * @see org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBeanJNDINameResolver#resolveRemoteBusinessDefaultJNDIName(org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData)
+    * @see #getJNDIBindingPolicy(JBossSessionBeanMetaData)
     */
    @Override
-   public String resolveRemoteBusinessDefaultJNDIName(T metadata)
+   public String resolveRemoteBusinessDefaultJNDIName(JBossSessionBeanMetaData metadata)
    {
       // Obtain remote bindings
       List<RemoteBindingMetaData> bindings = metadata.getRemoteBindings();
@@ -118,15 +123,19 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBe
 
       // Not explicitly defined, so delegate out to the policy
       EjbDeploymentSummary ejbDeploymentSummary = this.getEjbDeploymentSummary(metadata);
-      return this.jndiBindingPolicy.getJndiName(ejbDeploymentSummary, KnownInterfaces.REMOTE,
-            KnownInterfaceType.BUSINESS_REMOTE);
+      DefaultJndiBindingPolicy policy = this.getJNDIBindingPolicy(metadata);
+      return policy.getJndiName(ejbDeploymentSummary, KnownInterfaces.REMOTE, KnownInterfaceType.BUSINESS_REMOTE);
    }
 
    /**
+    * Uses the {@link DefaultJndiBindingPolicy} instance returned by {@link #getJNDIBindingPolicy(JBossSessionBeanMetaData)}
+    * to resolve the remote home jndi name for the <code>metadata</code>
+    * 
     * @see org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBeanJNDINameResolver#resolveRemoteHomeJNDIName(org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData)
+    * @see #getJNDIBindingPolicy(JBossSessionBeanMetaData)
     */
    @Override
-   public String resolveRemoteHomeJNDIName(T metadata)
+   public String resolveRemoteHomeJNDIName(JBossSessionBeanMetaData metadata)
    {
       // Check first for explicitly-defined Remote Home JNDI Name
       String remoteHomeJndiName = metadata.getHomeJndiName();
@@ -135,16 +144,20 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBe
 
       // Get the remote home jndi name from the jndi binding policy
       EjbDeploymentSummary ejbDeploymentSummary = this.getEjbDeploymentSummary(metadata);
-      return this.jndiBindingPolicy.getJndiName(ejbDeploymentSummary, KnownInterfaces.HOME,
-            KnownInterfaceType.REMOTE_HOME);
+      DefaultJndiBindingPolicy policy = this.getJNDIBindingPolicy(metadata);
+      return policy.getJndiName(ejbDeploymentSummary, KnownInterfaces.HOME, KnownInterfaceType.REMOTE_HOME);
 
    }
 
    /**
+    * Uses the {@link DefaultJndiBindingPolicy} instance returned by {@link #getJNDIBindingPolicy(JBossSessionBeanMetaData)}
+    * to resolve the local default business jndi name for the <code>metadata</code>
+    * 
     * @see org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBeanJNDINameResolver#resolveLocalBusinessDefaultJNDIName(org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData)
+    * @see #getJNDIBindingPolicy(JBossSessionBeanMetaData)
     */
    @Override
-   public String resolveLocalBusinessDefaultJNDIName(T metadata)
+   public String resolveLocalBusinessDefaultJNDIName(JBossSessionBeanMetaData metadata)
    {
       // Check first for explicitly-defined local JNDI Name
       String localJndiName = metadata.getLocalJndiName();
@@ -153,15 +166,19 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBe
 
       // Get the local jndi name from the jndi binding policy
       EjbDeploymentSummary ejbDeploymentSummary = this.getEjbDeploymentSummary(metadata);
-      return this.jndiBindingPolicy.getJndiName(ejbDeploymentSummary, KnownInterfaces.LOCAL,
-            KnownInterfaceType.BUSINESS_LOCAL);
+      DefaultJndiBindingPolicy policy = this.getJNDIBindingPolicy(metadata);
+      return policy.getJndiName(ejbDeploymentSummary, KnownInterfaces.LOCAL, KnownInterfaceType.BUSINESS_LOCAL);
    }
 
    /**
+    * Uses the {@link DefaultJndiBindingPolicy} instance returned by {@link #getJNDIBindingPolicy(JBossSessionBeanMetaData)}
+    * to resolve the jndi name for the <code>metadata</code> and the <code>interfaceName</code> combination
+    * 
     * @see org.jboss.metadata.ejb.jboss.jndi.resolver.spi.EnterpriseBeanJNDINameResolver#resolveJNDIName(org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData, java.lang.String)
+    * @see #getJNDIBindingPolicy(JBossSessionBeanMetaData)
     */
    @Override
-   public String resolveJNDIName(T metadata, String interfaceName)
+   public String resolveJNDIName(JBossSessionBeanMetaData metadata, String interfaceName)
    {
       String resolvedJndiName = null;
 
@@ -173,15 +190,15 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBe
       {
          resolvedJndiName = this.resolveRemoteHomeJNDIName(metadata);
       }
-      if (ifaceType.equals(KnownInterfaceType.LOCAL_HOME))
+      else if (ifaceType.equals(KnownInterfaceType.LOCAL_HOME))
       {
          resolvedJndiName = this.resolveLocalHomeJNDIName(metadata);
       }
-      if (ifaceType.equals(KnownInterfaceType.BUSINESS_REMOTE) || ifaceType.equals(KnownInterfaceType.BUSINESS_LOCAL))
+      else 
       {
-         // Revert to defaults; have the policy generate the actual name
-         resolvedJndiName = this.jndiBindingPolicy.getJndiName(this.getEjbDeploymentSummary(metadata), interfaceName,
-               ifaceType);
+         // Let the policy generate the actual name
+         DefaultJndiBindingPolicy policy = this.getJNDIBindingPolicy(metadata);
+         resolvedJndiName = policy.getJndiName(this.getEjbDeploymentSummary(metadata), interfaceName, ifaceType);
       }
 
       logger.debug("Resolved JNDI Name for Interface " + interfaceName + " of type " + ifaceType + " is "
@@ -191,6 +208,7 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBe
       return resolvedJndiName;
    }
 
+   
    /**
     * Classifies the fully qualified <code>interfaceName</code> into a {@link KnownInterfaceType}
     * based on the bean <code>metadata</code>.
@@ -200,17 +218,21 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBe
     * @return Returns a {@link KnownInterfaceType}
     * @throws NullPointerException If <code>metadata</code> is null
     */
-   protected KnownInterfaceType classifyInterface(T metadata, String interfaceName)
+   protected KnownInterfaceType classifyInterface(JBossSessionBeanMetaData metadata, String interfaceName)
    {
 
       // TODO: Why do we need this? The KnownInterfaces.classifyInterface expects the param 
       // passed to be strings like "home", "remote" etc...
-//      KnownInterfaceType ifaceType = KnownInterfaces.classifyInterface(iface);
-//      if (ifaceType != KnownInterfaceType.UNKNOWN)
-//         return ifaceType;
+      // TODO: This is here just for backward compatibility of earlier ways where the interfacename could
+      // have even been "home", "remote", "local" etc... (see Default2xNamingStrategyTestCase#assertLocalHome)
+      // Once everyone has moved to new resolvers then remove this hack
+      KnownInterfaceType ifaceType = KnownInterfaces.classifyInterface(interfaceName);
+      if (ifaceType != KnownInterfaceType.UNKNOWN)
+      {
+         return ifaceType;
+      }
+      // end of hack
 
-      KnownInterfaceType ifaceType = KnownInterfaceType.UNKNOWN;
-      
       // Compare interface against the metadata local-home/home & business locals/remotes
       // Figure out the interface type from the metadata
       if (metadata.getLocalHome() != null && metadata.getLocalHome().equals(interfaceName))
@@ -252,19 +274,4 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver<T extends JBossSessionBe
       return KnownInterfaceType.BUSINESS_REMOTE;
    }
 
-   /**
-    * Returns the {@link EjbDeploymentSummary} from the metadata
-    * 
-    * @param metadata Bean metadata
-    * @return
-    */
-   protected EjbDeploymentSummary getEjbDeploymentSummary(T metadata)
-   {
-      DeploymentSummary dsummary = metadata.getJBossMetaData().getDeploymentSummary();
-      if (dsummary == null)
-         dsummary = new DeploymentSummary();
-      return new EjbDeploymentSummary(metadata, dsummary);
-   }
-   
-   
 }

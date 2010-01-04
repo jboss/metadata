@@ -32,9 +32,7 @@ import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public interface SessionBeanJNDINameResolver<T extends JBossSessionBeanMetaData>
-      extends
-         EnterpriseBeanJNDINameResolver<T>
+public interface SessionBeanJNDINameResolver
 {
 
    /**
@@ -44,7 +42,7 @@ public interface SessionBeanJNDINameResolver<T extends JBossSessionBeanMetaData>
     * Returns null if the JNDI name EJB2.x Remote Home interface cannot be resolved
     * @return
     */
-   public String resolveRemoteHomeJNDIName(T metadata);
+   public String resolveRemoteHomeJNDIName(JBossSessionBeanMetaData metadata);
 
    /**
     * Returns the JNDI name for the EJB2.x Local Home interface, of the session bean
@@ -53,7 +51,7 @@ public interface SessionBeanJNDINameResolver<T extends JBossSessionBeanMetaData>
     * Returns null if the JNDI name for EJB2.x Local Home interface cannot be resolved
     * @return
     */
-   public String resolveLocalHomeJNDIName(T metadata);
+   public String resolveLocalHomeJNDIName(JBossSessionBeanMetaData metadata);
 
    /**
     * Returns the JNDI name for the default EJB3.x Remote Business interfaces, of the session bean
@@ -62,7 +60,7 @@ public interface SessionBeanJNDINameResolver<T extends JBossSessionBeanMetaData>
     * Returns null if the JNDI name for EJB3.x Remote Business interfaces cannot be resolved
     * @return
     */
-   public String resolveRemoteBusinessDefaultJNDIName(T metadata);
+   public String resolveRemoteBusinessDefaultJNDIName(JBossSessionBeanMetaData metadata);
 
    /**
     * Returns the JNDI name for the default EJB3.x Local Business interfaces, of the session bean
@@ -71,5 +69,16 @@ public interface SessionBeanJNDINameResolver<T extends JBossSessionBeanMetaData>
     * Returns null if the JNDI name for EJB3.x Local Business interfaces cannot be resolved
     * @return
     */
-   public String resolveLocalBusinessDefaultJNDIName(T metadata);
+   public String resolveLocalBusinessDefaultJNDIName(JBossSessionBeanMetaData metadata);
+
+   /**
+    * Returns the JNDI name for the <code>interfaceName</code>, of the session bean
+    * represented by the <code>metadata</code>.
+    * 
+    * Returns null if the JNDI name for the <code>interfaceName</code> cannot be resolved
+    * 
+    * @param iface The fully qualified interface name 
+    * @return
+    */
+   String resolveJNDIName(JBossSessionBeanMetaData metadata, String interfaceName);
 }

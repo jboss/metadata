@@ -97,8 +97,7 @@ public class SessionBeanJNDINameResolverTestCase
       JBossSessionBeanMetaData sessionBean = (JBossSessionBeanMetaData) bean;
       // Create a jndi name resolver based on the jndi binding policy
       DefaultJndiBindingPolicy jndiBindingPolicy = new BasicJndiBindingPolicy();
-      SessionBeanJNDINameResolver<JBossSessionBeanMetaData> jndiNameResolver = new JNDIPolicyBasedSessionBeanJNDINameResolver<JBossSessionBeanMetaData>(
-            jndiBindingPolicy);
+      SessionBeanJNDINameResolver jndiNameResolver = new JNDIPolicyBasedSessionBeanJNDINameResolver(jndiBindingPolicy);
 
       // ensure that the remote default business interface jndi name is correctly resolved
       String remoteDefaultBusinessJNDIName = jndiNameResolver.resolveRemoteBusinessDefaultJNDIName(sessionBean);
@@ -175,8 +174,7 @@ public class SessionBeanJNDINameResolverTestCase
       JBossSessionBeanMetaData sessionBean = (JBossSessionBeanMetaData) bean;
       // Create a jndi name resolver based on the jndi binding policy
       DefaultJndiBindingPolicy jndiBindingPolicy = new BasicJndiBindingPolicy();
-      SessionBeanJNDINameResolver<JBossSessionBeanMetaData> jndiNameResolver = new JNDIPolicyBasedSessionBeanJNDINameResolver<JBossSessionBeanMetaData>(
-            jndiBindingPolicy);
+      SessionBeanJNDINameResolver jndiNameResolver = new JNDIPolicyBasedSessionBeanJNDINameResolver(jndiBindingPolicy);
       EjbDeploymentSummary ejbDeploymentSummary = this.getEjbDeploymentSummary(sessionBean);
       // ensure that the remote default business interface jndi name is correctly resolved
       String remoteDefaultBusinessJNDIName = jndiNameResolver.resolveRemoteBusinessDefaultJNDIName(sessionBean);
