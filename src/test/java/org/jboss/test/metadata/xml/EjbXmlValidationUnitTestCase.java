@@ -36,5 +36,7 @@ public class EjbXmlValidationUnitTestCase extends XmlValidationUnitTestCase
       exclude("JBoss42_testNoDoctype.xml");
       // dtd doesn't support prefix mapping (xmlns:prefix_name must declared attributes)
       exclude("JBoss42_testServiceRefQnameWithNS.xml");
+      // intentional invalid xml file using in org.jboss.metadata.ejb.test.jbmeta242.unit.SessionTypeTestCase
+      exclude("invalid-ejb-jar.xml");
    }
 }

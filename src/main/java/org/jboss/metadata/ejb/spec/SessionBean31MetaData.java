@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import javax.ejb.LocalBean;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -35,8 +34,8 @@ import org.jboss.xb.annotations.JBossXmlType;
  * @version $Revision: $
  */
 @XmlType(name="session-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local",
-      "businessLocals", "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "initMethods", "removeMethods",
-      "asyncMethods",
+      "businessLocals", "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod",
+      "initOnStartup", "initMethods", "removeMethods",  "asyncMethods",
       "transactionType", "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
 @JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class SessionBean31MetaData extends SessionBeanMetaData
@@ -51,6 +50,27 @@ public class SessionBean31MetaData extends SessionBeanMetaData
     */
    private EmptyMetaData localBean;
    
+   /**
+    * init-on-startup
+    */
+   private Boolean initOnStartup;
+   
+   /**
+    * Returns the init-on-startup value of the session bean metadata.
+    * Returns null if none is defined.
+    * @return
+    */
+   public Boolean isInitOnStartup()
+   {
+      return initOnStartup;
+   }
+
+   @XmlElement(name="init-on-startup", required=false)
+   public void setInitOnStartup(Boolean initOnStartup)
+   {
+      this.initOnStartup = initOnStartup;
+   }
+
    public AsyncMethodsMetaData getAsyncMethods()
    {
       return asyncMethods;
@@ -126,14 +146,22 @@ public class SessionBean31MetaData extends SessionBeanMetaData
       if(original != null && original.asyncMethods != null)
          asyncMethods.addAll(original.asyncMethods);
       // merge the no-interface information
-      if (override != null)
-      {
-         this.localBean = override.getLocalBean();
-      }
-      else if (original != null)
+      if (original != null && original.getLocalBean() != null)
       {
          this.localBean = original.getLocalBean();
       }
-      
+      if (override != null && override.getLocalBean() != null)
+      {
+         this.localBean = override.getLocalBean();
+      }
+      // init-on-startup
+      if (original != null && original.initOnStartup != null)
+      {
+         this.initOnStartup = original.initOnStartup;
+      }
+      if (override != null && override.initOnStartup != null)
+      {
+         this.initOnStartup = override.initOnStartup;
+      }
    }
 }

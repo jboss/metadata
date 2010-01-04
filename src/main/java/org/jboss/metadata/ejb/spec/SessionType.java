@@ -39,4 +39,7 @@ public enum SessionType
    
    /** Stateful session bean */
    Stateful,
+   
+   /** EJB3.1 singleton type */
+   Singleton
 }
