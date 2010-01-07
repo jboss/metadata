@@ -268,6 +268,12 @@ public class JBossMetaData extends IdMetaDataImplWithDescriptionGroup
    {
       return ejbVersion != null && ejbVersion.contains("3.");
    }
+   
+   @XmlTransient
+   public boolean isEJB31()
+   {
+      return ejbVersion != null && ejbVersion.trim().equals("3.1");
+   }
 
    /**
     * Get the loaderRepository.

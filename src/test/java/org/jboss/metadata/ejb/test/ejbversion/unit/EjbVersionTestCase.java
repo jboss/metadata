@@ -21,8 +21,10 @@
 */
 package org.jboss.metadata.ejb.test.ejbversion.unit;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.lang.reflect.AnnotatedElement;
 import java.net.URL;
@@ -119,6 +121,7 @@ public class EjbVersionTestCase
       
       EjbJarMetaData ejb31 = unmarshal(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/ejbversion/ejb-jar-version-31.xml");
       assertEquals("ejb-version EJB 3.1 metadata was incorrect","3.1", ejb31.getVersion());
+      assertTrue("isEJB31() API on EjbJarMetadata returned incorrect value", ejb31.isEJB31());
    }
    
    /**
@@ -142,6 +145,21 @@ public class EjbVersionTestCase
       mergedMetadata.merge(metadataFromAnnotations, ejb30XmlMetadata);
       
       assertEquals("ejb-version in merged metadata is incorrect","3.0", mergedMetadata.getEjbVersion());
+      assertTrue("isEJB3x() in merged metadata returned incorrect value",mergedMetadata.isEJB3x());
+      assertFalse("isEJB31() returned true for a EJB 3.0 bean",mergedMetadata.isEJB31());
+      
+      // now do the same test with a ejb-jar.xml for EJB 3.1
+      EjbJarMetaData ejb31XmlMetadata = unmarshal(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/ejbversion/ejb-jar-version-31.xml");
+      assertEquals("ejb-version EJB 3.1 metadata was incorrect","3.1", ejb31XmlMetadata.getVersion());
+      
+      
+      // now merge (final ejb-version should be 3.1 - the one set in ejb-jar.xml)
+      JBossMetaData mergedEJB31Metdata = new JBossMetaData();
+      mergedEJB31Metdata.merge(metadataFromAnnotations, ejb31XmlMetadata);
+      
+      assertEquals("ejb-version in merged metadata is incorrect","3.1", mergedEJB31Metdata.getEjbVersion());
+      assertTrue("isEJB3x() in merged metadata returned incorrect value",mergedEJB31Metdata.isEJB3x());
+      assertTrue("isEJB31() in merged metadata returned incorrect value",mergedEJB31Metdata.isEJB31());
       
       
    }

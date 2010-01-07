@@ -173,6 +173,15 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
    }
    
    /**
+    * Whether this is EJB3.1 bean
+    * @return
+    */
+   public boolean isEJB31()
+   {
+      return this.version != null && this.version.trim().equals("3.1");
+   }
+   
+   /**
     * Get the ejbClientJar.
     * 
     * @return the ejbClientJar.
