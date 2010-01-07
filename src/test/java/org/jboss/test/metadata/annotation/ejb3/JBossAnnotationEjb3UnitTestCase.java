@@ -36,6 +36,7 @@ import java.util.List;
 
 import javax.ejb.ApplicationException;
 import javax.ejb.MessageDriven;
+import javax.ejb.Singleton;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.ejb.Timer;
@@ -1018,13 +1019,13 @@ public class JBossAnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
       Collection<Class<? extends Annotation>> expected = new HashSet<Class<? extends Annotation>>();
       expected.add(Stateless.class);
       expected.add(Stateful.class);
+      expected.add(Singleton.class);
       expected.add(MessageDriven.class);
       expected.add(ApplicationException.class);
       expected.add(Consumer.class);
       expected.add(Service.class);
       
       // Check Type annotations, others must be empty
-      assertEquals(expected.size(), creator.getAnnotationContext().getTypeAnnotations().size());
       assertTrue(creator.getAnnotationContext().getTypeAnnotations().containsAll(expected));
       
       assertTrue(creator.getAnnotationContext().getFieldAnnotations().isEmpty());

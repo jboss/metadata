@@ -25,18 +25,18 @@ import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
+import org.jboss.metadata.ejb.spec.SessionType;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData
-   implements ITimeoutTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
+public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData implements ITimeoutTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
 {
    private static final long serialVersionUID = 1L;
 
    private AsyncMethodsMetaData asyncMethods;
-   
+
    /**
     * Flag indicating whether this bean has a no-interface view
     */
@@ -46,24 +46,24 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData
    {
       return asyncMethods;
    }
-   
+
    public void setAsyncMethods(AsyncMethodsMetaData asyncMethods)
    {
-      if(asyncMethods == null)
+      if (asyncMethods == null)
          throw new IllegalArgumentException("asyncMethods is null");
-      
+
       this.asyncMethods = asyncMethods;
    }
-   
+
    private void merge(AsyncMethodsMetaData override, AsyncMethodsMetaData original)
    {
       this.asyncMethods = new AsyncMethodsMetaData();
-      if(override != null)
+      if (override != null)
          asyncMethods.addAll(override);
-      if(original != null)
+      if (original != null)
          asyncMethods.addAll(original);
    }
-   
+
    /**
     * Returns true if this bean exposes a no-interface view
     * @return
@@ -72,7 +72,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData
    {
       return this.noInterfaceBean;
    }
-   
+
    /**
     * Set the metadata to represent whether this bean
     * exposes an no-interface view
@@ -81,19 +81,38 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData
     */
    public void setNoInterfaceBean(boolean isNoInterfaceBean)
    {
-         this.noInterfaceBean = isNoInterfaceBean;
+      this.noInterfaceBean = isNoInterfaceBean;
+   }
+
+   /**
+    * 
+    * @return Returns true if this is a singleton session bean.
+    * Else returns false.
+    */
+   public boolean isSingleton()
+   {
+      SessionType type = this.getSessionType();
+      if (type == null)
+      {
+         return false;
+      }
+      return SessionType.Singleton == type;
    }
 
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
    {
       super.merge(override, original);
-      
-      JBossSessionBean31MetaData joverride = override instanceof JBossGenericBeanMetaData ? null : (JBossSessionBean31MetaData) override;
-      JBossSessionBean31MetaData soriginal = original instanceof JBossGenericBeanMetaData ? null : (JBossSessionBean31MetaData) original;
-      
+
+      JBossSessionBean31MetaData joverride = override instanceof JBossGenericBeanMetaData
+            ? null
+            : (JBossSessionBean31MetaData) override;
+      JBossSessionBean31MetaData soriginal = original instanceof JBossGenericBeanMetaData
+            ? null
+            : (JBossSessionBean31MetaData) original;
+
       merge(joverride != null ? joverride.asyncMethods : null, soriginal != null ? soriginal.asyncMethods : null);
-      
+
       // merge the no-interface information
       if (joverride != null)
       {
@@ -104,20 +123,19 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData
          this.noInterfaceBean = soriginal.isNoInterfaceBean();
       }
 
-      
    }
-   
+
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original, String overridenFile,
          String overrideFile, boolean mustOverride)
    {
       super.merge(override, original, overridenFile, overrideFile, mustOverride);
-      
+
       JBossSessionBean31MetaData joverride = (JBossSessionBean31MetaData) override;
       SessionBean31MetaData soriginal = (SessionBean31MetaData) original;
-      
+
       merge(joverride != null ? joverride.asyncMethods : null, soriginal != null ? soriginal.getAsyncMethods() : null);
-      
+
       // merge the no-interface information
       if (joverride != null)
       {
