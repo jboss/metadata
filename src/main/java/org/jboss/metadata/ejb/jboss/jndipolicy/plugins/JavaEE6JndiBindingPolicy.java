@@ -171,16 +171,8 @@ public class JavaEE6JndiBindingPolicy implements DefaultJndiBindingPolicy
                   break;
                   
                case NO_INTERFACE:
-                  if (iface == null)
-                  {
                      // base-name ! no-interface
-                     jndiName = baseJndiName + "!" + ifaceType.toSuffix();
-                  }
-                  else
-                  {
-                     // base-name ! fully-qualified-bean-class-name  
-                     jndiName = baseJndiName + "!" + iface;
-                  }
+                  jndiName = baseJndiName + "!" + ifaceType.toSuffix();
                   break;
             }
          }

@@ -72,7 +72,24 @@ public class JNDIPolicyBasedSessionBean31JNDINameResolver extends JNDIPolicyBase
       // Get the no-interface view jndi name from the jndi binding policy
       EjbDeploymentSummary ejbDeploymentSummary = this.getEjbDeploymentSummary(metadata);
       DefaultJndiBindingPolicy policy = this.getJNDIBindingPolicy(metadata);
-      return policy.getJndiName(ejbDeploymentSummary, KnownInterfaces.NO_INTERFACE, KnownInterfaceType.NO_INTERFACE);
+      return policy.getJndiName(ejbDeploymentSummary, null, KnownInterfaceType.NO_INTERFACE);
+   }
+
+   /**
+    * @see org.jboss.metadata.ejb.jboss.jndi.resolver.impl.JNDIPolicyBasedSessionBeanJNDINameResolver#classifyInterface(org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData, java.lang.String)
+    */
+   @Override
+   protected KnownInterfaceType classifyInterface(JBossSessionBeanMetaData metadata, String interfaceName)
+   {
+      KnownInterfaceType ifaceType = super.classifyInterface(metadata, interfaceName);
+      if (ifaceType == null || ifaceType == KnownInterfaceType.UNKNOWN)
+      {
+         if (metadata.getEjbClass() != null && metadata.getEjbClass().equals(interfaceName))
+         {
+            return KnownInterfaceType.NO_INTERFACE;
+         }
+      }
+      return ifaceType;
    }
 
 }

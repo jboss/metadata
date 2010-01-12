@@ -25,8 +25,8 @@ import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.jboss.jndi.resolver.impl.JNDIPolicyBasedEntityBeanJNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndi.resolver.impl.JNDIPolicyBasedJNDINameResolverFactory;
 import org.jboss.metadata.ejb.jboss.jndi.resolver.impl.JNDIPolicyBasedSessionBeanJNDINameResolver;
-import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.EnterpriseBeanJNDINameResolver;
 import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.EntityBeanJNDINameResolver;
 import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBeanJNDINameResolver;
 import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.DefaultJNDIBindingPolicyFactory;
@@ -39,7 +39,7 @@ import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.DefaultJNDIBindingPolicyF
  *
  * @author <a href="mailto:andrew.rubinger@jboss.org">ALR</a>
  * @version $Revision: $
- * @deprecated Since 2.0.0-alpha-5 - Use an implementation of {@link EnterpriseBeanJNDINameResolver} 
+ * @deprecated Since 2.0.0-alpha-5 Use the jndi name resolver (ex: implementation of {@link SessionBeanJNDINameResolver}) instead
  */
 @Deprecated
 public class JbossEnterpriseBeanJndiNameResolver
@@ -57,17 +57,17 @@ public class JbossEnterpriseBeanJndiNameResolver
    {
 
       DefaultJndiBindingPolicy policy = DefaultJNDIBindingPolicyFactory.getDefaultJNDIBindingPolicy();
-      // This if block is a hack to allow for backward compatibility (the days
-      // when decorated metadata was being used)
       if (md.isSession() || md.isService())
       {
-         SessionBeanJNDINameResolver sessionBeanJNDINameResolver = new JNDIPolicyBasedSessionBeanJNDINameResolver(policy);
-         return sessionBeanJNDINameResolver.resolveJNDIName((JBossSessionBeanMetaData) md, iface);
+         JBossSessionBeanMetaData sessionBean = (JBossSessionBeanMetaData) md;
+         SessionBeanJNDINameResolver sessionBeanJNDINameResolver = JNDIPolicyBasedJNDINameResolverFactory.getJNDINameResolver(sessionBean, policy);
+         return sessionBeanJNDINameResolver.resolveJNDIName(sessionBean, iface);
       }
       else if (md.isEntity())
       {
-         EntityBeanJNDINameResolver entityBeanJNDINameResolver = new JNDIPolicyBasedEntityBeanJNDINameResolver(policy);
-         return entityBeanJNDINameResolver.resolveJNDIName((JBossEntityBeanMetaData) md, iface);
+         JBossEntityBeanMetaData entityBean = (JBossEntityBeanMetaData) md;
+         EntityBeanJNDINameResolver entityBeanJNDINameResolver = JNDIPolicyBasedJNDINameResolverFactory.getJNDINameResolver(entityBean, policy);
+         return entityBeanJNDINameResolver.resolveJNDIName(entityBean, iface);
       }
       return null;
 

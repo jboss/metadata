@@ -271,7 +271,7 @@ public class JNDIPolicyBasedSessionBeanJNDINameResolver extends AbstractJNDIPoli
       }
 
       // Assume business remote
-      return KnownInterfaceType.BUSINESS_REMOTE;
+      return KnownInterfaceType.UNKNOWN;
    }
 
 }
