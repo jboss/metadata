@@ -48,7 +48,7 @@ import org.jboss.metadata.ejb.test.localbean.BeanMarkedAsLocalBeanInEJBJarXml;
 import org.jboss.metadata.ejb.test.localbean.DoNothingNoInterfaceBean;
 import org.jboss.metadata.ejb.test.localbean.NotANoInterfaceBean;
 import org.jboss.metadata.process.processor.JBossMetaDataProcessor;
-import org.jboss.metadata.process.processor.ejb.jboss.ImplicitNoInterfaceBeanProcessor;
+import org.jboss.metadata.process.processor.ejb.jboss.ImplicitNoInterfaceViewProcessor;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
 import org.jboss.xb.binding.JBossXBException;
@@ -121,7 +121,7 @@ public class LocalBeanTestCase
    /**
     * Tests that a bean which is *not* explicitly marked with {@link LocalBean} or
     * local-bean element in ejb-jar.xml, is processed for implicit no-interface rules
-    * (through {@link ImplicitNoInterfaceBeanProcessor}) and the metadata set appropriately.
+    * (through {@link ImplicitNoInterfaceViewProcessor}) and the metadata set appropriately.
     * 
     * @throws Exception
     */
@@ -137,7 +137,7 @@ public class LocalBeanTestCase
 
       // now process this metadata through the ImplicitNoInterfaceBeanProcessor
       ClassLoader cl = Thread.currentThread().getContextClassLoader();
-      JBossMetaDataProcessor<JBossMetaData> metadataProcessor = new ImplicitNoInterfaceBeanProcessor(cl);
+      JBossMetaDataProcessor<JBossMetaData> metadataProcessor = new ImplicitNoInterfaceViewProcessor(cl);
       metaData = metadataProcessor.process(metaData);
 
       this.assertNoInterfaceBean(metaData, DoNothingNoInterfaceBean.class.getSimpleName(), true);

@@ -37,26 +37,26 @@ import org.jboss.metadata.process.ProcessingException;
 import org.jboss.metadata.process.processor.JBossMetaDataProcessor;
 
 /**
- * ImplicitNoInterfaceBeanProcessor
+ * ImplicitNoInterfaceViewProcessor
  * 
  * A EJB3.1 session bean can either explicitly be marked as a no-interface bean
  * or it can be considered as a no-interface bean based on some implicit rules
  * defined in EJB3.1 spec (section 4.9.8).
  * 
- * This {@link ImplicitNoInterfaceBeanProcessor} is responsible for processing the
+ * This {@link ImplicitNoInterfaceViewProcessor} is responsible for processing the
  * bean against the implicit rules and updating the metadata appropriately, if this
  * is considered as a no-interface bean.
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class ImplicitNoInterfaceBeanProcessor implements JBossMetaDataProcessor<JBossMetaData>
+public class ImplicitNoInterfaceViewProcessor implements JBossMetaDataProcessor<JBossMetaData>
 {
 
    /**
     * Logger
     */
-   private static Logger logger = Logger.getLogger(ImplicitNoInterfaceBeanProcessor.class);
+   private static Logger logger = Logger.getLogger(ImplicitNoInterfaceViewProcessor.class);
 
    /**
     * Classloader used for getting hold of the bean class
@@ -67,7 +67,7 @@ public class ImplicitNoInterfaceBeanProcessor implements JBossMetaDataProcessor<
     * Constructor
     * @param classLoader
     */
-   public ImplicitNoInterfaceBeanProcessor(ClassLoader classLoader)
+   public ImplicitNoInterfaceViewProcessor(ClassLoader classLoader)
    {
       this.classLoader = classLoader;
    }
@@ -86,15 +86,15 @@ public class ImplicitNoInterfaceBeanProcessor implements JBossMetaDataProcessor<
       {
          return null;
       }
-//      if (!metadata.isEJB31())
-//      {
-//         if (logger.isTraceEnabled())
-//         {
-//            logger.trace("Skipping metadata processing for: " + metadata + " since ejb version is " + metadata.getEjbVersion()
-//                  + " - can only process 3.1 version");
-//         }
-//         return metadata;
-//      }
+      if (!metadata.isEJB31())
+      {
+         if (logger.isTraceEnabled())
+         {
+            logger.trace("Skipping metadata processing for: " + metadata + " since ejb version is " + metadata.getEjbVersion()
+                  + " - can only process 3.1 version");
+         }
+         return metadata;
+      }
       // Get EJBs
       JBossEnterpriseBeansMetaData ejbs = metadata.getEnterpriseBeans();
       if (ejbs == null)
@@ -110,9 +110,6 @@ public class ImplicitNoInterfaceBeanProcessor implements JBossMetaDataProcessor<
          {
             continue;
          }
-         // TODO: Once there's a metadata.isEJB31() API available, then
-         // we won't need this instanceof checking. Although an API like 
-         // that will not help us in avoiding the cast that follows here.
          if (!(ejb instanceof JBossSessionBean31MetaData))
          {
             continue;
