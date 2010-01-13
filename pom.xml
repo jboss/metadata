@@ -38,7 +38,25 @@
                         </rules>
                     </configuration>
                 </execution>
+                <!--  Banned dependencies -->
+                <execution>
+                    <id>enforce-banned-dependencies</id>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                </execution>
             </executions>
+            <configuration>
+                <rules>
+                    <bannedDependencies>
+                        <excludes>
+                            <!-- JBMETA-246  Use org.jboss.javaee:jboss-ejb-api_3.1-->
+                            <exclude>org.jboss.ejb3:jboss-ejb3-api</exclude>
+                        </excludes>
+                    </bannedDependencies>
+                </rules>
+            </configuration>
+            
         </plugin>
         
       <plugin>
@@ -62,7 +80,7 @@
             <include>**/*TestCase.java</include>
           </includes>
         </configuration>
-      </plugin>      
+      </plugin>
     </plugins>
   </build>
 
@@ -119,11 +137,10 @@
   <!-- Compile Dependencies -->
   <dependencies>
 
-    <!-- FIXME: use org.jboss.javaee:jboss-ejb-api -->
     <dependency>
-      <groupId>org.jboss.ejb3</groupId>
-      <artifactId>jboss-ejb3-api</artifactId>
-      <version>3.1.0</version>
+      <groupId>org.jboss.javaee</groupId>
+      <artifactId>jboss-ejb-api_3.1</artifactId>
+      <version>1.0-alpha-1</version>
     </dependency>
     
     <dependency>
