@@ -26,6 +26,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceRef;
 
 import org.jboss.logging.Logger;
@@ -112,7 +113,7 @@ public abstract class AbstractWebServiceRefProcessor<E extends AnnotatedElement>
          ref.setServiceRefType(annotation.type().getName());
       else
          ref.setServiceRefType(getType(element));
-      if(annotation.value() != Object.class)
+      if(annotation.value() != Object.class && annotation.value() != Service.class)
          ref.setServiceInterface(annotation.value().getName());
       
       String injectionName = getInjectionName(element);
