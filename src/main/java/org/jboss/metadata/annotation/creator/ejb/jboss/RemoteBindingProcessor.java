@@ -78,7 +78,6 @@ public class RemoteBindingProcessor
       remote.setJndiName(annotation.jndiBinding());
       remote.setClientBindUrl(annotation.clientBindUrl());
       remote.setInterceptorStack(annotation.interceptorStack());
-      remote.setProxyFactory(annotation.factory());
       remote.setInvokerName(annotation.invokerName());
 
       Descriptions descriptions = ProcessorUtils.getDescription(" @RemoteBinding for class " + type.getSimpleName());

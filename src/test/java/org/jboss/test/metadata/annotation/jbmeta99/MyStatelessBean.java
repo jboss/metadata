@@ -60,7 +60,7 @@ import org.jboss.ejb3.annotation.RemoteBinding;
 //@Stateless
 @TransactionAttribute(TransactionAttributeType.NEVER)
 @LocalBinding(jndiBinding = "LocalJndiBinding")
-@RemoteBinding(clientBindUrl = "clientBind", interceptorStack = "stack", factory = "factory", jndiBinding = "RemoteBinding")
+@RemoteBinding(clientBindUrl = "clientBind", interceptorStack = "stack", jndiBinding = "RemoteBinding")
 @Resources({
    @Resource(description="url-resource-ref", name="googleHome", type=java.net.URL.class, mappedName="http://www.google.com"),
    @Resource(description="DataSource-resource-ref", name="jdbc/ds", type=DataSource.class, mappedName="java:/DefaultDS")

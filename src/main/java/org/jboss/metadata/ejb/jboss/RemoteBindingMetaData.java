@@ -31,7 +31,7 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="remote-bindingType", propOrder={"descriptions", "jndiName", "clientBindUrl", "interceptorStack", "proxyFactory", "invokerName"})
+@XmlType(name="remote-bindingType", propOrder={"descriptions", "jndiName", "clientBindUrl", "interceptorStack", "invokerName"})
 public class RemoteBindingMetaData extends IdMetaDataImplWithDescriptions
 {
    /** The serialVersionUID */
@@ -47,9 +47,6 @@ public class RemoteBindingMetaData extends IdMetaDataImplWithDescriptions
    
    /** The interceptor stack */
    private String interceptorStack;
-   
-   /** The proxy factory */
-   private String proxyFactory;
    
    /** The invoker name */
    private String invokerName;
@@ -131,29 +128,6 @@ public class RemoteBindingMetaData extends IdMetaDataImplWithDescriptions
       if (interceptorStack == null)
          throw new IllegalArgumentException("Null interceptorStack");
       this.interceptorStack = interceptorStack;
-   }
-
-   /**
-    * Get the proxyFactory.
-    * 
-    * @return the proxyFactory.
-    */
-   public String getProxyFactory()
-   {
-      return proxyFactory;
-   }
-
-   /**
-    * Set the proxyFactory.
-    * 
-    * @param proxyFactory the proxyFactory.
-    * @throws IllegalArgumentException for a null proxyFactory
-    */
-   public void setProxyFactory(String proxyFactory)
-   {
-      if (proxyFactory == null)
-         throw new IllegalArgumentException("Null proxyFactory");
-      this.proxyFactory = proxyFactory;
    }
 
    /**

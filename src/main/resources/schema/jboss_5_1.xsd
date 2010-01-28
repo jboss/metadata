@@ -1109,17 +1109,6 @@ or for embedded rars
          <xsd:restriction base="javaee:string"/>
       </xsd:simpleContent>
    </xsd:complexType>
-
-   <!-- **************************************************** -->
-
-   <xsd:complexType name="proxy-factoryType">
-      <xsd:annotation>
-         <xsd:documentation> The fully qualified name of the proxy factory class</xsd:documentation>
-      </xsd:annotation>
-      <xsd:simpleContent>
-         <xsd:restriction base="javaee:string"/>
-      </xsd:simpleContent>
-   </xsd:complexType>
    
    <!-- **************************************************** -->
 
@@ -1192,7 +1181,6 @@ or for embedded rars
          <xsd:element name="jndi-name" type="javaee:jndi-nameType" minOccurs="0"/>
          <xsd:element name="client-bind-url" type="jboss:client-bind-urlType" minOccurs="0"/>
          <xsd:element name="interceptor-stack" type="jboss:interceptor-stackType" minOccurs="0"/>
-         <xsd:element name="proxy-factory" type="jboss:proxy-factoryType" minOccurs="0"/>
          <xsd:element name="invoker-name" type="jboss:invoker-nameType" minOccurs="0"/>
       </xsd:sequence>
       <xsd:attribute name="id" type="xsd:ID" />

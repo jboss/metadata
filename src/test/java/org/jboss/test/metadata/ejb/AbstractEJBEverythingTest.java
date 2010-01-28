@@ -1285,7 +1285,6 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertEquals(prefix + "JndiName", remoteBinding.getJndiName());
       assertEquals(prefix + "ClientBindUrl", remoteBinding.getClientBindUrl());
       assertEquals(prefix + "InterceptorStack", remoteBinding.getInterceptorStack());
-      assertEquals(prefix + "ProxyFactory", remoteBinding.getProxyFactory());
       assertEquals(prefix + "InvokerName", remoteBinding.getInvokerName());
    }
 

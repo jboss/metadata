@@ -55,8 +55,8 @@ import org.jboss.ejb3.annotation.RemoteHomeBinding;
 @RemoteHome(MyStatefulHome.class)
 @RemoteBindings(
       value = {
-            @RemoteBinding(clientBindUrl = "clientBind1", interceptorStack = "stack1", factory = "factory1", jndiBinding = "RemoteBinding1"),
-            @RemoteBinding(clientBindUrl = "clientBind2", interceptorStack = "stack2", factory = "factory2", jndiBinding = "RemoteBinding2")
+            @RemoteBinding(clientBindUrl = "clientBind1", interceptorStack = "stack1", jndiBinding = "RemoteBinding1"),
+            @RemoteBinding(clientBindUrl = "clientBind2", interceptorStack = "stack2", jndiBinding = "RemoteBinding2")
          }
 )
 @RemoteBinding(jndiBinding = "jndiBind3")

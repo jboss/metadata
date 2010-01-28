@@ -278,7 +278,6 @@
             <jndi-name>session1RemoteBindingJndiName</jndi-name>
             <client-bind-url>session1RemoteBindingClientBindUrl</client-bind-url>
             <interceptor-stack>session1RemoteBindingInterceptorStack</interceptor-stack>
-            <proxy-factory>session1RemoteBindingProxyFactory</proxy-factory>
             <invoker-name>session1RemoteBindingInvokerName</invoker-name>
          </remote-binding>
 
@@ -667,7 +666,6 @@
             <jndi-name>session2RemoteBindingJndiName</jndi-name>
             <client-bind-url>session2RemoteBindingClientBindUrl</client-bind-url>
             <interceptor-stack>session2RemoteBindingInterceptorStack</interceptor-stack>
-            <proxy-factory>session2RemoteBindingProxyFactory</proxy-factory>
             <invoker-name>session2RemoteBindingInvokerName</invoker-name>
          </remote-binding>
 

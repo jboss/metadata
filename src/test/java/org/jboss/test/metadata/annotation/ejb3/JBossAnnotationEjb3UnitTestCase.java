@@ -645,13 +645,11 @@ public class JBossAnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
       assertNotNull(remoteBinding);
       assertEquals("clientBind1", remoteBinding.getClientBindUrl());
       assertEquals("stack1", remoteBinding.getInterceptorStack());
-      assertEquals("factory1", remoteBinding.getProxyFactory());
       assertEquals("RemoteBinding1", remoteBinding.getJndiName());
       remoteBinding = bean.getRemoteBindings().get(2);
       assertNotNull(remoteBinding);
       assertEquals("clientBind2", remoteBinding.getClientBindUrl());
       assertEquals("stack2", remoteBinding.getInterceptorStack());
-      assertEquals("factory2", remoteBinding.getProxyFactory());
       assertEquals("RemoteBinding2", remoteBinding.getJndiName());
       remoteBinding = bean.getRemoteBindings().get(3);
       assertEquals("invokerName1", remoteBinding.getInvokerName());
@@ -776,7 +774,6 @@ public class JBossAnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
       assertNotNull(remoteBinding);
       assertEquals("clientBind", remoteBinding.getClientBindUrl());
       assertEquals("stack", remoteBinding.getInterceptorStack());
-      assertEquals("factory", remoteBinding.getProxyFactory());
       assertEquals("RemoteBinding", remoteBinding.getJndiName());
       assertEquals("invokerName", remoteBinding.getInvokerName());
    }
