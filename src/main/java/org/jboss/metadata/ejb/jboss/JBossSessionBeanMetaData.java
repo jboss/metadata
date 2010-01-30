@@ -401,7 +401,9 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     */
    public boolean isStateless()
    {
-      return isStateful() == false;
+      if (sessionType == null)
+         return false;
+      return sessionType == SessionType.Stateless;
    }
    
    /**
