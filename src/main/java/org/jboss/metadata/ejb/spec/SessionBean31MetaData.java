@@ -131,6 +131,16 @@ public class SessionBean31MetaData extends SessionBeanMetaData
    }
    
    /**
+    * Returns true if this is a singleton session bean. Else returns false
+    */
+   public boolean isSingleton()
+   {
+      if (this.getSessionType() == null)
+         return false;
+      return this.getSessionType() == SessionType.Singleton;
+   }
+   
+   /**
     * {@inheritDoc}
     */
    @Override

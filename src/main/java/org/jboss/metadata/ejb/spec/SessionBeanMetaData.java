@@ -316,7 +316,9 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     */
    public boolean isStateless()
    {
-      return isStateful() == false;
+      if (sessionType == null)
+         return false;
+      return sessionType == SessionType.Stateless;
    }
    
    /**

@@ -22,11 +22,15 @@
 package org.jboss.metadata.ejb.test.singleton.unit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.AnnotatedElement;
+import java.net.URL;
 import java.util.Collection;
+
+import javax.ejb.Startup;
 
 import org.jboss.metadata.annotation.creator.ejb.SingletonProcessor;
 import org.jboss.metadata.annotation.creator.ejb.jboss.JBoss50Creator;
@@ -36,23 +40,45 @@ import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
+import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.ejb.test.singleton.Counter;
 import org.jboss.metadata.ejb.test.singleton.SimpleSingleton;
+import org.jboss.metadata.ejb.test.singleton.StartupSingleton;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
+import org.jboss.xb.binding.JBossXBException;
+import org.jboss.xb.binding.Unmarshaller;
+import org.jboss.xb.binding.UnmarshallerFactory;
+import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
+import org.jboss.xb.binding.resolver.MutableSchemaResolver;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
  * SingletonProcessorTestCase
  *
- * Tests the {@link SingletonProcessor}
+ * Tests processing of singleton beans
  * 
  * @author Jaikiran Pai
  * @version $Revision: $
  */
 public class SingletonProcessorTestCase
 {
+
+   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
+
+   private static MutableSchemaResolver schemaBindingResolver;
+
+   @BeforeClass
+   public static void beforeClass()
+   {
+      schemaBindingResolver = new MultiClassSchemaResolver();
+      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
+   }
 
    /**
     * Tests that the {@link SingletonProcessor} correctly identifies the presence of a 
@@ -93,6 +119,120 @@ public class SingletonProcessorTestCase
          assertEquals("Incorrect business remote identified on bean " + beanName, Counter.class.getName(),
                businessRemote);
       }
+
+   }
+
+   /**
+    * Tests that the presence of a {@link Startup} annotation on singleton beans, 
+    * is processed correctly it.
+    * 
+    * @throws Exception
+    */
+   @Test
+   @ScanPackage("org.jboss.metadata.ejb.test.singleton")
+   public void testInitOnStartup() throws Exception
+   {
+
+      AnnotationFinder<AnnotatedElement> finder = new DefaultAnnotationFinder<AnnotatedElement>();
+      JBoss50Creator creator = new JBoss50Creator(finder);
+      Collection<Class<?>> classes = PackageScanner.loadClasses();
+      JBossMetaData metaData = creator.create(classes);
+      assertNotNull("Metadata created for singleton bean was null", metaData);
+
+      String beanName = StartupSingleton.class.getSimpleName();
+      JBossEnterpriseBeanMetaData bean = metaData.getEnterpriseBean(beanName);
+      assertNotNull(beanName + " bean was not found in metadata");
+      assertTrue(beanName + " was not considered a session bean", (bean instanceof JBossSessionBean31MetaData));
+
+      JBossSessionBean31MetaData singletonBean = (JBossSessionBean31MetaData) bean;
+      assertEquals(beanName + " was not considered of type " + SessionType.Singleton, SessionType.Singleton,
+            singletonBean.getSessionType());
+      assertEquals("Unexpected ejb class name for bean " + beanName, StartupSingleton.class.getName(), singletonBean
+            .getEjbClass());
+      // test the isSingleton API
+      assertTrue("isSingleton() on metadata returned incorrected value for bean " + beanName, singletonBean
+            .isSingleton());
+
+      // test that it's set for init-on-startup
+      assertTrue("Singleton bean " + beanName + " is not considered a init-on-startup bean", singletonBean
+            .isInitOnStartup());
+
+      // test it with a non init-on-startup bean
+      // OK to cast, because we are not really testing much of SimpleSingleton
+      JBossSessionBean31MetaData nonInitOnStartupSingleton = (JBossSessionBean31MetaData) metaData
+            .getEnterpriseBean(SimpleSingleton.class.getSimpleName());
+      assertFalse(
+            "Singleton bean " + nonInitOnStartupSingleton.getEjbName() + " was considered a init-on-startup bean",
+            nonInitOnStartupSingleton.isInitOnStartup());
+
+   }
+
+   /**
+    * Test that the metadata for a startup singleton bean created from a ejb-jar.xml
+    * is correct
+    * 
+    * @throws Exception
+    */
+   @Test
+   public void testInitOnStartupForEjbJarXml() throws Exception
+   {
+      EjbJarMetaData jarMetaData = unmarshal(EjbJarMetaData.class,
+            "/org/jboss/metadata/ejb/test/singleton/ejb-jar-startup-singleton.xml");
+      assertNotNull(jarMetaData);
+      assertStartupSingleton(jarMetaData, "NonInitOnStartupBean", false);
+      assertStartupSingleton(jarMetaData, "InitOnStartupBean", true);
+      assertStartupSingleton(jarMetaData, "UndefinedInitOnStartupBean", null);
+   }
+
+   /**
+    * Utility method
+    * @param <T>
+    * @param type
+    * @param resource
+    * @return
+    * @throws JBossXBException
+    */
+   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
+   {
+      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
+      unmarshaller.setValidation(false);
+      URL url = type.getResource(resource);
+      if (url == null)
+         throw new IllegalArgumentException("Failed to find resource " + resource);
+      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
+   }
+
+   /**
+    * Utility method for testing
+    * 
+    * @param ejbJarMetadata
+    * @param beanName
+    * @param expected
+    */
+   private void assertStartupSingleton(EjbJarMetaData ejbJarMetadata, String beanName, Boolean expected)
+   {
+      // first check if it's a singleton
+      this.assertSingleton(ejbJarMetadata, beanName, true);
+      EnterpriseBeanMetaData enterpriseBean = ejbJarMetadata.getEnterpriseBean(beanName);
+      SessionBean31MetaData singletonBean = (SessionBean31MetaData) enterpriseBean;
+      assertEquals("Is " + beanName + " a startup singleton bean?", expected, singletonBean.isInitOnStartup());
+
+   }
+
+   /**
+    * Utility method for testing
+    * 
+    * @param ejbJarMetadata
+    * @param beanName
+    * @param expected
+    */
+   private void assertSingleton(EjbJarMetaData ejbJarMetadata, String beanName, boolean expected)
+   {
+      EnterpriseBeanMetaData enterpriseBean = ejbJarMetadata.getEnterpriseBean(beanName);
+      assertTrue("metadata " + enterpriseBean.getClass() + " is not of type " + SessionBean31MetaData.class,
+            (enterpriseBean instanceof SessionBean31MetaData));
+      SessionBean31MetaData singletonBean = (SessionBean31MetaData) enterpriseBean;
+      assertEquals("Is " + beanName + " a singleton bean?", expected, singletonBean.isSingleton());
 
    }
 }

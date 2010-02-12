@@ -63,7 +63,7 @@ public abstract class AbstractSessionBeanProcessor
       addTypeProcessor(new RemoteHomeBindingProcessor(finder));
       addTypeProcessor(new AsyncClassProcessor(finder));
       addTypeProcessor(new LocalBeanProcessor(finder));
-      
+      addTypeProcessor(new StartupProcessor(finder));
 
       addMethodProcessor(new InitProcessor(finder));
       addMethodProcessor(new TimeoutProcessor(finder));

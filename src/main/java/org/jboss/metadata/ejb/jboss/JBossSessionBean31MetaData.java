@@ -21,6 +21,8 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import javax.ejb.Startup;
+
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
@@ -41,6 +43,11 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     * Flag indicating whether this bean has a no-interface view
     */
    private boolean noInterfaceBean;
+   
+   /**
+    * Flag indicating if a singleton bean is set for init-on-startup
+    */
+   private Boolean initOnStartup;
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
@@ -98,6 +105,30 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       }
       return SessionType.Singleton == type;
    }
+   
+   
+   
+   /**
+    * @return Returns true if a singleton bean is marked for init-on-startup ({@link Startup})
+    * 
+    */
+   public boolean isInitOnStartup()
+   {
+      return this.initOnStartup == null ? Boolean.FALSE : this.initOnStartup;
+   }
+
+   /**
+    * Set the init-on-startup property of a singleton bean
+    * 
+    * @param initOnStartup True if the singleton bean has to be inited on startup. False otherwise
+    * 
+    */
+   public void setInitOnStartup(boolean initOnStartup)
+   {
+      
+      this.initOnStartup = initOnStartup;
+   }
+
 
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
@@ -122,6 +153,16 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       {
          this.noInterfaceBean = soriginal.isNoInterfaceBean();
       }
+      
+      // merge the init-on-startup information
+      if (joverride != null)
+      {
+         this.initOnStartup = joverride.isInitOnStartup();
+      }
+      else if (soriginal != null)
+      {
+         this.initOnStartup = soriginal.isInitOnStartup();
+      }
 
    }
 
@@ -144,6 +185,16 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       else if (soriginal != null)
       {
          this.noInterfaceBean = soriginal.isNoInterfaceBean();
+      }
+      
+      // merge the init-on-startup information
+      if (joverride != null)
+      {
+         this.initOnStartup = joverride.isInitOnStartup();
+      }
+      else if (soriginal != null)
+      {
+         this.initOnStartup = soriginal.isInitOnStartup();
       }
    }
 }
