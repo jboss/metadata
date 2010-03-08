@@ -29,6 +29,7 @@ import javax.ejb.Singleton;
 
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
 import org.jboss.metadata.annotation.creator.ejb.jboss.AbstractSessionBeanProcessor;
+import org.jboss.metadata.annotation.creator.ejb.jboss.ConcurrencyManagementProcessor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
@@ -45,6 +46,7 @@ public class SingletonProcessor extends AbstractSessionBeanProcessor
    public SingletonProcessor(AnnotationFinder<AnnotatedElement> finder)
    {
       super(finder);
+      addTypeProcessor(new ConcurrencyManagementProcessor(finder));
    }
 
    @Override

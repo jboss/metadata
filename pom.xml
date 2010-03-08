@@ -50,8 +50,9 @@
                 <rules>
                     <bannedDependencies>
                         <excludes>
-                            <!-- JBMETA-246  Use org.jboss.javaee:jboss-ejb-api_3.1-->
+                            <!-- JBMETA-262  Use org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec -->
                             <exclude>org.jboss.ejb3:jboss-ejb3-api</exclude>
+                            <exclude>org.jboss.javaee:jboss-ejb-api_3.1</exclude>
                         </excludes>
                     </bannedDependencies>
                 </rules>
@@ -138,9 +139,9 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.jboss.javaee</groupId>
-      <artifactId>jboss-ejb-api_3.1</artifactId>
-      <version>1.0-alpha-1</version>
+      <groupId>org.jboss.spec.javax.ejb</groupId>
+      <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     
     <dependency>

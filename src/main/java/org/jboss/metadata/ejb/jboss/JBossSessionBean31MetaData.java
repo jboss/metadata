@@ -21,10 +21,13 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.Startup;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
+import org.jboss.metadata.ejb.spec.ConcurrencyManagementTypeAdapter;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
@@ -43,11 +46,16 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     * Flag indicating whether this bean has a no-interface view
     */
    private boolean noInterfaceBean;
-   
+
    /**
     * Flag indicating if a singleton bean is set for init-on-startup
     */
    private Boolean initOnStartup;
+
+   /**
+    * Concurrency management type of the bean
+    */
+   private ConcurrencyManagementType concurrencyManagementType;
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
@@ -105,9 +113,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       }
       return SessionType.Singleton == type;
    }
-   
-   
-   
+
    /**
     * @return Returns true if a singleton bean is marked for init-on-startup ({@link Startup})
     * 
@@ -125,10 +131,33 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     */
    public void setInitOnStartup(boolean initOnStartup)
    {
-      
+
       this.initOnStartup = initOnStartup;
    }
 
+   /**
+    * Sets the concurrency management type of this bean
+    * @param concurrencyManagementType The concurrency management type
+    * @throws If the passed <code>concurrencyManagementType</code> is null
+    */
+   @XmlJavaTypeAdapter(ConcurrencyManagementTypeAdapter.class)
+   public void setConcurrencyManagementType(ConcurrencyManagementType concurrencyManagementType)
+   {
+      if (concurrencyManagementType == null)
+      {
+         throw new IllegalArgumentException("Concurrency management type cannot be null");
+      }
+      this.concurrencyManagementType = concurrencyManagementType;
+   }
+
+   /**
+    * Returns the concurrency management type of this bean
+    * @return
+    */
+   public ConcurrencyManagementType getConcurrencyManagementType()
+   {
+      return this.concurrencyManagementType;
+   }
 
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
@@ -153,7 +182,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       {
          this.noInterfaceBean = soriginal.isNoInterfaceBean();
       }
-      
+
       // merge the init-on-startup information
       if (joverride != null)
       {
@@ -177,24 +206,25 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
 
       merge(joverride != null ? joverride.asyncMethods : null, soriginal != null ? soriginal.getAsyncMethods() : null);
 
-      // merge the no-interface information
+      // merge rest of the metadata
       if (joverride != null)
       {
          this.noInterfaceBean = joverride.isNoInterfaceBean();
+         this.initOnStartup = joverride.isInitOnStartup();
+         if (joverride.concurrencyManagementType != null)
+         {
+            this.concurrencyManagementType = joverride.concurrencyManagementType;
+         }
       }
       else if (soriginal != null)
       {
          this.noInterfaceBean = soriginal.isNoInterfaceBean();
-      }
-      
-      // merge the init-on-startup information
-      if (joverride != null)
-      {
-         this.initOnStartup = joverride.isInitOnStartup();
-      }
-      else if (soriginal != null)
-      {
          this.initOnStartup = soriginal.isInitOnStartup();
+         if (soriginal.getConcurrencyManagementType() != null)
+         {
+            this.concurrencyManagementType = soriginal.getConcurrencyManagementType();
+         }
       }
+
    }
 }

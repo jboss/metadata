@@ -21,8 +21,10 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import javax.ejb.ConcurrencyManagementType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
@@ -33,28 +35,33 @@ import org.jboss.xb.annotations.JBossXmlType;
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-@XmlType(name="session-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local",
-      "businessLocals", "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod",
-      "initOnStartup", "initMethods", "removeMethods",  "asyncMethods",
-      "transactionType", "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
-@JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
-public class SessionBean31MetaData extends SessionBeanMetaData
-   implements ITimeoutTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
+@XmlType(name = "session-beanType", propOrder =
+{"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local", "businessLocals",
+      "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "initOnStartup",
+      "concurrencyManagementType", "initMethods", "removeMethods", "asyncMethods", "transactionType", "aroundInvokes",
+      "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
+@JBossXmlType(modelGroup = JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
+public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeoutTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
 {
    private static final long serialVersionUID = 1L;
-   
+
    private AsyncMethodsMetaData asyncMethods;
-   
+
    /**
     * For &lt;local-bean&gt;
     */
    private EmptyMetaData localBean;
-   
+
    /**
     * init-on-startup
     */
    private Boolean initOnStartup;
-   
+
+   /**
+    * Concurrency management type of the bean
+    */
+   private ConcurrencyManagementType concurrencyManagementType;
+
    /**
     * Returns the init-on-startup value of the session bean metadata.
     * Returns null if none is defined.
@@ -65,7 +72,7 @@ public class SessionBean31MetaData extends SessionBeanMetaData
       return initOnStartup;
    }
 
-   @XmlElement(name="init-on-startup", required=false)
+   @XmlElement(name = "init-on-startup", required = false)
    public void setInitOnStartup(Boolean initOnStartup)
    {
       this.initOnStartup = initOnStartup;
@@ -75,16 +82,16 @@ public class SessionBean31MetaData extends SessionBeanMetaData
    {
       return asyncMethods;
    }
-   
-   @XmlElement(name="async-method", required=false)
+
+   @XmlElement(name = "async-method", required = false)
    public void setAsyncMethods(AsyncMethodsMetaData asyncMethods)
    {
-      if(asyncMethods == null)
+      if (asyncMethods == null)
          throw new IllegalArgumentException("asyncMethods is null");
-      
+
       this.asyncMethods = asyncMethods;
    }
-   
+
    /**
     *  
     * @return Returns {@link EmptyMetaData} if the bean represents a no-interface
@@ -97,19 +104,19 @@ public class SessionBean31MetaData extends SessionBeanMetaData
    {
       return this.localBean;
    }
-   
+
    /**
     * Set the metadata to represent whether this bean
     * exposes an no-interface view
     * @param isNoInterfaceBean True if the bean exposes a no-interface
     *                           view. Else set to false. 
     */
-   @XmlElement(name="local-bean", required=false)
+   @XmlElement(name = "local-bean", required = false)
    public void setLocalBean(EmptyMetaData localBean)
    {
       this.localBean = localBean;
    }
-   
+
    /**
     * @return Returns true if this bean exposes a no-interface view.
     * Else returns false. This is similar to {@link #getLocalBean()}, but
@@ -120,7 +127,7 @@ public class SessionBean31MetaData extends SessionBeanMetaData
    {
       return this.localBean == null ? false : true;
    }
-   
+
    /**
     * Sets the no-interface information in the metadata  
     * @param isNoInterfaceBean True if this is a no-interface bean, false otherwise
@@ -129,7 +136,7 @@ public class SessionBean31MetaData extends SessionBeanMetaData
    {
       this.localBean = isNoInterfaceBean ? new EmptyMetaData() : null;
    }
-   
+
    /**
     * Returns true if this is a singleton session bean. Else returns false
     */
@@ -139,7 +146,31 @@ public class SessionBean31MetaData extends SessionBeanMetaData
          return false;
       return this.getSessionType() == SessionType.Singleton;
    }
-   
+
+   /**
+    * Sets the concurrency management type of this bean
+    * @param concurrencyManagementType The concurrency management type
+    * @throws If the passed <code>concurrencyManagementType</code> is null
+    */
+   @XmlJavaTypeAdapter(ConcurrencyManagementTypeAdapter.class)
+   public void setConcurrencyManagementType(ConcurrencyManagementType concurrencyManagementType)
+   {
+      if (concurrencyManagementType == null)
+      {
+         throw new IllegalArgumentException("Concurrency management type cannot be null");
+      }
+      this.concurrencyManagementType = concurrencyManagementType;
+   }
+
+   /**
+    * Returns the concurrency management type of this bean
+    * @return
+    */
+   public ConcurrencyManagementType getConcurrencyManagementType()
+   {
+      return this.concurrencyManagementType;
+   }
+
    /**
     * {@inheritDoc}
     */
@@ -149,29 +180,44 @@ public class SessionBean31MetaData extends SessionBeanMetaData
       super.merge(eoverride, eoriginal);
       SessionBean31MetaData override = (SessionBean31MetaData) eoverride;
       SessionBean31MetaData original = (SessionBean31MetaData) eoriginal;
-      if(asyncMethods == null)
+      if (asyncMethods == null)
          asyncMethods = new AsyncMethodsMetaData();
-      if(override != null && override.asyncMethods != null)
+      if (override != null && override.asyncMethods != null)
          asyncMethods.addAll(override.asyncMethods);
-      if(original != null && original.asyncMethods != null)
+      if (original != null && original.asyncMethods != null)
          asyncMethods.addAll(original.asyncMethods);
-      // merge the no-interface information
-      if (original != null && original.getLocalBean() != null)
+
+      // merge rest of the metadata
+
+      if (override != null)
       {
-         this.localBean = original.getLocalBean();
+         if (override.localBean != null)
+         {
+            this.localBean = override.localBean;
+         }
+         if (override.initOnStartup != null)
+         {
+            this.initOnStartup = override.initOnStartup;
+         }
+         if (override.concurrencyManagementType != null)
+         {
+            this.concurrencyManagementType = override.concurrencyManagementType;
+         }
       }
-      if (override != null && override.getLocalBean() != null)
+      else if (original != null)
       {
-         this.localBean = override.getLocalBean();
-      }
-      // init-on-startup
-      if (original != null && original.initOnStartup != null)
-      {
-         this.initOnStartup = original.initOnStartup;
-      }
-      if (override != null && override.initOnStartup != null)
-      {
-         this.initOnStartup = override.initOnStartup;
+         if (original.localBean != null)
+         {
+            this.localBean = original.localBean;
+         }
+         if (original.initOnStartup != null)
+         {
+            this.initOnStartup = original.initOnStartup;
+         }
+         if (original.concurrencyManagementType != null)
+         {
+            this.concurrencyManagementType = original.concurrencyManagementType;
+         }
       }
    }
 }

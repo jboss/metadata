@@ -53,6 +53,10 @@ public class StatefulProcessor extends AbstractSessionBeanProcessor
       addMethodProcessor(new RemoveProcessor(finder));
       addMethodProcessor(new PostActivateMethodProcessor(finder));
       addMethodProcessor(new PrePassivateMethodProcessor(finder));
+      
+      // concurrency management annotation is applicable for stateful bean
+      addTypeProcessor(new ConcurrencyManagementProcessor(finder));
+
    }
 
    @Override
