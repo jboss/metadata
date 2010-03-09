@@ -29,5 +29,6 @@
             <ejb-name>DefaultConcurrencyStatefulBean</ejb-name>
             <session-type>Stateful</session-type>
         </session>
+        
     </enterprise-beans>
 </ejb-jar>

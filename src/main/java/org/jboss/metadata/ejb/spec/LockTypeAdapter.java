@@ -23,31 +23,32 @@ package org.jboss.metadata.ejb.spec;
 
 import java.util.Locale;
 
-import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.LockType;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
- * Responsible for converting the String value of {@link ConcurrencyManagementType} to
- * the corresponding {@link ConcurrencyManagementType}
+ * Responsible for converting the String value of {@link LockType} to
+ * the corresponding {@link LockType}
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class ConcurrencyManagementTypeAdapter extends XmlAdapter<String, ConcurrencyManagementType>
+public class LockTypeAdapter<T> extends XmlAdapter<String, LockType>
 {
 
    /**
     * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
     */
    @Override
-   public String marshal(ConcurrencyManagementType cmType) throws Exception
+   public String marshal(LockType lockType) throws Exception
    {
-      switch (cmType)
+      
+      switch (lockType)
       {
-         case BEAN :
-            return "Bean";
-         case CONTAINER :
-            return "Container";
+         case READ :
+            return "Read";
+         case WRITE :
+            return "Write";
          default :
             return null;
       }
@@ -57,10 +58,10 @@ public class ConcurrencyManagementTypeAdapter extends XmlAdapter<String, Concurr
     * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
     */
    @Override
-   public ConcurrencyManagementType unmarshal(String cmType) throws Exception
+   public LockType unmarshal(String val) throws Exception
    {
-      String concurrencyManagementType = cmType.toUpperCase(Locale.ENGLISH);
-      return ConcurrencyManagementType.valueOf(concurrencyManagementType);
+      String lockType = val.toUpperCase(Locale.ENGLISH);
+      return LockType.valueOf(lockType);
    }
 
 }

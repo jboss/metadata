@@ -28,6 +28,8 @@ import java.util.Collection;
 import javax.ejb.Stateful;
 
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
+import org.jboss.metadata.annotation.creator.ejb.jboss.AccessTimeoutClassProcessor;
+import org.jboss.metadata.annotation.creator.ejb.jboss.AccessTimeoutMethodProcessor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
@@ -49,6 +51,9 @@ public class StatefulProcessor extends AbstractSessionBeanProcessor
       addMethodProcessor(new PrePassivateMethodProcessor(finder));
       // concurrency management annotation is applicable for stateful bean
       addTypeProcessor(new ConcurrencyManagementProcessor(finder));
+      addTypeProcessor(new AccessTimeoutClassProcessor(finder));
+      
+      addMethodProcessor(new AccessTimeoutMethodProcessor(finder));
    }
 
    public SessionBeanMetaData create(Class<?> beanClass)

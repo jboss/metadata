@@ -21,46 +21,54 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.Locale;
+import java.io.Serializable;
+import java.util.concurrent.TimeUnit;
 
-import javax.ejb.ConcurrencyManagementType;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import javax.ejb.AccessTimeout;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
- * Responsible for converting the String value of {@link ConcurrencyManagementType} to
- * the corresponding {@link ConcurrencyManagementType}
+ * Metadata for {@link AccessTimeout}'s xml equivalent
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class ConcurrencyManagementTypeAdapter extends XmlAdapter<String, ConcurrencyManagementType>
+@XmlType(name = "access-timeoutType", propOrder =
+{"timeout", "unit"})
+public class AccessTimeoutMetaData implements Serializable
 {
 
    /**
-    * @see javax.xml.bind.annotation.adapters.XmlAdapter#marshal(java.lang.Object)
+    * 
     */
-   @Override
-   public String marshal(ConcurrencyManagementType cmType) throws Exception
+   private static final long serialVersionUID = 1L;
+
+   private long timeout;
+
+   private TimeUnit unit;
+
+   @XmlElement(name = "timeout", required = true)
+   public void setTimeout(long timeout)
    {
-      switch (cmType)
-      {
-         case BEAN :
-            return "Bean";
-         case CONTAINER :
-            return "Container";
-         default :
-            return null;
-      }
+      this.timeout = timeout;
    }
 
-   /**
-    * @see javax.xml.bind.annotation.adapters.XmlAdapter#unmarshal(java.lang.Object)
-    */
-   @Override
-   public ConcurrencyManagementType unmarshal(String cmType) throws Exception
+   public long getTimeout()
    {
-      String concurrencyManagementType = cmType.toUpperCase(Locale.ENGLISH);
-      return ConcurrencyManagementType.valueOf(concurrencyManagementType);
+      return this.timeout;
    }
 
+   @XmlElement(name = "unit", required = true)
+   @XmlJavaTypeAdapter(TimeUnitAdatper.class)
+   public void setUnit(TimeUnit timeUnit)
+   {
+      this.unit = timeUnit;
+   }
+
+   public TimeUnit getUnit()
+   {
+      return this.unit;
+   }
 }

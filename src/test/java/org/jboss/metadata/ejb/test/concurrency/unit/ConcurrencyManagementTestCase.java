@@ -29,9 +29,13 @@ import static org.junit.Assert.assertTrue;
 import java.lang.reflect.AnnotatedElement;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
 
 import org.jboss.metadata.annotation.creator.ejb.jboss.JBoss50Creator;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
@@ -39,15 +43,22 @@ import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
+import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
+import org.jboss.metadata.ejb.spec.ConcurrentMethodMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.MethodParametersMetaData;
+import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.test.concurrency.BMCSingletonBean;
 import org.jboss.metadata.ejb.test.concurrency.CMCSingletonBean;
 import org.jboss.metadata.ejb.test.concurrency.CMCStatefulBean;
 import org.jboss.metadata.ejb.test.concurrency.DefaultConcurrencySingletonBean;
 import org.jboss.metadata.ejb.test.concurrency.DefaultConcurrencyStatefulBean;
+import org.jboss.metadata.ejb.test.concurrency.DefaultLockSingletonBean;
+import org.jboss.metadata.ejb.test.concurrency.ReadLockSingletonBean;
+import org.jboss.metadata.ejb.test.concurrency.WriteLockSingleton;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
 import org.jboss.xb.binding.JBossXBException;
@@ -59,8 +70,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Test that the metadata for concurrency management annotation and 
- * it's equivalent xml element is processed correctly
+ * Test that the metadata for concurrency management related annotations and 
+ * their equivalent xml elements are processed correctly
  *
  * @author Jaikiran Pai
  * @version $Revision: $
@@ -78,7 +89,7 @@ public class ConcurrencyManagementTestCase
       schemaBindingResolver = new MultiClassSchemaResolver();
       schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
    }
-   
+
    /**
     * Tests that the {@link ConcurrencyManagement} annotation is processed correctly
     * 
@@ -103,7 +114,7 @@ public class ConcurrencyManagementTestCase
       this.assertContainerConcurrencyManagement(metaData, CMCStatefulBean.class.getSimpleName());
 
    }
-   
+
    /**
     * Test that the concurrency management in ejb-jar.xml is processed correctly
     * 
@@ -115,14 +126,133 @@ public class ConcurrencyManagementTestCase
       EjbJarMetaData jarMetaData = unmarshal(EjbJarMetaData.class,
             "/org/jboss/metadata/ejb/test/concurrency/ejb-jar-concurrency.xml");
       assertNotNull(jarMetaData);
-      
+
       this.assertBeanConcurrencyManagement(jarMetaData, "BMCSingletonBean");
-      
+
       this.assertContainerConcurrencyManagement(jarMetaData, "CMCSingletonBean");
       this.assertContainerConcurrencyManagement(jarMetaData, "CMCStatefulBean");
-      
+
       this.assertNullConcurrencyManagement(jarMetaData, "DefaultConcurrencySingletonBean");
       this.assertNullConcurrencyManagement(jarMetaData, "DefaultConcurrencyStatefulBean");
+   }
+
+   /**
+    * Tests that the {@link Lock} annotation is processed correctly
+    * 
+    * @throws Exception
+    */
+   @Test
+   @ScanPackage("org.jboss.metadata.ejb.test.concurrency")
+   public void testLockManagementAnnotationProcessing() throws Exception
+   {
+      AnnotationFinder<AnnotatedElement> finder = new DefaultAnnotationFinder<AnnotatedElement>();
+      JBoss50Creator creator = new JBoss50Creator(finder);
+      Collection<Class<?>> classes = PackageScanner.loadClasses();
+      JBossMetaData metaData = creator.create(classes);
+      assertNotNull("Metadata created for singleton bean was null", metaData);
+
+      JBossEnterpriseBeanMetaData enterpriseBean = metaData.getEnterpriseBean(ReadLockSingletonBean.class
+            .getSimpleName());
+      this.assertSessionBean(enterpriseBean);
+      JBossSessionBean31MetaData sessionBean = (JBossSessionBean31MetaData) enterpriseBean;
+      assertEquals("Unexpected locktype on bean " + ReadLockSingletonBean.class, LockType.READ, sessionBean
+            .getLockType());
+
+      JBossEnterpriseBeanMetaData anotherBean = metaData.getEnterpriseBean(DefaultLockSingletonBean.class
+            .getSimpleName());
+      this.assertSessionBean(anotherBean);
+      JBossSessionBean31MetaData defaultLockBean = (JBossSessionBean31MetaData) anotherBean;
+      assertNull("Bean " + DefaultLockSingletonBean.class + " had explicit lock type set", defaultLockBean
+            .getLockType());
+
+      JBossEnterpriseBeanMetaData writeLockEnterpriseBean = metaData.getEnterpriseBean(WriteLockSingleton.class
+            .getSimpleName());
+      this.assertSessionBean(writeLockEnterpriseBean);
+      JBossSessionBean31MetaData writeLockBean = (JBossSessionBean31MetaData) writeLockEnterpriseBean;
+      assertEquals("Unexpected locktype on bean " + WriteLockSingleton.class, LockType.WRITE, writeLockBean
+            .getLockType());
+
+   }
+
+   /**
+    * Test that the concurrent-method xml elements in ejb-jar.xml is processed correctly
+    * for methods named "*"
+    * 
+    * @throws Exception
+    */
+   @Test
+   public void testLockManagementXMLProcessing() throws Exception
+   {
+      EjbJarMetaData jarMetaData = unmarshal(EjbJarMetaData.class,
+            "/org/jboss/metadata/ejb/test/concurrency/ejb-jar-locks.xml");
+      assertNotNull(jarMetaData);
+
+      String beanName = "AllMethodsReadLockBean";
+      EnterpriseBeanMetaData enterpriseBean = jarMetaData.getEnterpriseBean(beanName);
+      this.assertSessionBean(enterpriseBean);
+      SessionBean31MetaData sessionBean = (SessionBean31MetaData) enterpriseBean;
+
+      Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethods = sessionBean.getConcurrentMethods();
+      assertNotNull("Concurrent methods metdata was null for bean " + beanName, concurrentMethods);
+
+      NamedMethodMetaData allMethods = new NamedMethodMetaData();
+      allMethods.setMethodName("*");
+
+      assertTrue("Concurrent methods metadata does not contain method '*'", concurrentMethods.containsKey(allMethods));
+
+      ConcurrentMethodMetaData concurrentMethodMetaData = concurrentMethods.get(allMethods);
+      assertEquals("Unexpected locktype on method", LockType.READ, concurrentMethodMetaData.getLockType());
+
+      AccessTimeoutMetaData accessTimeout = concurrentMethodMetaData.getAccessTimeout();
+      assertNotNull("Access timeout not specified on method", accessTimeout);
+
+      assertEquals("Unexpected timeout value", 10, accessTimeout.getTimeout());
+      assertEquals("Unexpected timeout unit", TimeUnit.SECONDS, accessTimeout.getUnit());
+
+   }
+
+   /**
+    * Test that the concurrent-method xml elements in ejb-jar.xml is processed correctly
+    * for a specific named method
+    * 
+    * @throws Exception
+    */
+   @Test
+   public void testLockManagementXMLProcessingForSpecificMethod() throws Exception
+   {
+      EjbJarMetaData jarMetaData = unmarshal(EjbJarMetaData.class,
+            "/org/jboss/metadata/ejb/test/concurrency/ejb-jar-locks.xml");
+      assertNotNull(jarMetaData);
+
+      String oneMethodWriteLockBeanName = "OneMethodWithWriteLockBean";
+
+      EnterpriseBeanMetaData bean = jarMetaData.getEnterpriseBean(oneMethodWriteLockBeanName);
+      this.assertSessionBean(bean);
+      SessionBean31MetaData oneMethodWriteLockBean = (SessionBean31MetaData) bean;
+
+      Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethodsOnBean = oneMethodWriteLockBean
+            .getConcurrentMethods();
+      assertNotNull("Concurrent methods metdata was null for bean " + oneMethodWriteLockBeanName,
+            concurrentMethodsOnBean);
+
+      NamedMethodMetaData methodWithWriteLock = new NamedMethodMetaData();
+      String methodName = "methodWithWriteLock";
+      methodWithWriteLock.setMethodName(methodName);
+
+      MethodParametersMetaData methodParams = new MethodParametersMetaData();
+      methodParams.add(Integer.class.getName());
+
+      methodWithWriteLock.setMethodParams(methodParams);
+
+      assertTrue("Concurrent methods metadata does not contain method named " + methodName, concurrentMethodsOnBean
+            .containsKey(methodWithWriteLock));
+
+      ConcurrentMethodMetaData concurrentMethodWithWriteLock = concurrentMethodsOnBean.get(methodWithWriteLock);
+      assertEquals("Unexpected locktype on method", LockType.WRITE, concurrentMethodWithWriteLock.getLockType());
+
+      assertNull("Unexpectedly found access timeout on method " + methodName, concurrentMethodWithWriteLock
+            .getAccessTimeout());
+
    }
 
    /**
@@ -150,6 +280,7 @@ public class ConcurrencyManagementTestCase
     */
    private void assertSessionBean(JBossEnterpriseBeanMetaData enterpriseBean)
    {
+      assertNotNull("Null enterprisebean", enterpriseBean);
       assertTrue("Bean " + enterpriseBean.getName() + " is not a session bean", enterpriseBean.isSession());
    }
 
@@ -160,6 +291,7 @@ public class ConcurrencyManagementTestCase
     */
    private void assertSessionBean(EnterpriseBeanMetaData enterpriseBean)
    {
+      assertNotNull("Null enterprisebean", enterpriseBean);
       assertTrue("Bean " + enterpriseBean.getName() + " is not a session bean", enterpriseBean.isSession());
    }
 
@@ -206,8 +338,7 @@ public class ConcurrencyManagementTestCase
       assertEquals("Bean " + beanName + " does not have bean managed concurrency", ConcurrencyManagementType.BEAN,
             sessionBean.getConcurrencyManagementType());
    }
-   
-   
+
    /**
     * Utility method to assert that the bean does not have any concurrency management set
     * @param metaData

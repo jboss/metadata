@@ -21,14 +21,21 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.LockType;
 import javax.ejb.Startup;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
+import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
-import org.jboss.metadata.ejb.spec.ConcurrencyManagementTypeAdapter;
+import org.jboss.metadata.ejb.spec.ConcurrentMethodMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 
@@ -53,9 +60,24 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
    private Boolean initOnStartup;
 
    /**
+    * Concurrent methods of this bean
+    */
+   private Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethods;
+
+   /**
+    * Bean level access timeout
+    */
+   private AccessTimeoutMetaData beanLevelAccessTimeout;
+
+   /**
     * Concurrency management type of the bean
     */
    private ConcurrencyManagementType concurrencyManagementType;
+
+   /**
+    * The lock type that is set at the bean level
+    */
+   private LockType beanLevelLockType;
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
@@ -68,15 +90,6 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          throw new IllegalArgumentException("asyncMethods is null");
 
       this.asyncMethods = asyncMethods;
-   }
-
-   private void merge(AsyncMethodsMetaData override, AsyncMethodsMetaData original)
-   {
-      this.asyncMethods = new AsyncMethodsMetaData();
-      if (override != null)
-         asyncMethods.addAll(override);
-      if (original != null)
-         asyncMethods.addAll(original);
    }
 
    /**
@@ -140,7 +153,6 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     * @param concurrencyManagementType The concurrency management type
     * @throws If the passed <code>concurrencyManagementType</code> is null
     */
-   @XmlJavaTypeAdapter(ConcurrencyManagementTypeAdapter.class)
    public void setConcurrencyManagementType(ConcurrencyManagementType concurrencyManagementType)
    {
       if (concurrencyManagementType == null)
@@ -159,6 +171,76 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       return this.concurrencyManagementType;
    }
 
+   /**
+    * Sets the concurrent methods of this bean
+    * @param concurrentMethods
+    * @throws IllegalArgumentException If the passed <code>concurrentMethods</code> is null
+    */
+   public void setConcurrentMethods(Set<ConcurrentMethodMetaData> concurrentMethods)
+   {
+      if (concurrentMethods == null)
+      {
+         throw new IllegalArgumentException("Concurrent methods cannot be set to null");
+      }
+      this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
+      for (ConcurrentMethodMetaData concurrentMethod : concurrentMethods)
+      {
+         this.concurrentMethods.put(concurrentMethod.getMethod(), concurrentMethod);
+      }
+   }
+
+   /**
+    * Returns a {@link Map} whose key represents a {@link NamedMethodMetaData} and whose value
+    * represents {@link ConcurrentMethodMetaData} of this bean. Returns an empty {@link Map} if
+    * there are no concurrent methods for this bean
+    * @return
+    */
+   public Map<NamedMethodMetaData, ConcurrentMethodMetaData> getConcurrentMethods()
+   {
+      if (this.concurrentMethods == null)
+      {
+         return Collections.EMPTY_MAP;
+      }
+      return this.concurrentMethods;
+   }
+
+   /**
+    * Sets the lock type applicable at the bean level
+    * @param lockType {@link LockType}
+    */
+   public void setLockType(LockType lockType)
+   {
+      this.beanLevelLockType = lockType;
+   }
+
+   /**
+    * Returns the lock type applicable at the bean level
+    * @return
+    */
+   public LockType getLockType()
+   {
+      return this.beanLevelLockType;
+   }
+
+   /**
+    * Sets the bean level access timeout metadata
+    * @param accessTimeout {@link AccessTimeoutMetaData}
+    */
+   public void setAccessTimeout(AccessTimeoutMetaData accessTimeout)
+   {
+      this.beanLevelAccessTimeout = accessTimeout;
+   }
+
+   /**
+    * Returns the access timeout metadata applicable at bean level
+    * 
+    * @return
+    */
+   public AccessTimeoutMetaData getAccessTimeout()
+   {
+      return this.beanLevelAccessTimeout;
+   }
+
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
    {
@@ -173,24 +255,56 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
 
       merge(joverride != null ? joverride.asyncMethods : null, soriginal != null ? soriginal.asyncMethods : null);
 
-      // merge the no-interface information
+      // merge the rest
       if (joverride != null)
       {
          this.noInterfaceBean = joverride.isNoInterfaceBean();
+         this.initOnStartup = joverride.isInitOnStartup();
+         if (joverride.concurrencyManagementType != null)
+         {
+            this.concurrencyManagementType = joverride.concurrencyManagementType;
+         }
+         if (joverride.concurrentMethods != null)
+         {
+            if (this.concurrentMethods == null)
+            {
+               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
+            }
+            this.concurrentMethods.putAll(joverride.concurrentMethods);
+         }
+         if (joverride.beanLevelLockType != null)
+         {
+            this.beanLevelLockType = joverride.beanLevelLockType;
+         }
+         if (joverride.beanLevelAccessTimeout != null)
+         {
+            this.beanLevelAccessTimeout = joverride.beanLevelAccessTimeout;
+         }
       }
       else if (soriginal != null)
       {
          this.noInterfaceBean = soriginal.isNoInterfaceBean();
-      }
-
-      // merge the init-on-startup information
-      if (joverride != null)
-      {
-         this.initOnStartup = joverride.isInitOnStartup();
-      }
-      else if (soriginal != null)
-      {
          this.initOnStartup = soriginal.isInitOnStartup();
+         if (soriginal.getConcurrencyManagementType() != null)
+         {
+            this.concurrencyManagementType = soriginal.getConcurrencyManagementType();
+         }
+         if (soriginal.concurrentMethods != null)
+         {
+            if (this.concurrentMethods == null)
+            {
+               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
+            }
+            this.concurrentMethods.putAll(soriginal.concurrentMethods);
+         }
+         if (soriginal.beanLevelLockType != null)
+         {
+            this.beanLevelLockType = soriginal.beanLevelLockType;
+         }
+         if (soriginal.beanLevelAccessTimeout != null)
+         {
+            this.beanLevelAccessTimeout = soriginal.beanLevelAccessTimeout;
+         }
       }
 
    }
@@ -215,6 +329,22 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.concurrencyManagementType = joverride.concurrencyManagementType;
          }
+         if (joverride.concurrentMethods != null)
+         {
+            if (this.concurrentMethods == null)
+            {
+               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
+            }
+            this.concurrentMethods.putAll(joverride.concurrentMethods);
+         }
+         if (joverride.beanLevelLockType != null)
+         {
+            this.beanLevelLockType = joverride.beanLevelLockType;
+         }
+         if (joverride.beanLevelAccessTimeout != null)
+         {
+            this.beanLevelAccessTimeout = joverride.beanLevelAccessTimeout;
+         }
       }
       else if (soriginal != null)
       {
@@ -224,7 +354,33 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.concurrencyManagementType = soriginal.getConcurrencyManagementType();
          }
+         if (soriginal.getConcurrentMethods() != null)
+         {
+            if (this.concurrentMethods == null)
+            {
+               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
+            }
+            this.concurrentMethods.putAll(soriginal.getConcurrentMethods());
+         }
+         if (soriginal.getLockType() != null)
+         {
+            this.beanLevelLockType = soriginal.getLockType();
+         }
+         if (soriginal.getAccessTimeout() != null)
+         {
+            this.beanLevelAccessTimeout = soriginal.getAccessTimeout();
+         }
       }
 
    }
+
+   private void merge(AsyncMethodsMetaData override, AsyncMethodsMetaData original)
+   {
+      this.asyncMethods = new AsyncMethodsMetaData();
+      if (override != null)
+         asyncMethods.addAll(override);
+      if (original != null)
+         asyncMethods.addAll(original);
+   }
+
 }

@@ -29,7 +29,11 @@ import javax.ejb.Singleton;
 
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
 import org.jboss.metadata.annotation.creator.ejb.jboss.AbstractSessionBeanProcessor;
+import org.jboss.metadata.annotation.creator.ejb.jboss.AccessTimeoutClassProcessor;
+import org.jboss.metadata.annotation.creator.ejb.jboss.AccessTimeoutMethodProcessor;
 import org.jboss.metadata.annotation.creator.ejb.jboss.ConcurrencyManagementProcessor;
+import org.jboss.metadata.annotation.creator.ejb.jboss.LockClassProcessor;
+import org.jboss.metadata.annotation.creator.ejb.jboss.LockMethodProcessor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
@@ -47,6 +51,11 @@ public class SingletonProcessor extends AbstractSessionBeanProcessor
    {
       super(finder);
       addTypeProcessor(new ConcurrencyManagementProcessor(finder));
+      addTypeProcessor(new LockClassProcessor(finder));
+      addTypeProcessor(new AccessTimeoutClassProcessor(finder));
+      
+      addMethodProcessor(new LockMethodProcessor(finder));
+      addMethodProcessor(new AccessTimeoutMethodProcessor(finder));
    }
 
    @Override

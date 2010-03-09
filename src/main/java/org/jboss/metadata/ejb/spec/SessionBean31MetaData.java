@@ -21,15 +21,18 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.LockType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlType;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -38,9 +41,9 @@ import org.jboss.xb.annotations.JBossXmlType;
 @XmlType(name = "session-beanType", propOrder =
 {"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local", "businessLocals",
       "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "initOnStartup",
-      "concurrencyManagementType", "initMethods", "removeMethods", "asyncMethods", "transactionType", "aroundInvokes",
-      "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
-@JBossXmlType(modelGroup = JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
+      "concurrencyManagementType", "concurrentMethods", "initMethods", "removeMethods", "asyncMethods", "transactionType",
+      "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
+//@JBossXmlType(modelGroup = JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeoutTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
 {
    private static final long serialVersionUID = 1L;
@@ -56,6 +59,21 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * init-on-startup
     */
    private Boolean initOnStartup;
+
+   /**
+    * Concurrent methods against each {@link NamedMethodMetaData}
+    */
+   private Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethods;
+
+   /**
+    * The lock type that is set at the bean level
+    */
+   private LockType beanLevelLockType;
+
+   /**
+    * Bean level access timeout
+    */
+   private AccessTimeoutMetaData beanLevelAccessTimeout;
 
    /**
     * Concurrency management type of the bean
@@ -152,6 +170,7 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * @param concurrencyManagementType The concurrency management type
     * @throws If the passed <code>concurrencyManagementType</code> is null
     */
+   @XmlElement(name = "concurrency-management-type", required = false)
    @XmlJavaTypeAdapter(ConcurrencyManagementTypeAdapter.class)
    public void setConcurrencyManagementType(ConcurrencyManagementType concurrencyManagementType)
    {
@@ -169,6 +188,71 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    public ConcurrencyManagementType getConcurrencyManagementType()
    {
       return this.concurrencyManagementType;
+   }
+
+   /**
+    * Sets the concurrent methods of this bean
+    * @param concurrentMethods
+    * @throws IllegalArgumentException If the passed <code>concurrentMethods</code> is null
+    */
+   @XmlElement(name = "concurrent-method", required = false)
+   @XmlJavaTypeAdapter (ConcurrentMethodsCollectionToMapAdapter.class)
+   public void setConcurrentMethods(Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethods)
+   {
+      this.concurrentMethods = concurrentMethods;
+   }
+
+   /**
+    * Returns a {@link Map} whose key represents a {@link NamedMethodMetaData} and whose value
+    * represents {@link ConcurrentMethodMetaData} of this bean. Returns an empty {@link Map} if
+    * there are no concurrent methods for this bean
+    * @return
+    */
+   public Map<NamedMethodMetaData, ConcurrentMethodMetaData> getConcurrentMethods()
+   {
+      if (this.concurrentMethods == null)
+      {
+         return Collections.EMPTY_MAP;
+      }
+      return this.concurrentMethods;
+   }
+
+
+   /**
+    * Sets the lock type applicable at the bean level
+    * @param lockType {@link LockType}
+    */
+   public void setLockType(LockType lockType)
+   {
+      this.beanLevelLockType = lockType;
+   }
+
+   /**
+    * Returns the lock type applicable at the bean level
+    * @return
+    */
+   public LockType getLockType()
+   {
+      return this.beanLevelLockType;
+   }
+
+   /**
+    * Sets the bean level access timeout metadata
+    * @param accessTimeout {@link AccessTimeoutMetaData}
+    */
+   public void setAccessTimeout(AccessTimeoutMetaData accessTimeout)
+   {
+      this.beanLevelAccessTimeout = accessTimeout;
+   }
+
+   /**
+    * Returns the access timeout metadata applicable at bean level
+    * 
+    * @return
+    */
+   public AccessTimeoutMetaData getAccessTimeout()
+   {
+      return this.beanLevelAccessTimeout;
    }
 
    /**
@@ -203,6 +287,22 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          {
             this.concurrencyManagementType = override.concurrencyManagementType;
          }
+         if (override.concurrentMethods != null)
+         {
+            if (this.concurrentMethods == null)
+            {
+               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
+            }
+            this.concurrentMethods.putAll(override.concurrentMethods);
+         }
+         if (override.beanLevelLockType != null)
+         {
+            this.beanLevelLockType = override.beanLevelLockType;
+         }
+         if (override.beanLevelAccessTimeout != null)
+         {
+            this.beanLevelAccessTimeout = override.beanLevelAccessTimeout;
+         }
       }
       else if (original != null)
       {
@@ -217,6 +317,22 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          if (original.concurrencyManagementType != null)
          {
             this.concurrencyManagementType = original.concurrencyManagementType;
+         }
+         if (original.concurrentMethods != null)
+         {
+            if (this.concurrentMethods == null)
+            {
+               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
+            }
+            this.concurrentMethods.putAll(original.concurrentMethods);
+         }
+         if (original.beanLevelLockType != null)
+         {
+            this.beanLevelLockType = original.beanLevelLockType;
+         }
+         if (original.beanLevelAccessTimeout != null)
+         {
+            this.beanLevelAccessTimeout = original.beanLevelAccessTimeout;
          }
       }
    }

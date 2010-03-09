@@ -106,7 +106,10 @@
   <!-- ======================= -->
   <!-- Setup the Root category -->
   <!-- ======================= -->
-
+  
+  <category name="org.jboss.xb">
+    <priority value="ALL"/>
+  </category>
   <root>
     <appender-ref ref="CONSOLE"/>
     <appender-ref ref="FILE"/>
