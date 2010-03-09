@@ -21,11 +21,13 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlNs;
 import javax.xml.bind.annotation.XmlNsForm;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.jboss.metadata.javaee.jboss.NamedModule;
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 import org.jboss.xb.annotations.JBossXmlSchema;
 
@@ -42,8 +44,20 @@ import org.jboss.xb.annotations.JBossXmlSchema;
       normalizeSpace=true)
 @XmlType(name="ejb-jarType",
       namespace=JavaEEMetaDataConstants.JAVAEE_NS,
-      propOrder={"descriptionGroup", "enterpriseBeans", "interceptors", "relationships", "assemblyDescriptor", "ejbClientJar"})
-public class EjbJar31MetaData extends EjbJar3xMetaData
+      propOrder={"moduleName", "descriptionGroup", "enterpriseBeans", "interceptors", "relationships", "assemblyDescriptor", "ejbClientJar"})
+public class EjbJar31MetaData extends EjbJar3xMetaData implements NamedModule
 {
    private static final long serialVersionUID = 1L;
+
+   private String moduleName;
+
+   public String getModuleName()
+   {
+      return moduleName;
+   }
+   @XmlAttribute(name="module-name")
+   public void setModuleName(String moduleName)
+   {
+      this.moduleName = moduleName;
+   }
 }

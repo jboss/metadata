@@ -27,8 +27,6 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.logging.Logger;
@@ -41,9 +39,10 @@ import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
 import org.jboss.metadata.ejb.spec.RelationsMetaData;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
+import org.jboss.metadata.javaee.jboss.NamedModule;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
-import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
+import org.jboss.metadata.javaee.support.NamedModuleImpl;
 
 /**
  * JBossMetaData.
@@ -52,7 +51,7 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 81163 $
  */
-public class JBossMetaData extends IdMetaDataImplWithDescriptionGroup
+public class JBossMetaData extends NamedModuleImpl
    implements IEjbJarMetaData<JBossAssemblyDescriptorMetaData, JBossEnterpriseBeansMetaData, JBossEnterpriseBeanMetaData, JBossMetaData>
 {
    /** The serialVersionUID */
@@ -693,6 +692,12 @@ public class JBossMetaData extends IdMetaDataImplWithDescriptionGroup
    public void merge(JBossMetaData override, EjbJarMetaData original)
    {
       super.merge(override, original);
+      
+      if(override != null && override.getModuleName() != null)
+         setModuleName(override.getModuleName());
+      else if(original instanceof NamedModule && ((NamedModule) original).getModuleName() != null)
+         setModuleName(((NamedModule) original).getModuleName()); 
+      
       if(override != null && override.getVersion() != null)
          version = override.getVersion();
       else if(original != null && original.getVersion() != null)
