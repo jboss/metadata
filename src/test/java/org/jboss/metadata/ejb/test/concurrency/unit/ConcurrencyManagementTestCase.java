@@ -27,6 +27,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Map;
@@ -253,6 +254,88 @@ public class ConcurrencyManagementTestCase
       assertNull("Unexpectedly found access timeout on method " + methodName, concurrentMethodWithWriteLock
             .getAccessTimeout());
 
+   }
+
+   /**
+    * Test that the {@link Lock} annotation specified on a method is processed
+    * correctly
+    * 
+    * @throws Exception
+    */
+   @Test
+   @ScanPackage("org.jboss.metadata.ejb.test.concurrency")
+   public void testLockManagementAnnotationProcessingForSpecificMethod() throws Exception
+   {
+      AnnotationFinder<AnnotatedElement> finder = new DefaultAnnotationFinder<AnnotatedElement>();
+      JBoss50Creator creator = new JBoss50Creator(finder);
+      Collection<Class<?>> classes = PackageScanner.loadClasses();
+      JBossMetaData metaData = creator.create(classes);
+      assertNotNull("Metadata created for singleton bean was null", metaData);
+
+      JBossEnterpriseBeanMetaData enterpriseBean = metaData.getEnterpriseBean(CMCSingletonBean.class.getSimpleName());
+      this.assertSessionBean(enterpriseBean);
+      JBossSessionBean31MetaData sessionBean = (JBossSessionBean31MetaData) enterpriseBean;
+
+      Method readMethod = CMCSingletonBean.class.getDeclaredMethod("readLockMethod", new Class<?>[]
+      {String.class});
+      this.assertLockTypeOnMethod(sessionBean, readMethod, LockType.READ);
+
+      Method writeMethod = CMCSingletonBean.class.getDeclaredMethod("writeLockMethod", new Class<?>[]
+      {});
+      this.assertLockTypeOnMethod(sessionBean, writeMethod, LockType.WRITE);
+
+      Method defaultLockMethod = CMCSingletonBean.class.getDeclaredMethod("defaultLockMethod", new Class<?>[]
+      {int.class});
+      this.assertNullConcurrentMethodMetaData(sessionBean, defaultLockMethod);
+
+   }
+
+   /**
+    * Assert that the lock type on the corresponding method on the session bean is equal to the 
+    * passed locktype
+    * @param sessionBean
+    * @param method
+    * @param lockType
+    */
+   private void assertLockTypeOnMethod(JBossSessionBean31MetaData sessionBean, Method method, LockType lockType)
+   {
+      NamedMethodMetaData readMethodMetaData = new NamedMethodMetaData();
+      readMethodMetaData.setName(method.getName());
+      if (method.getParameterTypes() != null)
+      {
+         MethodParametersMetaData methodParamsMetaData = new MethodParametersMetaData();
+         for (Class<?> paramType : method.getParameterTypes())
+         {
+            methodParamsMetaData.add(paramType.getName());
+         }
+         readMethodMetaData.setMethodParams(methodParamsMetaData);
+      }
+      ConcurrentMethodMetaData concurrentMethod = sessionBean.getConcurrentMethods().get(readMethodMetaData);
+      assertNotNull("Concurrent method metadata not found on method " + readMethodMetaData.getName(), concurrentMethod);
+      assertEquals("Unexpected locktype on method " + readMethodMetaData.getName(), lockType, concurrentMethod
+            .getLockType());
+   }
+   
+   /**
+    * Asser that the concurrent method metadata is absent on the passed method corresponding to the session bean
+    * @param sessionBean
+    * @param method
+    */
+   private void assertNullConcurrentMethodMetaData(JBossSessionBean31MetaData sessionBean, Method method)
+   {
+      NamedMethodMetaData readMethodMetaData = new NamedMethodMetaData();
+      readMethodMetaData.setName(method.getName());
+      if (method.getParameterTypes() != null)
+      {
+         MethodParametersMetaData methodParamsMetaData = new MethodParametersMetaData();
+         for (Class<?> paramType : method.getParameterTypes())
+         {
+            methodParamsMetaData.add(paramType.getName());
+         }
+         readMethodMetaData.setMethodParams(methodParamsMetaData);
+      }
+      ConcurrentMethodMetaData concurrentMethod = sessionBean.getConcurrentMethods().get(readMethodMetaData);
+      assertNull("Unexpectedly found concurrent method metadata on method " + readMethodMetaData.getName(), concurrentMethod);
    }
 
    /**

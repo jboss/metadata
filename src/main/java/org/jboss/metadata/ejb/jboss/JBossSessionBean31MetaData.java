@@ -199,7 +199,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
    {
       if (this.concurrentMethods == null)
       {
-         return Collections.EMPTY_MAP;
+         this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
       }
       return this.concurrentMethods;
    }

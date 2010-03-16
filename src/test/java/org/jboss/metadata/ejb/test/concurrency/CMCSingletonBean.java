@@ -23,6 +23,8 @@ package org.jboss.metadata.ejb.test.concurrency;
 
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
 import javax.ejb.Singleton;
 
 /**
@@ -36,4 +38,20 @@ import javax.ejb.Singleton;
 public class CMCSingletonBean
 {
 
+   @Lock (LockType.READ)
+   public void readLockMethod(String arg1)
+   {
+      // do nothing
+   }
+   
+   @Lock (LockType.WRITE)
+   public long writeLockMethod()
+   {
+       return 0;
+   }
+   
+   public void defaultLockMethod(int i)
+   {
+      // do nothing
+   }
 }

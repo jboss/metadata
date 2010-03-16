@@ -212,7 +212,7 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    {
       if (this.concurrentMethods == null)
       {
-         return Collections.EMPTY_MAP;
+         this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
       }
       return this.concurrentMethods;
    }
