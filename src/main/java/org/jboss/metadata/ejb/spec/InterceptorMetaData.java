@@ -351,4 +351,71 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
          return environment.getDataSources();
       return null;
    }
+   
+   /**
+    * Merge two instances of {@link InterceptorMetaData}
+    * 
+    * @param override The override interceptor metadata (usually the metadata created out of xml deployment descriptor)
+    * @param original The original interceptor metadata (usually the metadata created out of annotation scanning)
+    */
+   public void merge(InterceptorMetaData override, InterceptorMetaData original)
+   {
+      super.merge(override, original);
+      
+      // merge interceptor class name
+      if (original != null && original.getInterceptorClass() != null)
+      {
+         this.setInterceptorClass(original.getInterceptorClass());
+      }
+      if (override != null && override.getInterceptorClass() != null)
+      {
+         this.setInterceptorClass(override.getInterceptorClass());
+      }
+      
+      // merge environment
+      if(this.environment == null)
+         this.environment = new EnvironmentRefsGroupMetaData();
+      Environment overriddenEnv = override != null ? override.getJndiEnvironmentRefsGroup() : null;
+      Environment originalEnv = original != null ? original.getJndiEnvironmentRefsGroup() : null;
+      this.environment.merge(overriddenEnv, originalEnv, "", "", false);
+
+      // merge around-invokes
+      if(aroundInvokes == null)
+         aroundInvokes = new AroundInvokesMetaData();
+      if (original != null && override != null)
+      {
+         this.aroundInvokes.merge(override.getAroundInvokes(), original.getAroundInvokes());
+      }
+      else if (original != null)
+      {
+         if (original.getAroundInvokes() != null)
+         {
+            this.aroundInvokes.addAll(original.getAroundInvokes());   
+         }
+         
+      }
+      else if (override != null)
+      {
+         if (override.getAroundInvokes() != null)
+         {
+            this.aroundInvokes.addAll(override.getAroundInvokes());
+         }
+      }
+      
+      // merge post-activate(s)
+      if(this.postActivates == null)
+         this.postActivates = new LifecycleCallbacksMetaData();
+      if(override != null && override.postActivates != null)
+         postActivates.addAll(override.postActivates);
+      if(original != null && original.postActivates != null)
+         postActivates.addAll(original.postActivates);
+
+      // merge pre-passivate(s)      
+      if(prePassivates == null)
+         prePassivates = new LifecycleCallbacksMetaData();
+      if(override != null && override.prePassivates != null)
+         prePassivates.addAll(override.prePassivates);
+      if(original != null && original.prePassivates != null)
+         prePassivates.addAll(original.prePassivates);
+   }
 }

@@ -21,6 +21,10 @@
 */
 package org.jboss.metadata.ejb.spec;
 
+import java.util.Collection;
+import java.util.HashSet;
+
+import javax.interceptor.Interceptors;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -279,4 +283,252 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
          throw new IllegalArgumentException("Null assemblyDescriptor");
       this.assemblyDescriptor = (AssemblyDescriptorMetaData) assemblyDescriptor;
    }
+   
+   /**
+    * Returns the {@link InterceptorsMetaData} which are applicable for the <code>beanName</code>
+    * in the <code>ejbJarMetaData</code>
+    * <p>
+    *   An interceptor is considered as bound to an EJB if there's atleast one interceptor
+    *   binding between the EJB and the interceptor class. The interceptor binding can either
+    *   be through the use of <interceptor-binding> element in ejb-jar.xml or through the
+    *   use of {@link Interceptors} annotation(s) in the EJB class. 
+    * </p>
+    * <p>
+    *   If the EJB has an around-invoke element which uses class name other than the EJB class name,
+    *   then even that class is considered as an interceptor class and is considered to be bound to
+    *   the EJB.
+    * </p>
+    * <p>
+    *   For example:
+    *   <session>
+    *       <ejb-name>Dummy</ejb-name>
+    *       <ejb-class>org.myapp.ejb.MyBean</ejb-class>
+    *       <around-invoke>
+    *           <class>org.myapp.SomeClass</class>
+    *           <method-name>blah</method-name>
+    *       </around-invoke>
+    *   </session>
+    *   
+    *   The <code>org.myapp.SomeClass</code> will be considered as a interceptor class bound to the EJB, 
+    *   <code>org.myapp.ejb.MyBean</code>, even if there is no explicit interceptor binding between that EJB
+    *   and the <code>org.myapp.SomeClass</code>
+    * </p>
+    * 
+    * @param beanName The EJB name
+    * @param ejbJarMetaData The {@link EjbJarMetaData} corresponding to the <code>beanName</code>
+    * @return
+    * @throws NullPointerException If either of <code>beanName</code> or <code>ejbJarMetaData</code>
+    *               is null
+    */
+   public static InterceptorsMetaData getInterceptors(String beanName, EjbJarMetaData ejbJarMetaData)
+   {
+      InterceptorsMetaData beanApplicableInterceptors = new InterceptorsMetaData();
+      if (ejbJarMetaData.getAssemblyDescriptor() == null)
+      {
+         return beanApplicableInterceptors;
+      }
+      InterceptorBindingsMetaData allInterceptorBindings = ejbJarMetaData.getAssemblyDescriptor()
+            .getInterceptorBindings();
+      if (allInterceptorBindings == null)
+      {
+         return beanApplicableInterceptors;
+      }
+      InterceptorsMetaData allInterceptors = ejbJarMetaData.getInterceptors();
+      if (allInterceptors == null || allInterceptors.isEmpty())
+      {
+         return beanApplicableInterceptors;
+      }
+      return getInterceptors(beanName, allInterceptors, allInterceptorBindings);
+   }
+
+   /**
+    * Returns all interceptor classes which are present in the passed <code>ejbJar</code>.
+    * <p>
+    *   A class is considered an interceptor class, if it is listed in either of the following:
+    *   <ul>
+    *       <li>In the <interceptor> element of ejb-jar.xml</li>
+    *       <li>In the <interceptor-binding> element of ejb-jar.xml</li>
+    *       <li>In the <class> sub-element of <around-invoke> element in the ejb-jar.xml</li>
+    *       <li>Marked as an interceptor class through the use of {@link Interceptors} annotation
+    *           in a bean class</li>
+    *   </ul>
+    * </p>
+    * @param ejbJar The {@link EjbJarMetaData} which will scanned for interceptor classes
+    * @return
+    * 
+    */
+   public static Collection<String> getAllInterceptorClasses(EjbJarMetaData ejbJar) 
+   {
+      Collection<String> allInterceptorClassNames = new HashSet<String>();
+
+      // process <interceptors>
+      InterceptorsMetaData interceptorsMetadata = ejbJar.getInterceptors();
+      if (interceptorsMetadata != null)
+      {
+         for (InterceptorMetaData interceptor : interceptorsMetadata)
+         {
+            if (interceptor.getInterceptorClass() != null)
+            {
+               allInterceptorClassNames.add(interceptor.getInterceptorClass());
+            }
+         }
+      }
+      // process <interceptor-bindings> (a.k.a @Interceptors)
+      AssemblyDescriptorMetaData assemblyDescriptor = ejbJar.getAssemblyDescriptor();
+      if (assemblyDescriptor != null)
+      {
+         InterceptorBindingsMetaData interceptorBindings = assemblyDescriptor.getInterceptorBindings();
+         if (interceptorBindings != null)
+         {
+            for (InterceptorBindingMetaData interceptorBinding : interceptorBindings)
+            {
+               if (interceptorBinding != null)
+               {
+                  InterceptorClassesMetaData interceptorClasses = interceptorBinding.getInterceptorClasses();
+                  if (interceptorClasses != null)
+                  {
+                     for (String interceptorClass : interceptorClasses)
+                     {
+                        allInterceptorClassNames.add(interceptorClass);
+                     }
+   
+                  }
+               }
+            }
+         }
+      }
+      // process around-invoke
+      EnterpriseBeansMetaData enterpriseBeans = ejbJar.getEnterpriseBeans();
+      if (enterpriseBeans != null)
+      {
+         for (EnterpriseBeanMetaData enterpriseBean : enterpriseBeans)
+         {
+            String enterpriseBeanClassName = enterpriseBean.getEjbClass();
+            AroundInvokesMetaData aroundInvokes = null;
+            if (enterpriseBean.isSession())
+            {
+               SessionBeanMetaData sessionBean = (SessionBeanMetaData) enterpriseBean;
+               aroundInvokes = sessionBean.getAroundInvokes();
+            }
+            else if (enterpriseBean.isMessageDriven())
+            {
+               MessageDrivenBeanMetaData messageDrivenBean = (MessageDrivenBeanMetaData) enterpriseBean;
+               aroundInvokes = messageDrivenBean.getAroundInvokes();
+            }
+
+            if (aroundInvokes == null || aroundInvokes.isEmpty())
+            {
+               continue;
+            }
+
+            for (AroundInvokeMetaData aroundInvoke : aroundInvokes)
+            {
+               String targetClass = aroundInvoke.getClassName();
+               if (targetClass == null)
+               {
+                  continue;
+               }
+               // if the target class name is not the class name of the EJB,
+               // then as per the xsd, it is considered an interceptor class
+               if (targetClass.equals(enterpriseBeanClassName) == false)
+               {
+                  // it's an interceptor class
+                  allInterceptorClassNames.add(targetClass);
+               }
+            }
+         }
+      }
+      // return the interceptor class names
+      return allInterceptorClassNames;
+   }
+
+   /**
+    * Utility method which, given a bean name, all interceptors available in a deployment
+    * and the all the interceptor binding information, will return only those interceptors
+    * which are applicable to the EJB corresponding to the bean name
+    * 
+    * @param ejbName Name of the EJB
+    * @param allInterceptors {@link InterceptorsMetaData} of all interceptors
+    * @param allInterceptorBindings {@link InterceptorBindingsMetaData} of all interceptor bindings
+    * @return
+    */
+   private static InterceptorsMetaData getInterceptors(String ejbName, InterceptorsMetaData allInterceptors,
+         InterceptorBindingsMetaData allInterceptorBindings)
+   {
+      InterceptorsMetaData beanApplicableInterceptors = new InterceptorsMetaData();
+      // the default interceptors (ejbname = *) will be 
+      // considered as *not* applicable for a bean, if *all* the interceptor
+      // bindings for that bean, have set the exclude-default-interceptors to true
+      boolean includeDefaultInterceptors = false;
+      InterceptorsMetaData defaultInterceptors = new InterceptorsMetaData();
+      for (InterceptorBindingMetaData binding : allInterceptorBindings)
+      {
+         // the interceptor binding corresponds to the bean we are interested in
+         if (ejbName != null && ejbName.equals(binding.getEjbName()))
+         {
+            // atleast one interceptor binding on the bean, is interested
+            // in the default interceptors (ejbname = *). So set the flag to include the default
+            // interceptors in the list of applicable interceptors
+            if (binding.isExcludeDefaultInterceptors() == false)
+            {
+               includeDefaultInterceptors = true;
+            }
+            InterceptorClassesMetaData interceptorClasses = binding.getInterceptorClasses();
+            // interceptor binding has no classes, so move on to the next interceptor binding
+            if (interceptorClasses == null || interceptorClasses.isEmpty())
+            {
+               continue;
+            }
+            for (String interceptorClass : interceptorClasses)
+            {
+               // get the corresponding interceptor metadata for the interceptor class
+               InterceptorMetaData interceptorMetaData = allInterceptors.get(interceptorClass);
+               // TODO: the interceptor metadata for a interceptor class will only be
+               // null, if the metadata isn't fully populated/processed. Let's not thrown
+               // any errors and just ignore such cases for now
+               if (interceptorMetaData != null)
+               {
+                  // include this interceptor metadata as applicable for the bean
+                  beanApplicableInterceptors.add(interceptorMetaData);
+               }
+            }
+         }
+         else if (binding.getEjbName().equals("*")) // binding for default interceptors
+         {
+            InterceptorClassesMetaData interceptorClasses = binding.getInterceptorClasses();
+            // no interceptor class, so skip to next interceptor binding
+            if (interceptorClasses == null || interceptorClasses.isEmpty())
+            {
+               continue;
+            }
+            for (String interceptorClass : interceptorClasses)
+            {
+               InterceptorMetaData interceptorMetaData = allInterceptors.get(interceptorClass);
+               // TODO: the interceptor metadata for a interceptor class will only be
+               // null, if the metadata isn't fully populated/processed. Let's not thrown
+               // any errors and just ignore such cases for now
+               if (interceptorMetaData != null)
+               {
+                  // add the interceptor metadata to the set of default interceptors.
+                  // Whether or not these default interceptors are applicable for 
+                  // the bean being processed, will be decide later
+                  defaultInterceptors.add(interceptorMetaData);
+               }
+            }
+         }
+      }
+      // if the default interceptors (ejb name= *) are to be included 
+      // for this bean.
+      // the default interceptors (ejbname = *) will be 
+      // considered as *not* applicable for a bean, if *all* the interceptor
+      // bindings for that bean, have set the exclude-default-interceptors to true
+      if (includeDefaultInterceptors)
+      {
+         beanApplicableInterceptors.addAll(defaultInterceptors);
+      }
+
+      // return the interceptors which are applicable for the bean
+      return beanApplicableInterceptors;
+   }
+
 }
