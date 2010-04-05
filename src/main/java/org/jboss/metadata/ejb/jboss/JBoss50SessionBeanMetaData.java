@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
       "localHomeJndiName", "jndiBindingPolicy", "clustered", "clusterConfig",
       "securityDomain", "methodAttributes", "depends", "annotations", "ignoreDependency", "aopDomainName",
       "cacheConfig", "poolConfig", "concurrent", "jndiRefs", "portComponent", "ejbTimeoutIdentity", "iorSecurityConfig"})
-public class JBoss50SessionBeanMetaData extends JBossSessionBeanMetaData
+public class JBoss50SessionBeanMetaData extends JBossSessionBean31MetaData
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = 29928077451682118L;

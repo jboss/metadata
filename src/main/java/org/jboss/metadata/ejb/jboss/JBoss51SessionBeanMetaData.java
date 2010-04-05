@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
       "clustered", "clusterConfig",
       "securityDomain", "methodAttributes", "depends", "annotations", "ignoreDependency", "aopDomainName",
       "cacheConfig", "poolConfig", "concurrent", "jndiRefs", "portComponent", "ejbTimeoutIdentity"})
-public class JBoss51SessionBeanMetaData extends JBossSessionBeanMetaData
+public class JBoss51SessionBeanMetaData extends JBossSessionBean31MetaData
 {
 
    /** The serialVersionUID */
