@@ -104,6 +104,9 @@ public class JBossMetaData extends NamedModuleImpl
    /** Whether to throw an exception when marked rollback */
    private boolean exceptionOnRollback;
    
+   /** default JMS RA deployment name */
+   private String jmsResourceAdapter;
+   
    /** The webservices */
    private WebservicesMetaData webservices;
    
@@ -652,6 +655,17 @@ public class JBossMetaData extends NamedModuleImpl
       this.jndiBindingPolicy = jndiBindingPolicy;
    }
    
+   @XmlElement(name="jms-resource-adapter")
+   public String getJMSResourceAdapter()
+   {
+      return this.jmsResourceAdapter;
+   }
+   
+   public void setJMSResourceAdapter(String jmsResourceAdapter)
+   {
+      this.jmsResourceAdapter = jmsResourceAdapter;
+   }
+   
    /**
     * Access the RunAsIdentity associated with the given servlet
     * @param ejbName - the servlet-name from the web.xml
@@ -844,6 +858,9 @@ public class JBossMetaData extends NamedModuleImpl
             }
          }
       }
+      
+      if(override != null && override.jmsResourceAdapter != null)
+         jmsResourceAdapter = override.jmsResourceAdapter;
    }
 
    public void merge(JBossMetaData override, JBossMetaData original)
@@ -1017,6 +1034,11 @@ public class JBossMetaData extends NamedModuleImpl
             }
          }
       }
+      
+      if(override != null && override.getJMSResourceAdapter() != null)
+         jmsResourceAdapter = override.getJMSResourceAdapter();
+      else if(original != null && original.getJMSResourceAdapter() != null)
+         jmsResourceAdapter = original.getJMSResourceAdapter();
    }
    
    /**

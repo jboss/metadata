@@ -249,6 +249,15 @@ public class JBossMetaDataWrapper extends JBossMetaData
    }
 
    @Override
+   public String getJMSResourceAdapter()
+   {
+      String defaultJmsRa = primary.getJMSResourceAdapter();
+      if(defaultJmsRa == null && defaults != null)
+         defaultJmsRa = defaults.getJMSResourceAdapter();
+      return defaultJmsRa;
+   }
+
+   @Override
    public boolean isMetadataComplete()
    {
       return primary.isMetadataComplete();

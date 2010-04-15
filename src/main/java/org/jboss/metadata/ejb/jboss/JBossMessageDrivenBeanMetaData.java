@@ -502,6 +502,12 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
     */
    public String getResourceAdapterName()
    {
+      if(resourceAdapterName == null)
+      {
+         JBossMetaData jboss = this.getJBossMetaData();
+         if(jboss != null)
+            return jboss.getJMSResourceAdapter();
+      }
       return resourceAdapterName;
    }
 

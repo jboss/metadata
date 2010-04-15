@@ -210,5 +210,8 @@ public class JBossMetaDataProxy extends JBossMetaData
       return delegate.isExcludeMissingMethods();
    }
 
-
+   public String getJMSResourceAdapter()
+   {
+	   return delegate.getJMSResourceAdapter();
+   }
 }
