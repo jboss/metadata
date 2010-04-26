@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.Collections;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,6 +79,12 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * Concurrency management type of the bean
     */
    private ConcurrencyManagementType concurrencyManagementType;
+   
+   /**
+    * DependsOn for a singleton bean
+    */
+   private String[] dependsOn;
+
 
    /**
     * Returns the init-on-startup value of the session bean metadata.
@@ -256,6 +262,42 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    }
 
    /**
+    * Returns the names of one or more Singleton beans in the same application 
+    * as the referring Singleton. 
+    * @return
+    */
+   public String[] getDependsOn()
+   {
+      return this.dependsOn;
+   }
+   
+   /**
+    * Sets the names of one or more singleton beans, each of which must be initialized before
+    * the referring bean. Each dependent bean is expressed using ejb-link syntax.
+    * 
+    * @param dependsOn The singleton bean dependencies 
+    */
+   public void setDependsOn(String[] dependsOn)
+   {
+      this.dependsOn = dependsOn;
+   }
+   
+   /**
+    * Sets the names of one or more singleton beans, each of which must be initialized before
+    * the referring bean. Each dependent bean is expressed using ejb-link syntax.
+    * 
+    * @param dependsOn The singleton bean dependencies
+    */
+   public void setDependsOn(Collection<String> dependsOn)
+   {
+      if (dependsOn == null)
+      {
+         return;
+      }
+      this.setDependsOn(dependsOn.toArray(new String[dependsOn.size()]));
+   }
+   
+   /**
     * {@inheritDoc}
     */
    @Override
@@ -303,6 +345,10 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          {
             this.beanLevelAccessTimeout = override.beanLevelAccessTimeout;
          }
+         if (override.dependsOn != null)
+         {
+            this.dependsOn = override.dependsOn;
+         }
       }
       else if (original != null)
       {
@@ -333,6 +379,10 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          if (original.beanLevelAccessTimeout != null)
          {
             this.beanLevelAccessTimeout = original.beanLevelAccessTimeout;
+         }
+         if (original.dependsOn != null)
+         {
+            this.dependsOn = original.dependsOn;
          }
       }
    }

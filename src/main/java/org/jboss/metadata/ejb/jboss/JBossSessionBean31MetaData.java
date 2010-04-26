@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.Collections;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -78,6 +78,11 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     * The lock type that is set at the bean level
     */
    private LockType beanLevelLockType;
+   
+   /**
+    * DependsOn for a singleton bean
+    */
+   private String[] dependsOn;
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
@@ -240,6 +245,42 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
    {
       return this.beanLevelAccessTimeout;
    }
+   
+   /**
+    * Returns the names of one or more Singleton beans in the same application 
+    * as the referring Singleton. 
+    * @return
+    */
+   public String[] getDependsOn()
+   {
+      return this.dependsOn;
+   }
+   
+   /**
+    * Sets the names of one or more singleton beans, each of which must be initialized before
+    * the referring bean. Each dependent bean is expressed using ejb-link syntax.
+    * 
+    * @param dependsOn The singleton bean dependencies 
+    */
+   public void setDependsOn(String[] dependsOn)
+   {
+      this.dependsOn = dependsOn;
+   }
+   
+   /**
+    * Sets the names of one or more singleton beans, each of which must be initialized before
+    * the referring bean. Each dependent bean is expressed using ejb-link syntax.
+    * 
+    * @param dependsOn The singleton bean dependencies
+    */
+   public void setDependsOn(Collection<String> dependsOn)
+   {
+      if (dependsOn == null)
+      {
+         return;
+      }
+      this.setDependsOn(dependsOn.toArray(new String[dependsOn.size()]));
+   }
 
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
@@ -280,6 +321,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.beanLevelAccessTimeout = joverride.beanLevelAccessTimeout;
          }
+         if (joverride.dependsOn != null)
+         {
+            this.dependsOn = joverride.dependsOn;
+         }
       }
       else if (soriginal != null)
       {
@@ -304,6 +349,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          if (soriginal.beanLevelAccessTimeout != null)
          {
             this.beanLevelAccessTimeout = soriginal.beanLevelAccessTimeout;
+         }
+         if (soriginal.dependsOn != null)
+         {
+            this.dependsOn = soriginal.dependsOn;
          }
       }
 
@@ -345,6 +394,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.beanLevelAccessTimeout = joverride.beanLevelAccessTimeout;
          }
+         if (joverride.dependsOn != null)
+         {
+            this.dependsOn = joverride.dependsOn;
+         }
       }
       else if (soriginal != null)
       {
@@ -369,6 +422,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          if (soriginal.getAccessTimeout() != null)
          {
             this.beanLevelAccessTimeout = soriginal.getAccessTimeout();
+         }
+         if (soriginal.getDependsOn() != null)
+         {
+            this.dependsOn = soriginal.getDependsOn();
          }
       }
 
