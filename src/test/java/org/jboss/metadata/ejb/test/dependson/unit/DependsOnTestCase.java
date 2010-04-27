@@ -24,13 +24,15 @@ package org.jboss.metadata.ejb.test.dependson.unit;
 import static org.junit.Assert.assertNotNull;
 
 import java.lang.reflect.AnnotatedElement;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import javax.ejb.DependsOn;
+
 import junit.framework.Assert;
 
-import org.jboss.logging.Logger;
 import org.jboss.metadata.annotation.creator.ejb.jboss.JBoss50Creator;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
@@ -38,11 +40,16 @@ import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.test.dependson.IndependentSingleton;
 import org.jboss.metadata.ejb.test.dependson.SingletonWithMultipleDependencies;
 import org.jboss.metadata.ejb.test.dependson.SingletonWithOneDependency;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
+import org.jboss.xb.binding.JBossXBException;
+import org.jboss.xb.binding.Unmarshaller;
 import org.jboss.xb.binding.UnmarshallerFactory;
 import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
 import org.jboss.xb.binding.resolver.MutableSchemaResolver;
@@ -51,15 +58,14 @@ import org.junit.Test;
 
 
 /**
- * DependsOnTestCase
+ * Testcase for testing the processing of {@link DependsOn} annotation 
+ * and its xml equivalent
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
 public class DependsOnTestCase
 {
-
-   private static Logger logger = Logger.getLogger(DependsOnTestCase.class);
 
    private static MutableSchemaResolver schemaBindingResolver;
 
@@ -72,6 +78,12 @@ public class DependsOnTestCase
       schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
    }
    
+   /**
+    * Test that the {@link DependsOn} annotation is correctly processed and converted 
+    * to metadata
+    * 
+    * @throws Exception
+    */
    @Test
    @ScanPackage("org.jboss.metadata.ejb.test.dependson")
    public void testDependsOnAnnotationProcessing() throws Exception
@@ -123,6 +135,53 @@ public class DependsOnTestCase
       Assert.assertTrue("Unexpected dependency found on bean " + multipleDependenciesBeanName, deps.contains("B"));
       Assert.assertTrue("Unexpected dependency found on bean " + multipleDependenciesBeanName, deps.contains("somejar.jar#C"));
       
+   }
+   
+   /**
+    * Tests that the processing of depends-on xml element in ejb-jar.xml, for metadata, is done correctly.
+    * 
+    * @throws Exception
+    */
+   @Test
+   public void testDependsOnXmlProcessing() throws Exception
+   {
+      EjbJarMetaData jarMetaData = unmarshal(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/dependson/ejb-jar.xml");
+      assertNotNull(jarMetaData);
+      // test that the depends-on metadata was created correctly
+      String beanName = "SimpleSingletonBean";
+      EnterpriseBeanMetaData enterpriseBean = jarMetaData.getEnterpriseBean(beanName);
+      
+      assertNotNull("Metadata for bean named " + beanName + " was not found", enterpriseBean);
+      SessionBean31MetaData sessionBean = (SessionBean31MetaData) enterpriseBean;
+      Assert.assertTrue(beanName + " is not a singleton bean", sessionBean.isSingleton());
+      
+      String[] dependsOn = sessionBean.getDependsOn();
+      
+      Assert.assertNotNull("No dependency  found on bean " + beanName, dependsOn);
+      Assert.assertEquals("Unexpected number of dependencies found on bean " + beanName, 2, dependsOn.length );
+      
+      List<String> deps = Arrays.asList(dependsOn);
+      Assert.assertTrue("Unexpected dependency found on bean " + beanName, deps.contains("A"));
+      Assert.assertTrue("Unexpected dependency found on bean " + beanName, deps.contains("abc.jar#xyz"));
       
    }
+   
+   /**
+    * Utility method
+    * @param <T>
+    * @param type
+    * @param resource
+    * @return
+    * @throws JBossXBException
+    */
+   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
+   {
+      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
+      unmarshaller.setValidation(false);
+      URL url = type.getResource(resource);
+      if (url == null)
+         throw new IllegalArgumentException("Failed to find resource " + resource);
+      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
+   }
+
 }

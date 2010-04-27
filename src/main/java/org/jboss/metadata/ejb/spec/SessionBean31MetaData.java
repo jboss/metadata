@@ -23,6 +23,7 @@ package org.jboss.metadata.ejb.spec;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.ConcurrencyManagementType;
@@ -41,7 +42,7 @@ import org.jboss.metadata.javaee.spec.EmptyMetaData;
 @XmlType(name = "session-beanType", propOrder =
 {"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local", "businessLocals",
       "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "initOnStartup",
-      "concurrencyManagementType", "concurrentMethods", "initMethods", "removeMethods", "asyncMethods", "transactionType",
+      "concurrencyManagementType", "concurrentMethods", "dependsOnMetaData", "initMethods", "removeMethods", "asyncMethods", "transactionType",
       "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
 //@JBossXmlType(modelGroup = JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeoutTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
@@ -83,7 +84,8 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    /**
     * DependsOn for a singleton bean
     */
-   private String[] dependsOn;
+   private DependsOnMetaData dependsOn;
+   
 
 
    /**
@@ -268,7 +270,12 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     */
    public String[] getDependsOn()
    {
-      return this.dependsOn;
+      if (this.dependsOn == null || this.dependsOn.getEjbNames() == null)
+      {
+         return null;
+      }
+      List<String> ejbNames = this.dependsOn.getEjbNames();
+      return ejbNames.toArray(new String[ejbNames.size()]);
    }
    
    /**
@@ -276,11 +283,25 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * the referring bean. Each dependent bean is expressed using ejb-link syntax.
     * 
     * @param dependsOn The singleton bean dependencies 
+    * 
     */
    public void setDependsOn(String[] dependsOn)
    {
-      this.dependsOn = dependsOn;
+      this.dependsOn = new DependsOnMetaData(dependsOn);
    }
+
+   /**
+    * Sets the names of one or more singleton beans, each of which must be initialized before
+    * the referring bean. Each dependent bean is expressed using ejb-link syntax.
+    * 
+    * @param dependsOn The singleton bean dependencies 
+    */
+   @XmlElement(name = "depends-on", required = false)
+   public void setDependsOnMetaData(DependsOnMetaData dependsOnMetaData)
+   {
+      this.dependsOn = dependsOnMetaData;
+   }
+
    
    /**
     * Sets the names of one or more singleton beans, each of which must be initialized before
