@@ -177,7 +177,15 @@
       <version>4.4</version>
       <scope>test</scope>
     </dependency>
-    
+
+    <!-- To counter AbstractMethodErrors -->
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging-log4j</artifactId>
+      <version>2.2.0.CR1</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.jboss.test</groupId>
       <artifactId>jboss-test</artifactId>
