@@ -17,6 +17,14 @@
     <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/metadata/ejb/trunk/</developerConnection>
   </scm>
 
+    <distributionManagement>
+        <repository>
+          <id>jboss-releases-repository</id>
+          <name>JBoss Releases Repository</name>
+          <url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
   <build>
     <outputDirectory>${profile.outputDirectory}</outputDirectory>
     <testOutputDirectory>${profile.testOutputDirectory}</testOutputDirectory>
