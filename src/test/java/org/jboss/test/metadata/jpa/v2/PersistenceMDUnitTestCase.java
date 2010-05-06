@@ -65,6 +65,13 @@ public class PersistenceMDUnitTestCase extends AbstractJavaEEMetaDataTest
       testPersistenceUnitMetaData(unit, "manager", "java:/DefaultDS", Collections.singleton("persistence.jar"), "hibernate", "create-drop");
       unit = units.get(1);
       testPersistenceUnitMetaData(unit, "dev", "java:/MySqlDS", new HashSet<String>(Arrays.asList("dev.jar", "foobar.jar")), "hibernate", "validate");
+      assertNotNull(unit.getPersistenceMetaData());
+      assertEquals("2.0", unit.getPersistenceMetaData().getVersion());
+
+      PersistenceMetaData pmdClone = unit.getPersistenceMetaData().clone();
+      assertNotNull(pmdClone);
+      unit = pmdClone.getPersistenceUnits().get(0);
+      assertEquals("2.0", unit.getPersistenceMetaData().getVersion());
    }
 
    public void testMultipleProperties() throws Exception

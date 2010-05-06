@@ -22,8 +22,6 @@
 package org.jboss.metadata.jpa.spec;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -50,7 +48,7 @@ import org.jboss.xb.annotations.JBossXmlSchema;
 public class PersistenceMetaData extends JBossObject implements Serializable
 {
    private String version;
-   private List<PersistenceUnitMetaData> persistenceUnits;
+   private OwnerReferencePatchingList<PersistenceUnitMetaData> persistenceUnits;
 
    public String getVersion()
    {
@@ -63,15 +61,18 @@ public class PersistenceMetaData extends JBossObject implements Serializable
       this.version = version;
    }
 
-   public List<PersistenceUnitMetaData> getPersistenceUnits()
+   public OwnerReferencePatchingList<PersistenceUnitMetaData> getPersistenceUnits()
    {
       return persistenceUnits;
    }
 
    @XmlElement(name = "persistence-unit")
-   public void setPersistenceUnits(List<PersistenceUnitMetaData> persistenceUnits)
+   public void setPersistenceUnits(OwnerReferencePatchingList<PersistenceUnitMetaData> persistenceUnits)
    {
+      if(  persistenceUnits == null)
+         throw new IllegalArgumentException("Null persistenceUnits");
       this.persistenceUnits = persistenceUnits;
+      this.persistenceUnits.setOwner(this);
    }
 
    protected void toString(JBossStringBuilder builder)
@@ -84,12 +85,11 @@ public class PersistenceMetaData extends JBossObject implements Serializable
    public PersistenceMetaData clone()
    {
       PersistenceMetaData clone = (PersistenceMetaData)super.clone();
+      clone.setPersistenceUnits(new OwnerReferencePatchingList<PersistenceUnitMetaData>());
       if (persistenceUnits != null)
       {
-         List<PersistenceUnitMetaData> units = new ArrayList<PersistenceUnitMetaData>();
          for (PersistenceUnitMetaData unit : persistenceUnits)
-            units.add(unit.clone());
-         clone.setPersistenceUnits(units);
+            clone.getPersistenceUnits().add(unit.clone());
       }
       return clone;
    }

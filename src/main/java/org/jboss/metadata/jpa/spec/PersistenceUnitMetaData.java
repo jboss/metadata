@@ -61,6 +61,8 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
    private SharedCacheMode sharedCacheMode;
    private ValidationMode validationMode;
 
+   private PersistenceMetaData persistenceMetaData;
+
    @XmlElement
    public SharedCacheMode getSharedCacheMode()
    {
@@ -205,6 +207,20 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
    public void setTransactionType(TransactionType transactionType)
    {
       this.transactionType = transactionType;
+   }
+
+   public PersistenceMetaData getPersistenceMetaData()
+   {
+      return persistenceMetaData;
+   }
+
+   /**
+    * Do not call directly (should only be called by OwnerReferencePatchingList).
+    * @param owner is expected to be a PersistenceMetaData
+    */
+   public void setOwner(Object owner)
+   {
+      this.persistenceMetaData = (PersistenceMetaData) owner;
    }
 
    protected void toString(JBossStringBuilder builder)
