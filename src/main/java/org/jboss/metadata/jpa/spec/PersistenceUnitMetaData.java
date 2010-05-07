@@ -21,22 +21,22 @@
 */
 package org.jboss.metadata.jpa.spec;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlType;
-
+import org.jboss.metadata.ejb.util.ChildClassAdapter;
 import org.jboss.util.JBossObject;
 import org.jboss.util.JBossStringBuilder;
 import org.jboss.xb.annotations.JBossXmlMapEntry;
 import org.jboss.xb.annotations.JBossXmlMapKeyAttribute;
 import org.jboss.xb.annotations.JBossXmlMapValueAttribute;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The persistence unit metadata.
@@ -62,6 +62,24 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
    private ValidationMode validationMode;
 
    private PersistenceMetaData persistenceMetaData;
+
+   static class Adapter implements ChildClassAdapter<PersistenceUnitMetaData, PersistenceMetaData>
+   {
+      @Override
+      public PersistenceMetaData getParent(PersistenceUnitMetaData child)
+      {
+         return child.persistenceMetaData;
+      }
+
+      @Override
+      public void setParent(PersistenceUnitMetaData child, PersistenceMetaData parent)
+      {
+         if(child.persistenceMetaData != null && parent != null)
+            throw new IllegalArgumentException("Can't set parent " + parent + " already got " + child.persistenceMetaData);
+         child.persistenceMetaData = parent;
+      }
+   }
+   static Adapter adapter = new Adapter();
 
    @XmlElement
    public SharedCacheMode getSharedCacheMode()
@@ -214,15 +232,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return persistenceMetaData;
    }
 
-   /**
-    * Do not call directly (should only be called by OwnerReferencePatchingList).
-    * @param owner is expected to be a PersistenceMetaData
-    */
-   public void setOwner(Object owner)
-   {
-      this.persistenceMetaData = (PersistenceMetaData) owner;
-   }
-
    protected void toString(JBossStringBuilder builder)
    {
       builder.append("provider=").append(provider);
@@ -253,6 +262,8 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
          clone.setClasses(new HashSet<String>(classes));
       if (properties != null)
          clone.setProperties(new HashMap<String, String>(properties));
+      // make the clone an orphan
+      clone.persistenceMetaData = null;
       return clone;
    }
 }

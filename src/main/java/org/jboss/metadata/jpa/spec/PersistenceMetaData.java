@@ -21,17 +21,14 @@
 */
 package org.jboss.metadata.jpa.spec;
 
-import java.io.Serializable;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
+import org.jboss.metadata.ejb.util.ChildrenList;
 import org.jboss.util.JBossObject;
 import org.jboss.util.JBossStringBuilder;
 import org.jboss.xb.annotations.JBossXmlSchema;
+
+import javax.xml.bind.annotation.*;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * The persistence metadata.
@@ -48,7 +45,7 @@ import org.jboss.xb.annotations.JBossXmlSchema;
 public class PersistenceMetaData extends JBossObject implements Serializable
 {
    private String version;
-   private OwnerReferencePatchingList<PersistenceUnitMetaData> persistenceUnits;
+   private ChildrenList<PersistenceUnitMetaData, PersistenceMetaData> persistenceUnits = new ChildrenList<PersistenceUnitMetaData, PersistenceMetaData>(this, PersistenceUnitMetaData.adapter);
 
    public String getVersion()
    {
@@ -61,18 +58,10 @@ public class PersistenceMetaData extends JBossObject implements Serializable
       this.version = version;
    }
 
-   public OwnerReferencePatchingList<PersistenceUnitMetaData> getPersistenceUnits()
+   @XmlElement(name = "persistence-unit")
+   public List<PersistenceUnitMetaData> getPersistenceUnits()
    {
       return persistenceUnits;
-   }
-
-   @XmlElement(name = "persistence-unit")
-   public void setPersistenceUnits(OwnerReferencePatchingList<PersistenceUnitMetaData> persistenceUnits)
-   {
-      if(  persistenceUnits == null)
-         throw new IllegalArgumentException("Null persistenceUnits");
-      this.persistenceUnits = persistenceUnits;
-      this.persistenceUnits.setOwner(this);
    }
 
    protected void toString(JBossStringBuilder builder)
@@ -85,12 +74,9 @@ public class PersistenceMetaData extends JBossObject implements Serializable
    public PersistenceMetaData clone()
    {
       PersistenceMetaData clone = (PersistenceMetaData)super.clone();
-      clone.setPersistenceUnits(new OwnerReferencePatchingList<PersistenceUnitMetaData>());
-      if (persistenceUnits != null)
-      {
-         for (PersistenceUnitMetaData unit : persistenceUnits)
-            clone.getPersistenceUnits().add(unit.clone());
-      }
+      clone.persistenceUnits = new ChildrenList<PersistenceUnitMetaData, PersistenceMetaData>(clone, PersistenceUnitMetaData.adapter);
+      for (PersistenceUnitMetaData unit : persistenceUnits)
+         clone.persistenceUnits.add(unit.clone());
       return clone;
    }
 }
