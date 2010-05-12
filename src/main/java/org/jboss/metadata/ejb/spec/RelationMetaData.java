@@ -209,6 +209,9 @@ public class RelationMetaData extends NamedMetaDataWithDescriptions
    @XmlElement(name="ejb-relationship-role")
    public void setEjbRelationshipRoles(List<RelationRoleMetaData> roleMetaData)
    {
-      throw new UnsupportedOperationException("this list shouldn't be set");
+      if(roleMetaData == null)
+         return;
+      List<RelationRoleMetaData> roles = getEjbRelationshipRoles();
+      roles.addAll(roleMetaData);
    }
 }
