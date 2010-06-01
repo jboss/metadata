@@ -30,6 +30,11 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import javax.jws.HandlerChain;
 
@@ -38,8 +43,16 @@ import org.jboss.metadata.annotation.creator.AbstractFinderUser;
 import org.jboss.metadata.annotation.creator.Processor;
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
+import org.jboss.metadata.javaee.spec.ParamValueMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainsMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.serviceref.HandlerChainsObjectFactory;
+import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerChainMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerChainsMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedInitParamMetaData;
 import org.jboss.xb.binding.JBossXBException;
 import org.jboss.xb.binding.Unmarshaller;
 import org.jboss.xb.binding.UnmarshallerFactory;
@@ -133,7 +146,128 @@ public class WebServiceHandlerChainProcessor<E extends AnnotatedElement>
          throw new IllegalArgumentException("InputStream may not be null.");
       
       Unmarshaller unmarshaller = UnmarshallerFactory.newInstance().newUnmarshaller();
-      return (ServiceReferenceHandlerChainsMetaData) unmarshaller.unmarshal(in, resolver);
+      UnifiedHandlerChainsMetaData handlerChainsUMDM = (UnifiedHandlerChainsMetaData)unmarshaller.unmarshal(in, new HandlerChainsObjectFactory(), null);
+      return this.transform(handlerChainsUMDM);
+   }
+   
+   private ServiceReferenceHandlerChainsMetaData transform(final UnifiedHandlerChainsMetaData handlerChainsUMDM)
+   {
+      if (handlerChainsUMDM == null)
+      {
+         return null;
+      }
+      
+      final List<ServiceReferenceHandlerChainMetaData> handlerChains = new LinkedList<ServiceReferenceHandlerChainMetaData>();
+      
+      for (final UnifiedHandlerChainMetaData handlerChainUMDM : handlerChainsUMDM.getHandlerChains())
+      {
+         final ServiceReferenceHandlerChainMetaData newChainMD = transform(handlerChainUMDM);
+         
+         if (newChainMD != null)
+         {
+            handlerChains.add(newChainMD);
+         }
+      }
+      
+      if (handlerChains.size() == 0)
+      {
+         return null;
+      }
+
+      final ServiceReferenceHandlerChainsMetaData retVal = new ServiceReferenceHandlerChainsMetaData();
+      retVal.setHandlers(handlerChains);
+      
+      return retVal;
+   }
+   
+   private ServiceReferenceHandlerChainMetaData transform(final UnifiedHandlerChainMetaData handlerChainUMDM)
+   {
+      if (handlerChainUMDM == null || handlerChainUMDM.isExcluded())
+      {
+         return null;
+      }
+
+      final List<ServiceReferenceHandlerMetaData> handlers = new LinkedList<ServiceReferenceHandlerMetaData>();
+      
+      for (final UnifiedHandlerMetaData handlerUMDM : handlerChainUMDM.getHandlers())
+      {
+         final ServiceReferenceHandlerMetaData newHandlerMD = this.transform(handlerUMDM);
+
+         if (newHandlerMD != null)
+         {
+            handlers.add(newHandlerMD);
+         }
+      }
+      
+      if (handlers.size() == 0)
+      {
+         return null;
+      }
+      
+      final ServiceReferenceHandlerChainMetaData retVal = new ServiceReferenceHandlerChainMetaData();
+      retVal.setPortNamePattern(handlerChainUMDM.getPortNamePattern());
+      retVal.setProtocolBindings(handlerChainUMDM.getProtocolBindings());
+      retVal.setServiceNamePattern(handlerChainUMDM.getServiceNamePattern());
+      retVal.setHandler(handlers);
+      
+      return retVal;
+   }
+   
+   @SuppressWarnings("unchecked")
+   private ServiceReferenceHandlerMetaData transform(final UnifiedHandlerMetaData handlerUMDM)
+   {
+      if (handlerUMDM == null)
+      {
+         return null;
+      }
+      
+      final ServiceReferenceHandlerMetaData retVal = new ServiceReferenceHandlerMetaData();
+      retVal.setHandlerClass(handlerUMDM.getHandlerClass());
+      retVal.setHandlerName(handlerUMDM.getHandlerName());
+      retVal.setPortName(this.toList(handlerUMDM.getPortNames()));
+      retVal.setSoapHeader(this.toList(handlerUMDM.getSoapHeaders()));
+      retVal.setSoapRole(this.toList(handlerUMDM.getSoapRoles()));
+      retVal.setInitParam(this.transform(handlerUMDM.getInitParams()));
+      
+      return retVal;
+   }
+   
+   private List<ParamValueMetaData> transform(final List<UnifiedInitParamMetaData> initParams)
+   {
+      if (initParams == null || initParams.size() == 0)
+      {
+         return null;
+      }
+      
+      final List<ParamValueMetaData> retVal = new LinkedList<ParamValueMetaData>();
+      
+      for (final UnifiedInitParamMetaData initParamUMDM : initParams)
+      {
+         final ParamValueMetaData paramValueMD = new ParamValueMetaData();
+         paramValueMD.setParamName(initParamUMDM.getParamName());
+         paramValueMD.setParamValue(initParamUMDM.getParamValue());
+         
+         retVal.add(paramValueMD);
+      }
+      
+      return retVal;
+   }
+   
+   @SuppressWarnings("unchecked")
+   private List toList(final Set set)
+   {
+      if (set == null)
+      {
+         return null;
+      }
+      
+      List retVal = new LinkedList();
+      for (Iterator<E> i = set.iterator(); i.hasNext(); )
+      {
+         retVal.add(i.next());
+      }
+      
+      return retVal;
    }
    
    /**
