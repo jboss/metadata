@@ -23,10 +23,12 @@ package org.jboss.metadata.ejb.test.util;
 
 import org.jboss.metadata.ejb.util.Child;
 
+import java.io.Serializable;
+
 /**
  * @author <a href="cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class MockChild implements Child<MockParent>
+public class MockChild implements Child<MockParent>, Serializable
 {
    private MockParent parent;
    

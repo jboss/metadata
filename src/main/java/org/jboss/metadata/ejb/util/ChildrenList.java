@@ -21,6 +21,7 @@
  */
 package org.jboss.metadata.ejb.util;
 
+import java.io.Serializable;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.List;
  * 
  * @author <a href="cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class ChildrenList<E, P> extends AbstractList<E>
+public class ChildrenList<E, P> extends AbstractList<E> implements Serializable
 {
    private static ChildClassAdapter<?, ?> defaultChildClassAdapter = new ChildClassAdapter<Child<Parent>, Parent<?>>() {
       @Override

@@ -23,8 +23,15 @@ package org.jboss.metadata.ejb.test.util;
 
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author <a href="cdewolf@redhat.com">Carlo de Wolf</a>
@@ -41,5 +48,29 @@ public class ChildrenListTestCase
       boolean success = parent.getChildren().add(child);
       assertTrue(success);
       assertEquals(parent, child.getParent());
+   }
+
+   @Test
+   public void testSerializable()
+   {
+      MockParent parent = new MockParent();
+      MockChild child = new MockChild();
+      parent.getChildren().add(child);
+
+      ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+      try {
+         ObjectOutputStream out = new ObjectOutputStream(bos);
+         out.writeObject(parent);
+         out.close();
+         byte[] buf = bos.toByteArray();
+
+         ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(buf));
+         MockParent parent2 = (MockParent)in.readObject();
+      } catch (Exception e) {
+         e.printStackTrace();
+         fail("unexpected exception " + e.getClass().getName() + ":" + e.getMessage());
+      }
+
    }
 }

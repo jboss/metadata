@@ -21,13 +21,15 @@
  */
 package org.jboss.metadata.ejb.util;
 
+import java.io.Serializable;
+
 /**
  * Because the child object might not implement Child, we need
  * a ChildClassAdapter.
  * 
  * @author <a href="cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public interface ChildClassAdapter<C, P>
+public interface ChildClassAdapter<C, P> extends Serializable
 {
    P getParent(C child);
    

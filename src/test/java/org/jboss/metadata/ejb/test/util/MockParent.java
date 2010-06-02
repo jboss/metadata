@@ -24,13 +24,14 @@ package org.jboss.metadata.ejb.test.util;
 import org.jboss.metadata.ejb.util.ChildrenList;
 import org.jboss.metadata.ejb.util.Parent;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
 /**
  * @author <a href="cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class MockParent implements Parent<MockChild>
+public class MockParent implements Parent<MockChild>, Serializable
 {
    private List<MockChild> children = new ChildrenList<MockChild, MockParent>(this);
    
