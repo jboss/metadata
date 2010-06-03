@@ -48,6 +48,10 @@ public class MessageDrivenProcessor extends AbstractEnterpriseBeanProcessor<Mess
    {
       super(finder);
       addMethodProcessor(new TimeoutProcessor(finder));
+      
+      // add @Schedule processor
+      addMethodProcessor(new ScheduleProcessor(finder));
+
    }
 
    @Override

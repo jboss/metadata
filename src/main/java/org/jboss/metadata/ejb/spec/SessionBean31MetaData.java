@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 
@@ -41,11 +42,11 @@ import org.jboss.metadata.javaee.spec.EmptyMetaData;
  */
 @XmlType(name = "session-beanType", propOrder =
 {"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local", "businessLocals",
-      "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "initOnStartup",
+      "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "timer", "initOnStartup",
       "concurrencyManagementType", "concurrentMethods", "dependsOnMetaData", "initMethods", "removeMethods", "asyncMethods", "transactionType",
       "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
 //@JBossXmlType(modelGroup = JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
-public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeoutTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
+public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeoutTarget, IScheduleTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
 {
    private static final long serialVersionUID = 1L;
 
@@ -87,6 +88,10 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    private DependsOnMetaData dependsOn;
    
 
+   /**
+    * Represents the metadata for auto created timers
+    */
+   private TimerMetaData timer;
 
    /**
     * Returns the init-on-startup value of the session bean metadata.
@@ -318,6 +323,17 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       this.setDependsOn(dependsOn.toArray(new String[dependsOn.size()]));
    }
    
+   public TimerMetaData getTimer()
+   {
+      return this.timer;
+   }
+   
+   @XmlElement (name = "timer", required = false)
+   public void setTimer(TimerMetaData timer)
+   {
+      this.timer = timer;
+   }
+   
    /**
     * {@inheritDoc}
     */
@@ -370,6 +386,10 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          {
             this.dependsOn = override.dependsOn;
          }
+         if (override.timer != null)
+         {
+            this.timer = override.timer;
+         }
       }
       else if (original != null)
       {
@@ -404,6 +424,10 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          if (original.dependsOn != null)
          {
             this.dependsOn = original.dependsOn;
+         }
+         if (original.timer != null)
+         {
+            this.timer = original.timer;
          }
       }
    }

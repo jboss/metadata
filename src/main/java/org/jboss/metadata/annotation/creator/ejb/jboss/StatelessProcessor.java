@@ -28,6 +28,7 @@ import java.util.Collection;
 import javax.ejb.Stateless;
 
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
+import org.jboss.metadata.annotation.creator.ejb.ScheduleProcessor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
@@ -46,6 +47,9 @@ public class StatelessProcessor extends AbstractSessionBeanProcessor
    protected StatelessProcessor(AnnotationFinder<AnnotatedElement> finder)
    {
       super(finder);
+      
+      // add @Schedule processor
+      addMethodProcessor(new ScheduleProcessor(finder));
    }
 
    @Override

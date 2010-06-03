@@ -29,7 +29,9 @@ import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
 
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
+import org.jboss.metadata.annotation.creator.ejb.ScheduleProcessor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
+import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBean31MetaData;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
 import org.jboss.metadata.ejb.spec.ActivationConfigPropertiesMetaData;
@@ -52,6 +54,9 @@ public class MessageDrivenProcessor extends AbstractEnterpriseBeanProcessor<JBos
       super(finder);
       addTypeProcessor(new JBossResourceAdapterProcessor(finder));
       addMethodProcessor(new TimeoutProcessor(finder));
+      // add @Schedule processor
+      addMethodProcessor(new ScheduleProcessor(finder));
+
    }
 
    @Override
@@ -61,7 +66,7 @@ public class MessageDrivenProcessor extends AbstractEnterpriseBeanProcessor<JBos
       if(annotation == null)
          return null;
 
-      JBossMessageDrivenBeanMetaData metaData = new JBossMessageDrivenBeanMetaData();
+      JBossMessageDrivenBeanMetaData metaData = new JBossMessageDrivenBean31MetaData();
       metaData.setEjbClass(beanClass.getName());
       if(annotation.name().length() > 0)
          metaData.setEjbName(annotation.name());

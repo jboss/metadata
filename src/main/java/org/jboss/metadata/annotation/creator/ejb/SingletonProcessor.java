@@ -58,6 +58,10 @@ public class SingletonProcessor extends AbstractSessionBeanProcessor
       
       addMethodProcessor(new LockMethodProcessor(finder));
       addMethodProcessor(new AccessTimeoutMethodProcessor(finder));
+      
+      // add @Schedule processor
+      addMethodProcessor(new ScheduleProcessor(finder));
+
    }
 
    @Override

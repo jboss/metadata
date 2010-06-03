@@ -43,6 +43,9 @@ public class StatelessProcessor extends AbstractSessionBeanProcessor
    public StatelessProcessor(AnnotationFinder<AnnotatedElement> finder)
    {
       super(finder);
+
+      // add @Schedule processor
+      addMethodProcessor(new ScheduleProcessor(finder));
    }
    
    public SessionBeanMetaData create(Class<?> beanClass)

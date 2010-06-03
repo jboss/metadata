@@ -28,8 +28,10 @@ import java.util.Set;
 
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.LockType;
+import javax.ejb.Schedule;
 import javax.ejb.Startup;
 
+import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
@@ -38,12 +40,13 @@ import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
+import org.jboss.metadata.ejb.spec.TimerMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData implements ITimeoutTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
+public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData implements ITimeoutTarget, IScheduleTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
 {
    private static final long serialVersionUID = 1L;
 
@@ -83,6 +86,11 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     * DependsOn for a singleton bean
     */
    private String[] dependsOn;
+   
+   /**
+    * For beans which have auto-timers (ex: through use of {@link Schedule})
+    */
+   private TimerMetaData timer;
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
@@ -282,6 +290,23 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       this.setDependsOn(dependsOn.toArray(new String[dependsOn.size()]));
    }
 
+
+   /**
+    * Returns the {@link TimerMetaData} associated (if any) with this bean
+    */
+   public TimerMetaData getTimer()
+   {
+      return this.timer;
+   }
+   
+   /**
+    * Sets the {@link TimerMetaData} associated with this bean
+    */
+   public void setTimer(TimerMetaData timer)
+   {
+      this.timer = timer;
+   }
+   
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
    {
@@ -325,6 +350,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = joverride.dependsOn;
          }
+         if (joverride.timer != null)
+         {
+            this.timer = joverride.timer;
+         }
       }
       else if (soriginal != null)
       {
@@ -353,6 +382,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          if (soriginal.dependsOn != null)
          {
             this.dependsOn = soriginal.dependsOn;
+         }
+         if (soriginal.timer != null)
+         {
+            this.timer = soriginal.timer;
          }
       }
 
@@ -398,6 +431,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = joverride.dependsOn;
          }
+         if (joverride.timer != null)
+         {
+            this.timer = joverride.timer;
+         }
       }
       else if (soriginal != null)
       {
@@ -426,6 +463,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          if (soriginal.getDependsOn() != null)
          {
             this.dependsOn = soriginal.getDependsOn();
+         }
+         if (soriginal.getTimer() != null)
+         {
+            this.timer = soriginal.getTimer();
          }
       }
 
