@@ -6,11 +6,11 @@
 
 	<enterprise-beans>
 		<session>
-			<ejb-name>SLSBInEjbJarXml</ejb-name>
+			<ejb-name>MultipleScheduleSLSBInEjbJarXML</ejb-name>
 			<ejb-class>dummy</ejb-class>
 			<timer>
 				<schedule>
-					<day-of-month>*</day-of-month>
+					<day-of-month>1</day-of-month>
 					<day-of-week>Wed</day-of-week>
 				</schedule>
 				<timeout-method>
@@ -20,16 +20,42 @@
 					</method-params>
 				</timeout-method>
 				<persistent>true</persistent>
+				<info>1</info>
+
 			</timer>
+			<timer>
+				<schedule>
+				</schedule>
+				<timeout-method>
+					<method-name>anotherDummyMethod</method-name>
+					<method-params>
+						<method-param>javax.ejb.Timer</method-param>
+					</method-params>
+				</timeout-method>
+				<persistent>true</persistent>
+				<info>2</info>
+
+			</timer>
+
 		</session>
 
 		<session>
-			<ejb-name>SingletonInEjbJarXml</ejb-name>
+			<ejb-name>SingletonWithMultipleSchedulesInEjbJarXml</ejb-name>
 			<ejb-class>dummy</ejb-class>
 			<session-type>Singleton</session-type>
 			<timer>
+				<schedule></schedule>
+				<timeout-method>
+					<method-name>dummySingletonMethod</method-name>
+					<method-params>
+						<method-param>javax.ejb.Timer</method-param>
+					</method-params>
+				</timeout-method>
+				<info>1</info>
+			</timer>
+			<timer>
 				<schedule>
-					<year>2009</year>
+					<year>2010</year>
 				</schedule>
 				<timeout-method>
 					<method-name>dummySingletonMethod</method-name>
@@ -37,13 +63,14 @@
 						<method-param>javax.ejb.Timer</method-param>
 					</method-params>
 				</timeout-method>
-
+				<persistent>false</persistent>
+				<info>2</info>
 			</timer>
 
 		</session>
 
 		<message-driven>
-			<ejb-name>MDBInEjbJarXml</ejb-name>
+			<ejb-name>MDBWithMultipleSchedulesInEjbJarXml</ejb-name>
 			<ejb-class>dummy</ejb-class>
 			<timer>
 				<schedule>
@@ -51,7 +78,7 @@
 					<minute>4</minute>
 					<hour>3</hour>
 					<day-of-month>1</day-of-month>
-					<month>Jan</month>
+					<month>Mar</month>
 					<day-of-week>2</day-of-week>
 					<year>*</year>
 				</schedule>
@@ -62,7 +89,20 @@
 					</method-params>
 				</timeout-method>
 				<persistent>false</persistent>
-				<info>SomeInfoInXml</info>
+				<info>1</info>
+
+			</timer>
+			<timer>
+				<schedule></schedule>
+				<timeout-method>
+					<method-name>dummyMDBMethod</method-name>
+					<method-params>
+						<method-param>javax.ejb.Timer</method-param>
+					</method-params>
+				</timeout-method>
+				<persistent>false</persistent>
+				<timezone>CET</timezone>
+				<info>2</info>
 
 			</timer>
 		</message-driven>

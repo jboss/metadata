@@ -21,6 +21,9 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Schedule;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
@@ -39,7 +42,7 @@ import org.jboss.xb.annotations.JBossXmlType;
 @XmlType(name="message-driven-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "ejbClass",
       "transactionType", "messageSelector", "acknowledgeMode", "messageDrivenDestination", // <!-- these are ejb2.x
       "messagingType",
-      "timeoutMethod", "timer", "transactionType", "messageDestinationType", "messageDestinationLink", "activationConfig", "aroundInvokes",
+      "timeoutMethod", "timers", "transactionType", "messageDestinationType", "messageDestinationLink", "activationConfig", "aroundInvokes",
       "environmentRefsGroup", "securityIdentity"})
 @JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)      
 public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData implements ITimeoutTarget, IScheduleTarget
@@ -48,15 +51,15 @@ public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData imple
    /**
     * Represents metadata for {@link Schedule}
     */
-   private TimerMetaData timer;
+   private List<TimerMetaData> timers = new ArrayList<TimerMetaData>();
    
    /**
     * Returns the {@link TimerMetaData} associated with this bean
     */
    @Override
-   public TimerMetaData getTimer()
+   public List<TimerMetaData> getTimers()
    {
-      return this.timer;
+      return this.timers;
    }
 
    /**
@@ -64,11 +67,21 @@ public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData imple
     */
    @Override
    @XmlElement (name = "timer", required = false)
-   public void setTimer(TimerMetaData timerMetaData)
+   public void setTimers(List<TimerMetaData> timers)
    {
-      this.timer = timerMetaData;
+      this.timers = timers;
    }
 
+   @Override
+   public void addTimer(TimerMetaData timer)
+   {
+      if (this.timers == null)
+      {
+         this.timers = new ArrayList<TimerMetaData>();
+      }
+      this.timers.add(timer);
+   }
+   
    /**
     * {@inheritDoc}
     */
@@ -80,13 +93,21 @@ public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData imple
       MessageDrivenBean31MetaData overrideMetaData = (MessageDrivenBean31MetaData) override;
       MessageDrivenBean31MetaData originalMetaData = (MessageDrivenBean31MetaData) original;
       
-      if (overrideMetaData != null && overrideMetaData.timer != null)
+      if (overrideMetaData != null && overrideMetaData.timers != null)
       {
-         this.timer = overrideMetaData.timer;
+         if (this.timers == null)
+         {
+            this.timers = new ArrayList<TimerMetaData>();
+         }
+         this.timers.addAll(overrideMetaData.timers);
       }
-      else if (originalMetaData != null && originalMetaData.timer != null)
+      else if (originalMetaData != null && originalMetaData.timers != null)
       {
-         this.timer = originalMetaData.timer;
+         if (this.timers == null)
+         {
+            this.timers = new ArrayList<TimerMetaData>();
+         }
+         this.timers.addAll(originalMetaData.timers);
       }
       
    }

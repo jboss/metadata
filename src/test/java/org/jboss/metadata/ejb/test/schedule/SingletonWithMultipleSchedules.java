@@ -19,24 +19,40 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.common.ejb;
+package org.jboss.metadata.ejb.test.schedule;
 
-import java.util.List;
-
-import org.jboss.metadata.ejb.spec.TimerMetaData;
+import javax.ejb.Schedule;
+import javax.ejb.Schedules;
+import javax.ejb.Singleton;
+import javax.ejb.Timer;
 
 /**
- * IScheduleTarget
+ * SingletonWithMultipleSchedules
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public interface IScheduleTarget extends ITimeoutTarget
+@Singleton
+public class SingletonWithMultipleSchedules
 {
 
-   List<TimerMetaData> getTimers();
+   @Schedules( {
+      @Schedule (info="1", timezone="CET"),
+      @Schedule (info="2"),
+      @Schedule (info = "3", dayOfMonth="24", persistent = false)
+   })
+   public void schedule(Timer timer)
+   {
+      
+   }
    
-   void setTimers(List<TimerMetaData> timers);
    
-   void addTimer(TimerMetaData timer);
+   @Schedules( {
+      @Schedule (info="4", hour="*")
+   })
+   public void anotherSchedule(Timer timer)
+   {
+      
+   }
+
 }

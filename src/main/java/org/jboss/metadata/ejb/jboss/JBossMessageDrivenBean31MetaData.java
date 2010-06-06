@@ -21,6 +21,9 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.Schedule;
 
 import org.jboss.metadata.common.ejb.IScheduleTarget;
@@ -41,24 +44,34 @@ public class JBossMessageDrivenBean31MetaData extends JBossMessageDrivenBeanMeta
    /**
     * Represents metadata for {@link Schedule}
     */
-   private TimerMetaData timer;
+   private List<TimerMetaData> timers = new ArrayList<TimerMetaData>();
    
    /**
     * Returns the {@link TimerMetaData} associated with this bean
     */
    @Override
-   public TimerMetaData getTimer()
+   public List<TimerMetaData> getTimers()
    {
-      return this.timer;
+      return this.timers;
    }
 
    /**
     * Sets the {@link TimerMetaData} for this bean
     */
    @Override
-   public void setTimer(TimerMetaData timerMetaData)
+   public void setTimers(List<TimerMetaData> timers)
    {
-      this.timer = timerMetaData;
+      this.timers = timers;
+   }
+   
+   @Override
+   public void addTimer(TimerMetaData timer)
+   {
+      if (this.timers == null)
+      {
+         this.timers = new ArrayList<TimerMetaData>();
+      }
+      this.timers.add(timer);
    }
    
    /**
@@ -72,13 +85,21 @@ public class JBossMessageDrivenBean31MetaData extends JBossMessageDrivenBeanMeta
       JBossMessageDrivenBean31MetaData joverride = (JBossMessageDrivenBean31MetaData) override;
       MessageDrivenBean31MetaData soriginal = (MessageDrivenBean31MetaData) original;
       
-      if(joverride != null && joverride.timer != null)
+      if(joverride != null && joverride.timers != null)
       {
-         this.timer = joverride.timer;
+         if (this.timers == null)
+         {
+            this.timers = new ArrayList<TimerMetaData>();
+         }
+         this.timers.addAll(joverride.timers);
       }
-      else if (soriginal != null && soriginal.getTimer() != null)
+      else if (soriginal != null && soriginal.getTimers() != null)
       {
-         this.timer = soriginal.getTimer();
+         if (this.timers == null)
+         {
+            this.timers = new ArrayList<TimerMetaData>();
+         }
+         this.timers.addAll(soriginal.getTimers());
       }
 
    }
@@ -93,13 +114,21 @@ public class JBossMessageDrivenBean31MetaData extends JBossMessageDrivenBeanMeta
       JBossMessageDrivenBean31MetaData override = overrideEjb instanceof JBossGenericBeanMetaData ? null: (JBossMessageDrivenBean31MetaData) overrideEjb;
       JBossMessageDrivenBean31MetaData original = originalEjb instanceof JBossGenericBeanMetaData ? null: (JBossMessageDrivenBean31MetaData) originalEjb;
       
-      if(override != null && override.timer != null)
+      if(override != null && override.timers != null)
       {
-         this.timer = override.timer;
+         if (this.timers == null)
+         {
+            this.timers = new ArrayList<TimerMetaData>();
+         }
+         this.timers.addAll(override.timers);
       }
-      else if (original != null && original.timer != null)
+      else if (original != null && original.timers != null)
       {
-         this.timer = original.timer;
+         if (this.timers == null)
+         {
+            this.timers = new ArrayList<TimerMetaData>();
+         }
+         this.timers.addAll(original.timers);
       }
    }
  

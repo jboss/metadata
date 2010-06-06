@@ -30,6 +30,7 @@ import javax.ejb.MessageDriven;
 
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
 import org.jboss.metadata.annotation.creator.ejb.ScheduleProcessor;
+import org.jboss.metadata.annotation.creator.ejb.SchedulesProcessor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBean31MetaData;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
@@ -56,6 +57,8 @@ public class MessageDrivenProcessor extends AbstractEnterpriseBeanProcessor<JBos
       addMethodProcessor(new TimeoutProcessor(finder));
       // add @Schedule processor
       addMethodProcessor(new ScheduleProcessor(finder));
+      // add @Schedules processor
+      addMethodProcessor(new SchedulesProcessor(finder));
 
    }
 

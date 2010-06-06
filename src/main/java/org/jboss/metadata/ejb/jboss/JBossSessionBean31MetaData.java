@@ -21,8 +21,10 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -90,7 +92,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
    /**
     * For beans which have auto-timers (ex: through use of {@link Schedule})
     */
-   private TimerMetaData timer;
+   private List<TimerMetaData> timers = new ArrayList<TimerMetaData>();
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
@@ -294,17 +296,29 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
    /**
     * Returns the {@link TimerMetaData} associated (if any) with this bean
     */
-   public TimerMetaData getTimer()
+   @Override
+   public List<TimerMetaData> getTimers()
    {
-      return this.timer;
+      return this.timers;
    }
    
    /**
     * Sets the {@link TimerMetaData} associated with this bean
     */
-   public void setTimer(TimerMetaData timer)
+   @Override
+   public void setTimers(List<TimerMetaData> timer)
    {
-      this.timer = timer;
+      this.timers = timer;
+   }
+   
+   @Override
+   public void addTimer(TimerMetaData timer)
+   {
+      if (this.timers == null)
+      {
+         this.timers = new ArrayList<TimerMetaData>();
+      }
+      this.timers.add(timer);
    }
    
    @Override
@@ -350,9 +364,13 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = joverride.dependsOn;
          }
-         if (joverride.timer != null)
+         if (joverride.timers != null)
          {
-            this.timer = joverride.timer;
+            if (this.timers == null)
+            {
+               this.timers = new ArrayList<TimerMetaData>();
+            }
+            this.timers.addAll(joverride.timers);
          }
       }
       else if (soriginal != null)
@@ -383,9 +401,13 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = soriginal.dependsOn;
          }
-         if (soriginal.timer != null)
+         if (soriginal.timers != null)
          {
-            this.timer = soriginal.timer;
+            if (this.timers == null)
+            {
+               this.timers = new ArrayList<TimerMetaData>();
+            }
+            this.timers.addAll(soriginal.timers);
          }
       }
 
@@ -431,9 +453,13 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = joverride.dependsOn;
          }
-         if (joverride.timer != null)
+         if (joverride.timers != null)
          {
-            this.timer = joverride.timer;
+            if (this.timers == null)
+            {
+               this.timers = new ArrayList<TimerMetaData>();
+            }
+            this.timers.addAll(joverride.timers);
          }
       }
       else if (soriginal != null)
@@ -464,9 +490,13 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = soriginal.getDependsOn();
          }
-         if (soriginal.getTimer() != null)
+         if (soriginal.getTimers() != null)
          {
-            this.timer = soriginal.getTimer();
+            if (this.timers == null)
+            {
+               this.timers = new ArrayList<TimerMetaData>();
+            }
+            this.timers.addAll(soriginal.getTimers());
          }
       }
 

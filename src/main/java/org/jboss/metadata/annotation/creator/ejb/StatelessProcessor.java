@@ -46,6 +46,8 @@ public class StatelessProcessor extends AbstractSessionBeanProcessor
 
       // add @Schedule processor
       addMethodProcessor(new ScheduleProcessor(finder));
+      // add @Schedules processor
+      addMethodProcessor(new SchedulesProcessor(finder));
    }
    
    public SessionBeanMetaData create(Class<?> beanClass)

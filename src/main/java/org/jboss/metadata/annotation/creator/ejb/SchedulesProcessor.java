@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 
 import javax.ejb.Schedule;
+import javax.ejb.Schedules;
 
 import org.jboss.metadata.annotation.creator.AbstractFinderUser;
 import org.jboss.metadata.annotation.creator.EjbProcessorUtils;
@@ -39,63 +40,68 @@ import org.jboss.metadata.ejb.spec.ScheduleMetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
 
 /**
- * Processes {@link Schedule} annotation on bean methods.
+ * SchedulesProcessor
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class ScheduleProcessor extends AbstractFinderUser implements Processor<IScheduleTarget, Method>
+public class SchedulesProcessor extends AbstractFinderUser implements Processor<IScheduleTarget, Method>
 {
 
    /**
     * 
     * @param finder
     */
-   public ScheduleProcessor(AnnotationFinder<AnnotatedElement> finder)
+   public SchedulesProcessor(AnnotationFinder<AnnotatedElement> finder)
    {
       super(finder);
+      
    }
 
-   /**
-    * {@inheritDoc}
-    */
    @Override
    public Collection<Class<? extends Annotation>> getAnnotationTypes()
    {
-      return ProcessorUtils.createAnnotationSet(Schedule.class);
+      return ProcessorUtils.createAnnotationSet(Schedules.class);
    }
 
-   /**
-    * Processes the passed <code>method</code> for {@link Schedule} annotation
-    * and creates {@link TimerMetaData} out of it for the bean
-    */
    @Override
    public void process(IScheduleTarget scheduleTargetBeanMetaData, Method method)
    {
-      Schedule schedule = finder.getAnnotation(method, Schedule.class);
-      if(schedule == null)
+      Schedules schedulesAnnotation = finder.getAnnotation(method, Schedules.class);
+      if(schedulesAnnotation == null)
       {
          return;
       }
-      // create timer metadata
-      TimerMetaData timerMetadata = new TimerMetaData();
-      timerMetadata.setInfo(schedule.info());
-      timerMetadata.setPersistent(schedule.persistent());
-      timerMetadata.setTimezone(schedule.timezone());
-
-      // create a timeout method metadata for the method on which this
-      // @Schedule is present
-      NamedMethodMetaData timeoutMethod = new NamedMethodMetaData();
-      timeoutMethod.setMethodName(method.getName());
-      timeoutMethod.setMethodParams(EjbProcessorUtils.getMethodParameters(method));
-      timerMetadata.setTimeoutMethod(timeoutMethod);
+      Schedule[] schedules = schedulesAnnotation.value();
+      if (schedules == null)
+      {
+         return;
+      }
+      // for each schedule, create a timer metadata and
+      // finally add it to the bean metadata's timer list
+      for (Schedule schedule : schedules)
+      {
+         // create timer metadata
+         TimerMetaData timerMetadata = new TimerMetaData();
+         timerMetadata.setInfo(schedule.info());
+         timerMetadata.setPersistent(schedule.persistent());
+         timerMetadata.setTimezone(schedule.timezone());
+   
+         // create a timeout method metadata for the method on which this
+         // @Schedule is present
+         NamedMethodMetaData timeoutMethod = new NamedMethodMetaData();
+         timeoutMethod.setMethodName(method.getName());
+         timeoutMethod.setMethodParams(EjbProcessorUtils.getMethodParameters(method));
+         timerMetadata.setTimeoutMethod(timeoutMethod);
+         
+         // create schedule metadata
+         ScheduleMetaData scheduleMetadata = new ScheduleMetaData(schedule);
+         timerMetadata.setSchedule(scheduleMetadata);
+   
+         // finally set the timer metadata in the bean
+         scheduleTargetBeanMetaData.addTimer(timerMetadata);
+      }
       
-      // create schedule metadata
-      ScheduleMetaData scheduleMetadata = new ScheduleMetaData(schedule);
-      timerMetadata.setSchedule(scheduleMetadata);
-
-      // finally set the timer metadata in the bean
-      scheduleTargetBeanMetaData.addTimer(timerMetadata);
    }
 
 }

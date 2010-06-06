@@ -19,24 +19,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.common.ejb;
+package org.jboss.metadata.ejb.test.schedule;
 
-import java.util.List;
-
-import org.jboss.metadata.ejb.spec.TimerMetaData;
+import javax.ejb.Schedule;
+import javax.ejb.Schedules;
+import javax.ejb.Stateless;
+import javax.ejb.Timer;
 
 /**
- * IScheduleTarget
+ * SLSBWithMultipleSchedules
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public interface IScheduleTarget extends ITimeoutTarget
+@Stateless
+public class SLSBWithMultipleSchedules
 {
 
-   List<TimerMetaData> getTimers();
-   
-   void setTimers(List<TimerMetaData> timers);
-   
-   void addTimer(TimerMetaData timer);
+   @Schedules(
+   {@Schedule(info = "1", persistent = false), @Schedule(info = "2", timezone = "IST")})
+   public void schedule(Timer timer)
+   {
+
+   }
 }

@@ -21,6 +21,7 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +43,7 @@ import org.jboss.metadata.javaee.spec.EmptyMetaData;
  */
 @XmlType(name = "session-beanType", propOrder =
 {"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local", "businessLocals",
-      "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "timer", "initOnStartup",
+      "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "timers", "initOnStartup",
       "concurrencyManagementType", "concurrentMethods", "dependsOnMetaData", "initMethods", "removeMethods", "asyncMethods", "transactionType",
       "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
 //@JBossXmlType(modelGroup = JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
@@ -91,7 +92,7 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    /**
     * Represents the metadata for auto created timers
     */
-   private TimerMetaData timer;
+   private List<TimerMetaData> timers;
 
    /**
     * Returns the init-on-startup value of the session bean metadata.
@@ -323,16 +324,29 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       this.setDependsOn(dependsOn.toArray(new String[dependsOn.size()]));
    }
    
-   public TimerMetaData getTimer()
+   @Override
+   public List<TimerMetaData> getTimers()
    {
-      return this.timer;
+      return this.timers;
    }
    
    @XmlElement (name = "timer", required = false)
-   public void setTimer(TimerMetaData timer)
+   @Override
+   public void setTimers(List<TimerMetaData> timers)
    {
-      this.timer = timer;
+      this.timers = timers;
    }
+
+   @Override
+   public void addTimer(TimerMetaData timer)
+   {
+      if (this.timers == null)
+      {
+         this.timers = new ArrayList<TimerMetaData>();
+      }
+      this.timers.add(timer);
+   }
+
    
    /**
     * {@inheritDoc}
@@ -386,9 +400,13 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          {
             this.dependsOn = override.dependsOn;
          }
-         if (override.timer != null)
+         if (override.timers != null)
          {
-            this.timer = override.timer;
+            if (this.timers == null)
+            {
+               this.timers = new ArrayList<TimerMetaData>();
+            }
+            this.timers.addAll(override.timers);
          }
       }
       else if (original != null)
@@ -425,9 +443,13 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          {
             this.dependsOn = original.dependsOn;
          }
-         if (original.timer != null)
+         if (original.timers != null)
          {
-            this.timer = original.timer;
+            if (this.timers == null)
+            {
+               this.timers = new ArrayList<TimerMetaData>();
+            }
+            this.timers.addAll(original.timers);
          }
       }
    }

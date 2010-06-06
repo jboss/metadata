@@ -19,24 +19,28 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.common.ejb;
+package org.jboss.metadata.ejb.test.schedule;
 
-import java.util.List;
-
-import org.jboss.metadata.ejb.spec.TimerMetaData;
+import javax.ejb.MessageDriven;
+import javax.ejb.Schedule;
+import javax.ejb.Schedules;
+import javax.ejb.Timer;
 
 /**
- * IScheduleTarget
+ * MDBWithMultipleSchedules
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public interface IScheduleTarget extends ITimeoutTarget
+@MessageDriven
+public class MDBWithMultipleSchedules
 {
-
-   List<TimerMetaData> getTimers();
-   
-   void setTimers(List<TimerMetaData> timers);
-   
-   void addTimer(TimerMetaData timer);
+   @Schedules ({
+      @Schedule (info = "1", minute = "*", dayOfMonth="1"),
+      @Schedule (info = "2", hour = "*")
+   })
+   public void someMethod(Timer timer)
+   {
+      
+   }
 }

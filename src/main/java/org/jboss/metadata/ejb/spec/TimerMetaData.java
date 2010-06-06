@@ -60,7 +60,7 @@ public class TimerMetaData extends IdMetaDataImplWithDescriptionGroup implements
       return schedule;
    }
 
-   @XmlElement (name = "schedule", required = false)
+   @XmlElement (name = "schedule", required = true)
    public void setSchedule(ScheduleMetaData schedule)
    {
       this.schedule = schedule;

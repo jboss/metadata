@@ -61,6 +61,8 @@ public class SingletonProcessor extends AbstractSessionBeanProcessor
       
       // add @Schedule processor
       addMethodProcessor(new ScheduleProcessor(finder));
+      // add @Schedules processor
+      addMethodProcessor(new SchedulesProcessor(finder));
 
    }
 
