@@ -63,6 +63,11 @@ public class PersistenceMetaData extends JBossObject implements Serializable
    {
       return persistenceUnits;
    }
+   
+   public void setPersistenceUnits(List<PersistenceUnitMetaData> persistenceUnits)
+   {
+      this.persistenceUnits.addAll(persistenceUnits);
+   }
 
    protected void toString(JBossStringBuilder builder)
    {
