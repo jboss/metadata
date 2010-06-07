@@ -66,6 +66,7 @@ public class PersistenceMetaData extends JBossObject implements Serializable
    
    public void setPersistenceUnits(List<PersistenceUnitMetaData> persistenceUnits)
    {
+      this.persistenceUnits = new ChildrenList<PersistenceUnitMetaData, PersistenceMetaData>(this, PersistenceUnitMetaData.adapter);
       this.persistenceUnits.addAll(persistenceUnits);
    }
 
