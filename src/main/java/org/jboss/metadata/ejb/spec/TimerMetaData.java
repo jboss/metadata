@@ -24,6 +24,7 @@ package org.jboss.metadata.ejb.spec;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import javax.ejb.ScheduleExpression;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -127,4 +128,39 @@ public class TimerMetaData extends IdMetaDataImplWithDescriptionGroup implements
       this.info = info;
    }
 
+   /**
+    * Returns a {@link ScheduleExpression} created out of the current snapshot state
+    * of this {@link TimerMetaData}
+    * 
+    * @return
+    * @throws IllegalStateException If no {@link #schedule} is associated with this {@link TimerMetaData}
+    */
+   public ScheduleExpression getScheduleExpression()
+   {
+      if (this.schedule == null)
+      {
+         throw new IllegalStateException("Schedule is null on " + this);
+      }
+      ScheduleExpression scheduleExpr = new ScheduleExpression();
+      // set timezone
+      scheduleExpr.timezone(this.getTimezone());
+      if (this.start != null)
+      {
+         scheduleExpr.start(this.start.getTime());
+      }
+      if (this.end != null)
+      {
+         scheduleExpr.end(this.end.getTime());
+      }
+
+      scheduleExpr.second(this.schedule.getSecond());
+      scheduleExpr.minute(this.schedule.getMinute());
+      scheduleExpr.hour(this.schedule.getHour());
+      scheduleExpr.dayOfMonth(this.schedule.getDayOfMonth());
+      scheduleExpr.dayOfWeek(this.schedule.getDayOfWeek());
+      scheduleExpr.month(this.schedule.getMonth());
+      scheduleExpr.year(this.schedule.getYear());
+      
+      return scheduleExpr;
+   }
 }
