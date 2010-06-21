@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlType;
       "environmentRefsGroup", "securityIdentity", "securityDomain", "methodAttributes", "depends",
       "ejbTimeoutIdentity", "annotations", "ignoreDependency", "aopDomainName", "poolConfig",
       "jndiRefs", "createDestination"})
-public class JBoss51MessageDrivenBeanMetaData extends JBossMessageDrivenBeanMetaData
+public class JBoss51MessageDrivenBeanMetaData extends JBossMessageDrivenBean31MetaData
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = 7103348979383633314L;

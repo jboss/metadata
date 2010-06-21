@@ -206,7 +206,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       if(bean instanceof EntityBeanMetaData)
          jbean = new JBossEntityBeanMetaData();
       if(bean instanceof MessageDrivenBeanMetaData)
-         jbean = new JBossMessageDrivenBeanMetaData();
+         jbean = new JBossMessageDrivenBean31MetaData();
       if(bean instanceof SessionBeanMetaData)
          jbean = new JBossSessionBean31MetaData();
       return jbean;

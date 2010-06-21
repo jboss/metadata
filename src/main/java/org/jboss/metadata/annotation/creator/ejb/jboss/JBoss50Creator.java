@@ -33,6 +33,7 @@ import org.jboss.metadata.annotation.creator.AbstractProcessor.Scope;
 import org.jboss.metadata.annotation.creator.ejb.SingletonProcessor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
+import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBean31MetaData;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
@@ -169,7 +170,7 @@ public class JBoss50Creator extends AbstractCreator<JBossMetaData>
                }
                else if (bean.isMessageDriven())
                {
-                  JBossMessageDrivenBeanMetaData messageDriven = new JBossMessageDrivenBeanMetaData();
+                  JBossMessageDrivenBeanMetaData messageDriven = new JBossMessageDrivenBean31MetaData();
                   messageDriven.setEjbClass(bean.getEjbClass());
                   messageDriven.setEjbName(bean.getEjbName());
                   MessageDrivenProcessor processor = new MessageDrivenProcessor(finder);
