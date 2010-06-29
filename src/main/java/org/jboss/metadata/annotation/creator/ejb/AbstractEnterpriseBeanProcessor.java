@@ -21,25 +21,19 @@
  */
 package org.jboss.metadata.annotation.creator.ejb;
 
+import org.jboss.metadata.annotation.creator.AbstractComponentProcessor;
+import org.jboss.metadata.annotation.creator.DeclareRolesProcessor;
+import org.jboss.metadata.annotation.creator.Processor;
+import org.jboss.metadata.annotation.finder.AnnotationFinder;
+import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
-
-import org.jboss.metadata.annotation.creator.AbstractComponentProcessor;
-import org.jboss.metadata.annotation.creator.DeclareRolesProcessor;
-import org.jboss.metadata.annotation.creator.Processor;
-import org.jboss.metadata.annotation.finder.AnnotationFinder;
-import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
-import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
-import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
-import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
-import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
-import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 
 /**
  * Comment
@@ -57,8 +51,8 @@ public abstract class AbstractEnterpriseBeanProcessor<MD extends EnterpriseBeanM
    {
       super(finder);
       // @TransactionAttribute
-      addTypeProcessor(new TransactionAttributeClassProcessor<MD>(finder));
-      addMethodProcessor(new TransactionAttributeMethodProcessor<MD>(finder));
+      //addTypeProcessor(new TransactionAttributeClassProcessor<MD>(finder));
+      //addMethodProcessor(new TransactionAttributeMethodProcessor<MD>(finder));
       // @RunAs
       addTypeProcessor(new RunAsProcessor(finder));
       // @DeclareRoles

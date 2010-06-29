@@ -21,26 +21,21 @@
  */
 package org.jboss.metadata.annotation.creator.ejb.jboss;
 
+import org.jboss.metadata.annotation.creator.DeclareRolesProcessor;
+import org.jboss.metadata.annotation.creator.Processor;
+import org.jboss.metadata.annotation.creator.jboss.AbstractComponentProcessor;
+import org.jboss.metadata.annotation.finder.AnnotationFinder;
+import org.jboss.metadata.ejb.jboss.*;
+import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
+import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
-
-import org.jboss.metadata.annotation.creator.DeclareRolesProcessor;
-import org.jboss.metadata.annotation.creator.Processor;
-import org.jboss.metadata.annotation.creator.jboss.AbstractComponentProcessor;
-import org.jboss.metadata.annotation.finder.AnnotationFinder;
-import org.jboss.metadata.ejb.jboss.JBossAssemblyDescriptorMetaData;
-import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
-import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeansMetaData;
-import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
-import org.jboss.metadata.ejb.jboss.JBossMetaData;
-import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
-import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
-import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 
 
 /**
@@ -59,8 +54,8 @@ public abstract class AbstractEnterpriseBeanProcessor<MD extends JBossEnterprise
    {
       super(finder);
       // @TransactionAttribute
-      addTypeProcessor(new TransactionAttributeClassProcessor<MD>(finder));
-      addMethodProcessor(new TransactionAttributeMethodProcessor<MD>(finder));
+      //addTypeProcessor(new TransactionAttributeClassProcessor<MD>(finder));
+      //addMethodProcessor(new TransactionAttributeMethodProcessor<MD>(finder));
       // @RunAs
       addTypeProcessor(new RunAsProcessor(finder));
       // @DeclareRoles
