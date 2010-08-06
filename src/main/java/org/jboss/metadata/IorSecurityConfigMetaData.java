@@ -259,6 +259,86 @@ public class IorSecurityConfigMetaData implements Serializable
       }
       
       /**
+       * Create a new {@code TransportConfig} with the specified properties.
+       *
+       * @param integrity a {@code String} representing the transport integrity level.
+       * @param confidentiality a {@code String} representing the transport integrity level.
+       * @param establishTrustInTarget a {@code String} that indicates if target trust must be established or not.
+       * @param establishTrustInClient a {@code String} that indicates if client trust must be established or not.
+       * @param detectMisordering a {@code String} representing the transport detect-misordering level.
+       * @param detectReplay a {@code String} representing the transport detect-replay level.
+       */
+      public TransportConfig(String integrity, String confidentiality, String establishTrustInTarget,
+            String establishTrustInClient, String detectMisordering, String detectReplay)
+      {
+         // set the transport integrity property.
+         if (integrity == null)
+            throw new IllegalArgumentException("Null integrity");
+         if (INTEGRITY_NONE.equalsIgnoreCase(integrity))
+            this.integrity = INTEGRITY_NONE;
+         else if (INTEGRITY_SUPPORTED.equalsIgnoreCase(integrity))
+            this.integrity = INTEGRITY_SUPPORTED;
+         else if (INTEGRITY_REQUIRED.equalsIgnoreCase(integrity))
+            this.integrity = INTEGRITY_REQUIRED;
+         else
+            throw new IllegalArgumentException("Unknown transport integrity: " + integrity);
+
+         // set the transport confidentiality property.
+         if (confidentiality == null)
+            throw new IllegalArgumentException("Null confidentiality");
+         if (CONFIDENTIALITY_NONE.equalsIgnoreCase(confidentiality))
+            this.confidentiality = CONFIDENTIALITY_NONE;
+         else if (CONFIDENTIALITY_SUPPORTED.equalsIgnoreCase(confidentiality))
+            this.confidentiality = CONFIDENTIALITY_SUPPORTED;
+         else if (CONFIDENTIALITY_REQUIRED.equalsIgnoreCase(confidentiality))
+            this.confidentiality = CONFIDENTIALITY_REQUIRED;
+         else
+            throw new IllegalArgumentException("Unknown transport confidentiality: " + confidentiality);
+
+         // set the transport establish-trust-in-target property.
+         if (establishTrustInTarget == null)
+            throw new IllegalArgumentException("Null establishTrustInTarget");
+         if (ESTABLISH_TRUST_IN_TARGET_NONE.equalsIgnoreCase(establishTrustInTarget))
+            this.establishTrustInTarget = ESTABLISH_TRUST_IN_TARGET_NONE;
+         else if (ESTABLISH_TRUST_IN_TARGET_SUPPORTED.equalsIgnoreCase(establishTrustInTarget))
+            this.establishTrustInTarget = ESTABLISH_TRUST_IN_TARGET_SUPPORTED;
+         else
+            throw new IllegalArgumentException("Unknown transport establishTrustInTarget: " + establishTrustInTarget);
+
+         // set the transport establish-trust-in-client property.
+        if (establishTrustInClient == null)
+            throw new IllegalArgumentException("Null establishTrustInClient");
+         if (ESTABLISH_TRUST_IN_CLIENT_NONE.equalsIgnoreCase(establishTrustInClient))
+            this.establishTrustInClient = ESTABLISH_TRUST_IN_CLIENT_NONE;
+         else if (ESTABLISH_TRUST_IN_CLIENT_SUPPORTED.equalsIgnoreCase(establishTrustInClient))
+            this.establishTrustInClient = ESTABLISH_TRUST_IN_CLIENT_SUPPORTED;
+         else if (ESTABLISH_TRUST_IN_CLIENT_REQUIRED.equalsIgnoreCase(establishTrustInClient))
+            this.establishTrustInClient = ESTABLISH_TRUST_IN_CLIENT_REQUIRED;
+         else
+            throw new IllegalArgumentException("Unknown transport establishTrustInClient: " + establishTrustInClient);
+
+         // set the transport detect-misordering optional property - default value is SUPPORTED.
+         if (detectMisordering == null || DETECT_MISORDERING_SUPPORTED.equalsIgnoreCase(detectMisordering))
+            this.detectMisordering = DETECT_MISORDERING_SUPPORTED;
+         else if (DETECT_MISORDERING_NONE.equalsIgnoreCase(detectMisordering))
+            this.detectMisordering = DETECT_MISORDERING_NONE;
+         else if (DETECT_MISORDERING_REQUIRED.equalsIgnoreCase(detectMisordering))
+            this.detectMisordering = DETECT_MISORDERING_REQUIRED;
+         else
+            throw new IllegalArgumentException("Unknown transport detectMisordering: " + detectMisordering);
+
+         // set the transport detect-replay optional property - default value is SUPPORTED.
+         if (detectReplay == null || DETECT_REPLAY_SUPPORTED.equalsIgnoreCase(detectReplay))
+            this.detectReplay = DETECT_REPLAY_SUPPORTED;
+         else if (DETECT_REPLAY_NONE.equalsIgnoreCase(detectReplay))
+            this.detectReplay = DETECT_REPLAY_NONE;
+         else if (DETECT_REPLAY_REQUIRED.equalsIgnoreCase(detectReplay))
+            this.detectReplay = DETECT_REPLAY_REQUIRED;
+         else
+            throw new IllegalArgumentException("Unknown transport detectReplay: " + detectReplay);
+      }
+
+      /**
        * Get the integrity
        * 
        * @return the integrity
@@ -397,6 +477,34 @@ public class IorSecurityConfigMetaData implements Serializable
          realm = asContext.getRealm();
          required = asContext.isRequired();
       }
+
+      /**
+       * Create a new AsContext with the specified properties.
+       *
+       * @param authMethod the authentication method to be used.
+       * @param realm the realm in which the user is authenticated.
+       * @param requires a {@code boolean} that specifies if the authentication method is required to be used for
+       *        client authentication.
+       */
+      public AsContext(String authMethod, String realm, boolean required)
+      {
+         // set the auth method.
+         if (authMethod == null)
+            throw new IllegalArgumentException("Null authMethod");
+         if (AUTH_METHOD_NONE.equalsIgnoreCase(authMethod))
+            this.authMethod = AUTH_METHOD_NONE;
+         else if (AUTH_METHOD_USERNAME_PASSWORD.equalsIgnoreCase(authMethod))
+            this.authMethod = AUTH_METHOD_USERNAME_PASSWORD;
+         else
+            throw new IllegalArgumentException("Unknown ascontext authMethod: " + authMethod);
+
+         // set the realm.
+         if (realm == null)
+            throw new IllegalArgumentException("Null realm");
+         this.realm = realm;
+
+         this.required = required;
+      }
       
       /**
        * Get the auth method
@@ -473,7 +581,24 @@ public class IorSecurityConfigMetaData implements Serializable
             throw new IllegalArgumentException("Null sasContext");
          callerPropagation = sasContext.getCallerPropagation();
       }
-      
+
+      /**
+       * Create a new SasContext with the specified properties.
+       *
+       * @param callerPropagation indicates if the target will accept propagated caller identities or not.
+       */      
+      public SasContext(String callerPropagation)
+      {
+         if (callerPropagation == null)
+            throw new IllegalArgumentException("Null callerPropagation");
+         if (CALLER_PROPAGATION_NONE.equalsIgnoreCase(callerPropagation))
+            this.callerPropagation = CALLER_PROPAGATION_NONE;
+         else if (CALLER_PROPAGATION_SUPPORTED.equalsIgnoreCase(callerPropagation))
+            this.callerPropagation = CALLER_PROPAGATION_SUPPORTED;
+         else
+            throw new IllegalArgumentException("Unknown sascontext callerPropagtion: " + callerPropagation);
+      }
+
       /**
        * Get the caller propagation
        * 
