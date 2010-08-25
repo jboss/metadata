@@ -24,6 +24,7 @@ package org.jboss.metadata.ejb.jboss.jndi.resolver.impl;
 import org.jboss.logging.Logger;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
+import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.DefaultJNDIBindingPolicyFactory;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DeploymentSummary;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.EjbDeploymentSummary;
@@ -69,6 +70,15 @@ public abstract class AbstractJNDIPolicyBasedJNDINameResolver
     * </ul>
     */
    protected boolean ignoreJNDIBindingPolicyOnMetaData;
+   
+   /**
+    * Constructs a resolver which will use the {@link DefaultJndiBindingPolicy} returned by  
+    *  {@link DefaultJNDIBindingPolicyFactory#getDefaultJNDIBindingPolicy()}
+    */
+   public AbstractJNDIPolicyBasedJNDINameResolver()
+   {
+      this(DefaultJNDIBindingPolicyFactory.getDefaultJNDIBindingPolicy());
+   }
 
    /**
     * Constructs a {@link AbstractJNDIPolicyBasedJNDINameResolver} 

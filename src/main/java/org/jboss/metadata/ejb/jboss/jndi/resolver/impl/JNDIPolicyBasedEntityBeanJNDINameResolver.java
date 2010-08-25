@@ -24,6 +24,7 @@ package org.jboss.metadata.ejb.jboss.jndi.resolver.impl;
 import org.jboss.logging.Logger;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.EntityBeanJNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.DefaultJNDIBindingPolicyFactory;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces.KnownInterfaceType;
@@ -43,6 +44,15 @@ public class JNDIPolicyBasedEntityBeanJNDINameResolver extends AbstractJNDIPolic
     * Logger
     */
    private static Logger logger = Logger.getLogger(JNDIPolicyBasedEntityBeanJNDINameResolver.class);
+   
+   /**
+    * Constructs a resolver which will use the {@link DefaultJndiBindingPolicy} returned by  
+    *  {@link DefaultJNDIBindingPolicyFactory#getDefaultJNDIBindingPolicy()}
+    */
+   public JNDIPolicyBasedEntityBeanJNDINameResolver()
+   {
+      
+   }
 
    public JNDIPolicyBasedEntityBeanJNDINameResolver(DefaultJndiBindingPolicy jndiBindingPolicy)
    {

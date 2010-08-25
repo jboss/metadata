@@ -24,9 +24,9 @@ package org.jboss.metadata.ejb.jboss.jndi.resolver.impl;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.jboss.jndi.resolver.spi.SessionBean31JNDINameResolver;
+import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.DefaultJNDIBindingPolicyFactory;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.EjbDeploymentSummary;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces.KnownInterfaceType;
 
 /**
@@ -44,6 +44,16 @@ public class JNDIPolicyBasedSessionBean31JNDINameResolver extends JNDIPolicyBase
          SessionBean31JNDINameResolver
 {
 
+   /**
+    * Constructs a resolver which will use the {@link DefaultJndiBindingPolicy} returned by  
+    *  {@link DefaultJNDIBindingPolicyFactory#getDefaultJNDIBindingPolicy()}
+    * 
+    */
+   public JNDIPolicyBasedSessionBean31JNDINameResolver()
+   {
+      
+   }
+   
    /**
     * Constructs a resolver based on the <code>jndibindingPolicy</code>
     * 
