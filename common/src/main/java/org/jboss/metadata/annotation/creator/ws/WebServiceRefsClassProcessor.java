@@ -35,11 +35,12 @@ import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 
 /**
  * @WebServiceRefs processor
- * 
+ *
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
+ * @author <a href="mailto:ropalka@redhat.com">Richard Opalka</a>
  * @version $Revision$
  */
-public class WebServiceRefsClassProcessor 
+public class WebServiceRefsClassProcessor
    extends WebServiceRefClassProcessor
    implements Processor<ServiceReferencesMetaData, Class<?>>
 {
@@ -48,14 +49,14 @@ public class WebServiceRefsClassProcessor
    {
       super(finder);
    }
-   
+
    @Override
    public void process(ServiceReferencesMetaData refsMetaData, Class<?> type)
    {
       WebServiceRefs annotation = finder.getAnnotation(type, WebServiceRefs.class);
       if(annotation == null)
          return;
-      
+
       WebServiceRef[] references = annotation.value();
       if(references != null)
       {
@@ -65,27 +66,9 @@ public class WebServiceRefsClassProcessor
    }
 
    @Override
-   protected String getName(Class<?> element)
-   {
-      String name = element.getSimpleName();
-      return name;
-   }
-
-   @Override
-   protected String getType(Class<?> element)
-   {
-      return element.getName();
-   }
-
-   @Override
-   protected String getDeclaringClass(Class<?> element)
-   {
-      return element.getName();
-   }
-
-   @Override
    public Collection<Class<? extends Annotation>> getAnnotationTypes()
    {
       return ProcessorUtils.createAnnotationSet(WebServiceRefs.class);
    }
+
 }

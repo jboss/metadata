@@ -29,6 +29,7 @@ import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 
 /**
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
+ * @author <a href="mailto:ropalka@redhat.com">Richard Opalka</a>
  * @version $Revision$
  */
 public class WebServiceRefClassProcessor
@@ -56,7 +57,7 @@ public class WebServiceRefClassProcessor
    @Override
    protected String getType(Class<?> element)
    {
-      return element.getName();
+      throw new IllegalStateException("@WebServiceRef annotation on type '"+ element.getName() +"' must define a type.");
    }
 
    @Override
