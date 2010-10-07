@@ -877,7 +877,206 @@ public class ScheduleTestCase
       }
 
    }
+   
+   /**
+    * Test that {@link SessionBean31MetaData#merge(EnterpriseBeanMetaData, EnterpriseBeanMetaData)}
+    * works as expected for timer metadata
+    */
+   @Test
+   public void testSessionBeanTimerMerge()
+   {
+      TimerMetaData nonPersistentTimer = new TimerMetaData();
+      nonPersistentTimer.setPersistent(false);
+      
+      TimerMetaData persistentTimer = new TimerMetaData();
+      persistentTimer.setPersistent(true);
+      
+      SessionBean31MetaData original = new SessionBean31MetaData();
+      original.setEjbName("DummyBean");
+      original.addTimer(nonPersistentTimer);
+      
+      SessionBean31MetaData overriden = new SessionBean31MetaData();
+      overriden.setEjbName("DummyBean");
+      overriden.addTimer(persistentTimer);
+      
+      SessionBean31MetaData mergedBean = new SessionBean31MetaData();
+      mergedBean.merge(overriden, original);
+      
+      List<TimerMetaData> mergedTimers = mergedBean.getTimers();
+      Assert.assertNotNull("Merged timers is null", mergedTimers);
+      Assert.assertEquals("Unexpected number of timers in merged metadata", 2, mergedTimers.size());
+      
+      boolean foundPersistentTimer = false;
+      boolean foundNonPersistentTimer = false;
+      
+      for (TimerMetaData timer : mergedTimers)
+      {
+         if (timer.isPersistent())
+         {
+            foundPersistentTimer = true;
+         }
+         else
+         {
+            foundNonPersistentTimer = true;
+         }
+      }
+      Assert.assertTrue("Persistent timer not found in merged metadata", foundPersistentTimer);
+      Assert.assertTrue("Non-Persistent timer not found in merged metadata", foundNonPersistentTimer);
+      
+   }
+   
+   /**
+    * Test that {@link SessionBean31MetaData#merge(EnterpriseBeanMetaData, EnterpriseBeanMetaData)} works as 
+    * expected for timer metadata
+    */
+   @Test
+   public void testSessionBeanTimerMerge2()
+   {
+      TimerMetaData persistentTimer = new TimerMetaData();
+      persistentTimer.setPersistent(true);
+      
+      SessionBean31MetaData original = new SessionBean31MetaData();
+      original.setEjbName("DummyBean");
+      
+      SessionBean31MetaData overriden = new SessionBean31MetaData();
+      overriden.setEjbName("DummyBean");
+      overriden.addTimer(persistentTimer);
+      
+      SessionBean31MetaData mergedBean = new SessionBean31MetaData();
+      mergedBean.merge(overriden, original);
+      
+      List<TimerMetaData> mergedTimers = mergedBean.getTimers();
+      Assert.assertNotNull("Merged timers is null", mergedTimers);
+      Assert.assertEquals("Unexpected number of timers in merged metadata", 1, mergedTimers.size());
+      Assert.assertTrue("Timer in merged metadata is not persistent", mergedTimers.get(0).isPersistent());
+   }
+   
+   /**
+    * Test that {@link JBossSessionBean31MetaData#merge(JBossEnterpriseBeanMetaData, JBossEnterpriseBeanMetaData)}
+    * works as expected for timer metadata
+    */
+   @Test
+   public void testJBossSessionBeanTimerMerge()
+   {
+      TimerMetaData persistentTimer = new TimerMetaData();
+      persistentTimer.setPersistent(true);
+      
+      JBossSessionBean31MetaData original = new JBossSessionBean31MetaData();
+      original.setEjbName("DummyBean");
+      
+      JBossSessionBean31MetaData overriden = new JBossSessionBean31MetaData();
+      overriden.setEjbName("DummyBean");
+      overriden.addTimer(persistentTimer);
+      
+      JBossSessionBean31MetaData mergedBean = new JBossSessionBean31MetaData();
+      mergedBean.merge(overriden, original);
+      
+      List<TimerMetaData> mergedTimers = mergedBean.getTimers();
+      Assert.assertNotNull("Merged timers is null", mergedTimers);
+      Assert.assertEquals("Unexpected number of timers in merged metadata", 1, mergedTimers.size());
+      Assert.assertTrue("Timer in merged metadata is not persistent", mergedTimers.get(0).isPersistent());
+   }
+   
+   /**
+    * Test that {@link JBossMessageDrivenBean31MetaData#merge(JBossEnterpriseBeanMetaData, JBossEnterpriseBeanMetaData)}
+    * works as expected for timer metadata 
+    */
+   @Test
+   public void testJBossMessageDrivenBeanTimerMerge()
+   {
+      TimerMetaData persistentTimer = new TimerMetaData();
+      persistentTimer.setPersistent(true);
+      
+      JBossMessageDrivenBean31MetaData original = new JBossMessageDrivenBean31MetaData();
+      original.setEjbName("DummyBean");
+      
+      JBossMessageDrivenBean31MetaData overriden = new JBossMessageDrivenBean31MetaData();
+      overriden.setEjbName("DummyBean");
+      overriden.addTimer(persistentTimer);
+      
+      JBossMessageDrivenBean31MetaData mergedBean = new JBossMessageDrivenBean31MetaData();
+      mergedBean.merge(overriden, original);
+      
+      List<TimerMetaData> mergedTimers = mergedBean.getTimers();
+      Assert.assertNotNull("Merged timers is null", mergedTimers);
+      Assert.assertEquals("Unexpected number of timers in merged metadata", 1, mergedTimers.size());
+      Assert.assertTrue("Timer in merged metadata is not persistent", mergedTimers.get(0).isPersistent());
+   }
+   
+   /**
+    * Test that {@link MessageDrivenBean31MetaData#merge(EnterpriseBeanMetaData, EnterpriseBeanMetaData)} works
+    * as expected for timer metadata
+    */
+   @Test
+   public void testMDBTimerMerge()
+   {
+      TimerMetaData nonPersistentTimer = new TimerMetaData();
+      nonPersistentTimer.setPersistent(false);
+      
+      TimerMetaData persistentTimer = new TimerMetaData();
+      persistentTimer.setPersistent(true);
+      
+      MessageDrivenBean31MetaData original = new MessageDrivenBean31MetaData();
+      original.setEjbName("DummyBean");
+      original.addTimer(nonPersistentTimer);
+      
+      MessageDrivenBean31MetaData overriden = new MessageDrivenBean31MetaData();
+      overriden.setEjbName("DummyBean");
+      overriden.addTimer(persistentTimer);
+      
+      MessageDrivenBean31MetaData mergedBean = new MessageDrivenBean31MetaData();
+      mergedBean.merge(overriden, original);
+      
+      List<TimerMetaData> mergedTimers = mergedBean.getTimers();
+      Assert.assertNotNull("Merged timers is null", mergedTimers);
+      Assert.assertEquals("Unexpected number of timers in merged metadata", 2, mergedTimers.size());
+      
+      boolean foundPersistentTimer = false;
+      boolean foundNonPersistentTimer = false;
+      
+      for (TimerMetaData timer : mergedTimers)
+      {
+         if (timer.isPersistent())
+         {
+            foundPersistentTimer = true;
+         }
+         else
+         {
+            foundNonPersistentTimer = true;
+         }
+      }
+      Assert.assertTrue("Persistent timer not found in merged metadata", foundPersistentTimer);
+      Assert.assertTrue("Non-Persistent timer not found in merged metadata", foundNonPersistentTimer);
+      
+   }
 
+   /**
+    * Test that {@link MessageDrivenBean31MetaData#merge(EnterpriseBeanMetaData, EnterpriseBeanMetaData)} works
+    * as expected for timer metadata
+    */
+   @Test
+   public void testMDBTimerMerge2()
+   {
+      TimerMetaData persistentTimer = new TimerMetaData();
+      persistentTimer.setPersistent(true);
+      
+      MessageDrivenBean31MetaData original = new MessageDrivenBean31MetaData();
+      original.setEjbName("DummyBean");
+      
+      MessageDrivenBean31MetaData overriden = new MessageDrivenBean31MetaData();
+      overriden.setEjbName("DummyBean");
+      overriden.addTimer(persistentTimer);
+      
+      MessageDrivenBean31MetaData mergedBean = new MessageDrivenBean31MetaData();
+      mergedBean.merge(original, overriden);
+      
+      List<TimerMetaData> mergedTimers = mergedBean.getTimers();
+      Assert.assertNotNull("Merged timers is null", mergedTimers);
+      Assert.assertEquals("Unexpected number of timers in merged metadata", 1, mergedTimers.size());
+      Assert.assertTrue("Timer in merged metadata is not persistent", mergedTimers.get(0).isPersistent());
+      
+      
+   }
    /**
     * Utility method
     * @param <T>

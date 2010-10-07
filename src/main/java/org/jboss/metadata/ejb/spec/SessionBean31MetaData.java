@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
+import org.jboss.metadata.merge.MergeUtil;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -400,14 +401,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          {
             this.dependsOn = override.dependsOn;
          }
-         if (override.timers != null)
-         {
-            if (this.timers == null)
-            {
-               this.timers = new ArrayList<TimerMetaData>();
-            }
-            this.timers.addAll(override.timers);
-         }
       }
       else if (original != null)
       {
@@ -443,14 +436,23 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          {
             this.dependsOn = original.dependsOn;
          }
-         if (original.timers != null)
+      }
+      // merge timers
+      this.mergeTimers(override, original);
+   }
+   
+   private void mergeTimers(SessionBean31MetaData override, SessionBean31MetaData original)
+   {
+      // merge the (auto)timer metadata
+      Collection<TimerMetaData> originalTimers = original == null ? null : original.timers;
+      Collection<TimerMetaData> overrideTimers = override == null ? null : override.timers;
+      if(originalTimers != null || overrideTimers != null)
+      {
+         if (this.timers == null)
          {
-            if (this.timers == null)
-            {
-               this.timers = new ArrayList<TimerMetaData>();
-            }
-            this.timers.addAll(original.timers);
+            this.timers = new ArrayList<TimerMetaData>();
          }
+         MergeUtil.merge(this.timers, overrideTimers, originalTimers);
       }
    }
 }

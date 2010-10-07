@@ -43,6 +43,7 @@ import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
+import org.jboss.metadata.merge.MergeUtil;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -364,14 +365,6 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = joverride.dependsOn;
          }
-         if (joverride.timers != null)
-         {
-            if (this.timers == null)
-            {
-               this.timers = new ArrayList<TimerMetaData>();
-            }
-            this.timers.addAll(joverride.timers);
-         }
       }
       else if (soriginal != null)
       {
@@ -401,15 +394,9 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = soriginal.dependsOn;
          }
-         if (soriginal.timers != null)
-         {
-            if (this.timers == null)
-            {
-               this.timers = new ArrayList<TimerMetaData>();
-            }
-            this.timers.addAll(soriginal.timers);
-         }
       }
+      // merge timers
+      this.mergeTimers(joverride, soriginal);
 
    }
 
@@ -453,14 +440,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = joverride.dependsOn;
          }
-         if (joverride.timers != null)
-         {
-            if (this.timers == null)
-            {
-               this.timers = new ArrayList<TimerMetaData>();
-            }
-            this.timers.addAll(joverride.timers);
-         }
+        
       }
       else if (soriginal != null)
       {
@@ -490,15 +470,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.dependsOn = soriginal.getDependsOn();
          }
-         if (soriginal.getTimers() != null)
-         {
-            if (this.timers == null)
-            {
-               this.timers = new ArrayList<TimerMetaData>();
-            }
-            this.timers.addAll(soriginal.getTimers());
-         }
       }
+      
+      // merge timers
+      this.mergeTimers(joverride, soriginal);
 
    }
 
@@ -509,6 +484,36 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          asyncMethods.addAll(override);
       if (original != null)
          asyncMethods.addAll(original);
+   }
+   
+   private void mergeTimers(JBossSessionBean31MetaData override, SessionBean31MetaData original)
+   {
+      // merge the (auto)timer metadata
+      Collection<TimerMetaData> originalTimers = original == null ? null : original.getTimers();
+      Collection<TimerMetaData> overrideTimers = override == null ? null : override.timers;
+      if(originalTimers != null || overrideTimers != null)
+      {
+         if (this.timers == null)
+         {
+            this.timers = new ArrayList<TimerMetaData>();
+         }
+         MergeUtil.merge(this.timers, overrideTimers, originalTimers);
+      }
+   }
+   
+   private void mergeTimers(JBossSessionBean31MetaData override, JBossSessionBean31MetaData original)
+   {
+      // merge the (auto)timer metadata
+      Collection<TimerMetaData> originalTimers = original == null ? null : original.timers;
+      Collection<TimerMetaData> overrideTimers = override == null ? null : override.timers;
+      if(originalTimers != null || overrideTimers != null)
+      {
+         if (this.timers == null)
+         {
+            this.timers = new ArrayList<TimerMetaData>();
+         }
+         MergeUtil.merge(this.timers, overrideTimers, originalTimers);
+      }
    }
 
 }

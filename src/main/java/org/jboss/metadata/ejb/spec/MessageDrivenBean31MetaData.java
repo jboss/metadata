@@ -22,6 +22,7 @@
 package org.jboss.metadata.ejb.spec;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Schedule;
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
+import org.jboss.metadata.merge.MergeUtil;
 import org.jboss.xb.annotations.JBossXmlConstants;
 import org.jboss.xb.annotations.JBossXmlType;
 
@@ -93,21 +95,16 @@ public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData imple
       MessageDrivenBean31MetaData overrideMetaData = (MessageDrivenBean31MetaData) override;
       MessageDrivenBean31MetaData originalMetaData = (MessageDrivenBean31MetaData) original;
       
-      if (overrideMetaData != null && overrideMetaData.timers != null)
+      // merge the (auto)timer metadata
+      Collection<TimerMetaData> originalTimers = original == null ? null : originalMetaData.timers;
+      Collection<TimerMetaData> overrideTimers = override == null ? null : overrideMetaData.timers;
+      if(originalTimers != null || overrideTimers != null)
       {
          if (this.timers == null)
          {
             this.timers = new ArrayList<TimerMetaData>();
          }
-         this.timers.addAll(overrideMetaData.timers);
-      }
-      else if (originalMetaData != null && originalMetaData.timers != null)
-      {
-         if (this.timers == null)
-         {
-            this.timers = new ArrayList<TimerMetaData>();
-         }
-         this.timers.addAll(originalMetaData.timers);
+         MergeUtil.merge(this.timers, overrideTimers, originalTimers);
       }
       
    }
