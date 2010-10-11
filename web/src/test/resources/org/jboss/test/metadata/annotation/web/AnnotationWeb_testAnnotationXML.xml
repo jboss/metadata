@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <display-name>MyServlet</display-name>
+    <servlet>
+        <servlet-name>MyServlet</servlet-name>
+        <servlet-class>org.jboss.test.metadata.annotation.web.MyServlet</servlet-class>
+        <security-role-ref>
+            <role-name>ADM</role-name>
+            <role-link>Administrator</role-link>
+        </security-role-ref>
+        <security-role-ref>
+            <role-name>MGR</role-name>
+            <role-link>Manager</role-link>
+        </security-role-ref>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyServlet</servlet-name>
+        <url-pattern>/MyServletTest</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>54</session-timeout>
+    </session-config>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>First</web-resource-name>
+            <url-pattern>/MyServletTest</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>default</realm-name>
+    </login-config>
+    <security-role>
+        <role-name>Administrator</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Manager</role-name>
+    </security-role>
+</web-app>

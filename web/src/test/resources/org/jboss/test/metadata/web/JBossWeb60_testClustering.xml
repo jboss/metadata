@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web version="6.0" xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee schema/jboss-web_6_0.xsd">
+
+   <replication-config>
+      <cache-name>testCache</cache-name>
+      <replication-trigger>SET</replication-trigger>
+      <replication-granularity>SESSION</replication-granularity>
+      <replication-mode>SYNCHRONOUS</replication-mode>
+      <backups>2</backups>
+      <use-jk>true</use-jk>
+      <max-unreplicated-interval>30</max-unreplicated-interval>
+      <snapshot-mode>INSTANT</snapshot-mode>
+      <snapshot-interval>5</snapshot-interval>
+      <session-notification-policy>org.jboss.test.TestNotificationPolicy</session-notification-policy>
+   </replication-config>
+   
+   <max-active-sessions>20</max-active-sessions>
+   
+   <passivation-config>
+      <use-session-passivation>true</use-session-passivation>
+      <passivation-min-idle-time>2</passivation-min-idle-time>
+      <passivation-max-idle-time>5</passivation-max-idle-time>
+   </passivation-config>
+   
+</jboss-web>
