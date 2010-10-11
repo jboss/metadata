@@ -1,0 +1,150 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2007, Red Hat Middleware LLC, and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+package org.jboss.metadata.javaee.jboss;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.namespace.QName;
+
+import org.jboss.metadata.javaee.spec.PortComponentRef;
+
+/**
+ * jboss port-component-ref-type
+ *
+ * <xsd:complexType name="port-component-ref-type"> <xsd:sequence> <xsd:element
+ * name="service-endpoint-interface" type="xsd:string" minOccurs="0"
+ * maxOccurs="1"/> <xsd:element name="port-qname" type="xsd:string"
+ * minOccurs="0" maxOccurs="1"/> <xsd:element name="config-name"
+ * type="xsd:string" minOccurs="0" maxOccurs="1"/> <xsd:element
+ * name="config-file" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+ * <xsd:element name="stub-property" type="jboss:stub-property-type"
+ * minOccurs="0" maxOccurs="unbounded"/> </xsd:sequence> </xsd:complexType>
+ *
+ * <xsd:complexType name="stub-property-type"> <xsd:sequence> <xsd:element
+ * name="prop-name" type="xsd:string" minOccurs="0" maxOccurs="1"/> <xsd:element
+ * name="prop-value" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+ * </xsd:sequence> </xsd:complexType>
+ *
+ * @author Scott.Stark@jboss.org
+ * @version $Revision: 84989 $
+ */
+public class JBossPortComponentRef extends PortComponentRef {
+    private static final long serialVersionUID = 1;
+
+    private QName portQname;
+    private String configName;
+    private String configFile;
+    private List<StubPropertyMetaData> stubProperties;
+    private List<CallPropertyMetaData> callProperties;
+
+    public String getConfigFile() {
+        return configFile;
+    }
+
+    public void setConfigFile(String configFile) {
+        this.configFile = configFile;
+    }
+
+    public String getConfigName() {
+        return configName;
+    }
+
+    public void setConfigName(String configName) {
+        this.configName = configName;
+    }
+
+    public QName getPortQname() {
+        return portQname;
+    }
+
+    public void setPortQname(QName portQname) {
+        this.portQname = portQname;
+    }
+
+    public List<StubPropertyMetaData> getStubProperties() {
+        return stubProperties;
+    }
+
+    public void setStubProperties(List<StubPropertyMetaData> stubProperties) {
+        this.stubProperties = stubProperties;
+    }
+
+    public List<CallPropertyMetaData> getCallProperties() {
+        return callProperties;
+    }
+
+    public void setCallProperties(List<CallPropertyMetaData> callProperties) {
+        this.callProperties = callProperties;
+    }
+
+    public JBossPortComponentRef merge(JBossPortComponentRef ref) {
+        JBossPortComponentRef merged = new JBossPortComponentRef();
+        merged.merge(this, ref);
+        return merged;
+    }
+
+    public void merge(JBossPortComponentRef override, JBossPortComponentRef original) {
+        super.merge(override, original);
+
+        if (override != null && override.portQname != null)
+            portQname = override.portQname;
+        else if (original != null && original.portQname != null)
+            portQname = original.portQname;
+
+        if (override != null && override.configName != null)
+            configName = override.configName;
+        else if (original != null && original.configName != null)
+            configName = original.configName;
+
+        if (override != null && override.configFile != null)
+            configFile = override.configFile;
+        else if (original != null && original.configFile != null)
+            configFile = original.configFile;
+
+        if (stubProperties == null)
+            stubProperties = new ArrayList<StubPropertyMetaData>();
+        if (override != null && override.stubProperties != null)
+            stubProperties.addAll(override.stubProperties);
+        else if (original != null && original.stubProperties != null)
+            stubProperties.addAll(original.stubProperties);
+
+        if (callProperties == null)
+            callProperties = new ArrayList<CallPropertyMetaData>();
+        if (override != null && override.callProperties != null)
+            callProperties.addAll(override.callProperties);
+        else if (original != null && original.callProperties != null)
+            callProperties.addAll(original.callProperties);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n").append("JBossPortComponentRef");
+        sb.append("\n ").append("portQname=").append(portQname);
+        sb.append("\n ").append("configFile=").append(configFile);
+        sb.append("\n ").append("stubProperties=").append(stubProperties);
+        sb.append("\n ").append("callProperties=").append(callProperties);
+        sb.append(super.toString());
+        return sb.toString();
+    }
+}

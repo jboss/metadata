@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<javaee:ejbLocalRef xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/javaee_6.xsd">
+   <ejb-ref-name>RemoveBean</ejb-ref-name>
+   <ejb-ref-type>Session</ejb-ref-type>
+   <lookup-name>java:app/removetest/RemoveBean!org.jboss.dummy.RemoveRemote</lookup-name>
+</javaee:ejbLocalRef>
