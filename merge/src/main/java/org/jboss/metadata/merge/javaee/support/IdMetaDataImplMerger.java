@@ -34,7 +34,7 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  */
 public abstract class IdMetaDataImplMerger {
 
-    public void merge(IdMetaData dest, IdMetaData override, IdMetaData original) {
+    public static void merge(IdMetaData dest, IdMetaData override, IdMetaData original) {
         if (override != null && override.getId() != null)
             dest.setId(override.getId());
         else if (original != null && original.getId() != null)

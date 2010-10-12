@@ -23,6 +23,7 @@ package org.jboss.metadata.merge.javaee.jboss;
 
 import org.jboss.metadata.javaee.jboss.JndiRefMetaData;
 import org.jboss.metadata.javaee.jboss.JndiRefsMetaData;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
 /**
  * JndiRefsMetaData.
@@ -32,6 +33,7 @@ import org.jboss.metadata.javaee.jboss.JndiRefsMetaData;
  */
 public class JndiRefsMetaDataMerger {
     public static void merge(JndiRefsMetaData dest, JndiRefsMetaData override, JndiRefsMetaData original) {
+        IdMetaDataImplMerger.merge(dest, override, original);
         if (original != null) {
             for (JndiRefMetaData property : original)
                 dest.add(property);

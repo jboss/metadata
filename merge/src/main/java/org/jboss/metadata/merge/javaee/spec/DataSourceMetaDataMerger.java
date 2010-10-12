@@ -22,6 +22,7 @@
 package org.jboss.metadata.merge.javaee.spec;
 
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
+import org.jboss.metadata.merge.javaee.support.NamedMetaDataMerger;
 
 /**
  * The data-source metadata
@@ -45,6 +46,7 @@ public class DataSourceMetaDataMerger {
      * @param original the original data
      */
     public static void merge(DataSourceMetaData dest, DataSourceMetaData override, DataSourceMetaData original) {
+        NamedMetaDataMerger.merge(dest, override, original);
         if (override != null && override.getClassName() != null)
             dest.setClassName(override.getClassName());
         else if (original != null && original.getClassName() != null)

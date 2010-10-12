@@ -23,7 +23,7 @@ package org.jboss.metadata.merge.javaee.spec;
 
 import java.util.HashSet;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
-
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 /**
  * SecurityRoleMetaData.
  *
@@ -40,6 +40,7 @@ public class SecurityRoleMetaDataMerger {
     }
 
     public static void merge(SecurityRoleMetaData dest, SecurityRoleMetaData override, SecurityRoleMetaData original) {
+        IdMetaDataImplMerger.merge(dest, override, original);
         if (override != null && override.getPrincipals() != null) {
             if (dest.getPrincipals() == null)
                 dest.setPrincipals(new HashSet<String>());

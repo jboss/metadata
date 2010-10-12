@@ -23,6 +23,7 @@ package org.jboss.metadata.merge.javaee.jboss;
 
 import org.jboss.metadata.javaee.jboss.AnnotationMetaData;
 import org.jboss.metadata.javaee.jboss.AnnotationsMetaData;
+import org.jboss.metadata.merge.javaee.support.NamedMetaDataMerger;
 
 /**
  * AnnotationsMetaData.
@@ -33,6 +34,7 @@ import org.jboss.metadata.javaee.jboss.AnnotationsMetaData;
 public class AnnotationsMetaDataMerger  {
 
     public static void merge(AnnotationsMetaData dest, AnnotationsMetaData override, AnnotationsMetaData original) {
+        NamedMetaDataMerger.merge(dest, override, original);
         if (original != null) {
             for (AnnotationMetaData property : original)
                 dest.add(property);

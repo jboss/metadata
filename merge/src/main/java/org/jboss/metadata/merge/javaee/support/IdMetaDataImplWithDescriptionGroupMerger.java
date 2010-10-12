@@ -30,8 +30,8 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
  * @version $Revision: 1.1 $
  */
 public abstract class IdMetaDataImplWithDescriptionGroupMerger extends IdMetaDataImplMerger {
-    public void merge(IdMetaDataImplWithDescriptionGroup dest, IdMetaDataImplWithDescriptionGroup override, IdMetaDataImplWithDescriptionGroup original) {
-        super.merge(dest, override, original);
+    public static void merge(IdMetaDataImplWithDescriptionGroup dest, IdMetaDataImplWithDescriptionGroup override, IdMetaDataImplWithDescriptionGroup original) {
+        IdMetaDataImplMerger.merge(dest, override, original);
         if (override != null && override.getDescriptionGroup() != null)
             dest.setDescriptionGroup(override.getDescriptionGroup());
         else if (original != null && original.getDescriptionGroup() != null)
