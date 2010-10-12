@@ -23,10 +23,6 @@ package org.jboss.metadata.common.jboss;
 
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -36,7 +32,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 81860 $
  */
-@XmlType(name = "loader-repositoryType", propOrder = { "loaderRepositoryConfig" })
 public class LoaderRepositoryMetaData extends IdMetaDataImpl {
     /** The serialVersionUID */
     private static final long serialVersionUID = -8560208691041447012L;
@@ -72,7 +67,6 @@ public class LoaderRepositoryMetaData extends IdMetaDataImpl {
      * @param loaderRepositoryClass the loaderRepositoryClass.
      * @throws IllegalArgumentException for a null loaderRepositoryClass
      */
-    @XmlAttribute(name = "loaderRepositoryClass")
     // TODO JBossXB default attribute names!
     public void setLoaderRepositoryClass(String loaderRepositoryClass) {
         if (loaderRepositoryClass == null)
@@ -117,7 +111,6 @@ public class LoaderRepositoryMetaData extends IdMetaDataImpl {
      * @param name the name.
      * @throws IllegalArgumentException for a null name
      */
-    @XmlValue
     public void setName(String name) {
         if (name == null)
             throw new IllegalArgumentException("Null name");

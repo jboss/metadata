@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
 /**
  * NonNullLinkedHashSet
  * <p>
@@ -53,7 +51,6 @@ public class NonNullLinkedHashSetWithId<E> extends NonNullLinkedHashSet<E> imple
     }
 
     @Override
-    @XmlAttribute
     public void setId(String id) {
         if (id == null)
             throw new IllegalArgumentException("Null id");

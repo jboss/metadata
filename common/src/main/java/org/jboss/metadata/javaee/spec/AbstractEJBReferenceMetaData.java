@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
 /**
@@ -83,8 +80,7 @@ public abstract class AbstractEJBReferenceMetaData extends ResourceInjectionMeta
      * @param type the type.
      * @throws IllegalArgumentException for a null type
      */
-    @XmlElement(name = "ejb-ref-type")
-    public void setEjbRefType(EJBReferenceType type) {
+     public void setEjbRefType(EJBReferenceType type) {
         if (type == null)
             throw new IllegalArgumentException("Null type");
         this.type = type;
@@ -95,8 +91,7 @@ public abstract class AbstractEJBReferenceMetaData extends ResourceInjectionMeta
      *
      * @return the type.
      */
-    @XmlTransient
-    public String getType() {
+     public String getType() {
         if (type == null)
             throw new IllegalStateException("Type has not been set: " + this);
         return type.name();
@@ -117,7 +112,6 @@ public abstract class AbstractEJBReferenceMetaData extends ResourceInjectionMeta
      * @param link the link.
      * @throws IllegalArgumentException for a null link
      */
-    @XmlElement(name = "ejb-link")
     public void setLink(String link) {
         if (link == null)
             throw new IllegalArgumentException("Null link");

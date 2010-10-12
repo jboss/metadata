@@ -23,7 +23,6 @@ package org.jboss.metadata.javaee.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
@@ -35,8 +34,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "service-ref_handler-chainType", propOrder = { "serviceNamePattern", "portNamePattern", "protocolBindings",
-        "handler" })
 public class ServiceReferenceHandlerChainMetaData extends IdMetaDataImpl {
     /** The serialVersionUID */
     private static final long serialVersionUID = 1;

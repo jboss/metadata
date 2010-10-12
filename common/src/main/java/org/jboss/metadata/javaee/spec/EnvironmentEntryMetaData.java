@@ -23,8 +23,6 @@ package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
-import javax.xml.bind.annotation.XmlElement;
-
 /**
  * EnvironmentEntryMetaData.
  *
@@ -82,7 +80,6 @@ public class EnvironmentEntryMetaData extends ResourceInjectionMetaDataWithDescr
      * @param type the type.
      * @throws IllegalArgumentException for a null type
      */
-    @XmlElement(name = "env-entry-type")
     public void setType(String type) {
         if (type == null)
             throw new IllegalArgumentException("Null type");

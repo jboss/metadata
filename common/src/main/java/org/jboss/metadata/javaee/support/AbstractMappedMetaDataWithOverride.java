@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  * MappedMetaData.
  *
@@ -56,7 +54,6 @@ public abstract class AbstractMappedMetaDataWithOverride<C extends MappableMetaD
 
     // @SchemaProperty(ignore=true)
     @Override
-    @XmlTransient
     public void setOverridenMetaData(O data) {
         if (data == null)
             throw new IllegalArgumentException("Null data");

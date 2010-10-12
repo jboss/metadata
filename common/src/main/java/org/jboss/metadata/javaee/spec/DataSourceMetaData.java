@@ -21,11 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
@@ -35,9 +30,7 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author Remy Maucherat
  * @version $Revision: 81768 $
  */
-@XmlType(name = "data-sourceType", propOrder = { "descriptions", "name", "className", "serverName", "portNumber",
-        "databaseName", "url", "user", "password", "properties", "loginTimeout", "transactional", "isolationLevel",
-        "initialPoolSize", "maxPoolSize", "minPoolSize", "maxIdleTime", "maxStatements" })
+
 public class DataSourceMetaData extends NamedMetaDataWithDescriptions implements MergeableMappedMetaData<DataSourceMetaData> {
     private static final long serialVersionUID = 1;
 
@@ -71,7 +64,6 @@ public class DataSourceMetaData extends NamedMetaDataWithDescriptions implements
         return className;
     }
 
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public void setClassName(String className) {
         this.className = className;
     }
@@ -128,7 +120,6 @@ public class DataSourceMetaData extends NamedMetaDataWithDescriptions implements
         return properties;
     }
 
-    @XmlElement(name = "property")
     public void setProperties(PropertiesMetaData properties) {
         this.properties = properties;
     }

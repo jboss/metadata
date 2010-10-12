@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.javaee.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
@@ -33,8 +30,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "annotationType", propOrder = { "descriptions", "annotationClass", "annotationImplementationClass",
-        "injectionTarget", "properties" })
 public class AnnotationMetaData extends NamedMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = -8547813151720473321L;
@@ -124,7 +119,6 @@ public class AnnotationMetaData extends NamedMetaDataWithDescriptions {
      * @param properties the properties.
      * @throws IllegalArgumentException for a null properties
      */
-    @XmlElement(name = "property")
     public void setProperties(AnnotationPropertiesMetaData properties) {
         if (properties == null)
             throw new IllegalArgumentException("Null properties");

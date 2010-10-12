@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaData;
 
 /**
@@ -31,7 +29,6 @@ import org.jboss.metadata.javaee.support.NamedMetaData;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "propertyType", propOrder = { "name", "value" })
 public class PropertyMetaData extends NamedMetaData {
 
     /** The serialVersionUID */

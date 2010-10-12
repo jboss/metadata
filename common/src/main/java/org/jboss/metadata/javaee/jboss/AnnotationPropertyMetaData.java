@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
 /**
@@ -31,7 +29,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "annotation-propertyType", propOrder = { "descriptions", "propertyName", "propertyValue" })
 public class AnnotationPropertyMetaData extends NamedMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = -8547813151720473321L;

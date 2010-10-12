@@ -23,8 +23,6 @@ package org.jboss.metadata.javaee.spec;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 
 /**
@@ -72,7 +70,6 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
      * @throws IllegalArgumentException for a null ejbLocalReferences
      */
     @Override
-    @XmlElement(name = "ejb-local-ref")
     public void setEjbLocalReferences(EJBLocalReferencesMetaData ejbLocalReferences) {
         if (ejbLocalReferences == null)
             throw new IllegalArgumentException("Null ejbLocalReferences");
@@ -102,7 +99,6 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
      * @throws IllegalArgumentException for a null persistenceContextRefs
      */
     @Override
-    @XmlElement(name = "persistence-context-ref")
     public void setPersistenceContextRefs(PersistenceContextReferencesMetaData persistenceContextRefs) {
         if (persistenceContextRefs == null)
             throw new IllegalArgumentException("Null persistenceContextRefs");
@@ -125,7 +121,6 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
     }
 
     @Override
-    @XmlElement(name = "data-source")
     public void setDataSources(DataSourcesMetaData dataSources) {
         this.dataSources = dataSources;
     }

@@ -23,10 +23,6 @@ package org.jboss.metadata.javaee.jboss;
 
 // $Id: $
 
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 
 /**
@@ -35,7 +31,6 @@ import org.jboss.metadata.javaee.spec.ParamValueMetaData;
  * @author Thomas.Diesler@jboss.org
  * @version $Revision: 66409 $
  */
-@XmlType(name = "call-propertyType", propOrder = { "propName", "propValue" })
 public class CallPropertyMetaData extends ParamValueMetaData {
     private static final long serialVersionUID = 1;
 
@@ -43,7 +38,6 @@ public class CallPropertyMetaData extends ParamValueMetaData {
         return super.getParamName();
     }
 
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public void setPropName(String name) {
         super.setParamName(name);
     }
@@ -52,7 +46,6 @@ public class CallPropertyMetaData extends ParamValueMetaData {
         return super.getParamValue();
     }
 
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public void setPropValue(String value) {
         super.setParamValue(value);
     }

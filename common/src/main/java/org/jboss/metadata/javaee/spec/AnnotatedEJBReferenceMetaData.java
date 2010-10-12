@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 
 /**
@@ -33,7 +31,6 @@ import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 72960 $
  */
-@XmlType(name = "annotated-ejb-refType")
 public class AnnotatedEJBReferenceMetaData extends AbstractEJBReferenceMetaData implements
         MergeableMappedMetaData<AnnotatedEJBReferenceMetaData> {
     private static final long serialVersionUID = 1;

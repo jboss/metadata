@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -31,7 +29,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "emptyType")
 public class EmptyMetaData extends IdMetaDataImpl {
     /** The serialVersionUID */
     private static final long serialVersionUID = 3489739218069240805L;

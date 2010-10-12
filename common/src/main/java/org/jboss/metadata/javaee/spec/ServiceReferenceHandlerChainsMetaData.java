@@ -23,8 +23,6 @@ package org.jboss.metadata.javaee.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -52,7 +50,6 @@ public class ServiceReferenceHandlerChainsMetaData
         return handlers;
     }
 
-    @XmlElement(name = "handler-chain", required = true)
     public void setHandlers(List<ServiceReferenceHandlerChainMetaData> handlers) {
         this.handlers = handlers;
     }

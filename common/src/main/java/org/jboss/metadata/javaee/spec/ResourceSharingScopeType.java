@@ -21,15 +21,12 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * ResourceSharingScopeType.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "res-sharing-scopeType")
 public enum ResourceSharingScopeType {
     /** Shareable */
     Shareable,

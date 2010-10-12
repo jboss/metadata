@@ -23,14 +23,11 @@ package org.jboss.metadata.javaee.spec;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * A respect-bindingType type.
  *
  * @author <a href="mailto:ropalka@redhat.com">Richard Opalka</a>
  */
-@XmlType(name = "respect-bindingType", propOrder = { "enabled" })
 public class RespectBinding implements Serializable {
     private static final long serialVersionUID = 1;
 

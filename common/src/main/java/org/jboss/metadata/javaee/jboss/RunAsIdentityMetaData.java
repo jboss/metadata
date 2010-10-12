@@ -25,15 +25,12 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * Extended run-as/security-role metadata for defining a run as principal.
  *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 81768 $
  */
-@XmlType(propOrder = { "principalName", "roleName", "runAsRoles" })
 public class RunAsIdentityMetaData implements Serializable {
     private static final long serialVersionUID = 1;
 

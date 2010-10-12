@@ -21,11 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
 /**
@@ -34,7 +29,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "resource-managerType", propOrder = { "descriptions", "resName", "resJndiName", "resUrl" })
 public class ResourceManagerMetaData extends NamedMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = 244708249262277696L;
@@ -49,7 +43,6 @@ public class ResourceManagerMetaData extends NamedMetaDataWithDescriptions {
     private String resUrl;
 
     @Override
-    @XmlTransient
     public String getName() {
         return super.getName();
     }
@@ -69,7 +62,6 @@ public class ResourceManagerMetaData extends NamedMetaDataWithDescriptions {
      * @param resName the resName.
      * @throws IllegalArgumentException for a null resName
      */
-    @XmlElement(required = true)
     public void setResName(String resName) {
         setName(resName);
     }
@@ -79,7 +71,6 @@ public class ResourceManagerMetaData extends NamedMetaDataWithDescriptions {
      *
      * @return the resClass.
      */
-    @XmlAttribute
     public String getResClass() {
         return resClass;
     }
@@ -132,7 +123,6 @@ public class ResourceManagerMetaData extends NamedMetaDataWithDescriptions {
      * @param resUrl the resUrl.
      * @throws IllegalArgumentException for a null resUrl
      */
-    @XmlElement(required = true)
     public void setResUrl(String resUrl) {
         if (resUrl == null)
             throw new IllegalArgumentException("Null resUrl");
@@ -144,7 +134,6 @@ public class ResourceManagerMetaData extends NamedMetaDataWithDescriptions {
      *
      * @return the resource
      */
-    @XmlTransient
     public String getResource() {
         if (resJndiName != null)
             return resJndiName;

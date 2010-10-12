@@ -24,8 +24,6 @@ package org.jboss.metadata.javaee.spec;
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaData;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.Set;
 
 /**
@@ -56,7 +54,6 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData implements
     }
 
     @Override
-    @XmlTransient
     public String getName() {
         return super.getName();
     }
@@ -76,7 +73,6 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData implements
      * @param jndiName the jndiName.
      * @throws IllegalArgumentException for a null jndiName
      */
-    @XmlElement(required = false)
     public void setJndiName(String jndiName) {
         setMappedName(jndiName);
     }
@@ -88,7 +84,6 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData implements
         return getMappedName();
     }
 
-    @XmlElement(required = false)
     public void setLookupName(String lookupName) {
         setMappedName(lookupName);
     }
@@ -108,8 +103,6 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData implements
      * @param mappedName the mappedName.
      * @throws IllegalArgumentException for a null mappedName
      */
-    @XmlElement(required = false)
-    // @JBossXmlNsPrefix(prefix="jee", schemaTargetIfNotMapped=true)
     public void setMappedName(String mappedName) {
         if (mappedName == null)
             throw new IllegalArgumentException("Null mappedName");
@@ -126,7 +119,6 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData implements
         return resolvedJndiName;
     }
 
-    @XmlTransient
     public void setResolvedJndiName(String resolvedJndiName) {
         this.resolvedJndiName = resolvedJndiName;
     }
@@ -146,8 +138,6 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData implements
      * @param injectionTargets the injectionTargets.
      * @throws IllegalArgumentException for a null injectionTargets
      */
-    @XmlElement(name = "injection-target", /* type=NonNullLinkedHashSet.class, */required = false)
-    // @JBossXmlNsPrefix(prefix="jee", schemaTargetIfNotMapped=true)
     public void setInjectionTargets(Set<ResourceInjectionTargetMetaData> injectionTargets) {
         if (injectionTargets == null)
             throw new IllegalArgumentException("Null injectionTargets");
@@ -169,7 +159,6 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData implements
      * @param ignoreDependency the ignoreDependency.
      * @throws IllegalArgumentException for a null ignoreDependency
      */
-    @XmlElement(required = false)
     public void setIgnoreDependency(EmptyMetaData ignoreDependency) {
         if (ignoreDependency == null)
             throw new IllegalArgumentException("Null ignoreDependency");
@@ -181,8 +170,7 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData implements
      *
      * @return true when the dependency is ignored
      */
-    @XmlTransient
-    public boolean isDependencyIgnored() {
+     public boolean isDependencyIgnored() {
         return ignoreDependency != null;
     }
 

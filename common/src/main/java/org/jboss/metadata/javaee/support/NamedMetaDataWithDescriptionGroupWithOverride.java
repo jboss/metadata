@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  * NamedMetaData.
  *
@@ -76,7 +74,6 @@ public abstract class NamedMetaDataWithDescriptionGroupWithOverride<T extends Ma
 
     // @SchemaProperty(ignore=true)
     @Override
-    @XmlTransient
     public void setOverridenMetaData(T data) {
         if (data == null)
             throw new IllegalArgumentException("Null data");

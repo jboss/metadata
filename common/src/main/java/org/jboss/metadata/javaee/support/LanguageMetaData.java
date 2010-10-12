@@ -24,8 +24,6 @@ package org.jboss.metadata.javaee.support;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
 import org.jboss.annotation.javaee.Description;
 import org.jboss.metadata.annotation.AbstractAnnotationImpl;
 
@@ -64,7 +62,6 @@ public abstract class LanguageMetaData extends AbstractAnnotationImpl implements
     }
 
     @Override
-    @XmlAttribute
     public void setId(String id) {
         if (id == null)
             throw new IllegalArgumentException("Null id");

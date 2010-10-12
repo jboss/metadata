@@ -21,10 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -33,8 +29,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 80371 $
  */
-@XmlType(name = "port-componentType", propOrder = { "portComponentName", "portComponentURI", "authMethod",
-        "transportGuarantee", "secureWSDLAccess" })
 public class PortComponent extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
 
@@ -59,12 +53,10 @@ public class PortComponent extends IdMetaDataImpl {
         return portComponentURI;
     }
 
-    @XmlElement(name = "port-component-uri")
     public void setPortComponentURI(String portComponentURI) {
         this.portComponentURI = portComponentURI;
     }
 
-    @XmlTransient
     public String getURLPattern() {
         String pattern = "/*";
         if (portComponentURI != null)
@@ -93,8 +85,7 @@ public class PortComponent extends IdMetaDataImpl {
         return secureWSDLAccess;
     }
 
-    @XmlElement(name = "secure-wsdl-access")
-    public void setSecureWSDLAccess(boolean secureWSDLAccess) {
+     public void setSecureWSDLAccess(boolean secureWSDLAccess) {
         this.secureWSDLAccess = secureWSDLAccess;
     }
 }

@@ -24,17 +24,12 @@ package org.jboss.metadata.javaee.spec;
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * MessageDestinationReferenceMetaData.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "message-destination-refType", propOrder = { "descriptions", "messageDestinationRefName", "type",
-        "messageDestinationUsage", "link", "jndiName", "mappedName", "injectionTargets", "lookupName", "ignoreDependency" })
 public class MessageDestinationReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions implements
         MergeableMappedMetaData<MessageDestinationReferenceMetaData> {
     /** The serialVersionUID */
@@ -90,7 +85,6 @@ public class MessageDestinationReferenceMetaData extends ResourceInjectionMetaDa
      * @param type the type.
      * @throws IllegalArgumentException for a null type
      */
-    @XmlElement(name = "message-destination-type")
     public void setType(String type) {
         if (type == null)
             throw new IllegalArgumentException("Null type");
@@ -112,7 +106,6 @@ public class MessageDestinationReferenceMetaData extends ResourceInjectionMetaDa
      * @param usage the usage.
      * @throws IllegalArgumentException for a null usage
      */
-    @XmlElement(name = "message-destination-usage")
     public void setMessageDestinationUsage(MessageDestinationUsageType usage) {
         if (usage == null)
             throw new IllegalArgumentException("Null usage");
@@ -134,7 +127,6 @@ public class MessageDestinationReferenceMetaData extends ResourceInjectionMetaDa
      * @param link the link.
      * @throws IllegalArgumentException for a null link
      */
-    @XmlElement(name = "message-destination-link")
     public void setLink(String link) {
         if (link == null)
             throw new IllegalArgumentException("Null link");

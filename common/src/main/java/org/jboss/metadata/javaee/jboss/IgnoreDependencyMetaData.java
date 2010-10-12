@@ -24,9 +24,6 @@ package org.jboss.metadata.javaee.jboss;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
@@ -36,7 +33,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "ignore-dependencyType", propOrder = { "descriptions", "injectionTargets" })
 public class IgnoreDependencyMetaData extends IdMetaDataImplWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = 68493962316154817L;
@@ -59,7 +55,6 @@ public class IgnoreDependencyMetaData extends IdMetaDataImplWithDescriptions {
      * @param injectionTargets the injectionTargets.
      * @throws IllegalArgumentException for a null injectionTargets
      */
-    @XmlElement(name = "injection-target"/* , type=NonNullLinkedHashSet.class */)
     public void setInjectionTargets(Set<ResourceInjectionTargetMetaData> injectionTargets) {
         if (injectionTargets == null)
             throw new IllegalArgumentException("Null injectionTargets");

@@ -23,16 +23,12 @@ package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * PersistenceUnitReferenceMetaData.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "persistence-unit-refType", propOrder = { "descriptions", "persistenceUnitRefName", "persistenceUnitName",
-        "jndiName", "mappedName", "injectionTargets", "lookupName", "ignoreDependency" })
 public class PersistenceUnitReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = 1900675456507941940L;

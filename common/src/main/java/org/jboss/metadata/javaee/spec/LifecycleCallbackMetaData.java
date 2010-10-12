@@ -23,9 +23,6 @@ package org.jboss.metadata.javaee.spec;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * LifecycleCallbackMetaData.
  *
@@ -33,7 +30,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "lifecycle-callbackType", propOrder = { "className", "methodName" })
 public class LifecycleCallbackMetaData implements Serializable {
     /** The serialVersionUID */
     private static final long serialVersionUID = 6453746684927606565L;
@@ -66,7 +62,6 @@ public class LifecycleCallbackMetaData implements Serializable {
      * @param className the className.
      * @throws IllegalArgumentException for a null className
      */
-    @XmlElement(name = "lifecycle-callback-class")
     public void setClassName(String className) {
         if (className == null)
             throw new IllegalArgumentException("Null className");
@@ -88,7 +83,6 @@ public class LifecycleCallbackMetaData implements Serializable {
      * @param methodName the methodName.
      * @throws IllegalArgumentException for a null methodName
      */
-    @XmlElement(name = "lifecycle-callback-method")
     public void setMethodName(String methodName) {
         if (methodName == null)
             throw new IllegalArgumentException("Null methodName");

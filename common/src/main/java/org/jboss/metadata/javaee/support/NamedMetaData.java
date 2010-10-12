@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  * NamedMetaData.
  *
@@ -38,7 +35,6 @@ public abstract class NamedMetaData extends IdMetaDataImpl implements MappableMe
     private String name;
 
     @Override
-    @XmlTransient
     public String getKey() {
         return getName();
     }
@@ -58,7 +54,6 @@ public abstract class NamedMetaData extends IdMetaDataImpl implements MappableMe
      * @param name the name.
      * @throws IllegalArgumentException for a null name
      */
-    @XmlElement(required = false)
     public void setName(String name) {
         if (name == null)
             throw new IllegalArgumentException("Null name");

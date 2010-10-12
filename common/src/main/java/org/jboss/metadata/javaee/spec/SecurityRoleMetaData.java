@@ -24,9 +24,6 @@ package org.jboss.metadata.javaee.spec;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
@@ -37,7 +34,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "security-roleType", propOrder = { "descriptions", "roleName", "principals" })
 public class SecurityRoleMetaData extends NamedMetaDataWithDescriptions implements
         MergeableMappedMetaData<SecurityRoleMetaData> {
     /** The serialVersionUID */
@@ -87,8 +83,7 @@ public class SecurityRoleMetaData extends NamedMetaDataWithDescriptions implemen
      * @param principals the principals.
      * @throws IllegalArgumentException for a null principals
      */
-    @XmlElement(name = "principal-name", required = false)
-    public void setPrincipals(Set<String> principals) {
+     public void setPrincipals(Set<String> principals) {
         if (principals == null)
             throw new IllegalArgumentException("Null principals");
         this.principals = principals;

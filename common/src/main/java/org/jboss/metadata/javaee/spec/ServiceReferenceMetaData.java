@@ -24,9 +24,6 @@ package org.jboss.metadata.javaee.spec;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
@@ -39,9 +36,6 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @author Scott.Stark@jboss.org
  * @version $Revision: 81860 $
  */
-@XmlType(name = "service-refType", propOrder = { "descriptionGroup", "serviceRefName", "serviceInterface", "serviceRefType",
-        "wsdlFile", "jaxrpcMappingFile", "serviceQname", "portComponentRef", "handlers", "handlerChains", "mappedName",
-        "lookupName", "injectionTargets" })
 public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescriptionGroup implements
         MergeableMappedMetaData<ServiceReferenceMetaData> {
     /** The serialVersionUID */
@@ -237,7 +231,6 @@ public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescr
      * @param serviceRefType the serviceRefType.
      * @throws IllegalArgumentException for a null serviceRefType
      */
-    @XmlElement(required = false)
     public void setServiceRefType(String serviceRefType) {
         if (serviceRefType == null)
             throw new IllegalArgumentException("Null serviceRefType");
@@ -269,7 +262,6 @@ public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescr
         return portComponentRef;
     }
 
-    @XmlElement(name = "port-component-ref", type = PortComponentRef.class)
     public void setPortComponentRef(List<? extends PortComponentRef> portComponentRef) {
         this.portComponentRef = (List<PortComponentRef>) portComponentRef;
     }
@@ -289,7 +281,6 @@ public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescr
      * @param handlers the handlers.
      * @throws IllegalArgumentException for a null handlers
      */
-    @XmlElement(name = "handler")
     public void setHandlers(ServiceReferenceHandlersMetaData handlers) {
         if (handlers == null)
             throw new IllegalArgumentException("Null handlers");
@@ -311,14 +302,12 @@ public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescr
      * @param handlerChains the handlerChains.
      * @throws IllegalArgumentException for a null handlerChains
      */
-    @XmlElement(required = false)
     public void setHandlerChains(ServiceReferenceHandlerChainsMetaData handlerChains) {
         if (handlerChains == null)
             throw new IllegalArgumentException("Null handlerChains");
         this.handlerChains = handlerChains;
     }
 
-    @XmlTransient
     public AnnotatedElement getAnnotatedElement() {
         return anElement;
     }
@@ -327,7 +316,6 @@ public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescr
         this.anElement = anElement;
     }
 
-    @XmlTransient
     public boolean isProcessed() {
         return processed;
     }

@@ -23,8 +23,6 @@ package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * EJBLocalReferenceMetaData.
  *
@@ -32,9 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "ejb-local-refType", propOrder = { "descriptions", "ejbRefName", "ejbRefType", "localHome", "local", "link",
-        "localJndiName", "jndiName", "mappedName", "injectionTargets", "lookupName", "ignoreDependency" })
-public class EJBLocalReferenceMetaData extends AbstractEJBReferenceMetaData implements
+    public class EJBLocalReferenceMetaData extends AbstractEJBReferenceMetaData implements
         MergeableMappedMetaData<EJBLocalReferenceMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = 5810710557505041609L;

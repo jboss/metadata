@@ -21,10 +21,6 @@
  */
 package org.jboss.metadata.common.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaData;
 
 /**
@@ -33,8 +29,7 @@ import org.jboss.metadata.javaee.support.NamedMetaData;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "webservice-descriptionType", propOrder = { "webserviceDescriptionName", "configName", "configFile",
-        "wsdlPublishLocation" })
+
 public class WebserviceDescriptionMetaData extends NamedMetaData {
     /** The serialVersionUID */
     private static final long serialVersionUID = -3783036458417091083L;
@@ -49,7 +44,6 @@ public class WebserviceDescriptionMetaData extends NamedMetaData {
     private String wsdlPublishLocation;
 
     @Override
-    @XmlTransient
     public String getName() {
         return super.getName();
     }
@@ -59,7 +53,6 @@ public class WebserviceDescriptionMetaData extends NamedMetaData {
      *
      * @return the webservicesDescriptionName.
      */
-    @XmlElement(required = true)
     public String getWebserviceDescriptionName() {
         return getName();
     }

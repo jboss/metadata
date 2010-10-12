@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  * IdMetaDataImplWithDescriptionsWithOverride.
  *
@@ -57,7 +55,6 @@ public class IdMetaDataImplWithDescriptionsWithOverride<T> extends IdMetaDataImp
 
     // @SchemaProperty(ignore=true)
     @Override
-    @XmlTransient
     public void setOverridenMetaData(T data) {
         if (data == null)
             throw new IllegalArgumentException("Null data");

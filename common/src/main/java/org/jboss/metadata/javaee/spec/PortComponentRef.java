@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -31,8 +29,7 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 81860 $
  */
-@XmlType(name = "port-component-refType", propOrder = { "serviceEndpointInterface", "enableMtom", "mtomThreshold",
-        "addressing", "respectBinding", "portComponentLink" })
+
 public class PortComponentRef extends IdMetaDataImpl {
     private static final long serialVersionUID = 2;
 

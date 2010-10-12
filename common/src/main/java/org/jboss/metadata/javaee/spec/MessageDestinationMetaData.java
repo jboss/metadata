@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
@@ -34,8 +31,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "message-destinationType", propOrder = { "descriptionGroup", "messageDestinationName", "jndiName",
-        "mappedName", "lookupName" })
 public class MessageDestinationMetaData extends NamedMetaDataWithDescriptionGroup implements
         MergeableMappedMetaData<MessageDestinationMetaData>, AugmentableMetaData<MessageDestinationMetaData> {
     /** The serialVersionUID */
@@ -87,7 +82,6 @@ public class MessageDestinationMetaData extends NamedMetaDataWithDescriptionGrou
      * @param mappedName the mappedName.
      * @throws IllegalArgumentException for a null mappedName
      */
-    @XmlElement(required = false)
     public void setMappedName(String mappedName) {
         if (mappedName == null)
             throw new IllegalArgumentException("Null mappedName");
@@ -109,7 +103,6 @@ public class MessageDestinationMetaData extends NamedMetaDataWithDescriptionGrou
      * @param jndiName the jndiName.
      * @throws IllegalArgumentException for a null jndiName
      */
-    @XmlElement(required = false)
     public void setJndiName(String jndiName) {
         setMappedName(jndiName);
     }

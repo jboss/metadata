@@ -24,17 +24,12 @@ package org.jboss.metadata.javaee.spec;
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * ResourceReferenceMetaData.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "resource-refType", propOrder = { "descriptions", "resourceRefName", "type", "resAuth", "resSharingScope",
-        "resourceName", "jndiName", "mappedName", "resUrl", "injectionTargets", "lookupName", "ignoreDependency" })
 public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions implements
         MergeableMappedMetaData<ResourceReferenceMetaData> {
     /** The serialVersionUID */
@@ -77,7 +72,6 @@ public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDesc
      * @param resourceRefName the resourceRefName.
      * @throws IllegalArgumentException for a null resourceRefName
      */
-    @XmlElement(name = "res-ref-name")
     public void setResourceRefName(String resourceRefName) {
         setName(resourceRefName);
     }
@@ -97,7 +91,6 @@ public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDesc
      * @param type the type.
      * @throws IllegalArgumentException for a null type
      */
-    @XmlElement(name = "res-type")
     public void setType(String type) {
         if (type == null)
             throw new IllegalArgumentException("Null type");
@@ -152,7 +145,6 @@ public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDesc
      * @param sharingScope the sharingScope.
      * @throws IllegalArgumentException for a null sharingScope
      */
-    @XmlElement(name = "res-sharing-scope")
     public void setResSharingScope(ResourceSharingScopeType sharingScope) {
         if (sharingScope == null)
             throw new IllegalArgumentException("Null sharingScope");
@@ -224,7 +216,6 @@ public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDesc
      * @throws IllegalArgumentException for a null resourceName
      */
     // @SchemaProperty(mandatory=false)
-    @XmlElement(required = false)
     public void setResourceName(String resourceName) {
         if (resourceName == null)
             throw new IllegalArgumentException("Null resourceName");
@@ -247,7 +238,6 @@ public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDesc
      * @throws IllegalArgumentException for a null resUrl
      */
     // @SchemaProperty(mandatory=false)
-    @XmlElement(required = false)
     public void setResUrl(String resUrl) {
         if (resUrl == null)
             throw new IllegalArgumentException("Null resUrl");

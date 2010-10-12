@@ -24,17 +24,12 @@ package org.jboss.metadata.javaee.spec;
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * ResourceEnvironmentReferenceMetaData.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "resource-env-refType", propOrder = { "descriptions", "resourceEnvRefName", "type", "jndiName", "mappedName",
-        "injectionTargets", "lookupName", "ignoreDependency" })
 public class ResourceEnvironmentReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions implements
         MergeableMappedMetaData<ResourceEnvironmentReferenceMetaData> {
     /** The serialVersionUID */
@@ -85,7 +80,6 @@ public class ResourceEnvironmentReferenceMetaData extends ResourceInjectionMetaD
      * @param type the type.
      * @throws IllegalArgumentException for a null type
      */
-    @XmlElement(name = "resource-env-ref-type")
     // @JBossXmlNsPrefix(prefix="jee")
     public void setType(String type) {
         if (type == null)

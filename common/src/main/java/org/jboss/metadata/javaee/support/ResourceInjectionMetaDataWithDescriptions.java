@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import org.jboss.annotation.javaee.Descriptions;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;
@@ -55,7 +53,6 @@ public abstract class ResourceInjectionMetaDataWithDescriptions extends Resource
      * @param descriptions the descriptions.
      * @throws IllegalArgumentException for a null descriptions
      */
-    @XmlElement(name = "description", type = DescriptionsImpl.class)
     public void setDescriptions(Descriptions descriptions) {
         if (descriptions == null)
             throw new IllegalArgumentException("Null descriptions");

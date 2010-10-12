@@ -23,16 +23,12 @@ package org.jboss.metadata.javaee.jboss;
 
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * JndiRefMetaData.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "jndi-refType", propOrder = { "descriptions", "jndiRefName", "jndiName", "mappedName", "injectionTargets",
-        "lookupName", "ignoreDependency" })
 public class JndiRefMetaData extends ResourceInjectionMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = 6572104852686049731L;

@@ -23,7 +23,6 @@ package org.jboss.metadata.javaee.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.namespace.QName;
 
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
@@ -34,8 +33,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "service-ref_handlerType", propOrder = { "descriptionGroup", "handlerName", "handlerClass", "initParam",
-        "soapHeader", "soapRole", "portName" })
 public class ServiceReferenceHandlerMetaData extends NamedMetaDataWithDescriptionGroup {
     /** The serialVersionUID */
     private static final long serialVersionUID = 5693673588576610322L;

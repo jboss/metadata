@@ -23,15 +23,12 @@ package org.jboss.metadata.javaee.spec;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * ResourceInjectionTargetMetaData.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "injection-targetType", propOrder = { "injectionTargetClass", "injectionTargetName" })
 public class ResourceInjectionTargetMetaData implements Serializable {
     /** The serialVersionUID */
     private static final long serialVersionUID = -8675008295610478284L;

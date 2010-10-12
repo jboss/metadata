@@ -23,8 +23,6 @@ package org.jboss.metadata.ejb.jboss;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
@@ -112,7 +110,6 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
         return ejbLocalReferences;
     }
 
-    @XmlElement(name = "ejb-local-ref")
     public void setEjbLocalReferences(EJBLocalReferencesMetaData ejbLocalReferences) {
         this.ejbLocalReferences = ejbLocalReferences;
     }
@@ -122,7 +119,6 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
         return persistenceContextRefs;
     }
 
-    @XmlElement(name = "persistence-context-ref")
     public void setPersistenceContextRefs(PersistenceContextReferencesMetaData persistenceContextRefs) {
         this.persistenceContextRefs = persistenceContextRefs;
     }
@@ -132,7 +128,6 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
         return dataSources;
     }
 
-    @XmlElement(name = "data-source")
     public void setDataSources(DataSourcesMetaData dataSources) {
         this.dataSources = dataSources;
     }

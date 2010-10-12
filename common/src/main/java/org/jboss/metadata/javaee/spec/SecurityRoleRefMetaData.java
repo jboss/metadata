@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
@@ -32,7 +30,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "security-role-refType", propOrder = { "descriptions", "roleName", "roleLink" })
 public class SecurityRoleRefMetaData extends NamedMetaDataWithDescriptions implements
         MergeableMappedMetaData<SecurityRoleRefMetaData> {
     /** The serialVersionUID */

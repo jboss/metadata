@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
 /**
@@ -32,7 +29,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "run-asType", propOrder = { "descriptions", "roleName" })
 public class RunAsMetaData extends IdMetaDataImplWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = 6132381662482264933L;
@@ -62,9 +58,7 @@ public class RunAsMetaData extends IdMetaDataImplWithDescriptions {
      * @param roleName the roleName.
      * @throws IllegalArgumentException for a null roleName
      */
-    // @JBossXmlNsPrefix(prefix="jee")
-    @XmlElement(required = true)
-    public void setRoleName(String roleName) {
+     public void setRoleName(String roleName) {
         if (roleName == null)
             throw new IllegalArgumentException("Null roleName");
         this.roleName = roleName;

@@ -23,14 +23,12 @@ package org.jboss.metadata.javaee.spec;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlType;
 
 /**
  * An addressingType type.
  *
  * @author <a href="mailto:ropalka@redhat.com">Richard Opalka</a>
  */
-@XmlType(name = "addressingType", propOrder = { "enabled", "required", "responses" })
 public final class Addressing implements Serializable {
     private static final long serialVersionUID = 1;
 

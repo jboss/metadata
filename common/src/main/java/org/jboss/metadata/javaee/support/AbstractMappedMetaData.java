@@ -27,8 +27,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  * MappedMetaData.
  *
@@ -205,7 +203,6 @@ public abstract class AbstractMappedMetaData<T extends MappableMetaData> extends
     }
 
     @Override
-    @XmlTransient
     public boolean isEmpty() {
         if (map == null)
             return true;

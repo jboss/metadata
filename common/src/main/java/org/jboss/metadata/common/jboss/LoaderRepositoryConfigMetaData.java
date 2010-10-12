@@ -21,10 +21,6 @@
  */
 package org.jboss.metadata.common.jboss;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlValue;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -33,7 +29,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "loader-repository-configType")
 public class LoaderRepositoryConfigMetaData extends IdMetaDataImpl {
     /** The serialVersionUID */
     private static final long serialVersionUID = 8691106200687695652L;
@@ -66,7 +61,6 @@ public class LoaderRepositoryConfigMetaData extends IdMetaDataImpl {
      * @param configParserClass the configParserClass.
      * @throws IllegalArgumentException for a null configParserClass
      */
-    @XmlAttribute(name = "configParserClass")
     public void setConfigParserClass(String configParserClass) {
         if (configParserClass == null)
             throw new IllegalArgumentException("Null configParserClass");
@@ -78,7 +72,6 @@ public class LoaderRepositoryConfigMetaData extends IdMetaDataImpl {
      *
      * @return the config.
      */
-    @XmlValue
     public String getConfig() {
         return config;
     }

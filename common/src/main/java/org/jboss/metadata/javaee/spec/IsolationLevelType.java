@@ -21,15 +21,12 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * IsolationLevelType.
  *
  * @author Remy Maucherat
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "isolation-levelType")
 public enum IsolationLevelType {
     TRANSACTION_READ_UNCOMMITTED, TRANSACTION_READ_COMMITTED, TRANSACTION_REPEATABLE_READ, TRANSACTION_SERIALIZABLE
 }

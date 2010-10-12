@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  * IdMetaDataImpl.
  *
@@ -56,7 +54,6 @@ public class IdMetaDataImplWithOverride<T> extends IdMetaDataImpl implements Ove
 
     // @SchemaProperty(ignore=true)
     @Override
-    @XmlTransient
     public void setOverridenMetaData(T data) {
         if (data == null)
             throw new IllegalArgumentException("Null data");

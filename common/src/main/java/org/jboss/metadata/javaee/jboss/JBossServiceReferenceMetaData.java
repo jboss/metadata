@@ -24,8 +24,6 @@ package org.jboss.metadata.javaee.jboss;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 import org.jboss.metadata.javaee.spec.PortComponentRef;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 
@@ -90,7 +88,6 @@ public class JBossServiceReferenceMetaData extends ServiceReferenceMetaData {
      * @throws IllegalArgumentException for a null serviceRefName
      */
     @Override
-    @XmlElement(name = "service-ref-name")
     public void setServiceRefName(String serviceRefName) {
         setName(serviceRefName);
     }
@@ -123,8 +120,7 @@ public class JBossServiceReferenceMetaData extends ServiceReferenceMetaData {
         return serviceClass;
     }
 
-    @XmlElement(name = "service-impl-class")
-    public void setServiceClass(String serviceClass) {
+     public void setServiceClass(String serviceClass) {
         this.serviceClass = serviceClass;
     }
 
@@ -132,7 +128,6 @@ public class JBossServiceReferenceMetaData extends ServiceReferenceMetaData {
         return jbossPortComponentRef;
     }
 
-    @XmlElement(name = "port-component-ref", type = JBossPortComponentRef.class)
     public void setJBossPortComponentRef(List<JBossPortComponentRef> portComponentRef) {
         this.jbossPortComponentRef = portComponentRef;
     }
@@ -142,7 +137,6 @@ public class JBossServiceReferenceMetaData extends ServiceReferenceMetaData {
         return jbossPortComponentRef;
     }
 
-    @XmlTransient
     @Override
     public void setPortComponentRef(List<? extends PortComponentRef> portComponentRef) {
         super.setPortComponentRef(portComponentRef);
