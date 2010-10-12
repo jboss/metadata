@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-
 /**
  * The web-fragment spec metadata
  *
@@ -49,7 +46,6 @@ public class WebFragmentMetaData extends WebCommonMetaData {
         return metadataComplete;
     }
 
-    @XmlAttribute(name = "metadata-complete")
     public void setMetadataComplete(boolean metadataComplete) {
         this.metadataComplete = metadataComplete;
     }
@@ -58,7 +54,6 @@ public class WebFragmentMetaData extends WebCommonMetaData {
         return name;
     }
 
-    @XmlElement(name = "name")
     public void setName(String name) {
         this.name = name;
     }

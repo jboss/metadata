@@ -21,17 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * tag body content type
  *
  * @author Remy Maucherat
  * @version $Revision: 65928 $
  */
-@XmlType(name = "body-contentType")
-@XmlEnum(String.class)
 public enum BodyContentType {
     tagdependent, JSP, empty, scriptless
 }

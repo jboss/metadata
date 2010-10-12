@@ -23,9 +23,6 @@ package org.jboss.metadata.web.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
@@ -36,8 +33,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @author Remy Maucherat
  * @version $Revision: 81768 $
  */
-@XmlType(name = "validatorType", namespace = JavaEEMetaDataConstants.JAVAEE_NS, propOrder = { "descriptions", "validatorClass",
-        "initParams", "descriptions" })
 public class ValidatorMetaData extends IdMetaDataImplWithDescriptions {
     private static final long serialVersionUID = 1;
 
@@ -56,7 +51,6 @@ public class ValidatorMetaData extends IdMetaDataImplWithDescriptions {
         return initParams;
     }
 
-    @XmlElement(name = "init-param")
     public void setInitParams(List<ParamValueMetaData> initParams) {
         this.initParams = initParams;
     }

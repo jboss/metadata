@@ -21,15 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 87568 $
  */
-@XmlType(propOrder = { "descriptions", "transportGuarantee" })
 public class UserDataConstraintMetaData extends IdMetaDataImplWithDescriptions {
     private static final long serialVersionUID = 1;
 

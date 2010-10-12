@@ -23,10 +23,6 @@ package org.jboss.metadata.web.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 
 /**
@@ -60,7 +56,6 @@ public class TldMetaData extends NamedMetaDataWithDescriptionGroup {
      * @param publicId
      * @param systemId
      */
-    @XmlTransient
     public void setDTD(String root, String publicId, String systemId) {
         this.dtdPublicId = publicId;
         this.dtdSystemId = systemId;
@@ -71,7 +66,6 @@ public class TldMetaData extends NamedMetaDataWithDescriptionGroup {
      *
      * @return the value of the web.xml dtd public id
      */
-    @XmlTransient
     public String getDtdPublicId() {
         return dtdPublicId;
     }
@@ -81,7 +75,6 @@ public class TldMetaData extends NamedMetaDataWithDescriptionGroup {
      *
      * @return the value of the web.xml dtd system id
      */
-    @XmlTransient
     public String getDtdSystemId() {
         return dtdSystemId;
     }
@@ -90,22 +83,18 @@ public class TldMetaData extends NamedMetaDataWithDescriptionGroup {
         return version;
     }
 
-    @XmlAttribute
     public void setVersion(String version) {
         this.version = version;
     }
 
-    @XmlTransient
     public boolean is12() {
         return dtdPublicId != null && dtdPublicId.equals("-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN");
     }
 
-    @XmlTransient
     public boolean is20() {
         return version != null && version.equals("2.0");
     }
 
-    @XmlTransient
     public boolean is21() {
         return version != null && version.equals("2.1");
     }
@@ -146,7 +135,6 @@ public class TldMetaData extends NamedMetaDataWithDescriptionGroup {
         return tags;
     }
 
-    @XmlElement(name = "tag")
     public void setTags(List<TagMetaData> tags) {
         this.tags = tags;
     }
@@ -155,7 +143,6 @@ public class TldMetaData extends NamedMetaDataWithDescriptionGroup {
         return tagFiles;
     }
 
-    @XmlElement(name = "tag-file")
     public void setTagFiles(List<TagFileMetaData> tagFiles) {
         this.tagFiles = tagFiles;
     }
@@ -164,7 +151,6 @@ public class TldMetaData extends NamedMetaDataWithDescriptionGroup {
         return functions;
     }
 
-    @XmlElement(name = "function")
     public void setFunctions(List<FunctionMetaData> functions) {
         this.functions = functions;
     }
@@ -173,7 +159,6 @@ public class TldMetaData extends NamedMetaDataWithDescriptionGroup {
         return listeners;
     }
 
-    @XmlElement(name = "listener")
     public void setListeners(List<ListenerMetaData> listeners) {
         this.listeners = listeners;
     }
@@ -190,7 +175,6 @@ public class TldMetaData extends NamedMetaDataWithDescriptionGroup {
         return taglibExtensions;
     }
 
-    @XmlElement(name = "taglib-extension")
     public void setTaglibExtensions(List<TldExtensionMetaData> taglibExtensions) {
         this.taglibExtensions = taglibExtensions;
     }

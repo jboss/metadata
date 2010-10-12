@@ -24,10 +24,6 @@ package org.jboss.metadata.web.spec;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
@@ -36,7 +32,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "filterType", propOrder = { "descriptionGroup", "filterName", "filterClass", "asyncSupported", "initParam" })
 public class FilterMetaData extends NamedMetaDataWithDescriptionGroup implements AugmentableMetaData<FilterMetaData> {
     private static final long serialVersionUID = 1;
 
@@ -59,7 +54,6 @@ public class FilterMetaData extends NamedMetaDataWithDescriptionGroup implements
         return filterClass;
     }
 
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     public void setFilterClass(String filterClass) {
         this.filterClass = filterClass;
     }

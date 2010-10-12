@@ -23,9 +23,6 @@ package org.jboss.metadata.web.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -44,7 +41,6 @@ public class TldExtensionMetaData extends IdMetaDataImpl {
         return extensionElements;
     }
 
-    @XmlElement(name = "extension-element")
     public void setExtensionElements(List<Object> extensionElements) {
         this.extensionElements = extensionElements;
     }
@@ -53,7 +49,6 @@ public class TldExtensionMetaData extends IdMetaDataImpl {
         return namespace;
     }
 
-    @XmlAttribute(name = "namespace")
     public void setNamespace(String namespace) {
         this.namespace = namespace;
     }

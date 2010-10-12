@@ -21,15 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlEnum;
-
 /**
  * Empty role semantic type
  *
  * @author Remy Maucherat
  * @version $Revision: 65928 $
  */
-@XmlEnum(String.class)
 public enum EmptyRoleSemanticType {
     PERMIT, DENY
 }

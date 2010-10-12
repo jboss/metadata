@@ -24,8 +24,6 @@ package org.jboss.metadata.web.spec;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
@@ -42,7 +40,6 @@ public class LocaleEncodingsMetaData extends IdMetaDataImpl implements Augmentab
         return mappings;
     }
 
-    @XmlElement(name = "locale-encoding-mapping")
     public void setMappings(List<LocaleEncodingMetaData> mappings) {
         this.mappings = mappings;
     }

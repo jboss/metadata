@@ -24,9 +24,6 @@ package org.jboss.metadata.web.spec;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
@@ -36,7 +33,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "filter-mappingType", propOrder = { "filterName", "urlPatterns", "servletNames", "dispatchers" })
 public class FilterMappingMetaData extends IdMetaDataImpl implements AugmentableMetaData<FilterMappingMetaData> {
     private static final long serialVersionUID = 1;
     private String filterName;
@@ -56,7 +52,6 @@ public class FilterMappingMetaData extends IdMetaDataImpl implements Augmentable
         return servletNames;
     }
 
-    @XmlElement(name = "servlet-name")
     public void setServletNames(List<String> servletNames) {
         this.servletNames = servletNames;
     }
@@ -72,8 +67,7 @@ public class FilterMappingMetaData extends IdMetaDataImpl implements Augmentable
         return urlPatterns;
     }
 
-    @XmlElement(name = "url-pattern")
-    public void setUrlPatterns(List<String> urlPatterns) {
+     public void setUrlPatterns(List<String> urlPatterns) {
         this.urlPatterns = urlPatterns;
     }
 
@@ -81,7 +75,6 @@ public class FilterMappingMetaData extends IdMetaDataImpl implements Augmentable
         return dispatchers;
     }
 
-    @XmlElement(name = "dispatcher", type = DispatcherType.class)
     public void setDispatchers(List<DispatcherType> dispatchers) {
         this.dispatchers = dispatchers;
     }

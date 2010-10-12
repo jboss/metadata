@@ -21,17 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * filter mapping dispatcher type
  *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 65928 $
  */
-@XmlType(name = "dispatcherType")
-@XmlEnum(String.class)
 public enum DispatcherType {
     FORWARD, INCLUDE, REQUEST, ASYNC, ERROR
 }

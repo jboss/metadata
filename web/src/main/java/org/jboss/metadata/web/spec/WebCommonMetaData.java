@@ -26,10 +26,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
@@ -108,7 +104,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
      * @param publicId
      * @param systemId
      */
-    @XmlTransient
     public void setDTD(String root, String publicId, String systemId) {
         this.dtdPublicId = publicId;
         this.dtdSystemId = systemId;
@@ -119,7 +114,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
      *
      * @return the value of the web.xml dtd public id
      */
-    @XmlTransient
     public String getDtdPublicId() {
         return dtdPublicId;
     }
@@ -129,7 +123,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
      *
      * @return the value of the web.xml dtd system id
      */
-    @XmlTransient
     public String getDtdSystemId() {
         return dtdSystemId;
     }
@@ -138,7 +131,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return version;
     }
 
-    @XmlAttribute
     public void setVersion(String version) {
         this.version = version;
     }
@@ -148,22 +140,18 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
      *
      * @return true if this is a javaee 2.3 version application
      */
-    @XmlTransient
     public boolean is23() {
         return dtdPublicId != null && dtdPublicId.equals(JavaEEMetaDataConstants.J2EE_13_WEB);
     }
 
-    @XmlTransient
     public boolean is24() {
         return version != null && version.equals("2.4");
     }
 
-    @XmlTransient
     public boolean is25() {
         return version != null && version.equals("2.5");
     }
 
-    @XmlTransient
     public boolean is30() {
         return version != null && version.equals("3.0");
     }
@@ -188,7 +176,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return contextParams;
     }
 
-    @XmlElement(name = "context-param")
     public void setContextParams(List<ParamValueMetaData> params) {
         this.contextParams = params;
     }
@@ -197,7 +184,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return filters;
     }
 
-    @XmlElement(name = "filter")
     public void setFilters(FiltersMetaData filters) {
         this.filters = filters;
     }
@@ -206,7 +192,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return filterMappings;
     }
 
-    @XmlElement(name = "filter-mapping")
     public void setFilterMappings(List<FilterMappingMetaData> filterMappings) {
         this.filterMappings = filterMappings;
     }
@@ -215,7 +200,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return errorPages;
     }
 
-    @XmlElement(name = "error-page")
     public void setErrorPages(List<ErrorPageMetaData> errorPages) {
         this.errorPages = errorPages;
     }
@@ -232,7 +216,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return listeners;
     }
 
-    @XmlElement(name = "listener")
     public void setListeners(List<ListenerMetaData> listeners) {
         this.listeners = listeners;
     }
@@ -241,7 +224,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return localEncodings;
     }
 
-    @XmlElement(name = "locale-encoding-mapping-list")
     public void setLocalEncodings(LocaleEncodingsMetaData localEncodings) {
         this.localEncodings = localEncodings;
     }
@@ -258,7 +240,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return mimeMappings;
     }
 
-    @XmlElement(name = "mime-mapping")
     public void setMimeMappings(List<MimeMappingMetaData> mimeMappings) {
         this.mimeMappings = mimeMappings;
     }
@@ -267,7 +248,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return servlets;
     }
 
-    @XmlElement(name = "servlet")
     public void setServlets(ServletsMetaData servlets) {
         this.servlets = servlets;
     }
@@ -276,7 +256,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return servletMappings;
     }
 
-    @XmlElement(name = "servlet-mapping")
     public void setServletMappings(List<ServletMappingMetaData> servletMappings) {
         this.servletMappings = servletMappings;
     }
@@ -285,7 +264,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return securityConstraints;
     }
 
-    @XmlElement(name = "security-constraint")
     public void setSecurityConstraints(List<SecurityConstraintMetaData> securityConstraints) {
         this.securityConstraints = securityConstraints;
     }
@@ -294,7 +272,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return securityRoles;
     }
 
-    @XmlElement(name = "security-role")
     public void setSecurityRoles(SecurityRolesMetaData securityRoles) {
         this.securityRoles = securityRoles;
     }
@@ -361,7 +338,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return null;
     }
 
-    @XmlTransient
     public AnnotatedEJBReferencesMetaData getAnnotatedEjbReferences() {
         AnnotatedEJBReferencesMetaData refs = null;
         if (jndiEnvironmentRefsGroup != null)
@@ -455,7 +431,6 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
         return messageDestinations;
     }
 
-    @XmlElement(name = "message-destination")
     public void setMessageDestinations(MessageDestinationsMetaData messageDestinations) {
         this.messageDestinations = messageDestinations;
     }

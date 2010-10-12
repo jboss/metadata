@@ -21,15 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 87568 $
  */
-@XmlType(propOrder = { "locale", "encoding" })
 public class LocaleEncodingMetaData extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
 

@@ -21,17 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * session tracking mode type
  *
  * @author Remy Maucherat
  * @version $Revision: 65928 $
  */
-@XmlType(name = "tracking-modeType")
-@XmlEnum(String.class)
 public enum SessionTrackingModeType {
     COOKIE, URL, SSL
 }

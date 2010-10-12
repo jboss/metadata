@@ -23,10 +23,6 @@ package org.jboss.metadata.web.spec;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
@@ -41,8 +37,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 84989 $
  */
-@XmlType(name = "servletType", propOrder = { "descriptionGroup", "servletName", "servletClass", "jspFile", "initParam",
-        "loadOnStartup", "enabled", "asyncSupported", "runAs", "securityRoleRefs", "multipartConfig" })
 public class ServletMetaData extends NamedMetaDataWithDescriptionGroup implements MergeableMetaData<ServletMetaData>,
         AugmentableMetaData<ServletMetaData> {
     private static final long serialVersionUID = 1;
@@ -112,7 +106,6 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup implement
         return loadOnStartup;
     }
 
-    @XmlElement(name = "load-on-startup", nillable = true)
     public void setLoadOnStartup(String loadOnStartup) {
         this.loadOnStartup = loadOnStartup;
         try {
@@ -134,7 +127,6 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup implement
         return securityRoleRefs;
     }
 
-    @XmlElement(name = "security-role-ref")
     public void setSecurityRoleRefs(SecurityRoleRefsMetaData securityRoleRefs) {
         this.securityRoleRefs = securityRoleRefs;
     }

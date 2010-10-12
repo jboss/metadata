@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
@@ -32,7 +30,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "multipart-configType", propOrder = { "location", "maxFileSize", "maxRequestSize", "fileSizeThreshold" })
 public class MultipartConfigMetaData extends IdMetaDataImpl implements AugmentableMetaData<MultipartConfigMetaData> {
     private static final long serialVersionUID = 1;
 

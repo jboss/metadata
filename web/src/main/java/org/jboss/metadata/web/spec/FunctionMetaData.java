@@ -23,9 +23,6 @@ package org.jboss.metadata.web.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 
@@ -35,8 +32,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @author Remy Maucherat
  * @version $Revision: 75201 $
  */
-@XmlType(name = "functionType", namespace = JavaEEMetaDataConstants.JAVAEE_NS, propOrder = { "descriptionGroup", "name",
-        "functionClass", "functionSignature", "examples", "functionExtensions" })
 public class FunctionMetaData extends NamedMetaDataWithDescriptionGroup {
     private static final long serialVersionUID = 1;
 
@@ -65,7 +60,6 @@ public class FunctionMetaData extends NamedMetaDataWithDescriptionGroup {
         return examples;
     }
 
-    @XmlElement(name = "example")
     public void setExamples(List<String> examples) {
         this.examples = examples;
     }
@@ -74,7 +68,6 @@ public class FunctionMetaData extends NamedMetaDataWithDescriptionGroup {
         return functionExtensions;
     }
 
-    @XmlElement(name = "function-extension")
     public void setFunctionExtensions(List<TldExtensionMetaData> functionExtensions) {
         this.functionExtensions = functionExtensions;
     }

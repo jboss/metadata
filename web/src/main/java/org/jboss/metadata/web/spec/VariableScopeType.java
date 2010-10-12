@@ -21,17 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * tag/variable scope type
  *
  * @author Remy Maucherat
  * @version $Revision: 65928 $
  */
-@XmlType(name = "variable-scopeType")
-@XmlEnum(String.class)
 public enum VariableScopeType {
     NESTED, AT_BEGIN, AT_END
 }

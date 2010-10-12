@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
@@ -31,7 +28,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "form-login-configType", propOrder = { "loginPage", "errorPage" })
 public class FormLoginConfigMetaData extends IdMetaDataImpl implements AugmentableMetaData<FormLoginConfigMetaData> {
     private static final long serialVersionUID = 1;
 
@@ -42,7 +38,6 @@ public class FormLoginConfigMetaData extends IdMetaDataImpl implements Augmentab
         return loginPage;
     }
 
-    @XmlElement(name = "form-login-page")
     public void setLoginPage(String loginPage) {
         this.loginPage = loginPage;
     }
@@ -51,7 +46,6 @@ public class FormLoginConfigMetaData extends IdMetaDataImpl implements Augmentab
         return errorPage;
     }
 
-    @XmlElement(name = "form-error-page")
     public void setErrorPage(String errorPage) {
         this.errorPage = errorPage;
     }

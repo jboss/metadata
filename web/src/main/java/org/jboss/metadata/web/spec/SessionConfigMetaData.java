@@ -23,9 +23,6 @@ package org.jboss.metadata.web.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
@@ -34,8 +31,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 65928 $
  */
-@XmlType(name = "session-configType", namespace = JavaEEMetaDataConstants.JAVAEE_NS, propOrder = { "sessionTimeout",
-        "cookieConfig", "sessionTrackingModes" })
 public class SessionConfigMetaData extends IdMetaDataImpl implements AugmentableMetaData<SessionConfigMetaData> {
     private static final long serialVersionUID = 1;
     private int sessionTimeout = 30;
@@ -47,7 +42,6 @@ public class SessionConfigMetaData extends IdMetaDataImpl implements Augmentable
         return sessionTimeout;
     }
 
-    @XmlElement(name = "session-timeout")
     public void setSessionTimeout(int sessionTimeout) {
         this.sessionTimeout = sessionTimeout;
         sessionTimeoutSet = true;
@@ -57,7 +51,6 @@ public class SessionConfigMetaData extends IdMetaDataImpl implements Augmentable
         return cookieConfig;
     }
 
-    @XmlElement(name = "cookie-config")
     public void setCookieConfig(CookieConfigMetaData sessionCookie) {
         this.cookieConfig = sessionCookie;
     }
@@ -66,7 +59,6 @@ public class SessionConfigMetaData extends IdMetaDataImpl implements Augmentable
         return sessionTrackingModes;
     }
 
-    @XmlElement(name = "tracking-mode", type = SessionTrackingModeType.class)
     public void setSessionTrackingModes(List<SessionTrackingModeType> sessionTrackingModes) {
         this.sessionTrackingModes = sessionTrackingModes;
     }

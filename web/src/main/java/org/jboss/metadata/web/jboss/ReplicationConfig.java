@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -32,9 +30,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author <a href="mailto:bdecoste@jboss.com">William DeCoste</a>
  * @version <tt>$Revision: 83549 $</tt>
  */
-@XmlType(name = "replication-configType", propOrder = { "cacheName", "replicationTrigger", "replicationGranularity",
-        "replicationFieldBatchMode", "useJK", "maxUnreplicatedInterval", "snapshotMode", "snapshotInterval",
-        "sessionNotificationPolicy" })
 public class ReplicationConfig extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
     protected ReplicationTrigger trigger;

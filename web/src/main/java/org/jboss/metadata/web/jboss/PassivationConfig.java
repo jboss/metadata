@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -32,8 +30,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Brian Stansberry
  * @version <tt>$Revision: 83549 $</tt>
  */
-@XmlType(name = "passivation-configType", propOrder = { "useSessionPassivation", "passivationMinIdleTime",
-        "passivationMaxIdleTime" })
 public class PassivationConfig extends IdMetaDataImpl {
     /** The serialVersionUID */
     private static final long serialVersionUID = 1;

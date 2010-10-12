@@ -21,32 +21,25 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * taglib/tag metadata
  *
  * @author Remy Maucherat
  * @version $Revision: 75201 $
  */
-@XmlType(name = "tagType", propOrder = { "name", "tagclass", "teiclass", "bodycontent", "info", "attributes" })
 public class Tag11MetaData extends TagMetaData {
     private static final long serialVersionUID = 1;
 
     private String info;
 
-    @XmlElement(name = "tagclass")
     public void setTagclass(String tagClass) {
         super.setTagClass(tagClass);
     }
 
-    @XmlElement(name = "teiclass")
     public void setTeiclass(String teiClass) {
         super.setTeiClass(teiClass);
     }
 
-    @XmlElement(name = "bodycontent")
     public void setBodycontent(BodyContentType bodyContent) {
         super.setBodyContent(bodyContent);
     }

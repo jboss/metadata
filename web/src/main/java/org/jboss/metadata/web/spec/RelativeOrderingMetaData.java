@@ -24,17 +24,12 @@ package org.jboss.metadata.web.spec;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "ordering-orderingType")
 public class RelativeOrderingMetaData extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
 
@@ -44,8 +39,6 @@ public class RelativeOrderingMetaData extends IdMetaDataImpl {
         return ordering;
     }
 
-    @XmlElements({ @XmlElement(name = "name", type = NameMetaData.class),
-            @XmlElement(name = "others", type = OthersMetaData.class) })
     public void setOrdering(List<OrderingElementMetaData> ordering) {
         this.ordering = ordering;
     }

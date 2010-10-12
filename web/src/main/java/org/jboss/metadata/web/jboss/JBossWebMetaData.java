@@ -29,10 +29,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.jboss.metadata.common.jboss.WebserviceDescriptionsMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.jboss.NamedModule;
@@ -180,7 +176,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
      * @param publicId
      * @param systemId
      */
-    @XmlTransient
     public void setDTD(String root, String publicId, String systemId) {
         this.dtdPublicId = publicId;
         this.dtdSystemId = systemId;
@@ -214,7 +209,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
      *
      * @return the value of the web.xml dtd public id
      */
-    @XmlTransient
     public String getDtdPublicId() {
         return dtdPublicId;
     }
@@ -224,7 +218,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
      *
      * @return the value of the web.xml dtd system id
      */
-    @XmlTransient
     public String getDtdSystemId() {
         return dtdSystemId;
     }
@@ -233,7 +226,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return version;
     }
 
-    @XmlAttribute
     public void setVersion(String version) {
         this.version = version;
     }
@@ -251,22 +243,18 @@ public class JBossWebMetaData extends NamedModuleImpl {
      *
      * @return true if this is a javaee 2.3 version application
      */
-    @XmlTransient
     public boolean is23() {
         return servletVersion != null && servletVersion.equals(JavaEEMetaDataConstants.J2EE_13_WEB);
     }
 
-    @XmlTransient
     public boolean is24() {
         return servletVersion != null && servletVersion.equals("2.4");
     }
 
-    @XmlTransient
     public boolean is25() {
         return servletVersion != null && servletVersion.equals("2.5");
     }
 
-    @XmlTransient
     public boolean is30() {
         return servletVersion != null && servletVersion.equals("3.0");
     }
@@ -283,7 +271,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return annotations;
     }
 
-    @XmlElement(name = "annotation")
     public void setAnnotations(JBossAnnotationsMetaData annotations) {
         this.annotations = annotations;
     }
@@ -308,7 +295,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return contextParams;
     }
 
-    @XmlElement(name = "context-param")
     public void setContextParams(List<ParamValueMetaData> params) {
         this.contextParams = params;
     }
@@ -317,7 +303,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return filters;
     }
 
-    @XmlElement(name = "filter")
     public void setFilters(FiltersMetaData filters) {
         this.filters = filters;
     }
@@ -326,7 +311,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return filterMappings;
     }
 
-    @XmlElement(name = "filter-mapping")
     public void setFilterMappings(List<FilterMappingMetaData> filterMappings) {
         this.filterMappings = filterMappings;
     }
@@ -335,7 +319,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return errorPages;
     }
 
-    @XmlElement(name = "error-page")
     public void setErrorPages(List<ErrorPageMetaData> errorPages) {
         this.errorPages = errorPages;
     }
@@ -352,7 +335,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return listeners;
     }
 
-    @XmlElement(name = "listener")
     public void setListeners(List<ListenerMetaData> listeners) {
         this.listeners = listeners;
     }
@@ -361,7 +343,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return localEncodings;
     }
 
-    @XmlElement(name = "locale-encoding-mapping-list")
     public void setLocalEncodings(LocaleEncodingsMetaData localEncodings) {
         this.localEncodings = localEncodings;
     }
@@ -378,7 +359,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return mimeMappings;
     }
 
-    @XmlElement(name = "mime-mapping")
     public void setMimeMappings(List<MimeMappingMetaData> mimeMappings) {
         this.mimeMappings = mimeMappings;
     }
@@ -394,7 +374,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return servlets;
     }
 
-    @XmlElement(name = "servlet")
     public void setServlets(JBossServletsMetaData servlets) {
         this.servlets = servlets;
     }
@@ -403,7 +382,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return servletMappings;
     }
 
-    @XmlElement(name = "servlet-mapping")
     public void setServletMappings(List<ServletMappingMetaData> servletMappings) {
         this.servletMappings = servletMappings;
     }
@@ -412,7 +390,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return securityConstraints;
     }
 
-    @XmlElement(name = "security-constraint")
     public void setSecurityConstraints(List<SecurityConstraintMetaData> securityConstraints) {
         this.securityConstraints = securityConstraints;
     }
@@ -421,7 +398,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return securityRoles;
     }
 
-    @XmlElement(name = "security-role")
     public void setSecurityRoles(SecurityRolesMetaData securityRoles) {
         this.securityRoles = securityRoles;
     }
@@ -540,7 +516,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return messageDestinations;
     }
 
-    @XmlElement(name = "message-destination")
     public void setMessageDestinations(MessageDestinationsMetaData messageDestinations) {
         this.messageDestinations = messageDestinations;
     }
@@ -569,7 +544,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return encLoader;
     }
 
-    @XmlTransient
     public void setENCLoader(ClassLoader encLoader) {
         this.encLoader = encLoader;
     }
@@ -578,7 +552,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return cxtLoader;
     }
 
-    @XmlTransient
     public void setContextLoader(ClassLoader cxtLoader) {
         this.cxtLoader = cxtLoader;
     }
@@ -603,7 +576,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         this.jaccContextID = jaccContextID;
     }
 
-    @XmlTransient
     public String getPublicID() {
         return this.getDtdPublicId();
     }
@@ -678,7 +650,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return virtualHosts;
     }
 
-    @XmlElement(name = "virtual-host")
     public void setVirtualHosts(List<String> virtualHosts) {
         this.virtualHosts = virtualHosts;
     }
@@ -687,7 +658,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return webserviceDescriptions;
     }
 
-    @XmlElement(name = "webservice-description")
     public void setWebserviceDescriptions(WebserviceDescriptionsMetaData webserviceDescriptions) {
         this.webserviceDescriptions = webserviceDescriptions;
     }
@@ -697,7 +667,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
      *
      * @return Set<String> of the security-role names from the web.xml
      */
-    @XmlTransient
     public Set<String> getSecurityRoleNames() {
         return new HashSet<String>(securityRoles.keySet());
     }
@@ -708,7 +677,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
      * @param servletName
      * @return
      */
-    @XmlTransient
     public SecurityRoleRefsMetaData getSecurityRoleRefs(String servletName) {
         SecurityRoleRefsMetaData refs = null;
         if (getServlets() != null) {
@@ -755,7 +723,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
      * @param jndiEnvironmentRefsGroup the jndiEnvironmentRefsGroup.
      * @throws IllegalArgumentException for a null jndiEnvironmentRefsGroup
      */
-    @XmlTransient
     public void setJndiEnvironmentRefsGroup(Environment env) {
         if (env == null)
             throw new IllegalArgumentException("Null jndiEnvironmentRefsGroup");
@@ -777,12 +744,10 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return jaccAllStoreRole;
     }
 
-    @XmlElement(name = "jacc-star-role-allow")
     public void setJaccAllStoreRole(boolean isJaccAllStoreRole) {
         this.jaccAllStoreRole = Boolean.valueOf(isJaccAllStoreRole);
     }
 
-    @XmlTransient
     public MessageDestinationMetaData getMessageDestination(String name) {
         return messageDestinations.get(name);
     }
@@ -793,7 +758,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
      * @param servletName - the servlet-name from the web.xml
      * @return RunAsIdentity for the servet if one exists, null otherwise
      */
-    @XmlTransient
     public RunAsIdentityMetaData getRunAsIdentity(String servletName) {
         RunAsIdentityMetaData identity = runAsIdentity.get(servletName);
         if (identity == null) {

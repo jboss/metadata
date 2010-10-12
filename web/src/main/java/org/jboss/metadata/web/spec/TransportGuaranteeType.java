@@ -21,15 +21,10 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 65943 $
  */
-@XmlType(name = "transport-guaranteeType")
-@XmlEnum(String.class)
 public enum TransportGuaranteeType {
     NONE, INTEGRAL, CONFIDENTIAL
 }

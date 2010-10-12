@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
@@ -32,8 +29,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision: 82920 $
  */
-@XmlType(name = "cookie-configType", namespace = JavaEEMetaDataConstants.JAVAEE_NS, propOrder = { "name", "domain", "path",
-        "comment", "httpOnly", "secure", "maxAge" })
 public class CookieConfigMetaData extends IdMetaDataImpl implements AugmentableMetaData<CookieConfigMetaData> {
     private static final long serialVersionUID = 1;
 
@@ -84,7 +79,6 @@ public class CookieConfigMetaData extends IdMetaDataImpl implements AugmentableM
         return httpOnly;
     }
 
-    @XmlElement(name = "http-only")
     public void setHttpOnly(boolean httpOnly) {
         this.httpOnly = httpOnly;
         httpOnlySet = true;
@@ -94,7 +88,6 @@ public class CookieConfigMetaData extends IdMetaDataImpl implements AugmentableM
         return secure;
     }
 
-    @XmlElement(name = "secure")
     public void setSecure(boolean secure) {
         this.secure = secure;
         secureSet = true;
@@ -104,7 +97,6 @@ public class CookieConfigMetaData extends IdMetaDataImpl implements AugmentableM
         return maxAge;
     }
 
-    @XmlElement(name = "max-age")
     public void setMaxAge(int maxAge) {
         this.maxAge = maxAge;
         maxAgeSet = true;

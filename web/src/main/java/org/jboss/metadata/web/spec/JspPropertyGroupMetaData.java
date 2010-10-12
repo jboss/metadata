@@ -23,18 +23,12 @@ package org.jboss.metadata.web.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "jsp-property-groupType", propOrder = { "descriptionGroup", "urlPatterns", "elIgnored", "pageEncoding",
-        "scriptingInvalid", "isXml", "includePreludes", "includeCodas", "deferredSyntaxAllowedAsLiteral",
-        "trimDirectiveWhitespaces", "defaultContentType", "buffer", "errorOnUndeclaredNamespace" })
 public class JspPropertyGroupMetaData extends IdMetaDataImplWithDescriptionGroup {
     private static final long serialVersionUID = 1;
 
@@ -71,7 +65,6 @@ public class JspPropertyGroupMetaData extends IdMetaDataImplWithDescriptionGroup
         return includeCodas;
     }
 
-    @XmlElement(name = "include-coda")
     public void setIncludeCodas(List<String> includeCodas) {
         this.includeCodas = includeCodas;
     }
@@ -80,7 +73,6 @@ public class JspPropertyGroupMetaData extends IdMetaDataImplWithDescriptionGroup
         return includePreludes;
     }
 
-    @XmlElement(name = "include-prelude")
     public void setIncludePreludes(List<String> includePreludes) {
         this.includePreludes = includePreludes;
     }
@@ -89,7 +81,6 @@ public class JspPropertyGroupMetaData extends IdMetaDataImplWithDescriptionGroup
         return isXml;
     }
 
-    @XmlElement(name = "is-xml")
     public void setIsXml(String isXml) {
         this.isXml = isXml;
     }
@@ -122,7 +113,6 @@ public class JspPropertyGroupMetaData extends IdMetaDataImplWithDescriptionGroup
         return urlPatterns;
     }
 
-    @XmlElement(name = "url-pattern")
     public void setUrlPatterns(List<String> urlPatterns) {
         this.urlPatterns = urlPatterns;
     }

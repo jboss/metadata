@@ -24,8 +24,6 @@ package org.jboss.metadata.web.spec;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
@@ -43,7 +41,6 @@ public class WelcomeFileListMetaData extends IdMetaDataImpl implements Augmentab
         return welcomeFiles;
     }
 
-    @XmlElement(name = "welcome-file")
     public void setWelcomeFiles(List<String> welcomeFiles) {
         this.welcomeFiles = welcomeFiles;
     }

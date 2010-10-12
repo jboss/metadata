@@ -21,15 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "listenerType", propOrder = { "descriptionGroup", "listenerClass" })
 public class ListenerMetaData extends IdMetaDataImplWithDescriptionGroup {
     private static final long serialVersionUID = 1;
 

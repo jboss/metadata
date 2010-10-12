@@ -21,13 +21,10 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "ordering-othersType", propOrder = {})
 public class OthersMetaData extends OrderingElementMetaData {
     private static final long serialVersionUID = 1;
 

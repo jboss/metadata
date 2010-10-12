@@ -23,9 +23,6 @@ package org.jboss.metadata.web.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 
@@ -35,8 +32,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @author Remy Maucherat
  * @version $Revision: 75201 $
  */
-@XmlType(name = "tagFileType", namespace = JavaEEMetaDataConstants.JAVAEE_NS, propOrder = { "descriptionGroup", "name", "path",
-        "examples", "tagExtensions" })
 public class TagFileMetaData extends NamedMetaDataWithDescriptionGroup {
     private static final long serialVersionUID = 1;
 
@@ -56,7 +51,6 @@ public class TagFileMetaData extends NamedMetaDataWithDescriptionGroup {
         return examples;
     }
 
-    @XmlElement(name = "example")
     public void setExamples(List<String> examples) {
         this.examples = examples;
     }
@@ -65,7 +59,6 @@ public class TagFileMetaData extends NamedMetaDataWithDescriptionGroup {
         return tagExtensions;
     }
 
-    @XmlElement(name = "tag-extension")
     public void setTagExtensions(List<TldExtensionMetaData> tagExtensions) {
         this.tagExtensions = tagExtensions;
     }

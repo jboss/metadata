@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 
 /**
@@ -31,8 +29,6 @@ import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
  * @author Remy Maucherat
  * @version $Revision: 75201 $
  */
-@XmlType(name = "tagType", namespace = JavaEEMetaDataConstants.JAVAEE_NS, propOrder = { "name", "tagClass", "teiClass",
-        "bodyContent", "displayName", "smallIcon", "largeIcon", "description", "variables", "attributes", "examples" })
 public class Tag12MetaData extends TagMetaData {
     private static final long serialVersionUID = 1;
 

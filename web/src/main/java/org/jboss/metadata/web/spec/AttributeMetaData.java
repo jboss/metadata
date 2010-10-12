@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
@@ -32,8 +30,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author Remy Maucherat
  * @version $Revision: 75201 $
  */
-@XmlType(name = "tld-attributeType", namespace = JavaEEMetaDataConstants.JAVAEE_NS, propOrder = { "descriptions", "name",
-        "required", "rtexprvalue", "type", "deferredValue", "deferredMethod", "fragment", "descriptions" })
 public class AttributeMetaData extends NamedMetaDataWithDescriptions {
     private static final long serialVersionUID = 1;
 

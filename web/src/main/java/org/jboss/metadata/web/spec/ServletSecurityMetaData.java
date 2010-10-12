@@ -23,17 +23,12 @@ package org.jboss.metadata.web.spec;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * Models per servlet or per servlet type constraints
  *
  * @author Remy Maucherat
  * @version $Revision: 81768 $
  */
-@XmlType(name = "servlet-securityType", propOrder = { "emptyRoleSemantic", "transportGuarantee", "rolesAllowed",
-        "httpMethodConstraints" })
 public class ServletSecurityMetaData extends HttpConstraintMetaData {
     private static final long serialVersionUID = 1;
 
@@ -43,7 +38,6 @@ public class ServletSecurityMetaData extends HttpConstraintMetaData {
         return httpMethodConstraints;
     }
 
-    @XmlElement(name = "http-method-constraint")
     public void setHttpMethodConstraints(List<HttpMethodConstraintMetaData> httpMethodConstraints) {
         this.httpMethodConstraints = httpMethodConstraints;
     }

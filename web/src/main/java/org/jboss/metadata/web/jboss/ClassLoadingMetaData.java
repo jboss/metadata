@@ -23,9 +23,6 @@ package org.jboss.metadata.web.jboss;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
 
 /**
@@ -34,7 +31,6 @@ import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name = "class-loadingType", propOrder = { "loaderRepository" })
 public class ClassLoadingMetaData implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -46,7 +42,6 @@ public class ClassLoadingMetaData implements Serializable {
         return wasJava2ClassLoadingComplianceSet;
     }
 
-    @XmlAttribute(name = "java2ClassLoadingCompliance")
     public boolean isJava2ClassLoadingCompliance() {
         return java2ClassLoadingCompliance;
     }

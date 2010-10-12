@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.web.spec.AnnotationMetaData;
 
 /**
@@ -32,7 +30,6 @@ import org.jboss.metadata.web.spec.AnnotationMetaData;
  * @author Remy Maucherat
  * @version $Revision: 83549 $
  */
-@XmlType(name = "annotationType", propOrder = { "className", "servletSecurity", "runAs", "multipartConfig" })
 public class JBossAnnotationMetaData extends AnnotationMetaData {
     private static final long serialVersionUID = 1;
 

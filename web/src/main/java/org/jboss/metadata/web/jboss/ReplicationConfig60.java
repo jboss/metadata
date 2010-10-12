@@ -22,17 +22,12 @@
 
 package org.jboss.metadata.web.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * Overrides superclass to remove elements from XML binding, e.g.
  * replicationFieldBatchMode.
  *
  * @author Brian Stansberry
  */
-@XmlType(name = "replication-configType", propOrder = { "cacheName", "replicationTrigger", "replicationGranularity",
-        "replicationMode", "backups", "useJK", "maxUnreplicatedInterval", "snapshotMode", "snapshotInterval",
-        "sessionNotificationPolicy" })
 public class ReplicationConfig60 extends ReplicationConfig {
     /** The serialVersionUID */
     private static final long serialVersionUID = -4550670443463444120L;

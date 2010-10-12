@@ -29,17 +29,12 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 84989 $
  */
-@XmlType(name = "web-resource-collectionType", propOrder = { "webResourceName", "descriptions", "urlPatterns", "httpMethods",
-        "httpMethodOmissions" })
 public class WebResourceCollectionMetaData extends NamedMetaDataWithDescriptions {
     private static final long serialVersionUID = 1;
 
@@ -97,7 +92,6 @@ public class WebResourceCollectionMetaData extends NamedMetaDataWithDescriptions
         return urlPatterns;
     }
 
-    @XmlElement(name = "url-pattern")
     public void setUrlPatterns(List<String> urlPatterns) {
         this.urlPatterns = urlPatterns;
     }
@@ -106,7 +100,6 @@ public class WebResourceCollectionMetaData extends NamedMetaDataWithDescriptions
         return httpMethods;
     }
 
-    @XmlElement(name = "http-method")
     public void setHttpMethods(List<String> httpMethods) {
         this.httpMethods = httpMethods;
     }
@@ -115,7 +108,6 @@ public class WebResourceCollectionMetaData extends NamedMetaDataWithDescriptions
         return httpMethodOmissions;
     }
 
-    @XmlElement(name = "http-method-omission")
     public void setHttpMethodOmissions(List<String> httpMethodOmissions) {
         this.httpMethodOmissions = httpMethodOmissions;
     }

@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
@@ -32,8 +30,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @author Remy Maucherat
  * @version $Revision: 81768 $
  */
-@XmlType(name = "variableType", namespace = JavaEEMetaDataConstants.JAVAEE_NS, propOrder = { "descriptions", "nameGiven",
-        "nameFromAttribute", "variableClass", "declare", "scope", "descriptions" })
 public class VariableMetaData extends IdMetaDataImplWithDescriptions {
     private static final long serialVersionUID = 1;
 

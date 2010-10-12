@@ -24,9 +24,6 @@ package org.jboss.metadata.web.spec;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
@@ -35,7 +32,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "jsp-configType", propOrder = { "taglibs", "propertyGroups" })
 public class JspConfigMetaData extends IdMetaDataImpl implements AugmentableMetaData<JspConfigMetaData> {
     private static final long serialVersionUID = 1;
     private List<TaglibMetaData> taglib;
@@ -45,7 +41,6 @@ public class JspConfigMetaData extends IdMetaDataImpl implements AugmentableMeta
         return taglib;
     }
 
-    @XmlElement(name = "taglib")
     public void setTaglibs(List<TaglibMetaData> taglib) {
         this.taglib = taglib;
     }
@@ -54,7 +49,6 @@ public class JspConfigMetaData extends IdMetaDataImpl implements AugmentableMeta
         return propertyGroups;
     }
 
-    @XmlElement(name = "jsp-property-group")
     public void setPropertyGroups(List<JspPropertyGroupMetaData> propertyGroups) {
         this.propertyGroups = propertyGroups;
     }

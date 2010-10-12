@@ -23,11 +23,6 @@ package org.jboss.metadata.web.spec;
 
 import java.util.Collections;
 import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -36,8 +31,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 81768 $
  */
-@XmlType(name = "security-constraintType", propOrder = { "displayName", "resourceCollections", "authConstraint",
-        "userDataConstraint" })
 public class SecurityConstraintMetaData extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
 
@@ -66,7 +59,6 @@ public class SecurityConstraintMetaData extends IdMetaDataImpl {
         return resourceCollections;
     }
 
-    @XmlElement(name = "web-resource-collection")
     public void setResourceCollections(WebResourceCollectionsMetaData resourceCollections) {
         this.resourceCollections = resourceCollections;
     }
@@ -85,7 +77,6 @@ public class SecurityConstraintMetaData extends IdMetaDataImpl {
      *
      * @return true if there is no auth-constraint
      */
-    @XmlTransient
     public boolean isUnchecked() {
         return authConstraint == null;
     }
@@ -96,7 +87,6 @@ public class SecurityConstraintMetaData extends IdMetaDataImpl {
      *
      * @return true if there is an empty auth-constraint
      */
-    @XmlTransient
     public boolean isExcluded() {
         boolean isExcluded = authConstraint != null && authConstraint.getRoleNames() == null;
         return isExcluded;
@@ -108,7 +98,6 @@ public class SecurityConstraintMetaData extends IdMetaDataImpl {
      * @return A possibly empty set of constraint role names. Use isUnchecked
      *         and isExcluded to check for no or an emtpy auth-constraint
      */
-    @XmlTransient
     public List<String> getRoleNames() {
         List<String> roleNames = Collections.emptyList();
         if (authConstraint != null && authConstraint.getRoleNames() != null)
@@ -121,7 +110,6 @@ public class SecurityConstraintMetaData extends IdMetaDataImpl {
      *
      * @return UserDataConstraint.TransportGuarantee
      */
-    @XmlTransient
     public TransportGuaranteeType getTransportGuarantee() {
         TransportGuaranteeType type = TransportGuaranteeType.NONE;
         if (userDataConstraint != null)

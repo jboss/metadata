@@ -21,15 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * Models per servlet or per servlet type HTTP method constraint
  *
  * @author Remy Maucherat
  * @version $Revision: 81768 $
  */
-@XmlType(name = "http-method-constraintType", propOrder = { "method", "emptyRoleSemantic", "transportGuarantee", "rolesAllowed" })
 public class HttpMethodConstraintMetaData extends HttpConstraintMetaData {
     private static final long serialVersionUID = 1;
 

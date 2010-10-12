@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.web.spec.ServletMetaData;
 import org.jboss.metadata.web.spec.ServletSecurityMetaData;
 
@@ -32,7 +30,6 @@ import org.jboss.metadata.web.spec.ServletSecurityMetaData;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "servletType", propOrder = { "servletName", "runAsPrincipal", "servletSecurity" })
 public class JBossServletMetaData extends ServletMetaData {
     private static final long serialVersionUID = 1;
 

@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlValue;
-
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
@@ -36,7 +34,6 @@ public class NameMetaData extends OrderingElementMetaData {
         return name;
     }
 
-    @XmlValue
     public void setName(String name) {
         this.name = name;
     }

@@ -21,15 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-@XmlType(name = "error-pageType", propOrder = { "errorCode", "exceptionType", "location" })
 public class ErrorPageMetaData extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
 
