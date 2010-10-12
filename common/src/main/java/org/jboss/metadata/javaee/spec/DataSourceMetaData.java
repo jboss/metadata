@@ -136,6 +136,10 @@ public class DataSourceMetaData extends NamedMetaDataWithDescriptions implements
         return transactional;
     }
 
+    public boolean getTransactional() {
+        return transactional;
+    }
+
     public void setTransactional(boolean transactional) {
         this.transactional = transactional;
     }

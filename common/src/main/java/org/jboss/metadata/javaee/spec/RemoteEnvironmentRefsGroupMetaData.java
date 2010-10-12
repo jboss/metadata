@@ -76,7 +76,7 @@ public class RemoteEnvironmentRefsGroupMetaData implements Serializable, RemoteE
         // For serialization
     }
 
-    private LifecycleCallbacksMetaData addAll(LifecycleCallbacksMetaData current, LifecycleCallbacksMetaData additions) {
+    public LifecycleCallbacksMetaData addAll(LifecycleCallbacksMetaData current, LifecycleCallbacksMetaData additions) {
         if (additions == null)
             return current;
         if (current == null)

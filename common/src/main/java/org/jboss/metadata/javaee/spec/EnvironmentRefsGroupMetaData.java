@@ -86,7 +86,7 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
         return persistenceContextRefs;
     }
 
-    private static PersistenceContextReferencesMetaData getPersistenceContextRefs(Environment env) {
+    public static PersistenceContextReferencesMetaData getPersistenceContextRefs(Environment env) {
         if (env == null)
             return null;
         return env.getPersistenceContextRefs();
@@ -130,7 +130,7 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
         return AbstractMappedMetaData.getByName(name, dataSources);
     }
 
-    private static DataSourcesMetaData getDataSources(Environment env) {
+    public static DataSourcesMetaData getDataSources(Environment env) {
         if (env == null)
             return null;
         return env.getDataSources();
