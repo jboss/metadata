@@ -22,8 +22,6 @@
 package org.jboss.metadata.web.jboss;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.web.spec.ServletMetaData;
-import org.jboss.metadata.web.spec.ServletsMetaData;
 
 /**
  * jboss-web/serlvet collection
@@ -33,39 +31,6 @@ import org.jboss.metadata.web.spec.ServletsMetaData;
  */
 public class JBossServletsMetaData extends AbstractMappedMetaData<JBossServletMetaData> {
     private static final long serialVersionUID = 1;
-
-    public static JBossServletsMetaData merge(JBossServletsMetaData override, ServletsMetaData original) {
-        JBossServletsMetaData merged = new JBossServletsMetaData();
-        if (override == null && original == null)
-            return merged;
-
-        if (original != null) {
-            for (ServletMetaData smd : original) {
-                String key = smd.getKey();
-                if (override != null && override.containsKey(key)) {
-                    JBossServletMetaData overrideSMD = override.get(key);
-                    JBossServletMetaData jbs = overrideSMD.merge(smd);
-                    merged.add(jbs);
-                } else {
-                    JBossServletMetaData jbs = new JBossServletMetaData();
-                    jbs.merge(null, smd);
-                    merged.add(jbs);
-                }
-            }
-        }
-
-        // Process the remaining overrides
-        if (override != null) {
-            for (JBossServletMetaData jbs : override) {
-                String key = jbs.getKey();
-                if (merged.containsKey(key))
-                    continue;
-                merged.add(jbs);
-            }
-        }
-
-        return merged;
-    }
 
     public JBossServletsMetaData() {
         super("jboss-web app servlets");

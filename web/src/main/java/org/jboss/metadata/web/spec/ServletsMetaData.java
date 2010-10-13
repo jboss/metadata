@@ -22,28 +22,15 @@
 package org.jboss.metadata.web.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 65943 $
  */
-public class ServletsMetaData extends AbstractMappedMetaData<ServletMetaData> implements AugmentableMetaData<ServletsMetaData> {
+public class ServletsMetaData extends AbstractMappedMetaData<ServletMetaData> {
     private static final long serialVersionUID = 1;
 
     public ServletsMetaData() {
         super("web app servlets");
     }
-
-    public void augment(ServletsMetaData webFragmentMetaData, ServletsMetaData webMetaData, boolean resolveConflicts) {
-        for (ServletMetaData servletMetaData : webFragmentMetaData) {
-            if (containsKey(servletMetaData.getKey())) {
-                get(servletMetaData.getKey()).augment(servletMetaData,
-                        (webMetaData != null) ? webMetaData.get(servletMetaData.getKey()) : null, resolveConflicts);
-            } else {
-                add(servletMetaData);
-            }
-        }
-    }
-
 }

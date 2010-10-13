@@ -32,28 +32,4 @@ import org.jboss.metadata.web.spec.AnnotationMetaData;
  */
 public class JBossAnnotationMetaData extends AnnotationMetaData {
     private static final long serialVersionUID = 1;
-
-    public JBossAnnotationMetaData merge(AnnotationMetaData original) {
-        JBossAnnotationMetaData merged = new JBossAnnotationMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    public void merge(JBossAnnotationMetaData override, AnnotationMetaData original) {
-        super.merge(override, original);
-
-        if (override != null && override.getServletSecurity() != null)
-            setServletSecurity(override.getServletSecurity());
-        else if (original != null && original.getServletSecurity() != null)
-            setServletSecurity(original.getServletSecurity());
-        if (override != null && override.getRunAs() != null)
-            setRunAs(override.getRunAs());
-        else if (original != null && original.getRunAs() != null)
-            setRunAs(original.getRunAs());
-        if (override != null && override.getMultipartConfig() != null)
-            setMultipartConfig(override.getMultipartConfig());
-        else if (original != null && original.getMultipartConfig() != null)
-            setMultipartConfig(original.getMultipartConfig());
-
-    }
 }

@@ -23,15 +23,13 @@ package org.jboss.metadata.web.spec;
 
 import java.util.List;
 
-import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 65928 $
  */
-public class SessionConfigMetaData extends IdMetaDataImpl implements AugmentableMetaData<SessionConfigMetaData> {
+public class SessionConfigMetaData extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
     private int sessionTimeout = 30;
     private boolean sessionTimeoutSet = false;

@@ -25,14 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-public class FilterMetaData extends NamedMetaDataWithDescriptionGroup implements AugmentableMetaData<FilterMetaData> {
+public class FilterMetaData extends NamedMetaDataWithDescriptionGroup {
     private static final long serialVersionUID = 1;
 
     /** The filter class */

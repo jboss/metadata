@@ -21,15 +21,13 @@
  */
 package org.jboss.metadata.web.spec;
 
-import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision: 82920 $
  */
-public class CookieConfigMetaData extends IdMetaDataImpl implements AugmentableMetaData<CookieConfigMetaData> {
+public class CookieConfigMetaData extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
 
     private String name = null;

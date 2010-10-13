@@ -24,7 +24,6 @@ package org.jboss.metadata.web.spec;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -33,7 +32,7 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-public class FilterMappingMetaData extends IdMetaDataImpl implements AugmentableMetaData<FilterMappingMetaData> {
+public class FilterMappingMetaData extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
     private String filterName;
     private List<String> urlPatterns;

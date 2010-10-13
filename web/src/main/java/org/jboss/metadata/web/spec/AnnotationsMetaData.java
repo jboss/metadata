@@ -22,28 +22,15 @@
 package org.jboss.metadata.web.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 
 /**
  * @author Remy Maucherat
  * @version $Revision: 65943 $
  */
-public class AnnotationsMetaData extends AbstractMappedMetaData<AnnotationMetaData> implements
-        AugmentableMetaData<AnnotationsMetaData> {
+public class AnnotationsMetaData extends AbstractMappedMetaData<AnnotationMetaData> {
     private static final long serialVersionUID = 1;
 
     public AnnotationsMetaData() {
         super("web app class annotations");
     }
-
-    public void augment(AnnotationsMetaData webFragmentMetaData, AnnotationsMetaData webMetaData, boolean resolveConflicts) {
-        for (AnnotationMetaData annotationMetaData : webFragmentMetaData) {
-            if (containsKey(annotationMetaData.getKey())) {
-                continue;
-            } else {
-                add(annotationMetaData);
-            }
-        }
-    }
-
 }

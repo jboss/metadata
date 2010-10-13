@@ -22,13 +22,12 @@
 package org.jboss.metadata.web.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 65928 $
  */
-public class FiltersMetaData extends AbstractMappedMetaData<FilterMetaData> implements AugmentableMetaData<FiltersMetaData> {
+public class FiltersMetaData extends AbstractMappedMetaData<FilterMetaData> {
     private static final long serialVersionUID = 1;
 
     public FiltersMetaData() {

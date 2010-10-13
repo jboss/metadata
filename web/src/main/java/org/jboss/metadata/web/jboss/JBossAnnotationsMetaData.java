@@ -22,8 +22,6 @@
 package org.jboss.metadata.web.jboss;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.web.spec.AnnotationMetaData;
-import org.jboss.metadata.web.spec.AnnotationsMetaData;
 
 /**
  * @author Remy Maucherat
@@ -34,39 +32,6 @@ public class JBossAnnotationsMetaData extends AbstractMappedMetaData<JBossAnnota
 
     public JBossAnnotationsMetaData() {
         super("jboss web app class annotations");
-    }
-
-    public static JBossAnnotationsMetaData merge(JBossAnnotationsMetaData override, AnnotationsMetaData original) {
-        JBossAnnotationsMetaData merged = new JBossAnnotationsMetaData();
-        if (override == null && original == null)
-            return merged;
-
-        if (original != null) {
-            for (AnnotationMetaData ann : original) {
-                String key = ann.getKey();
-                if (override != null && override.containsKey(key)) {
-                    JBossAnnotationMetaData overrideANN = override.get(key);
-                    JBossAnnotationMetaData jba = overrideANN.merge(ann);
-                    merged.add(jba);
-                } else {
-                    JBossAnnotationMetaData jba = new JBossAnnotationMetaData();
-                    jba.merge(null, ann);
-                    merged.add(jba);
-                }
-            }
-        }
-
-        // Process the remaining overrides
-        if (override != null) {
-            for (JBossAnnotationMetaData jba : override) {
-                String key = jba.getKey();
-                if (merged.containsKey(key))
-                    continue;
-                merged.add(jba);
-            }
-        }
-
-        return merged;
     }
 
 }

@@ -31,7 +31,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.jboss.metadata.common.jboss.WebserviceDescriptionsMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.jboss.NamedModule;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
@@ -65,7 +64,6 @@ import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedModuleImpl;
 import org.jboss.metadata.web.spec.AnnotationMetaData;
-import org.jboss.metadata.web.spec.AnnotationsMetaData;
 import org.jboss.metadata.web.spec.ErrorPageMetaData;
 import org.jboss.metadata.web.spec.FilterMappingMetaData;
 import org.jboss.metadata.web.spec.FiltersMetaData;
@@ -80,10 +78,7 @@ import org.jboss.metadata.web.spec.SecurityConstraintMetaData;
 import org.jboss.metadata.web.spec.ServletMappingMetaData;
 import org.jboss.metadata.web.spec.ServletMetaData;
 import org.jboss.metadata.web.spec.ServletSecurityMetaData;
-import org.jboss.metadata.web.spec.ServletsMetaData;
 import org.jboss.metadata.web.spec.SessionConfigMetaData;
-import org.jboss.metadata.web.spec.Web25MetaData;
-import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.metadata.web.spec.WelcomeFileListMetaData;
 
 /**
@@ -719,6 +714,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     /**
      * Set the jndiEnvironmentRefsGroup.
+     * IT DOESN't MERGE...
      *
      * @param jndiEnvironmentRefsGroup the jndiEnvironmentRefsGroup.
      * @throws IllegalArgumentException for a null jndiEnvironmentRefsGroup
@@ -727,10 +723,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
         if (env == null)
             throw new IllegalArgumentException("Null jndiEnvironmentRefsGroup");
         JBossEnvironmentRefsGroupMetaData jenv = (JBossEnvironmentRefsGroupMetaData) env;
-        if (jndiEnvironmentRefsGroup != null)
-            jndiEnvironmentRefsGroup.merge(jenv, null, null, "jboss-web.xml", "web.xml", false);
-        else
-            jndiEnvironmentRefsGroup = jenv;
+        jndiEnvironmentRefsGroup = jenv;
     }
 
     // just for the xml binding, to expose correct model group type
@@ -796,214 +789,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     }
 
     public void mergeSecurityRoles(SecurityRolesMetaData roles) {
-        if (this.securityRoles == null)
-            securityRoles = roles;
-        else
-            securityRoles.merge(roles, null);
-    }
-
-    public void merge(JBossWebMetaData override, WebMetaData original) {
-        this.merge(override, original, "jboss-web.xml", "web.xml", false);
-    }
-
-    public void merge(JBossWebMetaData override, WebMetaData original, String overrideFile, String overridenFile,
-            boolean mustOverride) {
-        super.merge(override, original);
-
-        if (override != null && override.servletVersion != null)
-            setServletVersion(override.servletVersion);
-        else if (original != null && original.getVersion() != null)
-            setServletVersion(original.getVersion());
-
-        if (override != null && override.distributable != null)
-            setDistributable(override.distributable);
-        else if (original != null && original.getDistributable() != null)
-            setDistributable(original.getDistributable());
-
-        if (override != null && override.metadataComplete != false)
-            setMetadataComplete(override.metadataComplete);
-        else if (original != null && (original instanceof Web25MetaData)) {
-            Web25MetaData web25MD = (Web25MetaData) original;
-            setMetadataComplete(web25MD.isMetadataComplete());
-        }
-
-        if (override != null && override.getModuleName() != null)
-            setModuleName(override.getModuleName());
-        else if (original instanceof NamedModule && ((NamedModule) original).getModuleName() != null)
-            setModuleName(((NamedModule) original).getModuleName());
-
-        if (override != null && override.contextParams != null)
-            setContextParams(override.contextParams);
-        else if (original != null && original.getContextParams() != null)
-            setContextParams(original.getContextParams());
-
-        if (override != null && override.sessionConfig != null)
-            setSessionConfig(override.sessionConfig);
-        else if (original != null && original.getSessionConfig() != null)
-            setSessionConfig(original.getSessionConfig());
-
-        if (override != null && override.filters != null)
-            setFilters(override.filters);
-        else if (original != null && original.getFilters() != null)
-            setFilters(original.getFilters());
-
-        if (override != null && override.filterMappings != null)
-            setFilterMappings(override.filterMappings);
-        else if (original != null && original.getFilterMappings() != null)
-            setFilterMappings(original.getFilterMappings());
-
-        if (override != null && override.errorPages != null)
-            setErrorPages(override.errorPages);
-        else if (original != null && original.getErrorPages() != null)
-            setErrorPages(original.getErrorPages());
-
-        if (override != null && override.jspConfig != null)
-            setJspConfig(override.jspConfig);
-        else if (original != null && original.getJspConfig() != null)
-            setJspConfig(original.getJspConfig());
-
-        if (override != null && override.listeners != null)
-            setListeners(override.listeners);
-        else if (original != null && original.getListeners() != null)
-            setListeners(original.getListeners());
-
-        if (override != null && override.loginConfig != null)
-            setLoginConfig(override.loginConfig);
-        else if (original != null && original.getLoginConfig() != null)
-            setLoginConfig(original.getLoginConfig());
-
-        if (override != null && override.mimeMappings != null)
-            setMimeMappings(override.mimeMappings);
-        else if (original != null && original.getMimeMappings() != null)
-            setMimeMappings(original.getMimeMappings());
-
-        if (override != null && override.servletMappings != null)
-            setServletMappings(override.servletMappings);
-        else if (original != null && original.getServletMappings() != null)
-            setServletMappings(original.getServletMappings());
-
-        if (override != null && override.securityConstraints != null)
-            setSecurityConstraints(override.securityConstraints);
-        else if (original != null && original.getSecurityConstraints() != null)
-            setSecurityConstraints(original.getSecurityConstraints());
-
-        if (override != null && override.welcomeFileList != null)
-            setWelcomeFileList(override.welcomeFileList);
-        else if (original != null && original.getWelcomeFileList() != null)
-            setWelcomeFileList(original.getWelcomeFileList());
-
-        if (override != null && override.localEncodings != null)
-            setLocalEncodings(override.localEncodings);
-        else if (original != null && original.getLocalEncodings() != null)
-            setLocalEncodings(original.getLocalEncodings());
-
-        if (override != null && override.jaccAllStoreRole != null)
-            this.jaccAllStoreRole = override.jaccAllStoreRole;
-
-        if (override != null && override.dtdPublicId != null)
-            this.dtdPublicId = override.dtdPublicId;
-
-        if (override != null && override.dtdSystemId != null)
-            this.dtdSystemId = override.dtdSystemId;
-
-        if (override != null && override.version != null)
-            setVersion(override.version);
-        else if (original != null && original.getVersion() != null)
-            setVersion(original.getVersion());
-
-        if (override != null && override.contextRoot != null)
-            setContextRoot(override.contextRoot);
-
-        if (override != null && override.alternativeDD != null)
-            setAlternativeDD(override.alternativeDD);
-
-        if (override != null && override.securityDomain != null)
-            setSecurityDomain(override.securityDomain);
-
-        if (override != null && override.jaccContextID != null)
-            setJaccContextID(override.jaccContextID);
-
-        if (override != null && override.classLoading != null)
-            setClassLoading(override.classLoading);
-
-        if (override != null && override.depends != null)
-            setDepends(override.depends);
-
-        if (override != null && override.runAsIdentity != null)
-            setRunAsIdentity(override.runAsIdentity);
-
-        if (securityRoles == null)
-            securityRoles = new SecurityRolesMetaData();
-        SecurityRolesMetaData overrideRoles = null;
-        SecurityRolesMetaData originalRoles = null;
-        if (override != null)
-            overrideRoles = override.getSecurityRoles();
-        if (original != null)
-            originalRoles = original.getSecurityRoles();
-        securityRoles.merge(overrideRoles, originalRoles);
-
-        JBossServletsMetaData soverride = null;
-        ServletsMetaData soriginal = null;
-        if (override != null)
-            soverride = override.getServlets();
-        if (original != null)
-            soriginal = original.getServlets();
-        servlets = JBossServletsMetaData.merge(soverride, soriginal);
-
-        MessageDestinationsMetaData overrideMsgDests = null;
-        MessageDestinationsMetaData originalMsgDests = null;
-        if (override != null && override.messageDestinations != null)
-            overrideMsgDests = override.messageDestinations;
-        if (original != null && original.getMessageDestinations() != null)
-            originalMsgDests = original.getMessageDestinations();
-        this.messageDestinations = MessageDestinationsMetaData.merge(overrideMsgDests, originalMsgDests, overridenFile,
-                overrideFile);
-
-        if (this.jndiEnvironmentRefsGroup == null)
-            jndiEnvironmentRefsGroup = new JBossEnvironmentRefsGroupMetaData();
-        Environment env = null;
-        JBossEnvironmentRefsGroupMetaData jenv = null;
-        if (override != null)
-            jenv = override.jndiEnvironmentRefsGroup;
-        if (original != null)
-            env = original.getJndiEnvironmentRefsGroup();
-        jndiEnvironmentRefsGroup.merge(jenv, env, null, overrideFile, overridenFile, mustOverride);
-
-        if (override != null && override.virtualHosts != null)
-            setVirtualHosts(override.virtualHosts);
-
-        if (override != null && override.flushOnSessionInvalidation)
-            setFlushOnSessionInvalidation(override.flushOnSessionInvalidation);
-
-        if (override != null && override.useSessionCookies)
-            setUseSessionCookies(override.useSessionCookies);
-
-        if (override != null && override.replicationConfig != null)
-            setReplicationConfig(override.replicationConfig);
-
-        if (override != null && override.passivationConfig != null)
-            setPassivationConfig(override.passivationConfig);
-
-        if (override != null && override.webserviceDescriptions != null)
-            setWebserviceDescriptions(override.webserviceDescriptions);
-
-        if (override != null && override.arbitraryMetadata != null)
-            setArbitraryMetadata(override.arbitraryMetadata);
-
-        if (override != null && override.maxActiveSessions != null)
-            setMaxActiveSessions(override.maxActiveSessions);
-
-        if (override != null && override.sessionCookies != -1)
-            setSessionCookies(override.sessionCookies);
-
-        JBossAnnotationsMetaData aoverride = null;
-        AnnotationsMetaData aoriginal = null;
-        if (override != null)
-            aoverride = override.getAnnotations();
-        if (original != null)
-            aoriginal = original.getAnnotations();
-        annotations = JBossAnnotationsMetaData.merge(aoverride, aoriginal);
-
+        securityRoles = roles;
     }
 
     public void resolveAnnotations() {

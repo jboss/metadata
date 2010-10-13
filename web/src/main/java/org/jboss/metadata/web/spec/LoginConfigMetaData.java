@@ -21,14 +21,13 @@
  */
 package org.jboss.metadata.web.spec;
 
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-public class LoginConfigMetaData extends IdMetaDataImpl implements AugmentableMetaData<LoginConfigMetaData> {
+public class LoginConfigMetaData extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
 
     protected String authMethod;

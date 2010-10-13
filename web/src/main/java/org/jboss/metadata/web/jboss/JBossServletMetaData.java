@@ -51,18 +51,4 @@ public class JBossServletMetaData extends ServletMetaData {
     public void setServletSecurity(ServletSecurityMetaData servletSecurity) {
         this.servletSecurity = servletSecurity;
     }
-
-    public JBossServletMetaData merge(ServletMetaData original) {
-        JBossServletMetaData merged = new JBossServletMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    public void merge(JBossServletMetaData override, ServletMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.runAsPrincipal != null)
-            setRunAsPrincipal(override.runAsPrincipal);
-        if (override != null && override.servletSecurity != null)
-            setServletSecurity(override.servletSecurity);
-    }
 }

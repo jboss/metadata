@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -30,7 +29,7 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 83549 $
  */
-public class MultipartConfigMetaData extends IdMetaDataImpl implements AugmentableMetaData<MultipartConfigMetaData> {
+public class MultipartConfigMetaData extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
 
     private String location = null;
