@@ -39,12 +39,4 @@ public class ResourceManagersMetaData extends MappedMetaDataWithDescriptions<Res
     public ResourceManagersMetaData() {
         super("res-name for resource manager");
     }
-
-    public void merge(ResourceManagersMetaData override) {
-        if (override != null) {
-            for (ResourceManagerMetaData res : override) {
-                this.add(res);
-            }
-        }
-    }
 }

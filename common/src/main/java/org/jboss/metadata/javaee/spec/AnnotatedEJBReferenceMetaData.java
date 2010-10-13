@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
-
 /**
  * Metadata for an @EJB reference
  *
@@ -31,8 +29,7 @@ import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 72960 $
  */
-public class AnnotatedEJBReferenceMetaData extends AbstractEJBReferenceMetaData implements
-        MergeableMappedMetaData<AnnotatedEJBReferenceMetaData> {
+public class AnnotatedEJBReferenceMetaData extends AbstractEJBReferenceMetaData {
     private static final long serialVersionUID = 1;
     private Class beanInterface;
 
@@ -42,17 +39,6 @@ public class AnnotatedEJBReferenceMetaData extends AbstractEJBReferenceMetaData 
 
     public void setBeanInterface(Class beanInterface) {
         this.beanInterface = beanInterface;
-    }
-
-    @Override
-    public AnnotatedEJBReferenceMetaData merge(AnnotatedEJBReferenceMetaData original) {
-        AnnotatedEJBReferenceMetaData merged = new AnnotatedEJBReferenceMetaData();
-        merged.merge(this, original);
-        if (beanInterface != null)
-            merged.setBeanInterface(beanInterface);
-        else if (original != null && original.getBeanInterface() != null)
-            merged.setBeanInterface(original.getBeanInterface());
-        return merged;
     }
 
     @Override

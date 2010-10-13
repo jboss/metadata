@@ -22,8 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.merge.MergeUtil;
 
 /**
  * PersistenceUnitReferencesMetaData.
@@ -31,8 +29,7 @@ import org.jboss.metadata.merge.MergeUtil;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class PersistenceUnitReferencesMetaData extends AbstractMappedMetaData<PersistenceUnitReferenceMetaData> implements
-        AugmentableMetaData<PersistenceUnitReferencesMetaData> {
+public class PersistenceUnitReferencesMetaData extends AbstractMappedMetaData<PersistenceUnitReferenceMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = 5762149182578142090L;
 
@@ -42,27 +39,4 @@ public class PersistenceUnitReferencesMetaData extends AbstractMappedMetaData<Pe
     public PersistenceUnitReferencesMetaData() {
         super("persistence-unit-ref-name");
     }
-
-    public void merge(PersistenceUnitReferencesMetaData override, PersistenceUnitReferencesMetaData original) {
-        MergeUtil.merge(this, override, original);
-    }
-
-    @Override
-    public void augment(PersistenceUnitReferencesMetaData augment, PersistenceUnitReferencesMetaData main,
-            boolean resolveConflicts) {
-        for (PersistenceUnitReferenceMetaData persistenceUnitRef : augment) {
-            if (containsKey(persistenceUnitRef.getKey())) {
-                if (!resolveConflicts && (main == null || !main.containsKey(persistenceUnitRef.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on persistence unit reference named: "
-                            + persistenceUnitRef.getKey());
-                } else {
-                    get(persistenceUnitRef.getKey()).augment(persistenceUnitRef,
-                            (main != null) ? main.get(persistenceUnitRef.getKey()) : null, resolveConflicts);
-                }
-            } else {
-                add(persistenceUnitRef);
-            }
-        }
-    }
-
 }

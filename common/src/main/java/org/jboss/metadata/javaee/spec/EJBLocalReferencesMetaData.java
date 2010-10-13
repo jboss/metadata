@@ -22,8 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
 
 /**
  * EJBLocalReferencesMetaData.
@@ -31,31 +29,9 @@ import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class EJBLocalReferencesMetaData extends AbstractMappedMetaData<EJBLocalReferenceMetaData> implements
-        AugmentableMetaData<EJBLocalReferencesMetaData> {
+public class EJBLocalReferencesMetaData extends AbstractMappedMetaData<EJBLocalReferenceMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = -7264371854666919529L;
-
-    /**
-     * Merge ejb local references
-     *
-     * @param override the override references
-     * @param overriden the overriden references
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged referencees
-     */
-    public static EJBLocalReferencesMetaData merge(EJBLocalReferencesMetaData override, EJBLocalReferencesMetaData overriden,
-            String overridenFile, String overrideFile) {
-        if (override == null && overriden == null)
-            return null;
-
-        if (override == null)
-            return overriden;
-
-        EJBLocalReferencesMetaData merged = new EJBLocalReferencesMetaData();
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "ejb-local-ref", overridenFile, overrideFile, false);
-    }
 
     /**
      * Create a new EJBLocalReferencesMetaData.
@@ -63,22 +39,4 @@ public class EJBLocalReferencesMetaData extends AbstractMappedMetaData<EJBLocalR
     public EJBLocalReferencesMetaData() {
         super("ejb local ref name");
     }
-
-    @Override
-    public void augment(EJBLocalReferencesMetaData augment, EJBLocalReferencesMetaData main, boolean resolveConflicts) {
-        for (EJBLocalReferenceMetaData ejbLocalReference : augment) {
-            if (containsKey(ejbLocalReference.getKey())) {
-                if (!resolveConflicts && (main == null || !main.containsKey(ejbLocalReference.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on ejb local reference named: "
-                            + ejbLocalReference.getKey());
-                } else {
-                    get(ejbLocalReference.getKey()).augment(ejbLocalReference,
-                            (main != null) ? main.get(ejbLocalReference.getKey()) : null, resolveConflicts);
-                }
-            } else {
-                add(ejbLocalReference);
-            }
-        }
-    }
-
 }

@@ -117,26 +117,4 @@ public abstract class AbstractEJBReferenceMetaData extends ResourceInjectionMeta
             throw new IllegalArgumentException("Null link");
         this.link = link;
     }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(AbstractEJBReferenceMetaData override, AbstractEJBReferenceMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.getEjbRefName() != null)
-            setEjbRefName(override.getEjbRefName());
-        else if (original != null && original.getEjbRefName() != null)
-            setEjbRefName(original.getEjbRefName());
-        if (override != null && override.type != null)
-            setEjbRefType(override.type);
-        else if (original != null && original.type != null)
-            setEjbRefType(original.type);
-        if (override != null && override.link != null)
-            setLink(override.link);
-        else if (original != null && original.link != null)
-            setLink(original.link);
-    }
 }

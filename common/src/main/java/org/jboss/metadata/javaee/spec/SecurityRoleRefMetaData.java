@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
 /**
@@ -30,8 +29,7 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class SecurityRoleRefMetaData extends NamedMetaDataWithDescriptions implements
-        MergeableMappedMetaData<SecurityRoleRefMetaData> {
+public class SecurityRoleRefMetaData extends NamedMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = -8092072767419265555L;
 
@@ -84,20 +82,4 @@ public class SecurityRoleRefMetaData extends NamedMetaDataWithDescriptions imple
     public void setRoleName(String roleName) {
         setName(roleName);
     }
-
-    @Override
-    public SecurityRoleRefMetaData merge(SecurityRoleRefMetaData original) {
-        SecurityRoleRefMetaData merged = new SecurityRoleRefMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    public void merge(SecurityRoleRefMetaData override, SecurityRoleRefMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.roleLink != null)
-            setRoleLink(override.roleLink);
-        else if (original != null && original.roleLink != null)
-            setRoleLink(original.roleLink);
-    }
-
 }

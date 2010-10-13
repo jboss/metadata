@@ -39,16 +39,4 @@ public class AnnotationsMetaData extends AbstractMappedMetaData<AnnotationMetaDa
     public AnnotationsMetaData() {
         super("annotation class");
     }
-
-    public void merge(AnnotationsMetaData override, AnnotationsMetaData original) {
-        super.merge(override, original);
-        if (original != null) {
-            for (AnnotationMetaData property : original)
-                add(property);
-        }
-        if (override != null) {
-            for (AnnotationMetaData property : override)
-                add(property);
-        }
-    }
 }

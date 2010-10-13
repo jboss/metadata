@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 
 /**
@@ -31,8 +29,7 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class MessageDestinationMetaData extends NamedMetaDataWithDescriptionGroup implements
-        MergeableMappedMetaData<MessageDestinationMetaData>, AugmentableMetaData<MessageDestinationMetaData> {
+public class MessageDestinationMetaData extends NamedMetaDataWithDescriptionGroup {
     /** The serialVersionUID */
     private static final long serialVersionUID = 2129990191983873784L;
 
@@ -124,53 +121,4 @@ public class MessageDestinationMetaData extends NamedMetaDataWithDescriptionGrou
     public void setLookupName(String lookupName) {
         this.lookupName = lookupName;
     }
-
-    @Override
-    public MessageDestinationMetaData merge(MessageDestinationMetaData original) {
-        MessageDestinationMetaData merged = new MessageDestinationMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(MessageDestinationMetaData override, MessageDestinationMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.mappedName != null)
-            setMappedName(override.mappedName);
-        else if (original.mappedName != null)
-            setMappedName(original.mappedName);
-        if (override != null && override.lookupName != null)
-            setLookupName(override.lookupName);
-        else if (original.lookupName != null)
-            setLookupName(original.lookupName);
-    }
-
-    @Override
-    public void augment(MessageDestinationMetaData augment, MessageDestinationMetaData main, boolean resolveConflicts) {
-        // Mapped name
-        if (getMappedName() == null) {
-            if (augment.getMappedName() != null)
-                setMappedName(augment.getMappedName());
-        } else if (augment.getMappedName() != null) {
-            if (!resolveConflicts && !getMappedName().equals(augment.getMappedName())
-                    && (main == null || main.getMappedName() == null)) {
-                throw new IllegalStateException("Unresolved conflict on mapped name: " + getMappedName());
-            }
-        }
-        // Lookup name
-        if (getLookupName() == null) {
-            setLookupName(augment.getLookupName());
-        } else if (augment.getLookupName() != null) {
-            if (!resolveConflicts && !getLookupName().equals(augment.getLookupName())
-                    && (main == null || main.getLookupName() == null)) {
-                throw new IllegalStateException("Unresolved conflict on lookup name: " + getLookupName());
-            }
-        }
-    }
-
 }

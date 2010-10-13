@@ -22,8 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
 
 /**
  * MessageDestinationReferencesMetaData.
@@ -31,32 +29,9 @@ import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class MessageDestinationReferencesMetaData extends AbstractMappedMetaData<MessageDestinationReferenceMetaData> implements
-        AugmentableMetaData<MessageDestinationReferencesMetaData> {
+public class MessageDestinationReferencesMetaData extends AbstractMappedMetaData<MessageDestinationReferenceMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = -5571423286458126147L;
-
-    /**
-     * Merge message destination references
-     *
-     * @param override the override references
-     * @param overriden the overriden references
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged referencees
-     */
-    public static MessageDestinationReferencesMetaData merge(MessageDestinationReferencesMetaData override,
-            MessageDestinationReferencesMetaData overriden, String overridenFile, String overrideFile, boolean mustOverride) {
-        if (override == null && overriden == null)
-            return null;
-
-        if (override == null)
-            return overriden;
-
-        MessageDestinationReferencesMetaData merged = new MessageDestinationReferencesMetaData();
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "message-destination-ref", overridenFile, overrideFile,
-                mustOverride);
-    }
 
     /**
      * Create a new MessageDestinationReferencesMetaData.
@@ -64,23 +39,4 @@ public class MessageDestinationReferencesMetaData extends AbstractMappedMetaData
     public MessageDestinationReferencesMetaData() {
         super("message destination ref name");
     }
-
-    @Override
-    public void augment(MessageDestinationReferencesMetaData augment, MessageDestinationReferencesMetaData main,
-            boolean resolveConflicts) {
-        for (MessageDestinationReferenceMetaData messageDestinationRef : augment) {
-            if (containsKey(messageDestinationRef.getKey())) {
-                if (!resolveConflicts && (main == null || !main.containsKey(messageDestinationRef.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on message destination reference named: "
-                            + messageDestinationRef.getKey());
-                } else {
-                    get(messageDestinationRef.getKey()).augment(messageDestinationRef,
-                            (main != null) ? main.get(messageDestinationRef.getKey()) : null, resolveConflicts);
-                }
-            } else {
-                add(messageDestinationRef);
-            }
-        }
-    }
-
 }

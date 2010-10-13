@@ -63,12 +63,4 @@ public abstract class IdMetaDataImplWithDescriptionGroup extends IdMetaDataImpl 
             throw new IllegalArgumentException("Null descriptionGroup");
         this.descriptionGroup = descriptionGroup;
     }
-
-    public void merge(IdMetaDataImplWithDescriptionGroup override, IdMetaDataImplWithDescriptionGroup original) {
-        super.merge(override, original);
-        if (override != null && override.descriptionGroup != null)
-            setDescriptionGroup(override.descriptionGroup);
-        else if (original != null && original.descriptionGroup != null)
-            setDescriptionGroup(original.descriptionGroup);
-    }
 }

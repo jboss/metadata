@@ -82,23 +82,4 @@ public abstract class NamedMetaData extends IdMetaDataImpl implements MappableMe
     public String toString() {
         return super.toString() + "{" + getName() + "}";
     }
-
-    /**
-     * Merge override + original into this
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     * @throws IllegalArgumentException for a null merged or original
-     * @throws IllegalStateException if neither have a name
-     */
-    public void merge(NamedMetaData override, NamedMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.name != null)
-            setName(override.name);
-        else if (original != null && original.name != null)
-            setName(original.name);
-        else
-            throw new IllegalStateException("Neither the override metadata " + override + " or the original " + original
-                    + " have a name.");
-    }
 }

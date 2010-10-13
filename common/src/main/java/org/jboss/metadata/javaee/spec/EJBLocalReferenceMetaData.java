@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
-
 /**
  * EJBLocalReferenceMetaData.
  *
@@ -30,8 +28,7 @@ import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-    public class EJBLocalReferenceMetaData extends AbstractEJBReferenceMetaData implements
-        MergeableMappedMetaData<EJBLocalReferenceMetaData> {
+    public class EJBLocalReferenceMetaData extends AbstractEJBReferenceMetaData {
     /** The serialVersionUID */
     private static final long serialVersionUID = 5810710557505041609L;
 
@@ -106,35 +103,6 @@ import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
      */
     public void setLocalJndiName(String name) {
         setMappedName(name);
-    }
-
-    @Override
-    public EJBLocalReferenceMetaData merge(EJBLocalReferenceMetaData original) {
-        EJBLocalReferenceMetaData merged = new EJBLocalReferenceMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(EJBLocalReferenceMetaData override, EJBLocalReferenceMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.getEjbRefName() != null)
-            setEjbRefName(override.getEjbRefName());
-        else if (original != null && original.getEjbRefName() != null)
-            setEjbRefName(original.getEjbRefName());
-        if (override != null && override.localHome != null)
-            setLocalHome(override.localHome);
-        else if (original != null && original.localHome != null)
-            setLocalHome(original.localHome);
-        if (override != null && override.local != null)
-            setLocal(override.local);
-        else if (original != null && original.local != null)
-            setLocal(original.local);
     }
 
     @Override

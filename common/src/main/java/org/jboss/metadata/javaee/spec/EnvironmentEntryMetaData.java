@@ -106,17 +106,4 @@ public class EnvironmentEntryMetaData extends ResourceInjectionMetaDataWithDescr
             throw new IllegalArgumentException("Null value");
         this.value = value;
     }
-
-    public void merge(EnvironmentEntryMetaData override, EnvironmentEntryMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.type != null)
-            setType(override.type);
-        else if (original != null && original.type != null)
-            setType(original.type);
-        if (override != null && override.value != null)
-            setValue(override.value);
-        else if (original != null && original.value != null)
-            setValue(original.value);
-    }
-
 }

@@ -22,8 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
 
 /**
  * The service-refGroup type
@@ -31,8 +29,7 @@ import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class ServiceReferencesMetaData extends AbstractMappedMetaData<ServiceReferenceMetaData> implements
-        AugmentableMetaData<ServiceReferencesMetaData> {
+public class ServiceReferencesMetaData extends AbstractMappedMetaData<ServiceReferenceMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = -2667900705228419782L;
 
@@ -42,42 +39,4 @@ public class ServiceReferencesMetaData extends AbstractMappedMetaData<ServiceRef
     public ServiceReferencesMetaData() {
         super("service ref name for service ref");
     }
-
-    /**
-     * Merge resource references
-     *
-     * @param override the override references
-     * @param overriden the overriden references
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged referencees
-     */
-    public static ServiceReferencesMetaData merge(ServiceReferencesMetaData override, ServiceReferencesMetaData overriden,
-            String overridenFile, String overrideFile) {
-        if (override == null && overriden == null)
-            return null;
-
-        if (override == null)
-            return overriden;
-
-        ServiceReferencesMetaData merged = new ServiceReferencesMetaData();
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "service-ref", overridenFile, overrideFile, true);
-    }
-
-    @Override
-    public void augment(ServiceReferencesMetaData augment, ServiceReferencesMetaData main, boolean resolveConflicts) {
-        for (ServiceReferenceMetaData serviceRef : augment) {
-            if (containsKey(serviceRef.getKey())) {
-                if (!resolveConflicts && (main == null || !main.containsKey(serviceRef.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on service reference named: " + serviceRef.getKey());
-                } else {
-                    get(serviceRef.getKey()).augment(serviceRef, (main != null) ? main.get(serviceRef.getKey()) : null,
-                            resolveConflicts);
-                }
-            } else {
-                add(serviceRef);
-            }
-        }
-    }
-
 }

@@ -22,8 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
 
 /**
  * PersistenceContextReferencesMetaData.
@@ -31,23 +29,9 @@ import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class PersistenceContextReferencesMetaData extends AbstractMappedMetaData<PersistenceContextReferenceMetaData> implements
-        AugmentableMetaData<PersistenceContextReferencesMetaData> {
+public class PersistenceContextReferencesMetaData extends AbstractMappedMetaData<PersistenceContextReferenceMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = 75353633724235761L;
-
-    public static PersistenceContextReferencesMetaData merge(PersistenceContextReferencesMetaData override,
-            PersistenceContextReferencesMetaData overriden, String overridenFile, String overrideFile) {
-        if (override == null && overriden == null)
-            return null;
-
-        if (override == null)
-            return overriden;
-
-        PersistenceContextReferencesMetaData merged = new PersistenceContextReferencesMetaData();
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "persistence-context-ref", overridenFile, overrideFile,
-                false);
-    }
 
     /**
      * Create a new PersistenceContextReferencesMetaData.
@@ -55,23 +39,4 @@ public class PersistenceContextReferencesMetaData extends AbstractMappedMetaData
     public PersistenceContextReferencesMetaData() {
         super("persistence-context-ref-name");
     }
-
-    @Override
-    public void augment(PersistenceContextReferencesMetaData augment, PersistenceContextReferencesMetaData main,
-            boolean resolveConflicts) {
-        for (PersistenceContextReferenceMetaData persistenceContextReference : augment) {
-            if (containsKey(persistenceContextReference.getKey())) {
-                if (!resolveConflicts && (main == null || !main.containsKey(persistenceContextReference.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on persistence context reference named: "
-                            + persistenceContextReference.getKey());
-                } else {
-                    get(persistenceContextReference.getKey()).augment(persistenceContextReference,
-                            (main != null) ? main.get(persistenceContextReference.getKey()) : null, resolveConflicts);
-                }
-            } else {
-                add(persistenceContextReference);
-            }
-        }
-    }
-
 }

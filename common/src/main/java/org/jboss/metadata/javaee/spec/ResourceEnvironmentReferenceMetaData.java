@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
 /**
@@ -30,8 +29,7 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class ResourceEnvironmentReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions implements
-        MergeableMappedMetaData<ResourceEnvironmentReferenceMetaData> {
+public class ResourceEnvironmentReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = -3906197284118629544L;
 
@@ -85,26 +83,5 @@ public class ResourceEnvironmentReferenceMetaData extends ResourceInjectionMetaD
         if (type == null)
             throw new IllegalArgumentException("Null type");
         this.type = type;
-    }
-
-    @Override
-    public ResourceEnvironmentReferenceMetaData merge(ResourceEnvironmentReferenceMetaData original) {
-        ResourceEnvironmentReferenceMetaData merged = new ResourceEnvironmentReferenceMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(ResourceEnvironmentReferenceMetaData override, ResourceEnvironmentReferenceMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.type != null)
-            setType(override.type);
-        else if (original != null && original.type != null)
-            setType(original.type);
     }
 }

@@ -26,7 +26,6 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptionGroup;
 
 /**
@@ -36,8 +35,7 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @author Scott.Stark@jboss.org
  * @version $Revision: 81860 $
  */
-public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescriptionGroup implements
-        MergeableMappedMetaData<ServiceReferenceMetaData> {
+public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescriptionGroup {
     /** The serialVersionUID */
     private static final long serialVersionUID = 5693673588576610322L;
 
@@ -75,63 +73,6 @@ public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescr
      */
     public ServiceReferenceMetaData() {
         // For serialization
-    }
-
-    @Override
-    public ServiceReferenceMetaData merge(ServiceReferenceMetaData original) {
-        ServiceReferenceMetaData merged = new ServiceReferenceMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(ServiceReferenceMetaData override, ServiceReferenceMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.getServiceRefName() != null)
-            setServiceRefName(override.getServiceRefName());
-        else if (original != null && original.getServiceRefName() != null)
-            setServiceRefName(original.getServiceRefName());
-        if (override != null && override.getServiceInterface() != null)
-            setServiceInterface(override.getServiceInterface());
-        else if (original != null && original.getServiceInterface() != null)
-            setServiceInterface(original.getServiceInterface());
-        if (override != null && override.getServiceRefType() != null)
-            setServiceRefType(override.getServiceRefType());
-        else if (original != null && original.getServiceRefType() != null)
-            setServiceRefType(original.getServiceRefType());
-        if (override != null && override.getWsdlFile() != null)
-            setWsdlFile(override.getWsdlFile());
-        else if (original != null && original.getWsdlFile() != null)
-            setWsdlFile(original.getWsdlFile());
-        if (override != null && override.getJaxrpcMappingFile() != null)
-            setJaxrpcMappingFile(override.getJaxrpcMappingFile());
-        else if (original != null && original.getJaxrpcMappingFile() != null)
-            setJaxrpcMappingFile(original.getJaxrpcMappingFile());
-        if (override != null && override.getServiceQname() != null)
-            setServiceQname(override.getServiceQname());
-        else if (original != null && original.getServiceQname() != null)
-            setServiceQname(original.getServiceQname());
-        if (override != null && override.getPortComponentRef() != null)
-            setPortComponentRef(override.getPortComponentRef());
-        else if (original != null && original.getPortComponentRef() != null)
-            setPortComponentRef(original.getPortComponentRef());
-        if (override != null && override.getHandlers() != null)
-            setHandlers(override.getHandlers());
-        else if (original != null && original.getHandlers() != null)
-            setHandlers(original.getHandlers());
-        if (override != null && override.getHandlerChains() != null)
-            setHandlerChains(override.getHandlerChains());
-        else if (original != null && original.getHandlerChains() != null)
-            setHandlerChains(original.getHandlerChains());
-        if (override != null && override.getAnnotatedElement() != null)
-            setAnnotatedElement(override.getAnnotatedElement());
-        else if (original != null && original.getAnnotatedElement() != null)
-            setAnnotatedElement(original.getAnnotatedElement());
     }
 
     /**

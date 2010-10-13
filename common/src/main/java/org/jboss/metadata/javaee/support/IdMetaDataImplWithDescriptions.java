@@ -64,16 +64,4 @@ public abstract class IdMetaDataImplWithDescriptions extends IdMetaDataImpl {
             throw new IllegalArgumentException("Null descriptions");
         this.descriptions = descriptions;
     }
-
-    @Override
-    public void merge(IdMetaDataImpl override, IdMetaDataImpl original) {
-        super.merge(override, original);
-        IdMetaDataImplWithDescriptions id0 = (IdMetaDataImplWithDescriptions) override;
-        IdMetaDataImplWithDescriptions id1 = (IdMetaDataImplWithDescriptions) original;
-        if (id0 != null && id0.descriptions != null)
-            descriptions = id0.descriptions;
-        else if (id1 != null && id1.descriptions != null)
-            descriptions = id1.descriptions;
-    }
-
 }

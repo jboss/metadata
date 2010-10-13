@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * SecurityRolesMetaData.
@@ -100,38 +99,6 @@ public class SecurityRolesMetaData extends AbstractMappedMetaData<SecurityRoleMe
     }
 
     /**
-    *
-    */
-    @Override
-    public void merge(IdMetaDataImpl override, IdMetaDataImpl original) {
-        super.merge(override, original);
-        SecurityRolesMetaData roles1 = (SecurityRolesMetaData) override;
-        SecurityRolesMetaData roles0 = (SecurityRolesMetaData) original;
-        if (roles0 != null) {
-            for (SecurityRoleMetaData sr : roles0) {
-                SecurityRoleMetaData to = this.get(sr.getRoleName());
-                if (to != null) {
-                    to.merge(sr, null);
-                } else {
-                    this.add(sr);
-                }
-            }
-        }
-        if (roles1 != null) {
-            for (SecurityRoleMetaData sr : roles1) {
-                SecurityRoleMetaData to = this.get(sr.getRoleName());
-                if (to != null) {
-                    to.merge(sr, null);
-                } else {
-                    this.add(sr);
-                }
-            }
-        }
-        // Take the easy way out
-        rebuildPrincipalsVersusRolesMap();
-    }
-
-    /**
      * Add entries to principalVersusRolesMap for the specified role meta data.
      *
      * @param roleMetaData the security role meta data
@@ -148,14 +115,6 @@ public class SecurityRolesMetaData extends AbstractMappedMetaData<SecurityRoleMe
                 principalVersusRolesMap.put(principal, roles);
             }
             roles.add(roleMetaData.getRoleName());
-        }
-    }
-
-    private void rebuildPrincipalsVersusRolesMap() {
-        principalVersusRolesMap.clear();
-
-        for (SecurityRoleMetaData roleMetaData : this) {
-            processSecurityRoleMetaData(roleMetaData);
         }
     }
 

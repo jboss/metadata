@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
 /**
@@ -31,7 +30,7 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @version $Revision: 81768 $
  */
 
-public class DataSourceMetaData extends NamedMetaDataWithDescriptions implements MergeableMappedMetaData<DataSourceMetaData> {
+public class DataSourceMetaData extends NamedMetaDataWithDescriptions {
     private static final long serialVersionUID = 1;
 
     public static final int DEFAULT_PORT_NUMBER = -1;
@@ -191,86 +190,4 @@ public class DataSourceMetaData extends NamedMetaDataWithDescriptions implements
     public void setMaxStatements(int maxStatements) {
         this.maxStatements = maxStatements;
     }
-
-    @Override
-    public DataSourceMetaData merge(DataSourceMetaData original) {
-        DataSourceMetaData merged = new DataSourceMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(DataSourceMetaData override, DataSourceMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.getClassName() != null)
-            setClassName(override.getClassName());
-        else if (original != null && original.getClassName() != null)
-            setClassName(original.getClassName());
-        if (override != null && override.databaseName != null)
-            setDatabaseName(override.databaseName);
-        else if (original != null && original.databaseName != null)
-            setDatabaseName(original.databaseName);
-        if (override != null && override.initialPoolSize != DEFAULT_INITIAL_POOL_SIZE)
-            setInitialPoolSize(override.initialPoolSize);
-        else if (original != null && original.initialPoolSize != DEFAULT_INITIAL_POOL_SIZE)
-            setInitialPoolSize(original.initialPoolSize);
-        if (override != null && override.isolationLevel != null)
-            setIsolationLevel(override.isolationLevel);
-        else if (original != null && original.isolationLevel != null)
-            setIsolationLevel(original.isolationLevel);
-        if (override != null && override.loginTimeout != DEFAULT_LOGIN_TIMEOUT)
-            setLoginTimeout(override.loginTimeout);
-        else if (original != null && original.loginTimeout != DEFAULT_LOGIN_TIMEOUT)
-            setLoginTimeout(original.loginTimeout);
-        if (override != null && override.maxIdleTime != DEFAULT_MAX_IDLE_TIME)
-            setMaxIdleTime(override.maxIdleTime);
-        else if (original != null && original.maxIdleTime != DEFAULT_MAX_IDLE_TIME)
-            setMaxIdleTime(original.maxIdleTime);
-        if (override != null && override.maxPoolSize != DEFAULT_MAX_POOL_SIZE)
-            setMaxPoolSize(override.maxPoolSize);
-        else if (original != null && original.maxPoolSize != DEFAULT_MAX_POOL_SIZE)
-            setMaxPoolSize(original.maxPoolSize);
-        if (override != null && override.maxStatements != DEFAULT_MAX_STATEMENTS)
-            setMaxStatements(override.maxStatements);
-        else if (original != null && original.maxStatements != DEFAULT_MAX_STATEMENTS)
-            setMaxStatements(original.maxStatements);
-        if (override != null && override.minPoolSize != DEFAULT_MIN_POOL_SIZE)
-            setMinPoolSize(override.minPoolSize);
-        else if (original != null && original.minPoolSize != DEFAULT_MIN_POOL_SIZE)
-            setMinPoolSize(original.minPoolSize);
-        if (override != null && override.password != null)
-            setPassword(override.password);
-        else if (original != null && original.password != null)
-            setPassword(original.password);
-        if (override != null && override.portNumber != DEFAULT_PORT_NUMBER)
-            setPortNumber(override.portNumber);
-        else if (original != null && original.portNumber != DEFAULT_PORT_NUMBER)
-            setPortNumber(original.portNumber);
-        if (override != null && override.properties != null)
-            setProperties(override.properties);
-        else if (original != null && original.properties != null)
-            setProperties(original.properties);
-        if (override != null && override.serverName != null)
-            setServerName(override.serverName);
-        else if (original != null && original.serverName != null)
-            setServerName(original.serverName);
-        if (override != null && override.transactional != DEFAULT_TRANSACTIONAL)
-            setTransactional(override.transactional);
-        else if (original != null && original.transactional != DEFAULT_TRANSACTIONAL)
-            setTransactional(original.transactional);
-        if (override != null && override.url != null)
-            setUrl(override.url);
-        else if (original != null && original.url != null)
-            setUrl(original.url);
-        if (override != null && override.user != null)
-            setUser(override.user);
-        else if (original != null && original.user != null)
-            setUser(original.user);
-    }
-
 }

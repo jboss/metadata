@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +31,7 @@ import java.util.Map;
  * @version $Revision: 1.1 $
  */
 // unordered for the jboss client 5_0.xsd
-public class EJBReferenceMetaData extends AbstractEJBReferenceMetaData implements MergeableMappedMetaData<EJBReferenceMetaData> {
+public class EJBReferenceMetaData extends AbstractEJBReferenceMetaData {
     /** The serialVersionUID */
     private static final long serialVersionUID = -3828756360112709340L;
 
@@ -121,31 +119,6 @@ public class EJBReferenceMetaData extends AbstractEJBReferenceMetaData implement
         if (invokerBindings == null)
             invokerBindings = new HashMap<String, String>();
         invokerBindings.put(invokerProxyBindingName, jndiName);
-    }
-
-    @Override
-    public EJBReferenceMetaData merge(EJBReferenceMetaData original) {
-        EJBReferenceMetaData merged = new EJBReferenceMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(EJBReferenceMetaData override, EJBReferenceMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.home != null)
-            setHome(override.home);
-        else if (original.home != null)
-            setHome(original.home);
-        if (override != null && override.remote != null)
-            setRemote(override.remote);
-        else if (original.remote != null)
-            setRemote(original.remote);
     }
 
     @Override

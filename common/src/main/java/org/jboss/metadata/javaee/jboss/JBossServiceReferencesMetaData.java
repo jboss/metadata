@@ -41,47 +41,4 @@ public class JBossServiceReferencesMetaData extends ServiceReferencesMetaData {
      */
     public JBossServiceReferencesMetaData() {
     }
-
-    /**
-     * Merge resource references
-     *
-     * @param override the override references
-     * @param overriden the overriden references
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged referencees
-     */
-    public static JBossServiceReferencesMetaData merge(ServiceReferencesMetaData override, ServiceReferencesMetaData overriden,
-            String overridenFile, String overrideFile) {
-        if (override == null && overriden == null)
-            return null;
-
-        // TODO: if overriden is empty, it's silly to do a merge
-        JBossServiceReferencesMetaData merged = new JBossServiceReferencesMetaData();
-        // add originals
-        if (overriden != null) {
-            for (ServiceReferenceMetaData serviceRef : overriden) {
-                ServiceReferenceMetaData jbossServiceRef = null;
-                if (override != null)
-                    jbossServiceRef = override.get(serviceRef.getServiceRefName());
-                if (jbossServiceRef == null)
-                    jbossServiceRef = new JBossServiceReferenceMetaData();
-                jbossServiceRef = jbossServiceRef.merge(serviceRef);
-                merged.add(jbossServiceRef);
-            }
-        }
-
-        if (override != null) {
-            for (ServiceReferenceMetaData serviceRef : override) {
-                ServiceReferenceMetaData jbossServiceRef = serviceRef;
-                if (!merged.containsKey(jbossServiceRef.getServiceRefName()))
-                    merged.add(jbossServiceRef);
-            }
-        }
-
-        // JavaEEMetaDataUtil.merge(merged, overriden, override, "service-ref",
-        // overridenFile, overrideFile, false);
-        return merged;
-    }
-
 }

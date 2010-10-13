@@ -22,53 +22,15 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
 
 /**
  * @author Remy Maucherat
  * @version $Revision: 65928 $
  */
-public class DataSourcesMetaData extends AbstractMappedMetaData<DataSourceMetaData> implements
-        AugmentableMetaData<DataSourcesMetaData> {
+public class DataSourcesMetaData extends AbstractMappedMetaData<DataSourceMetaData> {
     private static final long serialVersionUID = 1;
 
     public DataSourcesMetaData() {
         super("data sources");
     }
-
-    /**
-     * Merge data sources
-     *
-     * @param override the override references
-     * @param overriden the overriden references
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged referencees
-     */
-    public static DataSourcesMetaData merge(DataSourcesMetaData override, DataSourcesMetaData overriden, String overridenFile,
-            String overrideFile) {
-        if (override == null && overriden == null)
-            return null;
-
-        if (override == null)
-            return overriden;
-
-        DataSourcesMetaData merged = new DataSourcesMetaData();
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "data-source", overridenFile, overrideFile, false);
-    }
-
-    @Override
-    public void augment(DataSourcesMetaData webFragmentMetaData, DataSourcesMetaData webMetaData, boolean resolveConflicts) {
-        for (DataSourceMetaData dataSourceMetaData : webFragmentMetaData) {
-            if (containsKey(dataSourceMetaData.getKey())) {
-                if (!resolveConflicts && (webMetaData == null || !webMetaData.containsKey(dataSourceMetaData.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on data source named: " + dataSourceMetaData.getKey());
-                }
-            } else {
-                add(dataSourceMetaData);
-            }
-        }
-    }
-
 }

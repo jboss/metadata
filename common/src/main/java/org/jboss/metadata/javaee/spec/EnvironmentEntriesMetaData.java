@@ -22,7 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 
 /**
  * EnvironmentEntriesMetaData.
@@ -30,8 +29,7 @@ import org.jboss.metadata.javaee.support.AugmentableMetaData;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class EnvironmentEntriesMetaData extends AbstractMappedMetaData<EnvironmentEntryMetaData> implements
-        AugmentableMetaData<EnvironmentEntriesMetaData> {
+public class EnvironmentEntriesMetaData extends AbstractMappedMetaData<EnvironmentEntryMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = -7573363440492577599L;
 
@@ -41,21 +39,4 @@ public class EnvironmentEntriesMetaData extends AbstractMappedMetaData<Environme
     public EnvironmentEntriesMetaData() {
         super("env entry name");
     }
-
-    @Override
-    public void augment(EnvironmentEntriesMetaData augment, EnvironmentEntriesMetaData main, boolean resolveConflicts) {
-        for (EnvironmentEntryMetaData envEntry : augment) {
-            if (containsKey(envEntry.getKey())) {
-                if (!resolveConflicts && (main == null || !main.containsKey(envEntry.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on environment entry named: " + envEntry.getKey());
-                } else {
-                    get(envEntry.getKey()).augment(envEntry, (main != null) ? main.get(envEntry.getKey()) : null,
-                            resolveConflicts);
-                }
-            } else {
-                add(envEntry);
-            }
-        }
-    }
-
 }

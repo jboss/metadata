@@ -39,16 +39,4 @@ public class JndiRefsMetaData extends AbstractMappedMetaData<JndiRefMetaData> {
     public JndiRefsMetaData() {
         super("jndi ref name");
     }
-
-    public void merge(JndiRefsMetaData override, JndiRefsMetaData original) {
-        super.merge(override, original);
-        if (original != null) {
-            for (JndiRefMetaData property : original)
-                add(property);
-        }
-        if (override != null) {
-            for (JndiRefMetaData property : override)
-                add(property);
-        }
-    }
 }

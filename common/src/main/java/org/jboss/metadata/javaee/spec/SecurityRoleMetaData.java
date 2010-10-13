@@ -21,10 +21,8 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
 /**
@@ -34,8 +32,7 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-public class SecurityRoleMetaData extends NamedMetaDataWithDescriptions implements
-        MergeableMappedMetaData<SecurityRoleMetaData> {
+public class SecurityRoleMetaData extends NamedMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = -4349954695900237831L;
 
@@ -102,26 +99,5 @@ public class SecurityRoleMetaData extends NamedMetaDataWithDescriptions implemen
         if (principals == null)
             return false;
         return principals.contains(userName);
-    }
-
-    @Override
-    public SecurityRoleMetaData merge(SecurityRoleMetaData original) {
-        SecurityRoleMetaData merged = new SecurityRoleMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    public void merge(SecurityRoleMetaData override, SecurityRoleMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.principals != null) {
-            if (principals == null)
-                principals = new HashSet<String>();
-            principals.addAll(override.principals);
-        }
-        if (original != null && original.principals != null) {
-            if (principals == null)
-                principals = new HashSet<String>();
-            principals.addAll(original.principals);
-        }
     }
 }

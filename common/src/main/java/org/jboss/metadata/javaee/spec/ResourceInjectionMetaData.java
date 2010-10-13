@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaData;
 
 import java.util.Set;
@@ -32,7 +31,7 @@ import java.util.Set;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public abstract class ResourceInjectionMetaData extends NamedMetaData implements AugmentableMetaData<ResourceInjectionMetaData> {
+public abstract class ResourceInjectionMetaData extends NamedMetaData {
     /** The serialVersionUID */
     private static final long serialVersionUID = 6333738851813890701L;
 
@@ -173,42 +172,4 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData implements
      public boolean isDependencyIgnored() {
         return ignoreDependency != null;
     }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(ResourceInjectionMetaData override, ResourceInjectionMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.mappedName != null)
-            setMappedName(override.mappedName);
-        else if (original != null && original.mappedName != null)
-            setMappedName(original.mappedName);
-        if (override != null && override.ignoreDependency != null)
-            setIgnoreDependency(override.ignoreDependency);
-        else if (original != null && original.ignoreDependency != null)
-            setIgnoreDependency(original.ignoreDependency);
-        if (override != null && override.injectionTargets != null)
-            setInjectionTargets(override.injectionTargets);
-        else if (original != null && original.injectionTargets != null)
-            setInjectionTargets(original.injectionTargets);
-    }
-
-    @Override
-    public void augment(ResourceInjectionMetaData augment, ResourceInjectionMetaData main, boolean resolveConflicts) {
-        if (main != null && main.getInjectionTargets() != null) {
-            // If main contains injection target, drop the all injection targets
-            injectionTargets = null;
-        } else {
-            // Add injection targets
-            if (getInjectionTargets() == null) {
-                injectionTargets = augment.getInjectionTargets();
-            } else if (augment.getInjectionTargets() != null) {
-                getInjectionTargets().addAll(augment.getInjectionTargets());
-            }
-        }
-    }
-
 }

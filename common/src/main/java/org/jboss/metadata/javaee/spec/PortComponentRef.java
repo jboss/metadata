@@ -91,39 +91,6 @@ public class PortComponentRef extends IdMetaDataImpl {
         this.serviceEndpointInterface = serviceEndpointInterface;
     }
 
-    public PortComponentRef merge(PortComponentRef ref) {
-        PortComponentRef merged = new PortComponentRef();
-        merged.merge(this, ref);
-        return merged;
-    }
-
-    public void merge(PortComponentRef override, PortComponentRef original) {
-        if (override != null && override.serviceEndpointInterface != null)
-            serviceEndpointInterface = override.serviceEndpointInterface;
-        else if (original != null && original.serviceEndpointInterface != null)
-            serviceEndpointInterface = original.serviceEndpointInterface;
-        if (override != null && override.enableMtom)
-            enableMtom = override.enableMtom;
-        else if (original != null && original.enableMtom)
-            enableMtom = original.enableMtom;
-        if (override != null && override.mtomThreshold > 0)
-            mtomThreshold = override.mtomThreshold;
-        else if (original != null && original.mtomThreshold > 0)
-            mtomThreshold = original.mtomThreshold;
-        if (override != null && override.addressing != null)
-            addressing = override.addressing;
-        else if (original != null && original.addressing != null)
-            addressing = original.addressing;
-        if (override != null && override.respectBinding != null)
-            respectBinding = override.respectBinding;
-        else if (original != null && original.respectBinding != null)
-            respectBinding = original.respectBinding;
-        if (override != null && override.portComponentLink != null)
-            portComponentLink = override.portComponentLink;
-        else if (original != null && original.portComponentLink != null)
-            portComponentLink = original.portComponentLink;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

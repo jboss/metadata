@@ -56,14 +56,4 @@ public abstract class ResourceInjectionMetaDataWithDescriptionGroup extends Reso
             throw new IllegalArgumentException("Null descriptionGroup");
         this.descriptionGroup = descriptionGroup;
     }
-
-    public void merge(ResourceInjectionMetaDataWithDescriptionGroup override,
-            ResourceInjectionMetaDataWithDescriptionGroup original) {
-        super.merge(override, original);
-        if (override != null && override.descriptionGroup != null)
-            setDescriptionGroup(override.descriptionGroup);
-        else if (original != null && original.descriptionGroup != null)
-            setDescriptionGroup(original.descriptionGroup);
-    }
-
 }

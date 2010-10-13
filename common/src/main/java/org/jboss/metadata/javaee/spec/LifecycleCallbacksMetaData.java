@@ -29,16 +29,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-
 /**
  * LifecycleCallbacksMetaData.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class LifecycleCallbacksMetaData extends ArrayList<LifecycleCallbackMetaData> implements
-        AugmentableMetaData<LifecycleCallbacksMetaData> {
+public class LifecycleCallbacksMetaData extends ArrayList<LifecycleCallbackMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = -3843612778667898679L;
 
@@ -114,19 +111,4 @@ public class LifecycleCallbacksMetaData extends ArrayList<LifecycleCallbackMetaD
             throw new IllegalStateException("Failed to get callback method in class " + className + ": " + methodName, e);
         }
     }
-
-    @Override
-    public void augment(LifecycleCallbacksMetaData augment, LifecycleCallbacksMetaData main, boolean resolveConflicts) {
-        if (main != null && main.size() > 0) {
-            // If main contains lifecycle callbacks, drop the all lifecycle
-            // callbacks
-            clear();
-        } else {
-            // Add injection targets
-            if (augment != null) {
-                addAll(augment);
-            }
-        }
-    }
-
 }

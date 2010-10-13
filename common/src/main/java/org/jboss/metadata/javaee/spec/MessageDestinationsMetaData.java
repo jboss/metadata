@@ -22,9 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
-import org.jboss.metadata.merge.MergeUtil;
 
 /**
  * MessageDestinationsMetaData.
@@ -32,57 +29,14 @@ import org.jboss.metadata.merge.MergeUtil;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 67878 $
  */
-public class MessageDestinationsMetaData extends AbstractMappedMetaData<MessageDestinationMetaData> implements
-        AugmentableMetaData<MessageDestinationsMetaData> {
+public class MessageDestinationsMetaData extends AbstractMappedMetaData<MessageDestinationMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = -6198704374773701253L;
-
-    /**
-     * /** Merge the contents of override with original into a new
-     * MessageDestinationsMetaData.
-     *
-     * @param override - metadata augmenting overriden
-     * @param overriden - the base metadata
-     * @param overridenFile - the source of the override destinations
-     * @param overrideFile - the source of the overriden destinations
-     * @return a new merged MessageDestinationsMetaData if either override and
-     *         overriden is not null, null otherwise.
-     */
-    public static MessageDestinationsMetaData merge(MessageDestinationsMetaData override,
-            MessageDestinationsMetaData overriden, String overridenFile, String overrideFile) {
-        if (override == null && overriden == null)
-            return null;
-
-        if (override == null)
-            return overriden;
-
-        MessageDestinationsMetaData merged = new MessageDestinationsMetaData();
-        // mustOverride is false because legacy jboss descriptors not having a
-        // message-destination
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "message-destination", overridenFile, overrideFile, false);
-    }
 
     /**
      * Create a new MessageDestinationsMetaData.
      */
     public MessageDestinationsMetaData() {
         super("message destination name");
-    }
-
-    public void merge(MessageDestinationsMetaData override, MessageDestinationsMetaData original) {
-        super.merge(override, original);
-        MergeUtil.merge(this, override, original);
-    }
-
-    @Override
-    public void augment(MessageDestinationsMetaData augment, MessageDestinationsMetaData main, boolean resolveConflicts) {
-        for (MessageDestinationMetaData messageDestinationMetaData : augment) {
-            if (containsKey(messageDestinationMetaData.getKey())) {
-                get(messageDestinationMetaData.getKey()).augment(messageDestinationMetaData,
-                        (main != null) ? main.get(messageDestinationMetaData.getKey()) : null, resolveConflicts);
-            } else {
-                add(messageDestinationMetaData);
-            }
-        }
     }
 }

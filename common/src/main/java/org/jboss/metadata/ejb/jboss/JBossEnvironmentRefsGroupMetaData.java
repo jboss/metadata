@@ -29,12 +29,9 @@ import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.Environment;
-import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 
@@ -59,25 +56,6 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
 
     /** The data sources */
     private DataSourcesMetaData dataSources;
-
-    /**
-     * Merge an environment
-     *
-     * @param jbossEnvironmentRefsGroup the override environment
-     * @param environmentRefsGroup the overriden environment
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged environment
-     */
-    public static JBossEnvironmentRefsGroupMetaData mergeNew(JBossEnvironmentRefsGroupMetaData jbossEnvironmentRefsGroup,
-            EnvironmentRefsGroupMetaData environmentRefsGroup, ResourceManagersMetaData resourceMgrs, String overrideFile,
-            String overridenFile, boolean mustOverride) {
-        JBossEnvironmentRefsGroupMetaData merged = new JBossEnvironmentRefsGroupMetaData();
-
-        merged.merge(jbossEnvironmentRefsGroup, environmentRefsGroup, resourceMgrs, overridenFile, overrideFile, mustOverride);
-
-        return merged;
-    }
 
     @Override
     public EJBLocalReferenceMetaData getEjbLocalReferenceByName(String name) {
@@ -135,118 +113,5 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
     @Override
     public DataSourceMetaData getDataSourceByName(String name) {
         return AbstractMappedMetaData.getByName(name, dataSources);
-    }
-
-    /**
-     * Merge an environment
-     *
-     * @param jbossEnvironmentRefsGroup the override environment
-     * @param environmentRefsGroup the overriden environment
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged environment
-     */
-    public void merge(JBossEnvironmentRefsGroupMetaData jbossEnv, Environment specEnv, ResourceManagersMetaData resourceMgrs,
-            String overrideFile, String overridenFile, boolean mustOverride) {
-        if (jbossEnv == null && specEnv == null)
-            return;
-
-        super.merge(jbossEnv, specEnv, overridenFile, overrideFile, mustOverride);
-
-        EJBLocalReferencesMetaData ejbLocalRefs = null;
-        EJBLocalReferencesMetaData jbossEjbLocalRefs = null;
-        PersistenceContextReferencesMetaData specPersistenceContextRefs = null;
-        PersistenceContextReferencesMetaData jbossPersistenceContextRefs = null;
-
-        if (specEnv != null) {
-            ejbLocalRefs = specEnv.getEjbLocalReferences();
-            specPersistenceContextRefs = specEnv.getPersistenceContextRefs();
-        }
-
-        if (jbossEnv != null) {
-            jbossEjbLocalRefs = jbossEnv.getEjbLocalReferences();
-            jbossPersistenceContextRefs = jbossEnv.getPersistenceContextRefs();
-        } else {
-            // Use the merge target for the static merge methods
-            jbossEjbLocalRefs = this.getEjbLocalReferences();
-            jbossPersistenceContextRefs = getPersistenceContextRefs();
-        }
-
-        EJBLocalReferencesMetaData mergedEjbLocalRefs = EJBLocalReferencesMetaData.merge(jbossEjbLocalRefs, ejbLocalRefs,
-                overridenFile, overrideFile);
-        if (mergedEjbLocalRefs != null)
-            this.setEjbLocalReferences(mergedEjbLocalRefs);
-
-        // Need to set the jndi name from resource mgr if referenced
-        ResourceReferencesMetaData jbossResRefs = getResourceReferences();
-        if (resourceMgrs != null && jbossResRefs != null) {
-            for (ResourceReferenceMetaData ref : jbossResRefs) {
-                ResourceManagerMetaData mgr = resourceMgrs.get(ref.getResourceName());
-                if (mgr != null) {
-                    if (mgr.getResJndiName() != null)
-                        ref.setJndiName(mgr.getResJndiName());
-                    else if (mgr.getResUrl() != null)
-                        ref.setResUrl(mgr.getResUrl());
-                }
-            }
-        }
-
-        PersistenceContextReferencesMetaData mergedPcRefs = PersistenceContextReferencesMetaData.merge(
-                jbossPersistenceContextRefs, specPersistenceContextRefs, overridenFile, overrideFile);
-        if (mergedPcRefs != null)
-            this.setPersistenceContextRefs(mergedPcRefs);
-
-    }
-
-    public void merge(JBossEnvironmentRefsGroupMetaData override, JBossEnvironmentRefsGroupMetaData original,
-            ResourceManagersMetaData resourceManagers) {
-        super.merge(override, original, "deployment descriptors", "annotations", false);
-
-        EJBLocalReferencesMetaData originalLocalRefs = null;
-        PersistenceContextReferencesMetaData originalPctxRefs = null;
-        DataSourcesMetaData originalDataSources = null;
-        if (original != null) {
-            originalLocalRefs = original.ejbLocalReferences;
-            originalPctxRefs = original.persistenceContextRefs;
-            originalDataSources = original.dataSources;
-        }
-
-        EJBLocalReferencesMetaData overrideLocalRefs = null;
-        PersistenceContextReferencesMetaData overridePctxRefs = null;
-        DataSourcesMetaData overrideDataSources = null;
-        if (override != null) {
-            overrideLocalRefs = override.ejbLocalReferences;
-            overridePctxRefs = override.persistenceContextRefs;
-            overrideDataSources = override.dataSources;
-        }
-
-        EJBLocalReferencesMetaData mergedEjbLocalRefs = EJBLocalReferencesMetaData.merge(overrideLocalRefs, originalLocalRefs,
-                null, "jboss.xml");
-        if (mergedEjbLocalRefs != null)
-            this.setEjbLocalReferences(mergedEjbLocalRefs);
-
-        PersistenceContextReferencesMetaData mergedPctxRefs = PersistenceContextReferencesMetaData.merge(overridePctxRefs,
-                originalPctxRefs, null, "jboss.xml");
-        if (mergedPctxRefs != null)
-            this.setPersistenceContextRefs(mergedPctxRefs);
-
-        DataSourcesMetaData mergedDataSources = DataSourcesMetaData.merge(overrideDataSources, originalDataSources, null,
-                "jboss.xml");
-        if (mergedDataSources != null)
-            this.setDataSources(mergedDataSources);
-
-        // Need to set the jndi name from resource mgr if referenced
-        ResourceReferencesMetaData jbossResRefs = getResourceReferences();
-        if (resourceManagers != null && jbossResRefs != null) {
-            for (ResourceReferenceMetaData ref : jbossResRefs) {
-                ResourceManagerMetaData mgr = resourceManagers.get(ref.getResourceName());
-                if (mgr != null) {
-                    if (mgr.getResJndiName() != null)
-                        ref.setJndiName(mgr.getResJndiName());
-                    else if (mgr.getResUrl() != null)
-                        ref.setResUrl(mgr.getResUrl());
-                }
-            }
-        }
     }
 }

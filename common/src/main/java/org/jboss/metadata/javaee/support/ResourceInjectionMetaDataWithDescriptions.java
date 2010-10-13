@@ -22,7 +22,6 @@
 package org.jboss.metadata.javaee.support;
 
 import org.jboss.annotation.javaee.Descriptions;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;
 
 /**
@@ -57,19 +56,5 @@ public abstract class ResourceInjectionMetaDataWithDescriptions extends Resource
         if (descriptions == null)
             throw new IllegalArgumentException("Null descriptions");
         this.descriptions = descriptions;
-    }
-
-    /**
-     * Merge override + original into this.
-     *
-     * @param override
-     * @param original
-     */
-    public void merge(ResourceInjectionMetaDataWithDescriptions override, ResourceInjectionMetaDataWithDescriptions original) {
-        super.merge(override, original);
-        if (override != null && override.descriptions != null)
-            setDescriptions(override.descriptions);
-        else if (original != null && original.descriptions != null)
-            setDescriptions(original.descriptions);
     }
 }

@@ -22,8 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
 
 /**
  * ResourceReferencesMetaData.
@@ -31,31 +29,9 @@ import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class ResourceReferencesMetaData extends AbstractMappedMetaData<ResourceReferenceMetaData> implements
-        AugmentableMetaData<ResourceReferencesMetaData> {
+public class ResourceReferencesMetaData extends AbstractMappedMetaData<ResourceReferenceMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = -6067974868675929921L;
-
-    /**
-     * Merge resource references
-     *
-     * @param override the override references
-     * @param overriden the overriden references
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged referencees
-     */
-    public static ResourceReferencesMetaData merge(ResourceReferencesMetaData override, ResourceReferencesMetaData overriden,
-            String overridenFile, String overrideFile, boolean mustOverride) {
-        if (override == null && overriden == null)
-            return null;
-
-        if (override == null)
-            return overriden;
-
-        ResourceReferencesMetaData merged = new ResourceReferencesMetaData();
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "resource-ref", overridenFile, overrideFile, mustOverride);
-    }
 
     /**
      * Create a new ResourceReferencesMetaData.
@@ -63,21 +39,4 @@ public class ResourceReferencesMetaData extends AbstractMappedMetaData<ResourceR
     public ResourceReferencesMetaData() {
         super("resource ref name");
     }
-
-    @Override
-    public void augment(ResourceReferencesMetaData augment, ResourceReferencesMetaData main, boolean resolveConflicts) {
-        for (ResourceReferenceMetaData resourceRef : augment) {
-            if (containsKey(resourceRef.getKey())) {
-                if (!resolveConflicts && (main == null || !main.containsKey(resourceRef.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on resource reference named: " + resourceRef.getKey());
-                } else {
-                    get(resourceRef.getKey()).augment(resourceRef, (main != null) ? main.get(resourceRef.getKey()) : null,
-                            resolveConflicts);
-                }
-            } else {
-                add(resourceRef);
-            }
-        }
-    }
-
 }

@@ -22,8 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
 
 /**
  * @EJB references metadata.
@@ -31,62 +29,9 @@ import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 76290 $
  */
-public class AnnotatedEJBReferencesMetaData extends AbstractMappedMetaData<AnnotatedEJBReferenceMetaData> implements
-        AugmentableMetaData<AnnotatedEJBReferencesMetaData> {
+public class AnnotatedEJBReferencesMetaData extends AbstractMappedMetaData<AnnotatedEJBReferenceMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = 1;
-
-    /**
-     * Merge ejb references
-     *
-     * @param override the override references
-     * @param overriden the overriden references
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged referencees
-     */
-    public static AnnotatedEJBReferencesMetaData merge(AnnotatedEJBReferencesMetaData override,
-            AnnotatedEJBReferencesMetaData overriden, String overridenFile, String overrideFile) {
-        if (override == null && overriden == null)
-            return null;
-
-        if (override == null)
-            return overriden;
-
-        AnnotatedEJBReferencesMetaData merged = new AnnotatedEJBReferencesMetaData();
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "@EJB", overridenFile, overrideFile, false);
-    }
-
-    /**
-     * Merge the annotated ejb refs with a xml desriptor
-     *
-     * @param override the override references
-     * @param original the original references
-     * @return the merged references.
-     */
-    public static AnnotatedEJBReferencesMetaData merge(EJBReferencesMetaData override, AnnotatedEJBReferencesMetaData original) {
-        if (override == null)
-            return original;
-
-        if (original == null)
-            return null;
-
-        AnnotatedEJBReferencesMetaData merged = new AnnotatedEJBReferencesMetaData();
-        for (AnnotatedEJBReferenceMetaData ref : original) {
-            EJBReferenceMetaData ejbRef = override.get(ref.getKey());
-            if (ejbRef != null) {
-                AnnotatedEJBReferenceMetaData newRef = new AnnotatedEJBReferenceMetaData();
-                newRef.merge(ejbRef, ref);
-                if (ref.getBeanInterface() != null)
-                    newRef.setBeanInterface(ref.getBeanInterface());
-
-                merged.add(newRef);
-            } else {
-                merged.add(ref);
-            }
-        }
-        return merged;
-    }
 
     /**
      * Create a new EJBLocalReferencesMetaData.
@@ -94,21 +39,4 @@ public class AnnotatedEJBReferencesMetaData extends AbstractMappedMetaData<Annot
     public AnnotatedEJBReferencesMetaData() {
         super("ejb local ref name");
     }
-
-    @Override
-    public void augment(AnnotatedEJBReferencesMetaData augment, AnnotatedEJBReferencesMetaData main, boolean resolveConflicts) {
-        for (AnnotatedEJBReferenceMetaData ejbReference : augment) {
-            if (containsKey(ejbReference.getKey())) {
-                if (!resolveConflicts && (main == null || !main.containsKey(ejbReference.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on EJB reference named: " + ejbReference.getKey());
-                } else {
-                    get(ejbReference.getKey()).augment(ejbReference, (main != null) ? main.get(ejbReference.getKey()) : null,
-                            resolveConflicts);
-                }
-            } else {
-                add(ejbReference);
-            }
-        }
-    }
-
 }

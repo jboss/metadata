@@ -22,8 +22,6 @@
 package org.jboss.metadata.javaee.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
 
 /**
  * EJBReferencesMetaData.
@@ -31,31 +29,9 @@ import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class EJBReferencesMetaData extends AbstractMappedMetaData<EJBReferenceMetaData> implements
-        AugmentableMetaData<EJBReferencesMetaData> {
+public class EJBReferencesMetaData extends AbstractMappedMetaData<EJBReferenceMetaData> {
     /** The serialVersionUID */
     private static final long serialVersionUID = 605087131047162516L;
-
-    /**
-     * Merge ejb references
-     *
-     * @param override the override references
-     * @param overriden the overriden references
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
-     * @return the merged referencees
-     */
-    public static EJBReferencesMetaData merge(EJBReferencesMetaData override, EJBReferencesMetaData overriden,
-            String overridenFile, String overrideFile, boolean mustOverride) {
-        if (override == null && overriden == null)
-            return null;
-
-        if (override == null)
-            return overriden;
-
-        EJBReferencesMetaData merged = new EJBReferencesMetaData();
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "ejb-ref", overridenFile, overrideFile, mustOverride);
-    }
 
     /**
      * Create a new EJBReferencesMetaData.
@@ -63,21 +39,4 @@ public class EJBReferencesMetaData extends AbstractMappedMetaData<EJBReferenceMe
     public EJBReferencesMetaData() {
         super("ejb ref name");
     }
-
-    @Override
-    public void augment(EJBReferencesMetaData augment, EJBReferencesMetaData main, boolean resolveConflicts) {
-        for (EJBReferenceMetaData ejbReference : augment) {
-            if (containsKey(ejbReference.getKey())) {
-                if (!resolveConflicts && (main == null || !main.containsKey(ejbReference.getKey()))) {
-                    throw new IllegalStateException("Unresolved conflict on EJB reference named: " + ejbReference.getKey());
-                } else {
-                    get(ejbReference.getKey()).augment(ejbReference, (main != null) ? main.get(ejbReference.getKey()) : null,
-                            resolveConflicts);
-                }
-            } else {
-                add(ejbReference);
-            }
-        }
-    }
-
 }

@@ -60,18 +60,4 @@ public class IgnoreDependencyMetaData extends IdMetaDataImplWithDescriptions {
             throw new IllegalArgumentException("Null injectionTargets");
         this.injectionTargets = injectionTargets;
     }
-
-    public void merge(IgnoreDependencyMetaData override, IgnoreDependencyMetaData original) {
-        if (original != null && original.injectionTargets != null) {
-            if (injectionTargets == null)
-                injectionTargets = new HashSet<ResourceInjectionTargetMetaData>();
-            injectionTargets.addAll(original.injectionTargets);
-        }
-
-        if (override != null && override.injectionTargets != null) {
-            if (injectionTargets == null)
-                injectionTargets = new HashSet<ResourceInjectionTargetMetaData>();
-            injectionTargets.addAll(override.injectionTargets);
-        }
-    }
 }

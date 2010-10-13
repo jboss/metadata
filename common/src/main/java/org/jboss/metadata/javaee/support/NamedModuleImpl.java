@@ -47,17 +47,4 @@ public abstract class NamedModuleImpl extends IdMetaDataImplWithDescriptionGroup
     public void setModuleName(String moduleName) {
         this.moduleName = moduleName;
     }
-
-    public void merge(NamedModuleImpl override, NamedModuleImpl original) {
-        super.merge(override, original);
-        mergeModuleName(override, original);
-    }
-
-    public void mergeModuleName(NamedModule override, NamedModule original) {
-        if (override != null && override.getModuleName() != null)
-            setModuleName(override.getModuleName());
-        else if (original != null && original.getModuleName() != null)
-            setModuleName(original.getModuleName());
-    }
-
 }

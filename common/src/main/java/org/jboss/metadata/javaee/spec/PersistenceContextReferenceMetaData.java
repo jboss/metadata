@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
 import javax.persistence.PersistenceContextType;
@@ -32,8 +31,7 @@ import javax.persistence.PersistenceContextType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions implements
-        MergeableMappedMetaData<PersistenceContextReferenceMetaData> {
+public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = 994249685587171979L;
 
@@ -133,37 +131,6 @@ public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDa
         if (properties == null)
             throw new IllegalArgumentException("Null properties");
         this.properties = properties;
-    }
-
-    @Override
-    public PersistenceContextReferenceMetaData merge(PersistenceContextReferenceMetaData original) {
-        PersistenceContextReferenceMetaData merged = new PersistenceContextReferenceMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    public void merge(PersistenceContextReferenceMetaData override, PersistenceContextReferenceMetaData original) {
-        super.merge(override, original);
-        PersistenceContextReferenceMetaData merged = new PersistenceContextReferenceMetaData();
-
-        if (override != null && override.persistenceUnitName != null)
-            persistenceUnitName = override.persistenceUnitName;
-        else if (original != null && original.persistenceUnitName != null)
-            persistenceUnitName = original.persistenceUnitName;
-        if (override != null && override.persistenceContextType != null)
-            persistenceContextType = override.persistenceContextType;
-        else if (original != null && original.persistenceContextType != null)
-            persistenceContextType = original.persistenceContextType;
-        if (override != null && override.properties != null) {
-            if (this.properties == null)
-                properties = new PropertiesMetaData();
-            properties.addAll(override.properties);
-        }
-        if (original != null && original.properties != null) {
-            if (this.properties == null)
-                properties = new PropertiesMetaData();
-            properties.addAll(original.properties);
-        }
     }
 
     @Override

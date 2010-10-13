@@ -64,26 +64,6 @@ public abstract class IdMetaDataImpl implements IdMetaData, Cloneable {
         }
     }
 
-    public void merge(IdMetaData override, IdMetaData original) {
-        if (override != null && override.getId() != null)
-            setId(override.getId());
-        else if (original != null && original.getId() != null)
-            setId(original.getId());
-    }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(IdMetaDataImpl override, IdMetaDataImpl original) {
-        if (override != null && override.id != null)
-            setId(override.id);
-        else if (original != null && original.id != null)
-            setId(original.id);
-    }
-
     @Override
     public int hashCode() {
         final int PRIME = 31;

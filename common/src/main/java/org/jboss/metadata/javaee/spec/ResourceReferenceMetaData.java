@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.MergeableMappedMetaData;
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
 /**
@@ -30,8 +29,7 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions implements
-        MergeableMappedMetaData<ResourceReferenceMetaData> {
+public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = 1900675456507941940L;
 
@@ -161,43 +159,6 @@ public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDesc
             return true;
         else
             return sharingScope == ResourceSharingScopeType.Shareable;
-    }
-
-    @Override
-    public ResourceReferenceMetaData merge(ResourceReferenceMetaData original) {
-        ResourceReferenceMetaData merged = new ResourceReferenceMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
-
-    /**
-     * Merge the contents of override with original into this.
-     *
-     * @param override data which overrides original
-     * @param original the original data
-     */
-    public void merge(ResourceReferenceMetaData override, ResourceReferenceMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.type != null)
-            setType(override.type);
-        else if (original.type != null)
-            setType(original.type);
-        if (override != null && override.resourceName != null)
-            setResourceName(override.resourceName);
-        else if (original.resourceName != null)
-            setResourceName(original.resourceName);
-        if (override != null && override.authority != null)
-            setResAuth(override.authority);
-        else if (original.authority != null)
-            setResAuth(original.authority);
-        if (override != null && override.sharingScope != null)
-            setResSharingScope(override.sharingScope);
-        else if (original.sharingScope != null)
-            setResSharingScope(original.sharingScope);
-        if (override != null && override.resUrl != null)
-            setResUrl(override.resUrl);
-        else if (original.resUrl != null)
-            setResUrl(original.resUrl);
     }
 
     /**

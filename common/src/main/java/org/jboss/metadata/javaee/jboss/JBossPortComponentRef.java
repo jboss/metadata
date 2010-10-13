@@ -97,45 +97,6 @@ public class JBossPortComponentRef extends PortComponentRef {
         this.callProperties = callProperties;
     }
 
-    public JBossPortComponentRef merge(JBossPortComponentRef ref) {
-        JBossPortComponentRef merged = new JBossPortComponentRef();
-        merged.merge(this, ref);
-        return merged;
-    }
-
-    public void merge(JBossPortComponentRef override, JBossPortComponentRef original) {
-        super.merge(override, original);
-
-        if (override != null && override.portQname != null)
-            portQname = override.portQname;
-        else if (original != null && original.portQname != null)
-            portQname = original.portQname;
-
-        if (override != null && override.configName != null)
-            configName = override.configName;
-        else if (original != null && original.configName != null)
-            configName = original.configName;
-
-        if (override != null && override.configFile != null)
-            configFile = override.configFile;
-        else if (original != null && original.configFile != null)
-            configFile = original.configFile;
-
-        if (stubProperties == null)
-            stubProperties = new ArrayList<StubPropertyMetaData>();
-        if (override != null && override.stubProperties != null)
-            stubProperties.addAll(override.stubProperties);
-        else if (original != null && original.stubProperties != null)
-            stubProperties.addAll(original.stubProperties);
-
-        if (callProperties == null)
-            callProperties = new ArrayList<CallPropertyMetaData>();
-        if (override != null && override.callProperties != null)
-            callProperties.addAll(override.callProperties);
-        else if (original != null && original.callProperties != null)
-            callProperties.addAll(original.callProperties);
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

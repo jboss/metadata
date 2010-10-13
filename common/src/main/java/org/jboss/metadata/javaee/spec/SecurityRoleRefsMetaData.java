@@ -40,16 +40,4 @@ public class SecurityRoleRefsMetaData extends AbstractMappedMetaData<SecurityRol
     public SecurityRoleRefsMetaData() {
         super("role name for security role ref");
     }
-
-    public void merge(SecurityRoleRefsMetaData override, SecurityRoleRefsMetaData original) {
-        super.merge(override, original);
-        if (original != null) {
-            for (SecurityRoleRefMetaData property : original)
-                add(property);
-        }
-        if (override != null) {
-            for (SecurityRoleRefMetaData property : override)
-                add(property);
-        }
-    }
 }

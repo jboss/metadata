@@ -57,16 +57,4 @@ public abstract class NamedMetaDataWithDescriptionGroup extends NamedMetaData im
             throw new IllegalArgumentException("Null descriptionGroup");
         this.descriptionGroup = descriptionGroup;
     }
-
-    @Override
-    public void merge(NamedMetaData override, NamedMetaData original) {
-        super.merge(override, original);
-        NamedMetaDataWithDescriptionGroup n0 = (NamedMetaDataWithDescriptionGroup) override;
-        NamedMetaDataWithDescriptionGroup n1 = (NamedMetaDataWithDescriptionGroup) original;
-        if (n0 != null && n0.getDescriptionGroup() != null)
-            setDescriptionGroup(n0.getDescriptionGroup());
-        else if (n1 != null && n1.getDescriptionGroup() != null)
-            setDescriptionGroup(n1.getDescriptionGroup());
-    }
-
 }
