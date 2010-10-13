@@ -119,13 +119,11 @@ public class SetDefaultLocalBusinessInterfaceProcessor<T extends JBossMetaData> 
                   + " from the specified ClassLoader: " + cl);
          }
 
-         // If there are already local business interfaces specified
-         if (smd.getBusinessLocals() != null && smd.getBusinessLocals().size() > 0)
+         // If the bean already has an EJB3.x view, then nothing to do.
+         if (smd.hasEJB3xView())
+         {
             continue;
-
-         // If there are already remote business interfaces specified
-         if (smd.getBusinessRemotes() != null && smd.getBusinessRemotes().size() > 0)
-            continue;
+         }
 
          // Get the a single interface
          Class<?> businessInterface = ClassHelper.extractInterface(ejbImplementationClass.getInterfaces());

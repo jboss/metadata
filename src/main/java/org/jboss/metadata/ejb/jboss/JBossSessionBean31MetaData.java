@@ -322,6 +322,20 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       this.timers.add(timer);
    }
    
+   /**
+    * {@inheritDoc}
+    */
+   @Override
+   public boolean hasEJB3xView()
+   {
+      if (this.isNoInterfaceBean())
+      {
+         return true;
+      }
+      
+      return super.hasEJB3xView();
+   }
+   
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
    {

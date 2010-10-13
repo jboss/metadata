@@ -874,6 +874,43 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
          throw new IllegalArgumentException("Null remoteBinding");
       this.remoteBindings = remoteBindings;
    }
+   
+   /**
+    * Returns true if this session bean exposes a EJB 3.x view. Else
+    * returns false
+    * @return
+    */
+   public boolean hasEJB3xView()
+   {
+      if (this.businessRemotes != null && !this.businessRemotes.isEmpty())
+      {
+         return true;
+      }
+      
+      if (this.businessLocals != null && !this.businessLocals.isEmpty())
+      {
+         return true;
+      }
+      return false;
+   }
+   
+   /**
+    * Returns true if this session bean exposes a EJB2.x view. Else
+    * returns false
+    * @return
+    */
+   public boolean hasEJB2xView()
+   {
+      if (this.remote != null && !this.remote.isEmpty())
+      {
+         return true;
+      }
+      if (this.local != null && !this.local.isEmpty())
+      {
+         return true;
+      }
+      return false;
+   }
  
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original, String overridenFile, String overrideFile, boolean mustOverride)
