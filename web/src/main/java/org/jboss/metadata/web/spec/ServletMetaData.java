@@ -150,15 +150,15 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
     public boolean isEnabled() {
         return enabled;
     }
-    
+
     public boolean getEnabledDefault() {
         return enabledDefault;
     }
-    
+
     public boolean getEnabledSet() {
         return enabledSet;
     }
-    
+
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
         enabledSet = true;
