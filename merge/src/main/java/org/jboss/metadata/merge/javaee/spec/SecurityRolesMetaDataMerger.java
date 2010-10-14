@@ -46,7 +46,7 @@ public class SecurityRolesMetaDataMerger {
             for (SecurityRoleMetaData sr : roles0) {
                 SecurityRoleMetaData to = dest.get(sr.getRoleName());
                 if (to != null) {
-                    to.merge(sr, null);
+                    SecurityRoleMetaDataMerger.merge(to, sr, null);
                 } else {
                     dest.add(sr);
                 }
@@ -56,7 +56,7 @@ public class SecurityRolesMetaDataMerger {
             for (SecurityRoleMetaData sr : roles1) {
                 SecurityRoleMetaData to = dest.get(sr.getRoleName());
                 if (to != null) {
-                    to.merge(sr, null);
+                    SecurityRoleMetaDataMerger.merge(to, sr, null);
                 } else {
                     dest.add(sr);
                 }

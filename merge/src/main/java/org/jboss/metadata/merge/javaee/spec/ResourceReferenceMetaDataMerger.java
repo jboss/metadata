@@ -30,16 +30,21 @@ import org.jboss.metadata.merge.javaee.support.ResourceInjectionMetaDataWithDesc
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class ResourceReferenceMetaDataMerger extends ResourceInjectionMetaDataWithDescriptionsMerger {
+public class ResourceReferenceMetaDataMerger {
 
+    public static ResourceReferenceMetaData merge(ResourceReferenceMetaData dest, ResourceReferenceMetaData original) {
+        ResourceReferenceMetaData merged = new ResourceReferenceMetaData();
+        merge(merged, dest, original);
+        return merged;
+    }
     /**
      * Merge the contents of override with original into this.
      *
      * @param override data which overrides original
      * @param original the original data
      */
-    public void merge(ResourceReferenceMetaData dest, ResourceReferenceMetaData override, ResourceReferenceMetaData original) {
-        super.merge(dest, override, original);
+    public static void merge(ResourceReferenceMetaData dest, ResourceReferenceMetaData override, ResourceReferenceMetaData original) {
+        ResourceInjectionMetaDataWithDescriptionsMerger.merge(dest, override, original);
         if (override != null && override.getType() != null)
             dest.setType(override.getType());
         else if (original.getType() != null)

@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.web.spec;
+package org.jboss.metadata.merge.web.spec;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,19 @@ import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
+import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
+import org.jboss.metadata.web.spec.DispatcherType;
+import org.jboss.metadata.web.spec.FilterMappingMetaData;
+import org.jboss.metadata.web.spec.FilterMetaData;
+import org.jboss.metadata.web.spec.FiltersMetaData;
+import org.jboss.metadata.web.spec.ListenerMetaData;
+import org.jboss.metadata.web.spec.ServletMappingMetaData;
+import org.jboss.metadata.web.spec.ServletMetaData;
+import org.jboss.metadata.web.spec.ServletsMetaData;
+import org.jboss.metadata.web.spec.WebCommonMetaData;
+import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
  * Create a merged WebMetaData view from an xml + annotation views
@@ -37,7 +50,7 @@ import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
  * @author Remy Maucherat
  * @version $Revision: 70998 $
  */
-public class AnnotationMergedView {
+public class AnnotationMergedViewMerger {
 
     public static void merge(WebCommonMetaData merged, WebCommonMetaData xml, WebMetaData annotation) {
         // Merge the servlets meta data
@@ -74,12 +87,12 @@ public class AnnotationMergedView {
         EnvironmentRefsGroupMetaData environmentRefsGroup = new EnvironmentRefsGroupMetaData();
         Environment xmlEnv = xml != null ? xml.getJndiEnvironmentRefsGroup() : null;
         Environment annEnv = annotation != null ? annotation.getJndiEnvironmentRefsGroup() : null;
-        environmentRefsGroup.merge(xmlEnv, annEnv, "", "", false);
+        EnvironmentRefsGroupMetaDataMerger.merge(environmentRefsGroup, xmlEnv, annEnv, "", "", false);
         merged.setJndiEnvironmentRefsGroup(environmentRefsGroup);
 
         // Message Destinations
         MessageDestinationsMetaData messageDestinations = new MessageDestinationsMetaData();
-        messageDestinations.merge(xml.getMessageDestinations(), annotation.getMessageDestinations());
+        MessageDestinationsMetaDataMerger.merge(messageDestinations, xml.getMessageDestinations(), annotation.getMessageDestinations());
         merged.setMessageDestinations(messageDestinations);
 
         // merge annotation
@@ -309,7 +322,7 @@ public class AnnotationMergedView {
     }
 
     private static void merge(SecurityRolesMetaData merged, SecurityRolesMetaData xml, SecurityRolesMetaData annotation) {
-        merged.merge(xml, annotation);
+        SecurityRolesMetaDataMerger.merge(merged, xml, annotation);
     }
 
     private static void mergeIn(WebCommonMetaData merged, WebCommonMetaData xml) {

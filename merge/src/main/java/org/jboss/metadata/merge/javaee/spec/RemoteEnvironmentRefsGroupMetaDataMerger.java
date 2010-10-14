@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.merge.javaee.spec;
 
-import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
@@ -33,6 +32,7 @@ import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.merge.javaee.jboss.JBossServiceReferencesMetaDataMerger;
 
 /**
  * References which are only available remote (for application clients).
@@ -97,27 +97,27 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             jbossPersistenceUnitRefs = dest.getPersistenceUnitRefs();
         }
 
-        EJBReferencesMetaData mergedEjbRefs = EJBReferencesMetaData.merge(jbossEjbRefs, ejbRefs, overrideFile, overridenFile,
+        EJBReferencesMetaData mergedEjbRefs = EJBReferencesMetaDataMerger.merge(jbossEjbRefs, ejbRefs, overrideFile, overridenFile,
                 mustOverride);
         if (mergedEjbRefs != null)
             dest.setEjbReferences(mergedEjbRefs);
 
-        ServiceReferencesMetaData mergedServiceRefs = JBossServiceReferencesMetaData.merge(jbossServiceRefs, serviceRefs,
+        ServiceReferencesMetaData mergedServiceRefs = JBossServiceReferencesMetaDataMerger.merge(jbossServiceRefs, serviceRefs,
                 overrideFile, overridenFile);
         if (mergedServiceRefs != null)
             dest.setServiceReferences(mergedServiceRefs);
 
-        ResourceReferencesMetaData mergedResRefs = ResourceReferencesMetaData.merge(jbossResRefs, resRefs, overrideFile,
+        ResourceReferencesMetaData mergedResRefs = ResourceReferencesMetaDataMerger.merge(jbossResRefs, resRefs, overrideFile,
                 overridenFile, mustOverride);
         if (mergedResRefs != null)
             dest.setResourceReferences(mergedResRefs);
 
-        ResourceEnvironmentReferencesMetaData mergedResEnvRefs = ResourceEnvironmentReferencesMetaData.merge(jbossResEnvRefs,
+        ResourceEnvironmentReferencesMetaData mergedResEnvRefs = ResourceEnvironmentReferencesMetaDataMerger.merge(jbossResEnvRefs,
                 resEnvRefs, overrideFile, overridenFile);
         if (mergedResEnvRefs != null)
             dest.setResourceEnvironmentReferences(mergedResEnvRefs);
 
-        MessageDestinationReferencesMetaData mergedMessageDestinationRefs = MessageDestinationReferencesMetaData.merge(
+        MessageDestinationReferencesMetaData mergedMessageDestinationRefs = MessageDestinationReferencesMetaDataMerger.merge(
                 jbossMessageDestinationRefs, messageDestinationRefs, "", "", mustOverride);
         if (mergedMessageDestinationRefs != null)
             dest.setMessageDestinationReferences(mergedMessageDestinationRefs);
@@ -141,7 +141,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
                 for (EnvironmentEntryMetaData entry : envEntries) {
                     EnvironmentEntryMetaData thisEntry = dest.getEnvironmentEntries().get(entry.getEnvEntryName());
                     if (thisEntry != null)
-                        thisEntry.merge(entry, null);
+                        EnvironmentEntryMetaDataMerger.merge(thisEntry, entry, null);
                     else
                         dest.getEnvironmentEntries().add(entry);
                 }
@@ -151,11 +151,11 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
         if (persistenceUnitRefs != null || jbossPersistenceUnitRefs != null) {
             if (dest.getPersistenceUnitRefs() == null)
                 dest.setPersistenceUnitRefs(new PersistenceUnitReferencesMetaData());
-            dest.getPersistenceUnitRefs().merge(jbossPersistenceUnitRefs, persistenceUnitRefs);
+            PersistenceUnitReferencesMetaDataMerger.merge(dest.getPersistenceUnitRefs(), jbossPersistenceUnitRefs, persistenceUnitRefs);
         }
 
         // Fill the annotated refs with the xml descriptor
-        AnnotatedEJBReferencesMetaData annotatedRefs = AnnotatedEJBReferencesMetaData.merge(dest.getEjbReferences(),
+        AnnotatedEJBReferencesMetaData annotatedRefs = AnnotatedEJBReferencesMetaDataMerger.merge(dest.getEjbReferences(),
                 annotatedEjbRefs);
         if (annotatedRefs != null)
             dest.setAnnotatedEjbReferences(annotatedRefs);
@@ -168,7 +168,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             if (augment.getEjbReferences() != null)
                 dest.setEjbReferences(augment.getEjbReferences());
         } else if (augment.getEjbReferences() != null) {
-            dest.getEjbReferences().augment(augment.getEjbReferences(), (main != null) ? main.getEjbReferences() : null,
+            EJBReferencesMetaDataMerger.augment(dest.getEjbReferences(), augment.getEjbReferences(), (main != null) ? main.getEjbReferences() : null,
                     resolveConflicts);
         }
         // Environment entries
@@ -176,7 +176,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             if (augment.getEnvironmentEntries() != null)
                 dest.setEnvironmentEntries(augment.getEnvironmentEntries());
         } else if (augment.getEnvironmentEntries() != null) {
-            dest.getEnvironmentEntries().augment(augment.getEnvironmentEntries(),
+            EnvironmentEntriesMetaDataMerger.augment(dest.getEnvironmentEntries(), augment.getEnvironmentEntries(),
                     (main != null) ? main.getEnvironmentEntries() : null, resolveConflicts);
         }
         // Message destination references
@@ -184,7 +184,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             if (augment.getMessageDestinationReferences() != null)
                 dest.setMessageDestinationReferences(augment.getMessageDestinationReferences());
         } else if (augment.getMessageDestinationReferences() != null) {
-            dest.getMessageDestinationReferences().augment(augment.getMessageDestinationReferences(),
+            MessageDestinationReferencesMetaDataMerger.augment(dest.getMessageDestinationReferences(), augment.getMessageDestinationReferences(),
                     (main != null) ? main.getMessageDestinationReferences() : null, resolveConflicts);
         }
         // Persistence unit references
@@ -192,7 +192,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             if (augment.getPersistenceUnitRefs() != null)
                 dest.setPersistenceUnitRefs(augment.getPersistenceUnitRefs());
         } else if (augment.getPersistenceUnitRefs() != null) {
-            dest.getPersistenceUnitRefs().augment(augment.getPersistenceUnitRefs(),
+            PersistenceUnitReferencesMetaDataMerger.augment(dest.getPersistenceUnitRefs(), augment.getPersistenceUnitRefs(),
                     (main != null) ? main.getPersistenceUnitRefs() : null, resolveConflicts);
         }
         // Post construct
@@ -200,7 +200,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             if (augment.getPostConstructs() != null)
                 dest.setPostConstructs(augment.getPostConstructs());
         } else if (augment.getPostConstructs() != null) {
-            dest.getPostConstructs().augment(augment.getPostConstructs(), (main != null) ? main.getPostConstructs() : null,
+            LifecycleCallbacksMetaDataMerger.augment(dest.getPostConstructs(), augment.getPostConstructs(), (main != null) ? main.getPostConstructs() : null,
                     resolveConflicts);
         }
         // Pre destroy
@@ -208,14 +208,14 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             if (augment.getPreDestroys() != null)
                 dest.setPreDestroys(augment.getPreDestroys());
         } else if (augment.getPreDestroys() != null) {
-            dest.getPreDestroys().augment(augment.getPreDestroys(), (main != null) ? main.getPreDestroys() : null, resolveConflicts);
+            LifecycleCallbacksMetaDataMerger.augment(dest.getPreDestroys(), augment.getPreDestroys(), (main != null) ? main.getPreDestroys() : null, resolveConflicts);
         }
         // Resource environment references
         if (dest.getResourceEnvironmentReferences() == null) {
             if (augment.getResourceEnvironmentReferences() != null)
                 dest.setResourceEnvironmentReferences(augment.getResourceEnvironmentReferences());
         } else if (augment.getResourceEnvironmentReferences() != null) {
-            dest.getResourceEnvironmentReferences().augment(augment.getResourceEnvironmentReferences(),
+            ResourceEnvironmentReferencesMetaDataMerger.augment(dest.getResourceEnvironmentReferences(), augment.getResourceEnvironmentReferences(),
                     (main != null) ? main.getResourceEnvironmentReferences() : null, resolveConflicts);
         }
         // Resource references
@@ -223,14 +223,14 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             if (augment.getResourceReferences() != null)
                 dest.setResourceReferences(augment.getResourceReferences());
         } else if (augment.getResourceReferences() != null) {
-            dest.getResourceReferences().augment(augment.getResourceReferences(),
+            ResourceReferencesMetaDataMerger.augment(dest.getResourceReferences(), augment.getResourceReferences(),
                     (main != null) ? main.getResourceReferences() : null, resolveConflicts);
         }
         // Service reference
         if (dest.getServiceReferences() == null) {
             dest.setServiceReferences(augment.getServiceReferences());
         } else if (augment.getServiceReferences() != null) {
-            dest.getServiceReferences().augment(augment.getServiceReferences(), (main != null) ? main.getServiceReferences() : null,
+            ServiceReferencesMetaDataMerger.augment(dest.getServiceReferences(), augment.getServiceReferences(), (main != null) ? main.getServiceReferences() : null,
                     resolveConflicts);
         }
         // EJB annotated references
@@ -243,7 +243,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             if (augment.getAnnotatedEjbReferences() != null)
                 dest.setAnnotatedEjbReferences(augment.getAnnotatedEjbReferences());
         } else if (augment.getAnnotatedEjbReferences() != null) {
-            dest.getAnnotatedEjbReferences().augment(augment.getAnnotatedEjbReferences(),
+            AnnotatedEJBReferencesMetaDataMerger.augment(dest.getAnnotatedEjbReferences(), augment.getAnnotatedEjbReferences(),
                     (main != null) ? main.getAnnotatedEjbReferences() : null, resolveConflicts);
         }
     }

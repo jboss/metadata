@@ -19,17 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.web.spec;
+package org.jboss.metadata.merge.web.spec;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
-import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
-import org.jboss.metadata.javaee.support.MergeableMetaData;
-import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
+import org.jboss.metadata.web.spec.ServletMetaData;
 
 /**
  * web-app/servlet metadata
@@ -37,202 +33,84 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 84989 $
  */
-public class ServletMetaData extends NamedMetaDataWithDescriptionGroup implements MergeableMetaData<ServletMetaData>,
-        AugmentableMetaData<ServletMetaData> {
-    private static final long serialVersionUID = 1;
+public class ServletMetaDataMerger {
 
-    private static final int loadOnStartupDefault = -1;
-    private static final boolean asyncSupportedDefault = false;
-    private static final boolean enabledDefault = true;
-
-    private String servletClass;
-    private String jspFile;
-    /** The servlet init-params */
-    private List<ParamValueMetaData> initParam;
-    private String loadOnStartup = null;
-    private int loadOnStartupInt = loadOnStartupDefault;
-    private boolean loadOnStartupSet = false;
-    private RunAsMetaData runAs;
-    /** The security role ref */
-    private SecurityRoleRefsMetaData securityRoleRefs;
-    private boolean asyncSupported = asyncSupportedDefault;
-    private boolean asyncSupportedSet = false;
-    private boolean enabled = enabledDefault;
-    private boolean enabledSet = false;
-    private MultipartConfigMetaData multipartConfig;
-
-    public String getServletName() {
-        return getName();
-    }
-
-    public void setServletName(String name) {
-        super.setName(name);
-    }
-
-    public String getServletClass() {
-        return servletClass;
-    }
-
-    public void setServletClass(String servletClass) {
-        this.servletClass = servletClass;
-    }
-
-    public List<ParamValueMetaData> getInitParam() {
-        return initParam;
-    }
-
-    public void setInitParam(List<ParamValueMetaData> initParam) {
-        this.initParam = initParam;
-    }
-
-    public String getJspFile() {
-        return jspFile;
-    }
-
-    public void setJspFile(String jspFile) {
-        this.jspFile = jspFile;
-    }
-
-    public int getLoadOnStartupInt() {
-        return loadOnStartupInt;
-    }
-
-    public void setLoadOnStartupInt(int loadOnStartup) {
-        this.loadOnStartupInt = loadOnStartup;
-        loadOnStartupSet = true;
-    }
-
-    public String getLoadOnStartup() {
-        return loadOnStartup;
-    }
-
-    public void setLoadOnStartup(String loadOnStartup) {
-        this.loadOnStartup = loadOnStartup;
-        try {
-            setLoadOnStartupInt(Integer.parseInt(loadOnStartup));
-        } catch (NumberFormatException e) {
-            setLoadOnStartupInt(0);
-        }
-    }
-
-    public RunAsMetaData getRunAs() {
-        return runAs;
-    }
-
-    public void setRunAs(RunAsMetaData runAs) {
-        this.runAs = runAs;
-    }
-
-    public SecurityRoleRefsMetaData getSecurityRoleRefs() {
-        return securityRoleRefs;
-    }
-
-    public void setSecurityRoleRefs(SecurityRoleRefsMetaData securityRoleRefs) {
-        this.securityRoleRefs = securityRoleRefs;
-    }
-
-    public boolean isAsyncSupported() {
-        return asyncSupported;
-    }
-
-    public void setAsyncSupported(boolean asyncSupported) {
-        this.asyncSupported = asyncSupported;
-        asyncSupportedSet = true;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        enabledSet = true;
-    }
-
-    public MultipartConfigMetaData getMultipartConfig() {
-        return multipartConfig;
-    }
-
-    public void setMultipartConfig(MultipartConfigMetaData multipartConfig) {
-        this.multipartConfig = multipartConfig;
-    }
-
-    public ServletMetaData merge(ServletMetaData original) {
+    public static ServletMetaData merge(ServletMetaData dest, ServletMetaData original) {
         ServletMetaData merged = new ServletMetaData();
-        merged.merge(this, original);
+        merge(merged, dest, original);
         return merged;
     }
 
-    public void merge(ServletMetaData override, ServletMetaData original) {
-        super.merge(override, original);
-        if (override != null && override.servletClass != null)
-            setServletClass(override.servletClass);
-        else if (original != null && original.servletClass != null)
-            setServletClass(original.servletClass);
-        if (override != null && override.jspFile != null)
-            setJspFile(override.jspFile);
-        else if (original != null && original.jspFile != null)
-            setJspFile(original.jspFile);
-        if (override != null && override.initParam != null)
-            setInitParam(override.initParam);
-        else if (original != null && original.initParam != null)
-            setInitParam(original.initParam);
-        if (override != null && override.loadOnStartupInt != loadOnStartupDefault)
-            setLoadOnStartupInt(override.loadOnStartupInt);
-        else if (original != null && original.loadOnStartupInt != loadOnStartupDefault)
-            setLoadOnStartupInt(original.loadOnStartupInt);
-        if (override != null && override.runAs != null)
-            setRunAs(override.runAs);
-        else if (original != null && original.runAs != null)
-            setRunAs(original.runAs);
-        if (override != null && override.securityRoleRefs != null)
-            setSecurityRoleRefs(override.securityRoleRefs);
-        else if (original != null && original.securityRoleRefs != null)
-            setSecurityRoleRefs(original.securityRoleRefs);
-        if (override != null && override.asyncSupported != asyncSupportedDefault)
-            setAsyncSupported(override.asyncSupported);
-        else if (original != null && original.asyncSupported != asyncSupportedDefault)
-            setAsyncSupported(original.asyncSupported);
-        if (override != null && override.enabled != enabledDefault)
-            setEnabled(override.enabled);
-        else if (original != null && original.enabled != enabledDefault)
-            setEnabled(original.enabled);
-        if (override != null && override.multipartConfig != null)
-            setMultipartConfig(override.multipartConfig);
-        else if (original != null && original.multipartConfig != null)
-            setMultipartConfig(original.multipartConfig);
+    public static void merge(ServletMetaData dest, ServletMetaData override, ServletMetaData original) {
+        if (override != null && override.getServletClass() != null)
+            dest.setServletClass(override.getServletClass());
+        else if (original != null && original.getServletClass() != null)
+            dest.setServletClass(original.getServletClass());
+        if (override != null && override.getJspFile() != null)
+            dest.setJspFile(override.getJspFile());
+        else if (original != null && original.getJspFile() != null)
+            dest.setJspFile(original.getJspFile());
+        if (override != null && override.getInitParam() != null)
+            dest.setInitParam(override.getInitParam());
+        else if (original != null && original.getInitParam() != null)
+            dest.setInitParam(original.getInitParam());
+        if (override != null && override.getLoadOnStartupInt() != dest.getLoadOnStartupDefault())
+            dest.setLoadOnStartupInt(override.getLoadOnStartupInt());
+        else if (original != null && original.getLoadOnStartupInt() != dest.getLoadOnStartupDefault())
+            dest.setLoadOnStartupInt(original.getLoadOnStartupInt());
+        if (override != null && override.getRunAs() != null)
+            dest.setRunAs(override.getRunAs());
+        else if (original != null && original.getRunAs() != null)
+            dest.setRunAs(original.getRunAs());
+        if (override != null && override.getSecurityRoleRefs() != null)
+            dest.setSecurityRoleRefs(override.getSecurityRoleRefs());
+        else if (original != null && original.getSecurityRoleRefs() != null)
+            dest.setSecurityRoleRefs(original.getSecurityRoleRefs());
+        if (override != null && override.isAsyncSupported() != dest.getAsyncSupportedDefault())
+            dest.setAsyncSupported(override.isAsyncSupported());
+        else if (original != null && original.isAsyncSupported() != dest.getAsyncSupportedDefault())
+            dest.setAsyncSupported(original.isAsyncSupported());
+        if (override != null && override.isEnabled() != dest.getEnabledDefault())
+            dest.setEnabled(override.isEnabled());
+        else if (original != null && original.isEnabled() != dest.getEnabledDefault())
+            dest.setEnabled(original.isEnabled());
+        if (override != null && override.getMultipartConfig() != null)
+            dest.setMultipartConfig(override.getMultipartConfig());
+        else if (original != null && original.getMultipartConfig() != null)
+            dest.setMultipartConfig(original.getMultipartConfig());
     }
 
-    public void augment(ServletMetaData webFragmentMetaData, ServletMetaData webMetaData, boolean resolveConflicts) {
+    public static void augment(ServletMetaData dest, ServletMetaData webFragmentMetaData, ServletMetaData webMetaData,
+            boolean resolveConflicts) {
         // Servlet class
-        if (getServletClass() == null) {
-            setServletClass(webFragmentMetaData.getServletClass());
+        if (dest.getServletClass() == null) {
+            dest.setServletClass(webFragmentMetaData.getServletClass());
         } else if (webFragmentMetaData.getServletClass() != null) {
-            if (!resolveConflicts && !getServletClass().equals(webFragmentMetaData.getServletClass())
+            if (!resolveConflicts && !dest.getServletClass().equals(webFragmentMetaData.getServletClass())
                     && (webMetaData == null || webMetaData.getServletClass() == null)) {
-                throw new IllegalStateException("Unresolved conflict on servlet class: " + getServletClass());
+                throw new IllegalStateException("Unresolved conflict on servlet class: " + dest.getServletClass());
             }
         }
         // Jsp file
-        if (getJspFile() == null) {
-            setJspFile(webFragmentMetaData.getJspFile());
+        if (dest.getJspFile() == null) {
+            dest.setJspFile(webFragmentMetaData.getJspFile());
         } else if (webFragmentMetaData.getJspFile() != null) {
-            if (!resolveConflicts && !getJspFile().equals(webFragmentMetaData.getJspFile())
+            if (!resolveConflicts && !dest.getJspFile().equals(webFragmentMetaData.getJspFile())
                     && (webMetaData == null || webMetaData.getJspFile() == null)) {
-                throw new IllegalStateException("Unresolved conflict on jsp file: " + getJspFile());
+                throw new IllegalStateException("Unresolved conflict on jsp file: " + dest.getJspFile());
             }
         }
         // Init params
-        if (getInitParam() == null) {
-            setInitParam(webFragmentMetaData.getInitParam());
+        if (dest.getInitParam() == null) {
+            dest.setInitParam(webFragmentMetaData.getInitParam());
         } else if (webFragmentMetaData.getInitParam() != null) {
             List<ParamValueMetaData> mergedInitParams = new ArrayList<ParamValueMetaData>();
-            for (ParamValueMetaData initParam : getInitParam()) {
+            for (ParamValueMetaData initParam : dest.getInitParam()) {
                 mergedInitParams.add(initParam);
             }
             for (ParamValueMetaData initParam : webFragmentMetaData.getInitParam()) {
                 boolean found = false;
-                for (ParamValueMetaData check : getInitParam()) {
+                for (ParamValueMetaData check : dest.getInitParam()) {
                     if (check.getParamName().equals(initParam.getParamName())) {
                         found = true;
                         // Check for a conflict
@@ -257,26 +135,26 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup implement
                 if (!found)
                     mergedInitParams.add(initParam);
             }
-            setInitParam(mergedInitParams);
+            dest.setInitParam(mergedInitParams);
         }
         // Load on startup
-        if (!loadOnStartupSet) {
-            if (webFragmentMetaData.loadOnStartupSet) {
-                setLoadOnStartup(webFragmentMetaData.getLoadOnStartup());
+        if (!dest.getLoadOnStartupSet()) {
+            if (webFragmentMetaData.getLoadOnStartupSet()) {
+                dest.setLoadOnStartup(webFragmentMetaData.getLoadOnStartup());
             }
         } else {
-            if (!resolveConflicts && webFragmentMetaData.loadOnStartupSet
-                    && (getLoadOnStartup() != webFragmentMetaData.getLoadOnStartup())
-                    && (webMetaData == null || !webMetaData.loadOnStartupSet)) {
+            if (!resolveConflicts && webFragmentMetaData.getLoadOnStartupSet()
+                    && (dest.getLoadOnStartup() != webFragmentMetaData.getLoadOnStartup())
+                    && (webMetaData == null || !webMetaData.getLoadOnStartupSet())) {
                 throw new IllegalStateException("Unresolved conflict on load on startup");
             }
         }
         // Run as
-        if (getRunAs() == null) {
-            setRunAs(webFragmentMetaData.getRunAs());
+        if (dest.getRunAs() == null) {
+            dest.setRunAs(webFragmentMetaData.getRunAs());
         } else if (webFragmentMetaData.getRunAs() != null) {
-            if (!resolveConflicts && getRunAs().getRoleName() != null
-                    && !getRunAs().getRoleName().equals(webFragmentMetaData.getRunAs().getRoleName())) {
+            if (!resolveConflicts && dest.getRunAs().getRoleName() != null
+                    && !dest.getRunAs().getRoleName().equals(webFragmentMetaData.getRunAs().getRoleName())) {
                 if (webMetaData == null || webMetaData.getRunAs() == null) {
                     throw new IllegalStateException("Unresolved conflict on run as role name");
                 }
@@ -284,12 +162,12 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup implement
 
         }
         // Security role ref
-        if (getSecurityRoleRefs() == null) {
-            setSecurityRoleRefs(webFragmentMetaData.getSecurityRoleRefs());
+        if (dest.getSecurityRoleRefs() == null) {
+            dest.setSecurityRoleRefs(webFragmentMetaData.getSecurityRoleRefs());
         } else if (webFragmentMetaData.getSecurityRoleRefs() != null) {
             for (SecurityRoleRefMetaData securityRoleRef : webFragmentMetaData.getSecurityRoleRefs()) {
-                if (getSecurityRoleRefs().containsKey(securityRoleRef.getKey())) {
-                    SecurityRoleRefMetaData check = getSecurityRoleRefs().get(securityRoleRef.getKey());
+                if (dest.getSecurityRoleRefs().containsKey(securityRoleRef.getKey())) {
+                    SecurityRoleRefMetaData check = dest.getSecurityRoleRefs().get(securityRoleRef.getKey());
                     if (!resolveConflicts && check.getRoleLink() != null
                             && !check.getRoleLink().equals(securityRoleRef.getRoleLink())) {
                         if (webMetaData == null || webMetaData.getSecurityRoleRefs() == null
@@ -298,54 +176,40 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup implement
                         }
                     }
                 } else {
-                    getSecurityRoleRefs().add(securityRoleRef);
+                    dest.getSecurityRoleRefs().add(securityRoleRef);
                 }
             }
         }
         // Async supported
-        if (!asyncSupportedSet) {
-            if (webFragmentMetaData.asyncSupportedSet) {
-                setAsyncSupported(webFragmentMetaData.isAsyncSupported());
+        if (!dest.getAsyncSupportedSet()) {
+            if (webFragmentMetaData.getAsyncSupportedSet()) {
+                dest.setAsyncSupported(webFragmentMetaData.isAsyncSupported());
             }
         } else {
-            if (!resolveConflicts && webFragmentMetaData.asyncSupportedSet
-                    && (isAsyncSupported() != webFragmentMetaData.isAsyncSupported())
-                    && (webMetaData == null || !webMetaData.asyncSupportedSet)) {
+            if (!resolveConflicts && webFragmentMetaData.getAsyncSupportedSet()
+                    && (dest.isAsyncSupported() != webFragmentMetaData.isAsyncSupported())
+                    && (webMetaData == null || !webMetaData.getAsyncSupportedSet())) {
                 throw new IllegalStateException("Unresolved conflict on async supported");
             }
         }
         // Enabled
-        if (!enabledSet) {
-            if (webFragmentMetaData.enabledSet) {
-                setEnabled(webFragmentMetaData.isEnabled());
+        if (!dest.getEnabledSet()) {
+            if (webFragmentMetaData.getEnabledSet()) {
+                dest.setEnabled(webFragmentMetaData.isEnabled());
             }
         } else {
-            if (!resolveConflicts && webFragmentMetaData.enabledSet && (isEnabled() != webFragmentMetaData.isEnabled())
-                    && (webMetaData == null || !webMetaData.enabledSet)) {
+            if (!resolveConflicts && webFragmentMetaData.getEnabledSet()
+                    && (dest.isEnabled() != webFragmentMetaData.isEnabled())
+                    && (webMetaData == null || !webMetaData.getEnabledSet())) {
                 throw new IllegalStateException("Unresolved conflict on enabled");
             }
         }
         // Multipart config
-        if (getMultipartConfig() == null) {
-            setMultipartConfig(webFragmentMetaData.getMultipartConfig());
+        if (dest.getMultipartConfig() == null) {
+            dest.setMultipartConfig(webFragmentMetaData.getMultipartConfig());
         } else if (webFragmentMetaData.getMultipartConfig() != null) {
-            getMultipartConfig().augment(webFragmentMetaData.getMultipartConfig(), webMetaData.getMultipartConfig(),
+            dest.getMultipartConfig().augment(webFragmentMetaData.getMultipartConfig(), webMetaData.getMultipartConfig(),
                     resolveConflicts);
         }
-    }
-
-    public String toString() {
-        StringBuilder tmp = new StringBuilder("ServletMetaData(id=");
-        tmp.append(getId());
-        tmp.append(",servletClass=");
-        tmp.append(servletClass);
-        tmp.append(",jspFile=");
-        tmp.append(jspFile);
-        tmp.append(",loadOnStartup=");
-        tmp.append(loadOnStartup);
-        tmp.append(",runAs=");
-        tmp.append(runAs);
-        tmp.append(')');
-        return tmp.toString();
     }
 }

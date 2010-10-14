@@ -80,7 +80,7 @@ public class EnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRefsGro
         if (dest.getDataSources() == null) {
             dest.setDataSources(augmentE.getDataSources());
         } else if (augmentE.getDataSources() != null) {
-            dest.getDataSources().augment(augmentE.getDataSources(), (mainE != null) ? mainE.getDataSources() : null,
+            DataSourcesMetaDataMerger.augment(dest.getDataSources(), augmentE.getDataSources(), (mainE != null) ? mainE.getDataSources() : null,
                     resolveConflicts);
         }
 
@@ -89,7 +89,7 @@ public class EnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRefsGro
             if (augmentE.getEjbLocalReferences() != null)
                 dest.setEjbLocalReferences(augmentE.getEjbLocalReferences());
         } else if (augmentE.getEjbLocalReferences() != null) {
-            dest.getEjbLocalReferences().augment(augmentE.getEjbLocalReferences(),
+            EJBLocalReferencesMetaDataMerger.augment(dest.getEjbLocalReferences(), augmentE.getEjbLocalReferences(),
                     (mainE != null) ? mainE.getEjbLocalReferences() : null, resolveConflicts);
         }
 
@@ -98,7 +98,7 @@ public class EnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRefsGro
             if (augmentE.getPersistenceContextRefs() != null)
                 dest.setPersistenceContextRefs(augmentE.getPersistenceContextRefs());
         } else if (augmentE.getPersistenceContextRefs() != null) {
-            dest.getPersistenceContextRefs().augment(augmentE.getPersistenceContextRefs(),
+            PersistenceContextReferencesMetaDataMerger.augment(dest.getPersistenceContextRefs(), augmentE.getPersistenceContextRefs(),
                     (mainE != null) ? mainE.getPersistenceContextRefs() : null, resolveConflicts);
         }
 

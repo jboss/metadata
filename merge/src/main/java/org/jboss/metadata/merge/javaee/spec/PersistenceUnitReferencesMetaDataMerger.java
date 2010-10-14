@@ -33,11 +33,11 @@ import org.jboss.metadata.merge.MergeUtil;
  */
 public class PersistenceUnitReferencesMetaDataMerger {
 
-    public void merge(PersistenceUnitReferencesMetaData dest, PersistenceUnitReferencesMetaData override, PersistenceUnitReferencesMetaData original) {
+    public static void merge(PersistenceUnitReferencesMetaData dest, PersistenceUnitReferencesMetaData override, PersistenceUnitReferencesMetaData original) {
         MergeUtil.merge(dest, override, original);
     }
 
-    public void augment(PersistenceUnitReferencesMetaData dest, PersistenceUnitReferencesMetaData augment, PersistenceUnitReferencesMetaData main,
+    public static void augment(PersistenceUnitReferencesMetaData dest, PersistenceUnitReferencesMetaData augment, PersistenceUnitReferencesMetaData main,
             boolean resolveConflicts) {
         for (PersistenceUnitReferenceMetaData persistenceUnitRef : augment) {
             if (dest.containsKey(persistenceUnitRef.getKey())) {
@@ -45,7 +45,7 @@ public class PersistenceUnitReferencesMetaDataMerger {
                     throw new IllegalStateException("Unresolved conflict on persistence unit reference named: "
                             + persistenceUnitRef.getKey());
                 } else {
-                    dest.get(persistenceUnitRef.getKey()).augment(persistenceUnitRef,
+                    ResourceInjectionMetaDataMerger.augment(dest.get(persistenceUnitRef.getKey()), persistenceUnitRef,
                             (main != null) ? main.get(persistenceUnitRef.getKey()) : null, resolveConflicts);
                 }
             } else {

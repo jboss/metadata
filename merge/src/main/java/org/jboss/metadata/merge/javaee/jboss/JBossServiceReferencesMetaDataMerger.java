@@ -27,6 +27,7 @@ import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.merge.javaee.spec.ServiceReferenceMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.ServiceReferencesMetaDataMerger;
 
 /**
@@ -60,7 +61,7 @@ public class JBossServiceReferencesMetaDataMerger extends ServiceReferencesMetaD
                     jbossServiceRef = override.get(serviceRef.getServiceRefName());
                 if (jbossServiceRef == null)
                     jbossServiceRef = new JBossServiceReferenceMetaData();
-                jbossServiceRef = jbossServiceRef.merge(serviceRef);
+                jbossServiceRef = ServiceReferenceMetaDataMerger.merge(jbossServiceRef, serviceRef);
                 merged.add(jbossServiceRef);
             }
         }

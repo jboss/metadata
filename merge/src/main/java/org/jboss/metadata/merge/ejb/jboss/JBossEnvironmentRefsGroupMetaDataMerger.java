@@ -31,6 +31,9 @@ import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
+import org.jboss.metadata.merge.javaee.spec.DataSourcesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.EJBLocalReferencesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.PersistenceContextReferencesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.RemoteEnvironmentRefsGroupMetaDataMerger;
 
 /**
@@ -96,7 +99,7 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
             jbossPersistenceContextRefs = dest.getPersistenceContextRefs();
         }
 
-        EJBLocalReferencesMetaData mergedEjbLocalRefs = EJBLocalReferencesMetaData.merge(jbossEjbLocalRefs, ejbLocalRefs,
+        EJBLocalReferencesMetaData mergedEjbLocalRefs = EJBLocalReferencesMetaDataMerger.merge(jbossEjbLocalRefs, ejbLocalRefs,
                 overridenFile, overrideFile);
         if (mergedEjbLocalRefs != null)
             dest.setEjbLocalReferences(mergedEjbLocalRefs);
@@ -115,7 +118,7 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
             }
         }
 
-        PersistenceContextReferencesMetaData mergedPcRefs = PersistenceContextReferencesMetaData.merge(
+        PersistenceContextReferencesMetaData mergedPcRefs = PersistenceContextReferencesMetaDataMerger.merge(
                 jbossPersistenceContextRefs, specPersistenceContextRefs, overridenFile, overrideFile);
         if (mergedPcRefs != null)
             dest.setPersistenceContextRefs(mergedPcRefs);
@@ -144,17 +147,17 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
             overrideDataSources = override.getDataSources();
         }
 
-        EJBLocalReferencesMetaData mergedEjbLocalRefs = EJBLocalReferencesMetaData.merge(overrideLocalRefs, originalLocalRefs,
+        EJBLocalReferencesMetaData mergedEjbLocalRefs = EJBLocalReferencesMetaDataMerger.merge(overrideLocalRefs, originalLocalRefs,
                 null, "jboss.xml");
         if (mergedEjbLocalRefs != null)
             dest.setEjbLocalReferences(mergedEjbLocalRefs);
 
-        PersistenceContextReferencesMetaData mergedPctxRefs = PersistenceContextReferencesMetaData.merge(overridePctxRefs,
+        PersistenceContextReferencesMetaData mergedPctxRefs = PersistenceContextReferencesMetaDataMerger.merge(overridePctxRefs,
                 originalPctxRefs, null, "jboss.xml");
         if (mergedPctxRefs != null)
             dest.setPersistenceContextRefs(mergedPctxRefs);
 
-        DataSourcesMetaData mergedDataSources = DataSourcesMetaData.merge(overrideDataSources, originalDataSources, null,
+        DataSourcesMetaData mergedDataSources = DataSourcesMetaDataMerger.merge(overrideDataSources, originalDataSources, null,
                 "jboss.xml");
         if (mergedDataSources != null)
             dest.setDataSources(mergedDataSources);

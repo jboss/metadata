@@ -73,7 +73,7 @@ public class JBossServiceReferenceMetaDataMerger extends ServiceReferenceMetaDat
                 dest.setJBossPortComponentRef(new ArrayList<JBossPortComponentRef>());
             for (PortComponentRef ref : original.getPortComponentRef()) {
                 JBossPortComponentRef jref = new JBossPortComponentRef();
-                jref.merge(null, ref);
+                JBossPortComponentRefMerger.merge(jref, null, ref);
                 dest.getJBossPortComponentRef().add(jref);
             }
         }
@@ -94,7 +94,7 @@ public class JBossServiceReferenceMetaDataMerger extends ServiceReferenceMetaDat
                 }
                 if (jref == null)
                     jref = new JBossPortComponentRef();
-                jref.merge(null, ref);
+                JBossPortComponentRefMerger.merge(jref, null, ref);
                 if (shouldAdd)
                     dest.getJBossPortComponentRef().add(jref);
             }

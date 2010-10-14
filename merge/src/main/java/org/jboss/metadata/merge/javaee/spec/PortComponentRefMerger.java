@@ -35,11 +35,11 @@ public class PortComponentRefMerger extends IdMetaDataImplMerger {
 
     public static PortComponentRef merge(PortComponentRef dest, PortComponentRef ref) {
         PortComponentRef merged = new PortComponentRef();
-        merged.merge(dest, ref);
+        PortComponentRefMerger.merge(merged, dest, ref);
         return merged;
     }
 
-    public void merge(PortComponentRef dest, PortComponentRef override, PortComponentRef original) {
+    public static void merge(PortComponentRef dest, PortComponentRef override, PortComponentRef original) {
         if (override != null && override.getServiceEndpointInterface() != null)
             dest.setServiceEndpointInterface(override.getServiceEndpointInterface());
         else if (original != null && original.getServiceEndpointInterface() != null)

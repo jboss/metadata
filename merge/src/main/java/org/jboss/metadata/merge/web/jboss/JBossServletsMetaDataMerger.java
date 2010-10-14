@@ -19,9 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.web.jboss;
+package org.jboss.metadata.merge.web.jboss;
 
-import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+import org.jboss.metadata.web.jboss.JBossServletMetaData;
+import org.jboss.metadata.web.jboss.JBossServletsMetaData;
 import org.jboss.metadata.web.spec.ServletMetaData;
 import org.jboss.metadata.web.spec.ServletsMetaData;
 
@@ -31,9 +32,7 @@ import org.jboss.metadata.web.spec.ServletsMetaData;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 66673 $
  */
-public class JBossServletsMetaData extends AbstractMappedMetaData<JBossServletMetaData> {
-    private static final long serialVersionUID = 1;
-
+public class JBossServletsMetaDataMerger {
     public static JBossServletsMetaData merge(JBossServletsMetaData override, ServletsMetaData original) {
         JBossServletsMetaData merged = new JBossServletsMetaData();
         if (override == null && original == null)
@@ -44,11 +43,12 @@ public class JBossServletsMetaData extends AbstractMappedMetaData<JBossServletMe
                 String key = smd.getKey();
                 if (override != null && override.containsKey(key)) {
                     JBossServletMetaData overrideSMD = override.get(key);
-                    JBossServletMetaData jbs = overrideSMD.merge(smd);
+                    JBossServletMetaData jbs = new JBossServletMetaData();
+                    JBossServletMetaDataMerger.merge(jbs, overrideSMD, smd);
                     merged.add(jbs);
                 } else {
                     JBossServletMetaData jbs = new JBossServletMetaData();
-                    jbs.merge(null, smd);
+                    JBossServletMetaDataMerger.merge(jbs, null, smd);
                     merged.add(jbs);
                 }
             }
@@ -65,9 +65,5 @@ public class JBossServletsMetaData extends AbstractMappedMetaData<JBossServletMe
         }
 
         return merged;
-    }
-
-    public JBossServletsMetaData() {
-        super("jboss-web app servlets");
     }
 }

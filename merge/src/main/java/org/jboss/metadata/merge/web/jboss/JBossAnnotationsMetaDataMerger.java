@@ -19,9 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.web.jboss;
+package org.jboss.metadata.merge.web.jboss;
 
-import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+import org.jboss.metadata.web.jboss.JBossAnnotationMetaData;
+import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
 import org.jboss.metadata.web.spec.AnnotationMetaData;
 import org.jboss.metadata.web.spec.AnnotationsMetaData;
 
@@ -29,12 +30,7 @@ import org.jboss.metadata.web.spec.AnnotationsMetaData;
  * @author Remy Maucherat
  * @version $Revision: 65943 $
  */
-public class JBossAnnotationsMetaData extends AbstractMappedMetaData<JBossAnnotationMetaData> {
-    private static final long serialVersionUID = 1;
-
-    public JBossAnnotationsMetaData() {
-        super("jboss web app class annotations");
-    }
+public class JBossAnnotationsMetaDataMerger {
 
     public static JBossAnnotationsMetaData merge(JBossAnnotationsMetaData override, AnnotationsMetaData original) {
         JBossAnnotationsMetaData merged = new JBossAnnotationsMetaData();
@@ -46,11 +42,11 @@ public class JBossAnnotationsMetaData extends AbstractMappedMetaData<JBossAnnota
                 String key = ann.getKey();
                 if (override != null && override.containsKey(key)) {
                     JBossAnnotationMetaData overrideANN = override.get(key);
-                    JBossAnnotationMetaData jba = overrideANN.merge(ann);
+                    JBossAnnotationMetaData jba = JBossAnnotationMetaDataMerger.merge(overrideANN, ann);
                     merged.add(jba);
                 } else {
                     JBossAnnotationMetaData jba = new JBossAnnotationMetaData();
-                    jba.merge(null, ann);
+                    JBossAnnotationMetaDataMerger.merge(jba, null, ann);
                     merged.add(jba);
                 }
             }

@@ -19,8 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.web.jboss;
+package org.jboss.metadata.merge.web.jboss;
 
+import org.jboss.metadata.merge.javaee.support.NamedMetaDataMerger;
+import org.jboss.metadata.web.jboss.JBossAnnotationMetaData;
 import org.jboss.metadata.web.spec.AnnotationMetaData;
 
 /**
@@ -30,30 +32,28 @@ import org.jboss.metadata.web.spec.AnnotationMetaData;
  * @author Remy Maucherat
  * @version $Revision: 83549 $
  */
-public class JBossAnnotationMetaData extends AnnotationMetaData {
-    private static final long serialVersionUID = 1;
-
-    public JBossAnnotationMetaData merge(AnnotationMetaData original) {
+public class JBossAnnotationMetaDataMerger {
+    public static JBossAnnotationMetaData merge(JBossAnnotationMetaData dest, AnnotationMetaData original) {
         JBossAnnotationMetaData merged = new JBossAnnotationMetaData();
-        merged.merge(this, original);
+        merge(merged, dest, original);
         return merged;
     }
 
-    public void merge(JBossAnnotationMetaData override, AnnotationMetaData original) {
-        super.merge(override, original);
+    public static void merge(JBossAnnotationMetaData dest, JBossAnnotationMetaData override, AnnotationMetaData original) {
+        NamedMetaDataMerger.merge(dest, override, original);
 
         if (override != null && override.getServletSecurity() != null)
-            setServletSecurity(override.getServletSecurity());
+            dest.setServletSecurity(override.getServletSecurity());
         else if (original != null && original.getServletSecurity() != null)
-            setServletSecurity(original.getServletSecurity());
+            dest.setServletSecurity(original.getServletSecurity());
         if (override != null && override.getRunAs() != null)
-            setRunAs(override.getRunAs());
+            dest.setRunAs(override.getRunAs());
         else if (original != null && original.getRunAs() != null)
-            setRunAs(original.getRunAs());
+            dest.setRunAs(original.getRunAs());
         if (override != null && override.getMultipartConfig() != null)
-            setMultipartConfig(override.getMultipartConfig());
+            dest.setMultipartConfig(override.getMultipartConfig());
         else if (original != null && original.getMultipartConfig() != null)
-            setMultipartConfig(original.getMultipartConfig());
+            dest.setMultipartConfig(original.getMultipartConfig());
 
     }
 }

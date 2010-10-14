@@ -19,24 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.merge.web.jboss;
+package org.jboss.metadata.merge.web.spec;
 
-import org.jboss.metadata.merge.web.spec.ServletMetaDataMerger;
-import org.jboss.metadata.web.jboss.JBossServletMetaData;
-import org.jboss.metadata.web.spec.ServletMetaData;
+import org.jboss.metadata.web.spec.AnnotationMetaData;
+import org.jboss.metadata.web.spec.AnnotationsMetaData;
 
 /**
- * jboss-web/servlet metadata
- *
- * @author Scott.Stark@jboss.org
- * @version $Revision: 83549 $
+ * @author Remy Maucherat
+ * @version $Revision: 65943 $
  */
-public class JBossServletMetaDataMerger {
-    public static void merge(JBossServletMetaData dest, JBossServletMetaData override, ServletMetaData original) {
-        ServletMetaDataMerger.merge(dest, override, original);
-        if (override != null && override.getRunAsPrincipal() != null)
-            dest.setRunAsPrincipal(override.getRunAsPrincipal());
-        if (override != null && override.getServletSecurity() != null)
-            dest.setServletSecurity(override.getServletSecurity());
+public class AnnotationsMetaDataMerger {
+
+    public static void augment(AnnotationsMetaData dest, AnnotationsMetaData webFragmentMetaData,
+            AnnotationsMetaData webMetaData, boolean resolveConflicts) {
+        for (AnnotationMetaData annotationMetaData : webFragmentMetaData) {
+            if (dest.containsKey(annotationMetaData.getKey())) {
+                continue;
+            } else {
+                dest.add(annotationMetaData);
+            }
+        }
     }
+
 }

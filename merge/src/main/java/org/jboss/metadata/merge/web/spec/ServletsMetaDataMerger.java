@@ -19,29 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.web.spec;
+package org.jboss.metadata.merge.web.spec;
 
-import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.AugmentableMetaData;
+import org.jboss.metadata.web.spec.ServletMetaData;
+import org.jboss.metadata.web.spec.ServletsMetaData;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 65943 $
  */
-public class ServletsMetaData extends AbstractMappedMetaData<ServletMetaData> implements AugmentableMetaData<ServletsMetaData> {
-    private static final long serialVersionUID = 1;
-
-    public ServletsMetaData() {
-        super("web app servlets");
-    }
-
-    public void augment(ServletsMetaData webFragmentMetaData, ServletsMetaData webMetaData, boolean resolveConflicts) {
+public class ServletsMetaDataMerger {
+    public static void augment(ServletsMetaData dest, ServletsMetaData webFragmentMetaData, ServletsMetaData webMetaData, boolean resolveConflicts) {
         for (ServletMetaData servletMetaData : webFragmentMetaData) {
-            if (containsKey(servletMetaData.getKey())) {
-                get(servletMetaData.getKey()).augment(servletMetaData,
+            if (dest.containsKey(servletMetaData.getKey())) {
+                ServletMetaDataMerger.augment(dest.get(servletMetaData.getKey()), servletMetaData,
                         (webMetaData != null) ? webMetaData.get(servletMetaData.getKey()) : null, resolveConflicts);
             } else {
-                add(servletMetaData);
+                dest.add(servletMetaData);
             }
         }
     }

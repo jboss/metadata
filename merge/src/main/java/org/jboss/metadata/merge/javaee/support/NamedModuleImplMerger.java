@@ -37,7 +37,7 @@ public abstract class NamedModuleImplMerger extends IdMetaDataImplWithDescriptio
 
     public void merge(NamedModuleImpl dest, NamedModuleImpl override, NamedModuleImpl original) {
         super.merge(dest, override, original);
-        dest.mergeModuleName(override, original);
+        mergeModuleName(dest, override, original);
     }
 
     public void mergeModuleName(NamedModule dest, NamedModule override, NamedModule original) {

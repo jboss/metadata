@@ -23,7 +23,6 @@ package org.jboss.metadata.merge.javaee.spec;
 
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
 
 /**
  * PersistenceContextReferencesMetaData.
@@ -31,7 +30,7 @@ import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class PersistenceContextReferencesMetaDataMerger  {
+public class PersistenceContextReferencesMetaDataMerger {
     public static PersistenceContextReferencesMetaData merge(PersistenceContextReferencesMetaData override,
             PersistenceContextReferencesMetaData overriden, String overridenFile, String overrideFile) {
         if (override == null && overriden == null)
@@ -41,19 +40,75 @@ public class PersistenceContextReferencesMetaDataMerger  {
             return overriden;
 
         PersistenceContextReferencesMetaData merged = new PersistenceContextReferencesMetaData();
-        return JavaEEMetaDataUtil.merge(merged, overriden, override, "persistence-context-ref", overridenFile, overrideFile,
-                false);
+        return merge(merged, overriden, override, "persistence-context-ref", overridenFile, overrideFile, false);
     }
 
-    public void augment(PersistenceContextReferencesMetaData dest, PersistenceContextReferencesMetaData augment, PersistenceContextReferencesMetaData main,
-            boolean resolveConflicts) {
+    /**
+     * From avaEEMetaDataUtil.java
+     */
+    private static PersistenceContextReferencesMetaData merge(PersistenceContextReferencesMetaData merged,
+            PersistenceContextReferencesMetaData overriden, PersistenceContextReferencesMetaData mapped, String context,
+            String overridenFile, String overrideFile, boolean mustOverride) {
+        if (merged == null)
+            throw new IllegalArgumentException("Null merged");
+
+        // Nothing to do
+        if (overriden == null && mapped == null)
+            return merged;
+
+        // No override
+        if (overriden == null || overriden.isEmpty()) {
+            // There are no overrides and no overriden
+            // Note: it has been really silly to call upon merge, but allas
+            if (mapped == null)
+                return merged;
+
+            if (mapped.isEmpty() == false && mustOverride)
+                throw new IllegalStateException(overridenFile + " has no " + context + "s but " + overrideFile + " has "
+                        + mapped.keySet());
+            if (mapped != merged)
+                merged.addAll(mapped);
+            return merged;
+        }
+
+        // Wolf: I want to maintain the order of originals (/ override)
+        // Process the originals
+        for (PersistenceContextReferenceMetaData original : overriden) {
+            String key = original.getKey();
+            if (mapped != null && mapped.containsKey(key)) {
+                PersistenceContextReferenceMetaData override = mapped.get(key);
+                PersistenceContextReferenceMetaData tnew = PersistenceContextReferenceMetaDataMerger.merge(override, original);
+                merged.add(tnew);
+            } else {
+                merged.add(original);
+            }
+        }
+
+        // Process the remaining overrides
+        if (mapped != null) {
+            for (PersistenceContextReferenceMetaData override : mapped) {
+                String key = override.getKey();
+                if (merged.containsKey(key))
+                    continue;
+                if (mustOverride)
+                    throw new IllegalStateException(key + " in " + overrideFile + ", but not in " + overridenFile);
+                merged.add(override);
+            }
+        }
+
+        return merged;
+    }
+
+    public static void augment(PersistenceContextReferencesMetaData dest, PersistenceContextReferencesMetaData augment,
+            PersistenceContextReferencesMetaData main, boolean resolveConflicts) {
         for (PersistenceContextReferenceMetaData persistenceContextReference : augment) {
             if (dest.containsKey(persistenceContextReference.getKey())) {
                 if (!resolveConflicts && (main == null || !main.containsKey(persistenceContextReference.getKey()))) {
                     throw new IllegalStateException("Unresolved conflict on persistence context reference named: "
                             + persistenceContextReference.getKey());
                 } else {
-                    dest.get(persistenceContextReference.getKey()).augment(persistenceContextReference,
+                    PersistenceContextReferenceMetaDataMerger.augment(dest.get(persistenceContextReference.getKey()),
+                            persistenceContextReference,
                             (main != null) ? main.get(persistenceContextReference.getKey()) : null, resolveConflicts);
                 }
             } else {

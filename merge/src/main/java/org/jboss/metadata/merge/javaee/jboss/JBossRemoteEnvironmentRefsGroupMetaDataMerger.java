@@ -31,7 +31,12 @@ import org.jboss.metadata.javaee.spec.RemoteEnvironment;
 import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.merge.javaee.spec.EJBReferencesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.MessageDestinationReferencesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.RemoteEnvironmentRefsGroupMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.ResourceEnvironmentReferencesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.ResourceReferencesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.ServiceReferencesMetaDataMerger;
 
 /**
  * JBoss specifics for remote references.
@@ -86,27 +91,27 @@ public class JBossRemoteEnvironmentRefsGroupMetaDataMerger extends RemoteEnviron
             jbossMessageDestinationRefs = jbossEnvironmentRefsGroup.getMessageDestinationReferences();
         }
 
-        EJBReferencesMetaData mergedEjbRefs = EJBReferencesMetaData.merge(jbossEjbRefs, ejbRefs, overridenFile, overrideFile,
+        EJBReferencesMetaData mergedEjbRefs = EJBReferencesMetaDataMerger.merge(jbossEjbRefs, ejbRefs, overridenFile, overrideFile,
                 mustOverride);
         if (mergedEjbRefs != null)
             merged.setEjbReferences(mergedEjbRefs);
 
-        ServiceReferencesMetaData mergedServiceRefs = ServiceReferencesMetaData.merge(jbossServiceRefs, serviceRefs,
+        ServiceReferencesMetaData mergedServiceRefs = ServiceReferencesMetaDataMerger.merge(jbossServiceRefs, serviceRefs,
                 overridenFile, overrideFile);
         if (mergedServiceRefs != null)
             merged.setServiceReferences(mergedServiceRefs);
 
-        ResourceReferencesMetaData mergedResRefs = ResourceReferencesMetaData.merge(jbossResRefs, resRefs, overridenFile,
+        ResourceReferencesMetaData mergedResRefs = ResourceReferencesMetaDataMerger.merge(jbossResRefs, resRefs, overridenFile,
                 overrideFile, mustOverride);
         if (mergedResRefs != null)
             merged.setResourceReferences(mergedResRefs);
 
-        ResourceEnvironmentReferencesMetaData mergedResEnvRefs = ResourceEnvironmentReferencesMetaData.merge(jbossResEnvRefs,
+        ResourceEnvironmentReferencesMetaData mergedResEnvRefs = ResourceEnvironmentReferencesMetaDataMerger.merge(jbossResEnvRefs,
                 resEnvRefs, overridenFile, overrideFile);
         if (mergedResEnvRefs != null)
             merged.setResourceEnvironmentReferences(mergedResEnvRefs);
 
-        MessageDestinationReferencesMetaData mergedMessageDestinationRefs = MessageDestinationReferencesMetaData.merge(
+        MessageDestinationReferencesMetaData mergedMessageDestinationRefs = MessageDestinationReferencesMetaDataMerger.merge(
                 jbossMessageDestinationRefs, messageDestinationRefs, overridenFile, overrideFile, mustOverride);
         if (mergedMessageDestinationRefs != null)
             merged.setMessageDestinationReferences(mergedMessageDestinationRefs);
