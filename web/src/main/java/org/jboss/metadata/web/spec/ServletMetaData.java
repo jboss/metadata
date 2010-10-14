@@ -96,6 +96,9 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
         this.loadOnStartupInt = loadOnStartup;
         loadOnStartupSet = true;
     }
+    public boolean getLoadOnStartupSet() {
+        return loadOnStartupSet;
+    }
 
     public String getLoadOnStartup() {
         return loadOnStartup;
@@ -108,6 +111,9 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
         } catch (NumberFormatException e) {
             setLoadOnStartupInt(0);
         }
+    }
+    public int getLoadOnStartupDefault() {
+        return loadOnStartupDefault;
     }
 
     public RunAsMetaData getRunAs() {
@@ -129,16 +135,30 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
     public boolean isAsyncSupported() {
         return asyncSupported;
     }
+    public boolean getAsyncSupportedDefault() {
+        return asyncSupportedDefault;
+    }
 
     public void setAsyncSupported(boolean asyncSupported) {
         this.asyncSupported = asyncSupported;
         asyncSupportedSet = true;
     }
+    public boolean getAsyncSupportedSet() {
+        return asyncSupportedSet;
+    }
 
     public boolean isEnabled() {
         return enabled;
     }
-
+    
+    public boolean getEnabledDefault() {
+        return enabledDefault;
+    }
+    
+    public boolean getEnabledSet() {
+        return enabledSet;
+    }
+    
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
         enabledSet = true;

@@ -207,6 +207,9 @@ public class JBossWebMetaData extends NamedModuleImpl {
     public String getDtdPublicId() {
         return dtdPublicId;
     }
+    public void setDtdPublicId(String dtdPublicId) {
+        this.dtdPublicId = dtdPublicId;
+    }
 
     /**
      * Get the DTD system id if one was seen
@@ -215,6 +218,9 @@ public class JBossWebMetaData extends NamedModuleImpl {
      */
     public String getDtdSystemId() {
         return dtdSystemId;
+    }
+    public void setDtdSystemId(String dtdSystemId) {
+        this.dtdSystemId = dtdSystemId;
     }
 
     public String getVersion() {
@@ -731,6 +737,9 @@ public class JBossWebMetaData extends NamedModuleImpl {
         this.setJndiEnvironmentRefsGroup(env);
     }
 
+    public Boolean getJaccAllStoreRole() {
+        return jaccAllStoreRole;
+    }
     public boolean isJaccAllStoreRole() {
         if (jaccAllStoreRole == null)
             return Boolean.FALSE;
