@@ -8,13 +8,13 @@
   <groupId>org.jboss.metadata</groupId>
   <artifactId>jboss-metadata-ejb</artifactId>
   <packaging>jar</packaging>
-  <version>2.0.0-alpha-21</version>
+  <version>2.0.0-alpha-22-SNAPSHOT</version>
   <name>JBoss Metadata EJB</name>
   <url>http://www.jboss.org</url>
   <description>The common JavaEE metadata classes</description>
   <scm>
-    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossas/projects/metadata/ejb/tags/jboss-metadata-ejb-2.0.0-alpha-21</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/metadata/ejb/tags/jboss-metadata-ejb-2.0.0-alpha-21</developerConnection>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossas/projects/metadata/ejb/tags/2.0.0-alpha-16</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/metadata/ejb/tags/2.0.0-alpha-16</developerConnection>
   </scm>
 
     <distributionManagement>
