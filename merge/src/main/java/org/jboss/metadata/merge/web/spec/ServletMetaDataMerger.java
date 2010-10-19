@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
+import org.jboss.metadata.merge.javaee.support.NamedMetaDataWithDescriptionGroupMerger;
 import org.jboss.metadata.web.spec.ServletMetaData;
 
 /**
@@ -42,6 +43,7 @@ public class ServletMetaDataMerger {
     }
 
     public static void merge(ServletMetaData dest, ServletMetaData override, ServletMetaData original) {
+        NamedMetaDataWithDescriptionGroupMerger.merge(dest, override, original);
         if (override != null && override.getServletClass() != null)
             dest.setServletClass(override.getServletClass());
         else if (original != null && original.getServletClass() != null)
