@@ -116,8 +116,6 @@ public class JBossImplicitLocalIntefaceUnitTestCase extends TestCase
       assertNotNull(sb.getBusinessLocals());
       assertTrue(sb.getBusinessLocals().contains(ExpectedLocalInterface.class.getName()));
       assertFalse(sb.getBusinessLocals().contains(OtherInterface.class.getName()));
-      assertNotNull(sb.getBusinessRemotes());
-      assertTrue(sb.getBusinessRemotes().contains(RemoteInterface.class.getName()));
    }
 }
 

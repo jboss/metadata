@@ -36,7 +36,6 @@ import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
 import org.jboss.test.metadata.jbmeta40.ExpectedLocalInterface;
 import org.jboss.test.metadata.jbmeta40.OtherInterface;
-import org.jboss.test.metadata.jbmeta40.RemoteInterface;
 
 /**
  * Test implicit home interfaces (Ejb30Creator)
@@ -106,8 +105,6 @@ public class ImplicitLocalIntefaceUnitTestCase extends TestCase
       assertNotNull(sb.getBusinessLocals());
       assertTrue(sb.getBusinessLocals().contains(ExpectedLocalInterface.class.getName()));
       assertFalse(sb.getBusinessLocals().contains(OtherInterface.class.getName()));
-      assertNotNull(sb.getBusinessRemotes());
-      assertTrue(sb.getBusinessRemotes().contains(RemoteInterface.class.getName()));
    }
 }
 

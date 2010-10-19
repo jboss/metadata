@@ -70,12 +70,18 @@ public class LocalProcessor extends AbstractFinderUser implements Processor<JBos
       Local local = finder.getAnnotation(type, Local.class);
       if(local == null)
          return;
-      
+
+      Class<?> beanClass = EjbClassThreadLocal.ejbClass.get();
+
       if(type.isInterface())
       {
-         addBusinessInterface(metaData, type);
+         // make sure it's a directly implemented interface
+         if (beanClass != null && this.isDirectlyImplementedInterface(beanClass, type))
+         {
+            addBusinessInterface(metaData, type);
+         }
       }
-      else
+      else if (type.getName().equals(metaData.getEjbClass())) // we ignore super classes and pick up @Local only from the bean class 
       {
          if(local.value() == null || local.value().length == 0)
          {
@@ -95,5 +101,32 @@ public class LocalProcessor extends AbstractFinderUser implements Processor<JBos
    public Collection<Class<? extends Annotation>> getAnnotationTypes()
    {
       return ProcessorUtils.createAnnotationSet(Local.class);
+   }
+   
+   /**
+    * Returns true if the passed interface <code>intf</code> is in the implements 
+    * clause of the <code>beanClass</code> or if the <code>intf</code> is a superinterface
+    * of one of the interfaces in the implements clause of the <code>beanClass</code>.
+    * 
+    * Returns false otherwise
+    * @param beanClass The EJB class
+    * @param intf The interface being checked
+    * @return
+    */
+   private boolean isDirectlyImplementedInterface(Class<?> beanClass, Class<?> intf)
+   {
+      if (!intf.isInterface())
+      {
+         throw new IllegalArgumentException(intf + " is not an interface");
+      }
+      Class<?>[] directlyImplementedInterfaces = beanClass.getInterfaces();
+      for (Class<?> directlyImplementedInterface : directlyImplementedInterfaces)
+      {
+         if (intf.isAssignableFrom(directlyImplementedInterface))
+         {
+            return true;
+         }
+      }
+      return false;
    }
 }

@@ -94,10 +94,13 @@ public abstract class AbstractEnterpriseBeanProcessor<MD extends JBossEnterprise
     */
    public void process(JBossMetaData ejbJarMetaData, JBossEnterpriseBeanMetaData beanMetaData, Class<?> beanClass)
    {
-      EjbNameThreadLocal.ejbName.set(beanMetaData.getEjbName());
+      
 
       try
       {
+         EjbNameThreadLocal.ejbName.set(beanMetaData.getEjbName());
+         EjbClassThreadLocal.ejbClass.set(beanClass);
+         
          JBossEnvironmentRefsGroupMetaData env = (JBossEnvironmentRefsGroupMetaData) beanMetaData.getJndiEnvironmentRefsGroup();
          if(env == null)
          {
@@ -158,6 +161,7 @@ public abstract class AbstractEnterpriseBeanProcessor<MD extends JBossEnterprise
       finally
       {
          EjbNameThreadLocal.ejbName.set(null);
+         EjbClassThreadLocal.ejbClass.set(null);
       }
    }
    

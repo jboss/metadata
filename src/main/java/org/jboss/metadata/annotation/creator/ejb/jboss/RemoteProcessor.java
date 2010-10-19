@@ -31,6 +31,7 @@ import javax.ejb.Remote;
 import org.jboss.metadata.annotation.creator.AbstractFinderUser;
 import org.jboss.metadata.annotation.creator.Processor;
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
+import org.jboss.metadata.annotation.creator.ejb.jboss.EjbClassThreadLocal;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
@@ -71,11 +72,17 @@ public class RemoteProcessor extends AbstractFinderUser implements Processor<JBo
       if(remote == null)
          return;
       
+      Class<?> beanClass = EjbClassThreadLocal.ejbClass.get();
+      
       if(type.isInterface())
       {
-         addBusinessInterface(metaData, type);
+         // make sure it's a directly implemented interface
+         if (beanClass != null && this.isDirectlyImplementedInterface(beanClass, type))
+         {
+            addBusinessInterface(metaData, type);
+         }
       }
-      else
+      else if (type.getName().equals(metaData.getEjbClass())) // we ignore super classes and pick up @Local only from the bean class
       {
          if(remote.value() == null || remote.value().length == 0)
          {
@@ -95,5 +102,32 @@ public class RemoteProcessor extends AbstractFinderUser implements Processor<JBo
    public Collection<Class<? extends Annotation>> getAnnotationTypes()
    {
       return ProcessorUtils.createAnnotationSet(Remote.class);
+   }
+   
+   /**
+    * Returns true if the passed interface <code>intf</code> is in the implements 
+    * clause of the <code>beanClass</code> or if the <code>intf</code> is a superinterface
+    * of one of the interfaces in the implements clause of the <code>beanClass</code>.
+    * 
+    * Returns false otherwise
+    * @param beanClass The EJB class
+    * @param intf The interface being checked
+    * @return
+    */
+   private boolean isDirectlyImplementedInterface(Class<?> beanClass, Class<?> intf)
+   {
+      if (!intf.isInterface())
+      {
+         throw new IllegalArgumentException(intf + " is not an interface");
+      }
+      Class<?>[] directlyImplementedInterfaces = beanClass.getInterfaces();
+      for (Class<?> directlyImplementedInterface : directlyImplementedInterfaces)
+      {
+         if (intf.isAssignableFrom(directlyImplementedInterface))
+         {
+            return true;
+         }
+      }
+      return false;
    }
 }

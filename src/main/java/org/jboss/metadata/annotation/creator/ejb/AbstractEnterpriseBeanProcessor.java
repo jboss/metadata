@@ -24,6 +24,7 @@ package org.jboss.metadata.annotation.creator.ejb;
 import org.jboss.metadata.annotation.creator.AbstractComponentProcessor;
 import org.jboss.metadata.annotation.creator.DeclareRolesProcessor;
 import org.jboss.metadata.annotation.creator.Processor;
+import org.jboss.metadata.annotation.creator.ejb.EjbClassThreadLocal;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.spec.*;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
@@ -79,65 +80,72 @@ public abstract class AbstractEnterpriseBeanProcessor<MD extends EnterpriseBeanM
       if(beanMetaData == null)
          return;
 
-      EjbNameThreadLocal.ejbName.set(beanMetaData.getEjbName());
-
-      EnvironmentRefsGroupMetaData env = (EnvironmentRefsGroupMetaData) beanMetaData.getJndiEnvironmentRefsGroup();
-      if(env == null)
+      try
       {
-         env = new EnvironmentRefsGroupMetaData();
-         beanMetaData.setJndiEnvironmentRefsGroup(env);
-      }
-      super.process(env, beanClass);
+         EjbNameThreadLocal.ejbName.set(beanMetaData.getEjbName());
+         EjbClassThreadLocal.ejbClass.set(beanClass);
 
-      
-      if(ejbJarMetaData.getEnterpriseBeans() == null)
-         ejbJarMetaData.setEnterpriseBeans(new EnterpriseBeansMetaData());
-      
-      ejbJarMetaData.getEnterpriseBeans().add(beanMetaData);
-      processClass(beanMetaData, beanClass);
-
-      AssemblyDescriptorMetaData assembly = ejbJarMetaData.getAssemblyDescriptor();
-      if(assembly == null)
-      {
-         assembly = new AssemblyDescriptorMetaData();
-         ejbJarMetaData.setAssemblyDescriptor(assembly);
+         EnvironmentRefsGroupMetaData env = (EnvironmentRefsGroupMetaData) beanMetaData.getJndiEnvironmentRefsGroup();
+         if(env == null)
+         {
+            env = new EnvironmentRefsGroupMetaData();
+            beanMetaData.setJndiEnvironmentRefsGroup(env);
+         }
+         super.process(env, beanClass);
+   
+         
+         if(ejbJarMetaData.getEnterpriseBeans() == null)
+            ejbJarMetaData.setEnterpriseBeans(new EnterpriseBeansMetaData());
+         
+         ejbJarMetaData.getEnterpriseBeans().add(beanMetaData);
+         processClass(beanMetaData, beanClass);
+   
+         AssemblyDescriptorMetaData assembly = ejbJarMetaData.getAssemblyDescriptor();
+         if(assembly == null)
+         {
+            assembly = new AssemblyDescriptorMetaData();
+            ejbJarMetaData.setAssemblyDescriptor(assembly);
+         }
+         // @DeclareRoles
+         SecurityRolesMetaData securityRoles = assembly.getSecurityRoles();
+         if(securityRoles == null)
+         {
+            securityRoles = new SecurityRolesMetaData();
+            assembly.setSecurityRoles(securityRoles);
+         }
+         super.processClass(securityRoles, beanClass);
+         // @DenyAll
+         ExcludeListMetaData excludes = assembly.getExcludeList();
+         if(excludes == null)
+         {
+            excludes = new ExcludeListMetaData();
+            assembly.setExcludeList(excludes);
+         }
+         super.processClass(excludes, beanClass);
+   
+         // @RolesAllowed, @PermitAll
+         MethodPermissionsMetaData permissions = assembly.getMethodPermissions();
+         if(permissions == null)
+         {
+            permissions = new MethodPermissionsMetaData();
+            assembly.setMethodPermissions(permissions);
+         }
+         super.processClass(permissions, beanClass);
+   
+         // @Interceptors
+         InterceptorBindingsMetaData interceptors = assembly.getInterceptorBindings();
+         if(interceptors == null)
+         {
+            interceptors = new InterceptorBindingsMetaData();
+            assembly.setInterceptorBindings(interceptors);
+         }
+         super.processClass(interceptors, beanClass);
       }
-      // @DeclareRoles
-      SecurityRolesMetaData securityRoles = assembly.getSecurityRoles();
-      if(securityRoles == null)
+      finally
       {
-         securityRoles = new SecurityRolesMetaData();
-         assembly.setSecurityRoles(securityRoles);
+         EjbNameThreadLocal.ejbName.set(null);
+         EjbClassThreadLocal.ejbClass.set(null);
       }
-      super.processClass(securityRoles, beanClass);
-      // @DenyAll
-      ExcludeListMetaData excludes = assembly.getExcludeList();
-      if(excludes == null)
-      {
-         excludes = new ExcludeListMetaData();
-         assembly.setExcludeList(excludes);
-      }
-      super.processClass(excludes, beanClass);
-
-      // @RolesAllowed, @PermitAll
-      MethodPermissionsMetaData permissions = assembly.getMethodPermissions();
-      if(permissions == null)
-      {
-         permissions = new MethodPermissionsMetaData();
-         assembly.setMethodPermissions(permissions);
-      }
-      super.processClass(permissions, beanClass);
-
-      // @Interceptors
-      InterceptorBindingsMetaData interceptors = assembly.getInterceptorBindings();
-      if(interceptors == null)
-      {
-         interceptors = new InterceptorBindingsMetaData();
-         assembly.setInterceptorBindings(interceptors);
-      }
-      super.processClass(interceptors, beanClass);
-
-      EjbNameThreadLocal.ejbName.set(null);
    }
    
    /**
