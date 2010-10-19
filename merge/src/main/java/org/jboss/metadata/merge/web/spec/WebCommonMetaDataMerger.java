@@ -64,7 +64,7 @@ public class WebCommonMetaDataMerger {
      *        as all conflict will be resolved in favor of this object,
      *        webMetaData will not be used and can be null
      */
-    public void augment(WebCommonMetaData dest, WebCommonMetaData webFragmentMetaData, WebCommonMetaData webMetaData,
+    public static void augment(WebCommonMetaData dest, WebCommonMetaData webFragmentMetaData, WebCommonMetaData webMetaData,
             boolean resolveConflicts) {
 
         // Distributable
