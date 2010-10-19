@@ -62,6 +62,7 @@ public class ApplicationExceptionProcessor extends AbstractFinderUser implements
       ApplicationExceptionMetaData metaData = new ApplicationExceptionMetaData();
       metaData.setExceptionClass(element.getName());
       metaData.setRollback(annotation.rollback());
+      metaData.setInherited(annotation.inherited());
       
       return metaData;
    }

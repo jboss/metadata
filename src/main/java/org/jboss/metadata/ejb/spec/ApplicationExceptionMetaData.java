@@ -31,7 +31,7 @@ import org.jboss.metadata.javaee.support.NamedMetaData;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="application-exceptionType", propOrder={"exceptionClass", "rollback"})
+@XmlType(name="application-exceptionType", propOrder={"exceptionClass", "rollback", "inherited"})
 public class ApplicationExceptionMetaData extends NamedMetaData
 {
    /** The serialVersionUID */
@@ -39,6 +39,8 @@ public class ApplicationExceptionMetaData extends NamedMetaData
    
    /** Whether to rollback */
    private boolean rollback = false;
+   
+   private Boolean inherited;
    
    /**
     * Create a new ApplicationExceptionMetaData.
@@ -87,5 +89,25 @@ public class ApplicationExceptionMetaData extends NamedMetaData
    public void setRollback(boolean rollback)
    {
       this.rollback = rollback;
+   }
+   
+   /**
+    * Returns true if the application-exception is marked as "inherited". Returns false if 
+    * "inherited" is explicitly marked as false. In case the application-exception doesn't
+    * explicitly specify the "inherited" attribute, then this method returns null.
+    * @return
+    */
+   public Boolean isInherited()
+   {
+      return this.inherited;
+   }
+   
+   /**
+    * Sets the "inherited" attribute of application-exception
+    * @param inherited True if the application-exception is to be marked as "inherited". False otherwise
+    */
+   public void setInherited(Boolean inherited)
+   {
+      this.inherited = inherited;
    }
 }
