@@ -88,7 +88,7 @@ public class SecurityRolesMetaDataMerger {
     }
 
     private static void rebuildPrincipalsVersusRolesMap(SecurityRolesMetaData dest) {
-        dest.getPrincipalVersusRolesMap().clear();
+        dest.clearPrincipalVersusRolesMap();
 
         for (SecurityRoleMetaData roleMetaData : dest) {
             processSecurityRoleMetaData(roleMetaData ,dest);
