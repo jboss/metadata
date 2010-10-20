@@ -25,6 +25,7 @@ import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
+import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RemoteEnvironment;
@@ -58,16 +59,24 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
         MessageDestinationReferencesMetaData jbossMessageDestinationRefs = null;
         PersistenceUnitReferencesMetaData persistenceUnitRefs = null;
         PersistenceUnitReferencesMetaData jbossPersistenceUnitRefs = null;
-        // LifecycleCallbacksMetaData postConstructs = null;
-        // LifecycleCallbacksMetaData preDestroys = null;
+        LifecycleCallbacksMetaData postConstructs = null;
+        LifecycleCallbacksMetaData preDestroys = null;
 
         if (jbossEnv != null) {
-            dest.setPostConstructs(dest.addAll(dest.getPostConstructs(), jbossEnv.getPostConstructs()));
-            dest.setPreDestroys((dest.addAll(dest.getPreDestroys(), jbossEnv.getPreDestroys())));
+            postConstructs = dest.addAll(dest.getPostConstructs(), jbossEnv.getPostConstructs());
+            if (postConstructs != null)
+                dest.setPostConstructs(postConstructs);
+            preDestroys = dest.addAll(dest.getPreDestroys(), jbossEnv.getPreDestroys());
+            if (preDestroys != null)
+                dest.setPreDestroys(preDestroys);
         }
         if (specEnv != null) {
-            dest.setPostConstructs(dest.addAll(dest.getPostConstructs(), specEnv.getPostConstructs()));
-            dest.setPreDestroys(dest.addAll(dest.getPreDestroys(), specEnv.getPreDestroys()));
+            postConstructs = dest.addAll(dest.getPostConstructs(), specEnv.getPostConstructs());
+            if (postConstructs != null)
+                dest.setPostConstructs(postConstructs);
+            preDestroys = dest.addAll(dest.getPreDestroys(), specEnv.getPreDestroys());
+            if (preDestroys != null)
+                dest.setPreDestroys(preDestroys);
         }
 
         if (specEnv != null) {
