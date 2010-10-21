@@ -28,6 +28,7 @@ import org.jboss.metadata.javaee.spec.DisplayNameImpl;
 import org.jboss.metadata.javaee.spec.DisplayNamesImpl;
 import org.jboss.metadata.javaee.support.NamedModuleImpl;
 
+import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
 
 /**
  * Unit tests of NamedModuleImpl.
@@ -63,11 +64,11 @@ public class NamedModuleImplUnitTestCase extends TestCase
    public void testMerge()
    {
       ConcreteNamedModule testee = new ConcreteNamedModule();
-      testee.merge(A, B);
+      NamedModuleImplMerger.merge(testee, A, B);
       checkValues(testee, "A");
       
       testee = new ConcreteNamedModule();
-      testee.merge(B, A);
+      NamedModuleImplMerger.merge(testee, B, A);
       checkValues(testee, "B");      
    }
 

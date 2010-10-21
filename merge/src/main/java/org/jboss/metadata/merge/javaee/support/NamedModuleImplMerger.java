@@ -35,12 +35,12 @@ import org.jboss.metadata.javaee.support.NamedModuleImpl;
  */
 public abstract class NamedModuleImplMerger extends IdMetaDataImplWithDescriptionGroupMerger {
 
-    public void merge(NamedModuleImpl dest, NamedModuleImpl override, NamedModuleImpl original) {
-        super.merge(dest, override, original);
+    public static void merge(NamedModuleImpl dest, NamedModuleImpl override, NamedModuleImpl original) {
+        IdMetaDataImplWithDescriptionGroupMerger.merge(dest, override, original);
         mergeModuleName(dest, override, original);
     }
 
-    public void mergeModuleName(NamedModule dest, NamedModule override, NamedModule original) {
+    public static void mergeModuleName(NamedModule dest, NamedModule override, NamedModule original) {
         if (override != null && override.getModuleName() != null)
             dest.setModuleName(override.getModuleName());
         else if (original != null && original.getModuleName() != null)
