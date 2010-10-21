@@ -45,7 +45,7 @@ import org.jboss.metadata.web.spec.WebMetaData;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 84989 $
  */
-public class JBossWebMetaDataMerger {
+public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
 
     public static void merge(JBossWebMetaData dest, JBossWebMetaData override, WebMetaData original) {
         merge(dest, override, original, "jboss-web.xml", "web.xml", false);
