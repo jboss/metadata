@@ -111,6 +111,12 @@
       <version>2.1.4</version>
     </dependency>
 
+    <dependency>
+       <groupId>org.jboss.javaee</groupId>
+       <artifactId>jboss-ejb-api</artifactId>
+       <version>3.0.0.GA</version>
+    </dependency>
+
     <!-- Test Dependencies -->
     <dependency>
       <groupId>junit</groupId>
