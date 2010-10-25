@@ -19,33 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.web.spec;
+package org.jboss.metadata.merge.web.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import org.jboss.metadata.web.spec.FilterMetaData;
+import org.jboss.metadata.web.spec.FiltersMetaData;
 
 /**
  * @author Scott.Stark@jboss.org
- * @version $Revision: 83549 $
+ * @version $Revision: 65928 $
  */
-public class FormLoginConfigMetaData extends IdMetaDataImpl {
-    private static final long serialVersionUID = 1;
-
-    private String loginPage;
-    private String errorPage;
-
-    public String getLoginPage() {
-        return loginPage;
-    }
-
-    public void setLoginPage(String loginPage) {
-        this.loginPage = loginPage;
-    }
-
-    public String getErrorPage() {
-        return errorPage;
-    }
-
-    public void setErrorPage(String errorPage) {
-        this.errorPage = errorPage;
-    }
+public class FiltersMetaDataMerger {
+   public static void augment(FiltersMetaData dest, FiltersMetaData webFragmentMetaData, FiltersMetaData webMetaData, boolean resolveConflicts)
+   {
+      for (FilterMetaData filterMetaData : webFragmentMetaData)
+      {
+         if (dest.containsKey(filterMetaData.getKey()))
+         {
+            FilterMetaDataMerger.augment(dest.get(filterMetaData.getKey()), filterMetaData, 
+                  (webMetaData != null) ? webMetaData.get(filterMetaData.getKey()) : null, resolveConflicts);
+         }
+         else
+         {
+            dest.add(filterMetaData);
+         }
+      }
+   }
+   
 }

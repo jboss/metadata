@@ -816,7 +816,17 @@ public class JBossWebMetaData extends NamedModuleImpl {
                         // Merge @MultipartConfig
                         if (annotation.getMultipartConfig() != null && servlet.getMultipartConfig() == null) {
                             MultipartConfigMetaData multipartConfig = new MultipartConfigMetaData();
-                            multipartConfig.augment(annotation.getMultipartConfig(), null, true);
+                            MultipartConfigMetaData webFragmentMetaData = annotation.getMultipartConfig();
+                             multipartConfig.setLocation(webFragmentMetaData.getLocation());
+                            if (webFragmentMetaData.getMaxFileSizeSet()) {
+                                 multipartConfig.setMaxFileSize(webFragmentMetaData.getMaxFileSize());
+                            }
+                            if (webFragmentMetaData.getMaxRequestSizeSet()) {
+                                multipartConfig.setMaxRequestSize(webFragmentMetaData.getMaxRequestSize());
+                            }
+                            if (webFragmentMetaData.getFileSizeThresholdSet()) {
+                                multipartConfig.setFileSizeThreshold(webFragmentMetaData.getFileSizeThreshold());
+                            }
                             servlet.setMultipartConfig(multipartConfig);
                         }
                         // Merge @ServletSecurity

@@ -114,7 +114,7 @@ public class WebCommonMetaDataMerger {
         if (dest.getSessionConfig() == null) {
             dest.setSessionConfig(webFragmentMetaData.getSessionConfig());
         } else if (webFragmentMetaData.getSessionConfig() != null) {
-            dest.getSessionConfig().augment(webFragmentMetaData.getSessionConfig(),
+            SessionConfigMetaDataMerger.augment(dest.getSessionConfig(), webFragmentMetaData.getSessionConfig(),
                     (webMetaData != null) ? webMetaData.getSessionConfig() : null, resolveConflicts);
         }
 
@@ -134,7 +134,7 @@ public class WebCommonMetaDataMerger {
                         // Augment unless an overriding descriptor redefines
                         // patterns
                         if (!resolveConflicts) {
-                            check.augment(filterMapping, null, resolveConflicts);
+                            FilterMappingMetaDataMerger.augment(check, filterMapping, null, resolveConflicts);
                         }
                     }
                 }
@@ -148,7 +148,7 @@ public class WebCommonMetaDataMerger {
         if (dest.getFilters() == null) {
             dest.setFilters(webFragmentMetaData.getFilters());
         } else if (webFragmentMetaData.getFilters() != null) {
-            dest.getFilters().augment(webFragmentMetaData.getFilters(),
+            FiltersMetaDataMerger.augment(dest.getFilters(), webFragmentMetaData.getFilters(),
                     (webMetaData != null) ? webMetaData.getFilters() : null, resolveConflicts);
         }
 
@@ -211,7 +211,7 @@ public class WebCommonMetaDataMerger {
         if (dest.getJspConfig() == null) {
             dest.setJspConfig(webFragmentMetaData.getJspConfig());
         } else if (webFragmentMetaData.getJspConfig() != null) {
-            dest.getJspConfig().augment(webFragmentMetaData.getJspConfig(),
+            JspConfigMetaDataMerger.augment(dest.getJspConfig(), webFragmentMetaData.getJspConfig(),
                     (webMetaData != null) ? webMetaData.getJspConfig() : null, resolveConflicts);
         }
 
@@ -240,7 +240,7 @@ public class WebCommonMetaDataMerger {
         if (dest.getLoginConfig() == null) {
             dest.setLoginConfig(webFragmentMetaData.getLoginConfig());
         } else if (webFragmentMetaData.getLoginConfig() != null) {
-            dest.getLoginConfig().augment(webFragmentMetaData.getLoginConfig(),
+            LoginConfigMetaDataMerger.augment(dest.getLoginConfig(), webFragmentMetaData.getLoginConfig(),
                     (webMetaData != null) ? webMetaData.getLoginConfig() : null, resolveConflicts);
         }
 
@@ -296,7 +296,7 @@ public class WebCommonMetaDataMerger {
                         // Augment unless an overriding descriptor redefines
                         // patterns
                         if (!resolveConflicts) {
-                            check.augment(servletMapping, null, resolveConflicts);
+                            ServletMappingMetaDataMerger.augment(check, servletMapping, null, resolveConflicts);
                         }
                     }
                 }
@@ -364,14 +364,14 @@ public class WebCommonMetaDataMerger {
         if (dest.getWelcomeFileList() == null) {
             dest.setWelcomeFileList(webFragmentMetaData.getWelcomeFileList());
         } else if (webFragmentMetaData.getWelcomeFileList() != null) {
-            dest.getWelcomeFileList().augment(webFragmentMetaData.getWelcomeFileList(), null, resolveConflicts);
+            WelcomeFileListMetaDataMerger.augment(dest.getWelcomeFileList(), webFragmentMetaData.getWelcomeFileList(), null, resolveConflicts);
         }
 
         // Locale encoding
         if (dest.getLocalEncodings() == null) {
             dest.setLocalEncodings(webFragmentMetaData.getLocalEncodings());
         } else if (webFragmentMetaData.getLocalEncodings() != null) {
-            dest.getLocalEncodings().augment(webFragmentMetaData.getLocalEncodings(),
+            LocaleEncodingsMetaDataMerger.augment(dest.getLocalEncodings(), webFragmentMetaData.getLocalEncodings(),
                     (webMetaData != null) ? webMetaData.getLocalEncodings() : null, resolveConflicts);
         }
 

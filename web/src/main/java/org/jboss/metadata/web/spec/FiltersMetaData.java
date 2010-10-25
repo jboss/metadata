@@ -33,16 +33,4 @@ public class FiltersMetaData extends AbstractMappedMetaData<FilterMetaData> {
     public FiltersMetaData() {
         super("web app filters");
     }
-
-    public void augment(FiltersMetaData webFragmentMetaData, FiltersMetaData webMetaData, boolean resolveConflicts) {
-        for (FilterMetaData filterMetaData : webFragmentMetaData) {
-            if (containsKey(filterMetaData.getKey())) {
-                get(filterMetaData.getKey()).augment(filterMetaData,
-                        (webMetaData != null) ? webMetaData.get(filterMetaData.getKey()) : null, resolveConflicts);
-            } else {
-                add(filterMetaData);
-            }
-        }
-    }
-
 }

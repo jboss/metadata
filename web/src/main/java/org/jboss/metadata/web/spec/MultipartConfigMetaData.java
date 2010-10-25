@@ -75,53 +75,15 @@ public class MultipartConfigMetaData extends IdMetaDataImpl {
         fileSizeThresholdSet = true;
     }
 
-    public void augment(MultipartConfigMetaData webFragmentMetaData, MultipartConfigMetaData webMetaData,
-            boolean resolveConflicts) {
-        // Location
-        if (getLocation() == null) {
-            setLocation(webFragmentMetaData.getLocation());
-        } else if (webFragmentMetaData.getLocation() != null) {
-            if (!resolveConflicts && !getLocation().equals(webFragmentMetaData.getLocation())
-                    && (webMetaData == null || webMetaData.getLocation() == null)) {
-                throw new IllegalStateException("Unresolved conflict on location: " + getLocation());
-            }
-        }
-        // Max file size
-        if (!maxFileSizeSet) {
-            if (webFragmentMetaData.maxFileSizeSet) {
-                setMaxFileSize(webFragmentMetaData.getMaxFileSize());
-            }
-        } else {
-            if (!resolveConflicts && webFragmentMetaData.maxFileSizeSet
-                    && (getMaxFileSize() != webFragmentMetaData.getMaxFileSize())
-                    && (webMetaData == null || !webMetaData.maxFileSizeSet)) {
-                throw new IllegalStateException("Unresolved conflict on max file size");
-            }
-        }
-        // Max request size
-        if (!maxRequestSizeSet) {
-            if (webFragmentMetaData.maxRequestSizeSet) {
-                setMaxRequestSize(webFragmentMetaData.getMaxRequestSize());
-            }
-        } else {
-            if (!resolveConflicts && webFragmentMetaData.maxRequestSizeSet
-                    && (getMaxRequestSize() != webFragmentMetaData.getMaxRequestSize())
-                    && (webMetaData == null || !webMetaData.maxRequestSizeSet)) {
-                throw new IllegalStateException("Unresolved conflict on max request size");
-            }
-        }
-        // File size threshold
-        if (!fileSizeThresholdSet) {
-            if (webFragmentMetaData.fileSizeThresholdSet) {
-                setFileSizeThreshold(webFragmentMetaData.getFileSizeThreshold());
-            }
-        } else {
-            if (!resolveConflicts && webFragmentMetaData.fileSizeThresholdSet
-                    && (getFileSizeThreshold() != webFragmentMetaData.getFileSizeThreshold())
-                    && (webMetaData == null || !webMetaData.fileSizeThresholdSet)) {
-                throw new IllegalStateException("Unresolved conflict on file size threshold");
-            }
-        }
+    public boolean getMaxFileSizeSet() {
+        return maxFileSizeSet;
     }
 
+    public boolean getMaxRequestSizeSet() {
+        return maxRequestSizeSet;
+    }
+
+    public boolean getFileSizeThresholdSet() {
+        return fileSizeThresholdSet;
+    }
 }

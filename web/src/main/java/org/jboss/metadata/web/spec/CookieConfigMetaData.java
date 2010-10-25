@@ -100,76 +100,15 @@ public class CookieConfigMetaData extends IdMetaDataImpl {
         maxAgeSet = true;
     }
 
-    public void augment(CookieConfigMetaData webFragmentMetaData, CookieConfigMetaData webMetaData, boolean resolveConflicts) {
-        // Name
-        if (getName() == null) {
-            setName(webFragmentMetaData.getName());
-        } else if (webFragmentMetaData.getName() != null) {
-            if (!resolveConflicts && !getName().equals(webFragmentMetaData.getName())
-                    && (webMetaData == null || webMetaData.getName() == null)) {
-                throw new IllegalStateException("Unresolved conflict on cookie name: " + getName());
-            }
-        }
-        // Domain
-        if (getDomain() == null) {
-            setDomain(webFragmentMetaData.getDomain());
-        } else if (webFragmentMetaData.getDomain() != null) {
-            if (!resolveConflicts && !getDomain().equals(webFragmentMetaData.getDomain())
-                    && (webMetaData == null || webMetaData.getDomain() == null)) {
-                throw new IllegalStateException("Unresolved conflict on cookie domain: " + getDomain());
-            }
-        }
-        // Path
-        if (getPath() == null) {
-            setPath(webFragmentMetaData.getPath());
-        } else if (webFragmentMetaData.getPath() != null) {
-            if (!resolveConflicts && !getPath().equals(webFragmentMetaData.getPath())
-                    && (webMetaData == null || webMetaData.getPath() == null)) {
-                throw new IllegalStateException("Unresolved conflict on cookie path: " + getPath());
-            }
-        }
-        // Comment
-        if (getComment() == null) {
-            setComment(webFragmentMetaData.getComment());
-        } else if (webFragmentMetaData.getComment() != null) {
-            if (!resolveConflicts && !getComment().equals(webFragmentMetaData.getComment())
-                    && (webMetaData == null || webMetaData.getComment() == null)) {
-                throw new IllegalStateException("Unresolved conflict on cookie comment: " + getComment());
-            }
-        }
-        // HttpOnly
-        if (!httpOnlySet) {
-            if (webFragmentMetaData.httpOnlySet) {
-                setHttpOnly(webFragmentMetaData.getHttpOnly());
-            }
-        } else {
-            if (!resolveConflicts && webFragmentMetaData.httpOnlySet && (getHttpOnly() != webFragmentMetaData.getHttpOnly())
-                    && (webMetaData == null || !webMetaData.httpOnlySet)) {
-                throw new IllegalStateException("Unresolved conflict on http only");
-            }
-        }
-        // Secure
-        if (!secureSet) {
-            if (webFragmentMetaData.secureSet) {
-                setSecure(webFragmentMetaData.getSecure());
-            }
-        } else {
-            if (!resolveConflicts && webFragmentMetaData.secureSet && (getSecure() != webFragmentMetaData.getSecure())
-                    && (webMetaData == null || !webMetaData.secureSet)) {
-                throw new IllegalStateException("Unresolved conflict on secure");
-            }
-        }
-        // MaxAge
-        if (!maxAgeSet) {
-            if (webFragmentMetaData.maxAgeSet) {
-                setMaxAge(webFragmentMetaData.getMaxAge());
-            }
-        } else {
-            if (!resolveConflicts && webFragmentMetaData.maxAgeSet && (getMaxAge() != webFragmentMetaData.getMaxAge())
-                    && (webMetaData == null || !webMetaData.maxAgeSet)) {
-                throw new IllegalStateException("Unresolved conflict on max age");
-            }
-        }
+    public boolean getHttpOnlySet() {
+        return httpOnlySet;
     }
 
+    public boolean getSecureSet() {
+        return secureSet;
+    }
+
+    public boolean getMaxAgeSet() {
+         return maxAgeSet;
+    }
 }

@@ -57,29 +57,4 @@ public class LoginConfigMetaData extends IdMetaDataImpl {
     public void setFormLoginConfig(FormLoginConfigMetaData formLoginConfig) {
         this.formLoginConfig = formLoginConfig;
     }
-
-    public void augment(LoginConfigMetaData webFragmentMetaData, LoginConfigMetaData webMetaData, boolean resolveConflicts) {
-        if (getAuthMethod() == null) {
-            setAuthMethod(webFragmentMetaData.getAuthMethod());
-        } else if (webFragmentMetaData.getAuthMethod() != null) {
-            if (!resolveConflicts && !getAuthMethod().equals(webFragmentMetaData.getAuthMethod())
-                    && (webMetaData == null || webMetaData.getAuthMethod() == null)) {
-                throw new IllegalStateException("Unresolved conflict on auth method: " + getAuthMethod());
-            }
-        }
-        if (getRealmName() == null) {
-            setRealmName(webFragmentMetaData.getRealmName());
-        } else if (webFragmentMetaData.getRealmName() != null) {
-            if (!resolveConflicts && !getRealmName().equals(webFragmentMetaData.getRealmName())
-                    && (webMetaData == null || webMetaData.getRealmName() == null)) {
-                throw new IllegalStateException("Unresolved conflict on realm name: " + getRealmName());
-            }
-        }
-        if (getFormLoginConfig() == null) {
-            setFormLoginConfig(webFragmentMetaData.getFormLoginConfig());
-        } else if (webFragmentMetaData.getFormLoginConfig() != null) {
-            getFormLoginConfig().augment(webFragmentMetaData.getFormLoginConfig(),
-                    (webMetaData != null) ? webMetaData.getFormLoginConfig() : null, resolveConflicts);
-        }
-    }
 }

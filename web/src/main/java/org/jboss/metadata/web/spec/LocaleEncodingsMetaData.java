@@ -42,44 +42,4 @@ public class LocaleEncodingsMetaData extends IdMetaDataImpl {
     public void setMappings(List<LocaleEncodingMetaData> mappings) {
         this.mappings = mappings;
     }
-
-    public void augment(LocaleEncodingsMetaData webFragmentMetaData, LocaleEncodingsMetaData webMetaData,
-            boolean resolveConflicts) {
-        if (getMappings() == null) {
-            setMappings(webFragmentMetaData.getMappings());
-        } else if (webFragmentMetaData.getMappings() != null) {
-            List<LocaleEncodingMetaData> mergedMappings = new ArrayList<LocaleEncodingMetaData>();
-            for (LocaleEncodingMetaData mapping : getMappings()) {
-                mergedMappings.add(mapping);
-            }
-            for (LocaleEncodingMetaData mapping : webFragmentMetaData.getMappings()) {
-                boolean found = false;
-                for (LocaleEncodingMetaData check : getMappings()) {
-                    if (check.getLocale().equals(mapping.getLocale())) {
-                        found = true;
-                        // Check for a conflict
-                        if (!resolveConflicts && !check.getEncoding().equals(mapping.getEncoding())) {
-                            // If the parameter name does not exist in the main
-                            // web, it's an error
-                            boolean found2 = false;
-                            if (webMetaData.getMappings() != null) {
-                                for (LocaleEncodingMetaData check1 : webMetaData.getMappings()) {
-                                    if (check1.getLocale().equals(check.getLocale())) {
-                                        found2 = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (!found2)
-                                throw new IllegalStateException("Unresolved conflict on locale: " + check.getLocale());
-                        }
-                    }
-                }
-                if (!found)
-                    mergedMappings.add(mapping);
-            }
-            setMappings(mergedMappings);
-        }
-    }
-
 }

@@ -43,28 +43,4 @@ public class WelcomeFileListMetaData extends IdMetaDataImpl {
     public void setWelcomeFiles(List<String> welcomeFiles) {
         this.welcomeFiles = welcomeFiles;
     }
-
-    public void augment(WelcomeFileListMetaData webFragmentMetaData, WelcomeFileListMetaData webMetaData,
-            boolean resolveConflicts) {
-        // Note: as this is purely additive, webMetaData is useless
-        if (getWelcomeFiles() == null) {
-            setWelcomeFiles(webFragmentMetaData.getWelcomeFiles());
-        } else if (webFragmentMetaData.getWelcomeFiles() != null) {
-            List<String> mergedWelcomeFiles = new ArrayList<String>();
-            for (String welcomeFile : getWelcomeFiles()) {
-                mergedWelcomeFiles.add(welcomeFile);
-            }
-            for (String welcomeFile : webFragmentMetaData.getWelcomeFiles()) {
-                boolean found = false;
-                for (String check : getWelcomeFiles()) {
-                    if (check.equals(welcomeFile)) {
-                        found = true;
-                    }
-                }
-                if (!found)
-                    mergedWelcomeFiles.add(welcomeFile);
-            }
-            setWelcomeFiles(mergedWelcomeFiles);
-        }
-    }
 }

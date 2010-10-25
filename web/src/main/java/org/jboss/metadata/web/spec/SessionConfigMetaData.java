@@ -61,36 +61,7 @@ public class SessionConfigMetaData extends IdMetaDataImpl {
         this.sessionTrackingModes = sessionTrackingModes;
     }
 
-    public void augment(SessionConfigMetaData webFragmentMetaData, SessionConfigMetaData webMetaData, boolean resolveConflicts) {
-        // Session timeout
-        if (!sessionTimeoutSet) {
-            if (webFragmentMetaData.sessionTimeoutSet) {
-                setSessionTimeout(webFragmentMetaData.getSessionTimeout());
-            }
-        } else {
-            if (!resolveConflicts && webFragmentMetaData.sessionTimeoutSet
-                    && (getSessionTimeout() != webFragmentMetaData.getSessionTimeout())
-                    && (webMetaData == null || !webMetaData.sessionTimeoutSet)) {
-                throw new IllegalStateException("Unresolved conflict on session timeout");
-            }
-        }
-        // Cookie config
-        if (getCookieConfig() == null) {
-            setCookieConfig(webFragmentMetaData.getCookieConfig());
-        } else if (webFragmentMetaData.getCookieConfig() != null) {
-            getCookieConfig().augment(webFragmentMetaData.getCookieConfig(),
-                    (webMetaData != null) ? webMetaData.getCookieConfig() : null, resolveConflicts);
-        }
-        // Tracking modes (multiple, so additive, no conflict)
-        if (getSessionTrackingModes() == null) {
-            setSessionTrackingModes(webFragmentMetaData.getSessionTrackingModes());
-        } else if (webFragmentMetaData.getSessionTrackingModes() != null) {
-            for (SessionTrackingModeType sessionTrackingMode : webFragmentMetaData.getSessionTrackingModes()) {
-                if (!getSessionTrackingModes().contains(sessionTrackingMode)) {
-                    getSessionTrackingModes().add(sessionTrackingMode);
-                }
-            }
-        }
+    public boolean getSessionTimeoutSet() {
+        return sessionTimeoutSet;
     }
-
 }

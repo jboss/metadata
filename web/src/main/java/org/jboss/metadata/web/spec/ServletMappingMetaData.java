@@ -59,30 +59,6 @@ public class ServletMappingMetaData extends IdMetaDataImpl {
         this.urlPatterns = urlPatterns;
     }
 
-    public void augment(ServletMappingMetaData webFragmentMetaData, ServletMappingMetaData webMetaData, boolean resolveConflicts) {
-        // Note: as this is purely additive, webMetaData is useless
-        // Url pattern
-        if (getUrlPatterns() == null) {
-            setUrlPatterns(webFragmentMetaData.getUrlPatterns());
-        } else if (webFragmentMetaData.getUrlPatterns() != null) {
-            List<String> mergedUrlPatterns = new ArrayList<String>();
-            for (String urlPattern : getUrlPatterns()) {
-                mergedUrlPatterns.add(urlPattern);
-            }
-            for (String urlPattern : webFragmentMetaData.getUrlPatterns()) {
-                boolean found = false;
-                for (String check : getUrlPatterns()) {
-                    if (check.equals(urlPattern)) {
-                        found = true;
-                    }
-                }
-                if (!found)
-                    mergedUrlPatterns.add(urlPattern);
-            }
-            setUrlPatterns(mergedUrlPatterns);
-        }
-    }
-
     public String toString() {
         StringBuilder tmp = new StringBuilder("ServletMappingMetaData(id=");
         tmp.append(getId());

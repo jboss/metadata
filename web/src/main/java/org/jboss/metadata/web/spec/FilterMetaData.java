@@ -74,65 +74,7 @@ public class FilterMetaData extends NamedMetaDataWithDescriptionGroup {
         asyncSupportedSet = true;
     }
 
-    public void augment(FilterMetaData webFragmentMetaData, FilterMetaData webMetaData, boolean resolveConflicts) {
-        // Filter class
-        if (getFilterClass() == null) {
-            setFilterClass(webFragmentMetaData.getFilterClass());
-        } else if (webFragmentMetaData.getFilterClass() != null) {
-            if (!resolveConflicts && !getFilterClass().equals(webFragmentMetaData.getFilterClass())
-                    && (webMetaData == null || webMetaData.getFilterClass() == null)) {
-                throw new IllegalStateException("Unresolved conflict on filter class for filter: " + getName());
-            }
-        }
-        // Init params
-        if (getInitParam() == null) {
-            setInitParam(webFragmentMetaData.getInitParam());
-        } else if (webFragmentMetaData.getInitParam() != null) {
-            List<ParamValueMetaData> mergedInitParams = new ArrayList<ParamValueMetaData>();
-            for (ParamValueMetaData initParam : getInitParam()) {
-                mergedInitParams.add(initParam);
-            }
-            for (ParamValueMetaData initParam : webFragmentMetaData.getInitParam()) {
-                boolean found = false;
-                for (ParamValueMetaData check : getInitParam()) {
-                    if (check.getParamName().equals(initParam.getParamName())) {
-                        found = true;
-                        // Check for a conflict
-                        if (!resolveConflicts && !check.getParamValue().equals(initParam.getParamValue())) {
-                            // If the parameter name does not exist in the main
-                            // web, it's an error
-                            boolean found2 = false;
-                            if (webMetaData.getInitParam() != null) {
-                                for (ParamValueMetaData check1 : webMetaData.getInitParam()) {
-                                    if (check1.getParamName().equals(check.getParamName())) {
-                                        found2 = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (!found2)
-                                throw new IllegalStateException("Unresolved conflict on init parameter: "
-                                        + check.getParamName());
-                        }
-                    }
-                }
-                if (!found)
-                    mergedInitParams.add(initParam);
-            }
-            setInitParam(mergedInitParams);
-        }
-        // Async supported
-        if (!asyncSupportedSet) {
-            if (webFragmentMetaData.asyncSupportedSet) {
-                setAsyncSupported(webFragmentMetaData.isAsyncSupported());
-            }
-        } else {
-            if (!resolveConflicts && webFragmentMetaData.asyncSupportedSet
-                    && (isAsyncSupported() != webFragmentMetaData.isAsyncSupported())
-                    && (webMetaData == null || !webMetaData.asyncSupportedSet)) {
-                throw new IllegalStateException("Unresolved conflict on async supported");
-            }
-        }
+    public boolean getAsyncSupportedSet() {
+        return asyncSupportedSet;
     }
-
 }

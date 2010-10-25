@@ -210,7 +210,7 @@ public class ServletMetaDataMerger {
         if (dest.getMultipartConfig() == null) {
             dest.setMultipartConfig(webFragmentMetaData.getMultipartConfig());
         } else if (webFragmentMetaData.getMultipartConfig() != null) {
-            dest.getMultipartConfig().augment(webFragmentMetaData.getMultipartConfig(), webMetaData.getMultipartConfig(),
+            MultipartConfigMetaDataMerger.augment(dest.getMultipartConfig(), webFragmentMetaData.getMultipartConfig(), webMetaData.getMultipartConfig(),
                     resolveConflicts);
         }
     }
