@@ -156,4 +156,10 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <scm>
+ 	<connection>scm:git:git@github.com:jfclere/metadata.git</connection>
+ 	<url>scm:git:git@github.com:jfclere/metadata.git</url>
+ 	<developerConnection>scm:git:git@github.com:jfclere/metadata.git</developerConnection>	
+    </scm>
+
 </project>
