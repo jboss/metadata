@@ -46,6 +46,7 @@ import org.jboss.metadata.merge.MergeUtil;
 {"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local", "businessLocals",
       "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "timers", "initOnStartup",
       "concurrencyManagementType", "concurrentMethods", "dependsOnMetaData", "initMethods", "removeMethods", "asyncMethods", "transactionType",
+      "afterBeginMethod", "beforeCompletionMethod", "afterCompletionMethod",
       "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
 //@JBossXmlType(modelGroup = JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeoutTarget, IScheduleTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
@@ -95,6 +96,10 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     */
    private List<TimerMetaData> timers;
 
+   private NamedMethodMetaData afterBeginMethod;
+   private NamedMethodMetaData beforeCompletionMethod;
+   private NamedMethodMetaData afterCompletionMethod;
+   
    /**
     * Returns the init-on-startup value of the session bean metadata.
     * Returns null if none is defined.
@@ -348,7 +353,46 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       this.timers.add(timer);
    }
 
+   public NamedMethodMetaData getAfterBeginMethod()
+   {
+      return afterBeginMethod;
+   }
    
+   @XmlElement(name = "after-begin-method", required = false)
+   public void setAfterBeginMethod(NamedMethodMetaData method)
+   {
+      this.afterBeginMethod = method;
+   }
+
+   public NamedMethodMetaData getBeforeCompletionMethod()
+   {
+      return beforeCompletionMethod;
+   }
+
+   @XmlElement(name = "before-completion-method", required = false)
+   public void setBeforeCompletionMethod(NamedMethodMetaData method)
+   {
+      this.beforeCompletionMethod = method;
+   }
+
+   public NamedMethodMetaData getAfterCompletionMethod()
+   {
+      return afterCompletionMethod;
+   }
+
+   @XmlElement(name = "after-completion-method", required = false)
+   public void setAfterCompletionMethod(NamedMethodMetaData method)
+   {
+      this.afterCompletionMethod = method;
+   }
+
+   private static <T> T override(T override, T original)
+   {
+      if(override != null)
+         return override;
+      return original;
+   }
+
    /**
     * {@inheritDoc}
     */
@@ -366,6 +410,10 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          asyncMethods.addAll(original.asyncMethods);
 
       // merge rest of the metadata
+
+      this.setAfterBeginMethod(override(override != null ? override.getAfterBeginMethod() : null, original != null ? original.getAfterBeginMethod() : null));
+      this.setBeforeCompletionMethod(override(override != null ? override.getBeforeCompletionMethod() : null, original != null ? original.getBeforeCompletionMethod() : null));
+      this.setAfterCompletionMethod(override(override != null ? override.getAfterCompletionMethod() : null, original != null ? original.getAfterCompletionMethod() : null));
 
       if (override != null)
       {

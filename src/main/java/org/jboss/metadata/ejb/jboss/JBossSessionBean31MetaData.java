@@ -32,6 +32,7 @@ import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.LockType;
 import javax.ejb.Schedule;
 import javax.ejb.Startup;
+import javax.xml.bind.annotation.XmlElement;
 
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
@@ -94,6 +95,10 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     * For beans which have auto-timers (ex: through use of {@link Schedule})
     */
    private List<TimerMetaData> timers = new ArrayList<TimerMetaData>();
+
+   private NamedMethodMetaData afterBeginMethod;
+   private NamedMethodMetaData beforeCompletionMethod;
+   private NamedMethodMetaData afterCompletionMethod;
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
@@ -322,6 +327,39 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       this.timers.add(timer);
    }
    
+   public NamedMethodMetaData getAfterBeginMethod()
+   {
+      return afterBeginMethod;
+   }
+
+   @XmlElement(name = "after-begin-method", required = false)
+   public void setAfterBeginMethod(NamedMethodMetaData method)
+   {
+      this.afterBeginMethod = method;
+   }
+
+   public NamedMethodMetaData getBeforeCompletionMethod()
+   {
+      return beforeCompletionMethod;
+   }
+
+   @XmlElement(name = "before-completion-method", required = false)
+   public void setBeforeCompletionMethod(NamedMethodMetaData method)
+   {
+      this.beforeCompletionMethod = method;
+   }
+
+   public NamedMethodMetaData getAfterCompletionMethod()
+   {
+      return afterCompletionMethod;
+   }
+
+   @XmlElement(name = "after-completion-method", required = false)
+   public void setAfterCompletionMethod(NamedMethodMetaData method)
+   {
+      this.afterCompletionMethod = method;
+   }
+
    /**
     * {@inheritDoc}
     */
@@ -336,6 +374,13 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       return super.hasEJB3xView();
    }
    
+   private static <T> T override(T override, T original)
+   {
+      if(override != null)
+         return override;
+      return original;
+   }
+
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
    {
@@ -351,6 +396,11 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       merge(joverride != null ? joverride.asyncMethods : null, soriginal != null ? soriginal.asyncMethods : null);
 
       // merge the rest
+
+      this.setAfterBeginMethod(override(joverride != null ? joverride.getAfterBeginMethod() : null, soriginal != null ? soriginal.getAfterBeginMethod() : null));
+      this.setBeforeCompletionMethod(override(joverride != null ? joverride.getBeforeCompletionMethod() : null, soriginal != null ? soriginal.getBeforeCompletionMethod() : null));
+      this.setAfterCompletionMethod(override(joverride != null ? joverride.getAfterCompletionMethod() : null, soriginal != null ? soriginal.getAfterCompletionMethod() : null));
+      
       if (joverride != null)
       {
          this.noInterfaceBean = joverride.isNoInterfaceBean();
@@ -426,6 +476,11 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       merge(joverride != null ? joverride.asyncMethods : null, soriginal != null ? soriginal.getAsyncMethods() : null);
 
       // merge rest of the metadata
+
+      this.setAfterBeginMethod(override(joverride != null ? joverride.getAfterBeginMethod() : null, soriginal != null ? soriginal.getAfterBeginMethod() : null));
+      this.setBeforeCompletionMethod(override(joverride != null ? joverride.getBeforeCompletionMethod() : null, soriginal != null ? soriginal.getBeforeCompletionMethod() : null));
+      this.setAfterCompletionMethod(override(joverride != null ? joverride.getAfterCompletionMethod() : null, soriginal != null ? soriginal.getAfterCompletionMethod() : null));
+
       if (joverride != null)
       {
          this.noInterfaceBean = joverride.isNoInterfaceBean();
