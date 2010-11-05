@@ -38,6 +38,7 @@
     <plugins>
         <plugin>
             <artifactId>maven-enforcer-plugin</artifactId>
+            <version>1.0-beta-1</version>
             <executions>
                 <!--  Enforce JDK6 -->
                 <execution>
