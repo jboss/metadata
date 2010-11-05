@@ -95,7 +95,10 @@ public class InitProcessor extends AbstractFinderUser implements Creator<Method,
          return;
       
       if(bean.getSessionType() != SessionType.Stateful)
-         throw new IllegalArgumentException("Init annotation is only valid on a stateful bean");
+      {
+         throw new IllegalArgumentException("Bean with name: " + bean.getEjbName() + " , ejb-class: "
+               + bean.getEjbClass() + " is not stateful. Init annotation is only valid on a stateful bean.");
+      }
       
       if(bean.getInitMethods() == null)
          bean.setInitMethods(new InitMethodsMetaData());
