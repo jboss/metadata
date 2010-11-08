@@ -21,16 +21,15 @@
  */
 package org.jboss.metadata.annotation.creator.ejb.jboss;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-import java.util.Collection;
-
-import javax.ejb.Stateful;
-
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
+
+import javax.ejb.Stateful;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+import java.util.Collection;
 
 
 /**
@@ -53,6 +52,7 @@ public class StatefulProcessor extends AbstractSessionBeanProcessor
       addMethodProcessor(new RemoveProcessor(finder));
       addMethodProcessor(new PostActivateMethodProcessor(finder));
       addMethodProcessor(new PrePassivateMethodProcessor(finder));
+      addMethodProcessor(new SessionSynchronizationProcessor(finder));
       
       // concurrency management annotation is applicable for stateful bean
       addTypeProcessor(new ConcurrencyManagementProcessor(finder));

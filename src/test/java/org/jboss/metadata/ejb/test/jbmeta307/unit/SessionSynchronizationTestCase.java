@@ -21,13 +21,21 @@
  */
 package org.jboss.metadata.ejb.test.jbmeta307.unit;
 
+import junit.framework.Assert;
+import org.jboss.metadata.annotation.creator.ejb.jboss.JBoss50Creator;
+import org.jboss.metadata.annotation.finder.AnnotationFinder;
+import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBoss51MetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
+import org.jboss.metadata.ejb.test.jbmeta307.SyncedBean;
+import org.jboss.test.metadata.common.PackageScanner;
+import org.jboss.test.metadata.common.ScanPackage;
 import org.jboss.xb.binding.JBossXBException;
 import org.jboss.xb.binding.Unmarshaller;
 import org.jboss.xb.binding.UnmarshallerFactory;
@@ -36,7 +44,9 @@ import org.jboss.xb.binding.resolver.MutableSchemaResolver;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.lang.reflect.AnnotatedElement;
 import java.net.URL;
+import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -64,6 +74,24 @@ public class SessionSynchronizationTestCase
       return namedMethod;
    }
 
+   @Test
+   @ScanPackage("org.jboss.metadata.ejb.test.jbmeta307")
+   public void testAnnotations()
+   {
+      AnnotationFinder<AnnotatedElement> finder = new DefaultAnnotationFinder<AnnotatedElement>();
+      JBoss50Creator creator = new JBoss50Creator(finder);
+      Collection<Class<?>> classes = PackageScanner.loadClasses();
+      JBossMetaData metaData = creator.create(classes);
+      assertNotNull("Metadata created for bean was null", metaData);
+      
+      JBossSessionBean31MetaData bean = (JBossSessionBean31MetaData) metaData.getEnterpriseBean(SyncedBean.class.getSimpleName());
+      Assert.assertNotNull("Session bean metadata was null", bean);
+
+      assertEquals("afterBegin", bean.getAfterBeginMethod().getMethodName());
+      assertEquals("afterCompletion", bean.getAfterCompletionMethod().getMethodName());
+      assertEquals("beforeCompletion", bean.getBeforeCompletionMethod().getMethodName());
+   }
+   
    @Test
    public void testMerge() throws Exception
    {
