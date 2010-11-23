@@ -1268,6 +1268,13 @@ public class JBossMetaData extends NamedModuleImpl
             {
                continue;
             }
+            // interceptor binding on the bean, is interested
+            // in the default interceptors (ejbname = *). So set the flag to include the default
+            // interceptors in the list of applicable interceptors
+            if (binding.isExcludeDefaultInterceptors() == false)
+            {
+               includeDefaultInterceptors = true;
+            }
             for (String interceptorClass : interceptorClasses)
             {
                InterceptorMetaData interceptorMetaData = allInterceptors.get(interceptorClass);
