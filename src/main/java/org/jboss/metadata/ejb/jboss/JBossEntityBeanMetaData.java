@@ -609,7 +609,7 @@ public class JBossEntityBeanMetaData extends JBossEnterpriseBeanMetaData
    @Override
    protected String getDefaultInvokerJndiName()
    {
-      return getJndiName();
+      return determineJndiName();
    }
 
    /**

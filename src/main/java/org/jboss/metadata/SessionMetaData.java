@@ -23,7 +23,6 @@ package org.jboss.metadata;
 
 import java.util.Iterator;
 
-import org.jboss.metadata.ejb.jboss.InvokerBindingMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
@@ -139,33 +138,6 @@ public class SessionMetaData extends BeanMetaData
    {
       return getDelegate().determineJndiName();
    }
-   
-   /**
-    * Get an invoker binding
-    * 
-    * @param invokerName the invoker proxy binding name
-    * @return the jndi name
-    */
-   @Override
-   public String getInvokerBinding(String invokerName)
-   {
-      InvokerBindingMetaData binding = getDelegate().determineInvokerBinding(invokerName);
-      String bindingName = binding.getJndiName();
-      if(bindingName == null || bindingName.length() == 0)
-      {
-         String home = this.getHome();
-         if (home == null || home.trim().isEmpty())
-         {
-            bindingName = this.getJndiName();
-         }
-         else
-         {
-            bindingName = this.getDelegate().determineResolvedJndiName(home);
-         }
-      }
-      return bindingName;
-   }
-
 
    @Override
    public boolean isCallByValue()
