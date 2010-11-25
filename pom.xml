@@ -54,6 +54,7 @@
         <module>common</module>
         <module>merge</module>
         <module>web</module>
+        <module>parser</module>
     </modules>
 
     <build>
@@ -130,6 +131,11 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.jboss.as.metadata</groupId>
+                <artifactId>jboss-metadata-parser</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
