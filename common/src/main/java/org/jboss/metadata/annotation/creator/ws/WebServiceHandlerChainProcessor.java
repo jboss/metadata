@@ -30,7 +30,6 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,14 +47,12 @@ import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainsMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
-import org.jboss.wsf.spi.metadata.j2ee.serviceref.HandlerChainsObjectFactory;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerChainMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerChainsMetaData;
+import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerChainsMetaDataParser;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedHandlerMetaData;
 import org.jboss.wsf.spi.metadata.j2ee.serviceref.UnifiedInitParamMetaData;
 import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
-import org.jboss.xb.binding.UnmarshallerFactory;
 import org.jboss.xb.binding.sunday.unmarshalling.DefaultSchemaResolver;
 
 /**
@@ -140,13 +137,12 @@ public class WebServiceHandlerChainProcessor<E extends AnnotatedElement>
     * @return ServiceReferenceHandlerChainsMetaData
     * @throws JBossXBException
     */
-   protected ServiceReferenceHandlerChainsMetaData unmarshall(InputStream in) throws JBossXBException
+   protected ServiceReferenceHandlerChainsMetaData unmarshall(InputStream in) throws IOException
    {
       if(in == null)
          throw new IllegalArgumentException("InputStream may not be null.");
       
-      Unmarshaller unmarshaller = UnmarshallerFactory.newInstance().newUnmarshaller();
-      UnifiedHandlerChainsMetaData handlerChainsUMDM = (UnifiedHandlerChainsMetaData)unmarshaller.unmarshal(in, new HandlerChainsObjectFactory(), null);
+      UnifiedHandlerChainsMetaData handlerChainsUMDM = UnifiedHandlerChainsMetaDataParser.parse(in);
       return this.transform(handlerChainsUMDM);
    }
    
