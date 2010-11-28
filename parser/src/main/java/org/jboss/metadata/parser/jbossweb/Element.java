@@ -54,6 +54,8 @@ public enum Element {
 
     JACC_STAR_ROLE_ALLOW("jacc-star-role-allow"),
 
+    LISTENER("listener"),
+    LISTENER_TYPE("listener-type"),
     LOADER_REPOSITORY("loader-repository"),
     LOADER_REPOSITORY_CONFIG("loader-repository-config"),
 
@@ -63,6 +65,9 @@ public enum Element {
     METHOD("method"),
     MULTIPART_CONFIG("multipart-config"),
 
+    OVERLAY("overlay"),
+
+    PARAM("param"),
     PASSIVATION_CONFIG("passivation-config"),
     PASSIVATION_MAX_IDLE_TIME("passivation-max-idle-time"),
     PASSIVATION_MIN_IDLE_TIME("passivation-min-idle-time"),
@@ -80,6 +85,7 @@ public enum Element {
     SERVLET("servlet"),
     SERVLET_NAME("servlet-name"),
     SERVLET_SECURITY("servlet-security"),
+    SESSION_CONFIG("session-config"),
     SESSION_NOTIFICATION_POLICY("session-notification-policy"),
     SNAPSHOT_INTERVAL("snapshot-interval"),
     SNAPSHOT_MODE("snapshot-mode"),
@@ -90,6 +96,7 @@ public enum Element {
     USE_SESSION_COOKIES("use-session-cookies"),
     USE_SESSION_PASSIVATION("use-session-passivation"),
 
+    VALVE("valve"),
     VIRTUAL_HOST("virtual-host"),
 
     WEBSERVICE_DESCRIPTION("webservice-description"),

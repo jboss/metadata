@@ -28,13 +28,16 @@ import java.util.List;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.jboss.metadata.parser.servlet.SessionConfigMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.web.jboss.ContainerListenerMetaData;
 import org.jboss.metadata.web.jboss.JBoss4xDTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50DTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50WebMetaData;
 import org.jboss.metadata.web.jboss.JBoss60WebMetaData;
 import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
+import org.jboss.metadata.web.jboss.ValveMetaData;
 
 
 /**
@@ -121,6 +124,33 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     }
                     annotations.add(JBossAnnotationMetaDataParser.parse(reader));
                     break;
+                case LISTENER:
+                	List<ContainerListenerMetaData> listeners = wmd.getContainerListeners();
+                	if (listeners == null) {
+                		listeners = new ArrayList<ContainerListenerMetaData>();
+                		wmd.setContainerListeners(listeners);
+                	}
+                	listeners.add(ContainerListenerMetaDataParser.parse(reader));
+                	break;
+                case SESSION_CONFIG:
+                	wmd.setSessionConfig(SessionConfigMetaDataParser.parse(reader));
+                	break;
+                case VALVE:
+                	List<ValveMetaData> valves = wmd.getValves();
+                	if (valves == null) {
+                		valves = new ArrayList<ValveMetaData>();
+                		wmd.setValves(valves);
+                	}
+                	valves.add(ValveMetaDataParser.parse(reader));
+                	break;
+                case OVERLAY:
+                	List<String> overlays = wmd.getOverlays();
+                	if (overlays == null) {
+                		overlays = new ArrayList<String>();
+                		wmd.setOverlays(overlays);
+                	}
+                	overlays.add(reader.getElementText());
+                	break;
                 default: throw unexpectedElement(reader);
             }
         }

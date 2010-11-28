@@ -139,6 +139,10 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private Boolean jaccAllStoreRole;
     private JBossAnnotationsMetaData annotations;
 
+    private List<ContainerListenerMetaData> containerListeners;
+    private List<ValveMetaData> valves;
+    private List<String> overlays;
+
     /** The web context class loader used to create the java:comp context */
     @Deprecated
     private transient ClassLoader encLoader;
@@ -663,7 +667,32 @@ public class JBossWebMetaData extends NamedModuleImpl {
         this.webserviceDescriptions = webserviceDescriptions;
     }
 
-    /**
+    public List<ContainerListenerMetaData> getContainerListeners() {
+		return containerListeners;
+	}
+
+	public void setContainerListeners(
+			List<ContainerListenerMetaData> containerListeners) {
+		this.containerListeners = containerListeners;
+	}
+
+	public List<ValveMetaData> getValves() {
+		return valves;
+	}
+
+	public void setValves(List<ValveMetaData> valves) {
+		this.valves = valves;
+	}
+
+	public List<String> getOverlays() {
+		return overlays;
+	}
+
+	public void setOverlays(List<String> overlays) {
+		this.overlays = overlays;
+	}
+
+	/**
      * Get the security-role names from the web.xml descriptor
      *
      * @return Set<String> of the security-role names from the web.xml

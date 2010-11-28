@@ -117,6 +117,12 @@
        <version>3.0.0.GA</version>
     </dependency>
 
+    <dependency>
+       <groupId>org.jboss.spec.javax.annotation</groupId>
+       <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+       <version>1.0.0.Final</version>
+    </dependency>
+
     <!-- Test Dependencies -->
     <dependency>
       <groupId>junit</groupId>
