@@ -1240,7 +1240,15 @@ public class JBossMetaData extends NamedModuleImpl
             {
                includeDefaultInterceptors = true;
             }
-            InterceptorClassesMetaData interceptorClasses = binding.getInterceptorClasses();
+            InterceptorClassesMetaData interceptorClasses = null;
+            if (binding.isTotalOrdering())
+            {
+               interceptorClasses = binding.getInterceptorOrder();
+            }
+            else
+            {
+               interceptorClasses = binding.getInterceptorClasses();
+            }
             // interceptor binding has no classes, so move on to the next interceptor binding
             if (interceptorClasses == null || interceptorClasses.isEmpty())
             {
@@ -1262,7 +1270,15 @@ public class JBossMetaData extends NamedModuleImpl
          }
          else if (binding.getEjbName().equals("*")) // binding for default interceptors
          {
-            InterceptorClassesMetaData interceptorClasses = binding.getInterceptorClasses();
+            InterceptorClassesMetaData interceptorClasses = null;
+            if (binding.isTotalOrdering())
+            {
+               interceptorClasses = binding.getInterceptorOrder();
+            }
+            else
+            {
+               interceptorClasses = binding.getInterceptorClasses();
+            }
             // no interceptor class, so skip to next interceptor binding
             if (interceptorClasses == null || interceptorClasses.isEmpty())
             {
