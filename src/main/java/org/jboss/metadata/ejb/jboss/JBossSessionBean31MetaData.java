@@ -31,6 +31,7 @@ import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
+import org.jboss.metadata.ejb.spec.StatefulTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
 import org.jboss.metadata.merge.MergeUtil;
 
@@ -99,6 +100,8 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
    private NamedMethodMetaData afterBeginMethod;
    private NamedMethodMetaData beforeCompletionMethod;
    private NamedMethodMetaData afterCompletionMethod;
+   
+   private StatefulTimeoutMetaData statefulTimeout;
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
@@ -351,6 +354,16 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       this.afterCompletionMethod = method;
    }
 
+   public StatefulTimeoutMetaData getStatefulTimeout()
+   {
+      return statefulTimeout;
+   }
+
+   public void setStatefulTimeout(StatefulTimeoutMetaData statefulTimeout)
+   {
+      this.statefulTimeout = statefulTimeout;
+   }
+   
    /**
     * {@inheritDoc}
     */
@@ -396,6 +409,8 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       this.concurrentMethods.merge(joverride != null ? joverride.getConcurrentMethods() : null, soriginal != null ? soriginal.getConcurrentMethods() : null);
 
       this.beanLevelAccessTimeout = override(joverride != null ? joverride.getAccessTimeout() : null, soriginal != null ? soriginal.getAccessTimeout() : null);
+
+      this.statefulTimeout = override(joverride != null ? joverride.getStatefulTimeout() : null, soriginal != null ? soriginal.getStatefulTimeout() : null);
 
       if (joverride != null)
       {
@@ -457,6 +472,8 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       this.concurrentMethods.merge(joverride != null ? joverride.getConcurrentMethods() : null, soriginal != null ? soriginal.getConcurrentMethods() : null);
       
       this.beanLevelAccessTimeout = override(joverride != null ? joverride.getAccessTimeout() : null, soriginal != null ? soriginal.getAccessTimeout() : null);
+
+      this.statefulTimeout = override(joverride != null ? joverride.getStatefulTimeout() : null, soriginal != null ? soriginal.getStatefulTimeout() : null);
 
       if (joverride != null)
       {
@@ -537,5 +554,4 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          MergeUtil.merge(this.timers, overrideTimers, originalTimers);
       }
    }
-
 }

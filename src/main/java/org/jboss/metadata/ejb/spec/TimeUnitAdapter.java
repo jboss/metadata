@@ -21,10 +21,9 @@
 */
 package org.jboss.metadata.ejb.spec;
 
+import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
-
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * Responsible for converting the String value of {@link TimeUnit} to
@@ -33,7 +32,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class TimeUnitAdatper extends XmlAdapter<String, TimeUnit>
+public class TimeUnitAdapter extends XmlAdapter<String, TimeUnit>
 {
 
    /**

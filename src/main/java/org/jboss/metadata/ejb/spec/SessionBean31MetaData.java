@@ -44,7 +44,7 @@ import org.jboss.metadata.merge.MergeUtil;
  */
 @XmlType(name = "session-beanType", propOrder =
 {"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local", "businessLocals",
-      "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "timers", "initOnStartup",
+      "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "statefulTimeout", "timeoutMethod", "timers", "initOnStartup",
       "concurrencyManagementType", "concurrentMethods", "dependsOnMetaData", "initMethods", "removeMethods", "asyncMethods", "transactionType",
       "afterBeginMethod", "beforeCompletionMethod", "afterCompletionMethod",
       "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
@@ -99,6 +99,8 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    private NamedMethodMetaData afterBeginMethod;
    private NamedMethodMetaData beforeCompletionMethod;
    private NamedMethodMetaData afterCompletionMethod;
+
+   private StatefulTimeoutMetaData statefulTimeout;
    
    /**
     * Returns the init-on-startup value of the session bean metadata.
@@ -413,6 +415,8 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       this.concurrentMethods = new ConcurrentMethodsMetaData();
       this.concurrentMethods.merge(override != null ? override.getConcurrentMethods() : null, original != null ? original.getConcurrentMethods() : null);
 
+      this.statefulTimeout = override(override != null ? override.getStatefulTimeout() : null, original != null ? original.getStatefulTimeout() : null);
+
       if (override != null)
       {
          if (override.localBean != null)
@@ -484,5 +488,15 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          }
          MergeUtil.merge(this.timers, overrideTimers, originalTimers);
       }
+   }
+
+   public StatefulTimeoutMetaData getStatefulTimeout()
+   {
+      return statefulTimeout;
+   }
+
+   public void setStatefulTimeout(StatefulTimeoutMetaData statefulTimeout)
+   {
+      this.statefulTimeout = statefulTimeout;
    }
 }

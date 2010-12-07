@@ -59,6 +59,8 @@ public class StatefulProcessor extends AbstractSessionBeanProcessor
 
       addTypeProcessor(new AccessTimeoutClassProcessor(finder));      
       addMethodProcessor(new AccessTimeoutMethodProcessor(finder));
+
+      addTypeProcessor(new StatefulTimeoutProcessor(finder));
    }
 
    @Override

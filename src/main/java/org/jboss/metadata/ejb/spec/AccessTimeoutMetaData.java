@@ -21,13 +21,8 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import java.io.Serializable;
-import java.util.concurrent.TimeUnit;
-
 import javax.ejb.AccessTimeout;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Metadata for {@link AccessTimeout}'s xml equivalent
@@ -35,40 +30,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-@XmlType(name = "access-timeoutType", propOrder =
-{"timeout", "unit"})
-public class AccessTimeoutMetaData implements Serializable
+@XmlType(name = "access-timeoutType", propOrder = {"timeout", "unit"})
+public class AccessTimeoutMetaData extends AbstractTimeoutMetaData
 {
-
-   /**
-    * 
-    */
    private static final long serialVersionUID = 1L;
-
-   private long timeout;
-
-   private TimeUnit unit;
-
-   @XmlElement(name = "timeout", required = true)
-   public void setTimeout(long timeout)
-   {
-      this.timeout = timeout;
-   }
-
-   public long getTimeout()
-   {
-      return this.timeout;
-   }
-
-   @XmlElement(name = "unit", required = true)
-   @XmlJavaTypeAdapter(TimeUnitAdatper.class)
-   public void setUnit(TimeUnit timeUnit)
-   {
-      this.unit = timeUnit;
-   }
-
-   public TimeUnit getUnit()
-   {
-      return this.unit;
-   }
 }
