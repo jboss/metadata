@@ -21,13 +21,6 @@
 */
 package org.jboss.metadata.annotation.creator.ejb.jboss;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Method;
-import java.util.Collection;
-
-import javax.ejb.AccessTimeout;
-
 import org.jboss.metadata.annotation.creator.AbstractFinderUser;
 import org.jboss.metadata.annotation.creator.Processor;
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
@@ -35,8 +28,15 @@ import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.ConcurrentMethodMetaData;
+import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
 import org.jboss.metadata.ejb.spec.MethodParametersMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
+
+import javax.ejb.AccessTimeout;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
+import java.util.Collection;
 
 /**
  * Processes method level {@link AccessTimeout} annotation and creates metadata out of it
@@ -79,6 +79,14 @@ public class AccessTimeoutMethodProcessor extends AbstractFinderUser
       {
          return;
       }
+      
+      ConcurrentMethodsMetaData concurrentMethods = metaData.getConcurrentMethods();
+      if(concurrentMethods == null)
+      {
+         concurrentMethods = new ConcurrentMethodsMetaData();
+         metaData.setConcurrentMethods(concurrentMethods);
+      }
+
       // create an AccessTimeoutMetaData
       AccessTimeoutMetaData accessTimeoutMetaData = new AccessTimeoutMetaData();
       accessTimeoutMetaData.setTimeout(accessTimeout.value());
@@ -100,13 +108,13 @@ public class AccessTimeoutMethodProcessor extends AbstractFinderUser
       }
       namedMethod.setMethodParams(methodParamsMetaData);
       // get the concurrent method for this named method
-      ConcurrentMethodMetaData concurrentMethod = metaData.getConcurrentMethods().get(namedMethod);
+      ConcurrentMethodMetaData concurrentMethod = metaData.getConcurrentMethods().find(namedMethod);
       if (concurrentMethod == null)
       {
          concurrentMethod = new ConcurrentMethodMetaData();
          // set the named method in the concurrent method metadata
          concurrentMethod.setMethod(namedMethod);
-         metaData.getConcurrentMethods().put(namedMethod, concurrentMethod);
+         metaData.getConcurrentMethods().add(concurrentMethod);
       }
       // set the access timeout metadata on the concurrent method metadata
       concurrentMethod.setAccessTimeout(accessTimeoutMetaData);

@@ -68,7 +68,7 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    /**
     * Concurrent methods against each {@link NamedMethodMetaData}
     */
-   private Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethods;
+   private ConcurrentMethodsMetaData concurrentMethods;
 
    /**
     * The lock type that is set at the bean level
@@ -216,8 +216,7 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * @throws IllegalArgumentException If the passed <code>concurrentMethods</code> is null
     */
    @XmlElement(name = "concurrent-method", required = false)
-   @XmlJavaTypeAdapter (ConcurrentMethodsCollectionToMapAdapter.class)
-   public void setConcurrentMethods(Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethods)
+   public void setConcurrentMethods(ConcurrentMethodsMetaData concurrentMethods)
    {
       this.concurrentMethods = concurrentMethods;
    }
@@ -228,12 +227,8 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * there are no concurrent methods for this bean
     * @return
     */
-   public Map<NamedMethodMetaData, ConcurrentMethodMetaData> getConcurrentMethods()
+   public ConcurrentMethodsMetaData getConcurrentMethods()
    {
-      if (this.concurrentMethods == null)
-      {
-         this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
-      }
       return this.concurrentMethods;
    }
 
@@ -415,6 +410,9 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       this.setBeforeCompletionMethod(override(override != null ? override.getBeforeCompletionMethod() : null, original != null ? original.getBeforeCompletionMethod() : null));
       this.setAfterCompletionMethod(override(override != null ? override.getAfterCompletionMethod() : null, original != null ? original.getAfterCompletionMethod() : null));
 
+      this.concurrentMethods = new ConcurrentMethodsMetaData();
+      this.concurrentMethods.merge(override != null ? override.getConcurrentMethods() : null, original != null ? original.getConcurrentMethods() : null);
+
       if (override != null)
       {
          if (override.localBean != null)
@@ -428,14 +426,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          if (override.concurrencyManagementType != null)
          {
             this.concurrencyManagementType = override.concurrencyManagementType;
-         }
-         if (override.concurrentMethods != null)
-         {
-            if (this.concurrentMethods == null)
-            {
-               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
-            }
-            this.concurrentMethods.putAll(override.concurrentMethods);
          }
          if (override.beanLevelLockType != null)
          {
@@ -463,14 +453,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
          if (original.concurrencyManagementType != null)
          {
             this.concurrencyManagementType = original.concurrencyManagementType;
-         }
-         if (original.concurrentMethods != null)
-         {
-            if (this.concurrentMethods == null)
-            {
-               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
-            }
-            this.concurrentMethods.putAll(original.concurrentMethods);
          }
          if (original.beanLevelLockType != null)
          {

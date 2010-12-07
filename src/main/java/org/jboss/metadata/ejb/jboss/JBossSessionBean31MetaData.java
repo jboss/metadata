@@ -21,30 +21,30 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.LockType;
-import javax.ejb.Schedule;
-import javax.ejb.Startup;
-import javax.xml.bind.annotation.XmlElement;
-
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.ConcurrentMethodMetaData;
+import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
 import org.jboss.metadata.merge.MergeUtil;
+
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.LockType;
+import javax.ejb.Schedule;
+import javax.ejb.Startup;
+import javax.xml.bind.annotation.XmlElement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -69,7 +69,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
    /**
     * Concurrent methods of this bean
     */
-   private Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethods;
+   private ConcurrentMethodsMetaData concurrentMethods;
 
    /**
     * Bean level access timeout
@@ -197,17 +197,12 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     * @param concurrentMethods
     * @throws IllegalArgumentException If the passed <code>concurrentMethods</code> is null
     */
-   public void setConcurrentMethods(Set<ConcurrentMethodMetaData> concurrentMethods)
+   public void setConcurrentMethods(ConcurrentMethodsMetaData concurrentMethods)
    {
       if (concurrentMethods == null)
-      {
          throw new IllegalArgumentException("Concurrent methods cannot be set to null");
-      }
-      this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
-      for (ConcurrentMethodMetaData concurrentMethod : concurrentMethods)
-      {
-         this.concurrentMethods.put(concurrentMethod.getMethod(), concurrentMethod);
-      }
+
+      this.concurrentMethods = concurrentMethods;
    }
 
    /**
@@ -216,12 +211,8 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     * there are no concurrent methods for this bean
     * @return
     */
-   public Map<NamedMethodMetaData, ConcurrentMethodMetaData> getConcurrentMethods()
+   public ConcurrentMethodsMetaData getConcurrentMethods()
    {
-      if (this.concurrentMethods == null)
-      {
-         this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
-      }
       return this.concurrentMethods;
    }
 
@@ -400,7 +391,12 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       this.setAfterBeginMethod(override(joverride != null ? joverride.getAfterBeginMethod() : null, soriginal != null ? soriginal.getAfterBeginMethod() : null));
       this.setBeforeCompletionMethod(override(joverride != null ? joverride.getBeforeCompletionMethod() : null, soriginal != null ? soriginal.getBeforeCompletionMethod() : null));
       this.setAfterCompletionMethod(override(joverride != null ? joverride.getAfterCompletionMethod() : null, soriginal != null ? soriginal.getAfterCompletionMethod() : null));
-      
+
+      this.concurrentMethods = new ConcurrentMethodsMetaData();
+      this.concurrentMethods.merge(joverride != null ? joverride.getConcurrentMethods() : null, soriginal != null ? soriginal.getConcurrentMethods() : null);
+
+      this.beanLevelAccessTimeout = override(joverride != null ? joverride.getAccessTimeout() : null, soriginal != null ? soriginal.getAccessTimeout() : null);
+
       if (joverride != null)
       {
          this.noInterfaceBean = joverride.isNoInterfaceBean();
@@ -409,21 +405,9 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.concurrencyManagementType = joverride.concurrencyManagementType;
          }
-         if (joverride.concurrentMethods != null)
-         {
-            if (this.concurrentMethods == null)
-            {
-               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
-            }
-            this.concurrentMethods.putAll(joverride.concurrentMethods);
-         }
          if (joverride.beanLevelLockType != null)
          {
             this.beanLevelLockType = joverride.beanLevelLockType;
-         }
-         if (joverride.beanLevelAccessTimeout != null)
-         {
-            this.beanLevelAccessTimeout = joverride.beanLevelAccessTimeout;
          }
          if (joverride.dependsOn != null)
          {
@@ -438,21 +422,9 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.concurrencyManagementType = soriginal.getConcurrencyManagementType();
          }
-         if (soriginal.concurrentMethods != null)
-         {
-            if (this.concurrentMethods == null)
-            {
-               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
-            }
-            this.concurrentMethods.putAll(soriginal.concurrentMethods);
-         }
          if (soriginal.beanLevelLockType != null)
          {
             this.beanLevelLockType = soriginal.beanLevelLockType;
-         }
-         if (soriginal.beanLevelAccessTimeout != null)
-         {
-            this.beanLevelAccessTimeout = soriginal.beanLevelAccessTimeout;
          }
          if (soriginal.dependsOn != null)
          {
@@ -481,6 +453,11 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       this.setBeforeCompletionMethod(override(joverride != null ? joverride.getBeforeCompletionMethod() : null, soriginal != null ? soriginal.getBeforeCompletionMethod() : null));
       this.setAfterCompletionMethod(override(joverride != null ? joverride.getAfterCompletionMethod() : null, soriginal != null ? soriginal.getAfterCompletionMethod() : null));
 
+      this.concurrentMethods = new ConcurrentMethodsMetaData();
+      this.concurrentMethods.merge(joverride != null ? joverride.getConcurrentMethods() : null, soriginal != null ? soriginal.getConcurrentMethods() : null);
+      
+      this.beanLevelAccessTimeout = override(joverride != null ? joverride.getAccessTimeout() : null, soriginal != null ? soriginal.getAccessTimeout() : null);
+
       if (joverride != null)
       {
          this.noInterfaceBean = joverride.isNoInterfaceBean();
@@ -489,21 +466,9 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.concurrencyManagementType = joverride.concurrencyManagementType;
          }
-         if (joverride.concurrentMethods != null)
-         {
-            if (this.concurrentMethods == null)
-            {
-               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
-            }
-            this.concurrentMethods.putAll(joverride.concurrentMethods);
-         }
          if (joverride.beanLevelLockType != null)
          {
             this.beanLevelLockType = joverride.beanLevelLockType;
-         }
-         if (joverride.beanLevelAccessTimeout != null)
-         {
-            this.beanLevelAccessTimeout = joverride.beanLevelAccessTimeout;
          }
          if (joverride.dependsOn != null)
          {
@@ -519,21 +484,9 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
          {
             this.concurrencyManagementType = soriginal.getConcurrencyManagementType();
          }
-         if (soriginal.getConcurrentMethods() != null)
-         {
-            if (this.concurrentMethods == null)
-            {
-               this.concurrentMethods = new HashMap<NamedMethodMetaData, ConcurrentMethodMetaData>();
-            }
-            this.concurrentMethods.putAll(soriginal.getConcurrentMethods());
-         }
          if (soriginal.getLockType() != null)
          {
             this.beanLevelLockType = soriginal.getLockType();
-         }
-         if (soriginal.getAccessTimeout() != null)
-         {
-            this.beanLevelAccessTimeout = soriginal.getAccessTimeout();
          }
          if (soriginal.getDependsOn() != null)
          {

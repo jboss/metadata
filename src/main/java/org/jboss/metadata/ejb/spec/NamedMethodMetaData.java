@@ -21,9 +21,9 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaData;
+
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * NamedMethodMetaData.
@@ -129,5 +129,37 @@ public class NamedMethodMetaData extends NamedMetaData
          return true;
       
       return false;
+   }
+
+   public boolean matches(String methodName, String params[])
+   {
+      // the wildcard matches everything
+      if(getMethodName().equals("*"))
+         return true;
+
+      // Method name does not match
+      if(!getMethodName().equals(methodName))
+         return false;
+
+      // No parameters to match
+      if (methodParams == null)
+         return true;
+
+      // Wrong number of paremters
+      if(params == null && methodParams.size() > 0)
+         return false;
+      else if(params != null && params.length != methodParams.size())
+         return false;
+
+      // Check each parameter
+      int i = 0;
+      for (String param : methodParams)
+      {
+         if (param.equals(params[i++]) == false)
+            return false;
+      }
+
+      // We match
+      return true;
    }
 }

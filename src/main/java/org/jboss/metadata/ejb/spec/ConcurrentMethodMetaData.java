@@ -21,13 +21,12 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import java.io.Serializable;
-
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 
 /**
  * Metadata for methods which specify {@link Lock} for concurrency management
@@ -102,5 +101,10 @@ public class ConcurrentMethodMetaData implements Serializable
          return false;
       }
       return this.method.equals(anotherConcurrentMethod.method);
+   }
+
+   public boolean matches(String methodName, String params[])
+   {
+      return getMethod().matches(methodName, params);
    }
 }

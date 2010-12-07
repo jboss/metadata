@@ -57,6 +57,8 @@ public class StatefulProcessor extends AbstractSessionBeanProcessor
       // concurrency management annotation is applicable for stateful bean
       addTypeProcessor(new ConcurrencyManagementProcessor(finder));
 
+      addTypeProcessor(new AccessTimeoutClassProcessor(finder));      
+      addMethodProcessor(new AccessTimeoutMethodProcessor(finder));
    }
 
    @Override

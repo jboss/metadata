@@ -21,21 +21,21 @@
 */
 package org.jboss.metadata.annotation.creator.ejb.jboss;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Method;
-import java.util.Collection;
-
-import javax.ejb.Lock;
-
 import org.jboss.metadata.annotation.creator.AbstractFinderUser;
+import org.jboss.metadata.annotation.creator.EjbProcessorUtils;
 import org.jboss.metadata.annotation.creator.Processor;
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.ConcurrentMethodMetaData;
-import org.jboss.metadata.ejb.spec.MethodParametersMetaData;
+import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
+
+import javax.ejb.Lock;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
+import java.util.Collection;
 
 /**
  * Processes method level {@link Lock} annotation and creates metadata out of it
@@ -75,23 +75,25 @@ public class LockMethodProcessor extends AbstractFinderUser implements Processor
          return;
       }
 
+      ConcurrentMethodsMetaData concurrentMethods = metaData.getConcurrentMethods();
+      if(concurrentMethods == null)
+      {
+         concurrentMethods = new ConcurrentMethodsMetaData();
+         metaData.setConcurrentMethods(concurrentMethods);
+      }
+      
       // create a named method metadata for this method
       NamedMethodMetaData namedMethod = new NamedMethodMetaData();
       namedMethod.setName(method.getName());
-      MethodParametersMetaData methodParamsMetaData = new MethodParametersMetaData();
-      for (Class<?> parameterType : method.getParameterTypes())
-      {
-         methodParamsMetaData.add(parameterType.getName());
-      }
-      namedMethod.setMethodParams(methodParamsMetaData);
+      namedMethod.setMethodParams(EjbProcessorUtils.getMethodParameters(method));
       // get the concurrent method for this named method
-      ConcurrentMethodMetaData concurrentMethod = metaData.getConcurrentMethods().get(namedMethod);
+      ConcurrentMethodMetaData concurrentMethod = metaData.getConcurrentMethods().find(namedMethod);
       if (concurrentMethod == null)
       {
          concurrentMethod = new ConcurrentMethodMetaData();
          // set the named method in the concurrent method metadata
          concurrentMethod.setMethod(namedMethod);
-         metaData.getConcurrentMethods().put(namedMethod, concurrentMethod);
+         metaData.getConcurrentMethods().add(concurrentMethod);
       }
       // if the lock type has been set on the annotation, then set it in the concurrent method metadata
       if (lock.value() != null)

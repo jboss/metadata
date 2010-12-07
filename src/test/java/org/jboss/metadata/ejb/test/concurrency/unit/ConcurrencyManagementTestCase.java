@@ -21,23 +21,6 @@
 */
 package org.jboss.metadata.ejb.test.concurrency.unit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.util.Collection;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.Lock;
-import javax.ejb.LockType;
-
 import org.jboss.metadata.annotation.creator.ejb.jboss.JBoss50Creator;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
@@ -46,6 +29,7 @@ import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.ConcurrentMethodMetaData;
+import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
@@ -69,6 +53,21 @@ import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
 import org.jboss.xb.binding.resolver.MutableSchemaResolver;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
+import java.net.URL;
+import java.util.Collection;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test that the metadata for concurrency management related annotations and 
@@ -193,15 +192,14 @@ public class ConcurrencyManagementTestCase
       this.assertSessionBean(enterpriseBean);
       SessionBean31MetaData sessionBean = (SessionBean31MetaData) enterpriseBean;
 
-      Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethods = sessionBean.getConcurrentMethods();
+      ConcurrentMethodsMetaData concurrentMethods = sessionBean.getConcurrentMethods();
       assertNotNull("Concurrent methods metdata was null for bean " + beanName, concurrentMethods);
 
       NamedMethodMetaData allMethods = new NamedMethodMetaData();
       allMethods.setMethodName("*");
 
-      assertTrue("Concurrent methods metadata does not contain method '*'", concurrentMethods.containsKey(allMethods));
-
-      ConcurrentMethodMetaData concurrentMethodMetaData = concurrentMethods.get(allMethods);
+      ConcurrentMethodMetaData concurrentMethodMetaData = concurrentMethods.find(allMethods);
+      assertNotNull("Concurrent methods metadata does not contain method '*'", concurrentMethodMetaData);
       assertEquals("Unexpected locktype on method", LockType.READ, concurrentMethodMetaData.getLockType());
 
       AccessTimeoutMetaData accessTimeout = concurrentMethodMetaData.getAccessTimeout();
@@ -231,8 +229,7 @@ public class ConcurrencyManagementTestCase
       this.assertSessionBean(bean);
       SessionBean31MetaData oneMethodWriteLockBean = (SessionBean31MetaData) bean;
 
-      Map<NamedMethodMetaData, ConcurrentMethodMetaData> concurrentMethodsOnBean = oneMethodWriteLockBean
-            .getConcurrentMethods();
+      ConcurrentMethodsMetaData concurrentMethodsOnBean = oneMethodWriteLockBean.getConcurrentMethods();
       assertNotNull("Concurrent methods metdata was null for bean " + oneMethodWriteLockBeanName,
             concurrentMethodsOnBean);
 
@@ -245,10 +242,8 @@ public class ConcurrencyManagementTestCase
 
       methodWithWriteLock.setMethodParams(methodParams);
 
-      assertTrue("Concurrent methods metadata does not contain method named " + methodName, concurrentMethodsOnBean
-            .containsKey(methodWithWriteLock));
-
-      ConcurrentMethodMetaData concurrentMethodWithWriteLock = concurrentMethodsOnBean.get(methodWithWriteLock);
+      ConcurrentMethodMetaData concurrentMethodWithWriteLock = concurrentMethodsOnBean.find(methodWithWriteLock);
+      assertNotNull("Concurrent methods metadata does not contain method named " + methodName, concurrentMethodWithWriteLock);
       assertEquals("Unexpected locktype on method", LockType.WRITE, concurrentMethodWithWriteLock.getLockType());
 
       assertNull("Unexpectedly found access timeout on method " + methodName, concurrentMethodWithWriteLock
@@ -310,7 +305,7 @@ public class ConcurrencyManagementTestCase
          }
          readMethodMetaData.setMethodParams(methodParamsMetaData);
       }
-      ConcurrentMethodMetaData concurrentMethod = sessionBean.getConcurrentMethods().get(readMethodMetaData);
+      ConcurrentMethodMetaData concurrentMethod = sessionBean.getConcurrentMethods().find(readMethodMetaData);
       assertNotNull("Concurrent method metadata not found on method " + readMethodMetaData.getName(), concurrentMethod);
       assertEquals("Unexpected locktype on method " + readMethodMetaData.getName(), lockType, concurrentMethod
             .getLockType());
@@ -334,7 +329,7 @@ public class ConcurrencyManagementTestCase
          }
          readMethodMetaData.setMethodParams(methodParamsMetaData);
       }
-      ConcurrentMethodMetaData concurrentMethod = sessionBean.getConcurrentMethods().get(readMethodMetaData);
+      ConcurrentMethodMetaData concurrentMethod = sessionBean.getConcurrentMethods().find(readMethodMetaData);
       assertNull("Unexpectedly found concurrent method metadata on method " + readMethodMetaData.getName(), concurrentMethod);
    }
 
