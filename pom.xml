@@ -31,7 +31,7 @@
       <version>6-beta-1</version>
     </parent>
     
-    <groupId>org.jboss.as</groupId>
+    <groupId>org.jboss.metadata</groupId>
     <artifactId>jboss-as-parent-metadata</artifactId>
     <version>7.0.1.Alpha1-SNAPSHOT</version>
 
@@ -52,9 +52,7 @@
 
     <modules>
         <module>common</module>
-        <module>merge</module>
         <module>web</module>
-        <module>parser</module>
     </modules>
 
     <build>

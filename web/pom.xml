@@ -25,12 +25,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.jboss.as</groupId>
+    <groupId>org.jboss.metadata</groupId>
     <artifactId>jboss-as-parent-metadata</artifactId>
     <version>7.0.1.Alpha1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.jboss.as.metadata</groupId>
+  <groupId>org.jboss.metadata</groupId>
   <artifactId>jboss-metadata-web</artifactId>
   <packaging>jar</packaging>
   <version>7.0.1.Alpha1-SNAPSHOT</version>
@@ -88,7 +88,7 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.jboss.as.metadata</groupId>
+      <groupId>org.jboss.metadata</groupId>
       <artifactId>jboss-metadata-common</artifactId>
       <version>7.0.1.Alpha1-SNAPSHOT</version>
     </dependency>
