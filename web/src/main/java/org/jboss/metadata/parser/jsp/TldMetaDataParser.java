@@ -177,6 +177,20 @@ public class TldMetaDataParser extends MetaDataElementParser {
                         throw unexpectedElement(reader);
                     }
                     break;
+                case SMALL_ICON:
+                    if (version == Version.TLD_1_2) {
+                        ((Tld12MetaData) tld).setSmallIcon(reader.getElementText());
+                    } else {
+                        throw unexpectedElement(reader);
+                    }
+                    break;
+                case LARGE_ICON:
+                    if (version == Version.TLD_1_2) {
+                        ((Tld12MetaData) tld).setLargeIcon(reader.getElementText());
+                    } else {
+                        throw unexpectedElement(reader);
+                    }
+                    break;
                 case URI:
                     tld.setUri(reader.getElementText());
                     break;
