@@ -40,7 +40,7 @@
 
    <servlet id="servlet0">
       <servlet-name>servlet0-name</servlet-name>
-      <! TODO the servlet0.class had spaces and trim() was tested... -->
+      <!-- TODO the servlet0.class had spaces and trim() was tested... -->
       <servlet-class>servlet0.class</servlet-class>
       <init-param id="servlet0-init-param0">
          <param-name>init-param0-name</param-name>
