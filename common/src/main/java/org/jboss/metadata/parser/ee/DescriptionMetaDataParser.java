@@ -40,7 +40,7 @@ public class DescriptionMetaDataParser extends MetaDataElementParser {
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i ++) {
             final String value = reader.getAttributeValue(i);
-            if ("xml".equals(reader.getAttributeNamespace(i)) 
+            if ("http://www.w3.org/XML/1998/namespace".equals(reader.getAttributeNamespace(i)) 
             		&& Attribute.forName(reader.getAttributeLocalName(i)) == Attribute.LANG) {
             	description.setLanguage(value);
             }

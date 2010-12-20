@@ -71,8 +71,8 @@ public class WebApp5EverythingUnitTestCase extends AbstractJavaEEEverythingTest
    protected void assertEverything(WebMetaData webApp, Mode mode)
       throws Exception
    {
-      /* TODO not supported yet
       assertDescriptionGroup("web-app", webApp.getDescriptionGroup());
+      /* TODO not supported yet
       assertRemoteEnvironment("webApp", webApp, true, mode);
       assertMessageDestinations5("webAppMessageDestination", 2, webApp.getMessageDestinations(), true);
       */

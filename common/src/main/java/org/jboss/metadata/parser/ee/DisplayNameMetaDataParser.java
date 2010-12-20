@@ -25,10 +25,8 @@ package org.jboss.metadata.parser.ee;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import org.jboss.annotation.javaee.Description;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionImpl;
 import org.jboss.metadata.javaee.spec.DisplayNameImpl;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 
 /**
@@ -42,7 +40,7 @@ public class DisplayNameMetaDataParser extends MetaDataElementParser {
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i ++) {
             final String value = reader.getAttributeValue(i);
-            if ("xml".equals(reader.getAttributeNamespace(i)) 
+            if ("http://www.w3.org/XML/1998/namespace".equals(reader.getAttributeNamespace(i)) 
             		&& Attribute.forName(reader.getAttributeLocalName(i)) == Attribute.LANG) {
             	displayName.setLanguage(value);
             }
