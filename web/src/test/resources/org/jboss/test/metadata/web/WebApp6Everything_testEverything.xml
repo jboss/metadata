@@ -95,8 +95,9 @@
 
    <servlet id="servlet0">
       <servlet-name>servlet0-name</servlet-name>
-      <!-- TODO: trim?  -->
-      <servlet-class>servlet0.class</servlet-class>
+      <servlet-class>
+         servlet0.class
+      </servlet-class>
       <init-param id="servlet0-init-param0">
          <param-name>init-param0-name</param-name>
          <param-value>init-param0-value</param-value>
