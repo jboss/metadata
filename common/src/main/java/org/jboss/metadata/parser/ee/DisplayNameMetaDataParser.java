@@ -42,6 +42,10 @@ public class DisplayNameMetaDataParser extends MetaDataElementParser {
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i ++) {
             final String value = reader.getAttributeValue(i);
+            if ("xml".equals(reader.getAttributeNamespace(i)) 
+            		&& Attribute.forName(reader.getAttributeLocalName(i)) == Attribute.LANG) {
+            	displayName.setLanguage(value);
+            }
             if (reader.getAttributeNamespace(i) != null) {
                 continue;
             }
@@ -49,10 +53,6 @@ public class DisplayNameMetaDataParser extends MetaDataElementParser {
             switch (attribute) {
                 case ID: {
                     displayName.setId(value);
-                    break;
-                }
-                case LANG: {
-                    displayName.setLanguage(value);
                     break;
                 }
                 default: throw unexpectedAttribute(reader, i);
