@@ -40,6 +40,10 @@ public class IconMetaDataParser extends MetaDataElementParser {
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i ++) {
             final String value = reader.getAttributeValue(i);
+            if ("xml".equals(reader.getAttributeNamespace(i)) 
+            		&& Attribute.forName(reader.getAttributeLocalName(i)) == Attribute.LANG) {
+            	icon.setLanguage(value);
+            }
             if (reader.getAttributeNamespace(i) != null) {
                 continue;
             }
@@ -47,10 +51,6 @@ public class IconMetaDataParser extends MetaDataElementParser {
             switch (attribute) {
                 case ID: {
                     icon.setId(value);
-                    break;
-                }
-                case LANG: {
-                    icon.setLanguage(value);
                     break;
                 }
                 default: throw unexpectedAttribute(reader, i);

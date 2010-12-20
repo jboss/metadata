@@ -174,6 +174,16 @@ public class MetaDataElementParser implements XMLStreamConstants {
     }
 
     /**
+     * Read the element text, with trimming.
+     *
+     * @param reader the reader
+     * @throws XMLStreamException if an error occurs
+    */
+    protected static String readElementText(final XMLStreamReader reader) throws XMLStreamException {
+    	return reader.getElementText().trim();
+    }
+
+    /**
      * Consumes the remainder of the current element, throwing an {@link XMLStreamException}
      * if it contains any child elements.
      *
