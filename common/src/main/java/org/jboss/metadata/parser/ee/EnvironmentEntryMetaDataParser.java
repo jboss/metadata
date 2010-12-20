@@ -71,13 +71,13 @@ public class EnvironmentEntryMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ENV_ENTRY_NAME:
-                    environmentEntry.setEnvEntryName(reader.getElementText());
+                    environmentEntry.setEnvEntryName(getElementText(reader));
                     break;
                 case ENV_ENTRY_TYPE:
-                    environmentEntry.setType(reader.getElementText());
+                    environmentEntry.setType(getElementText(reader));
                     break;
                 case ENV_ENTRY_VALUE:
-                    environmentEntry.setValue(reader.getElementText());
+                    environmentEntry.setValue(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

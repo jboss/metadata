@@ -41,13 +41,13 @@ public class AddressingParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ENABLED:
-                    addressing.setEnabled(Boolean.valueOf(reader.getElementText()));
+                    addressing.setEnabled(Boolean.valueOf(getElementText(reader)));
                     break;
                 case REQUIRED:
-                    addressing.setRequired(Boolean.valueOf(reader.getElementText()));
+                    addressing.setRequired(Boolean.valueOf(getElementText(reader)));
                     break;
                 case RESPONSES:
-                    addressing.setResponses(reader.getElementText());
+                    addressing.setResponses(getElementText(reader));
                     break;
                default: throw unexpectedElement(reader);
             }

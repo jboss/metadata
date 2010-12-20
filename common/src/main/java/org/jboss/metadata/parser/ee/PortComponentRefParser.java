@@ -60,13 +60,13 @@ public class PortComponentRefParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SERVICE_ENDPOINT_INTERFACE:
-                    portComponentRef.setServiceEndpointInterface(reader.getElementText());
+                    portComponentRef.setServiceEndpointInterface(getElementText(reader));
                     break;
                 case ENABLE_MTOM:
-                    portComponentRef.setEnableMtom(Boolean.valueOf(reader.getElementText()));
+                    portComponentRef.setEnableMtom(Boolean.valueOf(getElementText(reader)));
                     break;
                 case MTOM_THRESHOLD:
-                    portComponentRef.setMtomThreshold(Integer.valueOf(reader.getElementText()));
+                    portComponentRef.setMtomThreshold(Integer.valueOf(getElementText(reader)));
                     break;
                 case ADDRESSING:
                     portComponentRef.setAddressing(AddressingParser.parse(reader));
@@ -75,7 +75,7 @@ public class PortComponentRefParser extends MetaDataElementParser {
                     portComponentRef.setRespectBinding(RespectBindingParser.parse(reader));
                     break;
                 case PORT_COMPONENT_LINK:
-                    portComponentRef.setPortComponentLink(reader.getElementText());
+                    portComponentRef.setPortComponentLink(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

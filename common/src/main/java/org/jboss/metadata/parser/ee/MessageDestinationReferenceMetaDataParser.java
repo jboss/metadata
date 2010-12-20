@@ -70,16 +70,16 @@ public class MessageDestinationReferenceMetaDataParser extends MetaDataElementPa
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case MESSAGE_DESTINATION_REF_NAME:
-                    mdReference.setMessageDestinationRefName(reader.getElementText());
+                    mdReference.setMessageDestinationRefName(getElementText(reader));
                     break;
                 case MESSAGE_DESTINATION_TYPE:
-                    mdReference.setType(reader.getElementText());
+                    mdReference.setType(getElementText(reader));
                     break;
                 case MESSAGE_DESTINATION_USAGE:
-                    mdReference.setMessageDestinationUsage(MessageDestinationUsageType.valueOf(reader.getElementText()));
+                    mdReference.setMessageDestinationUsage(MessageDestinationUsageType.valueOf(getElementText(reader)));
                     break;
                 case MESSAGE_DESTINATION_LINK:
-                    mdReference.setLink(reader.getElementText());
+                    mdReference.setLink(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

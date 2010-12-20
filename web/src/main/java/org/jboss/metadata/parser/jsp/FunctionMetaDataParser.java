@@ -71,13 +71,13 @@ public class FunctionMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    function.setName(reader.getElementText());
+                    function.setName(getElementText(reader));
                     break;
                 case FUNCTION_CLASS:
-                    function.setFunctionClass(reader.getElementText());
+                    function.setFunctionClass(getElementText(reader));
                     break;
                 case FUNCTION_SIGNATURE:
-                    function.setFunctionSignature(reader.getElementText());
+                    function.setFunctionSignature(getElementText(reader));
                     break;
                 case EXAMPLE:
                     List<String> examples = function.getExamples();
@@ -85,7 +85,7 @@ public class FunctionMetaDataParser extends MetaDataElementParser {
                         examples = new ArrayList<String>();
                         function.setExamples(examples);
                     }
-                    examples.add(reader.getElementText());
+                    examples.add(getElementText(reader));
                     break;
                 case FUNCTION_EXTENSION:
                     List<TldExtensionMetaData> extensions = function.getFunctionExtensions();

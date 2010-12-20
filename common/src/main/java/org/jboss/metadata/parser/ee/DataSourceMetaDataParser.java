@@ -68,28 +68,28 @@ public class DataSourceMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    dataSource.setName(reader.getElementText());
+                    dataSource.setName(getElementText(reader));
                     break;
                 case CLASS_NAME:
-                    dataSource.setClassName(reader.getElementText());
+                    dataSource.setClassName(getElementText(reader));
                     break;
                 case SERVER_NAME:
-                    dataSource.setServerName(reader.getElementText());
+                    dataSource.setServerName(getElementText(reader));
                     break;
                 case PORT_NUMBER:
-                    dataSource.setPortNumber(Integer.valueOf(reader.getElementText()));
+                    dataSource.setPortNumber(Integer.valueOf(getElementText(reader)));
                     break;
                 case DATABASE_NAME:
-                    dataSource.setDatabaseName(reader.getElementText());
+                    dataSource.setDatabaseName(getElementText(reader));
                     break;
                 case URL:
-                    dataSource.setUrl(reader.getElementText());
+                    dataSource.setUrl(getElementText(reader));
                     break;
                 case USER:
-                    dataSource.setUser(reader.getElementText());
+                    dataSource.setUser(getElementText(reader));
                     break;
                 case PASSWORD:
-                    dataSource.setPassword(reader.getElementText());
+                    dataSource.setPassword(getElementText(reader));
                     break;
                 case PROPERTY:
                     PropertiesMetaData properties = dataSource.getProperties();
@@ -100,28 +100,28 @@ public class DataSourceMetaDataParser extends MetaDataElementParser {
                     properties.add(PropertyMetaDataParser.parse(reader));
                     break;
                 case LOGIN_TIMEOUT:
-                    dataSource.setLoginTimeout(Integer.valueOf(reader.getElementText()));
+                    dataSource.setLoginTimeout(Integer.valueOf(getElementText(reader)));
                     break;
                 case TRANSACTIONAL:
-                    dataSource.setTransactional(Boolean.valueOf(reader.getElementText()));
+                    dataSource.setTransactional(Boolean.valueOf(getElementText(reader)));
                     break;
                 case ISOLATION_LEVEL:
-                    dataSource.setIsolationLevel(IsolationLevelType.valueOf(reader.getElementText()));
+                    dataSource.setIsolationLevel(IsolationLevelType.valueOf(getElementText(reader)));
                     break;
                 case INITAL_POOL_SIZE:
-                    dataSource.setInitialPoolSize(Integer.valueOf(reader.getElementText()));
+                    dataSource.setInitialPoolSize(Integer.valueOf(getElementText(reader)));
                     break;
                 case MAX_POOL_SIZE:
-                    dataSource.setMaxPoolSize(Integer.valueOf(reader.getElementText()));
+                    dataSource.setMaxPoolSize(Integer.valueOf(getElementText(reader)));
                     break;
                 case MIN_POOL_SIZE:
-                    dataSource.setMinPoolSize(Integer.valueOf(reader.getElementText()));
+                    dataSource.setMinPoolSize(Integer.valueOf(getElementText(reader)));
                     break;
                 case MAX_IDLE_TIME:
-                    dataSource.setMaxIdleTime(Integer.valueOf(reader.getElementText()));
+                    dataSource.setMaxIdleTime(Integer.valueOf(getElementText(reader)));
                     break;
                 case MAX_STATEMENTS:
-                    dataSource.setMaxStatements(Integer.valueOf(reader.getElementText()));
+                    dataSource.setMaxStatements(Integer.valueOf(getElementText(reader)));
                     break;
                 default: throw unexpectedElement(reader);
             }

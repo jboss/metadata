@@ -46,13 +46,13 @@ public class HttpMethodConstraintMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case METHOD:
-                    httpMethodConstraint.setMethod(reader.getElementText());
+                    httpMethodConstraint.setMethod(getElementText(reader));
                     break;
                 case EMPTY_ROLE_SEMANTIC:
-                    httpMethodConstraint.setEmptyRoleSemantic(EmptyRoleSemanticType.valueOf(reader.getElementText()));
+                    httpMethodConstraint.setEmptyRoleSemantic(EmptyRoleSemanticType.valueOf(getElementText(reader)));
                     break;
                 case TRANSPORT_GUARANTEE:
-                    httpMethodConstraint.setTransportGuarantee(TransportGuaranteeType.valueOf(reader.getElementText()));
+                    httpMethodConstraint.setTransportGuarantee(TransportGuaranteeType.valueOf(getElementText(reader)));
                     break;
                 case ROLE_ALLOWED:
                     List<String> rolesAllowed = httpMethodConstraint.getRolesAllowed();
@@ -60,7 +60,7 @@ public class HttpMethodConstraintMetaDataParser extends MetaDataElementParser {
                         rolesAllowed = new ArrayList<String>();
                         httpMethodConstraint.setRolesAllowed(rolesAllowed);
                     }
-                    rolesAllowed.add(reader.getElementText());
+                    rolesAllowed.add(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

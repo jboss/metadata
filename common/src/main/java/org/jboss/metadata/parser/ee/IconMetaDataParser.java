@@ -61,10 +61,10 @@ public class IconMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SMALL_ICON:
-                    icon.setSmallIcon(reader.getElementText());
+                    icon.setSmallIcon(getElementText(reader));
                     break;
                 case LARGE_ICON:
-                    icon.setLargeIcon(reader.getElementText());
+                    icon.setLargeIcon(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

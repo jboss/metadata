@@ -66,16 +66,16 @@ public class MessageDestinationMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case MESSAGE_DESTINATION_NAME:
-                    messageDestination.setMessageDestinationName(reader.getElementText());
+                    messageDestination.setMessageDestinationName(getElementText(reader));
                     break;
                 case JNDI_NAME:
-                    messageDestination.setJndiName(reader.getElementText());
+                    messageDestination.setJndiName(getElementText(reader));
                     break;
                 case MAPPED_NAME:
-                    messageDestination.setMappedName(reader.getElementText());
+                    messageDestination.setMappedName(getElementText(reader));
                     break;
                 case LOOKUP_NAME:
-                    messageDestination.setLookupName(reader.getElementText());
+                    messageDestination.setLookupName(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

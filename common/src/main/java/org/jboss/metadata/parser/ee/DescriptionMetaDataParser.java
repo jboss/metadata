@@ -56,7 +56,7 @@ public class DescriptionMetaDataParser extends MetaDataElementParser {
                 default: throw unexpectedAttribute(reader, i);
             }
         }
-        description.setDescription(reader.getElementText());
+        description.setDescription(getElementText(reader));
         return description;
     }
 

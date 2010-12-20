@@ -69,7 +69,7 @@ public class SecurityRoleMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ROLE_NAME:
-                    securityRole.setRoleName(reader.getElementText());
+                    securityRole.setRoleName(getElementText(reader));
                     break;
                 case PRINCIPAL_NAME:
                     Set<String> principalNames = securityRole.getPrincipals();
@@ -77,7 +77,7 @@ public class SecurityRoleMetaDataParser extends MetaDataElementParser {
                         principalNames = new HashSet<String>();
                         securityRole.setPrincipals(principalNames);
                     }
-                    principalNames.add(reader.getElementText());
+                    principalNames.add(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

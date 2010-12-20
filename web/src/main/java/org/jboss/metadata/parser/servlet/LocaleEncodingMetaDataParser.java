@@ -58,10 +58,10 @@ public class LocaleEncodingMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case LOCALE:
-                    localeEncoding.setLocale(reader.getElementText());
+                    localeEncoding.setLocale(getElementText(reader));
                     break;
                 case ENCODING:
-                    localeEncoding.setEncoding(reader.getElementText());
+                    localeEncoding.setEncoding(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

@@ -58,26 +58,26 @@ public class CookieConfigMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    cookieConfig.setName(reader.getElementText());
+                    cookieConfig.setName(getElementText(reader));
                     break;
                 case DOMAIN:
-                    cookieConfig.setDomain(reader.getElementText());
+                    cookieConfig.setDomain(getElementText(reader));
                     break;
                 case PATH:
-                    cookieConfig.setPath(reader.getElementText());
+                    cookieConfig.setPath(getElementText(reader));
                     break;
                 case COMMENT:
-                    cookieConfig.setComment(reader.getElementText());
+                    cookieConfig.setComment(getElementText(reader));
                     break;
                 case HTTP_ONLY:
-                    if (Boolean.TRUE.equals(Boolean.valueOf(reader.getElementText()))) {
+                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader)))) {
                         cookieConfig.setHttpOnly(true);
                     } else {
                         cookieConfig.setHttpOnly(false);
                     }
                     break;
                 case SECURE:
-                    if (Boolean.TRUE.equals(Boolean.valueOf(reader.getElementText()))) {
+                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader)))) {
                         cookieConfig.setSecure(true);
                     } else {
                         cookieConfig.setSecure(false);
@@ -85,7 +85,7 @@ public class CookieConfigMetaDataParser extends MetaDataElementParser {
                     break;
                 case MAX_AGE:
                     try {
-                        cookieConfig.setMaxAge(Integer.valueOf(reader.getElementText()));
+                        cookieConfig.setMaxAge(Integer.valueOf(getElementText(reader)));
                     } catch (NumberFormatException e) {
                         throw unexpectedValue(reader, e);
                     }

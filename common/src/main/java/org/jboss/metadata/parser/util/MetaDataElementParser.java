@@ -179,7 +179,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
      * @param reader the reader
      * @throws XMLStreamException if an error occurs
     */
-    protected static String readElementText(final XMLStreamReader reader) throws XMLStreamException {
+    protected static String getElementText(final XMLStreamReader reader) throws XMLStreamException {
     	return reader.getElementText().trim();
     }
 

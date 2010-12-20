@@ -66,10 +66,10 @@ public class ParamValueMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case PARAM_NAME:
-                    paramValue.setParamName(reader.getElementText());
+                    paramValue.setParamName(getElementText(reader));
                     break;
                 case PARAM_VALUE:
-                    paramValue.setParamValue(reader.getElementText());
+                    paramValue.setParamValue(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

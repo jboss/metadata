@@ -103,7 +103,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case CONTEXT_ROOT:
-                    wmd.setContextRoot(reader.getElementText());
+                    wmd.setContextRoot(getElementText(reader));
                     break;
                 case VIRTUAL_HOST:
                     // We only support one virtual host, at least for now
@@ -111,7 +111,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     if (virtualHosts == null) {
                         virtualHosts = new ArrayList<String>();
                         wmd.setVirtualHosts(virtualHosts);
-                        virtualHosts.add(reader.getElementText());
+                        virtualHosts.add(getElementText(reader));
                     } else {
                         throw duplicateNamedElement(reader, Element.VIRTUAL_HOST.toString());
                     }
@@ -149,7 +149,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 		overlays = new ArrayList<String>();
                 		wmd.setOverlays(overlays);
                 	}
-                	overlays.add(reader.getElementText());
+                	overlays.add(getElementText(reader));
                 	break;
                 default: throw unexpectedElement(reader);
             }

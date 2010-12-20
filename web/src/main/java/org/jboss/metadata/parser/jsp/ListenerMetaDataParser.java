@@ -67,7 +67,7 @@ public class ListenerMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case LISTENER_CLASS:
-                    listener.setListenerClass(reader.getElementText());
+                    listener.setListenerClass(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

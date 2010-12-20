@@ -76,7 +76,7 @@ public class AuthConstraintMetaDataParser extends MetaDataElementParser {
                         roleNames = new ArrayList<String>();
                         authConstraint.setRoleNames(roleNames);
                     }
-                    roleNames.add(reader.getElementText());
+                    roleNames.add(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

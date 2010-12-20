@@ -72,10 +72,10 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case HANDLER_NAME:
-                    handler.setHandlerName(reader.getElementText());
+                    handler.setHandlerName(getElementText(reader));
                     break;
                 case HANDLER_CLASS:
-                    handler.setHandlerClass(reader.getElementText());
+                    handler.setHandlerClass(getElementText(reader));
                     break;
                 case INIT_PARAM:
                     List<ParamValueMetaData> initParams = handler.getInitParam();
@@ -91,7 +91,7 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
                         soapHeaders = new ArrayList<QName>();
                         handler.setSoapHeader(soapHeaders);
                     }
-                    soapHeaders.add(parseQName(reader.getElementText()));
+                    soapHeaders.add(parseQName(getElementText(reader)));
                     break;
                 case SOAP_ROLE:
                     List<String> soapRoles = handler.getSoapRole();
@@ -99,7 +99,7 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
                         soapRoles = new ArrayList<String>();
                         handler.setSoapRole(soapRoles);
                     }
-                    soapRoles.add(reader.getElementText());
+                    soapRoles.add(getElementText(reader));
                     break;
                 case PORT_NAME:
                     List<String> portNames = handler.getPortName();
@@ -107,7 +107,7 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
                         portNames = new ArrayList<String>();
                         handler.setPortName(portNames);
                     }
-                    portNames.add(reader.getElementText());
+                    portNames.add(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

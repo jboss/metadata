@@ -49,13 +49,13 @@ public class ResourceInjectionMetaDataParser extends MetaDataElementParser {
         final Element element = Element.forName(reader.getLocalName());
         switch (element) {
             case LOOKUP_NAME:
-                resourceInjection.setLookupName(reader.getElementText());
+                resourceInjection.setLookupName(getElementText(reader));
                 break;
             case MAPPED_NAME:
-                resourceInjection.setMappedName(reader.getElementText());
+                resourceInjection.setMappedName(getElementText(reader));
                 break;
             case JNDI_NAME:
-                resourceInjection.setJndiName(reader.getElementText());
+                resourceInjection.setJndiName(getElementText(reader));
                 break;
             case IGNORE_DEPENDECY:
                 resourceInjection.setIgnoreDependency(new EmptyMetaData());

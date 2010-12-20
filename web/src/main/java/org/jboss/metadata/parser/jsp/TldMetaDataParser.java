@@ -134,65 +134,65 @@ public class TldMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case TLIB_VERSION:
-                    tld.setTlibVersion(reader.getElementText());
+                    tld.setTlibVersion(getElementText(reader));
                     break;
                 case TLIBVERSION:
                     if (version == Version.TLD_1_1) {
-                        tld.setTlibVersion(reader.getElementText());
+                        tld.setTlibVersion(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case SHORT_NAME:
-                    tld.setShortName(reader.getElementText());
+                    tld.setShortName(getElementText(reader));
                     break;
                 case SHORTNAME:
                     if (version == Version.TLD_1_1) {
-                        tld.setShortName(reader.getElementText());
+                        tld.setShortName(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case JSPVERSION:
                     if (version == Version.TLD_1_1) {
-                        tld.setJspVersion(reader.getElementText());
+                        tld.setJspVersion(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case JSP_VERSION:
                     if (version == Version.TLD_1_2) {
-                        tld.setJspVersion(reader.getElementText());
+                        tld.setJspVersion(getElementText(reader));
                     } else if (version != Version.TLD_1_1) {
                         // This is not valid, but still being used in 2.0+ TLDs
-                        tld.setJspVersion(reader.getElementText());
+                        tld.setJspVersion(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case INFO:
                     if (version == Version.TLD_1_1) {
-                        ((Tld11MetaData) tld).setInfo(reader.getElementText());
+                        ((Tld11MetaData) tld).setInfo(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case SMALL_ICON:
                     if (version == Version.TLD_1_2) {
-                        ((Tld12MetaData) tld).setSmallIcon(reader.getElementText());
+                        ((Tld12MetaData) tld).setSmallIcon(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case LARGE_ICON:
                     if (version == Version.TLD_1_2) {
-                        ((Tld12MetaData) tld).setLargeIcon(reader.getElementText());
+                        ((Tld12MetaData) tld).setLargeIcon(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case URI:
-                    tld.setUri(reader.getElementText());
+                    tld.setUri(getElementText(reader));
                     break;
                 case VALIDATOR:
                     tld.setValidator(ValidatorMetaDataParser.parse(reader));

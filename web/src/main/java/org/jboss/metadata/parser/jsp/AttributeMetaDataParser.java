@@ -67,19 +67,19 @@ public class AttributeMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    attributeMD.setName(reader.getElementText());
+                    attributeMD.setName(getElementText(reader));
                     break;
                 case REQUIRED:
-                    attributeMD.setRequired(reader.getElementText());
+                    attributeMD.setRequired(getElementText(reader));
                     break;
                 case RTEXPRVALUE:
-                    attributeMD.setRtexprvalue(reader.getElementText());
+                    attributeMD.setRtexprvalue(getElementText(reader));
                     break;
                 case TYPE:
-                    attributeMD.setType(reader.getElementText());
+                    attributeMD.setType(getElementText(reader));
                     break;
                 case FRAGMENT:
-                    attributeMD.setFragment(reader.getElementText());
+                    attributeMD.setFragment(getElementText(reader));
                     break;
                 case DEFERRED_VALUE:
                     attributeMD.setDeferredValue(DeferredValueMetaDataParser.parse(reader));

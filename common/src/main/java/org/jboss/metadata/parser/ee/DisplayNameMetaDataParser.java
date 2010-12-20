@@ -58,7 +58,7 @@ public class DisplayNameMetaDataParser extends MetaDataElementParser {
                 default: throw unexpectedAttribute(reader, i);
             }
         }
-        displayName.setDisplayName(reader.getElementText());
+        displayName.setDisplayName(getElementText(reader));
         return displayName;
     }
 

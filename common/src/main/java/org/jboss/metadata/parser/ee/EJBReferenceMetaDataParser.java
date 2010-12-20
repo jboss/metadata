@@ -73,19 +73,19 @@ public class EJBReferenceMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case EJB_REF_NAME:
-                    ejbReference.setEjbRefName(reader.getElementText());
+                    ejbReference.setEjbRefName(getElementText(reader));
                     break;
                 case EJB_REF_TYPE:
-                    ejbReference.setEjbRefType(EJBReferenceType.valueOf(reader.getElementText()));
+                    ejbReference.setEjbRefType(EJBReferenceType.valueOf(getElementText(reader)));
                     break;
                 case HOME:
-                    ejbReference.setHome(reader.getElementText());
+                    ejbReference.setHome(getElementText(reader));
                     break;
                 case REMOTE:
-                    ejbReference.setRemote(reader.getElementText());
+                    ejbReference.setRemote(getElementText(reader));
                     break;
                 case EJB_LINK:
-                    ejbReference.setLink(reader.getElementText());
+                    ejbReference.setLink(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

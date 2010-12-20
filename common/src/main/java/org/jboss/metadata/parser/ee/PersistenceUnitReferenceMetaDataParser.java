@@ -73,10 +73,10 @@ public class PersistenceUnitReferenceMetaDataParser extends MetaDataElementParse
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case PERSISTENCE_UNIT_REF_NAME:
-                    puReference.setPersistenceUnitRefName(reader.getElementText());
+                    puReference.setPersistenceUnitRefName(getElementText(reader));
                     break;
                 case PERSISTENCE_UNIT_NAME:
-                    puReference.setPersistenceUnitName(reader.getElementText());
+                    puReference.setPersistenceUnitName(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

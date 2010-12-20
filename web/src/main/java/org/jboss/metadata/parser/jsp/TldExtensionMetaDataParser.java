@@ -61,7 +61,7 @@ public class TldExtensionMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAMESPACE:
-                    extension.setNamespace(reader.getElementText());
+                    extension.setNamespace(getElementText(reader));
                     break;
                 case EXTENSION_ELEMENT:
                     List<Object> extensionElements = extension.getExtensionElements();
@@ -69,7 +69,7 @@ public class TldExtensionMetaDataParser extends MetaDataElementParser {
                         extensionElements = new ArrayList<Object>();
                         extension.setExtensionElements(extensionElements);
                     }
-                    extensionElements.add(reader.getElementText());
+                    extensionElements.add(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

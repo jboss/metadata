@@ -71,10 +71,10 @@ public class TagFileMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    tagFile.setName(reader.getElementText());
+                    tagFile.setName(getElementText(reader));
                     break;
                 case PATH:
-                    tagFile.setPath(reader.getElementText());
+                    tagFile.setPath(getElementText(reader));
                     break;
                 case EXAMPLE:
                     List<String> examples = tagFile.getExamples();
@@ -82,7 +82,7 @@ public class TagFileMetaDataParser extends MetaDataElementParser {
                         examples = new ArrayList<String>();
                         tagFile.setExamples(examples);
                     }
-                    examples.add(reader.getElementText());
+                    examples.add(getElementText(reader));
                     break;
                 case TAG_EXTENSION:
                     List<TldExtensionMetaData> extensions = tagFile.getTagExtensions();

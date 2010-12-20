@@ -66,10 +66,10 @@ public class SecurityRoleRefMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ROLE_NAME:
-                    securityRoleRef.setRoleName(reader.getElementText());
+                    securityRoleRef.setRoleName(getElementText(reader));
                     break;
                 case ROLE_LINK:
-                    securityRoleRef.setRoleLink(reader.getElementText());
+                    securityRoleRef.setRoleLink(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

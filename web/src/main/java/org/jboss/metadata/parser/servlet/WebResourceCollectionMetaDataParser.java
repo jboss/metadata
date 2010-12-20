@@ -70,7 +70,7 @@ public class WebResourceCollectionMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case WEB_RESOURCE_NAME:
-                    webResourceCollection.setWebResourceName(reader.getElementText());
+                    webResourceCollection.setWebResourceName(getElementText(reader));
                     break;
                 case URL_PATTERN:
                     List<String> urlPatterns = webResourceCollection.getUrlPatterns();
@@ -78,7 +78,7 @@ public class WebResourceCollectionMetaDataParser extends MetaDataElementParser {
                         urlPatterns = new ArrayList<String>();
                         webResourceCollection.setUrlPatterns(urlPatterns);
                     }
-                    urlPatterns.add(reader.getElementText());
+                    urlPatterns.add(getElementText(reader));
                     break;
                 case HTTP_METHOD:
                     List<String> httpMethods = webResourceCollection.getHttpMethods();
@@ -86,7 +86,7 @@ public class WebResourceCollectionMetaDataParser extends MetaDataElementParser {
                         httpMethods = new ArrayList<String>();
                         webResourceCollection.setHttpMethods(httpMethods);
                     }
-                    httpMethods.add(reader.getElementText());
+                    httpMethods.add(getElementText(reader));
                     break;
                 case HTTP_METHOD_OMISSION:
                     List<String> httpMethodOmissions = webResourceCollection.getHttpMethodOmissions();
@@ -94,7 +94,7 @@ public class WebResourceCollectionMetaDataParser extends MetaDataElementParser {
                         httpMethodOmissions = new ArrayList<String>();
                         webResourceCollection.setHttpMethodOmissions(httpMethodOmissions);
                     }
-                    httpMethodOmissions.add(reader.getElementText());
+                    httpMethodOmissions.add(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

@@ -68,19 +68,19 @@ public class VariableMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME_GIVEN:
-                    variable.setNameGiven(reader.getElementText());
+                    variable.setNameGiven(getElementText(reader));
                     break;
                 case NAME_FROM_ATTRIBUTE:
-                    variable.setNameFromAttribute(reader.getElementText());
+                    variable.setNameFromAttribute(getElementText(reader));
                     break;
                 case VARIABLE_CLASS:
-                    variable.setVariableClass(reader.getElementText());
+                    variable.setVariableClass(getElementText(reader));
                     break;
                 case DECLARE:
-                    variable.setDeclare(reader.getElementText());
+                    variable.setDeclare(getElementText(reader));
                     break;
                 case SCOPE:
-                    variable.setScope(VariableScopeType.valueOf(reader.getElementText()));
+                    variable.setScope(VariableScopeType.valueOf(getElementText(reader)));
                     break;
                 default: throw unexpectedElement(reader);
             }

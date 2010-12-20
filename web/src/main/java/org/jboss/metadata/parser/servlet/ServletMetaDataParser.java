@@ -75,13 +75,13 @@ public class ServletMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SERVLET_NAME:
-                    servlet.setServletName(reader.getElementText());
+                    servlet.setServletName(getElementText(reader));
                     break;
                 case SERVLET_CLASS:
-                    servlet.setServletClass(reader.getElementText());
+                    servlet.setServletClass(getElementText(reader));
                     break;
                 case JSP_FILE:
-                    servlet.setJspFile(reader.getElementText());
+                    servlet.setJspFile(getElementText(reader));
                     break;
                 case INIT_PARAM:
                     List<ParamValueMetaData> initParams = servlet.getInitParam();
@@ -92,17 +92,17 @@ public class ServletMetaDataParser extends MetaDataElementParser {
                     initParams.add(ParamValueMetaDataParser.parse(reader));
                     break;
                 case LOAD_ON_STARTUP:
-                    servlet.setLoadOnStartup(reader.getElementText());
+                    servlet.setLoadOnStartup(getElementText(reader));
                     break;
                 case ENABLED:
-                    if (Boolean.TRUE.equals(Boolean.valueOf(reader.getElementText()))) {
+                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader)))) {
                         servlet.setEnabled(true);
                     } else {
                         servlet.setEnabled(false);
                     }
                     break;
                 case ASYNC_SUPPORTED:
-                    if (Boolean.TRUE.equals(Boolean.valueOf(reader.getElementText()))) {
+                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader)))) {
                         servlet.setAsyncSupported(true);
                     } else {
                         servlet.setAsyncSupported(false);

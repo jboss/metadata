@@ -72,7 +72,7 @@ public class ValidatorMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case VALIDATOR_CLASS:
-                    validator.setValidatorClass(reader.getElementText().trim());
+                    validator.setValidatorClass(getElementText(reader).trim());
                     break;
                 case INIT_PARAM:
                     List<ParamValueMetaData> initParams = validator.getInitParams();

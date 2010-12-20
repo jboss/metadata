@@ -58,10 +58,10 @@ public class FormLoginConfigMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case FORM_LOGIN_PAGE:
-                    formLoginConfig.setLoginPage(reader.getElementText());
+                    formLoginConfig.setLoginPage(getElementText(reader));
                     break;
                 case FORM_ERROR_PAGE:
-                    formLoginConfig.setErrorPage(reader.getElementText());
+                    formLoginConfig.setErrorPage(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

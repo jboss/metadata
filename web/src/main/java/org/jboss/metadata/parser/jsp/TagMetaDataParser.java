@@ -85,55 +85,55 @@ public class TagMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    tag.setName(reader.getElementText());
+                    tag.setName(getElementText(reader));
                     break;
                 case TAG_CLASS:
-                    tag.setTagClass(reader.getElementText());
+                    tag.setTagClass(getElementText(reader));
                     break;
                 case TAGCLASS:
                     if (version == Version.TLD_1_1) {
-                        tag.setTagClass(reader.getElementText());
+                        tag.setTagClass(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case TEI_CLASS:
-                    tag.setTeiClass(reader.getElementText());
+                    tag.setTeiClass(getElementText(reader));
                     break;
                 case TEICLASS:
                     if (version == Version.TLD_1_1) {
-                        tag.setTeiClass(reader.getElementText());
+                        tag.setTeiClass(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case BODY_CONTENT:
-                    tag.setBodyContent(BodyContentType.valueOf(reader.getElementText()));
+                    tag.setBodyContent(BodyContentType.valueOf(getElementText(reader)));
                     break;
                 case BODYCONTENT:
                     if (version == Version.TLD_1_1) {
-                        tag.setBodyContent(BodyContentType.valueOf(reader.getElementText()));
+                        tag.setBodyContent(BodyContentType.valueOf(getElementText(reader)));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case INFO:
                     if (version == Version.TLD_1_1) {
-                        ((Tag11MetaData) tag).setInfo(reader.getElementText());
+                        ((Tag11MetaData) tag).setInfo(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case SMALL_ICON:
                     if (version == Version.TLD_1_2) {
-                        ((Tag12MetaData) tag).setSmallIcon(reader.getElementText());
+                        ((Tag12MetaData) tag).setSmallIcon(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case LARGE_ICON:
                     if (version == Version.TLD_1_2) {
-                        ((Tag12MetaData) tag).setLargeIcon(reader.getElementText());
+                        ((Tag12MetaData) tag).setLargeIcon(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -155,7 +155,7 @@ public class TagMetaDataParser extends MetaDataElementParser {
                     attributes.add(AttributeMetaDataParser.parse(reader));
                     break;
                 case DYNAMIC_ATTRIBUTES:
-                    tag.setDynamicAttributes(reader.getElementText());
+                    tag.setDynamicAttributes(getElementText(reader));
                     break;
                 case EXAMPLE:
                     List<String> examples = tag.getExamples();
@@ -163,7 +163,7 @@ public class TagMetaDataParser extends MetaDataElementParser {
                         examples = new ArrayList<String>();
                         tag.setExamples(examples);
                     }
-                    examples.add(reader.getElementText());
+                    examples.add(getElementText(reader));
                     break;
                 case TAG_EXTENSION:
                     List<TldExtensionMetaData> extensions = tag.getTagExtensions();

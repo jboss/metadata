@@ -62,7 +62,7 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case FILTER_NAME:
-                    filterMapping.setFilterName(reader.getElementText());
+                    filterMapping.setFilterName(getElementText(reader));
                     break;
                 case URL_PATTERN:
                     List<String> urlPatterns = filterMapping.getUrlPatterns();
@@ -70,7 +70,7 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
                         urlPatterns = new ArrayList<String>();
                         filterMapping.setUrlPatterns(urlPatterns);
                     }
-                    urlPatterns.add(reader.getElementText());
+                    urlPatterns.add(getElementText(reader));
                     break;
                 case SERVLET_NAME:
                     List<String> servletNames = filterMapping.getServletNames();
@@ -78,7 +78,7 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
                         servletNames = new ArrayList<String>();
                         filterMapping.setServletNames(servletNames);
                     }
-                    servletNames.add(reader.getElementText());
+                    servletNames.add(getElementText(reader));
                     break;
                 case DISPATCHER:
                     List<DispatcherType> dispatchers = filterMapping.getDispatchers();
@@ -86,7 +86,7 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
                         dispatchers = new ArrayList<DispatcherType>();
                         filterMapping.setDispatchers(dispatchers);
                     }
-                    dispatchers.add(DispatcherType.valueOf(reader.getElementText()));
+                    dispatchers.add(DispatcherType.valueOf(getElementText(reader)));
                     break;
                 default: throw unexpectedElement(reader);
             }

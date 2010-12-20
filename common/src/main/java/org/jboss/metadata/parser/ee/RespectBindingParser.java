@@ -41,7 +41,7 @@ public class RespectBindingParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ENABLED:
-                    respectBinding.setEnabled(Boolean.valueOf(reader.getElementText()));
+                    respectBinding.setEnabled(Boolean.valueOf(getElementText(reader)));
                     break;
                 default: throw unexpectedElement(reader);
             }

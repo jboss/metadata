@@ -76,22 +76,22 @@ public class ResourceReferenceMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case RES_REF_NAME:
-                    resourceReference.setResourceRefName(reader.getElementText());
+                    resourceReference.setResourceRefName(getElementText(reader));
                     break;
                 case RES_TYPE:
-                    resourceReference.setType(reader.getElementText());
+                    resourceReference.setType(getElementText(reader));
                     break;
                 case RES_AUTH:
-                    resourceReference.setResAuth(ResourceAuthorityType.valueOf(reader.getElementText()));
+                    resourceReference.setResAuth(ResourceAuthorityType.valueOf(getElementText(reader)));
                     break;
                 case RES_SHARING_SCOPE:
-                    resourceReference.setResSharingScope(ResourceSharingScopeType.valueOf(reader.getElementText()));
+                    resourceReference.setResSharingScope(ResourceSharingScopeType.valueOf(getElementText(reader)));
                     break;
                 case RESOURCE_NAME:
-                    resourceReference.setResourceName(reader.getElementText());
+                    resourceReference.setResourceName(getElementText(reader));
                     break;
                 case RES_URL:
-                    resourceReference.setResUrl(reader.getElementText());
+                    resourceReference.setResUrl(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

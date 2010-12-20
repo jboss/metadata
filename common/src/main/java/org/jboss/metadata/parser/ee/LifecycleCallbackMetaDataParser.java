@@ -40,10 +40,10 @@ public class LifecycleCallbackMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case LIFECYCLE_CALLBACK_CLASS:
-                    callback.setClassName(reader.getElementText());
+                    callback.setClassName(getElementText(reader));
                     break;
                 case LIFECYCLE_CALLBACK_METHOD:
-                    callback.setMethodName(reader.getElementText());
+                    callback.setMethodName(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

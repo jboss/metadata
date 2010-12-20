@@ -41,10 +41,10 @@ public class ResourceInjectionTargetMetaDataParser extends MetaDataElementParser
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case INJECTION_TARGET_CLASS:
-                    resourceInjectionTarget.setInjectionTargetClass(reader.getElementText());
+                    resourceInjectionTarget.setInjectionTargetClass(getElementText(reader));
                     break;
                 case INJECTION_TARGET_NAME:
-                    resourceInjectionTarget.setInjectionTargetName(reader.getElementText());
+                    resourceInjectionTarget.setInjectionTargetName(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

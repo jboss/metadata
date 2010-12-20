@@ -43,7 +43,7 @@ public class JBossAnnotationMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case CLASS_NAME:
-                    annotation.setClassName(reader.getElementText());
+                    annotation.setClassName(getElementText(reader));
                     break;
                 case SERVLET_SECURITY:
                     annotation.setServletSecurity(ServletSecurityMetaDataParser.parse(reader));

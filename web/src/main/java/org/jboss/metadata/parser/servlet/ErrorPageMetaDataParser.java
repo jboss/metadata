@@ -58,13 +58,13 @@ public class ErrorPageMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ERROR_CODE:
-                    errorPage.setErrorCode(reader.getElementText());
+                    errorPage.setErrorCode(getElementText(reader));
                     break;
                 case EXCEPTION_TYPE:
-                    errorPage.setExceptionType(reader.getElementText());
+                    errorPage.setExceptionType(getElementText(reader));
                     break;
                 case LOCATION:
-                    errorPage.setLocation(reader.getElementText());
+                    errorPage.setLocation(getElementText(reader));
                     break;
                  default: throw unexpectedElement(reader);
             }

@@ -62,13 +62,13 @@ public class ServiceReferenceHandlerChainMetaDataParser extends MetaDataElementP
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SERVICE_NAME_PATTERN:
-                    handlerChain.setServiceNamePattern(parseQName(reader.getElementText()));
+                    handlerChain.setServiceNamePattern(parseQName(getElementText(reader)));
                     break;
                 case PORT_NAME_PATTERN:
-                    handlerChain.setPortNamePattern(parseQName(reader.getElementText()));
+                    handlerChain.setPortNamePattern(parseQName(getElementText(reader)));
                     break;
                 case PROTOCOL_BINDINGS:
-                    handlerChain.setProtocolBindings(reader.getElementText());
+                    handlerChain.setProtocolBindings(getElementText(reader));
                     break;
                 case HANDLER:
                     List<ServiceReferenceHandlerMetaData> handlers = handlerChain.getHandler();

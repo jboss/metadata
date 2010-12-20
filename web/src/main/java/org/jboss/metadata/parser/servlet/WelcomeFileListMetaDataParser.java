@@ -66,7 +66,7 @@ public class WelcomeFileListMetaDataParser extends MetaDataElementParser {
                         welcomeFiles = new ArrayList<String>();
                         welcomeFileList.setWelcomeFiles(welcomeFiles);
                     }
-                    welcomeFiles.add(reader.getElementText());
+                    welcomeFiles.add(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

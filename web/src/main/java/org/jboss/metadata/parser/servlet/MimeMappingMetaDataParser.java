@@ -58,10 +58,10 @@ public class MimeMappingMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case EXTENSION:
-                    mimeMapping.setExtension(reader.getElementText());
+                    mimeMapping.setExtension(getElementText(reader));
                     break;
                 case MIME_TYPE:
-                    mimeMapping.setMimeType(reader.getElementText());
+                    mimeMapping.setMimeType(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

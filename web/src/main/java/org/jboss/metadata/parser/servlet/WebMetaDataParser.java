@@ -170,7 +170,7 @@ public class WebMetaDataParser extends MetaDataElementParser {
                     break;
                 case MODULE_NAME:
                     if (wmd instanceof Web30MetaData) {
-                        ((Web30MetaData) wmd).setModuleName(reader.getElementText());
+                        ((Web30MetaData) wmd).setModuleName(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }

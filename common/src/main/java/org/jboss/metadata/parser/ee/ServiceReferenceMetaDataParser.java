@@ -82,22 +82,22 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SERVICE_REF_NAME:
-                    serviceReference.setServiceRefName(reader.getElementText());
+                    serviceReference.setServiceRefName(getElementText(reader));
                     break;
                 case SERVICE_INTERFACE:
-                    serviceReference.setServiceInterface(reader.getElementText());
+                    serviceReference.setServiceInterface(getElementText(reader));
                     break;
                 case SERVICE_REF_TYPE:
-                    serviceReference.setServiceRefType(reader.getElementText());
+                    serviceReference.setServiceRefType(getElementText(reader));
                     break;
                 case WSDL_FILE:
-                    serviceReference.setWsdlFile(reader.getElementText());
+                    serviceReference.setWsdlFile(getElementText(reader));
                     break;
                 case JAXRPC_MAPPING_FILE:
-                    serviceReference.setJaxrpcMappingFile(reader.getElementText());
+                    serviceReference.setJaxrpcMappingFile(getElementText(reader));
                     break;
                 case SERVICE_QNAME:
-                    serviceReference.setServiceQname(parseQName(reader.getElementText()));
+                    serviceReference.setServiceQname(parseQName(getElementText(reader)));
                     break;
                 case PORT_COMPONENT_REF:
                     List<PortComponentRef> portComponentRefs = (List<PortComponentRef>) serviceReference.getPortComponentRef();

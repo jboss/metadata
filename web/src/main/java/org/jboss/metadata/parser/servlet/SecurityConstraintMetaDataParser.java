@@ -61,7 +61,7 @@ public class SecurityConstraintMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case DISPLAY_NAME:
-                    securityConstraint.setDisplayName(reader.getElementText());
+                    securityConstraint.setDisplayName(getElementText(reader));
                     break;
                 case WEB_RESOURCE_COLLECTION:
                     WebResourceCollectionsMetaData resourceCollections = securityConstraint.getResourceCollections();

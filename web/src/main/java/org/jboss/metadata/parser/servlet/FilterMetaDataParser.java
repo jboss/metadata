@@ -72,13 +72,13 @@ public class FilterMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case FILTER_NAME:
-                    filter.setFilterName(reader.getElementText());
+                    filter.setFilterName(getElementText(reader));
                     break;
                 case FILTER_CLASS:
-                    filter.setFilterClass(reader.getElementText());
+                    filter.setFilterClass(getElementText(reader));
                     break;
                 case ASYNC_SUPPORTED:
-                    if (Boolean.TRUE.equals(Boolean.valueOf(reader.getElementText()))) {
+                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader)))) {
                         filter.setAsyncSupported(true);
                     } else {
                         filter.setAsyncSupported(false);

@@ -53,7 +53,7 @@ public class RelativeOrderingMetaDataParser extends MetaDataElementParser {
                         ordering.setOrdering(order);
                     }
                     NameMetaData name = new NameMetaData();
-                    name.setName(reader.getElementText());
+                    name.setName(getElementText(reader));
                     order.add(name);
                     break;
                 case OTHERS:

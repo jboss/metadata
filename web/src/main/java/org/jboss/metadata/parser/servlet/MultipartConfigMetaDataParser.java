@@ -58,25 +58,25 @@ public class MultipartConfigMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case LOCATION:
-                    multipartConfig.setLocation(reader.getElementText());
+                    multipartConfig.setLocation(getElementText(reader));
                     break;
                 case MAX_FILE_SIZE:
                     try {
-                        multipartConfig.setMaxFileSize(Long.valueOf(reader.getElementText()));
+                        multipartConfig.setMaxFileSize(Long.valueOf(getElementText(reader)));
                     } catch (NumberFormatException e) {
                         throw unexpectedValue(reader, e);
                     }
                     break;
                 case MAX_REQUEST_SIZE:
                     try {
-                        multipartConfig.setMaxRequestSize(Long.valueOf(reader.getElementText()));
+                        multipartConfig.setMaxRequestSize(Long.valueOf(getElementText(reader)));
                     } catch (NumberFormatException e) {
                         throw unexpectedValue(reader, e);
                     }
                     break;
                 case FILE_SIZE_THRESHOLD:
                     try {
-                        multipartConfig.setFileSizeThreshold(Integer.valueOf(reader.getElementText()));
+                        multipartConfig.setFileSizeThreshold(Integer.valueOf(getElementText(reader)));
                     } catch (NumberFormatException e) {
                         throw unexpectedValue(reader, e);
                     }

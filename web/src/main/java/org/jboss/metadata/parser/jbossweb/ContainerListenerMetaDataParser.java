@@ -47,10 +47,10 @@ public class ContainerListenerMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case CLASS_NAME:
-                	containerListener.setListenerClass(reader.getElementText());
+                	containerListener.setListenerClass(getElementText(reader));
                     break;
                 case LISTENER_TYPE:
-                	containerListener.setListenerType(ContainerListenerType.valueOf(reader.getElementText()));
+                	containerListener.setListenerType(ContainerListenerType.valueOf(getElementText(reader)));
                     break;
                 case PARAM:
                     List<ParamValueMetaData> params = containerListener.getParams();

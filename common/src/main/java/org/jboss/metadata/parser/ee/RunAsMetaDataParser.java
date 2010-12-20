@@ -66,7 +66,7 @@ public class RunAsMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ROLE_NAME:
-                    runAs.setRoleName(reader.getElementText());
+                    runAs.setRoleName(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

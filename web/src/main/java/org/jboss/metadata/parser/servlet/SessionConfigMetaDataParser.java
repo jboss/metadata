@@ -63,7 +63,7 @@ public class SessionConfigMetaDataParser extends MetaDataElementParser {
             switch (element) {
                 case SESSION_TIMEOUT:
                     try {
-                        sessionConfig.setSessionTimeout(Integer.valueOf(reader.getElementText()));
+                        sessionConfig.setSessionTimeout(Integer.valueOf(getElementText(reader)));
                     } catch (NumberFormatException e) {
                         throw unexpectedValue(reader, e);
                     }
@@ -77,7 +77,7 @@ public class SessionConfigMetaDataParser extends MetaDataElementParser {
                         trackingModes = new ArrayList<SessionTrackingModeType>();
                         sessionConfig.setSessionTrackingModes(trackingModes);
                     }
-                    trackingModes.add(SessionTrackingModeType.valueOf(reader.getElementText()));
+                    trackingModes.add(SessionTrackingModeType.valueOf(getElementText(reader)));
                     break;
                  default: throw unexpectedElement(reader);
             }

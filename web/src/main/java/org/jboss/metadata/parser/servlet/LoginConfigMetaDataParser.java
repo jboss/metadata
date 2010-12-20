@@ -58,10 +58,10 @@ public class LoginConfigMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case AUTH_METHOD:
-                    loginConfig.setAuthMethod(reader.getElementText());
+                    loginConfig.setAuthMethod(getElementText(reader));
                     break;
                 case REALM_NAME:
-                    loginConfig.setRealmName(reader.getElementText());
+                    loginConfig.setRealmName(getElementText(reader));
                     break;
                 case FORM_LOGIN_CONFIG:
                     loginConfig.setFormLoginConfig(FormLoginConfigMetaDataParser.parse(reader));

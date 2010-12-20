@@ -58,7 +58,7 @@ public class DeferredValueMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case TYPE:
-                    deferredValue.setType(reader.getElementText());
+                    deferredValue.setType(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

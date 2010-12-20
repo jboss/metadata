@@ -68,7 +68,7 @@ public class UserDataConstraintMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case TRANSPORT_GUARANTEE:
-                    userDataConstraint.setTransportGuarantee(TransportGuaranteeType.valueOf(reader.getElementText()));
+                    userDataConstraint.setTransportGuarantee(TransportGuaranteeType.valueOf(getElementText(reader)));
                     break;
                 default: throw unexpectedElement(reader);
             }

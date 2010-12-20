@@ -58,10 +58,10 @@ public class PropertyMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    property.setName(reader.getElementText());
+                    property.setName(getElementText(reader));
                     break;
                 case VALUE:
-                    property.setValue(reader.getElementText());
+                    property.setValue(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

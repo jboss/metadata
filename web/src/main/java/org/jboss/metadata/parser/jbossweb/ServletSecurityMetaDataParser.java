@@ -55,10 +55,10 @@ public class ServletSecurityMetaDataParser extends MetaDataElementParser {
                     httpMethodConstraints.add(HttpMethodConstraintMetaDataParser.parse(reader));
                     break;
                 case EMPTY_ROLE_SEMANTIC:
-                    servletSecurity.setEmptyRoleSemantic(EmptyRoleSemanticType.valueOf(reader.getElementText()));
+                    servletSecurity.setEmptyRoleSemantic(EmptyRoleSemanticType.valueOf(getElementText(reader)));
                     break;
                 case TRANSPORT_GUARANTEE:
-                    servletSecurity.setTransportGuarantee(TransportGuaranteeType.valueOf(reader.getElementText()));
+                    servletSecurity.setTransportGuarantee(TransportGuaranteeType.valueOf(getElementText(reader)));
                     break;
                 case ROLE_ALLOWED:
                     List<String> rolesAllowed = servletSecurity.getRolesAllowed();
@@ -66,7 +66,7 @@ public class ServletSecurityMetaDataParser extends MetaDataElementParser {
                         rolesAllowed = new ArrayList<String>();
                         servletSecurity.setRolesAllowed(rolesAllowed);
                     }
-                    rolesAllowed.add(reader.getElementText());
+                    rolesAllowed.add(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

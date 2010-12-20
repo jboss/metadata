@@ -61,7 +61,7 @@ public class ServletMappingMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SERVLET_NAME:
-                    servletMapping.setServletName(reader.getElementText());
+                    servletMapping.setServletName(getElementText(reader));
                     break;
                 case URL_PATTERN:
                     List<String> urlPatterns = servletMapping.getUrlPatterns();
@@ -69,7 +69,7 @@ public class ServletMappingMetaDataParser extends MetaDataElementParser {
                         urlPatterns = new ArrayList<String>();
                         servletMapping.setUrlPatterns(urlPatterns);
                     }
-                    urlPatterns.add(reader.getElementText());
+                    urlPatterns.add(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

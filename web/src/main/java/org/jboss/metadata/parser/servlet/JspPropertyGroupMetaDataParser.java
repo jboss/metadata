@@ -75,19 +75,19 @@ public class JspPropertyGroupMetaDataParser extends MetaDataElementParser {
                         urlPatterns = new ArrayList<String>();
                         jspPropertyGroup.setUrlPatterns(urlPatterns);
                     }
-                    urlPatterns.add(reader.getElementText());
+                    urlPatterns.add(getElementText(reader));
                     break;
                 case EL_IGNORED:
-                    jspPropertyGroup.setElIgnored(reader.getElementText());
+                    jspPropertyGroup.setElIgnored(getElementText(reader));
                     break;
                 case PAGE_ENCODING:
-                    jspPropertyGroup.setPageEncoding(reader.getElementText());
+                    jspPropertyGroup.setPageEncoding(getElementText(reader));
                     break;
                 case SCRIPTING_INVALID:
-                    jspPropertyGroup.setScriptingInvalid(reader.getElementText());
+                    jspPropertyGroup.setScriptingInvalid(getElementText(reader));
                     break;
                 case IS_XML:
-                    jspPropertyGroup.setIsXml(reader.getElementText());
+                    jspPropertyGroup.setIsXml(getElementText(reader));
                     break;
                 case INCLUDE_PRELUDE:
                     List<String> includePreludes = jspPropertyGroup.getIncludePreludes();
@@ -95,7 +95,7 @@ public class JspPropertyGroupMetaDataParser extends MetaDataElementParser {
                         includePreludes = new ArrayList<String>();
                         jspPropertyGroup.setIncludePreludes(includePreludes);
                     }
-                    includePreludes.add(reader.getElementText());
+                    includePreludes.add(getElementText(reader));
                     break;
                 case INCLUDE_CODA:
                     List<String> includeCodas = jspPropertyGroup.getIncludeCodas();
@@ -103,22 +103,22 @@ public class JspPropertyGroupMetaDataParser extends MetaDataElementParser {
                         includeCodas = new ArrayList<String>();
                         jspPropertyGroup.setIncludeCodas(includeCodas);
                     }
-                    includeCodas.add(reader.getElementText());
+                    includeCodas.add(getElementText(reader));
                     break;
                 case DEFERRED_SYNTAX_ALLOWED_AS_LITERAL:
-                    jspPropertyGroup.setDeferredSyntaxAllowedAsLiteral(reader.getElementText());
+                    jspPropertyGroup.setDeferredSyntaxAllowedAsLiteral(getElementText(reader));
                     break;
                 case TRIM_DIRECTIVE_WHITESPACES:
-                    jspPropertyGroup.setTrimDirectiveWhitespaces(reader.getElementText());
+                    jspPropertyGroup.setTrimDirectiveWhitespaces(getElementText(reader));
                     break;
                 case DEFAULT_CONTENT_TYPE:
-                    jspPropertyGroup.setDefaultContentType(reader.getElementText());
+                    jspPropertyGroup.setDefaultContentType(getElementText(reader));
                     break;
                 case BUFFER:
-                    jspPropertyGroup.setBuffer(reader.getElementText());
+                    jspPropertyGroup.setBuffer(getElementText(reader));
                     break;
                 case ERROR_ON_UNDECLARED_NAMESPACE:
-                    jspPropertyGroup.setErrorOnUndeclaredNamespace(reader.getElementText());
+                    jspPropertyGroup.setErrorOnUndeclaredNamespace(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

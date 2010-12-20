@@ -58,7 +58,7 @@ public class DeferredMethodMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case METHOD_SIGNATURE:
-                    deferredMethod.setMethodSignature(reader.getElementText());
+                    deferredMethod.setMethodSignature(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

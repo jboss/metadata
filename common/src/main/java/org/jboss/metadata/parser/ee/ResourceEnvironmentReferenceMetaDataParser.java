@@ -77,10 +77,10 @@ public class ResourceEnvironmentReferenceMetaDataParser extends MetaDataElementP
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case RESOURCE_ENV_REF_NAME:
-                    resourceReference.setResourceEnvRefName(reader.getElementText());
+                    resourceReference.setResourceEnvRefName(getElementText(reader));
                     break;
                 case RESOURCE_ENV_REF_TYPE:
-                    resourceReference.setType(reader.getElementText());
+                    resourceReference.setType(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

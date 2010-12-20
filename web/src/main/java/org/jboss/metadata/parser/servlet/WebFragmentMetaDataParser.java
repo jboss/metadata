@@ -98,7 +98,7 @@ public class WebFragmentMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    wmd.setName(reader.getElementText());
+                    wmd.setName(getElementText(reader));
                     break;
                 case ORDERING:
                     wmd.setOrdering(OrderingMetaDataParser.parse(reader));

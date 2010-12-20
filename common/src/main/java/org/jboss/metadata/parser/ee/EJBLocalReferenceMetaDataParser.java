@@ -70,22 +70,22 @@ public class EJBLocalReferenceMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case EJB_REF_NAME:
-                    ejbReference.setEjbRefName(reader.getElementText());
+                    ejbReference.setEjbRefName(getElementText(reader));
                     break;
                 case EJB_REF_TYPE:
-                    ejbReference.setEjbRefType(EJBReferenceType.valueOf(reader.getElementText()));
+                    ejbReference.setEjbRefType(EJBReferenceType.valueOf(getElementText(reader)));
                     break;
                 case LOCAL_HOME:
-                    ejbReference.setLocalHome(reader.getElementText());
+                    ejbReference.setLocalHome(getElementText(reader));
                     break;
                 case LOCAL:
-                    ejbReference.setLocal(reader.getElementText());
+                    ejbReference.setLocal(getElementText(reader));
                     break;
                 case LOCAL_JNDI_NAME:
-                    ejbReference.setLocalJndiName(reader.getElementText());
+                    ejbReference.setLocalJndiName(getElementText(reader));
                     break;
                 case EJB_LINK:
-                    ejbReference.setLink(reader.getElementText());
+                    ejbReference.setLink(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }

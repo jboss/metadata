@@ -70,13 +70,13 @@ public class PersistenceContextReferenceMetaDataParser extends MetaDataElementPa
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case PERSISTENCE_CONTEXT_REF_NAME:
-                    pcReference.setPersistenceContextRefName(reader.getElementText());
+                    pcReference.setPersistenceContextRefName(getElementText(reader));
                     break;
                 case PERSISTENCE_CONTEXT_TYPE:
-                    // FIXME pcReference.setPersistenceContextType(PersistenceContextType.valueOf(reader.getElementText()));
+                    // FIXME pcReference.setPersistenceContextType(PersistenceContextType.valueOf(getElementText(reader)));
                     break;
                 case PERSISTENCE_UNIT_NAME:
-                    pcReference.setPersistenceUnitName(reader.getElementText());
+                    pcReference.setPersistenceUnitName(getElementText(reader));
                     break;
                 case PERSISTENCE_PROPERTY:
                     PropertiesMetaData properties = pcReference.getProperties();
