@@ -77,8 +77,8 @@ public class WebApp6EverythingUnitTestCase extends AbstractJavaEEEverythingTest
       throws Exception
    {
       assertModuleName(webApp);
-      /* TODO we don't support the followings..
       assertDescriptionGroup("web-app", webApp.getDescriptionGroup());
+      /* TODO we don't support the followings..
       assertRemoteEnvironment("webApp", webApp, true, mode);
       assertMessageDestinations5("webAppMessageDestination", 2, webApp.getMessageDestinations(), true);
        */

@@ -78,7 +78,7 @@ public class WebApp6FragmentUnitTestCase extends AbstractJavaEEEverythingTest
    protected void assertEverything(WebCommonMetaData webApp, Mode mode)
       throws Exception
    {
-      // TODO we don't support lang for the moment ... assertDescriptionGroup("web-app", webApp.getDescriptionGroup());
+      assertDescriptionGroup("web-app", webApp.getDescriptionGroup());
       // TODO assertRemoteEnvironment("webApp", webApp, true, mode);
       // TODO assertMessageDestinations5("webAppMessageDestination", 2, webApp.getMessageDestinations(), true);
       assertServlets(webApp);
