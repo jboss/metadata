@@ -21,6 +21,19 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
+import javax.ejb.Schedule;
+import javax.ejb.Startup;
+import javax.xml.bind.annotation.XmlElement;
+
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
@@ -34,18 +47,6 @@ import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.ejb.spec.StatefulTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
 import org.jboss.metadata.merge.MergeUtil;
-
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.LockType;
-import javax.ejb.Schedule;
-import javax.ejb.Startup;
-import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -103,6 +104,15 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
    
    private StatefulTimeoutMetaData statefulTimeout;
 
+   /**
+    * EJB3.1 spec, section 4.8.5.5 specifies special meaning for @Lock annotation on
+    * bean's super class(es). This map keeps track of the @Lock annotation (if any)
+    * on the super class(es) of the bean. The key of this map is the fully qualified
+    * classname of the class having the @Lock annotation. The value part is the {@link LockType}
+    * specified on that class.
+    */
+   private Map<String, LockType> lockTypeOnNonBeanClasses = new HashMap<String, LockType>();
+   
    public AsyncMethodsMetaData getAsyncMethods()
    {
       return asyncMethods;
@@ -237,6 +247,55 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       return this.beanLevelLockType;
    }
 
+   /**
+    * Sets the {@link LockType lock type} that's available on the passed <code>klass</code>
+    * <p/>
+    *  
+    * @param klass The fully qualified classname of the {@link Class} marked with the passed 
+    *               {@link LockType lock type}
+    * @param lockType The {@link LockType lock type}
+    */
+   public void setLockType(String klass, LockType lockType)
+   {
+      if (klass == null)
+      {
+         throw new IllegalArgumentException("Class cannot be null");
+      }
+      if (klass.equals(this.getEjbClass()))
+      {
+         // set lock type on the bean class
+         this.setLockType(lockType);
+      }
+      else
+      {
+         // add to the non bean class lock types
+         this.lockTypeOnNonBeanClasses.put(klass, lockType);
+      }
+   }
+   
+   /**
+    * Returns the {@link LockType lock type} specified on the passed {@link Class klass}. Returns
+    * null if the passed {@link Class klass} has no {@link Lock Lock} annotation
+    * 
+    * @param klass The fully qualified classname of the {@link Class} which is being queried
+    *               for {@link LockType}
+    * @return
+    */
+   public LockType getLockType(String klass)
+   {
+      if (klass == null)
+      {
+         throw new IllegalArgumentException("Class cannot be null");
+      }
+      if (klass.equals(this.getEjbClass()))
+      {
+         // get the lock type on the bean class
+         return this.getLockType();
+      }
+      
+      return this.lockTypeOnNonBeanClasses.get(klass);
+   }
+   
    /**
     * Sets the bean level access timeout metadata
     * @param accessTimeout {@link AccessTimeoutMetaData}

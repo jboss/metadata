@@ -71,8 +71,10 @@ public class LockClassProcessor extends AbstractFinderUser implements Processor<
       {
          return;
       }
-      metaData.setLockType(lock.value());
-
+      // EJB3.1 spec, section 4.8.5.5 specifies special meaning for @Lock annotation
+      // on superclass(es) of the bean. So we have to keep track of which exact class
+      // has the @Lock annotation
+      metaData.setLockType(klass.getName(), lock.value());
    }
 
 }
