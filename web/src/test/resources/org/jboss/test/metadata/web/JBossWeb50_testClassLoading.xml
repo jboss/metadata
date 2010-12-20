@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss-web
+    PUBLIC "-//JBoss//DTD Web Application 5.0//EN"
+    "http://www.jboss.org/j2ee/dtd/jboss-web_5_0.dtd">
+<jboss-web>
+    <!-- Use parent first class loading model -->
+    <class-loading java2ClassLoadingCompliance="true">
+        <loader-repository>jboss.cts:war=bb_localaccess_webaccesstest_web.war</loader-repository>
+    </class-loading>
+    <security-domain flushOnSessionInvalidation="false">java:/jaas/cts</security-domain>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/AEJB</ejb-ref-name>
+        <local-jndi-name>ejb_ee_bb_localaccess_webaccesstest_AEJB</local-jndi-name>  </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/CEJB</ejb-ref-name>
+        <local-jndi-name>ejb_ee_bb_localaccess_webaccesstest_CEJB</local-jndi-name>  </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/BEJB</ejb-ref-name>
+        <local-jndi-name>ejb_ee_bb_localaccess_webaccesstest_BEJB</local-jndi-name>  </ejb-local-ref>
+    <ejb-local-ref>
+        <ejb-ref-name>ejb/DEJB</ejb-ref-name>
+        <local-jndi-name>ejb_ee_bb_localaccess_webaccesstest_DEJB</local-jndi-name>  </ejb-local-ref>
+</jboss-web>
