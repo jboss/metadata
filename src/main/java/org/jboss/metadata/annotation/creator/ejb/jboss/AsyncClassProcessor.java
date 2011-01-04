@@ -22,6 +22,7 @@
 package org.jboss.metadata.annotation.creator.ejb.jboss;
 
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
 
 import javax.ejb.Asynchronous;
 
@@ -30,13 +31,15 @@ import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.AsyncMethodMetaData;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
+import org.jboss.metadata.ejb.spec.MethodParametersMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
 public class AsyncClassProcessor extends AbstractAsyncProcessor<Class<?>>
-   implements Processor<JBossSessionBean31MetaData, Class<?>> // FIXME: because AbstractProcessor.getProcessorMetaDataType doesn't take inheritence into account
+      implements
+         Processor<JBossSessionBean31MetaData, Class<?>> // FIXME: because AbstractProcessor.getProcessorMetaDataType doesn't take inheritence into account
 {
    protected AsyncClassProcessor(AnnotationFinder<AnnotatedElement> finder)
    {
@@ -47,18 +50,34 @@ public class AsyncClassProcessor extends AbstractAsyncProcessor<Class<?>>
    public void process(JBossSessionBean31MetaData metaData, Class<?> type)
    {
       Asynchronous annotation = finder.getAnnotation(type, Asynchronous.class);
-      if(annotation != null)
+      if (annotation != null)
       {
          AsyncMethodsMetaData asyncMethods = metaData.getAsyncMethods();
-         if(asyncMethods == null)
+         if (asyncMethods == null)
          {
             asyncMethods = new AsyncMethodsMetaData();
             metaData.setAsyncMethods(asyncMethods);
          }
-         
+
          AsyncMethodMetaData asyncMethod = new AsyncMethodMetaData();
-         asyncMethod.setMethodName("*");
-         asyncMethods.add(asyncMethod);
+         // Only apply to the methods on this class JBMETA-326
+         for (final Method declaredMethod : type.getDeclaredMethods())
+         {
+            asyncMethod.setMethodName(declaredMethod.getName());
+            final MethodParametersMetaData params = new MethodParametersMetaData();
+            for (final Class<?> param : declaredMethod.getParameterTypes())
+            {
+               params.add(param.getName());
+            }
+            asyncMethod.setMethodParams(params);
+            asyncMethods.add(asyncMethod);
+         }
+         
+         final Class<?> superClass = type.getSuperclass();
+         if(superClass!=null){
+            this.process(metaData, superClass);
+         }
+
       }
    }
 }
