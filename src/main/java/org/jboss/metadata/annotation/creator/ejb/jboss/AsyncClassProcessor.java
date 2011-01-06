@@ -50,20 +50,22 @@ public class AsyncClassProcessor extends AbstractAsyncProcessor<Class<?>>
    public void process(JBossSessionBean31MetaData metaData, Class<?> type)
    {
       Asynchronous annotation = finder.getAnnotation(type, Asynchronous.class);
+
+      AsyncMethodsMetaData asyncMethods = metaData.getAsyncMethods();
+      if (asyncMethods == null)
+      {
+         asyncMethods = new AsyncMethodsMetaData();
+         metaData.setAsyncMethods(asyncMethods);
+      }
+
       if (annotation != null)
       {
-         AsyncMethodsMetaData asyncMethods = metaData.getAsyncMethods();
-         if (asyncMethods == null)
-         {
-            asyncMethods = new AsyncMethodsMetaData();
-            metaData.setAsyncMethods(asyncMethods);
-         }
-
-         AsyncMethodMetaData asyncMethod = new AsyncMethodMetaData();
          // Only apply to the methods on this class JBMETA-326
          for (final Method declaredMethod : type.getDeclaredMethods())
          {
-            asyncMethod.setMethodName(declaredMethod.getName());
+            AsyncMethodMetaData asyncMethod = new AsyncMethodMetaData();
+            final String name = declaredMethod.getName();
+            asyncMethod.setMethodName(name);
             final MethodParametersMetaData params = new MethodParametersMetaData();
             for (final Class<?> param : declaredMethod.getParameterTypes())
             {
@@ -72,12 +74,14 @@ public class AsyncClassProcessor extends AbstractAsyncProcessor<Class<?>>
             asyncMethod.setMethodParams(params);
             asyncMethods.add(asyncMethod);
          }
-         
-         final Class<?> superClass = type.getSuperclass();
-         if(superClass!=null){
-            this.process(metaData, superClass);
-         }
+      }
 
+      final Class<?> superClass = type.getSuperclass();
+      if (superClass != null)
+      {
+         this.process(metaData, superClass);
       }
    }
+   
+   
 }
