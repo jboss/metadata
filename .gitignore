@@ -10,7 +10,7 @@ target
 *.iml
 *.ipr
 *.iws
-.idea
+/.idea
 maven-ant-tasks.jar
 test-output
 transaction.log
