@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+    version="3.0"
+    id="ejb-jar-service-refs">
+    <display-name>SecurityTests</display-name>
+    <enterprise-beans>
+        <session id="session1">
+            <description>A secured trival echo session bean</description>
+            <ejb-name>StatelessSession1</ejb-name>
+            <home>org.jboss.test.security.interfaces.StatelessSessionHome</home>
+            <remote>org.jboss.test.security.interfaces.StatelessSession</remote>
+            <local-home>org.jboss.test.security.interfaces.StatelessSessionLocalHome</local-home>
+            <local>org.jboss.test.security.interfaces.StatelessSessionLocal</local>
+            <ejb-class>org.jboss.test.security.ejb.StatelessSessionBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <service-ref id="session1-service-ref">
+                <!-- JNDI name bound to the service interface in the client's environment context -->
+                <service-ref-name>session1/Hello</service-ref-name>
+                <!-- service interface class -->
+                <service-interface>org.jboss.test.security.interfaces.HelloWorldService</service-interface>
+                <service-ref-type>org.jboss.test.security.interfaces.HelloWorldRef</service-ref-type>
+                <!-- placeholder for published WSDL file -->
+                <wsdl-file>session1-wsdl-file</wsdl-file>
+                <!-- Java<->XML mapping file -->
+                <jaxrpc-mapping-file>META-INF/jaxrpc-mapping.xml</jaxrpc-mapping-file>
+                <service-qname xmlns:session1="http://www.jboss.org">session1:Session1Qname</service-qname>
+                <port-component-ref>
+                    <!-- service endpoint interface class -->
+                    <service-endpoint-interface>org.jboss.test.security.interfaces.HelloEndPoint</service-endpoint-interface>
+                </port-component-ref>
+                <handler-chains>
+                    <handler-chain id="session1-chain1">
+                        <service-name-pattern>*</service-name-pattern>
+                        <handler id="sesion1-chain1-handler1">
+                            <handler-name>session1.Handler1</handler-name>
+                            <handler-class>session1.Handler1</handler-class>
+                            <init-param>
+                                <param-name>param1</param-name>
+                                <param-value>value1</param-value>
+                            </init-param>
+                            <soap-header xmlns:session1="http://www.jboss.org">session1:soap-header</soap-header>
+                            <soap-role>session1:soap-role</soap-role>
+                            <port-name>session1:soap-role</port-name>
+                        </handler>
+                    </handler-chain>
+                </handler-chains>
+            </service-ref>
+        </session>
+        <session id="session2">
+            <description>A secured trival echo session bean</description>
+            <ejb-name>StatelessSession2</ejb-name>
+            <home>org.jboss.test.security.interfaces.StatelessSessionHome</home>
+            <remote>org.jboss.test.security.interfaces.StatelessSession</remote>
+            <local-home>org.jboss.test.security.interfaces.StatelessSessionLocalHome</local-home>
+            <local>org.jboss.test.security.interfaces.StatelessSessionLocal</local>
+            <ejb-class>org.jboss.test.security.ejb.StatelessSessionBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <service-ref id="session2-service-ref">
+                <!-- JNDI name bound to the service interface in the client's environment context -->
+                <service-ref-name>session2/Hello</service-ref-name>
+                <!-- service interface class -->
+                <service-interface>org.jboss.test.security.interfaces.HelloWorldService</service-interface>
+                <!-- placeholder for published WSDL file -->
+                <wsdl-file>session2-wsdl-file</wsdl-file>
+                <!-- Java<->XML mapping file -->
+                <jaxrpc-mapping-file>META-INF/jaxrpc-mapping.xml</jaxrpc-mapping-file>
+                <port-component-ref>
+                    <!-- service endpoint interface class -->
+                    <service-endpoint-interface>org.jboss.test.security.interfaces.HelloEndPoint</service-endpoint-interface>
+                </port-component-ref>
+            </service-ref>
+        </session>
+    </enterprise-beans>
+    
+</ejb-jar>

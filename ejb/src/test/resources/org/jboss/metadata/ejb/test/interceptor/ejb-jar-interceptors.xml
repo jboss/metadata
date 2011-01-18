@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+          http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+      version="3.1">
+      
+      <enterprise-beans>
+        <session>
+            <ejb-name>DummyBean</ejb-name>
+            <ejb-class>Dummy</ejb-class>
+            <around-invoke>
+                <class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorWithManyInjections</class>
+                <method-name>dummyMethod</method-name>
+            </around-invoke>
+        </session>
+      </enterprise-beans>
+      
+      <interceptors>
+        <interceptor>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorA</interceptor-class>
+        </interceptor>
+        <interceptor>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorB</interceptor-class>
+        </interceptor>
+        <interceptor>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorWithInjectedEJB</interceptor-class>
+        </interceptor>
+        <interceptor>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorD</interceptor-class>
+            <around-invoke>
+                <method-name>dummy</method-name>
+            </around-invoke>
+        </interceptor>
+        
+      </interceptors>
+    
+    <assembly-descriptor>
+        <interceptor-binding>
+            <ejb-name>*</ejb-name>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorC</interceptor-class>
+        </interceptor-binding>
+        <interceptor-binding>
+            <ejb-name>DummyBean</ejb-name>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorD</interceptor-class>
+        </interceptor-binding>
+        <interceptor-binding>
+            <ejb-name>DummyBean</ejb-name>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorWithInjectedEJB</interceptor-class>
+            <method>
+                <method-name>test</method-name>
+            </method>
+        </interceptor-binding>
+        
+    </assembly-descriptor>              
+</ejb-jar>      

@@ -1,0 +1,25 @@
+<jboss
+        xmlns="http://www.jboss.com/xml/ns/javaee"
+        xmlns:jee="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee
+                            http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+        version="3.0">
+   <enterprise-beans>
+      <session>
+         <ejb-name>MyStatelessBean</ejb-name>
+         <depends>A</depends>
+         <depends>B</depends>
+         <ignore-dependency>
+            <injection-target>
+               <injection-target-class>Class1</injection-target-class>
+               <injection-target-name>C</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>Class2</injection-target-class>
+               <injection-target-name>D</injection-target-name>
+            </injection-target>
+         </ignore-dependency>
+      </session>
+   </enterprise-beans>
+</jboss>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+    version="3.0"
+    id="ejb-jar-env-entry">
+    <display-name>EnvEntry Tests</display-name>
+    <enterprise-beans>
+        <session id="session1">
+            <description>A secured trival echo session bean</description>
+            <ejb-name>StatelessSession1</ejb-name>
+            <home>org.jboss.test.security.interfaces.StatelessSessionHome</home>
+            <remote>org.jboss.test.security.interfaces.StatelessSession</remote>
+            <local-home>org.jboss.test.security.interfaces.StatelessSessionLocalHome</local-home>
+            <local>org.jboss.test.security.interfaces.StatelessSessionLocal</local>
+            <ejb-class>org.jboss.test.security.ejb.StatelessSessionBean</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+            <env-entry id="session1-entry1-id">
+                <env-entry-name>session1-entry1-name</env-entry-name>
+                <env-entry-type>java.lang.String</env-entry-type>
+                <env-entry-value>session1-entry1-value</env-entry-value>
+                <mapped-name>session1-entry1-mapped-name</mapped-name>
+                <injection-target>
+                    <injection-target-class>session1.entry1.target</injection-target-class>
+                    <injection-target-name>session1_entry1_injection_target_name</injection-target-name>
+                </injection-target>
+            </env-entry>
+        </session>
+    </enterprise-beans>
+</ejb-jar>

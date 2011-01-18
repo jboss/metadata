@@ -1,0 +1,18 @@
+<jboss xmlns="http://www.jboss.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+    version="3.0">
+    <unauthenticated-principal>guest</unauthenticated-principal>
+    <enterprise-beans>
+        <ejb>
+            <ejb-name>StatefulBean</ejb-name>
+            <jndi-name>StatefulBean-jndi-name</jndi-name>
+            <home-jndi-name>StatefulBean-home-jndi-name</home-jndi-name>
+        </ejb>
+        <ejb>
+            <ejb-name>StatelessBean</ejb-name>
+            <jndi-name>StatelessBean-jndi-name</jndi-name>
+            <home-jndi-name>StatelessBean-home-jndi-name</home-jndi-name>
+        </ejb>
+    </enterprise-beans>
+</jboss>

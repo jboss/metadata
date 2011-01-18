@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+          http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+      version="3.1">
+      
+      <enterprise-beans>
+        <session>
+            <ejb-name>BeanWithInterceptors</ejb-name>
+            <ejb-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.BeanWithInterceptors</ejb-class>
+            <around-invoke>
+                <method-name>someAroundInvokeMethod</method-name>
+            </around-invoke>
+            <around-invoke>
+                <class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorWithInjectedEJB</class>
+                <method-name>aroundInvoke</method-name>
+            </around-invoke>
+        </session>
+        <session>
+            <ejb-name>SomeDummyBean</ejb-name>
+            <ejb-class>DForDummy</ejb-class>
+        </session>
+      </enterprise-beans>
+    
+    <assembly-descriptor>
+        <interceptor-binding>
+            <ejb-name>*</ejb-name>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorC</interceptor-class>
+        </interceptor-binding>
+        <interceptor-binding>
+            <ejb-name>BeanWithInterceptors</ejb-name>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorD</interceptor-class>
+        </interceptor-binding>
+        <interceptor-binding>
+            <ejb-name>SomeDummyBean</ejb-name>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorA</interceptor-class>
+            <interceptor-class>org.jboss.metadata.ejb.test.interceptor.annotation.creator.InterceptorB</interceptor-class>
+            <method>
+                <method-name>test</method-name>
+            </method>
+        </interceptor-binding>
+        
+    </assembly-descriptor>              
+</ejb-jar>      

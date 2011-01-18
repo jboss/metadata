@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id:$
+Test of overriding one jboss.xml with another
+-->
+
+  <!DOCTYPE jboss PUBLIC
+      "-//JBoss//DTD JBOSS 5.0//EN"
+      "http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd">
+
+<jboss>         
+
+         
+   <enterprise-beans>
+
+      <session id="bean1-id">         
+         <ejb-name>bean1EjbName</ejb-name>         
+         <configuration-name>bean1Configuration</configuration-name>         
+         <clustered>true</clustered>         
+         <cluster-config>
+            <partition-name>beanConfigurationPartitionName</partition-name>
+         </cluster-config>
+      </session>
+
+      <session id="bean2-id">         
+         <ejb-name>bean2EjbName</ejb-name>         
+         <configuration-name>bean2Configuration</configuration-name>         
+         <clustered>true</clustered>         
+         <cluster-config>
+            <session-state-manager-jndi-name>beanConfigurationSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>
+      </session> 
+
+      <session id="bean3-id">         
+         <ejb-name>bean3EjbName</ejb-name>         
+         <configuration-name>bean3Configuration</configuration-name>         
+         <clustered>true</clustered>         
+         <cluster-config>
+            <bean-load-balance-policy>beanConfigurationBeanLoadBalancePolicy</bean-load-balance-policy>
+         </cluster-config>
+      </session>     
+
+      <session id="bean4-id">         
+         <ejb-name>bean4EjbName</ejb-name>         
+         <configuration-name>bean4Configuration</configuration-name>         
+         <clustered>true</clustered>         
+         <cluster-config>
+            <home-load-balance-policy>beanConfigurationHomeLoadBalancePolicy</home-load-balance-policy>
+         </cluster-config>
+      </session>
+
+   </enterprise-beans>
+  
+   
+   <container-configurations>
+   
+      <!-- Each of these configurations overrides a config in 
+           JBoss5xEverything_testClusterConfigBase.xml, but does not
+           override the property that the base left null or the property
+           above it. -->
+           
+      <container-configuration extends="Standard Null Session State">         
+         <container-name>bean1Configuration</container-name>
+         <cluster-config>
+            <partition-name>containerConfigurationPartitionName</partition-name>
+            <home-load-balance-policy>containerConfigurationHomeLoadBalancePolicy</home-load-balance-policy>
+         </cluster-config>        
+      </container-configuration>
+   
+      <container-configuration extends="Standard Null Bean Policy">         
+         <container-name>bean2Configuration</container-name>
+         <cluster-config>
+            <partition-name>containerConfigurationPartitionName</partition-name>
+            <session-state-manager-jndi-name>containerConfigurationSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>        
+      </container-configuration>
+   
+      <container-configuration extends="Standard Null Home Policy">         
+         <container-name>bean3Configuration</container-name>
+         <cluster-config>
+            <bean-load-balance-policy>containerConfigurationBeanLoadBalancePolicy</bean-load-balance-policy>
+            <session-state-manager-jndi-name>containerConfigurationSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>        
+      </container-configuration>
+   
+      <container-configuration extends="Standard Null Partition Name">         
+         <container-name>bean4Configuration</container-name>
+         <cluster-config>
+            <home-load-balance-policy>containerConfigurationHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>containerConfigurationBeanLoadBalancePolicy</bean-load-balance-policy>
+         </cluster-config>        
+      </container-configuration>
+      
+   </container-configurations>
+      
+</jboss>

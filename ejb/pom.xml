@@ -1,0 +1,220 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.jboss</groupId>
+    <artifactId>jboss-parent</artifactId>
+    <version>4.0.CR1</version>
+  </parent>
+  <groupId>org.jboss.metadata</groupId>
+  <artifactId>jboss-metadata-ejb</artifactId>
+  <packaging>jar</packaging>
+  <version>2.0.0-alpha-30-SNAPSHOT</version>
+  <name>JBoss Metadata EJB</name>
+  <url>http://www.jboss.org</url>
+  <description>The common JavaEE metadata classes</description>
+  <scm>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/jbossas/projects/metadata/ejb/tags/2.0.0-alpha-16</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/jbossas/projects/metadata/ejb/tags/2.0.0-alpha-16</developerConnection>
+  </scm>
+
+    <distributionManagement>
+        <repository>
+          <id>jboss-releases-repository</id>
+          <name>JBoss Releases Repository</name>
+          <url>https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/</url>
+        </repository>
+
+		<snapshotRepository>
+			<id>jboss-snapshots-repository</id>
+			<name>JBoss Snapshots Repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+		</snapshotRepository>			
+        
+    </distributionManagement>
+
+  <build>
+    <outputDirectory>${profile.outputDirectory}</outputDirectory>
+    <testOutputDirectory>${profile.testOutputDirectory}</testOutputDirectory>
+    <plugins>
+        <plugin>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>1.0-beta-1</version>
+            <executions>
+                <!--  Enforce JDK6 -->
+                <execution>
+                    <id>enforce-jdk6</id>
+                    <goals>
+                        <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                        <rules>
+                            <requireJavaVersion>
+                                <version>1.6</version>
+                            </requireJavaVersion>
+                        </rules>
+                    </configuration>
+                </execution>
+                <!--  Banned dependencies -->
+                <execution>
+                    <id>enforce-banned-dependencies</id>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <rules>
+                    <bannedDependencies>
+                        <excludes>
+                            <!-- JBMETA-262  Use org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec -->
+                            <exclude>org.jboss.ejb3:jboss-ejb3-api</exclude>
+                            <exclude>org.jboss.javaee:jboss-ejb-api_3.1</exclude>
+                        </excludes>
+                    </bannedDependencies>
+                </rules>
+            </configuration>
+            
+        </plugin>
+        
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.4.3</version>
+        <configuration>
+          <printSummary>true</printSummary>
+          <disableXmlReport>false</disableXmlReport>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+           <testFailureIgnore>false</testFailureIgnore>
+          <includes>
+            <include>**/*TestCase.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>repository.jboss.org</id>
+      <name>JBoss Repository</name>
+      <layout>default</layout>
+      <url>http://repository.jboss.org/maven2/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>snapshots.jboss.org</id>
+      <name>JBoss Snapshot Repository</name>
+      <layout>default</layout>
+      <url>http://snapshots.jboss.org/maven2/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <!-- 
+    Eclipse settings have been removed from parent. This needs to be
+    done via an eclipse profile.
+    http://www.jboss.com/index.html?module=bb&op=viewtopic&p=4085896#4085896 
+    -->
+  <profiles>
+    <profile>
+      <id>default</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <profile.outputDirectory>target/classes</profile.outputDirectory>
+        <profile.testOutputDirectory>target/tests-classes</profile.testOutputDirectory>
+      </properties>
+    </profile>
+    
+    <profile>
+      <id>eclipse</id>
+      <properties>
+        <profile.outputDirectory>eclipse-target/classes</profile.outputDirectory>
+        <profile.testOutputDirectory>eclipse-target/tests-classes</profile.testOutputDirectory>
+      </properties>
+    </profile>
+  </profiles>
+
+  <!-- Compile Dependencies -->
+  <dependencies>
+
+    <dependency>
+      <groupId>org.jboss.spec.javax.ejb</groupId>
+      <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+      <version>1.0.0.Beta2</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.jboss.metadata</groupId>
+      <artifactId>jboss-metadata-common</artifactId>
+      <version>2.0.0.Alpha15</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.metadata</groupId>
+      <artifactId>jboss-metadata-common</artifactId>
+      <version>2.0.0.Alpha15</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.ejb3</groupId>
+      <artifactId>jboss-ejb3-ext-api</artifactId>
+      <version>1.1.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.jboss.metadata</groupId>
+          <artifactId>jboss-metadata</artifactId>
+        </exclusion>          
+      </exclusions>       
+    </dependency>
+    
+    <dependency>
+    	<groupId>org.jboss</groupId>
+    	<artifactId>jbossxb</artifactId>
+    	<version>2.0.2.Beta7</version>
+    </dependency>
+
+    <!-- Test Dependencies -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- To counter AbstractMethodErrors -->
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging-log4j</artifactId>
+      <version>2.2.0.CR1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.test</groupId>
+      <artifactId>jboss-test</artifactId>
+      <version>1.1.4.GA</version>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+</project>

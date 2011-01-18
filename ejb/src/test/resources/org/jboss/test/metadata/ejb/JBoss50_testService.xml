@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<jboss
+        xmlns="http://www.jboss.com/xml/ns/javaee"
+        xmlns:jee="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee
+                            http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+        version="3.0">
+   <enterprise-beans>
+      <service>
+         <description>service description</description>
+         <ejb-name>ServiceSix</ejb-name>
+         <business-local>org.jboss.ejb3.test.service.ServiceSixLocal</business-local>
+         <business-remote>org.jboss.ejb3.test.service.ServiceSixRemote</business-remote>
+         <ejb-class>org.jboss.ejb3.test.service.ServiceSix</ejb-class>
+         <ejb-ref>
+            <description>test</description>
+            <ejb-ref-name>ejb/StatelessBean</ejb-ref-name>
+            <ejb-ref-type>Session</ejb-ref-type>
+            <remote>org.jboss.ejb3.test.service.StatelessRemote</remote>
+            <ejb-link>StatelessBean</ejb-link>
+            <jndi-name>StatelessBean/remote</jndi-name>
+            <injection-target>
+               <injection-target-class>org.jboss.ejb3.test.service.ServiceSix</injection-target-class>
+               <injection-target-name>stateless</injection-target-name>
+            </injection-target>
+         </ejb-ref>
+         <ejb-local-ref>
+            <ejb-ref-name>ejb/StatelessLocal</ejb-ref-name>
+            <ejb-ref-type>Session</ejb-ref-type>
+            <local>org.jboss.ejb3.test.service.StatelessLocal</local>
+            <ejb-link>StatelessBean</ejb-link>
+            <jndi-name>StatelessBean/local</jndi-name>
+            <injection-target>
+               <injection-target-class>org.jboss.ejb3.test.service.ServiceSix</injection-target-class>
+               <injection-target-name>setStatelessLocal</injection-target-name>
+            </injection-target>
+         </ejb-local-ref>
+         <resource-ref>
+            <res-ref-name>testDatasource</res-ref-name>
+            <res-type>javax.sql.DataSource</res-type>
+            <res-auth>Container</res-auth>
+            <res-sharing-scope>Shareable</res-sharing-scope>
+            <mapped-name>java:/DefaultDS</mapped-name>
+            <injection-target>
+               <injection-target-class>org.jboss.ejb3.test.service.ServiceSix</injection-target-class>
+               <injection-target-name>testDatasource</injection-target-name>
+            </injection-target>
+         </resource-ref>
+         <resource-env-ref>
+            <description>A test of the resource-env-ref tag</description>
+            <resource-env-ref-name>res/aQueue</resource-env-ref-name>
+            <resource-env-ref-type>javax.jms.Queue</resource-env-ref-type>
+            <jndi-name>queue/mdbtest</jndi-name>
+         </resource-env-ref>
+         <message-destination-ref>
+            <message-destination-ref-name>messageDestinationRef</message-destination-ref-name>
+            <mapped-name>mappedName</mapped-name>
+         </message-destination-ref>
+         <security-identity>
+            <run-as>
+               <role-name>role name</role-name>
+            </run-as>
+            <run-as-principal>run as principal</run-as-principal>
+         </security-identity>
+         <object-name>object name</object-name>
+         <management>org.jboss.ejb3.test.service.ServiceSixManagement</management>
+         <xmbean>xmbean</xmbean>
+         <remote-binding>
+            <client-bind-url>client bind url</client-bind-url>
+         </remote-binding>
+         <jndi-name>serviceSix/remote</jndi-name>
+         <local-jndi-name>serviceSix/local</local-jndi-name>
+         <security-domain>security domain</security-domain>
+         <method-attributes>
+            <method>
+               <method-name>test</method-name>
+               <transaction-timeout>1</transaction-timeout>
+            </method>
+         </method-attributes>
+      </service>
+   </enterprise-beans>
+</jboss>

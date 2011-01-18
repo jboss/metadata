@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC
+   "-//JBoss//DTD JBOSS 5.1.EAP //EN"
+   "http://www.jboss.org/j2ee/dtd/jboss_5_1_eap.dtd">
+
+<jboss>
+   <jms-resource-adapter>default-jms-ra.rar</jms-resource-adapter>
+
+   <enterprise-beans>
+      <message-driven>
+         <ejb-name>MDBWithTheDefaultRA</ejb-name>
+      </message-driven>
+      <message-driven>
+         <ejb-name>MDBWithNonDefaultRA</ejb-name>
+         <resource-adapter-name>non-default-ra.rar</resource-adapter-name>
+      </message-driven>
+   </enterprise-beans>
+
+</jboss>

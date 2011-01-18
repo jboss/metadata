@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: jboss.xml 68870 2008-01-11 09:47:56Z wolfc $ -->
+<jboss xmlns="http://www.jboss.com/xml/ns/javaee"
+       xmlns:jee="http://java.sun.com/xml/ns/javaee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+       version="5.0">
+
+    <jndi-binding-policy>org.jboss.metadata.ejb.test.jndibindingpolicy.DeploymentLevelPolicy</jndi-binding-policy>
+    <enterprise-beans>
+        <session>
+            <ejb-name>DummyBean</ejb-name>
+        </session>
+        
+        <session>
+            <ejb-name>OverridenJndiBindingPolicyBean</ejb-name>
+            <jndi-binding-policy>org.jboss.metadata.ejb.test.jndibindingpolicy.BeanSpecificPolicy</jndi-binding-policy>
+        </session>
+        
+    </enterprise-beans>
+</jboss>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+    http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+    version="3.1">
+    
+    <enterprise-beans>
+        <session>
+            <ejb-name>AllMethodsReadLockBean</ejb-name>
+            <session-type>Singleton</session-type>
+            <concurrency-management-type>Container</concurrency-management-type>
+            <concurrent-method>
+                <method>
+                    <method-name>*</method-name>
+                </method>
+                <lock>Read</lock>
+                <access-timeout>
+                    <timeout>10</timeout>
+                    <unit>Seconds</unit>
+                </access-timeout>
+            </concurrent-method>
+        </session>
+        
+        <session>
+            <ejb-name>OneMethodWithWriteLockBean</ejb-name>
+            <session-type>Singleton</session-type>
+            <concurrency-management-type>Bean</concurrency-management-type>
+            <concurrent-method>
+                <method>
+                    <method-name>methodWithWriteLock</method-name>
+                    <method-params>
+                        <method-param>java.lang.Integer</method-param>
+                    </method-params>
+                </method>
+                <lock>Write</lock>
+            </concurrent-method>
+        </session>
+    </enterprise-beans>
+</ejb-jar>

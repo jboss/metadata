@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+      	  http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"
+	version="3.1">
+
+	<enterprise-beans>
+		<session>
+			<ejb-name>MultipleScheduleSLSBInEjbJarXML</ejb-name>
+			<ejb-class>dummy</ejb-class>
+			<timer>
+				<schedule>
+					<day-of-month>1</day-of-month>
+					<day-of-week>Wed</day-of-week>
+				</schedule>
+				<timeout-method>
+					<method-name>dummySLSBMethod</method-name>
+					<method-params>
+						<method-param>javax.ejb.Timer</method-param>
+					</method-params>
+				</timeout-method>
+				<persistent>true</persistent>
+				<info>1</info>
+
+			</timer>
+			<timer>
+				<schedule>
+				</schedule>
+				<timeout-method>
+					<method-name>anotherDummyMethod</method-name>
+					<method-params>
+						<method-param>javax.ejb.Timer</method-param>
+					</method-params>
+				</timeout-method>
+				<persistent>true</persistent>
+				<info>2</info>
+
+			</timer>
+
+		</session>
+
+		<session>
+			<ejb-name>SingletonWithMultipleSchedulesInEjbJarXml</ejb-name>
+			<ejb-class>dummy</ejb-class>
+			<session-type>Singleton</session-type>
+			<timer>
+				<schedule></schedule>
+				<timeout-method>
+					<method-name>dummySingletonMethod</method-name>
+					<method-params>
+						<method-param>javax.ejb.Timer</method-param>
+					</method-params>
+				</timeout-method>
+				<info>1</info>
+			</timer>
+			<timer>
+				<schedule>
+					<year>2010</year>
+				</schedule>
+				<timeout-method>
+					<method-name>dummySingletonMethod</method-name>
+					<method-params>
+						<method-param>javax.ejb.Timer</method-param>
+					</method-params>
+				</timeout-method>
+				<persistent>false</persistent>
+				<info>2</info>
+			</timer>
+
+		</session>
+
+		<message-driven>
+			<ejb-name>MDBWithMultipleSchedulesInEjbJarXml</ejb-name>
+			<ejb-class>dummy</ejb-class>
+			<timer>
+				<schedule>
+					<second>5</second>
+					<minute>4</minute>
+					<hour>3</hour>
+					<day-of-month>1</day-of-month>
+					<month>Mar</month>
+					<day-of-week>2</day-of-week>
+					<year>*</year>
+				</schedule>
+				<timeout-method>
+					<method-name>dummyMDBMethod</method-name>
+					<method-params>
+						<method-param>javax.ejb.Timer</method-param>
+					</method-params>
+				</timeout-method>
+				<persistent>false</persistent>
+				<info>1</info>
+
+			</timer>
+			<timer>
+				<schedule></schedule>
+				<timeout-method>
+					<method-name>dummyMDBMethod</method-name>
+					<method-params>
+						<method-param>javax.ejb.Timer</method-param>
+					</method-params>
+				</timeout-method>
+				<persistent>false</persistent>
+				<timezone>CET</timezone>
+				<info>2</info>
+
+			</timer>
+		</message-driven>
+	</enterprise-beans>
+</ejb-jar>      

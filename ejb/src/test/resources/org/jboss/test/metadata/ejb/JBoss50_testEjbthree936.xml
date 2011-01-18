@@ -1,0 +1,16 @@
+<jboss
+        xmlns="http://www.jboss.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee
+                            http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+        version="3.0">
+   <enterprise-beans>
+      <ejb>
+         <ejb-name>MyStatelessBean</ejb-name>
+         <resource-ref>
+         	<res-ref-name>qFactory</res-ref-name>
+         	<jndi-name>ConnectionFactory</jndi-name>
+         </resource-ref>
+      </ejb>
+   </enterprise-beans>
+</jboss>

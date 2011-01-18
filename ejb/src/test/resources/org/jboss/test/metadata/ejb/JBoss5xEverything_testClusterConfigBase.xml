@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- A mock jboss5 standardjboss.xml that just has a couple cluster-config elements -->
+
+  <!DOCTYPE jboss PUBLIC
+      "-//JBoss//DTD JBOSS 5.0//EN"
+      "http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd">
+
+<jboss>         
+
+  <container-configurations>
+
+    <container-configuration>
+      <container-name>Standard Null Session State</container-name>
+         <cluster-config>
+            <partition-name>standardConfigurationPartitionName</partition-name>
+            <home-load-balance-policy>standardConfigurationHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>standardConfigurationBeanLoadBalancePolicy</bean-load-balance-policy>
+         </cluster-config>
+    </container-configuration>
+
+    <container-configuration>
+      <container-name>Standard Null Bean Policy</container-name>
+         <cluster-config>
+            <partition-name>standardConfigurationPartitionName</partition-name>
+            <home-load-balance-policy>standardConfigurationHomeLoadBalancePolicy</home-load-balance-policy>
+            <session-state-manager-jndi-name>standardConfigurationSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>
+    </container-configuration>
+
+    <container-configuration>
+      <container-name>Standard Null Home Policy</container-name>
+         <cluster-config>
+            <partition-name>standardConfigurationPartitionName</partition-name>
+            <bean-load-balance-policy>standardConfigurationBeanLoadBalancePolicy</bean-load-balance-policy>
+            <session-state-manager-jndi-name>standardConfigurationSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>
+    </container-configuration>
+
+    <container-configuration>
+      <container-name>Standard Null Partition Name</container-name>
+         <cluster-config>
+            <home-load-balance-policy>standardConfigurationHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>standardConfigurationBeanLoadBalancePolicy</bean-load-balance-policy>
+            <session-state-manager-jndi-name>standardConfigurationSessionStateManagerJndiName</session-state-manager-jndi-name>
+         </cluster-config>
+    </container-configuration>
+
+  </container-configurations>
+
+</jboss>

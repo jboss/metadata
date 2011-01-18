@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<jboss
+      xmlns="http://www.jboss.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee
+                          http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+      version="3.0">
+  <enterprise-beans>
+    <session>
+       <ejb-name>SessionB</ejb-name>
+
+       <ejb-ref>
+         <ejb-ref-name>ejb/NoLinkSessionA</ejb-ref-name>
+         <jndi-name>naming/SessionA </jndi-name>
+       </ejb-ref>
+
+       <jndi-name>naming/SessionB</jndi-name>
+    </session>
+  </enterprise-beans>
+</jboss>
