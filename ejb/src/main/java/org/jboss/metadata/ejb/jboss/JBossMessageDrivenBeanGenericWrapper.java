@@ -21,12 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import java.lang.reflect.Method;
-import java.util.Set;
-
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
-
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
@@ -61,9 +55,11 @@ import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
-import org.jboss.metadata.javaee.support.IdMetaData;
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
-import org.jboss.metadata.javaee.support.NamedMetaData;
+
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagementType;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 /**
  * Create a wrapper around a JBossGenericBeanMetaData for MDB meta data.
@@ -505,16 +501,6 @@ public class JBossMessageDrivenBeanGenericWrapper extends JBossMessageDrivenBean
       return delegate.isTimerPersistence();
    }
 
-   public void merge(IdMetaData override, IdMetaData original)
-   {
-      delegate.merge(override, original);
-   }
-
-   public void merge(IdMetaDataImpl override, IdMetaDataImpl original)
-   {
-      delegate.merge(override, original);
-   }
-
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original, String overrideFile,
          String overridenFile, boolean mustOverride)
    {
@@ -522,11 +508,6 @@ public class JBossMessageDrivenBeanGenericWrapper extends JBossMessageDrivenBean
    }
 
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original)
-   {
-      delegate.merge(override, original);
-   }
-
-   public void merge(NamedMetaData override, NamedMetaData original)
    {
       delegate.merge(override, original);
    }

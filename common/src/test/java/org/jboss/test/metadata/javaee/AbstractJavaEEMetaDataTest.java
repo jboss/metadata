@@ -38,7 +38,16 @@ import junit.framework.TestCase;
  */
 public class AbstractJavaEEMetaDataTest extends TestCase
 {
+   public AbstractJavaEEMetaDataTest()
+   {
+      super();
+   }
 
+   public AbstractJavaEEMetaDataTest(String name)
+   {
+      super(name);
+   }
+   
    /**
     * Open some xml
     * 

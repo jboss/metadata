@@ -30,6 +30,9 @@ import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
 /**
  * AssemblyDescriptorMetaData.
@@ -311,7 +314,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
    
    public void merge(AssemblyDescriptorMetaData override, AssemblyDescriptorMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplMerger.merge(this, override, original);
       
       if((override != null && override.applicationExceptions != null) || (original != null && original.applicationExceptions != null))
       {
@@ -340,7 +343,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
       if((override != null && override.messageDestinations != null) || (original != null && original.messageDestinations != null))
       {
          messageDestinations = new MessageDestinationsMetaData();
-         messageDestinations.merge(override != null ? override.messageDestinations : null, original != null ? original.messageDestinations : null);
+         MessageDestinationsMetaDataMerger.merge(messageDestinations, override != null ? override.messageDestinations : null, original != null ? original.messageDestinations : null);
       }
       
       if((override != null && override.methodPermissions != null) || (original != null && original.methodPermissions != null))
@@ -352,7 +355,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
       if((override != null && override.securityRoles != null) || (original != null && original.securityRoles != null))
       {
          securityRoles = new SecurityRolesMetaData();
-         securityRoles.merge(override != null ? override.securityRoles : null, original != null ? original.securityRoles : null);
+         SecurityRolesMetaDataMerger.merge(securityRoles, override != null ? override.securityRoles : null, original != null ? original.securityRoles : null);
       }
       
       

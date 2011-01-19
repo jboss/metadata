@@ -21,9 +21,10 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
+
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * ClusterConfigMetaData.
@@ -166,7 +167,7 @@ public class ClusterConfigMetaData extends IdMetaDataImplWithDescriptions
    
    public void merge(ClusterConfigMetaData override, ClusterConfigMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);
       
       if (override != null)
       {

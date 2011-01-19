@@ -21,13 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss.jndipolicy.plugins;
 
-import java.lang.reflect.Method;
-import java.util.List;
-import java.util.Set;
-
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
-
 import org.jboss.logging.Logger;
 import org.jboss.metadata.ejb.jboss.CacheConfigMetaData;
 import org.jboss.metadata.ejb.jboss.ClusterConfigMetaData;
@@ -48,8 +41,8 @@ import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DeploymentSummary;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.EjbDeploymentSummary;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.ResolveableJndiNameJbossSessionBeanMetadata;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces.KnownInterfaceType;
+import org.jboss.metadata.ejb.jboss.jndipolicy.spi.ResolveableJndiNameJbossSessionBeanMetadata;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
@@ -91,10 +84,14 @@ import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
-import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
-import org.jboss.metadata.javaee.support.NamedMetaData;
 import org.jboss.util.NotImplementedException;
+
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagementType;
+import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Set;
 
 /**
  * JBossSessionPolicyDecorator
@@ -1072,18 +1069,6 @@ public class JBossSessionPolicyDecorator<T extends JBossSessionBeanMetaData> ext
    }
 
    @Override
-   public void merge(IdMetaData override, IdMetaData original)
-   {
-      delegate.merge(override, original);
-   }
-
-   @Override
-   public void merge(IdMetaDataImpl override, IdMetaDataImpl original)
-   {
-      delegate.merge(override, original);
-   }
-
-   @Override
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original, String overridenFile,
          String overrideFile, boolean mustOverride)
    {
@@ -1092,12 +1077,6 @@ public class JBossSessionPolicyDecorator<T extends JBossSessionBeanMetaData> ext
 
    @Override
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original)
-   {
-      delegate.merge(override, original);
-   }
-
-   @Override
-   public void merge(NamedMetaData override, NamedMetaData original)
    {
       delegate.merge(override, original);
    }

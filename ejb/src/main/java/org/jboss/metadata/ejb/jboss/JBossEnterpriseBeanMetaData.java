@@ -21,19 +21,6 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.BasicJndiBindingPolicy;
 import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
@@ -84,11 +71,26 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
-import org.jboss.metadata.javaee.spec.TransactionManagementTypeAdapter;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 import org.jboss.metadata.javaee.support.NonNullLinkedHashSet;
+import org.jboss.metadata.merge.ejb.jboss.JBossEnvironmentRefsGroupMetaDataMerger;
+import org.jboss.metadata.merge.javaee.jboss.AnnotationsMetaDataMerger;
+import org.jboss.metadata.merge.javaee.jboss.IgnoreDependencyMetaDataMerger;
+import org.jboss.metadata.merge.javaee.jboss.JndiRefsMetaDataMerger;
+import org.jboss.metadata.merge.javaee.support.NamedMetaDataWithDescriptionGroupMerger;
+
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagementType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * enterprise-bean/{session,entity,message-driven} metadata
@@ -300,11 +302,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    {
       if (env == null)
          throw new IllegalArgumentException("Null jndiEnvironmentRefsGroup");
-      JBossEnvironmentRefsGroupMetaData jenv = (JBossEnvironmentRefsGroupMetaData) env;
-      if(jndiEnvironmentRefsGroup != null)
-         jndiEnvironmentRefsGroup.merge(jenv, null, null, "jboss.xml", "ejb-jar.xml", false);
-      else
-         jndiEnvironmentRefsGroup = jenv;
+      this.jndiEnvironmentRefsGroup = (JBossEnvironmentRefsGroupMetaData) env;
    }
 
    // just for XML binding, to expose the type of the model group
@@ -549,7 +547,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return transactionType;
    }
 
-   @XmlJavaTypeAdapter(TransactionManagementTypeAdapter.class)
+   //@XmlJavaTypeAdapter(TransactionManagementTypeAdapter.class)
    public void setTransactionType(TransactionManagementType transactionType)
    {
       this.transactionType = transactionType;
@@ -1708,20 +1706,15 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       this.securityIdentity = securityIdentity;
    }
 
-   @Override
-   public void merge(NamedMetaData override, NamedMetaData original)
-   {
-      throw new RuntimeException("wrong merge method called");
-   }
-   
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original)
    {
       this.merge(override, original, "jboss.xml", "ejb-jar.xml", true);
    }
+   
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original,
          String overrideFile, String overridenFile, boolean mustOverride)
    {
-      super.merge(override, original);
+      NamedMetaDataWithDescriptionGroupMerger.merge(this, override, original);
       if(override != null && override.getEjbClass() != null)
          setEjbClass(override.getEjbClass());
       else if(original != null && original.getEjbClass() != null)
@@ -1774,7 +1767,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
             resourceMgrs = resourceMgrsOverride;
          jenv = (JBossEnvironmentRefsGroupMetaData) override.getJndiEnvironmentRefsGroup();
       }
-      jndiEnvironmentRefsGroup.merge(jenv, env, resourceMgrs, overridenFile, overrideFile, mustOverride);
+      JBossEnvironmentRefsGroupMetaDataMerger.merge(jndiEnvironmentRefsGroup, jenv, env, resourceMgrs, overridenFile, overrideFile, mustOverride);
 
       // Fixup the invoker binding references on ejb refs
       InvokerBindingsMetaData invokerBindings = getInvokerBindings();
@@ -1812,7 +1805,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
    {
-      super.merge(override, original);
+      NamedMetaDataWithDescriptionGroupMerger.merge(this, override, original);
       
       AnnotationsMetaData originalAnnotations = null;
       InvokerBindingsMetaData originalInvokers = null;
@@ -1932,7 +1925,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       {
          if(annotations == null)
             annotations = new AnnotationsMetaData();
-         annotations.merge(overrideAnnotations, originalAnnotations);
+         AnnotationsMetaDataMerger.merge(annotations, overrideAnnotations, originalAnnotations);
       }
 
       if(originalInvokers != null || overrideInvokers != null)
@@ -1946,7 +1939,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       {
          if(jndiEnvironmentRefsGroup == null)
             jndiEnvironmentRefsGroup = new JBossEnvironmentRefsGroupMetaData();
-         jndiEnvironmentRefsGroup.merge(overrideEnv, originalEnv, getJBossMetaData().getResourceManagers());
+         JBossEnvironmentRefsGroupMetaDataMerger.merge(jndiEnvironmentRefsGroup, overrideEnv, originalEnv, getJBossMetaData().getResourceManagers());
       }
       
       if(originalMethodAttrs != null || overrideMethodAttrs != null)
@@ -1960,7 +1953,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       {
          if(ignoreDependency == null)
             ignoreDependency = new IgnoreDependencyMetaData();
-         ignoreDependency.merge(overrideIgnoreDependency, originalIgnoreDependency);
+         IgnoreDependencyMetaDataMerger.merge(ignoreDependency, overrideIgnoreDependency, originalIgnoreDependency);
       }
       
       if(originalPool != null || overridePool != null)
@@ -1974,7 +1967,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       {
          if(jndiRefs == null)
             jndiRefs = new JndiRefsMetaData();
-         jndiRefs.merge(overrideJndiRefs, originalJndiRefs);
+         JndiRefsMetaDataMerger.merge(jndiRefs, overrideJndiRefs, originalJndiRefs);
       }
       
       if(originalSecId != null || overrideSecId != null)

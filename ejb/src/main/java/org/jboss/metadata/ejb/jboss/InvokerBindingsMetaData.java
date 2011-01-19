@@ -24,6 +24,7 @@ package org.jboss.metadata.ejb.jboss;
 import javax.xml.bind.annotation.XmlType;
 
 import org.jboss.metadata.javaee.support.MappedMetaDataWithDescriptions;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
 import org.jboss.xb.annotations.JBossXmlChild;
 
 /**
@@ -49,7 +50,7 @@ public class InvokerBindingsMetaData extends MappedMetaDataWithDescriptions<Invo
 
    public void merge(InvokerBindingsMetaData override, InvokerBindingsMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);
       if (original != null)
       {
          for (InvokerBindingMetaData property : original)

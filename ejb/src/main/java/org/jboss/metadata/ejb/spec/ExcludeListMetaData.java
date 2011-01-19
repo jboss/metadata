@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
 
 /**
  * ExcludeListMetaData.
@@ -120,7 +121,7 @@ public class ExcludeListMetaData extends IdMetaDataImplWithDescriptions
    
    public void merge(ExcludeListMetaData override, ExcludeListMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);
       
       // TODO: can't merge myself
       

@@ -52,6 +52,8 @@ import org.jboss.metadata.javaee.jboss.NamedModule;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.support.NamedModuleImpl;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionGroupMerger;
+import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
 
 /**
  * JBossMetaData.
@@ -723,7 +725,7 @@ public class JBossMetaData extends NamedModuleImpl
     */
    public void merge(JBossMetaData override, EjbJarMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplWithDescriptionGroupMerger.merge(this, override, original);
       
       if(override != null && override.getModuleName() != null)
          setModuleName(override.getModuleName());
@@ -771,8 +773,10 @@ public class JBossMetaData extends NamedModuleImpl
          assemblyDescriptor.merge(null, original.getAssemblyDescriptor());
       }
       //
+      /* FIXME
       if(override != null && override.resourceManagers != null)
          resourceManagers.merge(override.resourceManagers);
+      */
 
       if(override != null && override.interceptors != null)
          interceptors.merge(override.interceptors);
@@ -865,7 +869,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    public void merge(JBossMetaData override, JBossMetaData original)
    {
-      super.merge(override, original);
+      NamedModuleImplMerger.merge(this, override, original);
 
       if(override != null && override.getVersion() != null)
          version = override.getVersion();

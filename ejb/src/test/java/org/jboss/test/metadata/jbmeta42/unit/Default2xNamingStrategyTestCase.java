@@ -21,12 +21,7 @@
  */
 package org.jboss.test.metadata.jbmeta42.unit;
 
-import java.util.Iterator;
-
 import junit.framework.Test;
-
-import org.jboss.metadata.ApplicationMetaData;
-import org.jboss.metadata.BeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
@@ -135,7 +130,8 @@ public class Default2xNamingStrategyTestCase extends AbstractEJBEverythingTest
       assertLocalHome(metaData);
       assertHome(metaData);
    }
-   
+
+   /*
    protected void assertLegacyBeanMetaData(JBossMetaData metaData)
    {
       ApplicationMetaData appMetaData = new ApplicationMetaData(metaData);
@@ -152,6 +148,7 @@ public class Default2xNamingStrategyTestCase extends AbstractEJBEverythingTest
          }
       }
    }
+   */
    
    protected void assertLocalHome(JBossSessionBeanMetaData metaData)
    {
@@ -196,7 +193,8 @@ public class Default2xNamingStrategyTestCase extends AbstractEJBEverythingTest
       assertEquals(metaData.getEjbName(), metaData.determineJndiName());
       assertEquals(metaData.getEjbName(), metaData.determineResolvedJndiName(KnownInterfaces.HOME));
    }
-   
+
+   /*
    protected void assertLegacyBeanMetaDataLocalHome(BeanMetaData metaData)
    {
       String expected = getLocalHomeJndiName(metaData.getEjbName());
@@ -207,6 +205,7 @@ public class Default2xNamingStrategyTestCase extends AbstractEJBEverythingTest
    {
       assertEquals(metaData.getEjbName(), metaData.getJndiName());
    }
+   */
    
    protected String getLocalHomeJndiName(String beanName)
    {

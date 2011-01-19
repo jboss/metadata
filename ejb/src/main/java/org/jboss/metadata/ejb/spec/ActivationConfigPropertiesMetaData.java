@@ -22,6 +22,8 @@
 package org.jboss.metadata.ejb.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
 /**
  * ActivationConfigPropertiesMetaData.
@@ -44,7 +46,7 @@ public class ActivationConfigPropertiesMetaData extends AbstractMappedMetaData<A
 
    public void merge(ActivationConfigPropertiesMetaData override, ActivationConfigPropertiesMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplMerger.merge(this, override, original);
       if (original != null)
       {
          for (ActivationConfigPropertyMetaData property : original)

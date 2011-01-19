@@ -21,14 +21,14 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
-import org.jboss.metadata.javaee.support.MergeableMetaData;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * SecurityIdentityMetaData.
@@ -38,7 +38,7 @@ import org.jboss.metadata.javaee.support.MergeableMetaData;
  * @version $Revision: 1.1 $
  */
 @XmlType(name="security-identityType", propOrder={"descriptions", "useCallerIdentity", "runAs", "runAsPrincipal"})
-public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions implements MergeableMetaData<SecurityIdentityMetaData>
+public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //implements MergeableMetaData<SecurityIdentityMetaData>
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = -6336033602938028216L;
@@ -156,7 +156,7 @@ public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions imp
     */
    public void merge(SecurityIdentityMetaData override, SecurityIdentityMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);
       if(override != null && override.getUseCallerIdentity() != null)
          setUseCallerIdentity(override.getUseCallerIdentity());
       else if(original != null && original.getUseCallerIdentity() != null)

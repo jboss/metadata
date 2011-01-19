@@ -51,6 +51,8 @@ import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
+import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
+import org.jboss.metadata.merge.javaee.support.NamedMetaDataMerger;
 
 /**
  * InterceptorMetaData.
@@ -360,7 +362,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
     */
    public void merge(InterceptorMetaData override, InterceptorMetaData original)
    {
-      super.merge(override, original);
+      NamedMetaDataMerger.merge(this, override, original);
       
       // merge interceptor class name
       if (original != null && original.getInterceptorClass() != null)
@@ -377,7 +379,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
          this.environment = new EnvironmentRefsGroupMetaData();
       Environment overriddenEnv = override != null ? override.getJndiEnvironmentRefsGroup() : null;
       Environment originalEnv = original != null ? original.getJndiEnvironmentRefsGroup() : null;
-      this.environment.merge(overriddenEnv, originalEnv, "", "", false);
+      EnvironmentRefsGroupMetaDataMerger.merge(environment, overriddenEnv, originalEnv, "", "", false);
 
       // merge around-invokes
       if(aroundInvokes == null)

@@ -21,13 +21,11 @@
 */
 package org.jboss.metadata.ejb.spec;
 
+import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
+
 import javax.ejb.TransactionAttributeType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import org.jboss.metadata.javaee.spec.TransactionAttributeTypeAdapter;
-import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
 /**
  * ContainerTransactionMetaData.
@@ -96,7 +94,7 @@ public class ContainerTransactionMetaData extends IdMetaDataImplWithDescriptions
     * @param transactionAttribute the transactionAttribute.
     * @throws IllegalArgumentException for a null transactionAttribute
     */
-   @XmlJavaTypeAdapter(TransactionAttributeTypeAdapter.class)
+   //@XmlJavaTypeAdapter(TransactionAttributeTypeAdapter.class)
    public void setTransAttribute(TransactionAttributeType transactionAttribute)
    {
       if (transactionAttribute == null)

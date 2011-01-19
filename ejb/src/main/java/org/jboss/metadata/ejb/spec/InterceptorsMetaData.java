@@ -21,10 +21,11 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.MappedMetaDataWithDescriptions;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
 import org.jboss.xb.annotations.JBossXmlChild;
+
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * InterceptorsMetaData.
@@ -49,7 +50,7 @@ public class InterceptorsMetaData extends MappedMetaDataWithDescriptions<Interce
    
    public void merge(InterceptorsMetaData interceptors)
    {
-      super.merge(interceptors, null);
+      IdMetaDataImplWithDescriptionsMerger.merge(this, interceptors, null);
       addAll(interceptors);
    }
    
@@ -60,7 +61,7 @@ public class InterceptorsMetaData extends MappedMetaDataWithDescriptions<Interce
     */
    public void merge(InterceptorsMetaData override, InterceptorsMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);
       
       if (original != null)
       {

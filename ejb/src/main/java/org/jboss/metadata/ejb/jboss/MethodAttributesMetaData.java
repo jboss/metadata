@@ -26,6 +26,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.xml.bind.annotation.XmlType;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 import org.jboss.xb.annotations.JBossXmlChild;
 
 @XmlType(name="method-attributesType")
@@ -110,7 +112,7 @@ public class MethodAttributesMetaData extends AbstractMappedMetaData<MethodAttri
    
    public void merge(MethodAttributesMetaData override, MethodAttributesMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplMerger.merge(this, override, original);
       if (original != null)
       {
          for (MethodAttributeMetaData property : original)

@@ -30,6 +30,7 @@ import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
 import org.jboss.metadata.ejb.spec.PersistenceType;
 import org.jboss.metadata.ejb.spec.QueriesMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
+import org.jboss.metadata.merge.javaee.spec.SecurityRoleRefsMetaDataMerger;
 import org.jboss.xb.annotations.JBossXmlConstants;
 import org.jboss.xb.annotations.JBossXmlType;
 
@@ -986,7 +987,7 @@ public class JBossEntityBeanMetaData extends JBossEnterpriseBeanMetaData
       {
          if(securityRoleRefs == null)
             securityRoleRefs = new SecurityRoleRefsMetaData();
-         securityRoleRefs.merge(overrideRoles, originalRoles);
+         SecurityRoleRefsMetaDataMerger.merge(securityRoleRefs, overrideRoles, originalRoles);
       }
       
       if(originalCluster != null || overrideCluster != null)

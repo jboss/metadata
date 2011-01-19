@@ -56,6 +56,8 @@ import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
+import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
+import org.jboss.metadata.merge.javaee.support.NamedMetaDataWithDescriptionGroupMerger;
 import org.jboss.xb.annotations.JBossXmlConstants;
 import org.jboss.xb.annotations.JBossXmlModelGroup;
 
@@ -323,12 +325,7 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
    {
       if (jndiEnvironmentRefsGroup == null)
          throw new IllegalArgumentException("Null jndiEnvironmentRefsGroup");
-      
-      EnvironmentRefsGroupMetaData env = (EnvironmentRefsGroupMetaData) jndiEnvironmentRefsGroup;
-      if(this.jndiEnvironmentRefsGroup != null)
-         this.jndiEnvironmentRefsGroup.merge(env, null, "", "", false);
-      else
-         this.jndiEnvironmentRefsGroup = env;
+      this.jndiEnvironmentRefsGroup = (EnvironmentRefsGroupMetaData) jndiEnvironmentRefsGroup;
    }
 
    // just for XML binding, to expose the type of the model group
@@ -605,7 +602,7 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
     */
    public void merge(EnterpriseBeanMetaData override, EnterpriseBeanMetaData original)
    {
-      super.merge(override, original);
+      NamedMetaDataWithDescriptionGroupMerger.merge(this, override, original);
       if(override != null && override.mappedName != null)
          setMappedName(override.mappedName);
       else if(original != null && original.mappedName != null)
@@ -618,7 +615,7 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
          jndiEnvironmentRefsGroup = new EnvironmentRefsGroupMetaData();
       Environment env1 = override != null ? override.getJndiEnvironmentRefsGroup() : null;
       Environment env2 = original != null ? original.getJndiEnvironmentRefsGroup() : null;
-      jndiEnvironmentRefsGroup.merge(env1, env2, "", "", false);
+      EnvironmentRefsGroupMetaDataMerger.merge(jndiEnvironmentRefsGroup, env1, env2, "", "", false);
       if(override != null && override.securityIdentity != null)
          setSecurityIdentity(override.securityIdentity);
       else if(original != null && original.securityIdentity != null)

@@ -21,15 +21,15 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMap;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
 import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
-import org.jboss.metadata.javaee.support.IdMetaData;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
+
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * JBossEnterpriseBeansMetaData.
@@ -108,12 +108,6 @@ public class JBossEnterpriseBeansMetaData
       return super.isEmpty();
    }
    
-   @Override
-   public void merge(IdMetaData override, IdMetaData original)
-   {
-      throw new RuntimeException("wrong merge method called");
-   }
-   
    /**
     * Merge override + original into this
     * @param override
@@ -122,7 +116,7 @@ public class JBossEnterpriseBeansMetaData
    public void merge(JBossEnterpriseBeansMetaData override, EnterpriseBeansMetaData original,
       String overridenFile, String overrideFile, boolean mustOverride)
    {
-      super.merge(override, original);
+      IdMetaDataImplMerger.merge(this, override, original);
       // Add all override beans
       if(original == null && override != null)
          addAll(override);
@@ -195,7 +189,7 @@ public class JBossEnterpriseBeansMetaData
    
    public void merge(JBossEnterpriseBeansMetaData override, JBossEnterpriseBeansMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplMerger.merge(this, override, original);
       
       // first get the original beans without the corresponding override entry
       if(original != null)

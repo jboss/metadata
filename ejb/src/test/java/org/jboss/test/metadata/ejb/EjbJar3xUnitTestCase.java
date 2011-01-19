@@ -113,11 +113,13 @@ public class EjbJar3xUnitTestCase extends AbstractJavaEEMetaDataTest
       assertTrue(wrapped.isEJB3x());
 
       // Test legacy view
+      /*
       ApplicationMetaData old = new ApplicationMetaData(result);
       assertFalse(old.isEJB1x());
       assertFalse(old.isEJB2x());
       assertFalse(old.isEJB21());
       assertTrue(old.isEJB3x());
+      */
    }
 
    public void testDescriptionDefaultLanguage() throws Exception

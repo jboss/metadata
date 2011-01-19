@@ -21,17 +21,15 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.ejb.TransactionManagementType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-import org.jboss.metadata.javaee.spec.TransactionManagementTypeAdapter;
 import org.jboss.xb.annotations.JBossXmlConstants;
 import org.jboss.xb.annotations.JBossXmlType;
+
+import javax.ejb.TransactionManagementType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * SessionBeanMetaData.
@@ -407,7 +405,7 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param transactionType the transactionType.
     * @throws IllegalArgumentException for a null transactionType
     */
-   @XmlJavaTypeAdapter(TransactionManagementTypeAdapter.class)
+   //@XmlJavaTypeAdapter(TransactionManagementTypeAdapter.class)
    public void setTransactionType(TransactionManagementType transactionType)
    {
       if (transactionType == null)

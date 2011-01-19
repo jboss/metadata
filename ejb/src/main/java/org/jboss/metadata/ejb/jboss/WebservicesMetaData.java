@@ -21,11 +21,12 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.common.jboss.WebserviceDescriptionsMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  * WebservicesMetaData.
@@ -103,7 +104,7 @@ public class WebservicesMetaData extends IdMetaDataImpl
    
    public void merge(WebservicesMetaData override, WebservicesMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplMerger.merge(this, override, original);
       if(override != null)
       {
          merge(override);

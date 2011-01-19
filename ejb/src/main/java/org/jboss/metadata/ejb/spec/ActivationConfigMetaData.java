@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
 
 /**
  * ActivationConfigMetaData.
@@ -75,7 +76,7 @@ public class ActivationConfigMetaData extends IdMetaDataImplWithDescriptions
 
    public void merge(ActivationConfigMetaData override, ActivationConfigMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);
       ActivationConfigPropertiesMetaData propertyOverride = null;
       if (override != null)
          propertyOverride = override.getActivationConfigProperties();

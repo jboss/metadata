@@ -23,7 +23,9 @@ package org.jboss.metadata.ejb.jboss;
 
 import javax.xml.bind.annotation.XmlType;
 
+import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 import org.jboss.metadata.javaee.support.MappedMetaDataWithDescriptions;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
 import org.jboss.xb.annotations.JBossXmlChild;
 
 /**
@@ -61,7 +63,7 @@ public class InvokerProxyBindingsMetaData extends MappedMetaDataWithDescriptions
    
    public void merge(InvokerProxyBindingsMetaData override, InvokerProxyBindingsMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);
       
       // addAll
       merge(override);

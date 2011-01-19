@@ -22,6 +22,7 @@
 package org.jboss.metadata.ejb.spec;
 
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
 /**
  * CMPFieldsMetaData.
@@ -44,7 +45,7 @@ public class CMPFieldsMetaData extends AbstractMappedMetaData<CMPFieldMetaData>
 
    public void merge(CMPFieldsMetaData override, CMPFieldsMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplMerger.merge(this, override, original);
       if (original != null)
       {
          for (CMPFieldMetaData property : original)

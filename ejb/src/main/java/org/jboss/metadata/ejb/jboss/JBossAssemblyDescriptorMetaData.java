@@ -21,14 +21,6 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
@@ -41,7 +33,16 @@ import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
-import org.jboss.metadata.javaee.support.JavaEEMetaDataUtil;
+import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * JBossAssemblyDescriptorMetaData.
@@ -384,7 +385,7 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
 
    public void merge(JBossAssemblyDescriptorMetaData override, AssemblyDescriptorMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplMerger.merge(this, override, original);
       JBossAssemblyDescriptorMetaData merged = this;
 
       if(override != null && override.applicationExceptions != null)
@@ -431,7 +432,7 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
       else
       {
          SecurityRolesMetaData mergedSecurityRolesMetaData = new SecurityRolesMetaData();
-         mergedSecurityRolesMetaData = JavaEEMetaDataUtil.mergeJBossXml(mergedSecurityRolesMetaData, securityRolesMetaData, jbossSecurityRolesMetaData, "security-role", false);
+         SecurityRolesMetaDataMerger.merge(mergedSecurityRolesMetaData, jbossSecurityRolesMetaData, securityRolesMetaData);
          if (mergedSecurityRolesMetaData != null && mergedSecurityRolesMetaData.isEmpty() == false)
             merged.setSecurityRoles(mergedSecurityRolesMetaData);
       }
@@ -444,7 +445,7 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
       else
       {
          MessageDestinationsMetaData mergedMessageDestinationsMetaData = new MessageDestinationsMetaData();
-         mergedMessageDestinationsMetaData = JavaEEMetaDataUtil.mergeJBossXml(mergedMessageDestinationsMetaData, messageDestinationsMetaData, jbossMessageDestinationsMetaData, "message-destination", true);
+         MessageDestinationsMetaDataMerger.merge(mergedMessageDestinationsMetaData, jbossMessageDestinationsMetaData, messageDestinationsMetaData);
          if (mergedMessageDestinationsMetaData != null && mergedMessageDestinationsMetaData.isEmpty() == false)
             merged.setMessageDestinations(mergedMessageDestinationsMetaData);
       }
@@ -464,7 +465,7 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
    
    public void merge(JBossAssemblyDescriptorMetaData override, JBossAssemblyDescriptorMetaData original)
    {
-      super.merge(override, original);
+      IdMetaDataImplMerger.merge(this, override, original);
 
       ApplicationExceptionsMetaData originalExceptions = null;
       SecurityRolesMetaData originalRoles = null;
@@ -513,7 +514,7 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
       {
          if(securityRoles == null)
             securityRoles = new SecurityRolesMetaData();
-         securityRoles.merge(overrideRoles, originalRoles);
+         SecurityRolesMetaDataMerger.merge(securityRoles, overrideRoles, originalRoles);
       }
       
       if(originalPermissions != null || overridePermissions != null)
@@ -541,7 +542,7 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
       {
          if(messageDestinations == null)
             messageDestinations = new MessageDestinationsMetaData();
-         messageDestinations.merge(overrideDestinations, originalDestinations);
+         MessageDestinationsMetaDataMerger.merge(messageDestinations, overrideDestinations, originalDestinations);
       }
       
       if(originalExclude != null || overrideExclude != null)
