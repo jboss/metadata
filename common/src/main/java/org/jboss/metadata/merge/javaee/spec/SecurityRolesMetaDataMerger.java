@@ -39,9 +39,9 @@ public class SecurityRolesMetaDataMerger {
     /**
     *
     */
-    public static void merge(SecurityRolesMetaData dest, IdMetaDataImpl override, IdMetaDataImpl original) {
-        SecurityRolesMetaData roles1 = (SecurityRolesMetaData) override;
-        SecurityRolesMetaData roles0 = (SecurityRolesMetaData) original;
+    public static void merge(SecurityRolesMetaData dest, SecurityRolesMetaData override, SecurityRolesMetaData original) {
+        SecurityRolesMetaData roles1 = override;
+        SecurityRolesMetaData roles0 = original;
         if (roles0 != null) {
             for (SecurityRoleMetaData sr : roles0) {
                 SecurityRoleMetaData to = dest.get(sr.getRoleName());
