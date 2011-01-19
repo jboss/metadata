@@ -21,11 +21,7 @@
 */
 package org.jboss.test.metadata.ejb;
 
-import javax.ejb.TransactionManagementType;
-
 import junit.framework.Test;
-
-import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
@@ -48,7 +44,8 @@ import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;
 import org.jboss.metadata.merge.EjbMergeUtil;
-import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
+
+import javax.ejb.TransactionManagementType;
 
 /**
  * EjbJar2xUnitTestCase.
@@ -98,19 +95,19 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
       JBossMetaData jbossMetaData = new JBossMetaData();
       //jbossMetaData.setOverridenMetaData(ejbJarMetaData);
       jbossMetaData = EjbMergeUtil.merge(jbossMetaData, ejbJarMetaData);
-      ApplicationMetaData applicationMetaData = new ApplicationMetaData(jbossMetaData); 
+      //ApplicationMetaData applicationMetaData = new ApplicationMetaData(jbossMetaData);
       assertVersion(ejbJarMetaData);
-      assertVersion(applicationMetaData);
+      //assertVersion(applicationMetaData);
       assertId("ejb-jar", ejbJarMetaData);
       assertEquals("ejb-jar-id", ejbJarMetaData.getId());
       assertEjbClientJar(ejbJarMetaData);
       assertDescriptionGroup("ejb-jar", ejbJarMetaData.getDescriptionGroup());
       assertEnterpriseBeans(ejbJarMetaData, mode);
-      assertEnterpriseBeans(applicationMetaData, mode);
+      //assertEnterpriseBeans(applicationMetaData, mode);
       assertRelationships(ejbJarMetaData);
-      assertRelationships(applicationMetaData);
+      //assertRelationships(applicationMetaData);
       assertAssemblyDescriptor(ejbJarMetaData);
-      assertAssemblyDescriptor(applicationMetaData);
+      //assertAssemblyDescriptor(applicationMetaData);
    }
    
    private void assertVersion(EjbJar2xMetaData ejbJar2xMetaData)
@@ -121,7 +118,8 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertTrue(ejbJar2xMetaData.isEJB21());
       assertFalse(ejbJar2xMetaData.isEJB3x());
    }
-   
+
+   /*
    private void assertVersion(ApplicationMetaData applicationMetadata)
    {
       assertFalse(applicationMetadata.isEJB1x());
@@ -129,6 +127,7 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertTrue(applicationMetadata.isEJB21());
       assertFalse(applicationMetadata.isEJB3x());
    }
+   */
 
    protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData, Mode mode)
    {

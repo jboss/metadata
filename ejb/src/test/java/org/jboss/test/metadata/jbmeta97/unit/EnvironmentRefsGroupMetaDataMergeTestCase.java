@@ -26,6 +26,7 @@ import junit.framework.TestCase;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
+import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -53,7 +54,7 @@ public class EnvironmentRefsGroupMetaDataMergeTestCase extends TestCase
       EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
       EnvironmentRefsGroupMetaData jbossEnv = new EnvironmentRefsGroupMetaData();
       EnvironmentRefsGroupMetaData specEnv = createSpecEnv();
-      env.merge(jbossEnv, specEnv, "jboss", "spec", false);
+      EnvironmentRefsGroupMetaDataMerger.merge(env, jbossEnv, specEnv, "jboss", "spec", false);
       
       PersistenceContextReferencesMetaData persistenceContextRefs = env.getPersistenceContextRefs();
       assertNotNull("No persistence context references", persistenceContextRefs);

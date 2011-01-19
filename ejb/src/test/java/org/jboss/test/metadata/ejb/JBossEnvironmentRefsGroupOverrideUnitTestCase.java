@@ -29,6 +29,7 @@ import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 
 import junit.framework.TestCase;
+import org.jboss.metadata.merge.ejb.jboss.JBossEnvironmentRefsGroupMetaDataMerger;
 
 /**
  * A JBossEnvironmentRefsGroupOverrideUnitTestCase.
@@ -77,7 +78,7 @@ public class JBossEnvironmentRefsGroupOverrideUnitTestCase extends TestCase
       rms.add(rm);
       
       JBossEnvironmentRefsGroupMetaData merged = new JBossEnvironmentRefsGroupMetaData();
-      merged.merge(jboss, spec, rms);
+      JBossEnvironmentRefsGroupMetaDataMerger.merge(merged, jboss, spec, rms);
       refs = merged.getResourceReferences();
       assertNotNull(refs);
       assertEquals(2, refs.size());

@@ -24,6 +24,7 @@ package org.jboss.test.metadata.ejb;
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import org.jboss.logging.Logger;
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.CacheInvalidationConfigMetaData;
@@ -70,6 +71,7 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.test.AbstractTestSetup;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 import org.jboss.util.NotImplementedException;
+import org.jboss.xb.binding.sunday.unmarshalling.SchemaBindingResolver;
 
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
@@ -1400,6 +1402,17 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
          throw new AssertionFailedError("The iterator should be empty: " + i);
    }
 
+   protected Logger getLog()
+   {
+      throw new RuntimeException("NYI");
+   }
+
+   @Deprecated
+   protected void setValidateSchema(boolean validateSchema)
+   {
+      throw new RuntimeException("NYI");
+   }
+
    @Deprecated
    public static Test suite(Class clazz)
    {
@@ -1409,6 +1422,18 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
 
    @Deprecated
    protected <T> T unmarshal(Class<T> type)
+   {
+      throw new RuntimeException("NYI");
+   }
+
+   @Deprecated
+   protected <T> T unmarshal(String name, Class<T> expected) throws Exception
+   {
+      return unmarshal(name, expected, null);
+   }
+
+   @Deprecated
+   protected <T> T unmarshal(String name, Class<T> expected, SchemaBindingResolver resolver) throws Exception
    {
       throw new RuntimeException("NYI");
    }

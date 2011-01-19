@@ -21,15 +21,11 @@
  */
 package org.jboss.test.metadata.ejb;
 
-import org.jboss.metadata.ApplicationMetaData;
-import org.jboss.metadata.EntityMetaData;
+import junit.framework.Test;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar1xMetaData;
 import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
-
-import junit.framework.Test;
 
 
 /**
@@ -38,7 +34,7 @@ import junit.framework.Test;
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-public class EjbJar11UnitTestCase extends AbstractJavaEEMetaDataTest
+public class EjbJar11UnitTestCase extends AbstractEJBEverythingTest
 {
    public static Test suite()
    {
@@ -64,19 +60,23 @@ public class EjbJar11UnitTestCase extends AbstractJavaEEMetaDataTest
       assertFalse(specMetaData.isEJB21());
       assertFalse(specMetaData.isEJB3x());
 
+      /*
       ApplicationMetaData old = new ApplicationMetaData(specMetaData);
       assertTrue(old.isEJB1x());
       assertFalse(old.isEJB2x());
       assertFalse(old.isEJB21());
       assertFalse(old.isEJB3x());
+      */
       
       EntityBeanMetaData entity = (EntityBeanMetaData) specMetaData.getEnterpriseBean("EjbName");
       assertNotNull(entity);
       assertTrue(entity.isCMP1x());
-      
+
+      /*
       EntityMetaData emd = (EntityMetaData) old.getBeanByEjbName("EjbName");
       assertNotNull(emd);
       assertTrue(emd.isCMP1x());
+      */
 
       JBossMetaData jbossMetaData = unmarshal("JBoss30_entityConfig.xml", JBossMetaData.class, null);
       JBossMetaData mergedMetaData = new JBossMetaData();

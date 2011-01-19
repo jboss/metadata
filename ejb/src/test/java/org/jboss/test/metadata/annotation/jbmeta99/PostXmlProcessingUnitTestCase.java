@@ -28,6 +28,7 @@ import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.*;
 import org.jboss.metadata.ejb.spec.*;
 import org.jboss.metadata.javaee.spec.*;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 import javax.ejb.Timer;
@@ -43,7 +44,7 @@ import java.util.HashSet;
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision: 1.1 $
  */
-public class PostXmlProcessingUnitTestCase extends AbstractJavaEEMetaDataTest
+public class PostXmlProcessingUnitTestCase extends AbstractEJBEverythingTest
 {
    public PostXmlProcessingUnitTestCase(String name)
    {

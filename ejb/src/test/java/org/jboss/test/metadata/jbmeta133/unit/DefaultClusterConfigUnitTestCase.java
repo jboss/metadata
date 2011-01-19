@@ -29,6 +29,7 @@ import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.process.processor.JBossMetaDataProcessor;
 import org.jboss.metadata.process.processor.ejb.jboss.ClusterConfigDefaultValueProcessor;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 /**
@@ -38,7 +39,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision$
  */
-public class DefaultClusterConfigUnitTestCase extends AbstractJavaEEEverythingTest
+public class DefaultClusterConfigUnitTestCase extends AbstractEJBEverythingTest
 {
 
    public DefaultClusterConfigUnitTestCase(String name)

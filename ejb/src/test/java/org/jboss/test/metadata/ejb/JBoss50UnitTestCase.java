@@ -21,17 +21,7 @@
 */
 package org.jboss.test.metadata.ejb;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import junit.framework.Test;
-
-import org.jboss.metadata.ApplicationMetaData;
-import org.jboss.metadata.BeanMetaData;
-import org.jboss.metadata.ConfigurationMetaData;
 import org.jboss.metadata.ejb.jboss.CacheInvalidationConfigMetaData;
 import org.jboss.metadata.ejb.jboss.ClusterConfigMetaData;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationMetaData;
@@ -83,8 +73,11 @@ import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.merge.EjbMergeUtil;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
-import org.jboss.test.metadata.javaee.JBossXBTestDelegate;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Miscellaneous tests with a JBoss 5 xml.
@@ -94,7 +87,7 @@ import org.jboss.test.metadata.javaee.JBossXBTestDelegate;
  * @version $Revision: 88355 $
  */
 @SuppressWarnings("deprecation")
-public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
+public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
 {
    public static Test suite()
    {
@@ -337,7 +330,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
    
    public void testRemoteBindingsWithoutDecorator() throws Exception
    {
-      JBossMetaData jboss = (JBossMetaData) unmarshal("JBoss50_testRemoteBindings.xml");
+      JBossMetaData jboss = unmarshal("JBoss50_testRemoteBindings.xml", JBossMetaData.class);
       
       assertEquals(1, jboss.getEnterpriseBeans().size());
       
@@ -493,8 +486,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
    public void testEjb21MergedContainerDefs()
       throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
-      xbdelegate.setValidateSchema(false);
+      setValidateSchema(false);
       long start = System.currentTimeMillis();
       EjbJarMetaData specMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJar21MetaData.class, null);
       long end = System.currentTimeMillis();
@@ -531,6 +523,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
       }
 
       // Test the legacy wrapper view
+      /*
       ApplicationMetaData appMetaData = new ApplicationMetaData(wrapper);
       Iterator<BeanMetaData> beans2 = appMetaData.getEnterpriseBeans();
       while (beans2.hasNext())
@@ -539,6 +532,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
          ConfigurationMetaData beanCfg = bean.getContainerConfiguration();
          assertNotNull(beanCfg);
       }
+      */
 
       assertTrue(bindings.size() > 10);
       // Validate some know invoker bindings
@@ -547,6 +541,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
       InvokerProxyBindingMetaData sfui = bindings.get("stateful-unified-invoker");
       assertNotNull(sfui);
 
+      /*
       BeanMetaData beanCfg = appMetaData.getBeanByEjbName("session1EjbName");
       assertNotNull(beanCfg);
       Iterator<String> it = beanCfg.getInvokerBindings();
@@ -559,6 +554,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
          assertNotNull(imd);
       }
       assertNotNull(imd);
+      */
    }
    /**
     * Validate an ejb-jar.xml/jboss.xml/standardjboss.xml set of metadata used to
@@ -568,8 +564,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
    public void testCts()
       throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
-      xbdelegate.setValidateSchema(false);
+      setValidateSchema(false);
       long start = System.currentTimeMillis();
       EjbJarMetaData specMetaData = unmarshal("JBoss50_testCtsEjb20Jar.xml", EjbJarMetaData.class, null);
       long end = System.currentTimeMillis();
@@ -609,6 +604,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
       assertTrue(sessionBean.getEjbName()+" has 1 invokers", invokers.size() > 0);
 
       // Test the legacy wrapper view
+      /*
       ApplicationMetaData appMetaData = new ApplicationMetaData(wrapper);
       Iterator<BeanMetaData> beans2 = appMetaData.getEnterpriseBeans();
       while (beans2.hasNext())
@@ -617,6 +613,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
          ConfigurationMetaData beanCfg = bean.getContainerConfiguration();
          assertNotNull(beanCfg);
       }
+      */
 
       assertTrue(bindings.size() > 10);
       // Validate some know invoker bindings
@@ -625,6 +622,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
       InvokerProxyBindingMetaData sfui = bindings.get("stateful-unified-invoker");
       assertNotNull(sfui);
 
+      /*
       BeanMetaData beanCfg = appMetaData.getBeanByEjbName("StatelessSessionBean");
       assertNotNull(beanCfg);
       Iterator<String> it = beanCfg.getInvokerBindings();
@@ -636,6 +634,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
          assertNotNull(imd);
       }
       assertNotNull(imd);
+      */
 
       // Validate the merged StrictlyPooledMDB 
       JBossEnterpriseBeanMetaData strictlyPooledMDB = beans.get("StrictlyPooledMDB");
@@ -655,7 +654,8 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
       assertEquals("queue/A", strictlyPooledMDBMD.getDestinationJndiName());
       assertEquals("Strictly Pooled Message Driven Bean", strictlyPooledMDBMD.getConfigurationName());
 
-      // Test security-identity information      
+      // Test security-identity information
+      /*
       org.jboss.metadata.SecurityIdentityMetaData secMetaData = beanCfg.getSecurityIdentityMetaData();
       assertNull(secMetaData);
 
@@ -665,6 +665,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
       assertEquals("getUseCallerIdentity", false, secMetaData.getUseCallerIdentity());
       String roleName = secMetaData.getRunAsRoleName();
       assertEquals("RunAsStatelessSessionBean.getRunAsRoleName", "RunAsStatelessSessionBean-role-name", roleName);
+      */
    }
 
    /**
@@ -677,9 +678,8 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
    public void testResourceRefsMergeSelf()
       throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
       EjbJar2xMetaData specData = unmarshal("EjbJar20_testResourceRefs.xml", EjbJar2xMetaData.class, null);
-      xbdelegate.setValidateSchema(false);
+      setValidateSchema(false);
       JBossMetaData jbossMetaData = unmarshal("JBoss50_testResourceRefs.xml", JBossMetaData.class, null);
       jbossMetaData.merge(null, specData);
       validateResourceRefs(jbossMetaData);
@@ -695,9 +695,8 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
    public void testResourceRefs()
       throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
       EjbJar2xMetaData specData = unmarshal("EjbJar20_testResourceRefs.xml", EjbJar2xMetaData.class, null);
-      xbdelegate.setValidateSchema(false);
+      setValidateSchema(false);
       JBossMetaData jbossXmlMetaData = unmarshal();
       JBossMetaData jbossMetaData = new JBossMetaData();
       jbossMetaData.merge(jbossXmlMetaData, specData);
@@ -707,8 +706,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
    public void testEjbJndiName()
       throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
-      xbdelegate.setValidateSchema(true);
+      setValidateSchema(true);
       JBossMetaData jbossXmlMetaData = unmarshal();
       JBossEnterpriseBeansMetaData enterpriseBeans = jbossXmlMetaData.getEnterpriseBeans();
       assertNotNull(enterpriseBeans);
@@ -751,8 +749,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
    
    public void testInvokerDefaultJndiName() throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
-      xbdelegate.setValidateSchema(false);
+      setValidateSchema(false);
 
       JBossMetaData result = unmarshal();
       JBoss50DTDMetaData stdMetaData = unmarshal("JBoss5xEverything_testStandard.xml", JBoss50DTDMetaData.class, null);
@@ -767,12 +764,14 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
       assertEquals("sessionInvokerProxyBindingName", invokerBindingMetaData.getInvokerProxyBindingName());
       assertNull(invokerBindingMetaData.getJndiName());
 
+      /*
       JBossMetaDataWrapper jbossWrapper = new JBossMetaDataWrapper(result, stdMetaData);
       ApplicationMetaData app = new ApplicationMetaData(jbossWrapper);
       BeanMetaData wrapper = app.getBeanByEjbName("SessionEjbName");
       assertNotNull(wrapper);
       String invokerJndiName = wrapper.getInvokerBinding("sessionInvokerProxyBindingName");
       assertEquals("SessionEjbName", invokerJndiName);
+      */
       
       bean = result.getEnterpriseBean("MdbEjbName");
       assertNotNull(bean);
@@ -784,11 +783,13 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
       InvokerBindingMetaData invokerBinding = invokerBindings.get(InvokerBindingMetaData.MESSAGE_DRIVEN);
       assertNotNull(invokerBinding);
       assertEquals(bean.getEjbName(), invokerBinding.getJndiName());
-      
+
+      /*
       wrapper = app.getBeanByEjbName("MdbEjbName");
       assertNotNull(wrapper);
       invokerJndiName = wrapper.getInvokerBinding(InvokerBindingMetaData.MESSAGE_DRIVEN);
       assertEquals(wrapper.getEjbName(), invokerJndiName);
+      */
    }
 
    protected void validateResourceRefs(JBossMetaData jbossMetaData)
@@ -845,8 +846,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
 
    public void testEjbPortComponent() throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
-      xbdelegate.setValidateSchema(true);
+      setValidateSchema(true);
       JBossMetaData jboss = unmarshal();
       JBossGenericBeanMetaData ejb = (JBossGenericBeanMetaData) jboss.getEnterpriseBean("EjbName");
       assertNotNull(ejb);
@@ -858,8 +858,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
    
    public void testEjbthreeCacheInvalidationConfig() throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
-      xbdelegate.setValidateSchema(false);
+      setValidateSchema(false);
       JBossMetaData jbossXmlMetaData = unmarshal();
       JBossEnterpriseBeansMetaData enterpriseBeans = jbossXmlMetaData.getEnterpriseBeans();
       assertNotNull(enterpriseBeans);
@@ -896,8 +895,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
    
    public void testEjbthreeClusterConfig() throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
-      xbdelegate.setValidateSchema(true);
+      setValidateSchema(true);
       JBossMetaData jbossXmlMetaData = unmarshal();
       JBossEnterpriseBeansMetaData enterpriseBeans = jbossXmlMetaData.getEnterpriseBeans();
       assertNotNull(enterpriseBeans);
@@ -942,8 +940,7 @@ public class JBoss50UnitTestCase extends AbstractJavaEEMetaDataTest
 
    public void testJndiBindingPolicy() throws Exception
    {
-      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
-      xbdelegate.setValidateSchema(true);
+      setValidateSchema(true);
       JBossMetaData jbossXmlMetaData = unmarshal();
       assertEquals("org.jboss.metadata.test.AppJndiBindingPolicy", jbossXmlMetaData.getJndiBindingPolicy());
       JBossEnterpriseBeansMetaData enterpriseBeans = jbossXmlMetaData.getEnterpriseBeans();

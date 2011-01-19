@@ -33,6 +33,7 @@ import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
 import org.jboss.test.metadata.common.PackageScanner;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 import org.jboss.test.metadata.jbmeta107.OverrideImplicitLocal;
 
@@ -47,7 +48,7 @@ import org.jboss.test.metadata.jbmeta107.OverrideImplicitLocal;
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-public class OverrideImplicitLocalTestCase extends AbstractJavaEEMetaDataTest
+public class OverrideImplicitLocalTestCase extends AbstractEJBEverythingTest 
 {
    public OverrideImplicitLocalTestCase(String name)
    {

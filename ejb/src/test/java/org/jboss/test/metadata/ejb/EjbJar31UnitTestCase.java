@@ -21,13 +21,10 @@
 */
 package org.jboss.test.metadata.ejb;
 
-import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationsMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaDataWrapper;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 /**
  * Basic parsing test for EjbJar31MetaData.
@@ -35,7 +32,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
  * @author Brian Stansberry
  * @version $Revision$
  */
-public class EjbJar31UnitTestCase extends AbstractJavaEEMetaDataTest
+public class EjbJar31UnitTestCase extends AbstractEJBEverythingTest
 {
 
    /**
@@ -94,11 +91,13 @@ public class EjbJar31UnitTestCase extends AbstractJavaEEMetaDataTest
       assertTrue(wrapped.isEJB3x());
 
       // Test legacy view
+      /*
       ApplicationMetaData old = new ApplicationMetaData(result);
       assertFalse(old.isEJB1x());
       assertFalse(old.isEJB2x());
       assertFalse(old.isEJB21());
       assertTrue(old.isEJB3x());
+      */
    }
 
 }

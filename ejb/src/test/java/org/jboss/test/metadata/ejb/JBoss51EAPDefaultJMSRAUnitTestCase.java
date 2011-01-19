@@ -33,7 +33,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-public class JBoss51EAPDefaultJMSRAUnitTestCase extends AbstractJavaEEMetaDataTest
+public class JBoss51EAPDefaultJMSRAUnitTestCase extends AbstractEJBEverythingTest
 {
    public JBoss51EAPDefaultJMSRAUnitTestCase(String name)
    {

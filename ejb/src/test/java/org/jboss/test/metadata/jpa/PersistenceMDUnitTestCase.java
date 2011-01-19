@@ -30,6 +30,7 @@ import java.util.Set;
 
 import org.jboss.metadata.jpa.spec.PersistenceMetaData;
 import org.jboss.metadata.jpa.spec.PersistenceUnitMetaData;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 
@@ -39,7 +40,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
  * @author <a href="mailto:ales.justin@jboss.com">Ales Justin</a>
  * @version $Revision:$
  */
-public class PersistenceMDUnitTestCase extends AbstractJavaEEMetaDataTest
+public class PersistenceMDUnitTestCase extends AbstractEJBEverythingTest
 {
    public PersistenceMDUnitTestCase(String name)
    {

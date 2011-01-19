@@ -38,13 +38,14 @@ import org.jboss.metadata.ejb.spec.RemoveMethodMetaData;
 import org.jboss.metadata.ejb.spec.RemoveMethodsMetaData;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 /**
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision$
  */
-public class OverrideRemoveMethodUnitTestCase extends AbstractJavaEEMetaDataTest
+public class OverrideRemoveMethodUnitTestCase extends AbstractEJBEverythingTest
 {
    public OverrideRemoveMethodUnitTestCase(String name)
    {

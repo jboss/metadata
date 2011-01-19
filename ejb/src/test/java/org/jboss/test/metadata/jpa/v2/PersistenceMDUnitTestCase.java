@@ -32,6 +32,7 @@ import org.jboss.metadata.jpa.spec.PersistenceMetaData;
 import org.jboss.metadata.jpa.spec.PersistenceUnitMetaData;
 import org.jboss.metadata.jpa.spec.ValidationMode;
 import org.jboss.metadata.jpa.spec.SharedCacheMode;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 /**
@@ -42,7 +43,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
  *
  * @version $Revision:$
  */
-public class PersistenceMDUnitTestCase extends AbstractJavaEEMetaDataTest
+public class PersistenceMDUnitTestCase extends AbstractEJBEverythingTest
 {
    public PersistenceMDUnitTestCase(String name)
    {

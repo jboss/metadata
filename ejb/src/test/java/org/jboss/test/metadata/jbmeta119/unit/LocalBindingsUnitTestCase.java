@@ -31,13 +31,14 @@ import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.jboss.LocalBindingMetaData;
 import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.BasicJndiBindingPolicy;
 import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.JBossSessionPolicyDecorator;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 /**
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision$
  */
-public class LocalBindingsUnitTestCase extends AbstractJavaEEEverythingTest
+public class LocalBindingsUnitTestCase extends AbstractEJBEverythingTest
 {
    public LocalBindingsUnitTestCase(String name)
    {

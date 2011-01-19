@@ -35,7 +35,7 @@ import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 
 /**
  * JBAS-4612
@@ -43,7 +43,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-public class WhitespaceUnitTestCase extends AbstractJavaEEMetaDataTest
+public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
 {
 
    public WhitespaceUnitTestCase(String name)

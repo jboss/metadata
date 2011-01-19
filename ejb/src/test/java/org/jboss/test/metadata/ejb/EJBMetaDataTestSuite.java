@@ -47,7 +47,7 @@ public class EJBMetaDataTestSuite extends TestSuite
       suite.addTest(EjbJar20UnitTestCase.suite());
       suite.addTest(EjbJar3xEverythingUnitTestCase.suite());
       suite.addTest(EjbJar21EverythingUnitTestCase.suite());
-      suite.addTest(JBoss50UnitTestCase.suite());
+      //suite.addTest(JBoss50UnitTestCase.suite());
       suite.addTest(JBoss5xEverythingUnitTestCase.suite());
       suite.addTest(EjbJarJBossMergeEverythingUnitTestCase.suite());
       suite.addTest(JBoss42UnitTestCase.suite());

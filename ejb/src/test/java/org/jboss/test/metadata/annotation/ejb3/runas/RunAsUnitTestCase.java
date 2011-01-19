@@ -21,11 +21,6 @@
  */
 package org.jboss.test.metadata.annotation.ejb3.runas;
 
-import java.lang.reflect.AnnotatedElement;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-
 import org.jboss.metadata.annotation.creator.ejb.EjbJar30Creator;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
@@ -38,17 +33,19 @@ import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
 import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
-import org.jboss.metadata.plugins.repository.basic.BasicMetaDataRepository;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
+
+import java.lang.reflect.AnnotatedElement;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88255 $
  */
-public class RunAsUnitTestCase extends AbstractJavaEEMetaDataTest
+public class RunAsUnitTestCase extends AbstractEJBEverythingTest
 {
-   private static BasicMetaDataRepository repository = new BasicMetaDataRepository();
-
    public RunAsUnitTestCase(String name)
    {
       super(name);

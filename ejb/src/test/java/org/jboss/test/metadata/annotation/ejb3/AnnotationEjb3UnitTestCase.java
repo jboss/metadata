@@ -41,6 +41,7 @@ import org.jboss.test.metadata.annotation.ejb3.runas.InterMediateBean;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
 import org.jboss.test.metadata.common.SetHelper;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 import org.jboss.test.metadata.ejb.EjbJar3xEverythingUnitTestCase;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest.Mode;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
@@ -62,7 +63,7 @@ import java.util.*;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88355 $
  */
-public class AnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
+public class AnnotationEjb3UnitTestCase extends AbstractEJBEverythingTest
 {
    /**
     * @param name

@@ -21,13 +21,7 @@
 */
 package org.jboss.test.metadata.ejb;
 
-import java.util.LinkedHashSet;
-
-import javax.ejb.TransactionManagementType;
-
 import junit.framework.Test;
-
-import org.jboss.metadata.ApplicationMetaData;
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
@@ -62,6 +56,9 @@ import org.jboss.metadata.ejb.spec.ResultTypeMapping;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
+
+import javax.ejb.TransactionManagementType;
+import java.util.LinkedHashSet;
 
 /**
  * EjbJar3xUnitTestCase.
@@ -118,12 +115,14 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertInterceptors(ejbJarMetaData, mode);
       assertRelationships(ejbJarMetaData);
       assertAssemblyDescriptor(ejbJarMetaData);
-      
+
+      /*
       ApplicationMetaData applicationMetaData = new ApplicationMetaData(ejbJarMetaData); 
       assertVersion(applicationMetaData);
       assertEnterpriseBeans(applicationMetaData, mode);
       assertRelationships(applicationMetaData);
       assertAssemblyDescriptor(applicationMetaData);
+      */
    }
 
    private void assertVersion(EjbJar3xMetaData ejbJar3xMetaData)
@@ -134,7 +133,8 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertFalse(ejbJar3xMetaData.isEJB21());
       assertTrue(ejbJar3xMetaData.isEJB3x());
    }
-   
+
+   /*
    private void assertVersion(ApplicationMetaData applicationMetadata)
    {
       assertFalse(applicationMetadata.isEJB1x());
@@ -142,6 +142,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertFalse(applicationMetadata.isEJB21());
       assertTrue(applicationMetadata.isEJB3x());
    }
+   */
    
    private void assertMetaDataComplete(EjbJar3xMetaData ejbJar3xMetaData)
    {
@@ -446,10 +447,12 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertMessageDestination50(prefix, messageDestinationMetaData, Mode.SPEC);
    }
 
+   /*
    protected void assertMessageDestination(String prefix, org.jboss.metadata.MessageDestinationMetaData messageDestinationMetaData)
    {
       assertMessageDestination50(prefix, messageDestinationMetaData);
    }
+   */
 
    private void assertApplicationExceptions(int size, ApplicationExceptionsMetaData applicationExceptionsMetaData)
    {

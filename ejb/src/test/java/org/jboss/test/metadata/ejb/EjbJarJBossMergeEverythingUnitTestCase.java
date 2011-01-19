@@ -54,6 +54,7 @@ import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.merge.javaee.spec.EJBLocalReferenceMetaDataMerger;
 
 /**
  * Tests the merge of ejb-jar.xml and jboss.xml
@@ -247,7 +248,8 @@ public class EjbJarJBossMergeEverythingUnitTestCase
             JBossMetaData.class, null);
       JBossMetaData merged = new JBossMetaData();
       //Merge the EJB30 metadata first
-      merged.merge(ejb3MetaData, specResult);
+      // FIXME: this looks like a bogus call
+      //merged.merge(ejb3MetaData, specResult);
       //Merge the JBoss metadata
       merged.merge(jbossxmlMetaData, specResult);
 
@@ -358,7 +360,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
       override.setLocal("CrucialLocal");
 
       EJBLocalReferenceMetaData merged = new EJBLocalReferenceMetaData();
-      merged.merge(override, original);
+      EJBLocalReferenceMetaDataMerger.merge(merged, override, original);
       assertEquals("crucialEjb", merged.getEjbRefName());
       assertEquals("CrucialLocal", merged.getLocal());
    }

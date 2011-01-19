@@ -21,13 +21,7 @@
 */
 package org.jboss.test.metadata.ejb;
 
-import java.util.HashSet;
-
 import junit.framework.Test;
-
-import org.jboss.metadata.ApplicationMetaData;
-import org.jboss.metadata.BeanMetaData;
-import org.jboss.metadata.MessageDrivenMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.CommitOption;
@@ -44,7 +38,8 @@ import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
 import org.jboss.metadata.javaee.spec.ResourceAuthorityType;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
+
+import java.util.HashSet;
 
 /**
  * 2.0 ejb-jar.xml tests.
@@ -53,7 +48,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
  * @version $Revision: 88255 $
  */
 @SuppressWarnings("deprecation")
-public class EjbJar20UnitTestCase extends AbstractJavaEEMetaDataTest
+public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest
 {
    public static Test suite()
    {
@@ -80,11 +75,13 @@ public class EjbJar20UnitTestCase extends AbstractJavaEEMetaDataTest
       assertFalse(result.isEJB21());
       assertFalse(result.isEJB3x());
 
+      /*
       ApplicationMetaData old = new ApplicationMetaData(result);
       assertFalse(old.isEJB1x());
       assertTrue(old.isEJB2x());
       assertFalse(old.isEJB21());
       assertFalse(old.isEJB3x());
+      */
    }
 
    public void testMDB()
@@ -121,12 +118,14 @@ public class EjbJar20UnitTestCase extends AbstractJavaEEMetaDataTest
       assertEquals("javax.jms.Topic", mdbMD2.getMessageDestinationType());
       assertEquals(SubscriptionDurability.Durable, mdbMD2.getSubscriptionDurability());
 
+      /*
       ApplicationMetaData legacyMD = new ApplicationMetaData(result);
       BeanMetaData strictlyPooledMDB2 = legacyMD.getBeanByEjbName("StrictlyPooledMDB");
       assertNotNull(strictlyPooledMDB2);
       assertTrue(strictlyPooledMDB2.getClass()+" instanceof MessageDrivenMetaData", strictlyPooledMDB2 instanceof MessageDrivenMetaData);
       MessageDrivenMetaData strictlyPooledMDMD = (MessageDrivenMetaData) strictlyPooledMDB2;
       assertEquals("javax.jms.Queue", strictlyPooledMDMD.getDestinationType());
+      */
    }
 
    public void testResourceRefs()

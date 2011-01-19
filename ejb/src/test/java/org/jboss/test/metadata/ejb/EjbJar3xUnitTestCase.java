@@ -21,21 +21,13 @@
 */
 package org.jboss.test.metadata.ejb;
 
-import java.util.Iterator;
-import java.util.Set;
-
-import javax.xml.namespace.QName;
-
 import junit.framework.Test;
-
 import org.jboss.annotation.javaee.Description;
 import org.jboss.annotation.javaee.Descriptions;
 import org.jboss.annotation.javaee.DisplayName;
 import org.jboss.annotation.javaee.DisplayNames;
 import org.jboss.annotation.javaee.Icon;
 import org.jboss.annotation.javaee.Icons;
-import org.jboss.metadata.ApplicationMetaData;
-import org.jboss.metadata.BeanMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationsMetaData;
@@ -55,7 +47,9 @@ import org.jboss.metadata.javaee.spec.IconImpl;
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
+
+import javax.xml.namespace.QName;
+import java.util.Set;
 
 /**
  * EjbJar3xUnitTestCase.
@@ -63,7 +57,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class EjbJar3xUnitTestCase extends AbstractJavaEEMetaDataTest
+public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
 {
    public static Test suite()
    {
@@ -181,12 +175,14 @@ public class EjbJar3xUnitTestCase extends AbstractJavaEEMetaDataTest
       IEnterpriseBeanMetaData bean = beans.iterator().next();
       assertEquals("TestBean", bean.getEjbName());
 
+      /*
       ApplicationMetaData old = new ApplicationMetaData(result);
       Iterator<BeanMetaData> iterator = old.getEnterpriseBeans();
       assertTrue(iterator.hasNext());
       BeanMetaData beanMetaData = iterator.next();
       assertEquals("TestBean", beanMetaData.getEjbName());
       assertFalse(iterator.hasNext());
+      */
    }
 
    /**

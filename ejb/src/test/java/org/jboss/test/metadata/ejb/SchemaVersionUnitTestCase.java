@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.ejb;
 
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 /**
  * A SchemaVersionUnitTestCase.
@@ -30,7 +29,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-public class SchemaVersionUnitTestCase extends AbstractJavaEEMetaDataTest
+public class SchemaVersionUnitTestCase extends AbstractEJBEverythingTest
 {
 
    public SchemaVersionUnitTestCase(String name)

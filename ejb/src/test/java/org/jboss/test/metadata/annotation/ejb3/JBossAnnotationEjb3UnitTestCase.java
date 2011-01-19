@@ -42,6 +42,7 @@ import org.jboss.test.metadata.annotation.ejb3.runas.TargetBean;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
 import org.jboss.test.metadata.common.SetHelper;
+import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 import javax.ejb.*;
@@ -64,7 +65,7 @@ import java.util.*;
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision: 1.1 $
  */
-public class JBossAnnotationEjb3UnitTestCase extends AbstractJavaEEMetaDataTest
+public class JBossAnnotationEjb3UnitTestCase extends AbstractEJBEverythingTest
 {
    public JBossAnnotationEjb3UnitTestCase(String name)
    {
