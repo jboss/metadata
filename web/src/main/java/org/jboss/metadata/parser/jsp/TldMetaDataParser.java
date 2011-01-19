@@ -139,6 +139,9 @@ public class TldMetaDataParser extends MetaDataElementParser {
                 case TLIBVERSION:
                     if (version == Version.TLD_1_1) {
                         tld.setTlibVersion(getElementText(reader));
+                    } else if (version == Version.TLD_1_2) {
+                    	// Allow invalid legacy element
+                        tld.setTlibVersion(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -149,6 +152,9 @@ public class TldMetaDataParser extends MetaDataElementParser {
                 case SHORTNAME:
                     if (version == Version.TLD_1_1) {
                         tld.setShortName(getElementText(reader));
+                    } else if (version == Version.TLD_1_2) {
+                    	// Allow invalid legacy element
+                    	tld.setShortName(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -156,6 +162,9 @@ public class TldMetaDataParser extends MetaDataElementParser {
                 case JSPVERSION:
                     if (version == Version.TLD_1_1) {
                         tld.setJspVersion(getElementText(reader));
+                    } else if (version == Version.TLD_1_2) {
+                    	// Allow invalid legacy element
+                    	tld.setJspVersion(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -173,6 +182,9 @@ public class TldMetaDataParser extends MetaDataElementParser {
                 case INFO:
                     if (version == Version.TLD_1_1) {
                         ((Tld11MetaData) tld).setInfo(getElementText(reader));
+                    } else if (version == Version.TLD_1_2) {
+                    	// Ignore invalid legacy element
+                    	getElementText(reader);
                     } else {
                         throw unexpectedElement(reader);
                     }
