@@ -117,7 +117,15 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                break;
 
             case LOCAL_BEAN:
-               // TODO: Implement
+               if (sessionBean instanceof SessionBean31MetaData)
+               {
+                  //((SessionBean31MetaData) sessionBean).setNoInterfaceBean();
+                  // TODO: Implement
+               }
+               else
+               {
+                  throw unexpectedElement(reader);
+               }
                break;
 
             case SERVICE_ENDPOINT:
@@ -129,7 +137,23 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                break;
 
             case SESSION_TYPE:
-               sessionBean.setSessionType(SessionType.valueOf(reader.getElementText()));
+               String sessionType = getElementText(reader);
+               if (sessionType.equals("Stateless"))
+               {
+                  sessionBean.setSessionType(SessionType.Stateless);
+               }
+               else if (sessionType.equals("Stateful"))
+               {
+                  sessionBean.setSessionType(SessionType.Stateful);
+               }
+               else if (sessionType.equals("Singleton"))
+               {
+                  sessionBean.setSessionType(SessionType.Singleton);
+               }
+               else
+               {
+                  throw unexpectedValue(reader, new Exception("Incorrect session-type value: " + sessionType));
+               }
                break;
 
             case STATEFUL_TIMEOUT:
@@ -150,6 +174,13 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
 
             case CONCURRENCY_MANAGEMENT_TYPE:
                ((SessionBean31MetaData) sessionBean).setConcurrencyManagementType(ConcurrencyManagementType.valueOf(reader.getElementText().toUpperCase()));
+               /*
+               String concurrencyManagementType = getElementText(reader);
+               if (concurrencyManagementType.equals("Bean"))
+               {
+//                  sessionBean.s
+               }
+               */
                break;
 
             case CONCURRENT_METHOD:

@@ -29,6 +29,7 @@ import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 
@@ -256,6 +257,13 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
 
             case ENTERPRISE_BEANS:
                EnterpriseBeansMetaData enterpriseBeans = EnterpriseBeansMetaDataParser.parse(reader, ejbJarVersion);
+               if (enterpriseBeans != null)
+               {
+                  for (EnterpriseBeanMetaData enterpriseBean : enterpriseBeans)
+                  {
+                     //enterpriseBean.sete
+                  }
+               }
                ejbJarMetaData.setEnterpriseBeans(enterpriseBeans);
                break;
 
