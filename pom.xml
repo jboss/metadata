@@ -52,6 +52,7 @@
 
     <modules>
         <module>common</module>
+        <module>ear</module>
         <module>web</module>
     </modules>
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE application PUBLIC
+    "-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN"
+    "http://java.sun.com/dtd/application_1_3.dtd"[]>
+<application id="application_1_3-id">
+    <display-name>application_1_3-display-name</display-name>
+    <module id="connector0">
+        <connector>rar0.rar</connector>
+    </module>
+</application>

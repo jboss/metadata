@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+    http://java.sun.com/xml/ns/javaee/application_6.xsd"
+    version="6" id="application-test-everything">
+
+    <application-name>Application name</application-name>
+
+    <description>en-ear-desc</description>
+    <description xml:lang="fr">fr-ear-desc</description>
+    <description xml:lang="de">de-ear-desc</description>
+    <display-name>en-ear-disp</display-name>
+    <display-name xml:lang="fr">fr-ear-disp</display-name>
+    <display-name xml:lang="de">de-ear-disp</display-name>
+    <icon id="en-ear-icon-id">
+        <small-icon>en-ear-small-icon</small-icon>
+        <large-icon>en-ear-large-icon</large-icon>
+    </icon>
+    <icon xml:lang="fr" id="fr-ear-icon-id">
+        <small-icon>fr-ear-small-icon</small-icon>
+        <large-icon>fr-ear-large-icon</large-icon>
+    </icon>
+    <icon xml:lang="de" id="de-ear-icon-id">
+        <small-icon>de-ear-small-icon</small-icon>
+        <large-icon>de-ear-large-icon</large-icon>
+    </icon>
+
+    <initialize-in-order>true</initialize-in-order>
+
+    <module id="connector0">
+        <connector>rar0.rar</connector>
+        <alt-dd>META-INF/alt-ra.xml</alt-dd>
+    </module>
+    <module id="java0">
+        <java>client0.jar</java>
+        <alt-dd>META-INF/alt-application-client.xml</alt-dd>
+    </module>
+    <module id="ejb0">
+        <ejb>ejb-jar0.jar</ejb>
+        <alt-dd>META-INF/alt-ejb-jar.xml</alt-dd>
+    </module>
+    <module id="ejb1">
+        <ejb>ejb-jar1.jar</ejb>
+        <alt-dd>META-INF/alt-ejb-jar.xml</alt-dd>
+    </module>
+    <module id="web0">
+        <web>
+            <web-uri>web-app0.war</web-uri>
+            <context-root>/web0</context-root>
+        </web>
+        <alt-dd>WEB-INF/alt-web.xml</alt-dd>
+    </module>
+    <module id="web1">
+        <web>
+            <web-uri>web-app1.war</web-uri>
+            <context-root>/web1</context-root>
+        </web>
+        <alt-dd>WEB-INF/alt-web.xml</alt-dd>
+    </module>
+    <security-role id="security-role0">
+        <description>The 0 security role</description>
+        <role-name>role0</role-name>
+    </security-role>
+    <security-role id="security-role1">
+        <description>The 1 security role</description>
+        <role-name>role1</role-name>
+    </security-role>
+    <library-directory>lib0</library-directory>
+
+         <env-entry id="session1EnvEntry1-id">
+            <description>en-session1EnvEntry1-desc</description>
+            <description xml:lang="fr">fr-session1EnvEntry1-desc</description>
+            <description xml:lang="de">de-session1EnvEntry1-desc</description>
+            <env-entry-name>session1EnvEntry1Name</env-entry-name>
+            <env-entry-type>java.lang.String</env-entry-type>
+            <env-entry-value>session1EnvEntry1Value</env-entry-value>
+            <mapped-name>session1EnvEntry1MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1EnvEntry1Injection1Class</injection-target-class>
+               <injection-target-name>session1EnvEntry1Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1EnvEntry1Injection2Class</injection-target-class>
+               <injection-target-name>session1EnvEntry1Injection2Name</injection-target-name>
+            </injection-target>
+         </env-entry>
+         <env-entry id="session1EnvEntry2-id">
+            <description>en-session1EnvEntry2-desc</description>
+            <description xml:lang="fr">fr-session1EnvEntry2-desc</description>
+            <description xml:lang="de">de-session1EnvEntry2-desc</description>
+            <env-entry-name>session1EnvEntry2Name</env-entry-name>
+            <env-entry-type>java.lang.String</env-entry-type>
+            <env-entry-value>session1EnvEntry2Value</env-entry-value>
+            <mapped-name>session1EnvEntry2MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1EnvEntry2Injection1Class</injection-target-class>
+               <injection-target-name>session1EnvEntry2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1EnvEntry2Injection2Class</injection-target-class>
+               <injection-target-name>session1EnvEntry2Injection2Name</injection-target-name>
+            </injection-target>
+         </env-entry>
+         <ejb-ref id="session1EjbRef1-id">
+            <description>en-session1EjbRef1-desc</description>
+            <description xml:lang="fr">fr-session1EjbRef1-desc</description>
+            <description xml:lang="de">de-session1EjbRef1-desc</description>
+            <ejb-ref-name>session1EjbRef1Name</ejb-ref-name>
+            <ejb-ref-type>Session</ejb-ref-type>
+            <home>session1EjbRef1Home</home>
+            <remote>session1EjbRef1Remote</remote>
+            <ejb-link>session1EjbRef1EjbLink</ejb-link>
+            <mapped-name>session1EjbRef1MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1EjbRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1EjbRef1Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1EjbRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1EjbRef1Injection2Name</injection-target-name>
+            </injection-target>
+         </ejb-ref>
+         <ejb-ref id="session1EjbRef2-id">
+            <description>en-session1EjbRef2-desc</description>
+            <description xml:lang="fr">fr-session1EjbRef2-desc</description>
+            <description xml:lang="de">de-session1EjbRef2-desc</description>
+            <ejb-ref-name>session1EjbRef2Name</ejb-ref-name>
+            <ejb-ref-type>Entity</ejb-ref-type>
+            <home>session1EjbRef2Home</home>
+            <remote>session1EjbRef2Remote</remote>
+            <ejb-link>session1EjbRef2EjbLink</ejb-link>
+            <mapped-name>session1EjbRef2MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1EjbRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1EjbRef2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1EjbRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1EjbRef2Injection2Name</injection-target-name>
+            </injection-target>
+         </ejb-ref>
+         <ejb-local-ref id="session1EjbLocalRef1-id">
+            <description>en-session1EjbLocalRef1-desc</description>
+            <description xml:lang="fr">fr-session1EjbLocalRef1-desc</description>
+            <description xml:lang="de">de-session1EjbLocalRef1-desc</description>
+            <ejb-ref-name>session1EjbLocalRef1Name</ejb-ref-name>
+            <ejb-ref-type>Session</ejb-ref-type>
+            <local-home>session1EjbLocalRef1LocalHome</local-home>
+            <local>session1EjbLocalRef1Local</local>
+            <ejb-link>session1EjbLocalRef1EjbLink</ejb-link>
+            <mapped-name>session1EjbLocalRef1MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1EjbLocalRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1EjbLocalRef1Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1EjbLocalRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1EjbLocalRef1Injection2Name</injection-target-name>
+            </injection-target>
+         </ejb-local-ref>
+         <ejb-local-ref id="session1EjbLocalRef2-id">
+            <description>en-session1EjbLocalRef2-desc</description>
+            <description xml:lang="fr">fr-session1EjbLocalRef2-desc</description>
+            <description xml:lang="de">de-session1EjbLocalRef2-desc</description>
+            <ejb-ref-name>session1EjbLocalRef2Name</ejb-ref-name>
+            <ejb-ref-type>Entity</ejb-ref-type>
+            <local-home>session1EjbLocalRef2LocalHome</local-home>
+            <local>session1EjbLocalRef2Local</local>
+            <ejb-link>session1EjbLocalRef2EjbLink</ejb-link>
+            <mapped-name>session1EjbLocalRef2MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1EjbLocalRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1EjbLocalRef2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1EjbLocalRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1EjbLocalRef2Injection2Name</injection-target-name>
+            </injection-target>
+         </ejb-local-ref>
+         
+         <!-- service ref -->
+         <!-- TODO: full service-ref contents -->
+         <service-ref id="session1ServiceRef1-id">
+            <description>en-session1ServiceRef1-desc</description>
+            <description xml:lang="fr">fr-session1ServiceRef1-desc</description>
+            <description xml:lang="de">de-session1ServiceRef1-desc</description>
+            <service-ref-name>session1ServiceRef1Name</service-ref-name>
+            <service-interface>session1ServiceRef1Iface</service-interface>
+         </service-ref>
+         <service-ref id="session1ServiceRef2-id">
+            <description>en-session1ServiceRef2-desc</description>
+            <description xml:lang="fr">fr-session1ServiceRef2-desc</description>
+            <description xml:lang="de">de-session1ServiceRef2-desc</description>
+            <service-ref-name>session1ServiceRef2Name</service-ref-name>
+            <service-interface>session1ServiceRef2Iface</service-interface>
+         </service-ref>
+
+         <resource-ref id="session1ResourceRef1-id">
+            <description>en-session1ResourceRef1-desc</description>
+            <description xml:lang="fr">fr-session1ResourceRef1-desc</description>
+            <description xml:lang="de">de-session1ResourceRef1-desc</description>
+            <res-ref-name>session1ResourceRef1Name</res-ref-name>
+            <res-type>session1ResourceRef1Type</res-type>
+            <res-auth>Application</res-auth>
+            <res-sharing-scope>Shareable</res-sharing-scope>
+            <mapped-name>session1ResourceRef1MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1ResourceRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1ResourceRef1Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1ResourceRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1ResourceRef1Injection2Name</injection-target-name>
+            </injection-target>
+         </resource-ref>
+         <resource-ref id="session1ResourceRef2-id">
+            <description>en-session1ResourceRef2-desc</description>
+            <description xml:lang="fr">fr-session1ResourceRef2-desc</description>
+            <description xml:lang="de">de-session1ResourceRef2-desc</description>
+            <res-ref-name>session1ResourceRef2Name</res-ref-name>
+            <res-type>session1ResourceRef2Type</res-type>
+            <res-auth>Container</res-auth>
+            <res-sharing-scope>Unshareable</res-sharing-scope>
+            <mapped-name>session1ResourceRef2MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1ResourceRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1ResourceRef2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1ResourceRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1ResourceRef2Injection2Name</injection-target-name>
+            </injection-target>
+         </resource-ref>
+         <resource-env-ref id="session1ResourceEnvRef1-id">
+            <description>en-session1ResourceEnvRef1-desc</description>
+            <description xml:lang="fr">fr-session1ResourceEnvRef1-desc</description>
+            <description xml:lang="de">de-session1ResourceEnvRef1-desc</description>
+            <resource-env-ref-name>session1ResourceEnvRef1Name</resource-env-ref-name>
+            <resource-env-ref-type>session1ResourceEnvRef1Type</resource-env-ref-type>
+            <mapped-name>session1ResourceEnvRef1MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1ResourceEnvRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1ResourceEnvRef1Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1ResourceEnvRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1ResourceEnvRef1Injection2Name</injection-target-name>
+            </injection-target>
+         </resource-env-ref>
+         <resource-env-ref id="session1ResourceEnvRef2-id">
+            <description>en-session1ResourceEnvRef2-desc</description>
+            <description xml:lang="fr">fr-session1ResourceEnvRef2-desc</description>
+            <description xml:lang="de">de-session1ResourceEnvRef2-desc</description>
+            <resource-env-ref-name>session1ResourceEnvRef2Name</resource-env-ref-name>
+            <resource-env-ref-type>session1ResourceEnvRef2Type</resource-env-ref-type>
+            <mapped-name>session1ResourceEnvRef2MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1ResourceEnvRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1ResourceEnvRef2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1ResourceEnvRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1ResourceEnvRef2Injection2Name</injection-target-name>
+            </injection-target>
+         </resource-env-ref>
+         <message-destination-ref id="session1MessageDestinationRef1-id">
+            <description>en-session1MessageDestinationRef1-desc</description>
+            <description xml:lang="fr">fr-session1MessageDestinationRef1-desc</description>
+            <description xml:lang="de">de-session1MessageDestinationRef1-desc</description>
+            <message-destination-ref-name>session1MessageDestinationRef1Name</message-destination-ref-name>
+            <message-destination-type>session1MessageDestinationRef1Type</message-destination-type>
+            <message-destination-usage>Consumes</message-destination-usage>
+            <message-destination-link>session1MessageDestinationRef1Link</message-destination-link>
+            <mapped-name>session1MessageDestinationRef1MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1MessageDestinationRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef1Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1MessageDestinationRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef1Injection2Name</injection-target-name>
+            </injection-target>
+         </message-destination-ref>
+         <message-destination-ref id="session1MessageDestinationRef2-id">
+            <description>en-session1MessageDestinationRef2-desc</description>
+            <description xml:lang="fr">fr-session1MessageDestinationRef2-desc</description>
+            <description xml:lang="de">de-session1MessageDestinationRef2-desc</description>
+            <message-destination-ref-name>session1MessageDestinationRef2Name</message-destination-ref-name>
+            <message-destination-type>session1MessageDestinationRef2Type</message-destination-type>
+            <message-destination-usage>Produces</message-destination-usage>
+            <message-destination-link>session1MessageDestinationRef2Link</message-destination-link>
+            <mapped-name>session1MessageDestinationRef2MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1MessageDestinationRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1MessageDestinationRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef2Injection2Name</injection-target-name>
+            </injection-target>
+         </message-destination-ref>
+         <persistence-context-ref id="session1PersistenceContextRef1-id">
+            <description>en-session1PersistenceContextRef1-desc</description>
+            <description xml:lang="fr">fr-session1PersistenceContextRef1-desc</description>
+            <description xml:lang="de">de-session1PersistenceContextRef1-desc</description>
+            <persistence-context-ref-name>session1PersistenceContextRef1Name</persistence-context-ref-name>
+            <persistence-unit-name>session1PersistenceContextRef1Unit</persistence-unit-name>
+            <persistence-context-type>Transaction</persistence-context-type>
+            <persistence-property id="session1PersistenceContextRef1Property1-id">
+               <name>session1PersistenceContextRef1Property1Name</name>
+               <value>session1PersistenceContextRef1Property1Value</value>
+            </persistence-property>
+            <persistence-property id="session1PersistenceContextRef1Property2-id">
+               <name>session1PersistenceContextRef1Property2Name</name>
+               <value>session1PersistenceContextRef1Property2Value</value>
+            </persistence-property>
+            <mapped-name>session1PersistenceContextRef1MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1PersistenceContextRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1PersistenceContextRef1Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1PersistenceContextRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1PersistenceContextRef1Injection2Name</injection-target-name>
+            </injection-target>
+         </persistence-context-ref>
+         <persistence-context-ref id="session1PersistenceContextRef2-id">
+            <description>en-session1PersistenceContextRef2-desc</description>
+            <description xml:lang="fr">fr-session1PersistenceContextRef2-desc</description>
+            <description xml:lang="de">de-session1PersistenceContextRef2-desc</description>
+            <persistence-context-ref-name>session1PersistenceContextRef2Name</persistence-context-ref-name>
+            <persistence-unit-name>session1PersistenceContextRef2Unit</persistence-unit-name>
+            <persistence-context-type>Extended</persistence-context-type>
+            <persistence-property id="session1PersistenceContextRef2Property1-id">
+               <name>session1PersistenceContextRef2Property1Name</name>
+               <value>session1PersistenceContextRef2Property1Value</value>
+            </persistence-property>
+            <persistence-property id="session1PersistenceContextRef2Property2-id">
+               <name>session1PersistenceContextRef2Property2Name</name>
+               <value>session1PersistenceContextRef2Property2Value</value>
+            </persistence-property>
+            <mapped-name>session1PersistenceContextRef2MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1PersistenceContextRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1PersistenceContextRef2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1PersistenceContextRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1PersistenceContextRef2Injection2Name</injection-target-name>
+            </injection-target>
+         </persistence-context-ref>
+         <persistence-unit-ref id="session1PersistenceUnitRef1-id">
+            <description>en-session1PersistenceUnitRef1-desc</description>
+            <description xml:lang="fr">fr-session1PersistenceUnitRef1-desc</description>
+            <description xml:lang="de">de-session1PersistenceUnitRef1-desc</description>
+            <persistence-unit-ref-name>session1PersistenceUnitRef1Name</persistence-unit-ref-name>
+            <persistence-unit-name>session1PersistenceUnitRef1Unit</persistence-unit-name>
+            <mapped-name>session1PersistenceUnitRef1MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1PersistenceUnitRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1PersistenceUnitRef1Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1PersistenceUnitRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1PersistenceUnitRef1Injection2Name</injection-target-name>
+            </injection-target>
+         </persistence-unit-ref>
+         <persistence-unit-ref id="session1PersistenceUnitRef2-id">
+            <description>en-session1PersistenceUnitRef2-desc</description>
+            <description xml:lang="fr">fr-session1PersistenceUnitRef2-desc</description>
+            <description xml:lang="de">de-session1PersistenceUnitRef2-desc</description>
+            <persistence-unit-ref-name>session1PersistenceUnitRef2Name</persistence-unit-ref-name>
+            <persistence-unit-name>session1PersistenceUnitRef2Unit</persistence-unit-name>
+            <mapped-name>session1PersistenceUnitRef2MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1PersistenceUnitRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1PersistenceUnitRef2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1PersistenceUnitRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1PersistenceUnitRef2Injection2Name</injection-target-name>
+            </injection-target>
+         </persistence-unit-ref>
+
+      <message-destination id="messageDestination1-id">
+         <description>en-messageDestination1-desc</description>
+         <description xml:lang="fr">fr-messageDestination1-desc</description>
+         <description xml:lang="de">de-messageDestination1-desc</description>
+         <display-name>en-messageDestination1-disp</display-name>
+         <display-name xml:lang="fr">fr-messageDestination1-disp</display-name>
+         <display-name xml:lang="de">de-messageDestination1-disp</display-name>
+         <icon id="en-messageDestination1-icon-id">
+            <small-icon>en-messageDestination1-small-icon</small-icon>
+            <large-icon>en-messageDestination1-large-icon</large-icon>
+         </icon>
+         <icon xml:lang="fr" id="fr-messageDestination1-icon-id">
+            <small-icon>fr-messageDestination1-small-icon</small-icon>
+            <large-icon>fr-messageDestination1-large-icon</large-icon>
+         </icon>
+         <icon xml:lang="de" id="de-messageDestination1-icon-id">
+            <small-icon>de-messageDestination1-small-icon</small-icon>
+            <large-icon>de-messageDestination1-large-icon</large-icon>
+         </icon>
+         <message-destination-name>messageDestination1Name</message-destination-name>
+         <mapped-name>messageDestination1MappedName</mapped-name>
+         <lookup-name>messageDestination1LookupName</lookup-name>
+      </message-destination>
+      <message-destination id="messageDestination2-id">
+         <description>en-messageDestination2-desc</description>
+         <description xml:lang="fr">fr-messageDestination2-desc</description>
+         <description xml:lang="de">de-messageDestination2-desc</description>
+         <display-name>en-messageDestination2-disp</display-name>
+         <display-name xml:lang="fr">fr-messageDestination2-disp</display-name>
+         <display-name xml:lang="de">de-messageDestination2-disp</display-name>
+         <icon id="en-messageDestination2-icon-id">
+            <small-icon>en-messageDestination2-small-icon</small-icon>
+            <large-icon>en-messageDestination2-large-icon</large-icon>
+         </icon>
+         <icon xml:lang="fr" id="fr-messageDestination2-icon-id">
+            <small-icon>fr-messageDestination2-small-icon</small-icon>
+            <large-icon>fr-messageDestination2-large-icon</large-icon>
+         </icon>
+         <icon xml:lang="de" id="de-messageDestination2-icon-id">
+            <small-icon>de-messageDestination2-small-icon</small-icon>
+            <large-icon>de-messageDestination2-large-icon</large-icon>
+         </icon>
+         <message-destination-name>messageDestination2Name</message-destination-name>
+         <mapped-name>messageDestination2MappedName</mapped-name>
+         <lookup-name>messageDestination2LookupName</lookup-name>
+      </message-destination>
+
+      <data-source>
+         <description>en-dataSource1-desc</description>
+<!--
+         <description xml:lang="fr">fr-dataSource1-desc</description>
+         <description xml:lang="de">de-dataSource1-desc</description>
+-->
+         <name>dataSource1Name</name>
+         <class-name>dataSource1ClassName</class-name>
+         <server-name>dataSource1ServerName</server-name>
+         <port-number>1</port-number>
+         <database-name>dataSource1DatabaseName</database-name>
+         <url>jdbc:dataSource1:url</url>
+         <user>dataSource1User</user>
+         <password>dataSource1Password</password>
+         <property id="dataSource1Property1-id">
+            <name>dataSource1Property1Name</name>
+            <value>dataSource1Property1Value</value>
+         </property>
+         <property id="dataSource1Property2-id">
+            <name>dataSource1Property2Name</name>
+            <value>dataSource1Property2Value</value>
+         </property>
+         <login-timeout>1</login-timeout>
+         <transactional>false</transactional>
+         <isolation-level>TRANSACTION_READ_UNCOMMITTED</isolation-level>
+         <initial-pool-size>1</initial-pool-size>
+         <max-pool-size>1</max-pool-size>
+         <min-pool-size>1</min-pool-size>
+         <max-idle-time>1</max-idle-time>
+         <max-statements>1</max-statements>
+      </data-source>
+      <data-source>
+         <description>en-dataSource2-desc</description>
+<!--
+         <description xml:lang="fr">fr-dataSource2-desc</description>
+         <description xml:lang="de">de-dataSource2-desc</description>
+-->
+         <name>dataSource2Name</name>
+         <class-name>dataSource2ClassName</class-name>
+         <server-name>dataSource2ServerName</server-name>
+         <port-number>2</port-number>
+         <database-name>dataSource2DatabaseName</database-name>
+         <url>jdbc:dataSource2:url</url>
+         <user>dataSource2User</user>
+         <password>dataSource2Password</password>
+         <property id="dataSource2Property1-id">
+            <name>dataSource2Property1Name</name>
+            <value>dataSource2Property1Value</value>
+         </property>
+         <property id="dataSource2Property2-id">
+            <name>dataSource2Property2Name</name>
+            <value>dataSource2Property2Value</value>
+         </property>
+         <login-timeout>2</login-timeout>
+         <transactional>true</transactional>
+         <isolation-level>TRANSACTION_READ_COMMITTED</isolation-level>
+         <initial-pool-size>2</initial-pool-size>
+         <max-pool-size>2</max-pool-size>
+         <min-pool-size>2</min-pool-size>
+         <max-idle-time>2</max-idle-time>
+         <max-statements>2</max-statements>
+      </data-source>
+</application>

@@ -60,8 +60,16 @@ public class SecurityRolesMetaData extends AbstractMappedMetaData<SecurityRoleMe
     public Map<String, Set<String>> getPrincipalVersusRolesMap() {
         return readOnlyPrincipalVersusRolesMap;
     }
-    public void clearPrincipalVersusRolesMap() {
+
+    private void clearPrincipalVersusRolesMap() {
         principalVersusRolesMap.clear();
+    }
+
+    public void rebuildPrincipalVersusRolesMap() {
+        clearPrincipalVersusRolesMap();
+        for (SecurityRoleMetaData roleMetaData : this) {
+            processSecurityRoleMetaData(roleMetaData);
+        }
     }
 
     /**

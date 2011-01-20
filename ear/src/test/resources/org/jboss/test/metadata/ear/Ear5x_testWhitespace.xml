@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="5"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd">
+    <description>Application Archive</description>
+    <display-name>transport_vehicles</display-name>
+    
+    
+    <module>
+        <java>
+            transport_ejb_vehicle_client.jar
+        </java>
+    </module>
+    
+    
+    <module>
+        <ejb>
+            transport_ejb_vehicle_ejb.jar
+        </ejb>
+    </module>
+    
+    
+    <module>
+        <web>
+            <web-uri>transport_jsp_vehicle_web.war</web-uri>
+            <context-root>transport_jsp_vehicle</context-root>
+        </web>
+    </module>
+    
+    
+    <module>
+        <web>
+            <web-uri>transport_servlet_vehicle_web.war</web-uri>
+            <context-root>
+                transport_servlet_vehicle
+            </context-root>
+        </web>
+    </module>
+    
+</application>

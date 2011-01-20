@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd"
+    version="1.4" id="application_1_4-id">
+
+    <description>en-ear-desc</description>
+    <description xml:lang="fr">fr-ear-desc</description>
+    <description xml:lang="de">de-ear-desc</description>
+    <display-name>en-ear-disp</display-name>
+    <display-name xml:lang="fr">fr-ear-disp</display-name>
+    <display-name xml:lang="de">de-ear-disp</display-name>
+    <icon id="en-ear-icon-id">
+        <small-icon>en-ear-small-icon</small-icon>
+        <large-icon>en-ear-large-icon</large-icon>
+    </icon>
+    <icon xml:lang="fr" id="fr-ear-icon-id">
+        <small-icon>fr-ear-small-icon</small-icon>
+        <large-icon>fr-ear-large-icon</large-icon>
+    </icon>
+    <icon xml:lang="de" id="de-ear-icon-id">
+        <small-icon>de-ear-small-icon</small-icon>
+        <large-icon>de-ear-large-icon</large-icon>
+    </icon>
+
+    <module id="connector0">
+        <connector>rar0.rar</connector>
+    </module>
+</application>

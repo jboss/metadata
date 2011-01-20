@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.4" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/application_1_4.xsd">
+    <description>Application description</description>
+    <display-name>jsp_sec_secbasic</display-name>
+    <module>
+        <web>
+            <web-uri>jsp_sec_secbasic_web.war</web-uri>
+            <context-root>jsp_sec_secbasic_web</context-root>
+        </web>
+    </module>
+    <security-role>
+        <role-name>
+           VP
+        </role-name>
+    </security-role>
+    <security-role>
+        <role-name>Employee</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Manager</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Administrator</role-name>
+    </security-role>
+</application>

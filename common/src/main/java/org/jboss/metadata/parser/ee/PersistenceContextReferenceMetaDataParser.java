@@ -22,6 +22,7 @@
 
 package org.jboss.metadata.parser.ee;
 
+import javax.persistence.PersistenceContextType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
@@ -73,7 +74,7 @@ public class PersistenceContextReferenceMetaDataParser extends MetaDataElementPa
                     pcReference.setPersistenceContextRefName(getElementText(reader));
                     break;
                 case PERSISTENCE_CONTEXT_TYPE:
-                    // FIXME pcReference.setPersistenceContextType(PersistenceContextType.valueOf(getElementText(reader)));
+                    pcReference.setPersistenceContextType(PersistenceContextType.valueOf(getElementText(reader).toUpperCase()));
                     break;
                 case PERSISTENCE_UNIT_NAME:
                     pcReference.setPersistenceUnitName(getElementText(reader));

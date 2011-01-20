@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-app xmlns="http://www.jboss.com/xml/ns/javaee"
+    xmlns:jee="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/noschema/jboss-app_5_0.xsd"
+    version="5.0"
+    id="jboss-app-id">
+
+<!--  this schema does not exist  xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-app_5_0.xsd" -->
+<!--  http://www.jboss.org/noschema is used to fool the validation -->
+<!--  see JBMETA-190 -->
+
+    <library-directory>jboss-app-lib0</library-directory>
+
+	<!-- Add a sar0 module -->
+    <module id="sar0">
+        <service>sar0.sar</service>
+    </module>
+    <!-- Override the web1 context-root -->
+    <module id="web1">
+        <web>
+            <web-uri>web-app1.war</web-uri>
+            <context-root>/web1-override</context-root>
+        </web>
+    </module>
+    <!-- Add a web2 module -->
+    <module id="web2">
+        <web>
+            <web-uri>web-app2.war</web-uri>
+            <context-root>/web2</context-root>
+        </web>
+    </module>
+    <module id="har0">
+        <har>har0.har</har>
+    </module>
+    <security-role id="security-role0">
+        <description>The 0 security role</description>
+        <role-name>role0</role-name>
+        <principal-name>principal0</principal-name>
+    </security-role>
+    <security-role id="security-role1">
+        <description>The 1 security role</description>
+        <role-name>role1</role-name>
+        <principal-name>principal1</principal-name>
+    </security-role>
+</jboss-app>

@@ -63,35 +63,6 @@ public class SecurityRolesMetaDataMerger {
             }
         }
         // Take the easy way out
-        rebuildPrincipalsVersusRolesMap(dest);
-    }
-
-    /**
-     * Add entries to principalVersusRolesMap for the specified role meta data.
-     *
-     * @param roleMetaData the security role meta data
-     * @param dest
-     */
-    private static void processSecurityRoleMetaData(SecurityRoleMetaData roleMetaData, SecurityRolesMetaData dest) {
-        Set<String> principals = roleMetaData.getPrincipals();
-        if (principals == null)
-            return;
-
-        for (String principal : principals) {
-            Set<String> roles = dest.getPrincipalVersusRolesMap().get(principal);
-            if (roles == null) {
-                roles = new HashSet<String>();
-                dest.getPrincipalVersusRolesMap().put(principal, roles);
-            }
-            roles.add(roleMetaData.getRoleName());
-        }
-    }
-
-    private static void rebuildPrincipalsVersusRolesMap(SecurityRolesMetaData dest) {
-        dest.clearPrincipalVersusRolesMap();
-
-        for (SecurityRoleMetaData roleMetaData : dest) {
-            processSecurityRoleMetaData(roleMetaData ,dest);
-        }
+        dest.rebuildPrincipalVersusRolesMap();
     }
 }
