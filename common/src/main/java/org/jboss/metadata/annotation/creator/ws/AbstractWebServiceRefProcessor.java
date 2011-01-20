@@ -21,16 +21,6 @@
  */
 package org.jboss.metadata.annotation.creator.ws;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.util.Collection;
-import java.util.Set;
-
-import javax.xml.ws.Service;
-import javax.xml.ws.WebServiceRef;
-
 import org.jboss.logging.Logger;
 import org.jboss.metadata.annotation.creator.AbstractInjectionTargetProcessor;
 import org.jboss.metadata.annotation.creator.ProcessorUtils;
@@ -38,6 +28,15 @@ import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+
+import javax.xml.ws.Service;
+import javax.xml.ws.WebServiceRef;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Base processor for @WebServiceRef annotations.
@@ -52,14 +51,15 @@ public abstract class AbstractWebServiceRefProcessor<E extends AnnotatedElement>
    /** The logger. */
    private static Logger log = Logger.getLogger(AbstractWebServiceRefProcessor.class);
 
+   // TODO: re-enable proper handling
    /** The WebServiceHandlerChainProcessor */
-   private WebServiceHandlerChainProcessor<E> handlerChainProcessor;
+   //private WebServiceHandlerChainProcessor<E> handlerChainProcessor;
 
    protected AbstractWebServiceRefProcessor(AnnotationFinder<AnnotatedElement> finder)
    {
       super(finder);
       // The handlerChainProcessor only needs to process the class if there is a @WebServiceRef
-      handlerChainProcessor = new WebServiceHandlerChainProcessor<E>(finder);
+      //handlerChainProcessor = new WebServiceHandlerChainProcessor<E>(finder);
    }
    
    public void process(ServiceReferencesMetaData refs, E element)
@@ -86,7 +86,7 @@ public abstract class AbstractWebServiceRefProcessor<E extends AnnotatedElement>
          log.trace("created service-ref: "+ref);
       
       /** Delegate @HandlerChain processing to the handlerChainProcessor */
-      handlerChainProcessor.process(ref, element);
+      //handlerChainProcessor.process(ref, element);
    }
 
    /**

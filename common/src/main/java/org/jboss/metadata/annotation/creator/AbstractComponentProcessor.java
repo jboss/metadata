@@ -21,8 +21,10 @@
  */
 package org.jboss.metadata.annotation.creator;
 
-import java.lang.reflect.AnnotatedElement;
-
+import org.jboss.metadata.annotation.creator.ws.WebServiceRefClassProcessor;
+import org.jboss.metadata.annotation.creator.ws.WebServiceRefFieldProcessor;
+import org.jboss.metadata.annotation.creator.ws.WebServiceRefMethodProcessor;
+import org.jboss.metadata.annotation.creator.ws.WebServiceRefsClassProcessor;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
@@ -31,6 +33,8 @@ import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+
+import java.lang.reflect.AnnotatedElement;
 
 /**
  * A base javaee component processor.
@@ -72,13 +76,10 @@ public abstract class AbstractComponentProcessor<MD>
       addMethodProcessor(new PostConstructMethodProcessor(finder));
       addMethodProcessor(new PreDestroyMethodProcessor(finder));
       // @WebServiceRef (includes @HandlerChain)
-      // TODO add the web service back.
-      /*
       addMethodProcessor(new WebServiceRefMethodProcessor(finder));
-      addFieldProcessor(new WebServiceRefFieldProcessor(finder));  
+      addFieldProcessor(new WebServiceRefFieldProcessor(finder));
       addTypeProcessor(new WebServiceRefClassProcessor(finder));
       addTypeProcessor(new WebServiceRefsClassProcessor(finder));
-       */
       // @DataSourceDefinitions/@DataSourceDefinition
       addTypeProcessor(new DataSourceDefinitionProcessor(finder));
       addTypeProcessor(new DataSourceDefinitionsProcessor(finder));
