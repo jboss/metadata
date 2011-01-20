@@ -29,6 +29,7 @@ import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLStreamException;
@@ -135,7 +136,8 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
          }
       }
 
-      // TODO: More implementation needed. Currently work in progress.
+      // parse and create metadata out of the elements under the root ejb-jar element
+      parseEjbJarElements(ejbJarMetaData, ejbJarVersion, reader);
 
       return ejbJarMetaData;
    }
@@ -222,5 +224,61 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
          }
 
       return ejbJarVersion;
+   }
+
+   /**
+    * Parses the elements within the ejb-jar root element and updates the passed {@link EjbJarMetaData ejbJarMetData} appropriately.
+    * 
+    * @param ejbJarMetaData The metadata which will be updated after parsing the ejb-jar elements
+    * @param  ejbJarVersion The version of ejb-jar
+    * @throws XMLStreamException
+    */
+   private static void parseEjbJarElements(EjbJarMetaData ejbJarMetaData, EjbJarVersion ejbJarVersion, XMLStreamReader reader) throws XMLStreamException
+   {
+      // Handle elements
+      while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
+      {
+         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
+         switch (ejbJarElement)
+         {
+            case MODULE_NAME:
+               // only EJB 3.1 allows module-name
+               if (ejbJarMetaData.isEJB31() && ejbJarMetaData instanceof EjbJar31MetaData)
+               {
+                  String moduleName = getElementText(reader);
+                  ((EjbJar31MetaData) ejbJarMetaData).setModuleName(moduleName);
+               }
+               else
+               {
+                  throw unexpectedElement(reader);
+               }
+               break;
+
+            case ENTERPRISE_BEANS:
+               EnterpriseBeansMetaData enterpriseBeans = EnterpriseBeansMetaDataParser.parse(reader, ejbJarVersion);
+               ejbJarMetaData.setEnterpriseBeans(enterpriseBeans);
+               break;
+
+            case INTERCEPTORS:
+               // TODO: Implement
+               break;
+
+            case RELATIONSHIPS:
+               // TODO: Implement
+               break;
+
+            case ASSEMBLY_DESCRIPTOR:
+               // TODO: Implement
+               break;
+
+            case EJB_CLIENT_JAR:
+               String ejbClientJar = getElementText(reader);
+               ejbJarMetaData.setEjbClientJar(ejbClientJar);
+               break;
+
+            default:
+               throw unexpectedElement(reader);
+         }
+      }
    }
 }
