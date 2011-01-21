@@ -29,25 +29,18 @@ import org.jboss.metadata.ejb.jboss.JBoss51MetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.test.jbmeta307.SyncedBean;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
-import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
-import org.jboss.xb.binding.UnmarshallerFactory;
-import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
-import org.jboss.xb.binding.resolver.MutableSchemaResolver;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.lang.reflect.AnnotatedElement;
-import java.net.URL;
 import java.util.Collection;
 
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -56,17 +49,6 @@ import static org.junit.Assert.assertNotNull;
  */
 public class SessionSynchronizationTestCase
 {
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-   }
-
    private static NamedMethodMetaData namedMethod(String methodName)
    {
       NamedMethodMetaData namedMethod = new NamedMethodMetaData();
@@ -162,15 +144,4 @@ public class SessionSynchronizationTestCase
       assertEquals("beforeCompletion", bean.getBeforeCompletionMethod().getMethodName());
       assertEquals("afterCompletion", bean.getAfterCompletionMethod().getMethodName());
    }
-
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
-   }
-
 }

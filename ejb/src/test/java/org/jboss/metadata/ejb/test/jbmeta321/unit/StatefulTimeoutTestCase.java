@@ -49,6 +49,7 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -57,17 +58,6 @@ import static org.junit.Assert.assertNotNull;
  */
 public class StatefulTimeoutTestCase
 {
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-   }
-
    @Test
    @ScanPackage("org.jboss.metadata.ejb.test.jbmeta321")
    public void testAnnotations()
@@ -153,14 +143,4 @@ public class StatefulTimeoutTestCase
       assertEquals(10, bean.getStatefulTimeout().getTimeout());
       assertEquals(TimeUnit.HOURS, bean.getStatefulTimeout().getUnit());
    }
-
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
-   }   
 }

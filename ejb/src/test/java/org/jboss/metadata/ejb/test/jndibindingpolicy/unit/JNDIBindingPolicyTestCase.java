@@ -21,6 +21,7 @@
 */
 package org.jboss.metadata.ejb.test.jndibindingpolicy.unit;
 
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -51,19 +52,6 @@ import org.junit.Test;
  */
 public class JNDIBindingPolicyTestCase
 {
-
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("jboss_5_0.xsd", JBoss50MetaData.class);
-      schemaBindingResolver.mapLocationToClass("jboss_5_1.xsd", JBoss51MetaData.class);
-   }
-
    /**
     * Test that when a jndi-binding-policy is set at the deployment level (in jboss.xml),
     * it gets applied to beans which don't explicitly specify one.  
@@ -108,24 +96,4 @@ public class JNDIBindingPolicyTestCase
       assertEquals("Incorrect jndi-binding-policy set in enterprise bean metadata of bean " + overridenBeanName,
             expectedJndiPolicyOnBean, beanWithOverridenJndiBindingPolicy.getJndiBindingPolicy());
    }
-
-   /**
-    * Utility method
-    * 
-    * @param <T>
-    * @param type
-    * @param resource
-    * @return
-    * @throws JBossXBException
-    */
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
-   }
-
 }

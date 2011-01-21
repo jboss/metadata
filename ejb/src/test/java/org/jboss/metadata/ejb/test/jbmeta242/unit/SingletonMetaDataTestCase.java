@@ -21,24 +21,15 @@
 */
 package org.jboss.metadata.ejb.test.jbmeta242.unit;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-
-import java.net.URL;
-
-import org.jboss.logging.Logger;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
-import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
-import org.jboss.xb.binding.UnmarshallerFactory;
-import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
-import org.jboss.xb.binding.resolver.MutableSchemaResolver;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * SingletonMetaDataTestCase
@@ -48,19 +39,6 @@ import org.junit.Test;
  */
 public class SingletonMetaDataTestCase
 {
-   private static Logger logger = Logger.getLogger(SingletonMetaDataTestCase.class);
-
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-   }
-
    /**
     * Tests the metadata created out of ejb-jar.xml with the various possible
     * session-type values for session beans, has the correct session type set
@@ -87,26 +65,5 @@ public class SingletonMetaDataTestCase
       assertNotNull(undefinedInitOnStartupBeanName + " bean was not available in metadata", undefinedInitOnStartupBean);
       assertNull(undefinedInitOnStartupBeanName + " bean had non-null init-on-startup", undefinedInitOnStartupBean.isInitOnStartup());
 
-   }
-   
-   
-
-   /**
-    * Utility method
-    * 
-    * @param <T>
-    * @param type
-    * @param resource
-    * @return
-    * @throws JBossXBException
-    */
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
    }
 }

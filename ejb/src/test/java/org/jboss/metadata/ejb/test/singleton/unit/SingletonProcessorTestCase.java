@@ -21,17 +21,6 @@
 */
 package org.jboss.metadata.ejb.test.singleton.unit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.lang.reflect.AnnotatedElement;
-import java.net.URL;
-import java.util.Collection;
-
-import javax.ejb.Startup;
-
 import org.jboss.metadata.annotation.creator.ejb.SingletonProcessor;
 import org.jboss.metadata.annotation.creator.ejb.jboss.JBoss50Creator;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
@@ -40,7 +29,6 @@ import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
@@ -50,13 +38,17 @@ import org.jboss.metadata.ejb.test.singleton.SimpleSingleton;
 import org.jboss.metadata.ejb.test.singleton.StartupSingleton;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
-import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
-import org.jboss.xb.binding.UnmarshallerFactory;
-import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
-import org.jboss.xb.binding.resolver.MutableSchemaResolver;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
+import javax.ejb.Startup;
+import java.lang.reflect.AnnotatedElement;
+import java.util.Collection;
+
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * SingletonProcessorTestCase
@@ -68,18 +60,6 @@ import org.junit.Test;
  */
 public class SingletonProcessorTestCase
 {
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-   }
-
    /**
     * Tests that the {@link SingletonProcessor} correctly identifies the presence of a 
     * @Singleton annotation on singleton beans, and creates appropriate metadata out of 
@@ -177,29 +157,11 @@ public class SingletonProcessorTestCase
    public void testInitOnStartupForEjbJarXml() throws Exception
    {
       EjbJarMetaData jarMetaData = unmarshal(EjbJarMetaData.class,
-            "/org/jboss/metadata/ejb/test/singleton/ejb-jar-startup-singleton.xml");
+              "/org/jboss/metadata/ejb/test/singleton/ejb-jar-startup-singleton.xml");
       assertNotNull(jarMetaData);
       assertStartupSingleton(jarMetaData, "NonInitOnStartupBean", false);
       assertStartupSingleton(jarMetaData, "InitOnStartupBean", true);
       assertStartupSingleton(jarMetaData, "UndefinedInitOnStartupBean", null);
-   }
-
-   /**
-    * Utility method
-    * @param <T>
-    * @param type
-    * @param resource
-    * @return
-    * @throws JBossXBException
-    */
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
    }
 
    /**

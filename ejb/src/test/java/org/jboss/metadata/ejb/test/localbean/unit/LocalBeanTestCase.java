@@ -21,6 +21,7 @@
 */
 package org.jboss.metadata.ejb.test.localbean.unit;
 
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -71,19 +72,6 @@ import org.junit.Test;
  */
 public class LocalBeanTestCase
 {
-   private static Logger logger = Logger.getLogger(LocalBeanTestCase.class);
-
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-   }
-
    /**
     * Tests that a ejb-jar.xml is parsed correctly for the presence/absence of local-bean
     * element and metadata set appropriately.
@@ -178,24 +166,6 @@ public class LocalBeanTestCase
 
       // now check that the bean marked as local-bean in xml, is considered as a no-interface bean
       this.assertNoInterfaceBean(mergedMetadata, BeanMarkedAsLocalBeanInEJBJarXml.class.getSimpleName(), true);
-   }
-
-   /**
-    * Utility method
-    * @param <T>
-    * @param type
-    * @param resource
-    * @return
-    * @throws JBossXBException
-    */
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
    }
 
    /**

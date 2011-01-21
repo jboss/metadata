@@ -21,14 +21,6 @@
 */
 package org.jboss.metadata.ejb.test.interceptor.annotation.creator.unit;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.lang.reflect.AnnotatedElement;
-import java.net.URL;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.jboss.logging.Logger;
 import org.jboss.metadata.annotation.creator.ejb.InterceptorMetaDataCreator;
 import org.jboss.metadata.annotation.creator.ejb.jboss.JBoss50Creator;
@@ -36,7 +28,6 @@ import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.InterceptorMetaData;
 import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
@@ -55,14 +46,16 @@ import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
-import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
-import org.jboss.xb.binding.UnmarshallerFactory;
-import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
-import org.jboss.xb.binding.resolver.MutableSchemaResolver;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.lang.reflect.AnnotatedElement;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Tests that the interceptor annotation processing and merging of 
@@ -75,17 +68,6 @@ public class InterceptorsCreatorTestCase
 {
 
    private static Logger logger = Logger.getLogger(InterceptorsCreatorTestCase.class);
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-   }
 
    /**
     * Tests that the annotations in an interceptor class are processed
@@ -287,24 +269,6 @@ public class InterceptorsCreatorTestCase
          interceptorClasses.add(tccl.loadClass(interceptorClassName));
       }
       return interceptorClasses;
-   }
-
-   /**
-    * Utility method
-    * @param <T>
-    * @param type
-    * @param resource
-    * @return
-    * @throws JBossXBException
-    */
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
    }
 
    private void assertEJBInjectionInterceptor(InterceptorsMetaData interceptors)

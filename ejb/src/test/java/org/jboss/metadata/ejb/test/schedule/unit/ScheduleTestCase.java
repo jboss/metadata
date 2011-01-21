@@ -21,21 +21,7 @@
  */
 package org.jboss.metadata.ejb.test.schedule.unit;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.lang.reflect.AnnotatedElement;
-import java.net.URL;
-import java.util.Collection;
-import java.util.List;
-
-import javax.ejb.Schedule;
-import javax.ejb.Schedules;
-import javax.ejb.Timer;
-
 import junit.framework.Assert;
-
-import org.jboss.logging.Logger;
 import org.jboss.metadata.annotation.creator.ejb.jboss.JBoss50Creator;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
@@ -43,7 +29,6 @@ import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBean31MetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.MessageDrivenBean31MetaData;
@@ -60,13 +45,18 @@ import org.jboss.metadata.ejb.test.schedule.SingletonWithMultipleSchedules;
 import org.jboss.metadata.ejb.test.schedule.SingletonWithSchedule;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
-import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
-import org.jboss.xb.binding.UnmarshallerFactory;
-import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
-import org.jboss.xb.binding.resolver.MutableSchemaResolver;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
+import javax.ejb.Schedule;
+import javax.ejb.Schedules;
+import javax.ejb.Timer;
+import java.lang.reflect.AnnotatedElement;
+import java.util.Collection;
+import java.util.List;
+
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests that the processing of {@link Schedule} and {@link Schedules} annotations and their
@@ -77,20 +67,6 @@ import org.junit.Test;
  */
 public class ScheduleTestCase
 {
-
-   private static Logger logger = Logger.getLogger(ScheduleTestCase.class);
-
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-   }
-
    /**
     * Tests that a SLSB annotated with {@link Schedule} is processed correctly for metadata
     * 
@@ -1076,22 +1052,5 @@ public class ScheduleTestCase
       Assert.assertTrue("Timer in merged metadata is not persistent", mergedTimers.get(0).isPersistent());
       
       
-   }
-   /**
-    * Utility method
-    * @param <T>
-    * @param type
-    * @param resource
-    * @return
-    * @throws JBossXBException
-    */
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
    }
 }

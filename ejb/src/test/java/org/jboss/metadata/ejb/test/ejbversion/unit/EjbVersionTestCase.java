@@ -21,6 +21,7 @@
 */
 package org.jboss.metadata.ejb.test.ejbversion.unit;
 
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -61,22 +62,6 @@ import org.junit.Test;
  */
 public class EjbVersionTestCase
 {
-
-   private static Logger logger = Logger.getLogger(EjbVersionTestCase.class);
-
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_0.xsd", EjbJar30MetaData.class);
-      schemaBindingResolver.mapLocationToClass("ejb-jar_2_1.xsd", EjbJar21MetaData.class);
-   }
-
    /**
     * Tests that metadata created solely out of annotations, is set to ejb-version
     * "latest" 
@@ -162,24 +147,5 @@ public class EjbVersionTestCase
       assertTrue("isEJB31() in merged metadata returned incorrect value",mergedEJB31Metdata.isEJB31());
       
       
-   }
-
-   /**
-    * Utility method
-    * 
-    * @param <T>
-    * @param type
-    * @param resource
-    * @return
-    * @throws JBossXBException
-    */
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
    }
 }
