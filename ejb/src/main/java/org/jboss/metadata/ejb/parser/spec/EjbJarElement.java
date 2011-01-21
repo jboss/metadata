@@ -37,6 +37,7 @@ public enum EjbJarElement
 {
    UNKNOWN(null),
 
+   ACCESS_TIMEOUT("access-timeout"),
    AFTER_BEGIN_METHOD("after-begin-method"),
    AFTER_COMPLETION_METHOD("after-completion-method"),
    APPLICATION_EXCEPTION("application-exception"),
@@ -73,9 +74,11 @@ public enum EjbJarElement
    LOCAL("local"),
    LOCAL_BEAN("local-bean"),
    LOCAL_HOME("local-home"),
+   LOCK("lock"),
 
    MAPPED_NAME("mapped-name"),
    MESSAGE_DRIVEN("message-driven"),
+   METHOD("method"),
    METHOD_NAME("method-name"),
    METHOD_PARAM("method-param"),
    METHOD_PARAMS("method-params"),
@@ -96,9 +99,12 @@ public enum EjbJarElement
    SESSION_TYPE("session-type"),
    STATEFUL_TIMEOUT("stateful-timeout"),
 
+   TIMEOUT("timeout"),
    TIMEOUT_METHOD("timeout-method"),
    TIMER("timer"),
    TRANSACTION_TYPE("transaction-type"),
+
+   UNIT("unit"),
 
    ;
 

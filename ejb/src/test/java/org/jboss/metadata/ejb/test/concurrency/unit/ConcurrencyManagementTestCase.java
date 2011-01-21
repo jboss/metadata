@@ -30,7 +30,6 @@ import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.ConcurrentMethodMetaData;
 import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.MethodParametersMetaData;
@@ -46,12 +45,6 @@ import org.jboss.metadata.ejb.test.concurrency.ReadLockSingletonBean;
 import org.jboss.metadata.ejb.test.concurrency.WriteLockSingleton;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
-import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
-import org.jboss.xb.binding.UnmarshallerFactory;
-import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
-import org.jboss.xb.binding.resolver.MutableSchemaResolver;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import javax.ejb.ConcurrencyManagement;
@@ -60,10 +53,10 @@ import javax.ejb.Lock;
 import javax.ejb.LockType;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
-import java.net.URL;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -78,18 +71,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class ConcurrencyManagementTestCase
 {
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-   }
-
    /**
     * Tests that the {@link ConcurrencyManagement} annotation is processed correctly
     * 
@@ -331,24 +312,6 @@ public class ConcurrencyManagementTestCase
       }
       ConcurrentMethodMetaData concurrentMethod = sessionBean.getConcurrentMethods().find(readMethodMetaData);
       assertNull("Unexpectedly found concurrent method metadata on method " + readMethodMetaData.getName(), concurrentMethod);
-   }
-
-   /**
-    * Utility method
-    * @param <T>
-    * @param type
-    * @param resource
-    * @return
-    * @throws JBossXBException
-    */
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
    }
 
    /**

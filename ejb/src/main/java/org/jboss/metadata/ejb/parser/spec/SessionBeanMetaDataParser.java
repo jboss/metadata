@@ -25,12 +25,15 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
+import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
+import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 
+import javax.ejb.ConcurrencyManagementType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
@@ -126,7 +129,7 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                break;
 
             case SESSION_TYPE:
-               // TODO: Implement
+               sessionBean.setSessionType(SessionType.valueOf(reader.getElementText()));
                break;
 
             case STATEFUL_TIMEOUT:
@@ -146,11 +149,13 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                break;
 
             case CONCURRENCY_MANAGEMENT_TYPE:
-               // TODO: Implement
+               ((SessionBean31MetaData) sessionBean).setConcurrencyManagementType(ConcurrencyManagementType.valueOf(reader.getElementText().toUpperCase()));
                break;
 
             case CONCURRENT_METHOD:
-               // TODO: Implement
+               if(((SessionBean31MetaData) sessionBean).getConcurrentMethods() == null)
+                  ((SessionBean31MetaData) sessionBean).setConcurrentMethods(new ConcurrentMethodsMetaData());
+               ((SessionBean31MetaData) sessionBean).getConcurrentMethods().add(ConcurrentMethodMetaDataParser.INSTANCE.parse(reader));
                break;
 
             case DEPENDS_ON:
