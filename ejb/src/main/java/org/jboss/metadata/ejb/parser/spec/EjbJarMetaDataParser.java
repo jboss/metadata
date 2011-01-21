@@ -259,10 +259,8 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
                EnterpriseBeansMetaData enterpriseBeans = EnterpriseBeansMetaDataParser.parse(reader, ejbJarVersion);
                if (enterpriseBeans != null)
                {
-                  for (EnterpriseBeanMetaData enterpriseBean : enterpriseBeans)
-                  {
-                     //enterpriseBean.sete
-                  }
+                  // setup the bi-directional relationship
+                  enterpriseBeans.setEjbJarMetaData(ejbJarMetaData);
                }
                ejbJarMetaData.setEnterpriseBeans(enterpriseBeans);
                break;

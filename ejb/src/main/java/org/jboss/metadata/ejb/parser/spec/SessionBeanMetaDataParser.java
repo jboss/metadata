@@ -34,6 +34,7 @@ import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
@@ -146,7 +147,7 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                {
                   sessionBean.setSessionType(SessionType.Stateful);
                }
-               else if (sessionType.equals("Singleton"))
+               else if (sessionType.equals("Singleton") && ejbVersion == EjbJarVersion.EJB_3_1)
                {
                   sessionBean.setSessionType(SessionType.Singleton);
                }
@@ -173,14 +174,25 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                break;
 
             case CONCURRENCY_MANAGEMENT_TYPE:
-               ((SessionBean31MetaData) sessionBean).setConcurrencyManagementType(ConcurrencyManagementType.valueOf(reader.getElementText().toUpperCase()));
-               /*
+               // concurrency-management-type is only applicable for EJB3.1
+               if (ejbVersion != EjbJarVersion.EJB_3_1 || !(sessionBean instanceof SessionBean31MetaData))
+               {
+                  throw unexpectedElement(reader);
+               }
+
                String concurrencyManagementType = getElementText(reader);
                if (concurrencyManagementType.equals("Bean"))
                {
-//                  sessionBean.s
+                  ((SessionBean31MetaData) sessionBean).setConcurrencyManagementType(ConcurrencyManagementType.BEAN);
                }
-               */
+               else if (concurrencyManagementType.equals("Container"))
+               {
+                  ((SessionBean31MetaData) sessionBean).setConcurrencyManagementType(ConcurrencyManagementType.CONTAINER);
+               }
+               else
+               {
+                  throw unexpectedValue(reader, new Exception("Invalid concurrency-management-type value: " + concurrencyManagementType));
+               }
                break;
 
             case CONCURRENT_METHOD:
@@ -190,6 +202,11 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                break;
 
             case DEPENDS_ON:
+               // depends-on is only applicable for EJB3.1
+               if (ejbVersion != EjbJarVersion.EJB_3_1 || !(sessionBean instanceof SessionBean31MetaData))
+               {
+                  throw unexpectedElement(reader);
+               }
                // TODO: Implement
                break;
 
@@ -208,7 +225,19 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                break;
 
             case TRANSACTION_TYPE:
-               // TODO: Implement
+               String txType = getElementText(reader);
+               if (txType.equals("Bean"))
+               {
+                  sessionBean.setTransactionType(TransactionManagementType.BEAN);
+               }
+               else if (txType.equals("Container"))
+               {
+                  sessionBean.setTransactionType(TransactionManagementType.CONTAINER);
+               }
+               else
+               {
+                  throw unexpectedValue(reader, new Exception("Invalid transaction-type value: " + txType));
+               }
                break;
 
             case AFTER_BEGIN_METHOD:
