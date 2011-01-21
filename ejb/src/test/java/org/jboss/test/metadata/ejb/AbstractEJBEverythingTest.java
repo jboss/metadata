@@ -1443,12 +1443,20 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    @Deprecated
    protected <T> T unmarshal(String name, Class<T> expected, SchemaBindingResolver resolver) throws Exception
    {
-      XMLStreamReader reader = getReader(name);
-      if(EjbJarMetaData.class.isAssignableFrom(expected))
+      try
       {
-         return expected.cast(EjbJarMetaDataParser.parse(reader));
+         XMLStreamReader reader = getReader(name);
+         if(EjbJarMetaData.class.isAssignableFrom(expected))
+         {
+            return expected.cast(EjbJarMetaDataParser.parse(reader));
+         }
+         fail("NYI: parsing for " + expected);
+         return null;
       }
-      fail("NYI: parsing for " + expected);
-      return null;
+      catch(XMLStreamException e)
+      {
+         fail("Failed to parse " + name + ": " + e.getMessage());
+         throw e;
+      }
    }
 }
