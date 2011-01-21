@@ -36,6 +36,7 @@ import org.jboss.metadata.ejb.jboss.IORTransportConfigMetaData;
 import org.jboss.metadata.ejb.jboss.MethodAttributeMetaData;
 import org.jboss.metadata.ejb.jboss.MethodAttributesMetaData;
 import org.jboss.metadata.ejb.jboss.RemoteBindingMetaData;
+import org.jboss.metadata.ejb.parser.spec.EjbJarMetaDataParser;
 import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
 import org.jboss.metadata.ejb.spec.ActivationConfigPropertiesMetaData;
 import org.jboss.metadata.ejb.spec.ActivationConfigPropertyMetaData;
@@ -75,6 +76,8 @@ import org.jboss.xb.binding.sunday.unmarshalling.SchemaBindingResolver;
 
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -1421,9 +1424,14 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
 
    @Deprecated
-   protected <T> T unmarshal(Class<T> type)
+   protected <T> T unmarshal(Class<T> expected) throws Exception
    {
-      throw new RuntimeException("NYI");
+      String name = getClass().getSimpleName();
+      int index = name.lastIndexOf("UnitTestCase");
+      if (index != -1)
+         name = name.substring(0, index);
+      name = name + "_" + getName() + ".xml";
+      return unmarshal(name, expected, null);
    }
 
    @Deprecated
@@ -1435,6 +1443,12 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    @Deprecated
    protected <T> T unmarshal(String name, Class<T> expected, SchemaBindingResolver resolver) throws Exception
    {
-      throw new RuntimeException("NYI");
+      XMLStreamReader reader = getReader(name);
+      if(EjbJarMetaData.class.isAssignableFrom(expected))
+      {
+         return expected.cast(EjbJarMetaDataParser.parse(reader));
+      }
+      fail("NYI: parsing for " + expected);
+      return null;
    }
 }
