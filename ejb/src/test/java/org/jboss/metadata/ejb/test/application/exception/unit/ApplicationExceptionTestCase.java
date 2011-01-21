@@ -21,28 +21,19 @@
  */
 package org.jboss.metadata.ejb.test.application.exception.unit;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.net.URL;
-
-import javax.ejb.ApplicationException;
-
 import junit.framework.Assert;
-
 import org.jboss.metadata.ejb.spec.ApplicationExceptionMetaData;
 import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.test.application.exception.AppExceptionOne;
 import org.jboss.metadata.ejb.test.application.exception.AppExceptionThree;
 import org.jboss.metadata.ejb.test.application.exception.AppExceptionTwo;
-import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
-import org.jboss.xb.binding.UnmarshallerFactory;
-import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
-import org.jboss.xb.binding.resolver.MutableSchemaResolver;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
+import javax.ejb.ApplicationException;
+
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
+import static org.junit.Assert.assertNotNull;
 
 
 /**
@@ -54,18 +45,6 @@ import org.junit.Test;
  */
 public class ApplicationExceptionTestCase
 {
-
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-
-   private static MutableSchemaResolver schemaBindingResolver;
-
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar31MetaData.class);
-   }
-
    /**
     * Test that the "inherited" attribute of the application-exception element in
     * ejb-jar.xml is processed correctly during metadata creation.
@@ -76,7 +55,7 @@ public class ApplicationExceptionTestCase
    public void testInheritedApplicationException() throws Exception
    {
       EjbJarMetaData jarMetaData = unmarshal(EjbJarMetaData.class,
-            "/org/jboss/metadata/ejb/test/application/exception/ejb-jar.xml");
+              "/org/jboss/metadata/ejb/test/application/exception/ejb-jar.xml");
       assertNotNull(jarMetaData);
 
       ApplicationExceptionsMetaData appExceptions = jarMetaData.getAssemblyDescriptor().getApplicationExceptions();
@@ -92,24 +71,5 @@ public class ApplicationExceptionTestCase
 
       ApplicationExceptionMetaData appExceptionThree = appExceptions.get(AppExceptionThree.class.getName());
       Assert.assertNull("inherited attribute was expected to be null on Application exception " + AppExceptionThree.class.getName(), appExceptionThree.isInherited());
-
-   }
-   
-   /**
-    * Utility method
-    * @param <T>
-    * @param type
-    * @param resource
-    * @return
-    * @throws JBossXBException
-    */
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if (url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
    }
 }
