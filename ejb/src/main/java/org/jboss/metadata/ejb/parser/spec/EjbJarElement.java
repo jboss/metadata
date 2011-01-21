@@ -76,6 +76,9 @@ public enum EjbJarElement
 
    MAPPED_NAME("mapped-name"),
    MESSAGE_DRIVEN("message-driven"),
+   METHOD_NAME("method-name"),
+   METHOD_PARAM("method-param"),
+   METHOD_PARAMS("method-params"),
    MODULE_NAME("module-name"),
 
    POST_ACTIVATE("post-activate"),

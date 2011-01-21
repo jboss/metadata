@@ -22,6 +22,7 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
@@ -165,7 +166,9 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                break;
 
             case ASYNC_METHOD:
-               // TODO: Implement
+               if(((SessionBean31MetaData) sessionBean).getAsyncMethods() == null)
+                  ((SessionBean31MetaData) sessionBean).setAsyncMethods(new AsyncMethodsMetaData());
+               ((SessionBean31MetaData) sessionBean).getAsyncMethods().add(AsyncMethodMetaDataParser.INSTANCE.parse(reader));
                break;
 
             case TRANSACTION_TYPE:

@@ -21,31 +21,24 @@
  */
 package org.jboss.metadata.ejb.test.async.unit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.lang.reflect.AnnotatedElement;
-import java.net.URL;
-import java.util.Collection;
-
 import org.jboss.metadata.annotation.creator.ejb.jboss.JBoss50Creator;
 import org.jboss.metadata.annotation.finder.AnnotationFinder;
 import org.jboss.metadata.annotation.finder.DefaultAnnotationFinder;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.AsyncMethodMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.test.metadata.common.PackageScanner;
 import org.jboss.test.metadata.common.ScanPackage;
-import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
-import org.jboss.xb.binding.UnmarshallerFactory;
-import org.jboss.xb.binding.resolver.MultiClassSchemaResolver;
-import org.jboss.xb.binding.resolver.MutableSchemaResolver;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.lang.reflect.AnnotatedElement;
+import java.util.Collection;
+
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -53,16 +46,6 @@ import org.junit.Test;
  */
 public class AsyncMethodTestCase
 {
-   private static MutableSchemaResolver schemaBindingResolver;
-   private static UnmarshallerFactory unmarshallerFactory = UnmarshallerFactory.newInstance();
-   
-   @BeforeClass
-   public static void beforeClass()
-   {
-      schemaBindingResolver = new MultiClassSchemaResolver();
-      schemaBindingResolver.mapLocationToClass("ejb-jar_3_1.xsd", EjbJar30MetaData.class);
-   }
-   
    @Test
    @ScanPackage("org.jboss.metadata.ejb.test.async")
    public void testMerge() throws Exception
@@ -116,15 +99,5 @@ public class AsyncMethodTestCase
       AsyncMethodMetaData asyncMethod = bean.getAsyncMethods().get(0);
       assertEquals("test2", asyncMethod.getMethodName());
       assertEquals("java.lang.String", asyncMethod.getMethodParams().get(0));
-   }
-
-   private static <T> T unmarshal(Class<T> type, String resource) throws JBossXBException
-   {
-      Unmarshaller unmarshaller = unmarshallerFactory.newUnmarshaller();
-      unmarshaller.setValidation(false);
-      URL url = type.getResource(resource);
-      if(url == null)
-         throw new IllegalArgumentException("Failed to find resource " + resource);
-      return type.cast(unmarshaller.unmarshal(url.toString(), schemaBindingResolver));
    }
 }
