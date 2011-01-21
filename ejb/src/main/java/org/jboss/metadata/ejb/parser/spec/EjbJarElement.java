@@ -39,6 +39,7 @@ public enum EjbJarElement
 
    AFTER_BEGIN_METHOD("after-begin-method"),
    AFTER_COMPLETION_METHOD("after-completion-method"),
+   APPLICATION_EXCEPTION("application-exception"),
    AROUND_INVOKE("around-invoke"),
    AROUND_TIMEOUT("around-timeout"),
    ASSEMBLY_DESCRIPTOR("assembly-descriptor"),
@@ -60,9 +61,11 @@ public enum EjbJarElement
    EJB_NAME("ejb-name"),
    ENTERPRISE_BEANS("enterprise-beans"),
    ENTITY("entity"),
+   EXCEPTION_CLASS("exception-class"),
 
    HOME("home"),
 
+   INHERITED("inherited"),
    INIT_METHOD("init-method"),
    INIT_ON_STARTUP("init-on-startup"),
    INTERCEPTORS("interceptors"),
@@ -81,6 +84,7 @@ public enum EjbJarElement
    RELATIONSHIPS("relationships"),
    REMOTE("remote"),
    REMOVE_METHOD("remove-method"),
+   ROLLBACK("rollback"),
 
    SECURITY_IDENTITY("security-identity"),
    SECURITY_ROLE_REF("security-role-ref"),

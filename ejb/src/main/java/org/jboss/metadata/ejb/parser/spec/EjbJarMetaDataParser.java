@@ -268,7 +268,7 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
                break;
 
             case ASSEMBLY_DESCRIPTOR:
-               // TODO: Implement
+               ejbJarMetaData.setAssemblyDescriptor(AssemblyDescriptorMetaDataParser.INSTANCE.parse(reader));
                break;
 
             case EJB_CLIENT_JAR:
