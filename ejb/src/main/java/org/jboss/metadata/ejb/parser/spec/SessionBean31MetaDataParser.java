@@ -24,6 +24,7 @@ package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
+import org.jboss.metadata.ejb.spec.DependsOnMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
@@ -31,6 +32,7 @@ import org.jboss.metadata.ejb.spec.SessionType;
 import javax.ejb.ConcurrencyManagementType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.util.ArrayList;
 
 /**
  * EJB3.1 version specific ejb-jar.xml parser
@@ -42,9 +44,9 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
 
    /**
     * Parses EJB3.1 specific ejb-jar.xml elements and updates the passed {@link SessionBean31MetaData ejb metadata} appropriately
-    * 
+    *
     * @param sessionBean The metadat to be updated during parsing
-    * @param reader The XMLStreamReader
+    * @param reader      The XMLStreamReader
     * @throws XMLStreamException
     */
    protected void processElement(SessionBean31MetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
@@ -66,7 +68,9 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
             return;
 
          case LOCAL_BEAN:
-            throw new RuntimeException("<local-bean> element parsing not yet implemented");
+            // the presence of a local-bean "empty" type indicates that it's marked as a no-interface view
+            sessionBean.setNoInterfaceBean(true);
+            return;
 
          case CONCURRENCY_MANAGEMENT_TYPE:
             String concurrencyManagementType = getElementText(reader);
@@ -101,8 +105,35 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
             return;
 
          case DEPENDS_ON:
-            throw new RuntimeException("<depends-on> element parsing is not yet implemented");
+            DependsOnMetaData dependsOn = DependsOnMetaDataParser.INSTANCE.parse(reader);
+            sessionBean.setDependsOnMetaData(dependsOn);
+            return;
 
+         case STATEFUL_TIMEOUT:
+            throw new RuntimeException("<stateful-timeout> element parsing is not yet implemented");
+
+
+         case INIT_ON_STARTUP:
+            String initOnStartup = getElementText(reader);
+            if (initOnStartup == null)
+            {
+               throw unexpectedValue(reader, new Exception("Unexpected null value for init-on-startup element"));
+            }
+            sessionBean.setInitOnStartup(Boolean.parseBoolean(initOnStartup));
+            return;
+
+         case AFTER_BEGIN_METHOD:
+            throw new RuntimeException("<after-begin-method> element parsing is not yet implemented");
+
+         case BEFORE_COMPLETION_METHOD:
+            throw new RuntimeException("<before-completion-method> element parsing is not yet implemented");
+
+         case AFTER_COMPLETION_METHOD:
+            throw new RuntimeException("<after-completion-method> element parsing is not yet implemented");
+
+         case AROUND_TIMEOUT:
+            throw new RuntimeException("<around-timeout> element parsing is not yet implemented");
+            
          default:
             super.processElement(sessionBean, reader);
             return;
@@ -112,7 +143,7 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
 
    /**
     * Returns {@link SessionBean31MetaData}
-    * 
+    *
     * @return
     */
    @Override

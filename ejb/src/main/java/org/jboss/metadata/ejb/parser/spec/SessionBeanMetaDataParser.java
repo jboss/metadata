@@ -25,7 +25,13 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.spec.LifecycleCallbackMetaData;
+import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
+import org.jboss.metadata.parser.ee.LifecycleCallbackMetaDataParser;
+import org.jboss.metadata.parser.ee.SecurityRoleRefMetaDataParser;
 
 import javax.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamException;
@@ -141,29 +147,17 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
             }
             return;
 
-         case STATEFUL_TIMEOUT:
-            // TODO: Implement
-            return;
-
          case TIMEOUT_METHOD:
-            // TODO: Implement
-            return;
+            throw new RuntimeException("<timeout-method> element parsing is not yet implemented");
 
          case TIMER:
-            // TODO: Implement
-            return;
-
-         case INIT_ON_STARTUP:
-            // TODO: Implement
-            return;
+            throw new RuntimeException("<timer> element parsing is not yet implemented");
 
          case INIT_METHOD:
-            // TODO: Implement
-            return;
+            throw new RuntimeException("<init-method> element parsing is not yet implemented");
 
          case REMOVE_METHOD:
-            // TODO: Implement
-            return;
+            throw new RuntimeException("<remove-method> element parsing is not yet implemented");
 
          case TRANSACTION_TYPE:
             String txType = getElementText(reader);
@@ -181,41 +175,44 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
             }
             return;
 
-         case AFTER_BEGIN_METHOD:
-            // TODO: Implement
-            return;
-
-         case BEFORE_COMPLETION_METHOD:
-            // TODO: Implement
-            return;
-
-         case AFTER_COMPLETION_METHOD:
-            // TODO: Implement
-            return;
-
          case AROUND_INVOKE:
-            // TODO: Implement
-            return;
-
-         case AROUND_TIMEOUT:
-            // TODO: Implement
-            return;
+            throw new RuntimeException("<around-invoke> element parsing is not yet implemented");
 
          case POST_ACTIVATE:
-            // TODO: Implement
+            LifecycleCallbacksMetaData postActivates = sessionBean.getPostActivates();
+            if (postActivates == null)
+            {
+               postActivates = new LifecycleCallbacksMetaData();
+               sessionBean.setPostActivates(postActivates);
+            }
+            LifecycleCallbackMetaData postActivate = LifecycleCallbackMetaDataParser.parse(reader);
+            postActivates.add(postActivate);
             return;
 
          case PRE_PASSIVATE:
-            // TODO: Implement
+            LifecycleCallbacksMetaData prePassivates = sessionBean.getPrePassivates();
+            if (prePassivates == null)
+            {
+               prePassivates = new LifecycleCallbacksMetaData();
+               sessionBean.setPrePassivates(prePassivates);
+            }
+            LifecycleCallbackMetaData prePassivate = LifecycleCallbackMetaDataParser.parse(reader);
+            prePassivates.add(prePassivate);
             return;
 
          case SECURITY_ROLE_REF:
-            // TODO: Implement
+            SecurityRoleRefsMetaData securityRoleRefs = sessionBean.getSecurityRoleRefs();
+            if (securityRoleRefs == null)
+            {
+               securityRoleRefs = new SecurityRoleRefsMetaData();
+               sessionBean.setSecurityRoleRefs(securityRoleRefs);
+            }
+            SecurityRoleRefMetaData securityRoleRef = SecurityRoleRefMetaDataParser.parse(reader);
+            securityRoleRefs.add(securityRoleRef);
             return;
 
          case SECURITY_IDENTITY:
-            // TODO: Implement
-            return;
+            throw new RuntimeException("<security-identity> element parsing is not yet implemented");
 
          default:
             throw unexpectedElement(reader);
