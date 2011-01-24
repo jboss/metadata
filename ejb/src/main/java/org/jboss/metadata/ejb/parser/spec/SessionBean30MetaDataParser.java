@@ -30,47 +30,59 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 /**
+ * EJB3.0 version specific ejb-jar.xml parser
+ * <p/>
+ *
  * Author: Jaikiran Pai
  */
 public class SessionBean30MetaDataParser<T extends SessionBeanMetaData> extends SessionBeanMetaDataParser<SessionBeanMetaData>
 {
+   /**
+    * Returns {@link SessionBeanMetaData}
+    * @return
+    */
    @Override
-   protected void handleUnExpectedElement(SessionBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
+   protected SessionBeanMetaData createSessionBeanMetaData()
+   {
+      return new SessionBeanMetaData();
+   }
+
+   /**
+    * Parses EJB3.0 specific ejb-jar.xml elements and updates the passed {@link SessionBeanMetaData ejb metadata} appropriately
+    *
+    * @param sessionBean The metadat to be updated during parsing
+    * @param reader The XMLStreamReader
+    * @throws XMLStreamException
+    */
+   @Override
+   protected void processElement(SessionBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case BUSINESS_LOCAL:
-               BusinessLocalsMetaData businessLocals = sessionBean.getBusinessLocals();
-               if (businessLocals == null)
-               {
-                  businessLocals = new BusinessLocalsMetaData();
-                  sessionBean.setBusinessLocals(businessLocals);
-               }
-               businessLocals.add(getElementText(reader));
-               break;
+            BusinessLocalsMetaData businessLocals = sessionBean.getBusinessLocals();
+            if (businessLocals == null)
+            {
+               businessLocals = new BusinessLocalsMetaData();
+               sessionBean.setBusinessLocals(businessLocals);
+            }
+            businessLocals.add(getElementText(reader));
+            return;
 
-            case BUSINESS_REMOTE:
-               BusinessRemotesMetaData businessRemotes = sessionBean.getBusinessRemotes();
-               if (businessRemotes == null)
-               {
-                  businessRemotes = new BusinessRemotesMetaData();
-                  sessionBean.setBusinessRemotes(businessRemotes);
-               }
-               businessRemotes.add(getElementText(reader));
-               break;
+         case BUSINESS_REMOTE:
+            BusinessRemotesMetaData businessRemotes = sessionBean.getBusinessRemotes();
+            if (businessRemotes == null)
+            {
+               businessRemotes = new BusinessRemotesMetaData();
+               sessionBean.setBusinessRemotes(businessRemotes);
+            }
+            businessRemotes.add(getElementText(reader));
+            return;
+
+         default:
+            super.processElement(sessionBean, reader);
+            return;
       }
-   }
-
-   @Override
-   protected void handleUnExpectedValue(SessionBeanMetaData sessionBeanMetaData, EjbJarElement ejbJarElement, XMLStreamReader reader) throws XMLStreamException
-   {
-      throw unexpectedValue(reader, new Exception("Unexpected value while parsing session bean metadata for element " + ejbJarElement.getLocalName()));
-   }
-
-   @Override
-   protected SessionBeanMetaData createSessionBeanMetaData()
-   {
-      return new SessionBeanMetaData();
    }
 }

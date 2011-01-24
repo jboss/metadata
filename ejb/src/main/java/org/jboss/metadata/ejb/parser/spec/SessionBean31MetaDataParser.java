@@ -33,21 +33,38 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 /**
+ * EJB3.1 version specific ejb-jar.xml parser
+ * <p/>
  * Author: Jaikiran Pai
  */
 public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends SessionBean30MetaDataParser<SessionBean31MetaData>
 {
+
    /**
-    *
-    * @param sessionBean
-    * @param reader
+    * Parses EJB3.1 specific ejb-jar.xml elements and updates the passed {@link SessionBean31MetaData ejb metadata} appropriately
+    * 
+    * @param sessionBean The metadat to be updated during parsing
+    * @param reader The XMLStreamReader
     * @throws XMLStreamException
     */
-   protected void handleUnExpectedElement(SessionBean31MetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(SessionBean31MetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
    {
+      // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
+         case SESSION_TYPE:
+            String sessionType = getElementText(reader);
+            if (sessionType.equals("Singleton"))
+            {
+               sessionBean.setSessionType(SessionType.Singleton);
+            }
+            else
+            {
+               super.processElement(sessionBean, reader);
+            }
+            return;
+
          case LOCAL_BEAN:
             throw new RuntimeException("<local-bean> element parsing not yet implemented");
 
@@ -63,9 +80,9 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
             }
             else
             {
-               this.handleUnExpectedValue(sessionBean, EjbJarElement.CONCURRENCY_MANAGEMENT_TYPE, reader);
+               throw unexpectedValue(reader, new Exception("Unexpected value: " + concurrencyManagementType + " for concurrency-management-type"));
             }
-            break;
+            return;
 
          case CONCURRENT_METHOD:
             if (sessionBean.getConcurrentMethods() == null)
@@ -73,7 +90,7 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
                sessionBean.setConcurrentMethods(new ConcurrentMethodsMetaData());
             }
             sessionBean.getConcurrentMethods().add(ConcurrentMethodMetaDataParser.INSTANCE.parse(reader));
-            break;
+            return;
 
          case ASYNC_METHOD:
             if (sessionBean.getAsyncMethods() == null)
@@ -81,40 +98,23 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
                sessionBean.setAsyncMethods(new AsyncMethodsMetaData());
             }
             sessionBean.getAsyncMethods().add(AsyncMethodMetaDataParser.INSTANCE.parse(reader));
-            break;
+            return;
 
          case DEPENDS_ON:
             throw new RuntimeException("<depends-on> element parsing is not yet implemented");
 
          default:
-            super.handleUnExpectedElement(sessionBean, reader);
+            super.processElement(sessionBean, reader);
+            return;
 
       }
    }
 
    /**
+    * Returns {@link SessionBean31MetaData}
     * 
-    * @param sessionBean
-    * @param ejbJarElement
-    * @param reader
-    * @throws XMLStreamException
+    * @return
     */
-   protected void handleUnExpectedValue(SessionBean31MetaData sessionBean, EjbJarElement ejbJarElement, XMLStreamReader reader) throws XMLStreamException
-   {
-      switch (ejbJarElement)
-      {
-         case SESSION_TYPE:
-            String sessionType = getElementText(reader);
-            if (sessionType.equals("Singleton"))
-            {
-               sessionBean.setSessionType(SessionType.Singleton);
-               return;
-            }
-      }
-
-      super.handleUnExpectedValue(sessionBean, ejbJarElement, reader);
-   }
-
    @Override
    protected SessionBean31MetaData createSessionBeanMetaData()
    {
