@@ -22,18 +22,11 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
-import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
-import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
-import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
-import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
 
-import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -43,8 +36,18 @@ import javax.xml.stream.XMLStreamReader;
  * <p/>
  * User: Jaikiran Pai
  */
-public class SessionBeanMetaDataParser extends MetaDataElementParser
+public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> extends AbstractMetaDataParser<T>
 {
+
+   protected abstract void handleUnExpectedElement(T sessionBeanMetaData, XMLStreamReader reader) throws XMLStreamException;
+
+   protected abstract void handleUnExpectedValue(T sessionBeanMetaData, EjbJarElement ejbJarElement, XMLStreamReader reader) throws XMLStreamException;
+
+   /**
+    * Create and return the correct version of {@link SessionBeanMetaData}
+    * @return
+    */
+   protected abstract T createSessionBeanMetaData();
 
    /**
     * Creates and returns {@link SessionBeanMetaData} after parsing the session element.
@@ -53,9 +56,10 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
     * @return
     * @throws XMLStreamException
     */
-   public static SessionBeanMetaData parse(XMLStreamReader reader, EjbJarVersion ejbVersion) throws XMLStreamException
+   @Override
+   public T parse(XMLStreamReader reader) throws XMLStreamException
    {
-      SessionBeanMetaData sessionBean = createSessionBeanMetaData(ejbVersion);
+      T sessionBean = createSessionBeanMetaData();
 
       DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
       // Handle elements
@@ -97,38 +101,6 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                sessionBean.setLocal(getElementText(reader));
                break;
 
-            case BUSINESS_LOCAL:
-               BusinessLocalsMetaData businessLocals = sessionBean.getBusinessLocals();
-               if (businessLocals == null)
-               {
-                  businessLocals = new BusinessLocalsMetaData();
-                  sessionBean.setBusinessLocals(businessLocals);
-               }
-               businessLocals.add(getElementText(reader));
-               break;
-
-            case BUSINESS_REMOTE:
-               BusinessRemotesMetaData businessRemotes = sessionBean.getBusinessRemotes();
-               if (businessRemotes == null)
-               {
-                  businessRemotes = new BusinessRemotesMetaData();
-                  sessionBean.setBusinessRemotes(businessRemotes);
-               }
-               businessRemotes.add(getElementText(reader));
-               break;
-
-            case LOCAL_BEAN:
-               if (sessionBean instanceof SessionBean31MetaData)
-               {
-                  //((SessionBean31MetaData) sessionBean).setNoInterfaceBean();
-                  // TODO: Implement
-               }
-               else
-               {
-                  throw unexpectedElement(reader);
-               }
-               break;
-
             case SERVICE_ENDPOINT:
                sessionBean.setServiceEndpoint(getElementText(reader));
                break;
@@ -147,13 +119,9 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                {
                   sessionBean.setSessionType(SessionType.Stateful);
                }
-               else if (sessionType.equals("Singleton") && ejbVersion == EjbJarVersion.EJB_3_1)
-               {
-                  sessionBean.setSessionType(SessionType.Singleton);
-               }
                else
                {
-                  throw unexpectedValue(reader, new Exception("Incorrect session-type value: " + sessionType));
+                  this.handleUnExpectedValue(sessionBean, EjbJarElement.SESSION_TYPE, reader);
                }
                break;
 
@@ -173,55 +141,12 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                // TODO: Implement
                break;
 
-            case CONCURRENCY_MANAGEMENT_TYPE:
-               // concurrency-management-type is only applicable for EJB3.1
-               if (ejbVersion != EjbJarVersion.EJB_3_1 || !(sessionBean instanceof SessionBean31MetaData))
-               {
-                  throw unexpectedElement(reader);
-               }
-
-               String concurrencyManagementType = getElementText(reader);
-               if (concurrencyManagementType.equals("Bean"))
-               {
-                  ((SessionBean31MetaData) sessionBean).setConcurrencyManagementType(ConcurrencyManagementType.BEAN);
-               }
-               else if (concurrencyManagementType.equals("Container"))
-               {
-                  ((SessionBean31MetaData) sessionBean).setConcurrencyManagementType(ConcurrencyManagementType.CONTAINER);
-               }
-               else
-               {
-                  throw unexpectedValue(reader, new Exception("Invalid concurrency-management-type value: " + concurrencyManagementType));
-               }
-               break;
-
-            case CONCURRENT_METHOD:
-               if(((SessionBean31MetaData) sessionBean).getConcurrentMethods() == null)
-                  ((SessionBean31MetaData) sessionBean).setConcurrentMethods(new ConcurrentMethodsMetaData());
-               ((SessionBean31MetaData) sessionBean).getConcurrentMethods().add(ConcurrentMethodMetaDataParser.INSTANCE.parse(reader));
-               break;
-
-            case DEPENDS_ON:
-               // depends-on is only applicable for EJB3.1
-               if (ejbVersion != EjbJarVersion.EJB_3_1 || !(sessionBean instanceof SessionBean31MetaData))
-               {
-                  throw unexpectedElement(reader);
-               }
-               // TODO: Implement
-               break;
-
             case INIT_METHOD:
                // TODO: Implement
                break;
 
             case REMOVE_METHOD:
                // TODO: Implement
-               break;
-
-            case ASYNC_METHOD:
-               if(((SessionBean31MetaData) sessionBean).getAsyncMethods() == null)
-                  ((SessionBean31MetaData) sessionBean).setAsyncMethods(new AsyncMethodsMetaData());
-               ((SessionBean31MetaData) sessionBean).getAsyncMethods().add(AsyncMethodMetaDataParser.INSTANCE.parse(reader));
                break;
 
             case TRANSACTION_TYPE:
@@ -236,7 +161,7 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                }
                else
                {
-                  throw unexpectedValue(reader, new Exception("Invalid transaction-type value: " + txType));
+                  this.handleUnExpectedValue(sessionBean, EjbJarElement.TRANSACTION_TYPE, reader);
                }
                break;
 
@@ -277,38 +202,9 @@ public class SessionBeanMetaDataParser extends MetaDataElementParser
                break;
 
             default:
-               throw unexpectedElement(reader);
+               this.handleUnExpectedElement(sessionBean, reader);
          }
       }
       return sessionBean;
-   }
-
-   /**
-    * Creates and returns the appropriate {@link SessionBeanMetaData} for the passed
-    * {@link EjbJarVersion ejbJarVersion}.
-    *
-    * @param ejbJarVersion The ejb-jar version
-    * @return
-    * @throws IllegalArgumentException If the passed {@link EjbJarVersion ejbJarVersion} is null
-    */
-   private static SessionBeanMetaData createSessionBeanMetaData(EjbJarVersion ejbJarVersion)
-   {
-      if (ejbJarVersion == null)
-      {
-         throw new IllegalArgumentException(EjbJarVersion.class.getSimpleName() + " cannot be null");
-      }
-      switch (ejbJarVersion)
-      {
-         case EJB_1_1:
-         case EJB_2_0:
-         case EJB_2_1:
-         case EJB_3_0:
-            return new SessionBeanMetaData();
-
-         case EJB_3_1:
-            return new SessionBean31MetaData();
-         default:
-            return new SessionBean31MetaData();
-      }
    }
 }

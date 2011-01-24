@@ -51,7 +51,7 @@ public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
    public static EnterpriseBeansMetaData parse(XMLStreamReader reader, EjbJarVersion ejbJarVersion) throws XMLStreamException
    {
       EnterpriseBeansMetaData enterpriseBeans = new EnterpriseBeansMetaData();
-
+      SessionBeanMetaDataParser sessionBeanParser = SessionBeanMetaDataParserFactory.getParser(ejbJarVersion);
       // Handle elements
       while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
       {
@@ -59,7 +59,7 @@ public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
          switch (ejbJarElement)
          {
             case SESSION:
-               SessionBeanMetaData sessionBean = SessionBeanMetaDataParser.parse(reader, ejbJarVersion);
+               SessionBeanMetaData sessionBean = sessionBeanParser.parse(reader);
                // add the session bean metadata to the enterprise beans
                enterpriseBeans.add(sessionBean);
                break;
