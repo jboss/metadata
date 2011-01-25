@@ -150,15 +150,6 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
          case TIMEOUT_METHOD:
             throw new RuntimeException("<timeout-method> element parsing is not yet implemented");
 
-         case TIMER:
-            throw new RuntimeException("<timer> element parsing is not yet implemented");
-
-         case INIT_METHOD:
-            throw new RuntimeException("<init-method> element parsing is not yet implemented");
-
-         case REMOVE_METHOD:
-            throw new RuntimeException("<remove-method> element parsing is not yet implemented");
-
          case TRANSACTION_TYPE:
             String txType = getElementText(reader);
             if (txType.equals("Bean"))

@@ -24,6 +24,10 @@ package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
+import org.jboss.metadata.ejb.spec.InitMethodMetaData;
+import org.jboss.metadata.ejb.spec.InitMethodsMetaData;
+import org.jboss.metadata.ejb.spec.RemoveMethodMetaData;
+import org.jboss.metadata.ejb.spec.RemoveMethodsMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 
 import javax.xml.stream.XMLStreamException;
@@ -78,6 +82,28 @@ public class SessionBean30MetaDataParser<T extends SessionBeanMetaData> extends 
                sessionBean.setBusinessRemotes(businessRemotes);
             }
             businessRemotes.add(getElementText(reader));
+            return;
+
+         case INIT_METHOD:
+            InitMethodsMetaData initMethods = sessionBean.getInitMethods();
+            if (initMethods == null)
+            {
+               initMethods = new InitMethodsMetaData();
+               sessionBean.setInitMethods(initMethods);
+            }
+            InitMethodMetaData initMethod = InitMethodMetaDataParser.INSTANCE.parse(reader);
+            initMethods.add(initMethod);
+            return;
+         
+         case REMOVE_METHOD:
+            RemoveMethodsMetaData removeMethods = sessionBean.getRemoveMethods();
+            if (removeMethods == null)
+            {
+               removeMethods = new RemoveMethodsMetaData();
+               sessionBean.setRemoveMethods(removeMethods);
+            }
+            RemoveMethodMetaData removeMethod = RemoveMethodMetaDataParser.INSTANCE.parse(reader);
+            removeMethods.add(removeMethod);
             return;
 
          default:

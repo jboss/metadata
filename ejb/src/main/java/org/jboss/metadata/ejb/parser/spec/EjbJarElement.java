@@ -47,25 +47,32 @@ public enum EjbJarElement
    ASYNC_METHOD("async-method"),
 
 
+   BEAN_METHOD("bean-method"),
    BEFORE_COMPLETION_METHOD("before-completion-method"),
    BUSINESS_LOCAL("business-local"),
    BUSINESS_REMOTE("business-remote"),
 
    CONCURRENCY_MANAGEMENT_TYPE("concurrency-management-type"),
    CONCURRENT_METHOD("concurrent-method"),
+   CREATE_METHOD("create-method"),
 
+   DAY_OF_MONTH("day-of-month"),
+   DAY_OF_WEEK("day-of-week"),
    DEPENDS_ON("depends-on"),
    
 
    EJB_CLASS("ejb-class"),
    EJB_CLIENT_JAR("ejb-client-jar"),
    EJB_NAME("ejb-name"),
+   END("end"),
    ENTERPRISE_BEANS("enterprise-beans"),
    ENTITY("entity"),
    EXCEPTION_CLASS("exception-class"),
 
    HOME("home"),
+   HOUR("hour"),
 
+   INFO("info"),
    INHERITED("inherited"),
    INIT_METHOD("init-method"),
    INIT_ON_STARTUP("init-on-startup"),
@@ -82,30 +89,40 @@ public enum EjbJarElement
    METHOD_NAME("method-name"),
    METHOD_PARAM("method-param"),
    METHOD_PARAMS("method-params"),
+   MINUTE("minute"),
    MODULE_NAME("module-name"),
+   MONTH("month"),
 
+   PERSISTENT("persistent"),
    POST_ACTIVATE("post-activate"),
    PRE_PASSIVATE("pre-passivate"),
    
    RELATIONSHIPS("relationships"),
    REMOTE("remote"),
    REMOVE_METHOD("remove-method"),
+   RETAIN_IF_EXCEPTION("retain-if-exception"),
    ROLLBACK("rollback"),
 
+   SCHEDULE("schedule"),
+   SECOND("second"),
    SECURITY_IDENTITY("security-identity"),
    SECURITY_ROLE_REF("security-role-ref"),
    SERVICE_ENDPOINT("service-endpoint"),
    SESSION("session"),
    SESSION_TYPE("session-type"),
+   START("start"),
    STATEFUL_TIMEOUT("stateful-timeout"),
 
    TIMEOUT("timeout"),
    TIMEOUT_METHOD("timeout-method"),
    TIMER("timer"),
+   TIMEZONE("timezone"),
    TRANSACTION_TYPE("transaction-type"),
 
    UNIT("unit"),
 
+   YEAR("year"),
+   
    ;
 
    /**

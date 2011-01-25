@@ -28,11 +28,13 @@ import org.jboss.metadata.ejb.spec.DependsOnMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
+import org.jboss.metadata.ejb.spec.TimerMetaData;
 
 import javax.ejb.ConcurrencyManagementType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * EJB3.1 version specific ejb-jar.xml parser
@@ -133,7 +135,18 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
 
          case AROUND_TIMEOUT:
             throw new RuntimeException("<around-timeout> element parsing is not yet implemented");
-            
+
+         case TIMER:
+            List<TimerMetaData> timers = sessionBean.getTimers();
+            if (timers == null)
+            {
+               timers = new ArrayList<TimerMetaData>();
+               sessionBean.setTimers(timers);
+            }
+            TimerMetaData timerMetaData = TimerMetaDataParser.INSTANCE.parse(reader);
+            timers.add(timerMetaData);
+            return;
+
          default:
             super.processElement(sessionBean, reader);
             return;
