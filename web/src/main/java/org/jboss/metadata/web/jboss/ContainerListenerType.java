@@ -26,5 +26,5 @@ package org.jboss.metadata.web.jboss;
  * @version $Revision: 65928 $
  */
 public enum ContainerListenerType {
-    LIFECYCLE, CONTAINER, SERVLET_LIFECYCLE, SERVLET_CONTAINER
+    LIFECYCLE, CONTAINER, SERVLET_INSTANCE, SERVLET_LIFECYCLE, SERVLET_CONTAINER
 }
