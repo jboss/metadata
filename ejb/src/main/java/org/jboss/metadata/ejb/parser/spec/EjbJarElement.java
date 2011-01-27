@@ -69,6 +69,8 @@ public enum EjbJarElement
    ENTERPRISE_BEANS("enterprise-beans"),
    ENTITY("entity"),
    EXCEPTION_CLASS("exception-class"),
+   EXCLUDE_DEFAULT_INTERCEPTORS("exclude-default-interceptors"),
+   EXCLUDE_CLASS_INTERCEPTORS("exclude-class-interceptors"),
 
    HOME("home"),
    HOUR("hour"),
@@ -79,7 +81,9 @@ public enum EjbJarElement
    INIT_ON_STARTUP("init-on-startup"),
    INTERCEPTOR("interceptor"),
    INTERCEPTORS("interceptors"),
+   INTERCEPTOR_BINDING("interceptor-binding"),
    INTERCEPTOR_CLASS("interceptor-class"),
+   INTERCEPTOR_ORDER("interceptor-order"),
 
 
    LOCAL("local"),

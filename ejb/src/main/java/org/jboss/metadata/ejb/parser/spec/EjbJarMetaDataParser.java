@@ -238,6 +238,8 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
     */
    private static void parseEjbJarElements(EjbJarMetaData ejbJarMetaData, EjbJarVersion ejbJarVersion, XMLStreamReader reader) throws XMLStreamException
    {
+      AssemblyDescriptorMetaDataParser assemblyDescriptorParser = AssemblyDescriptorMetaDataParserFactory.getParser(ejbJarVersion);
+      
       // Handle elements
       while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
       {
@@ -296,7 +298,7 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
                break;
 
             case ASSEMBLY_DESCRIPTOR:
-               ejbJarMetaData.setAssemblyDescriptor(AssemblyDescriptorMetaDataParser.INSTANCE.parse(reader));
+               ejbJarMetaData.setAssemblyDescriptor(assemblyDescriptorParser.parse(reader));
                break;
 
             case EJB_CLIENT_JAR:

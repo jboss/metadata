@@ -64,11 +64,11 @@ public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
                enterpriseBeans.add(sessionBean);
                break;
             case ENTITY:
-               //TODO: Implement
-               break;
+               throw new RuntimeException("<entity> element parsing hasn't yet been implemented");
+
             case MESSAGE_DRIVEN:
-               //TODO: Implement
-               break;
+               throw new RuntimeException("<message-driven> element parsing hasn't yet been implemented");
+               
             default:
                throw unexpectedElement(reader);
          }
