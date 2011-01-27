@@ -397,7 +397,12 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    public void merge(EnterpriseBeanMetaData eoverride, EnterpriseBeanMetaData eoriginal)
    {
       super.merge(eoverride, eoriginal);
-      SessionBean31MetaData override = (SessionBean31MetaData) eoverride;
+      SessionBean31MetaData override;
+      // Only use 3.1 overrides
+      if(eoverride instanceof SessionBean31MetaData)
+         override = (SessionBean31MetaData) eoverride;
+      else
+         override = null;
       SessionBean31MetaData original = (SessionBean31MetaData) eoriginal;
       if (asyncMethods == null)
          asyncMethods = new AsyncMethodsMetaData();
