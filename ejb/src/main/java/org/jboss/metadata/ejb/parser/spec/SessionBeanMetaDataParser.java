@@ -69,17 +69,6 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
    public T parse(XMLStreamReader reader) throws XMLStreamException
    {
       T sessionBean = createSessionBeanMetaData();
-
-      // Handle the description group elements
-      DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
-      if (DescriptionGroupMetaDataParser.parse(reader, descriptionGroup))
-      {
-         if (sessionBean.getDescriptionGroup() == null)
-         {
-            sessionBean.setDescriptionGroup(descriptionGroup);
-         }
-      }
-      // handle rest of the elements
       this.processElements(sessionBean, reader);
       // return the metadata created out of parsing
       return sessionBean;
@@ -95,6 +84,17 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
    @Override
    protected void processElement(T sessionBean, XMLStreamReader reader) throws XMLStreamException
    {
+      // Handle the description group elements
+      DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
+      if (DescriptionGroupMetaDataParser.parse(reader, descriptionGroup))
+      {
+         if (sessionBean.getDescriptionGroup() == null)
+         {
+            sessionBean.setDescriptionGroup(descriptionGroup);
+         }
+         return;
+      }
+
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)

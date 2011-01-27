@@ -31,6 +31,8 @@ import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLStreamException;
@@ -239,6 +241,17 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
       // Handle elements
       while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
       {
+         // Handle the description group elements
+         DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
+         if (DescriptionGroupMetaDataParser.parse(reader, descriptionGroup))
+         {
+            if (ejbJarMetaData.getDescriptionGroup() == null)
+            {
+               ejbJarMetaData.setDescriptionGroup(descriptionGroup);
+            }
+            break;
+         }
+
          final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
          switch (ejbJarElement)
          {
