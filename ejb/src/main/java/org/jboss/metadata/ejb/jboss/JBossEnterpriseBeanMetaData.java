@@ -41,6 +41,7 @@ import org.jboss.metadata.ejb.spec.MethodMetaData;
 import org.jboss.metadata.ejb.spec.MethodPermissionMetaData;
 import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.javaee.jboss.AnnotationsMetaData;
 import org.jboss.metadata.javaee.jboss.IgnoreDependencyMetaData;
@@ -72,7 +73,6 @@ import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.NamedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 import org.jboss.metadata.javaee.support.NonNullLinkedHashSet;
 import org.jboss.metadata.merge.ejb.jboss.JBossEnvironmentRefsGroupMetaDataMerger;
@@ -209,8 +209,10 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          jbean = new JBossEntityBeanMetaData();
       if(bean instanceof MessageDrivenBeanMetaData)
          jbean = new JBossMessageDrivenBean31MetaData();
-      if(bean instanceof SessionBeanMetaData)
+      if(bean instanceof SessionBean31MetaData)
          jbean = new JBossSessionBean31MetaData();
+      if(bean instanceof SessionBeanMetaData)
+         jbean = new JBossSessionBeanMetaData();
       return jbean;
    }
 
