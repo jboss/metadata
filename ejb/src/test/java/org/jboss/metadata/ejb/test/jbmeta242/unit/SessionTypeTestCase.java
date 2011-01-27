@@ -25,12 +25,14 @@ import org.jboss.logging.Logger;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
-import org.jboss.xb.binding.JBossXBException;
 import org.junit.Test;
+
+import javax.xml.stream.XMLStreamException;
 
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -87,13 +89,14 @@ public class SessionTypeTestCase
          EjbJarMetaData ejb31 = unmarshal(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/jbmeta242/invalid-ejb-jar.xml");
          fail("Validation did NOT fail on invalid-ejb-jar.xml");
       }
-      catch (JBossXBException jbxbe)
+      catch (XMLStreamException e)
       {
          // expected to fail with validation error, because the invalid-ejb-jar.xml
-         // uses an invalid <session-type> value. 
+         // uses an invalid <session-type> value.
          // TODO: Is there a better way to check for the specific validation failure error
-         logger.debug("Caught expected failure: ", jbxbe);
+         logger.debug("Caught expected failure: ", e);
+         String message = e.getMessage();
+         assertTrue(message.contains("session-type"));
       }
-
    }
 }
