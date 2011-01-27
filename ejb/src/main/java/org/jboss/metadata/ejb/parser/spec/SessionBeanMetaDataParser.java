@@ -132,18 +132,14 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
             return;
 
          case SESSION_TYPE:
-            String sessionType = getElementText(reader);
-            if (sessionType.equals("Stateless"))
+            SessionType sessionType = this.processSessionType(getElementText(reader));
+            if (sessionType == null)
             {
-               sessionBean.setSessionType(SessionType.Stateless);
-            }
-            else if (sessionType.equals("Stateful"))
-            {
-               sessionBean.setSessionType(SessionType.Stateful);
+               throw unexpectedValue(reader, new Exception("Unexpected value: " + sessionType + " for session-type"));
             }
             else
             {
-               throw unexpectedValue(reader, new Exception("Unexpected value: " + sessionType + " for session-type"));
+               sessionBean.setSessionType(sessionType);
             }
             return;
 
@@ -208,5 +204,28 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
          default:
             throw unexpectedElement(reader);
       }
+   }
+
+   /**
+    * Returns the {@link SessionType} corresponding to the passed <code>sessionType</code> string.
+    * <p/>
+    * Returns null, if the passed <code>sessionType</code> isn't one of the allowed values for the
+    * &lt;session-type&gt; element in ejb-jar.xml
+    * 
+    * @param sessionType
+    * @return
+    */
+   protected SessionType processSessionType(String sessionType)
+   {
+      if (sessionType.equals("Stateless"))
+      {
+         return SessionType.Stateless;
+      }
+
+      if (sessionType.equals("Stateful"))
+      {
+         return SessionType.Stateful;
+      }
+      return null;
    }
 }

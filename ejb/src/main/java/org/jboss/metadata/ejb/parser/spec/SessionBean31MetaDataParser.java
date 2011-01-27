@@ -44,7 +44,8 @@ import java.util.List;
 public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends SessionBean30MetaDataParser<SessionBean31MetaData>
 {
    @Override
-   protected void processElement(SessionBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException {
+   protected void processElement(SessionBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
+   {
       processElement((SessionBean31MetaData) sessionBean, reader);
    }
 
@@ -61,18 +62,6 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
-         case SESSION_TYPE:
-            String sessionType = getElementText(reader);
-            if (sessionType.equals("Singleton"))
-            {
-               sessionBean.setSessionType(SessionType.Singleton);
-            }
-            else
-            {
-               super.processElement(sessionBean, reader);
-            }
-            return;
-
          case LOCAL_BEAN:
             // the presence of a local-bean "empty" type indicates that it's marked as a no-interface view
             // read away the emptiness
@@ -169,5 +158,23 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
    protected SessionBean31MetaData createSessionBeanMetaData()
    {
       return new SessionBean31MetaData();
+   }
+
+   /**
+    * Returns the {@link SessionType} corresponding to the passed <code>sessionType</code> string.
+    * <p/>
+    * This method takes into account the Singleton session type introduced in EJB3.1 version
+    *
+    * @see SessionBeanMetaDataParser#processSessionType(String)
+    */
+   @Override
+   protected SessionType processSessionType(String sessionType)
+   {
+      if (sessionType.equals("Singleton"))
+      {
+         return SessionType.Singleton;
+      }
+
+      return super.processSessionType(sessionType);
    }
 }
