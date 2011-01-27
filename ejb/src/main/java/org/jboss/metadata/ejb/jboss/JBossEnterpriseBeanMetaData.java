@@ -204,16 +204,15 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     */
    public static JBossEnterpriseBeanMetaData newBean(EnterpriseBeanMetaData bean)
    {
-      JBossEnterpriseBeanMetaData jbean = null;
       if(bean instanceof EntityBeanMetaData)
-         jbean = new JBossEntityBeanMetaData();
+         return new JBossEntityBeanMetaData();
       if(bean instanceof MessageDrivenBeanMetaData)
-         jbean = new JBossMessageDrivenBean31MetaData();
+         return new JBossMessageDrivenBean31MetaData();
       if(bean instanceof SessionBean31MetaData)
-         jbean = new JBossSessionBean31MetaData();
+         return new JBossSessionBean31MetaData();
       if(bean instanceof SessionBeanMetaData)
-         jbean = new JBossSessionBeanMetaData();
-      return jbean;
+         return new JBossSessionBeanMetaData();
+      throw new IllegalArgumentException("Can't handle " + bean.getClass() + " on " + bean);
    }
 
    /**
