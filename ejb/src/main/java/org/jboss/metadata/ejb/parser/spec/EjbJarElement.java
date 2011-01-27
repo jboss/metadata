@@ -52,6 +52,7 @@ public enum EjbJarElement
    BUSINESS_LOCAL("business-local"),
    BUSINESS_REMOTE("business-remote"),
 
+   CLASS("class"),
    CONCURRENCY_MANAGEMENT_TYPE("concurrency-management-type"),
    CONCURRENT_METHOD("concurrent-method"),
    CREATE_METHOD("create-method"),
@@ -76,7 +77,10 @@ public enum EjbJarElement
    INHERITED("inherited"),
    INIT_METHOD("init-method"),
    INIT_ON_STARTUP("init-on-startup"),
+   INTERCEPTOR("interceptor"),
    INTERCEPTORS("interceptors"),
+   INTERCEPTOR_CLASS("interceptor-class"),
+
 
    LOCAL("local"),
    LOCAL_BEAN("local-bean"),

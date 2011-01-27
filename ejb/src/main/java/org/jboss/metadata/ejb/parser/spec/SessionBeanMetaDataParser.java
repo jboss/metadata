@@ -162,9 +162,6 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
             }
             return;
 
-         case AROUND_INVOKE:
-            throw new RuntimeException("<around-invoke> element parsing is not yet implemented");
-
          case POST_ACTIVATE:
             LifecycleCallbacksMetaData postActivates = sessionBean.getPostActivates();
             if (postActivates == null)

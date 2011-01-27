@@ -22,6 +22,8 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
+import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
 import org.jboss.metadata.ejb.spec.InitMethodMetaData;
@@ -64,6 +66,17 @@ public class SessionBean30MetaDataParser<T extends SessionBeanMetaData> extends 
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
+         case AROUND_INVOKE:
+            AroundInvokesMetaData aroundInvokes = sessionBean.getAroundInvokes();
+            if (aroundInvokes == null)
+            {
+               aroundInvokes = new AroundInvokesMetaData();
+               sessionBean.setAroundInvokes(aroundInvokes);
+            }
+            AroundInvokeMetaData aroundInvoke = AroundInvokeMetaDataParser.INSTANCE.parse(reader);
+            aroundInvokes.add(aroundInvoke);
+            return;
+
          case BUSINESS_LOCAL:
             BusinessLocalsMetaData businessLocals = sessionBean.getBusinessLocals();
             if (businessLocals == null)

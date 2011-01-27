@@ -29,8 +29,8 @@ import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
-import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
@@ -279,7 +279,16 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
                break;
 
             case INTERCEPTORS:
-               // TODO: Implement
+               // only applicable for EJB 3.x
+               if (ejbJarMetaData.isEJB3x() && ejbJarMetaData instanceof EjbJar3xMetaData)
+               {
+                  InterceptorsMetaData intercpetors = InterceptorsMetaDataParser.INSTANCE.parse(reader);
+                  ((EjbJar3xMetaData)ejbJarMetaData).setInterceptors(intercpetors);
+               }
+               else
+               {
+                  throw unexpectedElement(reader);
+               }
                break;
 
             case RELATIONSHIPS:
