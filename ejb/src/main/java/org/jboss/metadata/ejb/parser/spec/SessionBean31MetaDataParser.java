@@ -75,6 +75,8 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
 
          case LOCAL_BEAN:
             // the presence of a local-bean "empty" type indicates that it's marked as a no-interface view
+            // read away the emptiness
+            reader.getElementText();
             sessionBean.setNoInterfaceBean(true);
             return;
 
