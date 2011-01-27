@@ -43,6 +43,10 @@ import java.util.List;
  */
 public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends SessionBean30MetaDataParser<SessionBean31MetaData>
 {
+   @Override
+   protected void processElement(SessionBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException {
+      processElement((SessionBean31MetaData) sessionBean, reader);
+   }
 
    /**
     * Parses EJB3.1 specific ejb-jar.xml elements and updates the passed {@link SessionBean31MetaData ejb metadata} appropriately
