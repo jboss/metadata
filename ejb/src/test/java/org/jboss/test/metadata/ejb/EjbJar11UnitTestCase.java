@@ -21,7 +21,6 @@
  */
 package org.jboss.test.metadata.ejb;
 
-import junit.framework.Test;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar1xMetaData;
@@ -36,11 +35,6 @@ import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
  */
 public class EjbJar11UnitTestCase extends AbstractEJBEverythingTest
 {
-   public static Test suite()
-   {
-      return suite(EjbJar11UnitTestCase.class);
-   }
-
    public EjbJar11UnitTestCase(String name)
    {
       super(name);

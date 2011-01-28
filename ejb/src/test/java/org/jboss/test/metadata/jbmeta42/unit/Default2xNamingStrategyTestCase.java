@@ -21,7 +21,6 @@
  */
 package org.jboss.test.metadata.jbmeta42.unit;
 
-import junit.framework.Test;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
@@ -45,11 +44,6 @@ import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 @SuppressWarnings("deprecation")
 public class Default2xNamingStrategyTestCase extends AbstractEJBEverythingTest
 {
-   public static Test suite()
-   {
-      return suite(Default2xNamingStrategyTestCase.class);
-   }
-   
    public Default2xNamingStrategyTestCase(String name)
    {
       super(name);

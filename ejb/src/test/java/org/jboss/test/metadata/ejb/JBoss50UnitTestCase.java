@@ -21,7 +21,6 @@
 */
 package org.jboss.test.metadata.ejb;
 
-import junit.framework.Test;
 import org.jboss.metadata.ejb.jboss.CacheInvalidationConfigMetaData;
 import org.jboss.metadata.ejb.jboss.ClusterConfigMetaData;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationMetaData;
@@ -89,11 +88,6 @@ import java.util.Set;
 @SuppressWarnings("deprecation")
 public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
 {
-   public static Test suite()
-   {
-      return suite(JBoss50UnitTestCase.class);
-   }
- 
    public JBoss50UnitTestCase(String name)
    {
       super(name);

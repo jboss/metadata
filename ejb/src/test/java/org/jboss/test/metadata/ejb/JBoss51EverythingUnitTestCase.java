@@ -21,12 +21,6 @@
 */
 package org.jboss.test.metadata.ejb;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
-
-import junit.framework.Test;
-
 import org.jboss.metadata.common.jboss.LoaderRepositoryConfigMetaData;
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
 import org.jboss.metadata.common.jboss.WebserviceDescriptionMetaData;
@@ -49,6 +43,10 @@ import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
  * JBoss51EverythingUnitTestCase.
@@ -59,11 +57,6 @@ import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
  */
 public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
 {
-   public static Test suite()
-   {
-      return suite(JBoss51EverythingUnitTestCase.class);
-   }
-
    public JBoss51EverythingUnitTestCase(String name)
    {
       super(name);
