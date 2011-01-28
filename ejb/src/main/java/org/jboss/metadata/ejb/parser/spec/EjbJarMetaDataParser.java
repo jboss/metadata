@@ -239,18 +239,19 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
    {
       AssemblyDescriptorMetaDataParser assemblyDescriptorParser = AssemblyDescriptorMetaDataParserFactory.getParser(ejbJarVersion);
       
+      DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
+      
       // Handle elements
       while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
       {
          // Handle the description group elements
-         DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
          if (DescriptionGroupMetaDataParser.parse(reader, descriptionGroup))
          {
             if (ejbJarMetaData.getDescriptionGroup() == null)
             {
                ejbJarMetaData.setDescriptionGroup(descriptionGroup);
             }
-            break;
+            continue;
          }
 
          final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
