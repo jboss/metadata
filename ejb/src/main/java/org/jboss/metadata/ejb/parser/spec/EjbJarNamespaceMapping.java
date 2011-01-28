@@ -36,8 +36,7 @@ public class EjbJarNamespaceMapping
 
    static
    {
-      //TODO: Add mapping for 1.1 version of ejb-jar
-
+      bindings.put("http://java.sun.com/j2ee/dtds/ejb-jar_1_1.dtd", EjbJarVersion.EJB_1_1);
       bindings.put("http://java.sun.com/dtd/ejb-jar_2_0.dtd", EjbJarVersion.EJB_2_0);
       bindings.put("http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd", EjbJarVersion.EJB_2_1);
       bindings.put("http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd", EjbJarVersion.EJB_3_0);

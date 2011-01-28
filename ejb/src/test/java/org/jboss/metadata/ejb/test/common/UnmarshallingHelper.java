@@ -23,6 +23,7 @@ package org.jboss.metadata.ejb.test.common;
 
 import org.jboss.metadata.ejb.parser.spec.EjbJarMetaDataParser;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.parser.util.NoopXmlResolver;
 import org.jboss.xb.binding.JBossXBException;
 import org.jboss.xb.binding.Unmarshaller;
@@ -41,13 +42,14 @@ public class UnmarshallingHelper
    // TODO: merge with AbstractEJBEverythingTest#merge
    public static <T> T unmarshal(Class<T> expected, String resource) throws Exception
    {
+      MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
       final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-      inputFactory.setXMLResolver(NoopXmlResolver.create());
+      inputFactory.setXMLResolver(info);
       XMLStreamReader reader = inputFactory.createXMLStreamReader(expected.getResourceAsStream(resource));
 
       if(EjbJarMetaData.class.isAssignableFrom(expected))
       {
-         return expected.cast(EjbJarMetaDataParser.parse(reader));
+         return expected.cast(EjbJarMetaDataParser.parse(reader, info));
       }
       fail("NYI: parsing for " + expected);
       return null;

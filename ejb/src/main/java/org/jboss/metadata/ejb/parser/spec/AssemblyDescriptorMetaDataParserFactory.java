@@ -39,7 +39,7 @@ public class AssemblyDescriptorMetaDataParserFactory
          case EJB_1_1:
          case EJB_2_0:
          case EJB_2_1:
-            throw new RuntimeException("getParser not yet implemented for EJB 1.x and EJB 2.x versions");
+            throw new RuntimeException("getParser not yet implemented for EJB 1.x and EJB 2.x versions (" + ejbJarVersion + ")");
 
          case EJB_3_0:
          case EJB_3_1:

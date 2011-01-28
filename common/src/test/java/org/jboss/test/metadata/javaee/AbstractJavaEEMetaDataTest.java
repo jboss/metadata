@@ -21,14 +21,16 @@
 */
 package org.jboss.test.metadata.javaee;
 
+import junit.framework.TestCase;
+import org.jboss.metadata.parser.util.NoopXmlResolver;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLResolver;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.util.NoopXmlResolver;
-import junit.framework.TestCase;
 
 /**
  * A JavaEE metadata Test.
@@ -68,19 +70,21 @@ public class AbstractJavaEEMetaDataTest extends TestCase
    /**
     * Open a xml file
     * 
-    * @param <T> the expected type
-    * @param name the name
-    * @param expected the expected type
-    * @param resolver the resolver
-    * @return the unmarshalled object
+    * @param name the name of the file
+    * @return the XMLStreamReader
     * @throws Exception for any error
     */
+   @Deprecated
    protected XMLStreamReader getReader(String name) throws Exception
    {
-	   final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-	   // FileInputStream  is = new FileInputStream(findXML(name));
-	   inputFactory.setXMLResolver(NoopXmlResolver.create());
-	   return inputFactory.createXMLStreamReader(findXML(name));
+      return getReader(name, NoopXmlResolver.create());
+   }
+
+   protected XMLStreamReader getReader(String name, XMLResolver resolver) throws IOException, XMLStreamException
+   {
+      final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+      inputFactory.setXMLResolver(resolver);
+      return inputFactory.createXMLStreamReader(findXML(name));
    }
 
    /**

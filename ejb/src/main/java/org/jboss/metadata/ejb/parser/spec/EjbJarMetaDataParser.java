@@ -53,9 +53,8 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
     * @return
     * @throws XMLStreamException
     */
-   public static EjbJarMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public static EjbJarMetaData parse(XMLStreamReader reader, DTDInfo info) throws XMLStreamException
    {
-
       reader.require(START_DOCUMENT, null, null);
       // Read until the first start element
       EjbJarVersion ejbJarVersion = null;
@@ -64,12 +63,12 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
          // read the version from the dtd namespace
          if (reader.getEventType() == DTD)
          {
-            String dtdLocation = readDTDLocation(reader);
+            // TODO: we should be depending on the public id, not the system id
+            String dtdLocation = info.getSystemID();
             if (dtdLocation != null)
             {
                ejbJarVersion = EjbJarNamespaceMapping.getEjbJarVersion(dtdLocation);
             }
-            
          }
       }
       // if it wasn't a DTD namespace, then check for the xsd schema location

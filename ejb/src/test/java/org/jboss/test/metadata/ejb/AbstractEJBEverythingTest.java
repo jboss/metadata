@@ -69,6 +69,7 @@ import org.jboss.metadata.javaee.spec.PortComponent;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.test.AbstractTestSetup;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 import org.jboss.util.NotImplementedException;
@@ -1445,10 +1446,11 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    {
       try
       {
-         XMLStreamReader reader = getReader(name);
+         MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
+         XMLStreamReader reader = getReader(name, info);
          if(EjbJarMetaData.class.isAssignableFrom(expected))
          {
-            return expected.cast(EjbJarMetaDataParser.parse(reader));
+            return expected.cast(EjbJarMetaDataParser.parse(reader, info));
          }
          fail("NYI: parsing for " + expected);
          return null;
