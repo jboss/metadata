@@ -197,6 +197,7 @@
                         <exclude>org/jboss/test/metadata/ejb/EjbJar21EverythingUnitTestCase.java</exclude>
                         <exclude>org/jboss/test/metadata/ejb/EjbJar20UnitTestCase.java</exclude>
                         <exclude>org/jboss/test/metadata/annotation/jbmeta98/OverrideRemoveMethodUnitTestCase.java</exclude>
+                        <exclude>org/jboss/test/metadata/ejb/whitespace/WhitespaceUnitTestCase.java</exclude>
                      </excludes>
                   </configuration>
                </plugin>
