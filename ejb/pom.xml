@@ -86,6 +86,15 @@
                   <exclude>org/jboss/test/metadata/jpa/v2/PersistenceMDUnitTestCase.java</exclude>
                   <exclude>org/jboss/test/metadata/ejb/JBoss51EverythingUnitTestCase.java</exclude>
                   <exclude>org/jboss/test/metadata/xml/EjbXmlValidationUnitTestCase.java</exclude>
+                  <exclude>org/jboss/metadata/ejb/test/schedule/unit/ScheduleTestCase.java</exclude>
+                  <exclude>org/jboss/test/metadata/annotation/ejb3/JBossAnnotationEjb3UnitTestCase.java</exclude>
+                  <exclude>org/jboss/metadata/ejb/test/jbmeta307/unit/SessionSynchronizationTestCase.java</exclude>
+                  <exclude>org/jboss/metadata/ejb/test/jbmeta321/unit/StatefulTimeoutTestCase.java</exclude>
+                  <exclude>org/jboss/test/metadata/ejb/EjbJarJBossMergeEverythingUnitTestCase.java</exclude>
+                  <exclude>org/jboss/test/metadata/ejb/EjbJar3xUnitTestCase.java</exclude>
+                  <exclude>org/jboss/test/metadata/jpa/PersistenceMDUnitTestCase.java</exclude>
+                  <exclude>org/jboss/test/metadata/jbmeta119/unit/LocalBindingsUnitTestCase.java</exclude>
+                  <exclude>org/jboss/test/metadata/ejb/JBoss51EAPDefaultJMSRAUnitTestCase.java</exclude>
                </excludes>
             </configuration>
          </plugin>
