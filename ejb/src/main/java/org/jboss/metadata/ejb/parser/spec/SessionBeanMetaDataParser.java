@@ -25,11 +25,14 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbackMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
+import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.LifecycleCallbackMetaDataParser;
 import org.jboss.metadata.parser.ee.SecurityRoleRefMetaDataParser;
 
@@ -93,6 +96,27 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
             sessionBean.setDescriptionGroup(descriptionGroup);
          }
          return;
+      }
+
+      // Handle jndi environment ref group
+      // get the jndi environment ref group of this bean
+      Environment jndiEnvRefGroup = sessionBean.getJndiEnvironmentRefsGroup();
+      // create and set, if absent
+      if (jndiEnvRefGroup == null)
+      {
+         jndiEnvRefGroup = new EnvironmentRefsGroupMetaData();
+         sessionBean.setJndiEnvironmentRefsGroup(jndiEnvRefGroup);
+      }
+      // Not too good!
+      if (jndiEnvRefGroup instanceof EnvironmentRefsGroupMetaData)
+      {
+         // parse any jndi ref group elements
+         if (EnvironmentRefsGroupMetaDataParser.parse(reader, (EnvironmentRefsGroupMetaData) jndiEnvRefGroup))
+         {
+            // it was jndi ref group element which was parsed successfully, so nothing more to do
+            // than just return
+            return;
+         }
       }
 
       // get the element to process

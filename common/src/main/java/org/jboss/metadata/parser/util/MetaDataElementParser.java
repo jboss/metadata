@@ -180,7 +180,25 @@ public class MetaDataElementParser implements XMLStreamConstants {
      * @throws XMLStreamException if an error occurs
     */
     protected static String getElementText(final XMLStreamReader reader) throws XMLStreamException {
-    	return reader.getElementText().trim();
+    	return getElementText(reader, true);
+    }
+
+   /**
+    * Read and return the element text.
+    * If the passed <code>trim</code> value is true, then the text is {@link String#trim() trimmed} before returning.
+    *  
+    * @param reader
+    * @param trim True if the text has to be trimmed before returning. False otherwise
+    * @return
+    * @throws XMLStreamException
+    */
+    protected static String getElementText(final XMLStreamReader reader, boolean trim) throws XMLStreamException
+    {
+       if (trim)
+       {
+          return reader.getElementText().trim();
+       }
+       return reader.getElementText();
     }
 
     /**
