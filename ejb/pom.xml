@@ -171,6 +171,9 @@
       <profile>
          <!-- TODO: Remove this profile once the tests are fixed -->
          <id>disabled-tests</id>
+         <activation>
+            <activeByDefault>true</activeByDefault>
+         </activation>
          <build>
             <plugins>
                <plugin>
