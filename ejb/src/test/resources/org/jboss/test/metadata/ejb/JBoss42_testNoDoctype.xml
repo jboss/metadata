@@ -1,0 +1,5 @@
+<jboss>
+   <webservices>
+      <context-root>/jaxrpc-enventry</context-root>
+   </webservices>
+</jboss>

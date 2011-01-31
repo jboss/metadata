@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss xmlns="http://www.jboss.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+    version="3.0">
+    <enterprise-beans>
+        <session>
+            <ejb-name>SimpleBean</ejb-name>
+            <cluster-config>
+               <partition-name>ClusterConfigPartition</partition-name>
+               <load-balance-policy>SimpleLBP</load-balance-policy>
+            </cluster-config>
+        </session>
+        <session>
+            <ejb-name>HomeAndBeanBean</ejb-name>
+            <cluster-config>
+               <partition-name>ClusterConfigPartition</partition-name>
+               <home-load-balance-policy>HomeLBP</home-load-balance-policy>
+               <bean-load-balance-policy>BeanLBP</bean-load-balance-policy>
+            </cluster-config>
+        </session>
+        <session>
+            <ejb-name>HomeAndSimpleBean</ejb-name>
+            <cluster-config>
+               <partition-name>ClusterConfigPartition</partition-name>
+               <home-load-balance-policy>HomeLBP</home-load-balance-policy>
+               <load-balance-policy>SimpleLBP</load-balance-policy>
+            </cluster-config>
+        </session>
+        <session>
+            <ejb-name>HomeOnlyBean</ejb-name>
+            <cluster-config>
+               <home-load-balance-policy>HomeLBP</home-load-balance-policy>
+            </cluster-config>
+        </session>
+    </enterprise-beans>
+</jboss>

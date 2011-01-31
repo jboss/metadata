@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jboss PUBLIC
+   "-//JBoss//DTD JBOSS 4.2//EN"
+   "http://www.jboss.org/j2ee/dtd/jboss_4_2.dtd">
+<!-- Id -->
+<jboss>
+   <enterprise-beans>
+      <session>
+         <ejb-name>WebserviceConsumer</ejb-name>
+
+         <service-ref>
+            <service-ref-name>OrganizationService</service-ref-name>
+            <wsdl-override>file:/wsdlRepository/organization-service.wsdl</wsdl-override>
+         </service-ref>
+         
+         <service-ref>
+            <service-ref-name>SecureOrganizationService</service-ref-name>
+            <config-name>Secure Client Config</config-name>
+            <config-file>META-INF/jbossws-client-config.xml</config-file>
+            <handler-chain>META-INF/jbossws-client-handlers.xml</handler-chain>
+         </service-ref>
+         
+         <service-ref>
+            <service-ref-name>SecureService</service-ref-name>
+            <service-impl-class>org.jboss.tests.ws.jaxws.webserviceref.SecureEndpointService</service-impl-class>
+            <service-qname>{http://org.jboss.ws/wsref}SecureEndpointService</service-qname>
+            <port-component-ref>
+               <service-endpoint-interface>org.jboss.tests.ws.jaxws.webserviceref.SecureEndpoint</service-endpoint-interface>
+               <port-qname>{http://org.jboss.ws/wsref}SecureEndpointPort</port-qname>
+               <stub-property>
+                  <prop-name>javax.xml.ws.security.auth.username</prop-name>
+                  <prop-value>kermit</prop-value>
+               </stub-property>
+               <stub-property>
+                  <prop-name>javax.xml.ws.security.auth.password</prop-name>
+                  <prop-value>thefrog</prop-value>
+               </stub-property>
+            </port-component-ref>
+         </service-ref>
+
+         <!-- 
+            @WebServiceRef(name = "Service1")
+         -->
+         <service-ref>
+            <service-ref-name>Service1</service-ref-name>
+            <service-impl-class>org.jboss.test.ws.jaxws.webserviceref.TestEndpointService</service-impl-class>
+            <service-qname>{http://org.jboss.ws/wsref}TestEndpointService</service-qname>
+            <wsdl-override>META-INF/wsdl/TestEndpoint.wsdl</wsdl-override>
+         </service-ref>
+         
+         <!-- 
+            @WebServiceRef(name = "Service2")
+         -->
+         <service-ref>
+            <service-ref-name>Service2</service-ref-name>
+            <config-name>Custom Client</config-name>
+            <config-file>META-INF/jbossws-client-config.xml</config-file>
+            <wsdl-override>META-INF/wsdl/TestEndpoint.wsdl</wsdl-override>
+         </service-ref>
+         
+         <!-- 
+            @WebServiceRef(name = "Service3")
+         -->
+         <service-ref>
+            <service-ref-name>Service3</service-ref-name>
+            <service-impl-class>org.jboss.test.ws.jaxws.webserviceref.TestEndpointService</service-impl-class>
+            <service-qname>{http://org.jboss.ws/wsref}TestEndpointService</service-qname>
+            <wsdl-override>META-INF/wsdl/TestEndpoint.wsdl</wsdl-override>
+         </service-ref>
+         
+         <!-- 
+            @WebServiceRef(name = "Service4")
+         -->
+         <service-ref>
+            <service-ref-name>Service4</service-ref-name>
+            <port-component-ref>
+               <service-endpoint-interface>org.jboss.test.ws.jaxws.webserviceref.TestEndpoint</service-endpoint-interface>
+               <config-name>Custom Client</config-name>
+               <config-file>META-INF/jbossws-client-config.xml</config-file>
+            </port-component-ref>
+            <wsdl-override>META-INF/wsdl/TestEndpoint.wsdl</wsdl-override>
+         </service-ref>
+         
+         <!-- 
+            @WebServiceRef(name = "Port1", type = TestEndpoint.class)
+         -->
+         <service-ref>
+            <service-ref-name>Port1</service-ref-name>
+            <port-component-ref>
+               <port-qname>{http://org.jboss.ws/wsref}TestEndpointPort</port-qname>
+               <config-name>Custom Client</config-name>
+               <config-file>META-INF/jbossws-client-config.xml</config-file>
+            </port-component-ref>
+            <wsdl-override>META-INF/wsdl/TestEndpoint.wsdl</wsdl-override>
+         </service-ref>
+         
+         <!-- 
+            @WebServiceRef(name = "Port2")
+         -->
+         <service-ref>
+            <service-ref-name>Port2</service-ref-name>
+            <port-component-ref>
+               <service-endpoint-interface>org.jboss.test.ws.jaxws.webserviceref.TestEndpoint</service-endpoint-interface>
+               <config-name>Custom Client</config-name>
+               <config-file>META-INF/jbossws-client-config.xml</config-file>
+            </port-component-ref>
+            <wsdl-override>META-INF/wsdl/TestEndpoint.wsdl</wsdl-override>
+         </service-ref>
+         
+         <!-- 
+            @WebServiceRef(name = "Port3")
+         -->
+         <service-ref>
+            <service-ref-name>Port3</service-ref-name>
+            <port-component-ref>
+               <service-endpoint-interface>org.jboss.test.ws.jaxws.webserviceref.TestEndpoint</service-endpoint-interface>
+               <port-qname>{http://org.jboss.ws/wsref}TestEndpointPort</port-qname>
+               <stub-property>
+                  <prop-name>javax.xml.ws.security.auth.username</prop-name>
+                  <prop-value>kermit</prop-value>
+               </stub-property>
+               <stub-property>
+                  <prop-name>javax.xml.ws.security.auth.password</prop-name>
+                  <prop-value>thefrog</prop-value>
+               </stub-property>
+            </port-component-ref>
+            <wsdl-override>META-INF/wsdl/TestEndpoint.wsdl</wsdl-override>
+         </service-ref>
+         
+         <service-ref>
+            <service-ref-name>session0ServiceRef0</service-ref-name>
+            <service-impl-class>session0ServiceImplClass</service-impl-class>
+            <config-name>session0Config</config-name>
+            <config-file>META-INF/session0-config.xml</config-file>
+            <handler-chain>META-INF/session0-handlers.xml</handler-chain>
+            <port-component-ref>
+               <service-endpoint-interface>session0Endpoint</service-endpoint-interface>
+               <port-qname>{session0}portRef0</port-qname>
+               <config-name>session0PortRef0Config</config-name>
+               <config-file>META-INF/session0PortRef0-config.xml</config-file>
+            </port-component-ref>
+            <wsdl-override>META-INF/wsdl/session0.wsdl</wsdl-override>
+         </service-ref>
+      </session>
+   </enterprise-beans>   
+</jboss>

@@ -21,10 +21,6 @@
 */
 package org.jboss.test.metadata.javaee;
 
-import java.util.Set;
-
-import javax.persistence.PersistenceContextType;
-
 import org.jboss.annotation.javaee.Description;
 import org.jboss.annotation.javaee.Descriptions;
 import org.jboss.annotation.javaee.DisplayName;
@@ -49,8 +45,6 @@ import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.IconsImpl;
 import org.jboss.metadata.javaee.spec.LifecycleCallbackMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
@@ -76,7 +70,12 @@ import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceSharingScopeType;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.IdMetaData;
+
+import javax.persistence.PersistenceContextType;
+import java.util.Set;
 
 /**
  * AbstractJavaEEEverythingTest.
@@ -97,6 +96,16 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
       JBOSS,
       JBOSS_DTD,
       SPEC
+   }
+
+   protected AbstractJavaEEEverythingTest()
+   {
+      super();
+   }
+
+   protected AbstractJavaEEEverythingTest(String name)
+   {
+      super(name);
    }
    
    protected void assertId(String prefix, Object object)

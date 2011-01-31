@@ -1,0 +1,20 @@
+<!DOCTYPE ejb-jar PUBLIC '-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 1.1//EN' 'http://java.sun.com/j2ee/dtds/ejb-jar_1_1.dtd'>
+
+<ejb-jar >
+   <display-name>Whitespace</display-name>
+   <enterprise-beans>
+      <session>
+        <ejb-name>WhitespaceBean </ejb-name>
+        <home>Home</home>
+        <remote>Remote</remote>
+        <ejb-class>WhitespaceBean </ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+         <env-entry>
+            <env-entry-name>whitespace</env-entry-name>
+            <env-entry-type>java.lang.String</env-entry-type>
+            <env-entry-value> </env-entry-value>
+         </env-entry>
+      </session>
+   </enterprise-beans>
+</ejb-jar>

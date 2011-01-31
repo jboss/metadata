@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss xmlns="http://www.jboss.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+    version="3.0">
+    <jndi-binding-policy>org.jboss.metadata.test.AppJndiBindingPolicy</jndi-binding-policy>
+    <enterprise-beans>
+        <ejb>
+            <ejb-name>EjbBean</ejb-name>
+            <jndi-name>servlet_annotation_StatelessTestBean</jndi-name>
+            <jndi-binding-policy>org.jboss.metadata.test.EjbJndiBindingPolicy</jndi-binding-policy>
+        </ejb>
+        <message-driven>
+            <ejb-name>MdbName</ejb-name>
+            <destination-jndi-name>MDB_QUEUE_BMT_DEST</destination-jndi-name>
+<!-- what would it mean for an mdb? <jndi-binding-policy>org.jboss.metadata.test.MdbJndiBindingPolicy</jndi-binding-policy> -->
+        </message-driven>
+        <session>
+            <ejb-name>SessionBean</ejb-name>
+            <jndi-binding-policy>org.jboss.metadata.test.SessionJndiBindingPolicy</jndi-binding-policy>
+        </session>
+    </enterprise-beans>
+</jboss>

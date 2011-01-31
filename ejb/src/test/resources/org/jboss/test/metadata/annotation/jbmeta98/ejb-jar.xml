@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 metadata-complete="false"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+		 version="3.0">
+    <enterprise-beans>
+        <session>
+            <ejb-name>RemoveBean</ejb-name>
+            <session-type>Stateful</session-type>
+            <remove-method>
+                <bean-method>
+                    <method-name>retain</method-name>
+                </bean-method>
+                <!-- specified in the annotation
+                <retain-if-exception>true</retain-if-exception>
+                -->
+            </remove-method>
+			<remove-method>
+                <bean-method>
+                    <method-name>retain</method-name>
+                    <method-params>
+                    	<method-param>boolean</method-param>
+                    </method-params>
+                </bean-method>
+                <!-- specified in the annotation
+                <retain-if-exception>true</retain-if-exception>
+                -->
+            </remove-method>
+            <remove-method>
+                <bean-method>
+                    <method-name>remove</method-name>
+					<method-params>
+                    </method-params>
+                </bean-method>
+                <!--  the default value is false
+                <retain-if-exception>false</retain-if-exception>
+                 -->
+            </remove-method>
+            <!-- annotation
+            <remove-method>
+                <bean-method>
+                    <method-name>remove</method-name>
+                    <method-params>
+                    	<method-param>boolean</method-param>
+                    </method-params>
+                </bean-method>
+            </remove-method>
+                        <remove-method>
+                <bean-method>
+                    <method-name>remove</method-name>
+                    <method-params>
+                    	<method-param>boolean</method-param>
+                    	<method-param>boolean</method-param>
+                    </method-params>
+                </bean-method>
+            </remove-method>
+             -->
+            <transaction-type>Container</transaction-type>
+            <security-identity>
+                <use-caller-identity/>
+            </security-identity>
+        </session>
+    </enterprise-beans>
+</ejb-jar>

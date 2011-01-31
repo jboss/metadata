@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: Default2xNamingStrategyTestCase_testRemoteHomeWithEarScope.xml 76118 2008-07-23 02:39:03Z scott.stark@jboss.org $ -->
+<ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd"
+   version="2.1"
+   id="ejb-jar-id">
+         
+   <description>testRemoteHomeWithEarScope ejb-jar.xml</description>
+   <enterprise-beans id="enterprise-beans-id">
+
+      <session id="session1Ejb">
+         <ejb-name>session1EjbName</ejb-name>
+
+         <home>session1Home</home>
+         <remote>session1Remote</remote>
+         <local-home>session1LocalHome</local-home>
+         <local>session1Local</local>
+         <ejb-class>session1EjbClass</ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+      </session>
+
+      <entity id="entity1Ejb">
+         <ejb-name>entity1EjbName</ejb-name>
+         <home>entity1Home</home>
+         <remote>entity1Remote</remote>
+         <local-home>entity1LocalHome</local-home>
+         <local>entity1Local</local>
+         <ejb-class>entity1Class</ejb-class>
+         <persistence-type>Container</persistence-type>
+         <prim-key-class>entity1KeyClass</prim-key-class>
+         <reentrant>false</reentrant>
+      </entity>
+   </enterprise-beans>   
+</ejb-jar>

@@ -67,8 +67,9 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
     /**
      * Merge an environment
      *
-     * @param jbossEnvironmentRefsGroup the override environment
-     * @param environmentRefsGroup the overriden environment
+     * @param dest the destination
+     * @param jbossEnv the override environment
+     * @param specEnv the overriden environment
      * @param overridenFile the overriden file name
      * @param overrideFile the override file
      * @return the merged environment
@@ -125,9 +126,9 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
 
     }
 
-    public void merge(JBossEnvironmentRefsGroupMetaData dest, JBossEnvironmentRefsGroupMetaData override, JBossEnvironmentRefsGroupMetaData original,
+    public static void merge(JBossEnvironmentRefsGroupMetaData dest, JBossEnvironmentRefsGroupMetaData override, JBossEnvironmentRefsGroupMetaData original,
             ResourceManagersMetaData resourceManagers) {
-        super.merge(dest, override, original, "deployment descriptors", "annotations", false);
+        merge(dest, override, original, "deployment descriptors", "annotations", false);
 
         EJBLocalReferencesMetaData originalLocalRefs = null;
         PersistenceContextReferencesMetaData originalPctxRefs = null;

@@ -53,6 +53,7 @@
     <modules>
         <module>common</module>
         <module>ear</module>
+        <module>ejb</module>
         <module>web</module>
     </modules>
 
@@ -112,29 +113,31 @@
             <!-- Modules in this project -->
 
             <dependency>
-                <groupId>org.jboss.as.metadata</groupId>
+                <groupId>org.jboss.metadata</groupId>
                 <artifactId>jboss-metadata-common</artifactId>
-                <type>pom</type>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.jboss.as.metadata</groupId>
+                <groupId>org.jboss.metadata</groupId>
+                <artifactId>jboss-metadata-common</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.metadata</groupId>
+                <artifactId>jboss-metadata-ejb</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.metadata</groupId>
                 <artifactId>jboss-metadata-web</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.jboss.as.metadata</groupId>
-                <artifactId>jboss-metadata-merge</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jboss.as.metadata</groupId>
-                <artifactId>jboss-metadata-parser</artifactId>
-                <version>${project.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 

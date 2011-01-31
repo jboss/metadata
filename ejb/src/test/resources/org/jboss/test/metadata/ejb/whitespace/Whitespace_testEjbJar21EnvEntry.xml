@@ -1,0 +1,19 @@
+<ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd"
+       version="2.1">
+   <display-name>Whitespace</display-name>
+   <enterprise-beans>
+      <session>
+        <ejb-name>WhitespaceBean </ejb-name>
+        <ejb-class>WhitespaceBean </ejb-class>
+         <session-type>Stateless</session-type>
+         <transaction-type>Container</transaction-type>
+         <env-entry>
+            <env-entry-name>whitespace</env-entry-name>
+            <env-entry-type>java.lang.String</env-entry-type>
+            <env-entry-value> </env-entry-value>
+         </env-entry>
+      </session>
+   </enterprise-beans>
+</ejb-jar>

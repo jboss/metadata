@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ejb-jar PUBLIC
+   "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"
+   "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+   
+<ejb-jar id="ejb-jar_2_0">
+    <description>Basic version tests</description>
+    <enterprise-beans>
+        <session id="session0">
+            <ejb-name>session0-name</ejb-name>
+            <ejb-class>session0.class</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+    </enterprise-beans>
+</ejb-jar>       

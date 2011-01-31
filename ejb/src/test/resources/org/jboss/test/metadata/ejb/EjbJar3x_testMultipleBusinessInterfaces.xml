@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
+	version="3.0" id="ejb-jar-multiple-business-interfaces">
+	<enterprise-beans>
+		<session>
+			<ejb-name>MultipleBusinessInterfacesBean</ejb-name>
+			<business-local>
+				org.jboss.test.InterfaceLocal1
+			</business-local>
+			<business-local>
+				org.jboss.test.InterfaceLocal2
+			</business-local>
+			<business-remote>
+				org.jboss.test.InterfaceRemote1
+			</business-remote>
+			<business-remote>
+				org.jboss.test.InterfaceRemote2
+			</business-remote>
+			<ejb-class>
+				org.jboss.ejb3.test.MultipleBusinessInterfacesBean
+			</ejb-class>
+			<session-type>Stateless</session-type>
+		</session>
+	</enterprise-beans>
+</ejb-jar>

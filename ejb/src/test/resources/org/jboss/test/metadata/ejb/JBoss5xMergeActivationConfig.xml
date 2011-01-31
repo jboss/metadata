@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: JBoss5xEverything_testEverything.xml 66795 2007-11-06 18:37:23Z bstansberry@jboss.com $ -->
+
+<jboss xmlns="http://www.jboss.com/xml/ns/javaee"
+       xmlns:jee="http://java.sun.com/xml/ns/javaee"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+       version="5.0">
+   
+   <enterprise-beans>
+
+      <message-driven>
+         <ejb-name>testmdb</ejb-name>
+         <activation-config>
+            <activation-config-property>
+               <activation-config-property-name>jboss1</activation-config-property-name>
+               <activation-config-property-value>FromJBoss1</activation-config-property-value>
+            </activation-config-property>
+            <activation-config-property>
+               <activation-config-property-name>jboss2</activation-config-property-name>
+               <activation-config-property-value>FromJBoss2</activation-config-property-value>
+            </activation-config-property>
+            <activation-config-property>
+               <activation-config-property-name>shared1</activation-config-property-name>
+               <activation-config-property-value>FromJBossShared1</activation-config-property-value>
+            </activation-config-property>
+            <activation-config-property>
+               <activation-config-property-name>shared2</activation-config-property-name>
+               <activation-config-property-value>FromJBossShared2</activation-config-property-value>
+            </activation-config-property>
+         </activation-config>
+      </message-driven>
+   
+   </enterprise-beans>
+
+</jboss>

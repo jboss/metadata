@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss xmlns="http://www.jboss.com/xml/ns/javaee" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+       version="3.0">
+  <unauthenticated-principal>guest</unauthenticated-principal>
+  <enterprise-beans>
+    <session>
+      <ejb-name>SessionBean</ejb-name>
+      <local-binding>
+      	<jndi-name>LocalJndiBinding</jndi-name> 
+      </local-binding>
+      <jndi-name>jndiNameSessionBean</jndi-name>
+      <home-jndi-name>homeJndiNameSessionBean</home-jndi-name>
+    </session>
+    <service>
+      <ejb-name>ServiceBean</ejb-name>
+      <local-binding>
+      	<jndi-name>LocalJndiServiceBinding</jndi-name> 
+      </local-binding>
+      <jndi-name>jndiNameServiceBean</jndi-name>
+      <home-jndi-name>homeJndiNameServiceBean</home-jndi-name>
+    </service>
+  </enterprise-beans>
+</jboss>

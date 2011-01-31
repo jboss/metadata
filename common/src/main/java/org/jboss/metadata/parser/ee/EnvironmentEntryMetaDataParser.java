@@ -77,7 +77,7 @@ public class EnvironmentEntryMetaDataParser extends MetaDataElementParser {
                     environmentEntry.setType(getElementText(reader));
                     break;
                 case ENV_ENTRY_VALUE:
-                    environmentEntry.setValue(getElementText(reader));
+                    environmentEntry.setValue(getElementText(reader, false));
                     break;
                 default: throw unexpectedElement(reader);
             }

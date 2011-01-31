@@ -40,6 +40,14 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>org/jboss/metadata/annotation/creator/ws/WebServiceHandlerChainProcessor.java</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
@@ -111,11 +119,11 @@
       <version>2.1.4</version>
     </dependency>
 
-    <dependency>
-       <groupId>org.jboss.javaee</groupId>
-       <artifactId>jboss-ejb-api</artifactId>
-       <version>3.0.0.GA</version>
-    </dependency>
+     <dependency>
+        <groupId>org.jboss.spec.javax.ejb</groupId>
+        <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+        <version>1.0.0.Final</version>
+     </dependency>
 
     <dependency>
        <groupId>org.jboss.spec.javax.annotation</groupId>
