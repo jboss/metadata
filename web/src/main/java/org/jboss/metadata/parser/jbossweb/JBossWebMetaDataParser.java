@@ -151,6 +151,12 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 	}
                 	overlays.add(getElementText(reader));
                 	break;
+                case SECURITY_DOMAIN:
+                	wmd.setSecurityDomain(getElementText(reader));
+                	break;
+                case JACC_STAR_ROLE_ALLOW:
+                	wmd.setJaccAllStoreRole(Boolean.valueOf(getElementText(reader)));
+                	break;
                 default: throw unexpectedElement(reader);
             }
         }
