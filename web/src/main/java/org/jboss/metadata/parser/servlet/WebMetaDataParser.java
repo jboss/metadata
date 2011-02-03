@@ -48,14 +48,22 @@ import org.jboss.metadata.web.spec.WebMetaData;
  */
 public class WebMetaDataParser extends MetaDataElementParser {
 
+    @Deprecated
     public static WebMetaData parse(XMLStreamReader reader) throws XMLStreamException {
-
+        return parse(reader, null);
+    }
+    public static WebMetaData parse(XMLStreamReader reader, DTDInfo info) throws XMLStreamException {
+        
         reader.require(START_DOCUMENT, null, null);
         // Read until the first start element
         Version version = null;
         while (reader.hasNext() && reader.next() != START_ELEMENT) {
             if (reader.getEventType() == DTD) {
-                String dtdLocation = readDTDLocation(reader);
+                String dtdLocation;
+                if (info == null)
+                    dtdLocation = readDTDLocation(reader);
+                else
+                    dtdLocation = info.getSystemID();
                 if (dtdLocation != null) {
                     version = Location.getVersion(dtdLocation);
                 }
@@ -103,6 +111,10 @@ public class WebMetaDataParser extends MetaDataElementParser {
             case SERVLET_2_5: wmd = new Web25MetaData(); break;
             case SERVLET_3_0: wmd = new Web30MetaData(); break;
         }
+
+        // Set the publicId / systemId
+        if (info != null)
+        wmd.setDTD(info.getBaseURI(), info.getPublicID(), info.getSystemID());
 
         // Handle attributes
         final int count = reader.getAttributeCount();

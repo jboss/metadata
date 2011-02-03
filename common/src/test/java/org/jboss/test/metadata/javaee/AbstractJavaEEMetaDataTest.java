@@ -92,7 +92,7 @@ public class AbstractJavaEEMetaDataTest extends TestCase
     * 
     * @param name the name
     * @return the url of the xml
- * @throws IOException 
+    * @throws IOException 
     */
    protected  InputStream findXML(String name) throws IOException
    {
@@ -102,6 +102,22 @@ public class AbstractJavaEEMetaDataTest extends TestCase
       return url.openStream();
    }
 
+   /**
+    * Find the xml
+    * 
+    * @param name the name
+    * @return the url of the xml
+    * @throws IOException 
+    */
+   protected  InputStream findXML() throws IOException
+   {
+      String name = getClass().getSimpleName();
+      int index = name.lastIndexOf("UnitTestCase");
+      if (index != -1)
+         name = name.substring(0, index);
+      name = name + "_" + getName() + ".xml";
+      return findXML(name);
+   }
    /**
     * Find the xml
     * 
