@@ -59,19 +59,15 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
  * @author Anil.Saldhana@jboss.com
  * @version $Revision $
  */
-public class WebApp6EverythingUnitTestCase extends AbstractJavaEEEverythingTest
+public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase
 {
  
    public void testEverything() throws Exception
    {
-      Web30MetaData webApp = unmarshal();
+      Web30MetaData webApp = (Web30MetaData) unmarshal();
       assertEverything(webApp, Mode.SPEC);
    }
    
-   protected Web30MetaData unmarshal() throws Exception
-   {
-      return (Web30MetaData) WebMetaDataParser.parse(getReader());
-   }
 
    protected void assertEverything(Web30MetaData webApp, Mode mode)
       throws Exception

@@ -25,16 +25,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.jboss.metadata.parser.servlet.WebMetaDataParser;
 import org.jboss.metadata.web.spec.AuthConstraintMetaData;
 import org.jboss.metadata.web.spec.MimeMappingMetaData;
 import org.jboss.metadata.web.spec.SecurityConstraintMetaData;
 import org.jboss.metadata.web.spec.TransportGuaranteeType;
-import org.jboss.metadata.web.spec.Web24MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionsMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 /**
  * Tests of 2.4 web-app elements
@@ -42,7 +39,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88255 $
  */
-public class WebApp24UnitTestCase extends AbstractJavaEEEverythingTest
+public class WebApp24UnitTestCase extends WebAppUnitTestCase
 {
    public void testSecurityConstraint() throws Exception
    {
@@ -106,10 +103,5 @@ public class WebApp24UnitTestCase extends AbstractJavaEEEverythingTest
       assertNotNull(mimeMappingMetaData);
       assertEquals("xhtml", mimeMappingMetaData.getExtension());
       assertEquals("application/xhtml+xml", mimeMappingMetaData.getMimeType());
-   }
-   
-   protected WebMetaData unmarshal() throws Exception
-   {
-      return WebMetaDataParser.parse(getReader());
    }
 }

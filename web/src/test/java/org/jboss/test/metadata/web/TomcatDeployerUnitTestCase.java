@@ -25,20 +25,19 @@ import java.io.InputStream;
 import java.net.URL;
 
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamReader;
 
 import junit.framework.TestCase;
 
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.merge.web.jboss.JBossWebMetaDataMerger;
-import org.jboss.metadata.merge.web.spec.WebCommonMetaDataMerger;
 import org.jboss.metadata.parser.servlet.WebMetaDataParser;
-import org.jboss.metadata.parser.util.NoopXmlResolver;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.web.jboss.JBoss50WebMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.web.spec.Web23MetaData;
 import org.jboss.metadata.web.spec.Web24MetaData;
 import org.jboss.metadata.web.spec.Web25MetaData;
-import org.jboss.metadata.web.spec.WebCommonMetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
@@ -63,7 +62,7 @@ public class TomcatDeployerUnitTestCase extends TestCase
       assertNotNull(dg);
       assertEquals("TomcatDeployer_confweb.xml", dg.getDescription());
       assertEquals("web-app_2_3", webApp.getId());
-      // TODO: broken for the moment ... assertEquals("2.3", webApp.getVersion());
+      assertEquals("2.3", webApp.getVersion());
    }
    public void testConfweb24() throws Exception
    {
@@ -72,7 +71,7 @@ public class TomcatDeployerUnitTestCase extends TestCase
       assertNotNull(dg);
       assertEquals("TomcatDeployer_confweb.xml", dg.getDescription());
       assertEquals("web-app_2_4", webApp.getId());
-      // TODO: broken for the moment ...assertEquals("2.4", webApp.getVersion());
+      assertEquals("2.4", webApp.getVersion());
       assertNotNull(webApp.getServletByName("default"));
       assertEquals(0, webApp.getServletByName("default").getLoadOnStartupInt());
    }
@@ -83,7 +82,7 @@ public class TomcatDeployerUnitTestCase extends TestCase
       assertNotNull(dg);
       assertEquals("TomcatDeployer_confweb.xml", dg.getDescription());
       assertEquals("web-app_2_5", webApp.getId());
-      // TODO: broken for the moment assertEquals("2.5", webApp.getVersion());
+      assertEquals("2.5", webApp.getVersion());
    }
 
    protected JBossWebMetaData unmarshal(Class clazz)
@@ -103,10 +102,12 @@ public class TomcatDeployerUnitTestCase extends TestCase
       if (webXml == null)
          throw new IllegalStateException("Unable to find: "+name);
       // SchemaBinding schema = JBossXBBuilder.build(clazz);
+      MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
       final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
       InputStream  is = webXml.openStream();
-      inputFactory.setXMLResolver(NoopXmlResolver.create());
-      WebMetaData confWebMD = WebMetaDataParser.parse(inputFactory.createXMLStreamReader(is));
+      inputFactory.setXMLResolver(info);
+      XMLStreamReader reader = inputFactory.createXMLStreamReader(is);
+      WebMetaData confWebMD = WebMetaDataParser.parse(reader, info);
       JBoss50WebMetaData sharedMetaData = new JBoss50WebMetaData();
       JBossWebMetaDataMerger.merge(sharedMetaData, null, confWebMD);
 

@@ -22,11 +22,9 @@
 package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.parser.servlet.WebMetaDataParser;
 import org.jboss.metadata.web.spec.ServletMetaData;
 import org.jboss.metadata.web.spec.Web23MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 /**
  * Test all entries of 2.3 web-app
@@ -34,7 +32,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88255 $
  */
-public class WebApp23UnitTestCase extends AbstractJavaEEEverythingTest
+public class WebApp23UnitTestCase extends WebAppUnitTestCase
 {
    protected void assertEverything(WebMetaData webApp)
    {
@@ -60,14 +58,7 @@ public class WebApp23UnitTestCase extends AbstractJavaEEEverythingTest
       assertEquals("A servlet 2.3 descriptor", dg.getDescription());
       assertEquals("web-app_2_3", webApp.getId());
       assertEquals("2.3", webApp.getVersion());
-      /* TODO: Broken for the moment
       assertEquals("-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN", webApp.getDtdPublicId());
-       */
       assertEquals("web-app_2_3-display-name", dg.getDisplayName());
-   }
-
-   protected WebMetaData unmarshal() throws Exception
-   {
-      return WebMetaDataParser.parse(getReader());
    }
 }

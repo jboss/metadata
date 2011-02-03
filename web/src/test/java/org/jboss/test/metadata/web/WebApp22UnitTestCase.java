@@ -22,15 +22,9 @@
 package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.parser.servlet.WebMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.web.spec.ServletMetaData;
 import org.jboss.metadata.web.spec.Web22MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
-
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * Test all entries of 2.2 web-app
@@ -38,7 +32,7 @@ import javax.xml.stream.XMLStreamReader;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88255 $
  */
-public class WebApp22UnitTestCase extends AbstractJavaEEEverythingTest
+public class WebApp22UnitTestCase extends WebAppUnitTestCase
 {
    protected void assertEverything(WebMetaData webApp)
    {
@@ -66,14 +60,5 @@ public class WebApp22UnitTestCase extends AbstractJavaEEEverythingTest
       assertEquals("2.2", webApp.getVersion());
       assertEquals("-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN", webApp.getDtdPublicId());
       assertEquals("web-app_2_2-display-name", dg.getDisplayName());
-   }
-
-   protected WebMetaData unmarshal() throws Exception
-   {
-      MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
-      final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-      inputFactory.setXMLResolver(info);
-      XMLStreamReader reader = inputFactory.createXMLStreamReader(findXML());
-      return WebMetaDataParser.parse(reader, info);
    }
 }
