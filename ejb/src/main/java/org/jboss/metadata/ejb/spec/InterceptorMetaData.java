@@ -21,10 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
@@ -60,8 +56,6 @@ import org.jboss.metadata.merge.javaee.support.NamedMetaDataMerger;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="interceptorType", propOrder={"descriptions", "interceptorClass", "aroundInvokes", "jndiEnvironmentRefsGroup",
-      "postActivates", "prePassivates"})
 public class InterceptorMetaData extends NamedMetaDataWithDescriptions implements Environment
 {
    /** The serialVersionUID */
@@ -147,7 +141,6 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
     * @param aroundInvokes the aroundInvokes.
     * @throws IllegalArgumentException for a null aroundInvokes
     */
-   @XmlElement(name="around-invoke")
    public void setAroundInvokes(AroundInvokesMetaData aroundInvokes)
    {
       if (aroundInvokes == null)
@@ -171,7 +164,6 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
     * @param postActivates the postActivates.
     * @throws IllegalArgumentException for a null postActivates
     */
-   @XmlElement(name="post-activate")
    public void setPostActivates(LifecycleCallbacksMetaData postActivates)
    {
       if (postActivates == null)
@@ -195,7 +187,6 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
     * @param prePassivates the prePassivates.
     * @throws IllegalArgumentException for a null prePassivates
     */
-   @XmlElement(name="pre-passivate")
    public void setPrePassivates(LifecycleCallbacksMetaData prePassivates)
    {
       if (prePassivates == null)
@@ -227,7 +218,6 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
       return null;
    }
    // TODO?
-   @XmlTransient
    public AnnotatedEJBReferencesMetaData getAnnotatedEjbReferences()
    {
       AnnotatedEJBReferencesMetaData refs = null;

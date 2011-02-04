@@ -21,17 +21,12 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * SessionType.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="session-typeType")
-@XmlEnum(String.class)
 public enum SessionType
 {
    /** Stateless session bean */

@@ -21,24 +21,12 @@
   */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlType;
-
 /**
  * A JBossMessageDrivenBeanJBoss50MetaData.
  * 
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="message-driven-beanType", propOrder={"descriptionGroup", "ejbName", "activationConfig", "destinationJndiName", "localJndiName",
-      "jndiBindingPolicy", "mdbUser", "mdbPassword", "mdbClientId", "mdbSubscriptionId", "resourceAdapterName",
-      "exceptionOnRollback", "timerPersistence", "configurationName", "invokerBindings", "securityProxy",
-      "environmentRefsGroup", "securityIdentity", "securityDomain", "methodAttributes", "depends", "iorSecurityConfig",
-      "ejbTimeoutIdentity", "annotations", "ignoreDependency", "aopDomainName", "poolConfig",
-      "jndiRefs", "createDestination"})
-@JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class JBoss50MessageDrivenBeanMetaData extends JBossMessageDrivenBean31MetaData
 {
    /** The serialVersionUID */

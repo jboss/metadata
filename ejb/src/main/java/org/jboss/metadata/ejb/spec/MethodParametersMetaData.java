@@ -23,18 +23,12 @@ package org.jboss.metadata.ejb.spec;
 
 import java.util.ArrayList;
 
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.xb.annotations.JBossXmlChild;
-
 /**
  * MethodParametersMetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="method-paramsType")
-@JBossXmlChild(name="method-param", type=String.class, unbounded=true)
 public class MethodParametersMetaData extends ArrayList<String>
 {
    /** The serialVersionUID */

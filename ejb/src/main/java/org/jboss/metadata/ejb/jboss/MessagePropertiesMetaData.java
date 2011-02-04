@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -31,7 +28,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version <tt>$Revision: 81860 $</tt>
  */
-@XmlType(name="message-propertiesType", propOrder={"className", "method", "delivery", "priority"})
 public class MessagePropertiesMetaData extends IdMetaDataImpl
 {
    private MethodAttributeMetaData method;
@@ -59,7 +55,6 @@ public class MessagePropertiesMetaData extends IdMetaDataImpl
       this.delivery = delivery;
    }
    
-   @XmlElement(name="class")
    public String getClassName()
    {
       return className;

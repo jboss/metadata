@@ -21,34 +21,22 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.LockType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.merge.MergeUtil;
 
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.LockType;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-@XmlType(name = "session-beanType", propOrder =
-{"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local", "businessLocals",
-      "businessRemotes", "localBean", "serviceEndpoint", "ejbClass", "sessionType", "statefulTimeout", "timeoutMethod", "timers", "initOnStartup",
-      "concurrencyManagementType", "concurrentMethods", "dependsOnMetaData", "initMethods", "removeMethods", "asyncMethods", "transactionType",
-      "afterBeginMethod", "beforeCompletionMethod", "afterCompletionMethod",
-      "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
-//@JBossXmlType(modelGroup = JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeoutTarget, IScheduleTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
 {
    private static final long serialVersionUID = 1L;
@@ -112,7 +100,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       return initOnStartup;
    }
 
-   @XmlElement(name = "init-on-startup", required = false)
    public void setInitOnStartup(Boolean initOnStartup)
    {
       this.initOnStartup = initOnStartup;
@@ -123,7 +110,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       return asyncMethods;
    }
 
-   @XmlElement(name = "async-method", required = false)
    public void setAsyncMethods(AsyncMethodsMetaData asyncMethods)
    {
       if (asyncMethods == null)
@@ -151,7 +137,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * @param isNoInterfaceBean True if the bean exposes a no-interface
     *                           view. Else set to false. 
     */
-   @XmlElement(name = "local-bean", required = false)
    public void setLocalBean(EmptyMetaData localBean)
    {
       this.localBean = localBean;
@@ -192,8 +177,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * @param concurrencyManagementType The concurrency management type
     * @throws If the passed <code>concurrencyManagementType</code> is null
     */
-   @XmlElement(name = "concurrency-management-type", required = false)
-   @XmlJavaTypeAdapter(ConcurrencyManagementTypeAdapter.class)
    public void setConcurrencyManagementType(ConcurrencyManagementType concurrencyManagementType)
    {
       if (concurrencyManagementType == null)
@@ -217,7 +200,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * @param concurrentMethods
     * @throws IllegalArgumentException If the passed <code>concurrentMethods</code> is null
     */
-   @XmlElement(name = "concurrent-method", required = false)
    public void setConcurrentMethods(ConcurrentMethodsMetaData concurrentMethods)
    {
       this.concurrentMethods = concurrentMethods;
@@ -305,7 +287,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
     * 
     * @param dependsOn The singleton bean dependencies 
     */
-   @XmlElement(name = "depends-on", required = false)
    public void setDependsOnMetaData(DependsOnMetaData dependsOnMetaData)
    {
       this.dependsOn = dependsOnMetaData;
@@ -333,7 +314,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       return this.timers;
    }
    
-   @XmlElement (name = "timer", required = false)
    @Override
    public void setTimers(List<TimerMetaData> timers)
    {
@@ -355,7 +335,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       return afterBeginMethod;
    }
    
-   @XmlElement(name = "after-begin-method", required = false)
    public void setAfterBeginMethod(NamedMethodMetaData method)
    {
       this.afterBeginMethod = method;
@@ -366,7 +345,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       return beforeCompletionMethod;
    }
 
-   @XmlElement(name = "before-completion-method", required = false)
    public void setBeforeCompletionMethod(NamedMethodMetaData method)
    {
       this.beforeCompletionMethod = method;
@@ -377,7 +355,6 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
       return afterCompletionMethod;
    }
 
-   @XmlElement(name = "after-completion-method", required = false)
    public void setAfterCompletionMethod(NamedMethodMetaData method)
    {
       this.afterCompletionMethod = method;

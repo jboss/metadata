@@ -21,8 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
 /**
  * EjbJar3xMetaData.
  * 
@@ -69,7 +67,6 @@ public abstract class EjbJar3xMetaData extends EjbJarMetaData
     * 
     * @param metadataComplete the metadataComplete.
     */
-   @XmlAttribute
    public void setMetadataComplete(boolean metadataComplete)
    {
       this.metadataComplete = metadataComplete;
@@ -104,7 +101,6 @@ public abstract class EjbJar3xMetaData extends EjbJarMetaData
     * @param version the version.
     * @throws IllegalArgumentException for a null version
     */
-   @XmlAttribute
    public void setVersion(String version)
    {
       super.setVersion(version);

@@ -21,9 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaData;
 
 
@@ -33,7 +30,6 @@ import org.jboss.metadata.javaee.support.NamedMetaData;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="activation-config-propertyType", propOrder={"activationConfigPropertyName", "value"})
 public class ActivationConfigPropertyMetaData extends NamedMetaData
 {
    /** The serialVersionUID */
@@ -87,7 +83,6 @@ public class ActivationConfigPropertyMetaData extends NamedMetaData
     * @param value the value.
     * @throws IllegalArgumentException for a null value
     */
-   @XmlElement(name="activation-config-property-value")
    public void setValue(String value)
    {
       if (value == null)

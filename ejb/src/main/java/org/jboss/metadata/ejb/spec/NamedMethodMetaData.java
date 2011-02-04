@@ -23,15 +23,12 @@ package org.jboss.metadata.ejb.spec;
 
 import org.jboss.metadata.javaee.support.NamedMetaData;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * NamedMethodMetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="named-methodType", propOrder={"methodName", "methodParams"})
 public class NamedMethodMetaData extends NamedMetaData
 {
    /** The serialVersionUID */

@@ -21,9 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
 
@@ -33,7 +30,6 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMer
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="activation-configType", propOrder={"descriptions", "activationConfigProperties"})
 public class ActivationConfigMetaData extends IdMetaDataImplWithDescriptions
 {
    /** The serialVersionUID */
@@ -66,7 +62,6 @@ public class ActivationConfigMetaData extends IdMetaDataImplWithDescriptions
     * @param activationConfigProperties the activationConfigProperties.
     * @throws IllegalArgumentException for a null activationConfigProperties
     */
-   @XmlElement(name="activation-config-property")
    public void setActivationConfigProperties(ActivationConfigPropertiesMetaData activationConfigProperties)
    {
       if (activationConfigProperties == null)

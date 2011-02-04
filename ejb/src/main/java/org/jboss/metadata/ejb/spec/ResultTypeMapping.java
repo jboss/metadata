@@ -21,15 +21,12 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * ResultTypeMapping.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="result-type-mappingType")
 public enum ResultTypeMapping
 {
    /** Local */

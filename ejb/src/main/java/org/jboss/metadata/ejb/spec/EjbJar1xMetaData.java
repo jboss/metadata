@@ -21,30 +21,12 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.xb.annotations.JBossXmlSchema;
-
 /**
  * EjbJar1xMetaData.
  * 
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 66015 $
  */
-@XmlRootElement(name="ejb-jar", namespace="")
-@JBossXmlSchema(
-      xmlns={@XmlNs(namespaceURI = "", prefix = "jee")},
-      ignoreUnresolvedFieldOrClass=false,
-      namespace="",
-      elementFormDefault=XmlNsForm.QUALIFIED,
-      normalizeSpace=true)
-@XmlType(name="ejb-jarType",
-      namespace="",
-      propOrder={"descriptionGroup", "enterpriseBeans", "assemblyDescriptor", "ejbClientJar"})
 public class EjbJar1xMetaData extends EjbJarMetaData
 {
    /**
@@ -53,7 +35,6 @@ public class EjbJar1xMetaData extends EjbJarMetaData
     * @param version the version.
     * @throws IllegalArgumentException for a null version
     */
-   @XmlAttribute
    public void setVersion(String version)
    {
       super.setVersion(version);

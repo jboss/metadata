@@ -21,13 +21,11 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlType;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-@XmlType(name = "stateful-timeoutType", propOrder = {"timeout", "unit"})
 public class StatefulTimeoutMetaData extends AbstractTimeoutMetaData
 {
    private static final long serialVersionUID = -467025454498279681L;

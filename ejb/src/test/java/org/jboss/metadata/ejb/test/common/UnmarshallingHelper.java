@@ -24,13 +24,9 @@ package org.jboss.metadata.ejb.test.common;
 import org.jboss.metadata.ejb.parser.spec.EjbJarMetaDataParser;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.parser.util.NoopXmlResolver;
-import org.jboss.xb.binding.JBossXBException;
-import org.jboss.xb.binding.Unmarshaller;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
-import java.net.URL;
 
 import static org.junit.Assert.fail;
 

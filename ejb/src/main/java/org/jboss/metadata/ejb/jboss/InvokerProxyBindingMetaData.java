@@ -21,9 +21,6 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 import org.w3c.dom.Element;
 
@@ -33,7 +30,6 @@ import org.w3c.dom.Element;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="invoker-proxy-bindingType", propOrder={"descriptions", "name", "invokerProxyBindingName", "invokerMBean", "proxyFactory", "proxyFactoryConfig"})
 public class InvokerProxyBindingMetaData extends NamedMetaDataWithDescriptions
 {
    /** The serialVersionUID */
@@ -85,7 +81,6 @@ public class InvokerProxyBindingMetaData extends NamedMetaDataWithDescriptions
     * @param invokerMBean the invokerMBean.
     * @throws IllegalArgumentException for a null invokerMBean
     */
-   @XmlElement(name="invoker-mbean")
    public void setInvokerMBean(String invokerMBean)
    {
       if (invokerMBean == null)

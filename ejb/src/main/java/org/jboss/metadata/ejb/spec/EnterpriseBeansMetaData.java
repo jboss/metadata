@@ -21,16 +21,12 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * EnterpriseBeansMetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="enterprise-beansType")
 public class EnterpriseBeansMetaData
    extends EnterpriseBeansMap<AssemblyDescriptorMetaData, EnterpriseBeansMetaData, EnterpriseBeanMetaData, EjbJarMetaData>
 {
@@ -64,7 +60,6 @@ public class EnterpriseBeansMetaData
     * @param ejbJarMetaData the ejbJarMetaData.
     * @throws IllegalArgumentException for a null ejbJarMetaData
     */
-   @XmlTransient
    public void setEjbJarMetaData(EjbJarMetaData ejbJarMetaData)
    {
       if (ejbJarMetaData == null)

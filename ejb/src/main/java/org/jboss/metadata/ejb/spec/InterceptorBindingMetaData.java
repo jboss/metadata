@@ -21,10 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
 /**
@@ -33,8 +29,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="interceptor-bindingType", propOrder={"descriptions", "ejbName", "interceptorClasses", "interceptorOrder",
-      "excludeDefaultInterceptors", "excludeClassInterceptors", "method"})
 public class InterceptorBindingMetaData extends NamedMetaDataWithDescriptions
 {
    /** The serialVersionUID */
@@ -140,7 +134,6 @@ public class InterceptorBindingMetaData extends NamedMetaDataWithDescriptions
     * @param interceptorClasses the interceptorClasses.
     * @throws IllegalArgumentException for a null interceptorClasses
     */
-   @XmlElement(name="interceptor-class")
    public void setInterceptorClasses(InterceptorClassesMetaData interceptorClasses)
    {
       if (interceptorClasses == null)
@@ -155,7 +148,6 @@ public class InterceptorBindingMetaData extends NamedMetaDataWithDescriptions
     * Is this binding a total ordering or a list of interceptor classes.
     * @return   true if it is a total ordering
     */
-   @XmlTransient
    public boolean isTotalOrdering()
    {
       return interceptorOrder != null;

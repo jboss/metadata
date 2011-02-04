@@ -26,10 +26,6 @@ import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * SecurityIdentityMetaData.
  * 
@@ -37,7 +33,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-@XmlType(name="security-identityType", propOrder={"descriptions", "useCallerIdentity", "runAs", "runAsPrincipal"})
 public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //implements MergeableMetaData<SecurityIdentityMetaData>
 {
    /** The serialVersionUID */
@@ -65,7 +60,6 @@ public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //i
     * 
     * @return true for caller id
     */
-   @XmlTransient
    public boolean isUseCallerId()
    {
       return useCallerIdentity != null;
@@ -76,7 +70,6 @@ public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //i
     * 
     * @return the useCallerIdentity.
     */
-   @XmlElement(name="use-caller-identity")
    public EmptyMetaData getUseCallerIdentity()
    {
       return useCallerIdentity;
@@ -87,7 +80,6 @@ public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //i
     * 
     * @param useCallerIdentity the useCallerIdentity.
     */
-   @XmlElement(required=false)
    public void setUseCallerIdentity(EmptyMetaData useCallerIdentity)
    {
       this.useCallerIdentity = useCallerIdentity;
@@ -109,8 +101,6 @@ public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //i
     * @param runAs the runAs.
     * @throws IllegalArgumentException for a null runAs
     */
-   @XmlElement(required=false)
-   //@JBossXmlNsPrefix(prefix="jee")
    public void setRunAs(RunAsMetaData runAs)
    {
       if (runAs == null)
@@ -134,7 +124,6 @@ public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //i
     * @param runAsPrincipal the runAsPrincipal.
     * @throws IllegalArgumentException for a null runAsPrincipal
     */
-   @XmlElement(required=false)
    public void setRunAsPrincipal(String runAsPrincipal)
    {
       if (runAsPrincipal == null)

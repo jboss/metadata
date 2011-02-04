@@ -21,19 +21,14 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.ejb.Schedule;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.merge.MergeUtil;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlType;
+
+import javax.ejb.Schedule;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Metadata for EJB3.1 MDBs
@@ -41,12 +36,6 @@ import org.jboss.xb.annotations.JBossXmlType;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-@XmlType(name="message-driven-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "ejbClass",
-      "transactionType", "messageSelector", "acknowledgeMode", "messageDrivenDestination", // <!-- these are ejb2.x
-      "messagingType",
-      "timeoutMethod", "timers", "transactionType", "messageDestinationType", "messageDestinationLink", "activationConfig", "aroundInvokes",
-      "environmentRefsGroup", "securityIdentity"})
-@JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)      
 public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData implements ITimeoutTarget, IScheduleTarget
 {
 
@@ -68,7 +57,6 @@ public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData imple
     * Sets the {@link TimerMetaData} for this bean
     */
    @Override
-   @XmlElement (name = "timer", required = false)
    public void setTimers(List<TimerMetaData> timers)
    {
       this.timers = timers;

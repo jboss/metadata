@@ -23,16 +23,12 @@ package org.jboss.metadata.ejb.spec;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * AroundInvokeMetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="around-invokeType", propOrder={"className", "methodName"})
 public class AroundInvokeMetaData implements Serializable
 {
    /** The serialVersionUID */
@@ -68,7 +64,6 @@ public class AroundInvokeMetaData implements Serializable
     * @param className the className.
     * @throws IllegalArgumentException for a null className
     */
-   @XmlElement(name="class")
    public void setClassName(String className)
    {
       if (className == null)

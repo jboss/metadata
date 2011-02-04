@@ -73,7 +73,6 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.test.AbstractTestSetup;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 import org.jboss.util.NotImplementedException;
-import org.jboss.xb.binding.sunday.unmarshalling.SchemaBindingResolver;
 
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
@@ -1438,12 +1437,6 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    @Deprecated
    protected <T> T unmarshal(String name, Class<T> expected) throws Exception
    {
-      return unmarshal(name, expected, null);
-   }
-
-   @Deprecated
-   protected <T> T unmarshal(String name, Class<T> expected, SchemaBindingResolver resolver) throws Exception
-   {
       try
       {
          MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
@@ -1460,5 +1453,12 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
          fail("Failed to parse " + name + ": " + e.getMessage());
          throw e;
       }
+   }
+
+   @Deprecated
+   protected <T> T unmarshal(String name, Class<T> expected, Object resolver) throws Exception
+   {
+      assertNull("specifying a resolver is no longer supported", resolver);
+      return unmarshal(name, expected);
    }
 }

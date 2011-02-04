@@ -21,13 +21,10 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.Set;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
+
+import java.util.Set;
 
 /**
  * MethodPermissionMetaData.
@@ -35,7 +32,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="method-permissionType", propOrder={"descriptions", "roles", "unchecked", "methods"})
 public class MethodPermissionMetaData extends IdMetaDataImplWithDescriptions
 {
    /** The serialVersionUID */
@@ -103,7 +99,6 @@ public class MethodPermissionMetaData extends IdMetaDataImplWithDescriptions
     * 
     * @param roles the roles.
     */
-   @XmlElement(name="role-name"/*, type=NonNullLinkedHashSet.class*/)
    public void setRoles(Set<String> roles)
    {
       this.roles = roles;
@@ -125,7 +120,6 @@ public class MethodPermissionMetaData extends IdMetaDataImplWithDescriptions
     * @param methods the methods.
     * @throws IllegalArgumentException for a null methods
     */
-   @XmlElement(name="method")
    public void setMethods(MethodsMetaData methods)
    {
       if (methods == null)

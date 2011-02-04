@@ -21,15 +21,10 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.ArrayList;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.annotation.javaee.Descriptions;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.support.IdMetaData;
+
+import java.util.ArrayList;
 
 /**
  * RelationsMetaData.
@@ -38,7 +33,6 @@ import org.jboss.metadata.javaee.support.IdMetaData;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-@XmlType(name="relationshipsType", propOrder={"descriptions"})
 public class RelationsMetaData extends ArrayList<RelationMetaData>
    implements IdMetaData
 {
@@ -62,7 +56,6 @@ public class RelationsMetaData extends ArrayList<RelationMetaData>
       return id;
    }
 
-   @XmlAttribute
    public void setId(String id)
    {
       if (id == null)
@@ -86,7 +79,6 @@ public class RelationsMetaData extends ArrayList<RelationMetaData>
     * @param descriptions the descriptions.
     * @throws IllegalArgumentException for a null descriptions
     */
-   @XmlElement(name="description", type=DescriptionsImpl.class)
    public void setDescriptions(Descriptions descriptions)
    {
       if (descriptions == null)

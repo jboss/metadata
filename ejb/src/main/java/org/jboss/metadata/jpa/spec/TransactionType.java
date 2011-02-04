@@ -21,14 +21,11 @@
 */
 package org.jboss.metadata.jpa.spec;
 
-import org.jboss.xb.annotations.JBossXmlEnum;
-
 /**
  * The transaction type.
  *
  * @author <a href="mailto:ales.justin@jboss.com">Ales Justin</a>
  */
-@JBossXmlEnum(ignoreCase = true)
 public enum TransactionType
 {
    JTA,

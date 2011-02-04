@@ -25,17 +25,12 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * Represents the metadata for the &lt;depends-on&gt; element in ejb-jar.xml
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-@XmlType(name = "depends-onType", propOrder =
-{"ejbNames"})
 public class DependsOnMetaData implements Serializable
 {
 
@@ -94,7 +89,6 @@ public class DependsOnMetaData implements Serializable
     * 
     * @param ejbNames The dependency bean names
     */
-   @XmlElement(name = "ejb-name")
    public void setEjbNames(List<String> ejbNames)
    {
       this.ejbNames = ejbNames;

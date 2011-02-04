@@ -21,8 +21,6 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
 /**
@@ -32,8 +30,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="transport-configType", propOrder={"descriptions", "integrity", "confidentiality", "establishTrustInTarget",
-      "establishTrustInClient", "detectMisordering", "detectReplay"})
 public class IORTransportConfigMetaData extends IdMetaDataImplWithDescriptions
 {
    /** The serialVersionUID */

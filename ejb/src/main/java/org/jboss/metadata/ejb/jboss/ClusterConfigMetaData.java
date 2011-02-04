@@ -24,16 +24,12 @@ package org.jboss.metadata.ejb.jboss;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * ClusterConfigMetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="cluster-configType", propOrder={"descriptions", "partitionName", "homeLoadBalancePolicy", "beanLoadBalancePolicy",
-      "loadBalancePolicy", "sessionStateManagerJndiName"})
 public class ClusterConfigMetaData extends IdMetaDataImplWithDescriptions
 {
    /** The serialVersionUID */

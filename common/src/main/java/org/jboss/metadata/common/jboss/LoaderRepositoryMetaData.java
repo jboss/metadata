@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.common.jboss;
 
-import java.util.Set;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+
+import java.util.Set;
 
 /**
  * LoaderRepositoryMetaData.
@@ -89,7 +89,6 @@ public class LoaderRepositoryMetaData extends IdMetaDataImpl {
      * @param loaderRepositoryConfig the loaderRepositoryConfig.
      * @throws IllegalArgumentException for a null loaderRepositoryConfig
      */
-    // @XmlElement(type=NonNullLinkedHashSet.class)
     public void setLoaderRepositoryConfig(Set<LoaderRepositoryConfigMetaData> loaderRepositoryConfig) {
         if (loaderRepositoryConfig == null)
             throw new IllegalArgumentException("Null loaderRepositoryConfig");

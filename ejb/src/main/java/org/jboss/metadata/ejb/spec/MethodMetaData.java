@@ -21,9 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
 /**
@@ -32,7 +29,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="methodType", propOrder={"descriptions", "ejbName", "methodIntf", "methodName", "methodParams"})
 public class MethodMetaData extends IdMetaDataImplWithDescriptions
 {
    /** The serialVersionUID */
@@ -97,7 +93,6 @@ public class MethodMetaData extends IdMetaDataImplWithDescriptions
     * @param methodInterface the methodInterface.
     * @throws IllegalArgumentException for a null methodInterface
     */
-   @XmlElement(name="method-intf")
    public void setMethodIntf(MethodInterfaceType methodInterface)
    {
       if (methodInterface == null)
@@ -140,9 +135,6 @@ public class MethodMetaData extends IdMetaDataImplWithDescriptions
 
    /**
     * Set the methodParams.
-    * 
-    * TODO this should probably be done with XmlElementWrapper annotation
-    * instead of the JBossXmlChild...
     * 
     * @param methodParams the methodParams.
     * @throws IllegalArgumentException for a null methodParams

@@ -24,8 +24,6 @@ package org.jboss.metadata.ejb.spec;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
 import javax.ejb.TransactionAttributeType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  * ContainerTransactionMetaData.
@@ -33,7 +31,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="container-transactionType", propOrder={"descriptions", "methods", "transAttribute"})
 public class ContainerTransactionMetaData extends IdMetaDataImplWithDescriptions
 {
    /** The serialVersionUID */
@@ -69,7 +66,6 @@ public class ContainerTransactionMetaData extends IdMetaDataImplWithDescriptions
     * @param methods the methods.
     * @throws IllegalArgumentException for a null methods
     */
-   @XmlElement(name="method")
    public void setMethods(MethodsMetaData methods)
    {
       if (methods == null)
@@ -82,7 +78,6 @@ public class ContainerTransactionMetaData extends IdMetaDataImplWithDescriptions
     * 
     * @return the transactionAttribute.
     */
-   @XmlElement(name="trans-attribute")
    public TransactionAttributeType getTransAttribute()
    {
       return transAttribute;
@@ -94,7 +89,6 @@ public class ContainerTransactionMetaData extends IdMetaDataImplWithDescriptions
     * @param transactionAttribute the transactionAttribute.
     * @throws IllegalArgumentException for a null transactionAttribute
     */
-   //@XmlJavaTypeAdapter(TransactionAttributeTypeAdapter.class)
    public void setTransAttribute(TransactionAttributeType transactionAttribute)
    {
       if (transactionAttribute == null)

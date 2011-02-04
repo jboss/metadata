@@ -24,12 +24,8 @@ package org.jboss.metadata.ejb.spec;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlType;
 
 import javax.ejb.TransactionManagementType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  * SessionBeanMetaData.
@@ -37,10 +33,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="session-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local",
-      "businessLocals", "businessRemotes", "serviceEndpoint", "ejbClass", "sessionType", "timeoutMethod", "initMethods", "removeMethods",
-      "transactionType", "aroundInvokes", "environmentRefsGroup", "postActivates", "prePassivates", "securityRoleRefs", "securityIdentity"})
-@JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class SessionBeanMetaData extends EnterpriseBeanMetaData
    implements ITimeoutTarget
 {
@@ -217,7 +209,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param businessLocals the businessLocals.
     * @throws IllegalArgumentException for a null businessLocasl
     */
-   @XmlElement(name="business-local", required=false)
    public void setBusinessLocals(BusinessLocalsMetaData businessLocals)
    {
       if (businessLocals == null)
@@ -241,7 +232,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param businessRemotes the businessRemotes.
     * @throws IllegalArgumentException for a null businessRemotes
     */
-   @XmlElement(name="business-remote", required=false)
    public void setBusinessRemotes(BusinessRemotesMetaData businessRemotes)
    {
       if (businessRemotes == null)
@@ -335,7 +325,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param timeoutMethod the timeoutMethod.
     * @throws IllegalArgumentException for a null timeoutMethod
     */
-   @XmlElement(required=false)
    public void setTimeoutMethod(NamedMethodMetaData timeoutMethod)
    {
       if (timeoutMethod == null)
@@ -361,7 +350,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param initMethods the initMethods.
     * @throws IllegalArgumentException for a null initMethods
     */
-   @XmlElement(name="init-method", required=false)
    public void setInitMethods(InitMethodsMetaData initMethods)
    {
       if (initMethods == null)
@@ -385,7 +373,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param removeMethods the removeMethods.
     * @throws IllegalArgumentException for a null removeMethods
     */
-   @XmlElement(name="remove-method", required=false)
    public void setRemoveMethods(RemoveMethodsMetaData removeMethods)
    {
       if (removeMethods == null)
@@ -405,7 +392,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param transactionType the transactionType.
     * @throws IllegalArgumentException for a null transactionType
     */
-   //@XmlJavaTypeAdapter(TransactionManagementTypeAdapter.class)
    public void setTransactionType(TransactionManagementType transactionType)
    {
       if (transactionType == null)
@@ -429,7 +415,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param aroundInvokes the aroundInvokes.
     * @throws IllegalArgumentException for a null aroundInvokes
     */
-   @XmlElement(name="around-invoke", required=false)
    public void setAroundInvokes(AroundInvokesMetaData aroundInvokes)
    {
       if (aroundInvokes == null)
@@ -453,7 +438,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param postActivates the postActivates.
     * @throws IllegalArgumentException for a null postActivates
     */
-   @XmlElement(name="post-activate", required=false)
    public void setPostActivates(LifecycleCallbacksMetaData postActivates)
    {
       if (postActivates == null)
@@ -477,7 +461,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param prePassivates the prePassivates.
     * @throws IllegalArgumentException for a null prePassivates
     */
-   @XmlElement(name="pre-passivate", required=false)
    public void setPrePassivates(LifecycleCallbacksMetaData prePassivates)
    {
       if (prePassivates == null)
@@ -501,7 +484,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
     * @param securityRoleRefs the securityRoleRefs.
     * @throws IllegalArgumentException for a null securityRoleRefs
     */
-   @XmlElement(name="security-role-ref")
    public void setSecurityRoleRefs(SecurityRoleRefsMetaData securityRoleRefs)
    {
       if (securityRoleRefs == null)

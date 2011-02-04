@@ -22,11 +22,7 @@
 package org.jboss.metadata.jpa.spec;
 
 import org.jboss.metadata.ejb.util.ChildrenList;
-import org.jboss.util.JBossObject;
-import org.jboss.util.JBossStringBuilder;
-import org.jboss.xb.annotations.JBossXmlSchema;
 
-import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -35,14 +31,7 @@ import java.util.List;
  * 
  * @author <a href="mailto:ales.justin@jboss.com">Ales Justin</a>
  */
-@XmlRootElement(name="persistence", namespace=PersistenceMetaDataConstants.PERSISTENCE_NS)
-@JBossXmlSchema(namespace=PersistenceMetaDataConstants.PERSISTENCE_NS, elementFormDefault= XmlNsForm.QUALIFIED)
-@XmlType(
-      name="persistenceType",
-      namespace=PersistenceMetaDataConstants.PERSISTENCE_NS,
-      propOrder={"persistenceUnits"}
-)
-public class PersistenceMetaData extends JBossObject implements Serializable
+public class PersistenceMetaData implements Serializable
 {
    private String version;
    private ChildrenList<PersistenceUnitMetaData, PersistenceMetaData> persistenceUnits = new ChildrenList<PersistenceUnitMetaData, PersistenceMetaData>(this, PersistenceUnitMetaData.adapter);
@@ -52,13 +41,11 @@ public class PersistenceMetaData extends JBossObject implements Serializable
       return version;
    }
 
-   @XmlAttribute(required = true)
    public void setVersion(String version)
    {
       this.version = version;
    }
 
-   @XmlElement(name = "persistence-unit")
    public List<PersistenceUnitMetaData> getPersistenceUnits()
    {
       return persistenceUnits;
@@ -70,14 +57,7 @@ public class PersistenceMetaData extends JBossObject implements Serializable
       this.persistenceUnits.addAll(persistenceUnits);
    }
 
-   protected void toString(JBossStringBuilder builder)
-   {
-      builder.append("version=").append(version);
-      if (persistenceUnits != null && persistenceUnits.isEmpty() == false)
-         builder.append(", persistence units=").append(persistenceUnits);
-   }
-
-   public PersistenceMetaData clone()
+   public PersistenceMetaData clone() throws CloneNotSupportedException
    {
       PersistenceMetaData clone = (PersistenceMetaData)super.clone();
       clone.persistenceUnits = new ChildrenList<PersistenceUnitMetaData, PersistenceMetaData>(clone, PersistenceUnitMetaData.adapter);

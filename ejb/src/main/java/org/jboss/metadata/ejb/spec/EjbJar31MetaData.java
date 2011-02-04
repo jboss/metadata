@@ -21,30 +21,12 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.jboss.NamedModule;
-import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
-import org.jboss.xb.annotations.JBossXmlSchema;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-@XmlRootElement(name="ejb-jar", namespace=JavaEEMetaDataConstants.JAVAEE_NS)
-@JBossXmlSchema(
-      xmlns={@XmlNs(namespaceURI = JavaEEMetaDataConstants.JAVAEE_NS, prefix = "jee")},
-      ignoreUnresolvedFieldOrClass=false,
-      namespace=JavaEEMetaDataConstants.JAVAEE_NS,
-      elementFormDefault=XmlNsForm.QUALIFIED,
-      normalizeSpace=true)
-@XmlType(name="ejb-jarType",
-      namespace=JavaEEMetaDataConstants.JAVAEE_NS,
-      propOrder={"moduleName", "descriptionGroup", "enterpriseBeans", "interceptors", "relationships", "assemblyDescriptor", "ejbClientJar"})
 public class EjbJar31MetaData extends EjbJar3xMetaData implements NamedModule
 {
    private static final long serialVersionUID = 1L;
@@ -55,7 +37,6 @@ public class EjbJar31MetaData extends EjbJar3xMetaData implements NamedModule
    {
       return moduleName;
    }
-   @XmlAttribute(name="module-name")
    public void setModuleName(String moduleName)
    {
       this.moduleName = moduleName;

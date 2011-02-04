@@ -21,9 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
 
@@ -33,7 +30,6 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMer
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="exclude-listType", propOrder={"descriptions", "methods"})
 public class ExcludeListMetaData extends IdMetaDataImplWithDescriptions
 {
    /** The serialVersionUID */
@@ -66,7 +62,6 @@ public class ExcludeListMetaData extends IdMetaDataImplWithDescriptions
     * @param methods the methods.
     * @throws IllegalArgumentException for a null methods
     */
-   @XmlElement(name="method")
    public void setMethods(MethodsMetaData methods)
    {
       if (methods == null)

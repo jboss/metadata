@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -30,7 +28,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 87568 $
  */
-@XmlType(propOrder={"destinationType", "subscriptionDurability"})
 public class MessageDrivenDestinationMetaData extends IdMetaDataImpl
 {
    private static final long serialVersionUID = 1;

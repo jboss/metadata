@@ -23,13 +23,10 @@ package org.jboss.metadata.ejb.spec;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-@XmlType(name="async-methodType", propOrder={"methodName", "methodParams"})
 public class AsyncMethodMetaData implements Serializable
 {
    private static final long serialVersionUID = 1L;

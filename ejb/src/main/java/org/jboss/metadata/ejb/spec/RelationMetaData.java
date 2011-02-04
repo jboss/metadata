@@ -21,15 +21,9 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlModelGroup;
+
+import java.util.List;
 
 /**
  * RelationMetaData.
@@ -37,11 +31,6 @@ import org.jboss.xb.annotations.JBossXmlModelGroup;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-// TODO it's currently bound as a choice with single particle...
-@XmlType(name="ejb-relationType", propOrder={"descriptions", "ejbRelationName", "ejbRelationshipRoles"})
-@JBossXmlModelGroup(
-      kind=JBossXmlConstants.MODEL_GROUP_CHOICE,
-      particles={@JBossXmlModelGroup.Particle(element=@XmlElement(name="ejb-relation"), type=RelationMetaData.class)})
 public class RelationMetaData extends NamedMetaDataWithDescriptions
 {
    /** The serialVersionUID */
@@ -98,7 +87,6 @@ public class RelationMetaData extends NamedMetaDataWithDescriptions
     * @param leftRole the leftRole.
     * @throws IllegalArgumentException for a null leftRole
     */
-   @XmlTransient
    public void setLeftRole(RelationRoleMetaData leftRole)
    {
       if (leftRole == null)
@@ -123,7 +111,6 @@ public class RelationMetaData extends NamedMetaDataWithDescriptions
     * @param rightRole the rightRole.
     * @throws IllegalArgumentException for a null rightRole
     */
-   @XmlTransient
    public void setRightRole(RelationRoleMetaData rightRole)
    {
       if (rightRole == null)
@@ -139,7 +126,6 @@ public class RelationMetaData extends NamedMetaDataWithDescriptions
     * @return the related role
     * @throws IllegalArgumentException if the role is not a role in this relationship
     */
-   @XmlTransient
    public RelationRoleMetaData getRelatedRole(RelationRoleMetaData role)
    {
       if (role == leftRole)
@@ -206,7 +192,6 @@ public class RelationMetaData extends NamedMetaDataWithDescriptions
     * @throws IllegalArgumentException for a null role metadata
     * @throws IllegalStateException for too many roles
     */
-   @XmlElement(name="ejb-relationship-role")
    public void setEjbRelationshipRoles(List<RelationRoleMetaData> roleMetaData)
    {
       if(roleMetaData == null)

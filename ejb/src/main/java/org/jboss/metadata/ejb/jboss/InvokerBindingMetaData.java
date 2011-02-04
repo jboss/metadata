@@ -21,12 +21,9 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
+
+import java.util.List;
 
 /**
  * InvokerBindingMetaData.
@@ -34,7 +31,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="invokerType", propOrder={"descriptions", "invokerProxyBindingName", "jndiName", "ejbRefs"})
 public class InvokerBindingMetaData extends NamedMetaDataWithDescriptions
 {
    /** The serialVersionUID */
@@ -141,13 +137,11 @@ public class InvokerBindingMetaData extends NamedMetaDataWithDescriptions
     * @param ejbRefName the ejbRefName.
     * @throws IllegalArgumentException for a null ejbRefName
     */
-   @XmlElement(name="ejb-ref")
    public void setEjbRefs(List<EjbRef> ejbRefs)
    {
       this.ejbRefs = ejbRefs;
    }
    
-   @XmlType(name="invoker-ejb-refType", propOrder={"ejbRefName", "jndiName"})
    public static class EjbRef
    {
       private String ejbRefName;

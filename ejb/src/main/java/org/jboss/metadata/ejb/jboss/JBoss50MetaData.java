@@ -21,35 +21,12 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
-import org.jboss.xb.annotations.JBossXmlSchema;
-
 /**
  * 5.0 jboss.xml metadata
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlRootElement(name="jboss", namespace=JavaEEMetaDataConstants.JBOSS_NS)
-@JBossXmlSchema(
-      xmlns={@XmlNs(namespaceURI = JavaEEMetaDataConstants.JAVAEE_NS, prefix = "jee")},
-      ignoreUnresolvedFieldOrClass=false,
-      namespace=JavaEEMetaDataConstants.JBOSS_NS,
-      elementFormDefault=XmlNsForm.QUALIFIED,
-      normalizeSpace=true)
-@XmlType(name="jbossType", namespace=JavaEEMetaDataConstants.JBOSS_NS, propOrder={"descriptionGroup", "loaderRepository",
-      "jmxName", "enforceEjbRestrictions", "securityDomain", "excludeMissingMethods", "unauthenticatedPrincipal",
-      "exceptionOnRollback", "jndiBindingPolicy", "jaccContextID", "webservices", "enterpriseBeans", "assemblyDescriptor",
-      "resourceManagers"})
 public class JBoss50MetaData extends JBossMetaData
 {
    /** The serialVersionUID */
@@ -68,21 +45,12 @@ public class JBoss50MetaData extends JBossMetaData
       return "5.0";
    }
 */
-   @XmlAttribute
    public void setVersion(String v)
    {
       super.setVersion(v);
    }
    
    @Override
-   @XmlElementWrapper(name="enterprise-beans")
-   @XmlElements({
-      @XmlElement(name="session", type=JBoss50SessionBeanMetaData.class),
-      @XmlElement(name="message-driven", type=JBoss50MessageDrivenBeanMetaData.class),
-      @XmlElement(name="consumer", type=JBossConsumerBeanMetaData.class),
-      @XmlElement(name="ejb", type=JBossGenericBeanMetaData.class),
-      @XmlElement(name="service", type=JBossServiceBeanMetaData.class)
-      })
    public JBossEnterpriseBeansMetaData getEnterpriseBeans()
    {
       return super.getEnterpriseBeans();

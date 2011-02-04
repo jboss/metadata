@@ -21,19 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.Lock;
-import javax.ejb.LockType;
-import javax.ejb.Schedule;
-import javax.ejb.Startup;
-import javax.xml.bind.annotation.XmlElement;
-
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
@@ -47,6 +34,17 @@ import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.ejb.spec.StatefulTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
 import org.jboss.metadata.merge.MergeUtil;
+
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
+import javax.ejb.Schedule;
+import javax.ejb.Startup;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -385,7 +383,6 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       return afterBeginMethod;
    }
 
-   @XmlElement(name = "after-begin-method", required = false)
    public void setAfterBeginMethod(NamedMethodMetaData method)
    {
       this.afterBeginMethod = method;
@@ -396,7 +393,6 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       return beforeCompletionMethod;
    }
 
-   @XmlElement(name = "before-completion-method", required = false)
    public void setBeforeCompletionMethod(NamedMethodMetaData method)
    {
       this.beforeCompletionMethod = method;
@@ -407,7 +403,6 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
       return afterCompletionMethod;
    }
 
-   @XmlElement(name = "after-completion-method", required = false)
    public void setAfterCompletionMethod(NamedMethodMetaData method)
    {
       this.afterCompletionMethod = method;

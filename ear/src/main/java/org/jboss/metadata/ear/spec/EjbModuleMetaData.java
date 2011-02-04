@@ -21,19 +21,14 @@
  */
 package org.jboss.metadata.ear.spec;
 
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 65911 $
  */
-@XmlType(name="ejbType")
 public class EjbModuleMetaData extends AbstractModule
 {
    private static final long serialVersionUID = 1;
 
-   @XmlTransient
    public String getEjbJar()
    {
       return getFileName();

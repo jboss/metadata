@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
-
 /**
  * An EJB 3 consumer bean.
  * 
@@ -31,10 +28,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version <tt>$Revision: 84989 $</tt>
  */
-@XmlType(name="consumer-beanType", propOrder={"descriptionGroup", "ejbName", "ejbClass", "messageDestination",
-      "messageDestinationType", "producers", "localProducers", "currentMessage", "messageProperties",
-      "environmentRefsGroup", "securityDomain", "methodAttributes", "depends",
-      "annotations", "ignoreDependency", "aopDomainName", "poolConfig", "jndiRefs", "activationConfig"})
 public class JBoss51ConsumerBeanMetaData extends JBossConsumerBeanMetaData
 {
    private static final long serialVersionUID = 1L;

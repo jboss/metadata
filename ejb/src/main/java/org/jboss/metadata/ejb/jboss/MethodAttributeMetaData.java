@@ -21,8 +21,6 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaData;
 
 /**
@@ -31,7 +29,6 @@ import org.jboss.metadata.javaee.support.NamedMetaData;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="methodType", propOrder={"methodName", "readOnly", "idempotent", "transactionTimeout"})
 public class MethodAttributeMetaData extends NamedMetaData
 {
    /** The serialVersionUID */
