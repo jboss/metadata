@@ -21,9 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
 /**
@@ -33,7 +30,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-@XmlType(name="queryType", propOrder={"descriptions", "queryMethod", "resultTypeMapping", "ejbQL"})
 public class QueryMetaData extends IdMetaDataImplWithDescriptions
 {
    /** The serialVersionUID */
@@ -72,7 +68,6 @@ public class QueryMetaData extends IdMetaDataImplWithDescriptions
     * @param ejbQL the ejbQL.
     * @throws IllegalArgumentException for a null ejbQL
     */
-   @XmlElement(name="ejb-ql")
    public void setEjbQL(String ejbQL)
    {
       if (ejbQL == null)

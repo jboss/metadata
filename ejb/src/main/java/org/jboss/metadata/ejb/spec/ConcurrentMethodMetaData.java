@@ -23,9 +23,6 @@ package org.jboss.metadata.ejb.spec;
 
 import javax.ejb.Lock;
 import javax.ejb.LockType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 
 /**
@@ -34,8 +31,6 @@ import java.io.Serializable;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-@XmlType(name = "concurrent-methodType", propOrder =
-{"method", "lockType", "accessTimeout"})
 public class ConcurrentMethodMetaData implements Serializable
 {
 
@@ -47,7 +42,6 @@ public class ConcurrentMethodMetaData implements Serializable
 
    private AccessTimeoutMetaData accessTimeout;
 
-   @XmlElement(name = "method", required = true)
    public void setMethod(NamedMethodMetaData namedMethod)
    {
       this.method = namedMethod;
@@ -58,8 +52,6 @@ public class ConcurrentMethodMetaData implements Serializable
       return this.method;
    }
 
-   @XmlElement(name = "lock", required = false)
-   @XmlJavaTypeAdapter(LockTypeAdapter.class)
    public void setLockType(LockType lockType)
    {
       this.lockType = lockType;
@@ -70,7 +62,6 @@ public class ConcurrentMethodMetaData implements Serializable
       return this.lockType;
    }
 
-   @XmlElement(name = "access-timeout", required = false)
    public void setAccessTimeout(AccessTimeoutMetaData accessTimeout)
    {
       this.accessTimeout = accessTimeout;

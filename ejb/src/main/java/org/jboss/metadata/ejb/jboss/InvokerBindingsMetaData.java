@@ -21,11 +21,8 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.MappedMetaDataWithDescriptions;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
-import org.jboss.xb.annotations.JBossXmlChild;
 
 /**
  * InvokerBindingsMetaData.
@@ -33,8 +30,6 @@ import org.jboss.xb.annotations.JBossXmlChild;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="invoker-bindingsType")
-@JBossXmlChild(name="invoker", type=InvokerBindingMetaData.class, unbounded=true)
 public class InvokerBindingsMetaData extends MappedMetaDataWithDescriptions<InvokerBindingMetaData>
 {
    /** The serialVersionUID */

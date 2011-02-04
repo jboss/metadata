@@ -23,12 +23,8 @@ package org.jboss.metadata.ejb.spec;
 
 
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlType;
 
 import javax.ejb.TransactionManagementType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  * MessageDrivenBeanMetaData.
@@ -36,12 +32,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="message-driven-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "ejbClass",
-      "transactionType", "messageSelector", "acknowledgeMode", "messageDrivenDestination", // <!-- these are ejb2.x
-      "messagingType",
-      "timeoutMethod", "transactionType", "messageDestinationType", "messageDestinationLink", "activationConfig", "aroundInvokes",
-      "environmentRefsGroup", "securityIdentity"})
-@JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
    implements ITimeoutTarget
 {
@@ -146,7 +136,6 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
     * @param timeoutMethod the timeoutMethod.
     * @throws IllegalArgumentException for a null timeoutMethod
     */
-   @XmlElement(required=false)
    public void setTimeoutMethod(NamedMethodMetaData timeoutMethod)
    {
       if (timeoutMethod == null)
@@ -168,7 +157,6 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
     * @param transactionType the transactionType.
     * @throws IllegalArgumentException for a null transactionType
     */
-   //@XmlJavaTypeAdapter(TransactionManagementTypeAdapter.class)
    public void setTransactionType(TransactionManagementType transactionType)
    {
       if (transactionType == null)
@@ -219,7 +207,6 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
     * @param aroundInvokes the aroundInvokes.
     * @throws IllegalArgumentException for a null aroundInvokes
     */
-   @XmlElement(name="around-invoke", required=false)
    public void setAroundInvokes(AroundInvokesMetaData aroundInvokes)
    {
       if (aroundInvokes == null)
@@ -293,7 +280,6 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
     * @param messageSelector the messageSelector.
     * @throws IllegalArgumentException for a null messageSelector
     */
-   @XmlElement(required=false)
    public void setMessageSelector(String messageSelector)
    {
       if (messageSelector == null)
@@ -317,7 +303,6 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
     * @param acknowledgeMode the acknowledgeMode.
     * @throws IllegalArgumentException for a null acknowledgeMode
     */
-   @XmlElement(required=false)
    public void setAcknowledgeMode(String acknowledgeMode)
    {
       if (acknowledgeMode == null)
@@ -341,7 +326,6 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
     * @param subscriptionDurability the subscriptionDurability.
     * @throws IllegalArgumentException for a null subscriptionDurability
     */
-   @XmlElement(required=false)
    public void setSubscriptionDurability(SubscriptionDurability subscriptionDurability)
    {
       if (subscriptionDurability == null)
@@ -349,7 +333,6 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
       this.subscriptionDurability = subscriptionDurability;
    }
 
-   @XmlElement(name="message-driven-destination", required=false)
    public void setMessageDrivenDestination(MessageDrivenDestinationMetaData mdd)
    {
       // Translate this into destinationType, subscriptionDurability

@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
-
 /**
  * Allow for the specification of an unknown bean type in the deployment
  * descriptor (EJBTHREE-936).
@@ -31,10 +28,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 84989 $
  */
-@XmlType(name="generic-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "environmentRefsGroup",
-      "securityIdentity", "jndiName", "homeJndiName", "localJndiName", "localHomeJndiName",
-      "jndiBindingPolicy", "securityDomain", "methodAttributes", "depends", "annotations", "ignoreDependency", "aopDomainName",
-      "poolConfig", "jndiRefs", "portComponent"})
 public class JBoss51GenericBeanMetaData extends JBossGenericBeanMetaData
 {
    private static final long serialVersionUID = 1L;

@@ -21,13 +21,10 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import java.io.Serializable;
+import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 import javax.ejb.Schedule;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import java.io.Serializable;
 
 /**
  * Represents metadata for &lt;schedule&gt; element in the ejb-jar.xml 
@@ -35,8 +32,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-@XmlType(name = "timer-scheduleType", propOrder =
-{"second", "minute", "hour", "dayOfMonth", "month", "dayOfWeek", "year"})
 public class ScheduleMetaData extends IdMetaDataImpl implements Serializable
 {
 
@@ -109,7 +104,6 @@ public class ScheduleMetaData extends IdMetaDataImpl implements Serializable
       return dayOfWeek;
    }
 
-   @XmlElement(name = "day-of-week", required = false)
    public void setDayOfWeek(String dayOfWeek)
    {
       this.dayOfWeek = dayOfWeek;
@@ -120,7 +114,6 @@ public class ScheduleMetaData extends IdMetaDataImpl implements Serializable
       return dayOfMonth;
    }
 
-   @XmlElement(name = "day-of-month", required = false)
    public void setDayOfMonth(String dayOfMonth)
    {
       this.dayOfMonth = dayOfMonth;

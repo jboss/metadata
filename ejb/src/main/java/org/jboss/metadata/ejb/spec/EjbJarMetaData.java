@@ -21,15 +21,12 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.Collection;
-import java.util.HashSet;
-
-import javax.interceptor.Interceptors;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
+
+import javax.interceptor.Interceptors;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * EjbJarMetaData.
@@ -79,7 +76,6 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     * @param publicId
     * @param systemId
     */
-   @XmlTransient
    public void setDTD(String root, String publicId, String systemId)
    {
       this.dtdPublicId = publicId;
@@ -98,7 +94,6 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     * Get the DTD public id if one was seen
     * @return the value of the web.xml dtd public id
     */
-   @XmlTransient
    public String getDtdPublicId()
    {
       return dtdPublicId;
@@ -107,7 +102,6 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     * Get the DTD system id if one was seen
     * @return the value of the web.xml dtd system id
     */
-   @XmlTransient
    public String getDtdSystemId()
    {
       return dtdSystemId;
@@ -224,7 +218,6 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     * @param enterpriseBeans the enterpriseBeans.
     * @throws IllegalArgumentException for a null enterpriseBeans
     */
-   @XmlElement(name="enterprise-beans")
    public void setEnterpriseBeans(EnterpriseBeansMetaData enterpriseBeans)
    {
       if (enterpriseBeans == null)

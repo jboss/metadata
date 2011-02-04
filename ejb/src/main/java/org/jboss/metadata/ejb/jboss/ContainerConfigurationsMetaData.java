@@ -21,10 +21,7 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.MappedMetaDataWithDescriptions;
-import org.jboss.xb.annotations.JBossXmlChild;
 
 /**
  * ContainerConfigurationsMetaData.
@@ -32,8 +29,6 @@ import org.jboss.xb.annotations.JBossXmlChild;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="container-configurationsType")
-@JBossXmlChild(name="container-configuration", type=ContainerConfigurationMetaData.class, unbounded=true)
 public class ContainerConfigurationsMetaData extends MappedMetaDataWithDescriptions<ContainerConfigurationMetaData>
 {
    /** The serialVersionUID */

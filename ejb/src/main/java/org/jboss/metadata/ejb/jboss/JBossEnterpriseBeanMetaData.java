@@ -83,8 +83,6 @@ import org.jboss.metadata.merge.javaee.support.NamedMetaDataWithDescriptionGroup
 
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.HashSet;
@@ -99,17 +97,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 84989 $
  */
-/*
-@JBossXmlModelGroup(
-      kind=JBossXmlConstants.MODEL_GROUP_CHOICE,
-      particles={
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="session"), type=JBossSessionBeanMetaData.class),
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="entity"), type=JBossEntityBeanMetaData.class),
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="message-driven"), type=JBossMessageDrivenBeanMetaData.class),
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="consumer"), type=JBossConsumerBeanMetaData.class),
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="ejb"), type=JBossGenericBeanMetaData.class),
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="service"), type=JBossServiceBeanMetaData.class)})
-            */
 public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescriptionGroup
    implements Environment,
    IEnterpriseBeanMetaData<JBossAssemblyDescriptorMetaData, JBossEnterpriseBeansMetaData, JBossEnterpriseBeanMetaData, JBossMetaData>
@@ -253,7 +240,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @param enterpriseBeansMetaData the enterpriseBeansMetaData.
     */
-   @XmlTransient
    public void setEnterpriseBeansMetaData(JBossEnterpriseBeansMetaData enterpriseBeansMetaData)
    {
       assert enterpriseBeansMetaData != null : "enterpriseBeansMetaData is null";
@@ -266,7 +252,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return the jbossMetaData.
     */
-   @XmlTransient
    public JBossMetaData getJBossMetaData()
    {
       if (enterpriseBeansMetaData == null)
@@ -279,7 +264,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return the jbossMetaData with check
     */
-   @XmlTransient
    public JBossMetaData getJBossMetaDataWithCheck()
    {
       JBossMetaData jbossMetaData = getJBossMetaData();
@@ -298,7 +282,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return jndiEnvironmentRefsGroup;
    }
    
-   @XmlTransient
    public void setJndiEnvironmentRefsGroup(Environment env)
    {
       if (env == null)
@@ -338,7 +321,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return ejbClass;
    }
 
-   @XmlTransient
    public JBossMetaData getEjbJarMetaData()
    {
       return enterpriseBeansMetaData.getEjbJarMetaData();
@@ -349,7 +331,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return the container transactions or null for no result
     */
-   @XmlTransient
    public ContainerTransactionsMetaData getContainerTransactions()
    {
       if (cachedContainerTransactions != null)
@@ -432,7 +413,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return the exclude list or null for no result
     */
-   @XmlTransient
    public ExcludeListMetaData getExcludeList()
    {
       JBossAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
@@ -461,7 +441,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return true when a consumer bean
     */
-   @XmlTransient
    public boolean isConsumer()
    {
       return false;
@@ -472,7 +451,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return true when a service bean
     */
-   @XmlTransient
    public boolean isService()
    {
       return false;
@@ -483,7 +461,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return true when a session bean
     */
-   @XmlTransient
    public boolean isSession()
    {
       return false;
@@ -494,7 +471,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return true when a message driven bean
     */
-   @XmlTransient
    public boolean isMessageDriven()
    {
       return false;
@@ -505,13 +481,11 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return true when an entity bean
     */
-   @XmlTransient
    public boolean isEntity()
    {
       return false;
    }
 
-   @XmlTransient
    public boolean isGeneric()
    {
       return false;
@@ -522,7 +496,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return true when CMT
     */
-   @XmlTransient
    public boolean isCMT()
    {
       TransactionManagementType type = getTransactionType();
@@ -537,7 +510,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return true when BMT
     */
-   @XmlTransient
    public boolean isBMT()
    {
       return isCMT() == false;
@@ -548,7 +520,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return transactionType;
    }
 
-   //@XmlJavaTypeAdapter(TransactionManagementTypeAdapter.class)
    public void setTransactionType(TransactionManagementType transactionType)
    {
       this.transactionType = transactionType;
@@ -583,7 +554,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @return the localJndiName.
     * @deprecated JBMETA-68
     */
-   @XmlTransient
    @Deprecated
    public String determineLocalJndiName()
    {
@@ -601,7 +571,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @return the base jndi name for the ejb it one exists, null otherwise.
     * @deprecated Handled by Decorators, JBMETA-68
     */
-   @XmlTransient
    @Deprecated
    abstract public String determineJndiName();
 
@@ -616,7 +585,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @return the resolved jndi name
     * @deprecated JBMETA-68
     */
-   @XmlTransient
    @Deprecated
    public String determineResolvedJndiName(String iface)
    {
@@ -755,7 +723,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @return the DefaultJndiBindingPolicy implementation
     * @throws Exception on failure to load the policy class or instantiate it
     */
-   @XmlTransient
    public DefaultJndiBindingPolicy createPolicy(ClassLoader loader,
          Class<? extends DefaultJndiBindingPolicy> defaultPolicyClass)
       throws Exception
@@ -779,7 +746,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return the jndi name suitable for use in the object name
     */
-   @XmlTransient
    public String getContainerObjectNameJndiName()
    {
       return getLocalJndiName();
@@ -811,7 +777,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @see #getContainerName()
     * @return generatedContainerName property value.
     */
-   @XmlTransient
    public String getGeneratedContainerName()
    {
       return generatedContainerName;
@@ -975,7 +940,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @param securityDomain the securityDomain.
     * @throws IllegalArgumentException for a null securityDomain
     */
-   @XmlElement(required=false)
    public void setSecurityDomain(String securityDomain)
    {
       if (securityDomain == null)
@@ -999,7 +963,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @param depends the depends.
     * @throws IllegalArgumentException for a null depends
     */
-   @XmlElement(/*type=NonNullLinkedHashSet.class*/)
    public void setDepends(Set<String> depends)
    {
       if (depends == null)
@@ -1151,7 +1114,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return AbstractMappedMetaData.getByName(name, getEjbLocalReferences());
    }
 
-   @XmlTransient
    public EJBLocalReferencesMetaData getEjbLocalReferences()
    {
       EJBLocalReferencesMetaData refs = null;
@@ -1165,7 +1127,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return AbstractMappedMetaData.getByName(name, getEjbReferences());
    }
 
-   @XmlTransient
    public EJBReferencesMetaData getEjbReferences()
    {
       EJBReferencesMetaData refs = null;
@@ -1174,7 +1135,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return refs;
    }
    // TODO?
-   @XmlTransient
    public AnnotatedEJBReferencesMetaData getAnnotatedEjbReferences()
    {
       AnnotatedEJBReferencesMetaData refs = null;
@@ -1183,7 +1143,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return refs;
    }
 
-   @XmlTransient
    public EnvironmentEntriesMetaData getEnvironmentEntries()
    {
       EnvironmentEntriesMetaData env = null;
@@ -1202,7 +1161,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return AbstractMappedMetaData.getByName(name, getMessageDestinationReferences());
    }
 
-   @XmlTransient
    public MessageDestinationReferencesMetaData getMessageDestinationReferences()
    {
       MessageDestinationReferencesMetaData refs = null;
@@ -1216,7 +1174,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return AbstractMappedMetaData.getByName(name, getPersistenceContextRefs());
    }
 
-   @XmlTransient
    public PersistenceContextReferencesMetaData getPersistenceContextRefs()
    {
       PersistenceContextReferencesMetaData refs = null;
@@ -1230,7 +1187,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return AbstractMappedMetaData.getByName(name, getPersistenceUnitRefs());
    }
 
-   @XmlTransient
    public PersistenceUnitReferencesMetaData getPersistenceUnitRefs()
    {
       PersistenceUnitReferencesMetaData refs = null;
@@ -1244,7 +1200,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return poolConfig;
    }
    
-   @XmlTransient
    public LifecycleCallbacksMetaData getPostConstructs()
    {
       LifecycleCallbacksMetaData lcs = null;
@@ -1253,7 +1208,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return lcs;
    }
 
-   @XmlTransient
    public LifecycleCallbacksMetaData getPreDestroys()
    {
       LifecycleCallbacksMetaData lcs = null;
@@ -1267,7 +1221,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return AbstractMappedMetaData.getByName(name, getResourceEnvironmentReferences());
    }
 
-   @XmlTransient
    public ResourceEnvironmentReferencesMetaData getResourceEnvironmentReferences()
    {
       ResourceEnvironmentReferencesMetaData refs = null;
@@ -1281,7 +1234,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return AbstractMappedMetaData.getByName(name, getResourceReferences());
    }
 
-   @XmlTransient
    public ResourceReferencesMetaData getResourceReferences()
    {
       ResourceReferencesMetaData refs = null;
@@ -1295,7 +1247,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       return AbstractMappedMetaData.getByName(name, getServiceReferences());
    }
 
-   @XmlTransient
    public ServiceReferencesMetaData getServiceReferences()
    {
       ServiceReferencesMetaData refs = null;
@@ -1309,7 +1260,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * Subclasses that support security-role-refs must override.
     * @return An empty security role refs.
     */
-   @XmlTransient
    public SecurityRoleRefsMetaData getSecurityRoleRefs()
    {
       return new SecurityRoleRefsMetaData();
@@ -1331,7 +1281,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @param annotations the annotations.
     * @throws IllegalArgumentException for a null annotations
     */
-   @XmlElement(name="annotation")
    public void setAnnotations(AnnotationsMetaData annotations)
    {
       if (annotations == null)
@@ -1378,7 +1327,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @param jndiRefs the jndiRefs.
     * @throws IllegalArgumentException for a null jndiRefs
     */
-   @XmlElement(name="jndi-ref")
    public void setJndiRefs(JndiRefsMetaData jndiRefs)
    {
       if (jndiRefs == null)
@@ -1392,7 +1340,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * @param roleName the role name
     * @return the security role or null if not found
     */
-   @XmlTransient
    public SecurityRoleMetaData getSecurityRole(String roleName)
    {
       JBossAssemblyDescriptorMetaData assemblyDescriptor = getJBossMetaDataWithCheck().getAssemblyDescriptor();
@@ -1421,7 +1368,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * Get the Principal versus roles map stored in the security roles
     * @return
     */
-   @XmlTransient
    public Map<String,Set<String>> getSecurityRolesPrincipalVersusRolesMap()
    {
       JBossAssemblyDescriptorMetaData assemblyDescriptor = getJBossMetaDataWithCheck().getAssemblyDescriptor();
@@ -1437,7 +1383,6 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * 
     * @return the method permissions or null for no result
     */
-   @XmlTransient
    public MethodPermissionsMetaData getMethodPermissions()
    {
       JBossAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();

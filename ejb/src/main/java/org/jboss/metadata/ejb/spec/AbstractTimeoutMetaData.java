@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +47,6 @@ public abstract class AbstractTimeoutMetaData implements Serializable
       this.unit = unit;
    }
 
-   @XmlElement(name = "timeout", required = true)
    public void setTimeout(long timeout)
    {
       this.timeout = timeout;
@@ -60,8 +57,6 @@ public abstract class AbstractTimeoutMetaData implements Serializable
       return this.timeout;
    }
 
-   @XmlElement(name = "unit", required = true)
-   @XmlJavaTypeAdapter(TimeUnitAdapter.class)
    public void setUnit(TimeUnit timeUnit)
    {
       this.unit = timeUnit;

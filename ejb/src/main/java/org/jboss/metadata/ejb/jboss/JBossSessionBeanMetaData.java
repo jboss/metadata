@@ -21,11 +21,6 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
@@ -40,8 +35,8 @@ import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.PortComponent;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlType;
+
+import java.util.List;
 
 /**
  * SessionBeanMetaData.
@@ -50,15 +45,7 @@ import org.jboss.xb.annotations.JBossXmlType;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 84989 $
  */
-@XmlType(name="session-beanType", propOrder={"descriptionGroup", "ejbName", "jndiName", "homeJndiName", "localJndiName",
-      "localHomeJndiName",
-      "callByValue", "exceptionOnRollback", "timerPersistence", "configurationName", "invokerBindings", "securityProxy",
-      "environmentRefsGroup",
-      "securityIdentity", 
-      "clustered", "clusterConfig", "securityDomain", "methodAttributes", "depends",
-      "iorSecurityConfig", "portComponent", "ejbTimeoutIdentity"})
 // unordered for pre-jboss-5_0.dtd
-@JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implements ITimeoutTarget
 {
    /** The serialVersionUID */
@@ -304,7 +291,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param businessLocals the businessLocals.
     * @throws IllegalArgumentException for a null businessLocasl
     */
-   @XmlElement(name="business-local", required=false)
    public void setBusinessLocals(BusinessLocalsMetaData businessLocals)
    {
       if (businessLocals == null)
@@ -328,7 +314,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param businessRemotes the businessRemotes.
     * @throws IllegalArgumentException for a null businessRemotes
     */
-   @XmlElement(name="business-remote", required=false)
    public void setBusinessRemotes(BusinessRemotesMetaData businessRemotes)
    {
       if (businessRemotes == null)
@@ -422,7 +407,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param timeoutMethod the timeoutMethod.
     * @throws IllegalArgumentException for a null timeoutMethod
     */
-   @XmlElement(required=false)
    public void setTimeoutMethod(NamedMethodMetaData timeoutMethod)
    {
       if (timeoutMethod == null)
@@ -446,7 +430,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param initMethods the initMethods.
     * @throws IllegalArgumentException for a null initMethods
     */
-   @XmlElement(name="init-method", required=false)
    public void setInitMethods(InitMethodsMetaData initMethods)
    {
       if (initMethods == null)
@@ -470,7 +453,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param removeMethods the removeMethods.
     * @throws IllegalArgumentException for a null removeMethods
     */
-   @XmlElement(name="remove-method", required=false)
    public void setRemoveMethods(RemoveMethodsMetaData removeMethods)
    {
       if (removeMethods == null)
@@ -494,7 +476,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param aroundInvokes the aroundInvokes.
     * @throws IllegalArgumentException for a null aroundInvokes
     */
-   @XmlElement(name="around-invoke", required=false)
    public void setAroundInvokes(AroundInvokesMetaData aroundInvokes)
    {
       if (aroundInvokes == null)
@@ -518,7 +499,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param postActivates the postActivates.
     * @throws IllegalArgumentException for a null postActivates
     */
-   @XmlElement(name="post-activate", required=false)
    public void setPostActivates(LifecycleCallbacksMetaData postActivates)
    {
       if (postActivates == null)
@@ -542,7 +522,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param prePassivates the prePassivates.
     * @throws IllegalArgumentException for a null prePassivates
     */
-   @XmlElement(name="pre-passivate", required=false)
    public void setPrePassivates(LifecycleCallbacksMetaData prePassivates)
    {
       if (prePassivates == null)
@@ -566,7 +545,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param securityRoleRefs the securityRoleRefs.
     * @throws IllegalArgumentException for a null securityRoleRefs
     */
-   @XmlElement(name="security-role-ref")
    public void setSecurityRoleRefs(SecurityRoleRefsMetaData securityRoleRefs)
    {
       if (securityRoleRefs == null)
@@ -845,7 +823,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * 
     * @param the localBindings
     */
-   @XmlElement(name = "local-binding", required = false)
    public void setLocalBindings(List<LocalBindingMetaData> localBindings)
    {
       this.localBindings = localBindings;
@@ -867,7 +844,6 @@ public class JBossSessionBeanMetaData extends JBossEnterpriseBeanMetaData implem
     * @param remoteBinding the remoteBinding.
     * @throws IllegalArgumentException for a null remoteBinding
     */
-   @XmlElement(name="remote-binding", required=false)
    public void setRemoteBindings(List<RemoteBindingMetaData> remoteBindings)
    {
       if (remoteBindings == null)

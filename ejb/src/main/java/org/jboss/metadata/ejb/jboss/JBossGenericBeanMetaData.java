@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.PortComponent;
 
 /**
@@ -32,11 +30,6 @@ import org.jboss.metadata.javaee.spec.PortComponent;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 84989 $
  */
-@XmlType(name="generic-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "environmentRefsGroup",
-      "securityIdentity", "jndiName", "homeJndiName", "exceptionOnRollback", "timerPersistence", "configurationName",
-      "invokerBindings", "securityProxy", "localJndiName", "localHomeJndiName",
-      "jndiBindingPolicy", "securityDomain", "methodAttributes", "depends", "annotations", "ignoreDependency", "aopDomainName",
-      "poolConfig", "jndiRefs", "portComponent", "iorSecurityConfig"})
 public class JBossGenericBeanMetaData extends JBossEnterpriseBeanMetaData
 {
    private static final long serialVersionUID = 1L;

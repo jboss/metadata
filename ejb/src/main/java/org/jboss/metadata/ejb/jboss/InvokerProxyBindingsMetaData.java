@@ -21,12 +21,8 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 import org.jboss.metadata.javaee.support.MappedMetaDataWithDescriptions;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
-import org.jboss.xb.annotations.JBossXmlChild;
 
 /**
  * InvokerProxyBindingsMetaData.
@@ -34,8 +30,6 @@ import org.jboss.xb.annotations.JBossXmlChild;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="invoker-proxy-bindingsType")
-@JBossXmlChild(name="invoker-proxy-binding", type=InvokerProxyBindingMetaData.class, unbounded=true)
 public class InvokerProxyBindingsMetaData extends MappedMetaDataWithDescriptions<InvokerProxyBindingMetaData>
 {
    /** The serialVersionUID */

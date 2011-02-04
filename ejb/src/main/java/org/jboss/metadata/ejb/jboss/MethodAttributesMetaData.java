@@ -21,17 +21,11 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
+import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
+
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
-import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
-import org.jboss.xb.annotations.JBossXmlChild;
-
-@XmlType(name="method-attributesType")
-@JBossXmlChild(name="method", type=MethodAttributeMetaData.class, unbounded=true)
 public class MethodAttributesMetaData extends AbstractMappedMetaData<MethodAttributeMetaData>
 {
    /** The serialVersionUID */

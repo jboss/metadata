@@ -21,14 +21,11 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import java.io.Serializable;
-import java.util.Calendar;
+import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
 
 import javax.ejb.ScheduleExpression;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
+import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * Represents metadata for &lt;timer&gt; element in ejb-jar.xml
@@ -36,8 +33,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-@XmlType(name = "timerType", propOrder =
-{"descriptionGroup", "schedule", "start", "end", "timeoutMethod", "persistent", "timezone", "info"})
 public class TimerMetaData extends IdMetaDataImplWithDescriptionGroup implements Serializable
 {
 
@@ -61,7 +56,6 @@ public class TimerMetaData extends IdMetaDataImplWithDescriptionGroup implements
       return schedule;
    }
 
-   @XmlElement (name = "schedule", required = true)
    public void setSchedule(ScheduleMetaData schedule)
    {
       this.schedule = schedule;
@@ -92,7 +86,6 @@ public class TimerMetaData extends IdMetaDataImplWithDescriptionGroup implements
       return timeoutMethod;
    }
 
-   @XmlElement(name = "timeout-method", required = true)
    public void setTimeoutMethod(NamedMethodMetaData timeoutMethod)
    {
       this.timeoutMethod = timeoutMethod;

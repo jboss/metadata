@@ -21,15 +21,10 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.Set;
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 import org.w3c.dom.Element;
+
+import java.util.Set;
 
 /**
  * ConfigurationMetaData.
@@ -37,17 +32,6 @@ import org.w3c.dom.Element;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="container-configurationType",
-      propOrder={"descriptions", "containerName",
-      "callLogging", "invokerProxyBindingNames",
-      "syncOnCommitOnly", "insertAfterEjbPostCreate",
-      "ejbStoreOnClean", "storeNotFlushed", "containerInterceptors",
-      "instancePool", "instanceCache", "persistenceManager",
-      "webClassLoader", "lockingPolicy",
-      "containerCacheConf", "containerPoolConf",
-      "commitOption", "optiondRefreshRate", "securityDomain",
-      "clusterConfig", "depends"}
-)
 public class ContainerConfigurationMetaData extends NamedMetaDataWithDescriptions
 {
    /** The standard CMP2 configuration */
@@ -191,7 +175,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
     * @param extendsName the extendsName.
     * @throws IllegalArgumentException for a null extendsName
     */
-   @XmlAttribute(name="extends")
    public void setExtendsName(String extendsName)
    {
       if (extendsName == null)
@@ -208,7 +191,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
    {
       return callLogging;
    }
-   @XmlTransient
    public boolean callLoggingWasSet()
    {
       return callLoggingWasSet;
@@ -234,7 +216,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
    {
       return syncOnCommitOnly;
    }
-   @XmlTransient
    public boolean syncOnCommitOnlyWasSet()
    {
       return syncOnCommitOnlyWasSet;
@@ -260,7 +241,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
    {
       return insertAfterEjbPostCreate;
    }
-   @XmlTransient
    public boolean insertAfterEjbPostCreateWasSet()
    {
       return insertAfterEjbPostCreateWasSet;
@@ -286,7 +266,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
    {
       return ejbStoreOnClean;
    }
-   @XmlTransient
    public boolean ejbStoreOnCleanWasSet()
    {
       return ejbStoreOnCleanWasSet;
@@ -297,7 +276,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
     * 
     * @param ejbStoreOnClean the ejbStoreOnClean.
     */
-   @XmlElement(name="call-ejb-store-on-clean")
    public void setEjbStoreOnClean(boolean ejbStoreOnClean)
    {
       this.ejbStoreOnClean = ejbStoreOnClean;
@@ -313,7 +291,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
    {
       return storeNotFlushed;
    }
-   @XmlTransient
    public boolean storeNotFlushedWasSet()
    {
       return storeNotFlushedWasSet;
@@ -416,7 +393,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
     * @param webClassLoader the webClassLoader.
     * @throws IllegalArgumentException for a null webClassLoader
     */
-   @XmlElement(defaultValue="org.jboss.web.WebClassLoader")
    public void setWebClassLoader(String webClassLoader)
    {
       if (webClassLoader == null)
@@ -440,7 +416,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
     * @param lockingPolicy the lockingPolicy.
     * @throws IllegalArgumentException for a null lockingPolicy
     */
-   @XmlElement(defaultValue="org.jboss.ejb.plugins.lock.QueuedPessimisticEJBLock")
    public void setLockingPolicy(String lockingPolicy)
    {
       if (lockingPolicy == null)
@@ -480,7 +455,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
    {
       return commitOption;
    }
-   @XmlTransient
    boolean commitOptionWasSet()
    {
       return commitOptionWasSet;
@@ -516,7 +490,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
     * @param optiondRefreshRateMillis the optiondRefreshRateMillis.
     * @throws IllegalArgumentException if the refresh rate is not positive
     */
-   @XmlTransient
    public void setOptiondRefreshRateMillis(long optiondRefreshRateMillis)
    {
       if (optiondRefreshRateMillis <= 0)
@@ -593,7 +566,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
     * @param depends the depends.
     * @throws IllegalArgumentException for a null depends
     */
-   //@XmlElement(type=NonNullLinkedHashSet.class)
    public void setDepends(Set<String> depends)
    {
       if (depends == null)
@@ -617,7 +589,6 @@ public class ContainerConfigurationMetaData extends NamedMetaDataWithDescription
     * @param invokerProxyBindingNames the invokerProxyBindingNames.
     * @throws IllegalArgumentException for a null invokerProxyBindingNames
     */
-   @XmlElement(name="invoker-proxy-binding-name"/*, type=NonNullLinkedHashSet.class*/)
    public void setInvokerProxyBindingNames(Set<String> invokerProxyBindingNames)
    {
       if (invokerProxyBindingNames == null)

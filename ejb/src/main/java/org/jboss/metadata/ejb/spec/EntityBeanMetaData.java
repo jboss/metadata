@@ -21,12 +21,7 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlType;
 
 /**
  * EntityBeanMetaData.
@@ -34,10 +29,6 @@ import org.jboss.xb.annotations.JBossXmlType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="entity-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "home", "remote", "localHome", "local",
-      "ejbClass", "persistenceType", "primKeyClass", "reentrant", "cmpVersion", "abstractSchemaName", "cmpFields", "primKeyField",
-      "environmentRefsGroup", "securityRoleRefs", "securityIdentity", "queries"})
-@JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class EntityBeanMetaData extends EnterpriseBeanMetaData
 {
    /** The serialVersionUID */
@@ -355,7 +346,6 @@ public class EntityBeanMetaData extends EnterpriseBeanMetaData
     * @param primKeyField the primKeyField.
     * @throws IllegalArgumentException for a null primKeyField
     */
-   @XmlElement(name="primkey-field")
    public void setPrimKeyField(String primKeyField)
    {
       if (primKeyField == null)
@@ -379,7 +369,6 @@ public class EntityBeanMetaData extends EnterpriseBeanMetaData
     * @param cmpFields the cmpFields.
     * @throws IllegalArgumentException for a null cmpFields
     */
-   @XmlElement(name="cmp-field")
    public void setCmpFields(CMPFieldsMetaData cmpFields)
    {
       if (cmpFields == null)
@@ -403,7 +392,6 @@ public class EntityBeanMetaData extends EnterpriseBeanMetaData
     * @param securityRoleRefs the securityRoleRefs.
     * @throws IllegalArgumentException for a null securityRoleRefs
     */
-   @XmlElement(name="security-role-ref")
    public void setSecurityRoleRefs(SecurityRoleRefsMetaData securityRoleRefs)
    {
       if (securityRoleRefs == null)
@@ -427,7 +415,6 @@ public class EntityBeanMetaData extends EnterpriseBeanMetaData
     * @param queries the queries.
     * @throws IllegalArgumentException for a null queries
     */
-   @XmlElement(name="query")
    public void setQueries(QueriesMetaData queries)
    {
       if (queries == null)

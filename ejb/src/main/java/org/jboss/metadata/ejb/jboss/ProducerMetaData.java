@@ -21,9 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.logging.Logger;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
@@ -35,7 +32,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version <tt>$Revision: 80355 $</tt>
  */
-@XmlType(name="producerType", propOrder={"className", "connectionFactory"})
 public class ProducerMetaData extends IdMetaDataImpl
 {
    @SuppressWarnings("unused")
@@ -65,7 +61,6 @@ public class ProducerMetaData extends IdMetaDataImpl
       return className;
    }
 
-   @XmlElement(name="class")
    public void setClassName(String className)
    {
       this.className = className;

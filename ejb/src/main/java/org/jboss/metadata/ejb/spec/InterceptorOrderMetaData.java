@@ -21,18 +21,12 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.xb.annotations.JBossXmlChild;
-
 /**
  * InterceptorClassesMetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="interceptor-orderType")
-@JBossXmlChild(name="interceptor-class", type=String.class, unbounded=true)
 public class InterceptorOrderMetaData extends InterceptorClassesMetaData
 {
    /** The serialVersionUID */

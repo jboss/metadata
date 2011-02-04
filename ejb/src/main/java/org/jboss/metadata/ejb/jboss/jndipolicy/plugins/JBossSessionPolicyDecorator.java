@@ -85,7 +85,6 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
-import org.jboss.util.NotImplementedException;
 
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
@@ -409,7 +408,8 @@ public class JBossSessionPolicyDecorator<T extends JBossSessionBeanMetaData> ext
    @Override
    public IdMetaDataImpl clone()
    {
-      throw new NotImplementedException();
+      // TODO: why not CloneNotSupportedException?
+      throw new UnsupportedOperationException();
    }
 
    @Override

@@ -21,14 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import java.lang.reflect.Method;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
@@ -58,8 +50,11 @@ import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
 import org.jboss.metadata.merge.javaee.support.NamedMetaDataWithDescriptionGroupMerger;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlModelGroup;
+
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagementType;
+import java.lang.reflect.Method;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * EnterpriseBean.
@@ -68,12 +63,6 @@ import org.jboss.xb.annotations.JBossXmlModelGroup;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-@JBossXmlModelGroup(
-      kind=JBossXmlConstants.MODEL_GROUP_CHOICE,
-      particles={
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="session"), type=SessionBean31MetaData.class),
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="entity"), type=EntityBeanMetaData.class),
-            @JBossXmlModelGroup.Particle(element=@XmlElement(name="message-driven"), type=MessageDrivenBean31MetaData.class)})
 public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptionGroup
    implements Environment,
    IEnterpriseBeanMetaData<AssemblyDescriptorMetaData, EnterpriseBeansMetaData, EnterpriseBeanMetaData, EjbJarMetaData>
@@ -139,7 +128,6 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
     * 
     * @param enterpriseBeansMetaData the enterpriseBeansMetaData.
     */
-   @XmlTransient
    public void setEnterpriseBeansMetaData(EnterpriseBeansMetaData enterpriseBeansMetaData)
    {
       this.enterpriseBeansMetaData = enterpriseBeansMetaData;
@@ -150,7 +138,6 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
     * 
     * @return the ejbJarMetaData.
     */
-   @XmlTransient
    public EjbJarMetaData getEjbJarMetaData()
    {
       if (enterpriseBeansMetaData == null)
@@ -163,7 +150,6 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
     * 
     * @return the ejbJarMetaData.
     */
-   @XmlTransient
    public AssemblyDescriptorMetaData getAssemblyDescriptor()
    {
       EjbJarMetaData ejbJar = getEjbJarMetaData();
@@ -273,7 +259,6 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
     * @param mappedName the mappedName.
     * @throws IllegalArgumentException for a null mappedName
     */
-   @XmlElement(required=false)
    public void setMappedName(String mappedName)
    {
       if (mappedName == null)
@@ -320,7 +305,6 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
     * @param jndiEnvironmentRefsGroup the jndiEnvironmentRefsGroup.
     * @throws IllegalArgumentException for a null jndiEnvironmentRefsGroup
     */
-   @XmlTransient
    public void setJndiEnvironmentRefsGroup(Environment jndiEnvironmentRefsGroup)
    {
       if (jndiEnvironmentRefsGroup == null)
@@ -381,7 +365,6 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
       return null;
    }
 
-   @XmlTransient
    public AnnotatedEJBReferencesMetaData getAnnotatedEjbReferences()
    {
       if (jndiEnvironmentRefsGroup != null)

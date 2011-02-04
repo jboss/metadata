@@ -25,16 +25,12 @@ import org.jboss.metadata.common.jboss.WebserviceDescriptionsMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * WebservicesMetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="webservicesType", propOrder={"contextRoot", "webserviceDescriptions"})
 public class WebservicesMetaData extends IdMetaDataImpl
 {
    /** The serialVersionUID */
@@ -85,7 +81,6 @@ public class WebservicesMetaData extends IdMetaDataImpl
     * @param webserviceDescriptions the webserviceDescriptions.
     * @throws IllegalArgumentException for a null webserviceDescriptions
     */
-   @XmlElement(name="webservice-description")
    public void setWebserviceDescriptions(WebserviceDescriptionsMetaData webserviceDescriptions)
    {
       if (webserviceDescriptions == null)

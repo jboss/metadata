@@ -21,8 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.NamedMetaData;
 
 /**
@@ -31,7 +29,6 @@ import org.jboss.metadata.javaee.support.NamedMetaData;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="query-methodType", propOrder={"methodName", "methodParams"})
 public class QueryMethodMetaData extends NamedMetaData
 {
    /** The serialVersionUID */

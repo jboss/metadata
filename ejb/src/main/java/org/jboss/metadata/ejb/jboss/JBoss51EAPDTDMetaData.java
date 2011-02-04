@@ -21,34 +21,12 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
-import org.jboss.xb.annotations.JBossXmlSchema;
-
 /**
  * 5.0 jboss.xml metadata without a namespace
  * 
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 81860 $
  */
-@XmlRootElement(name="jboss", namespace="")
-@JBossXmlSchema(
-      xmlns={@XmlNs(namespaceURI = JavaEEMetaDataConstants.JAVAEE_NS, prefix = "jee")},
-      ignoreUnresolvedFieldOrClass=false,
-      namespace="",
-      elementFormDefault=XmlNsForm.UNQUALIFIED,
-      normalizeSpace=true)
-@XmlType(name="jbossType", namespace="", propOrder={"loaderRepository", "jmxName", "enforceEjbRestrictions", "securityDomain",
-      "excludeMissingMethods", "unauthenticatedPrincipal", "exceptionOnRollback", "JMSResourceAdapter",
-      "webservices", "enterpriseBeans", "assemblyDescriptor",
-      "resourceManagers", "invokerProxyBindings", "containerConfigurations"})
 public class JBoss51EAPDTDMetaData extends JBossMetaData
 {
    /** The serialVersionUID */
@@ -59,12 +37,6 @@ public class JBoss51EAPDTDMetaData extends JBossMetaData
       // For serialization
    }
    
-   @XmlElementWrapper(name="enterprise-beans")
-   @XmlElements({
-      @XmlElement(name="session", type=JBossSessionBeanMetaData.class),
-      @XmlElement(name="entity", type=JBossEntityBeanMetaData.class),
-      @XmlElement(name="message-driven", type=JBossMessageDrivenBeanMetaData.class)
-      })
    public void setEnterpriseBeans(JBossEnterpriseBeansMetaData enterpriseBeans)
    {
       super.setEnterpriseBeans(enterpriseBeans);

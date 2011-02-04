@@ -21,9 +21,6 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
@@ -33,8 +30,6 @@ import org.jboss.metadata.ejb.spec.MessageDrivenDestinationMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
 import org.jboss.metadata.ejb.spec.SubscriptionDurability;
-import org.jboss.xb.annotations.JBossXmlConstants;
-import org.jboss.xb.annotations.JBossXmlType;
 
 /**
  * MessageDrivenBeanMetaData.
@@ -42,14 +37,7 @@ import org.jboss.xb.annotations.JBossXmlType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="message-driven-beanType", propOrder={"descriptionGroup", "ejbName", "activationConfig", "destinationJndiName", "localJndiName",
-      "jndiBindingPolicy", "mdbUser", "mdbPassword", "mdbClientId", "mdbSubscriptionId", "resourceAdapterName",
-      "exceptionOnRollback", "timerPersistence", "configurationName", "invokerBindings", "securityProxy",
-      "environmentRefsGroup", "securityIdentity", "securityDomain", "methodAttributes", "depends", "iorSecurityConfig",
-      "ejbTimeoutIdentity", "annotations", "ignoreDependency", "aopDomainName", "poolConfig",
-      "jndiRefs", "createDestination"})
 // unordered for pre-jboss-5_0.dtd
-@JBossXmlType(modelGroup=JBossXmlConstants.MODEL_GROUP_UNORDERED_SEQUENCE)
 public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData implements ITimeoutTarget
 {
    /** The serialVersionUID */
@@ -178,7 +166,6 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
     * @param timeoutMethod the timeoutMethod.
     * @throws IllegalArgumentException for a null timeoutMethod
     */
-   @XmlElement(required=false)
    public void setTimeoutMethod(NamedMethodMetaData timeoutMethod)
    {
       if (timeoutMethod == null)
@@ -228,7 +215,6 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
     * @param aroundInvokes the aroundInvokes.
     * @throws IllegalArgumentException for a null aroundInvokes
     */
-   @XmlElement(name="around-invoke", required=false)
    public void setAroundInvokes(AroundInvokesMetaData aroundInvokes)
    {
       if (aroundInvokes == null)
@@ -302,7 +288,6 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
     * @param messageSelector the messageSelector.
     * @throws IllegalArgumentException for a null messageSelector
     */
-   @XmlElement(required=false)
    public void setMessageSelector(String messageSelector)
    {
       if (messageSelector == null)
@@ -326,7 +311,6 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
     * @param acknowledgeMode the acknowledgeMode.
     * @throws IllegalArgumentException for a null acknowledgeMode
     */
-   @XmlElement(required=false)
    public void setAcknowledgeMode(String acknowledgeMode)
    {
       if (acknowledgeMode == null)
@@ -350,7 +334,6 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
     * @param subscriptionDurability the subscriptionDurability.
     * @throws IllegalArgumentException for a null subscriptionDurability
     */
-   @XmlElement(required=false)
    public void setSubscriptionDurability(SubscriptionDurability subscriptionDurability)
    {
       if (subscriptionDurability == null)
@@ -358,7 +341,6 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
       this.subscriptionDurability = subscriptionDurability;
    }
 
-   @XmlElement(name="message-driven-destination", required=false)
    public void setMessageDrivenDestination(MessageDrivenDestinationMetaData mdd)
    {
       // Translate this into destinationType, subscriptionDurability
@@ -464,7 +446,6 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
     * @param mdbPassword the mdbPassword.
     * @throws IllegalArgumentException for a null mdbPassword
     */
-   @XmlElement(name="mdb-passwd")
    public void setMdbPassword(String mdbPassword)
    {
       if (mdbPassword == null)
@@ -600,7 +581,6 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
     * 
     * @return createDestination == true
     */
-   @XmlElement(name = "create-destination")
    public boolean isCreateDestination()
    {
       if(createDestination == null)

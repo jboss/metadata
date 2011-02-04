@@ -21,8 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -31,7 +29,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="remove-methodType", propOrder={"beanMethod", "retainIfException"})
 public class RemoveMethodMetaData extends IdMetaDataImpl
 {
    /** The serialVersionUID */

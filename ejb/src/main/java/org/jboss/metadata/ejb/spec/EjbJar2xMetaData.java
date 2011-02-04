@@ -21,8 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlAttribute;
-
 /**
  * EjbJar2xMetaData.
  * 
@@ -55,7 +53,6 @@ public class EjbJar2xMetaData extends EjbJarMetaData
     * @param version the version.
     * @throws IllegalArgumentException for a null version
     */
-   @XmlAttribute
    public void setVersion(String version)
    {
       super.setVersion(version);

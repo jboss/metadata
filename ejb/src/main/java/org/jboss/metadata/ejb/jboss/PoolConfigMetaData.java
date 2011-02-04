@@ -21,10 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
-
 /**
  * Represents an <pool-config> element of the jboss.xml deployment descriptor
  *
@@ -32,7 +28,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version <tt>$Revision: 80371 $</tt>
  */
-@XmlType(name="pool-configType", propOrder={"value", "maxSize", "timeout"})
 public class PoolConfigMetaData
 {
    private String value = null;
@@ -44,13 +39,11 @@ public class PoolConfigMetaData
       return value;
    }
 
-   @XmlElement(name="pool-value")
    public void setValue(String value)
    {
       this.value = value;
    }
 
-   @XmlElement(name="pool-max-size")
    public Integer getMaxSize()
    {
       return maxSize;
@@ -61,7 +54,6 @@ public class PoolConfigMetaData
       this.maxSize = maxSize;
    }
    
-   @XmlElement(name="pool-timeout")
    public Integer getTimeout()
    {
       return timeout;

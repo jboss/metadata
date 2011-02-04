@@ -21,17 +21,6 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import javax.interceptor.Interceptors;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.jboss.logging.Logger;
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
@@ -54,6 +43,13 @@ import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.support.NamedModuleImpl;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionGroupMerger;
 import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
+
+import javax.interceptor.Interceptors;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * JBossMetaData.
@@ -153,7 +149,6 @@ public class JBossMetaData extends NamedModuleImpl
     * @param publicId
     * @param systemId
     */
-   @XmlTransient
    public void setDTD(String root, String publicId, String systemId)
    {
       this.dtdPublicId = publicId;
@@ -174,7 +169,6 @@ public class JBossMetaData extends NamedModuleImpl
     * Get the DTD public id if one was seen
     * @return the value of the web.xml dtd public id
     */
-   @XmlTransient
    public String getDtdPublicId()
    {
       return dtdPublicId;
@@ -183,13 +177,11 @@ public class JBossMetaData extends NamedModuleImpl
     * Get the DTD system id if one was seen
     * @return the value of the web.xml dtd system id
     */
-   @XmlTransient
    public String getDtdSystemId()
    {
       return dtdSystemId;
    }
 
-   @XmlTransient
    public InterceptorsMetaData getInterceptors()
    {
       return interceptors;
@@ -220,7 +212,6 @@ public class JBossMetaData extends NamedModuleImpl
     * @param version the version.
     * @throws IllegalArgumentException for a null version
     */
-   @XmlAttribute
    public void setVersion(String version)
    {
       if (version == null)
@@ -233,7 +224,6 @@ public class JBossMetaData extends NamedModuleImpl
       return assemblyDescriptor;
    }
    
-   @XmlTransient
    public String getEjbClientJar()
    {
       return this.ejbClientJar;
@@ -247,7 +237,6 @@ public class JBossMetaData extends NamedModuleImpl
     * The spec metadata version information
     * @return
     */
-   @XmlTransient
    public String getEjbVersion()
    {
       return ejbVersion;
@@ -257,7 +246,6 @@ public class JBossMetaData extends NamedModuleImpl
       this.ejbVersion = ejbVersion;
    }
 
-   @XmlTransient
    public RelationsMetaData getRelationships()
    {
       return this.relationships;
@@ -267,31 +255,26 @@ public class JBossMetaData extends NamedModuleImpl
       this.relationships = relationships;
    }
 
-   @XmlTransient
    public boolean isEJB1x()
    {
       return ejbVersion != null && ejbVersion.contains("1.");
    }
 
-   @XmlTransient
    public boolean isEJB21()
    {
       return ejbVersion != null && ejbVersion.contains("2.1");
    }
 
-   @XmlTransient
    public boolean isEJB2x()
    {
       return ejbVersion != null && ejbVersion.contains("2.");
    }
 
-   @XmlTransient
    public boolean isEJB3x()
    {
       return ejbVersion != null && ejbVersion.contains("3.");
    }
    
-   @XmlTransient
    public boolean isEJB31()
    {
       return ejbVersion != null && ejbVersion.trim().equals("3.1");
@@ -395,7 +378,6 @@ public class JBossMetaData extends NamedModuleImpl
     * 
     * @param excludeMissingMethods the excludeMissingMethods.
     */
-   @XmlElement(name="missing-method-permissions-excluded-mode")
    public void setExcludeMissingMethods(boolean excludeMissingMethods)
    {
       this.excludeMissingMethods = excludeMissingMethods;
@@ -444,7 +426,6 @@ public class JBossMetaData extends NamedModuleImpl
       this.exceptionOnRollback = exceptionOnRollback;
    }
 
-   @XmlAttribute
    public boolean isMetadataComplete()
    {
       return metadataComplete;
@@ -657,7 +638,6 @@ public class JBossMetaData extends NamedModuleImpl
       this.jndiBindingPolicy = jndiBindingPolicy;
    }
    
-   @XmlElement(name="jms-resource-adapter")
    public String getJMSResourceAdapter()
    {
       return this.jmsResourceAdapter;
@@ -673,7 +653,6 @@ public class JBossMetaData extends NamedModuleImpl
     * @param ejbName - the servlet-name from the web.xml
     * @return RunAsIdentity for the servet if one exists, null otherwise
     */
-   @XmlTransient
    public RunAsIdentityMetaData getRunAsIdentity(String ejbName)
    {
       RunAsIdentityMetaData identity = runAsIdentity.get(ejbName);
@@ -707,7 +686,6 @@ public class JBossMetaData extends NamedModuleImpl
     * @return the associated ejb deployment summary if a deployer has
     *    set it. May be null.
     */
-   @XmlTransient
    public DeploymentSummary getDeploymentSummary()
    {
       return deploymentSummary;

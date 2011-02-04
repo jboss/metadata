@@ -22,16 +22,7 @@
 package org.jboss.metadata.jpa.spec;
 
 import org.jboss.metadata.ejb.util.ChildClassAdapter;
-import org.jboss.util.JBossObject;
-import org.jboss.util.JBossStringBuilder;
-import org.jboss.xb.annotations.JBossXmlMapEntry;
-import org.jboss.xb.annotations.JBossXmlMapKeyAttribute;
-import org.jboss.xb.annotations.JBossXmlMapValueAttribute;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,9 +34,7 @@ import java.util.Set;
  *
  * @author <a href="mailto:ales.justin@jboss.com">Ales Justin</a>
  */
-@XmlType(propOrder={"description", "provider", "jtaDataSource", "nonJtaDataSource", "mappingFiles",
-      "jarFiles", "classes", "excludeUnlistedClasses", "sharedCacheMode", "validationMode", "properties"})
-public class PersistenceUnitMetaData extends JBossObject implements Serializable
+public class PersistenceUnitMetaData implements Serializable
 {
    private String description;
    private String provider;
@@ -81,7 +70,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
    }
    static Adapter adapter = new Adapter();
 
-   @XmlElement
    public SharedCacheMode getSharedCacheMode()
    {
       return sharedCacheMode;
@@ -92,7 +80,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       this.sharedCacheMode = sharedCacheMode;
    }
 
-   @XmlElement
    public ValidationMode getValidationMode()
    {
       return validationMode;
@@ -108,7 +95,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return description;
    }
 
-   @XmlElement
    public void setDescription(String description)
    {
       this.description = description;
@@ -119,7 +105,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return provider;
    }
 
-   @XmlElement
    public void setProvider(String provider)
    {
       this.provider = provider;
@@ -130,7 +115,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return jtaDataSource;
    }
 
-   @XmlElement(name = "jta-data-source")
    public void setJtaDataSource(String jtaDataSource)
    {
       this.jtaDataSource = jtaDataSource;
@@ -141,7 +125,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return nonJtaDataSource;
    }
 
-   @XmlElement(name = "non-jta-data-source")
    public void setNonJtaDataSource(String nonJtaDataSource)
    {
       this.nonJtaDataSource = nonJtaDataSource;
@@ -152,7 +135,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return mappingFiles;
    }
 
-   @XmlElement(name = "mapping-file")
    public void setMappingFiles(Set<String> mappingFiles)
    {
       this.mappingFiles = mappingFiles;
@@ -163,7 +145,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return jarFiles;
    }
 
-   @XmlElement(name = "jar-file")
    public void setJarFiles(Set<String> jarFiles)
    {
       this.jarFiles = jarFiles;
@@ -174,7 +155,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return classes;
    }
 
-   @XmlElement(name = "class")
    public void setClasses(Set<String> classes)
    {
       this.classes = classes;
@@ -185,7 +165,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return excludeUnlistedClasses;
    }
 
-   @XmlElement(name = "exclude-unlisted-classes")
    public void setExcludeUnlistedClasses(boolean excludeUnlistedClasses)
    {
       this.excludeUnlistedClasses = excludeUnlistedClasses;
@@ -196,10 +175,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return properties;
    }
 
-   @XmlElementWrapper(name="properties")
-   @JBossXmlMapEntry(name="property")
-   @JBossXmlMapKeyAttribute(name="name")
-   @JBossXmlMapValueAttribute(name="value")
    public void setProperties(Map<String, String> properties)
    {
       this.properties = properties;
@@ -210,7 +185,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return name;
    }
 
-   @XmlAttribute(required = true)
    public void setName(String name)
    {
       this.name = name;
@@ -221,7 +195,6 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return transactionType;
    }
 
-   @XmlAttribute
    public void setTransactionType(TransactionType transactionType)
    {
       this.transactionType = transactionType;
@@ -232,26 +205,7 @@ public class PersistenceUnitMetaData extends JBossObject implements Serializable
       return persistenceMetaData;
    }
 
-   protected void toString(JBossStringBuilder builder)
-   {
-      builder.append("provider=").append(provider);
-      builder.append(", jta-data-source=").append(jtaDataSource);
-      builder.append(", non-jta-data-source=").append(nonJtaDataSource);
-      builder.append(", non-jta-data-source=").append(nonJtaDataSource);
-      if (mappingFiles != null)
-         builder.append(", mapping-files=").append(mappingFiles);
-      if (jarFiles != null)
-         builder.append(", jar-files=").append(jarFiles);
-      if (classes != null)
-         builder.append(", classes=").append(classes);
-      builder.append(", excludeUnlistedClasses=").append(excludeUnlistedClasses);
-      if (properties != null)
-         builder.append(", properties=").append(properties);
-      builder.append(", name=").append(name);
-      builder.append(", transactionType=").append(transactionType);
-   }
-
-   public PersistenceUnitMetaData clone()
+   public PersistenceUnitMetaData clone() throws CloneNotSupportedException
    {
       PersistenceUnitMetaData clone = (PersistenceUnitMetaData)super.clone();
       if (mappingFiles != null)

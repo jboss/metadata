@@ -21,8 +21,6 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * CommitOption.<p>
  * 
@@ -31,7 +29,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="commit-optionType")
 public enum CommitOption
 {
    /** Dumb */

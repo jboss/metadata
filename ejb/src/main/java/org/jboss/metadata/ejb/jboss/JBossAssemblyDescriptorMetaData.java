@@ -37,9 +37,6 @@ import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
@@ -50,7 +47,6 @@ import java.util.Set;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="assembly-descriptorType", propOrder={"securityRoles", "messageDestinations"})
 public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
    implements org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData
 {
@@ -106,7 +102,6 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param securityRoles the securityRoles.
     * @throws IllegalArgumentException for a null securityRoles
     */
-   @XmlElement(name="security-role")
    public void setSecurityRoles(SecurityRolesMetaData securityRoles)
    {
       if (securityRoles == null)
@@ -130,7 +125,6 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param methodPermissions the methodPermissions.
     * @throws IllegalArgumentException for a null methodPermissions
     */
-   @XmlElement(name="method-permission")
    public void setMethodPermissions(MethodPermissionsMetaData methodPermissions)
    {
       if (methodPermissions == null)
@@ -171,7 +165,6 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param containerTransactions the containerTransactions.
     * @throws IllegalArgumentException for a null containerTransactions
     */
-   @XmlElement(name="container-transaction")
    public void setContainerTransactions(ContainerTransactionsMetaData containerTransactions)
    {
       if (containerTransactions == null)
@@ -212,7 +205,6 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param interceptorBindings the interceptorBindings.
     * @throws IllegalArgumentException for a null interceptorBindings
     */
-   @XmlElement(name="interceptor-binding", required=false)
    public void setInterceptorBindings(InterceptorBindingsMetaData interceptorBindings)
    {
       if (interceptorBindings == null)
@@ -276,7 +268,6 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param applicationExceptions the applicationExceptions.
     * @throws IllegalArgumentException for a null applicationExceptions
     */
-   @XmlElement(name="application-exception", required=false)
    public void setApplicationExceptions(ApplicationExceptionsMetaData applicationExceptions)
    {
       if (applicationExceptions == null)
@@ -338,7 +329,6 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
     * Generate a Map of Principal keyed against a set of role names
     * @return map of principal names as keys and set of role name strings as values
     */
-   @XmlTransient
    public Map<String,Set<String>> getPrincipalVersusRolesMap()
    {
       if(securityRoles == null)
@@ -362,7 +352,6 @@ public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param messageDestinations the messageDestinations.
     * @throws IllegalArgumentException for a null messageDestinations
     */
-   @XmlElement(name="message-destination")
    public void setMessageDestinations(MessageDestinationsMetaData messageDestinations)
    {
       if (messageDestinations == null)

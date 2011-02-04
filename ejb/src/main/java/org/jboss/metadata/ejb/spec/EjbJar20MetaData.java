@@ -21,29 +21,12 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-import org.jboss.xb.annotations.JBossXmlSchema;
-
 /**
  * EjbJar20MetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 76701 $
  */
-@XmlRootElement(name="ejb-jar", namespace="")
-@JBossXmlSchema(
-      xmlns={@XmlNs(namespaceURI = "", prefix = "jee")},
-      ignoreUnresolvedFieldOrClass=false,
-      namespace="",
-      elementFormDefault=XmlNsForm.QUALIFIED,
-      normalizeSpace=true)
-@XmlType(name="ejb-jarType",
-      namespace="",
-      propOrder={"descriptionGroup", "enterpriseBeans", "relationships", "assemblyDescriptor", "ejbClientJar"})
 public class EjbJar20MetaData extends EjbJar2xMetaData
 {
    /** The serialVersionUID */

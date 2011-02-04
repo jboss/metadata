@@ -29,15 +29,12 @@ import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 /**
  * JBossEnterpriseBeansMetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-//@XmlType(name="enterprise-beansType")
 public class JBossEnterpriseBeansMetaData
    extends EnterpriseBeansMap<JBossAssemblyDescriptorMetaData, JBossEnterpriseBeansMetaData, JBossEnterpriseBeanMetaData, JBossMetaData>
 {
@@ -96,13 +93,11 @@ public class JBossEnterpriseBeansMetaData
       return jbossMetaData;
    }
 
-   @XmlTransient
    public void setEjbJarMetaData(JBossMetaData ejbJarMetaData)
    {
       jbossMetaData = ejbJarMetaData;
    }
 
-   @XmlTransient
    public boolean isEmpty()
    {
       return super.isEmpty();

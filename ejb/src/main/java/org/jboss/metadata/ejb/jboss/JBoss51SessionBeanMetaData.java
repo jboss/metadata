@@ -21,20 +21,12 @@
   */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * A JBossSessionBeanJBoss50MetaData.
  * 
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="session-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "environmentRefsGroup",
-      "securityIdentity", "localBindings", "remoteBindings", "businessLocals", "businessRemotes", 
-      "jndiName", "homeJndiName", "localJndiName", "localHomeJndiName", "jndiBindingPolicy",
-      "clustered", "clusterConfig",
-      "securityDomain", "methodAttributes", "depends", "annotations", "ignoreDependency", "aopDomainName",
-      "cacheConfig", "poolConfig", "concurrent", "jndiRefs", "portComponent", "ejbTimeoutIdentity"})
 public class JBoss51SessionBeanMetaData extends JBossSessionBean31MetaData
 {
 

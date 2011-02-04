@@ -21,9 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
@@ -40,8 +37,6 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="assembly-descriptorType", propOrder={"securityRoles", "methodPermissions", "containerTransactions", "interceptorBindings",
-      "messageDestinations", "excludeList", "applicationExceptions"})
 public class AssemblyDescriptorMetaData extends IdMetaDataImpl
    implements IAssemblyDescriptorMetaData
 {
@@ -97,7 +92,6 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param securityRoles the securityRoles.
     * @throws IllegalArgumentException for a null securityRoles
     */
-   @XmlElement(name="security-role")
    public void setSecurityRoles(SecurityRolesMetaData securityRoles)
    {
       if (securityRoles == null)
@@ -121,7 +115,6 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param methodPermissions the methodPermissions.
     * @throws IllegalArgumentException for a null methodPermissions
     */
-   @XmlElement(name="method-permission")
    public void setMethodPermissions(MethodPermissionsMetaData methodPermissions)
    {
       if (methodPermissions == null)
@@ -162,7 +155,6 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param containerTransactions the containerTransactions.
     * @throws IllegalArgumentException for a null containerTransactions
     */
-   @XmlElement(name="container-transaction")
    public void setContainerTransactions(ContainerTransactionsMetaData containerTransactions)
    {
       if (containerTransactions == null)
@@ -203,7 +195,6 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param interceptorBindings the interceptorBindings.
     * @throws IllegalArgumentException for a null interceptorBindings
     */
-   @XmlElement(name="interceptor-binding", required=false)
    public void setInterceptorBindings(InterceptorBindingsMetaData interceptorBindings)
    {
       if (interceptorBindings == null)
@@ -227,7 +218,6 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param messageDestinations the messageDestinations.
     * @throws IllegalArgumentException for a null messageDestinations
     */
-   @XmlElement(name="message-destination")
    public void setMessageDestinations(MessageDestinationsMetaData messageDestinations)
    {
       if (messageDestinations == null)
@@ -304,7 +294,6 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
     * @param applicationExceptions the applicationExceptions.
     * @throws IllegalArgumentException for a null applicationExceptions
     */
-   @XmlElement(name="application-exception", required=false)
    public void setApplicationExceptions(ApplicationExceptionsMetaData applicationExceptions)
    {
       if (applicationExceptions == null)

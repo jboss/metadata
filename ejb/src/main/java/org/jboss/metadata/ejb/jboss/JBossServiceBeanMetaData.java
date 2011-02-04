@@ -21,22 +21,12 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * An EJB 3 service bean.
  *
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 84989 $
  */
-@XmlType(name="service-beanType", propOrder={"descriptionGroup", "ejbName", "mappedName", "businessLocals", "businessRemotes",
-      "ejbClass", "environmentRefsGroup", "securityIdentity", "objectName", "management", "xmbean", "localBindings",
-      "remoteBindings", "jndiName", "homeJndiName", "callByValue",
-      "exceptionOnRollback", "timerPersistence", "configurationName", "invokerBindings", "securityProxy", "localJndiName",
-      "jndiBindingPolicy", "clustered",
-      "clusterConfig", "securityDomain", "methodAttributes", "depends", "annotations",
-      "ignoreDependency", "aopDomainName", "cacheConfig",  "poolConfig", "concurrent", "jndiRefs", "portComponent",
-      "ejbTimeoutIdentity", "iorSecurityConfig"})
 public class JBossServiceBeanMetaData extends JBossSessionBeanMetaData
 {
    private static final long serialVersionUID = 1L;

@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
 
 /**
@@ -30,7 +28,6 @@ import org.jboss.metadata.ejb.spec.MethodsMetaData;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version <tt>$Revision: 80371 $</tt>
  */
-@XmlType(name="current-messageType")
 public class CurrentMessageMetaData extends MethodsMetaData
 {
    private static final long serialVersionUID = 1L;

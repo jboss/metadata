@@ -22,7 +22,6 @@
 package org.jboss.metadata.ejb.spec;
 
 import javax.ejb.AccessTimeout;
-import javax.xml.bind.annotation.XmlType;
 
 /**
  * Metadata for {@link AccessTimeout}'s xml equivalent
@@ -30,7 +29,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-@XmlType(name = "access-timeoutType", propOrder = {"timeout", "unit"})
 public class AccessTimeoutMetaData extends AbstractTimeoutMetaData
 {
    private static final long serialVersionUID = 1L;

@@ -21,10 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
-
 /**
  * Represents an <cache-config> element of the jboss.xml deployment descriptor
  *
@@ -32,7 +28,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version <tt>$Revision: 80355 $</tt>
  */
-@XmlType(name="cache-configType", propOrder={"value", "maxSize", "idleTimeoutSeconds", "removeTimeoutSeconds", "name", "persistenceManager", "replicationIsPassivation"})
 public class CacheConfigMetaData
 {
    private String value = null;
@@ -58,7 +53,6 @@ public class CacheConfigMetaData
       return value;
    }
 
-   @XmlElement(name="cache-value")
    public void setValue(String value)
    {
       this.value = value;
@@ -69,7 +63,6 @@ public class CacheConfigMetaData
       return maxSize;
    }
 
-   @XmlElement(name="cache-max-size")
    public void setMaxSize(Integer maxSize)
    {
       this.maxSize = maxSize;
@@ -100,7 +93,6 @@ public class CacheConfigMetaData
       return name;
    }
 
-   @XmlElement(name="cache-name")
    public void setName(String name)
    {
       this.name = name;

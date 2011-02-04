@@ -21,13 +21,13 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import java.io.Serializable;
-
 import org.jboss.annotation.javaee.Description;
 import org.jboss.annotation.javaee.Descriptions;
 import org.jboss.annotation.javaee.DisplayName;
 import org.jboss.annotation.javaee.DisplayNames;
 import org.jboss.annotation.javaee.Icons;
+
+import java.io.Serializable;
 
 /**
  * DescriptionGroupMetaData.
@@ -108,7 +108,6 @@ public class DescriptionGroupMetaData implements Serializable {
      * @param displayNames the displayNames.
      * @throws IllegalArgumentException for a null displayNames
      */
-    // @JBossXmlNsPrefix(prefix="jee")
     public void setDisplayNames(DisplayNames displayNames) {
         if (displayNames == null)
             throw new IllegalArgumentException("Null displayNames");
@@ -146,8 +145,6 @@ public class DescriptionGroupMetaData implements Serializable {
      * @param icons the icons.
      * @throws IllegalArgumentException for a null icons
      */
-    // @XmlElement(name="icon", type=IconsImpl.class)
-    // @JBossXmlNsPrefix(prefix="jee")
     public void setIcons(Icons icons) {
         if (icons == null)
             throw new IllegalArgumentException("Null icons");

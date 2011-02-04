@@ -21,12 +21,6 @@
  */
 package org.jboss.metadata.common.ejb;
 
-import java.lang.reflect.Method;
-
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
 import org.jboss.metadata.ejb.spec.MethodInterfaceType;
@@ -54,6 +48,10 @@ import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.MappableMetaData;
+
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagementType;
+import java.lang.reflect.Method;
 
 /**
  * Common interface for spec/jboss enterprise bean metadata
@@ -110,7 +108,6 @@ public interface IEnterpriseBeanMetaData<A extends IAssemblyDescriptorMetaData,
    public TransactionAttributeType getMethodTransactionType(String methodName, Class<?>[] params, MethodInterfaceType iface);
    public TransactionAttributeType getMethodTransactionType(Method m, MethodInterfaceType iface);
    public ExcludeListMetaData getExcludeList();
-   @XmlTransient
    public void setEnterpriseBeansMetaData(C data);
 
 }

@@ -21,10 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
@@ -34,8 +30,6 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="ejb-relationship-roleType", propOrder={"descriptions", "ejbRelationshipRoleName", "multiplicity", "cascadeDelete",
-      "roleSource", "cmrField"})
 public class RelationRoleMetaData extends NamedMetaDataWithDescriptions
 {
    /** The serialVersionUID */
@@ -101,7 +95,6 @@ public class RelationRoleMetaData extends NamedMetaDataWithDescriptions
     * @param multiplicityType the multiplicityType.
     * @throws IllegalArgumentException for a null multiplicityType
     */
-   @XmlElement(name="multiplicity")
    public void setMultiplicity(MultiplicityType multiplicityType)
    {
       if (multiplicityType == null)
@@ -114,7 +107,6 @@ public class RelationRoleMetaData extends NamedMetaDataWithDescriptions
     * 
     * @return true when it is one
     */
-   @XmlTransient
    public boolean isMultiplicityOne()
    {
       return multiplicityType == MultiplicityType.One;
@@ -125,13 +117,11 @@ public class RelationRoleMetaData extends NamedMetaDataWithDescriptions
     * 
     * @return true when it is many
     */
-   @XmlTransient
    public boolean isMultiplicityMany()
    {
       return multiplicityType == MultiplicityType.Many;
    }
    
-   @XmlTransient
    public boolean isCascadedDelete()
    {
       return cascadedDelete != null;
@@ -162,7 +152,6 @@ public class RelationRoleMetaData extends NamedMetaDataWithDescriptions
     * 
     * @return the relation.
     */
-   @XmlTransient
    public RelationMetaData getRelation()
    {
       return relation;
@@ -186,7 +175,6 @@ public class RelationRoleMetaData extends NamedMetaDataWithDescriptions
     * 
     * @return the related role
     */
-   @XmlTransient
    public RelationRoleMetaData getRelatedRole()
    {
       if (relation == null)
@@ -210,7 +198,6 @@ public class RelationRoleMetaData extends NamedMetaDataWithDescriptions
     * @param roleSource the roleSource.
     * @throws IllegalArgumentException for a null roleSource
     */
-   @XmlElement(name="relationship-role-source")
    public void setRoleSource(RelationRoleSourceMetaData roleSource)
    {
       if (roleSource == null)

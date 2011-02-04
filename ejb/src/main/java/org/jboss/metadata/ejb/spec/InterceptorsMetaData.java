@@ -23,9 +23,6 @@ package org.jboss.metadata.ejb.spec;
 
 import org.jboss.metadata.javaee.support.MappedMetaDataWithDescriptions;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
-import org.jboss.xb.annotations.JBossXmlChild;
-
-import javax.xml.bind.annotation.XmlType;
 
 /**
  * InterceptorsMetaData.
@@ -33,8 +30,6 @@ import javax.xml.bind.annotation.XmlType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="interceptorsType")
-@JBossXmlChild(name="interceptor", type=InterceptorMetaData.class, unbounded=true)
 public class InterceptorsMetaData extends MappedMetaDataWithDescriptions<InterceptorMetaData>
 {
    /** The serialVersionUID */

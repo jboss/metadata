@@ -21,14 +21,11 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.logging.Logger;
 import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An EJB 3 consumer bean.
@@ -37,10 +34,6 @@ import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version <tt>$Revision: 84989 $</tt>
  */
-@XmlType(name="consumer-beanType", propOrder={"descriptionGroup", "ejbName", "ejbClass", "messageDestination",
-      "messageDestinationType", "producers", "localProducers", "currentMessage", "messageProperties", "mappedName",
-      "localJndiName", "jndiBindingPolicy", "environmentRefsGroup", "securityDomain", "methodAttributes", "depends",
-      "annotations", "ignoreDependency", "aopDomainName", "poolConfig", "jndiRefs", "activationConfig", "defaultActivationConfig"})
 public class JBossConsumerBeanMetaData extends JBossEnterpriseBeanMetaData
 {
    private static final long serialVersionUID = 1L;
@@ -129,7 +122,6 @@ public class JBossConsumerBeanMetaData extends JBossEnterpriseBeanMetaData
       return producers;
    }
    
-   @XmlElement(name="producer", required=false)
    public void setProducers(List<ProducerMetaData> producers)
    {
       this.producers = producers;
@@ -140,7 +132,6 @@ public class JBossConsumerBeanMetaData extends JBossEnterpriseBeanMetaData
       return localProducers;
    }
    
-   @XmlElement(name="local-producer", required=false)
    public void setLocalProducers(List<LocalProducerMetaData> producers)
    {
       this.localProducers = producers;
@@ -159,7 +150,6 @@ public class JBossConsumerBeanMetaData extends JBossEnterpriseBeanMetaData
    }
    
    @Override
-   @XmlElement(name="jndi-name")
    public String getMappedName()
    {
       return super.getMappedName();

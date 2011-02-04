@@ -21,8 +21,6 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import javax.xml.bind.annotation.XmlType;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -31,7 +29,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-@XmlType(name="init-methodType", propOrder={"createMethod", "beanMethod"})
 public class InitMethodMetaData extends IdMetaDataImpl
 {
    /** The serialVersionUID */
