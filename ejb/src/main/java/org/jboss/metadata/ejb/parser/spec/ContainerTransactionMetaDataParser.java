@@ -64,7 +64,8 @@ public class ContainerTransactionMetaDataParser extends AbstractMetaDataParser<C
             {
                throw unexpectedValue(reader, new Exception("Unexpected null or empty value for trans-attribute"));
             }
-            TransactionAttributeType txAttributeType = TransactionAttributeType.valueOf(txAttributeValue.toUpperCase(Locale.ENGLISH));
+
+            TransactionAttributeType txAttributeType = this.parseTxAttributeType(txAttributeValue);
             containerTransactionMetaData.setTransAttribute(txAttributeType);
             return;
 
@@ -82,5 +83,35 @@ public class ContainerTransactionMetaDataParser extends AbstractMetaDataParser<C
          default:
             throw unexpectedElement(reader);
       }
+   }
+
+   private TransactionAttributeType parseTxAttributeType(String txAttrValue)
+   {
+      if (txAttrValue.equals("Required"))
+      {
+         return TransactionAttributeType.REQUIRED;
+      }
+      if (txAttrValue.equals("RequiresNew"))
+      {
+         return TransactionAttributeType.REQUIRES_NEW;
+      }
+      if (txAttrValue.equals("NotSupported"))
+      {
+         return TransactionAttributeType.NOT_SUPPORTED;
+      }
+      if (txAttrValue.equals("Supports"))
+      {
+         return TransactionAttributeType.SUPPORTS;
+      }
+      if (txAttrValue.equals("Mandatory"))
+      {
+         return TransactionAttributeType.MANDATORY;
+      }
+      if (txAttrValue.equals("Never"))
+      {
+         return TransactionAttributeType.NEVER;
+      }
+
+      throw new IllegalArgumentException("Unknown transaction attribute type value: " + txAttrValue);
    }
 }
