@@ -55,6 +55,7 @@ public enum EjbJarElement
    CLASS("class"),
    CONCURRENCY_MANAGEMENT_TYPE("concurrency-management-type"),
    CONCURRENT_METHOD("concurrent-method"),
+   CONTAINER_TRANSACTION("container-transaction"),
    CREATE_METHOD("create-method"),
 
    DAY_OF_MONTH("day-of-month"),
@@ -94,6 +95,7 @@ public enum EjbJarElement
    MAPPED_NAME("mapped-name"),
    MESSAGE_DRIVEN("message-driven"),
    METHOD("method"),
+   METHOD_INTF("method-intf"),
    METHOD_NAME("method-name"),
    METHOD_PARAM("method-param"),
    METHOD_PARAMS("method-params"),
@@ -125,6 +127,7 @@ public enum EjbJarElement
    TIMEOUT_METHOD("timeout-method"),
    TIMER("timer"),
    TIMEZONE("timezone"),
+   TRANS_ATTRIBUTE("trans-attribute"),
    TRANSACTION_TYPE("transaction-type"),
 
    UNIT("unit"),

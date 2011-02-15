@@ -22,6 +22,8 @@
 package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
+import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
+import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -46,6 +48,17 @@ public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<Ass
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
+         case CONTAINER_TRANSACTION :
+            ContainerTransactionsMetaData containerTransactions = assemblyDescriptor.getContainerTransactions();
+            if (containerTransactions == null)
+            {
+               containerTransactions = new ContainerTransactionsMetaData();
+               assemblyDescriptor.setContainerTransactions(containerTransactions);
+            }
+            ContainerTransactionMetaData containerTransaction = ContainerTransactionMetaDataParser.INSTANCE.parse(reader);
+            containerTransactions.add(containerTransaction);
+            return;
+         
          default:
             throw unexpectedElement(reader);
       }
