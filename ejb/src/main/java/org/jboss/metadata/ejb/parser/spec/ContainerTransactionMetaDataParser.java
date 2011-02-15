@@ -29,6 +29,7 @@ import org.jboss.metadata.ejb.spec.MethodsMetaData;
 import javax.ejb.TransactionAttributeType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.util.Locale;
 
 /**
  * Parses and creates metadata out of &lt;container-transaction&gt; element in the ejb-jar.xml
@@ -63,7 +64,7 @@ public class ContainerTransactionMetaDataParser extends AbstractMetaDataParser<C
             {
                throw unexpectedValue(reader, new Exception("Unexpected null or empty value for trans-attribute"));
             }
-            TransactionAttributeType txAttributeType = TransactionAttributeType.valueOf(txAttributeValue);
+            TransactionAttributeType txAttributeType = TransactionAttributeType.valueOf(txAttributeValue.toUpperCase(Locale.ENGLISH));
             containerTransactionMetaData.setTransAttribute(txAttributeType);
             return;
 
