@@ -327,15 +327,14 @@ public class MetaDataElementParser implements XMLStreamConstants {
         return loc;
     }
 
-    protected static QName parseQName(String qname) {
-        int begin = qname.indexOf('{');
-        int end = qname.indexOf('}');
-        if (begin < end && end < qname.length()) {
-            String ns = qname.substring(begin + 1, end);
+    protected static QName parseQName(final XMLStreamReader reader, String qname) {
+        int end = qname.indexOf(':');
+        if (end > 0 && end < qname.length()) {
+            String ns = qname.substring(0, end);
             String local = qname.substring(end + 1);
-            return new QName(ns, local);
+            return new QName(reader.getNamespaceURI(ns), local);
         } else {
-            throw new IllegalArgumentException("Invalid QName: " + qname);
+        	return new QName(qname);
         }
     }
 

@@ -91,7 +91,7 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
                         soapHeaders = new ArrayList<QName>();
                         handler.setSoapHeader(soapHeaders);
                     }
-                    soapHeaders.add(parseQName(getElementText(reader)));
+                    soapHeaders.add(parseQName(reader, getElementText(reader)));
                     break;
                 case SOAP_ROLE:
                     List<String> soapRoles = handler.getSoapRole();
