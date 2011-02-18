@@ -43,4 +43,10 @@ public enum MethodInterfaceType
    
    /** ServiceEndpoint */
    ServiceEndpoint,
+
+   /** Timer */
+   Timer,
+
+   /** MessageEndpoint */
+   MessageEndpoint
 }
