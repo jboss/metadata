@@ -28,6 +28,8 @@ import java.util.List;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.servlet.SessionConfigMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.web.jboss.ContainerListenerMetaData;
@@ -98,8 +100,15 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             }
         }
 
+        EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+            if (EnvironmentRefsGroupMetaDataParser.parse(reader, env)) {
+                if (wmd.getJndiEnvironmentRefsGroup() == null) {
+                    wmd.setJndiEnvironmentRefsGroup(env);
+                }
+                continue;
+            }
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case CONTEXT_ROOT:

@@ -40,6 +40,7 @@ import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
+import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
@@ -128,7 +129,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     /** The message destinations */
     private MessageDestinationsMetaData messageDestinations = new MessageDestinationsMetaData();
     /** The environment */
-    private JBossEnvironmentRefsGroupMetaData jndiEnvironmentRefsGroup;
+    private EnvironmentRefsGroupMetaData jndiEnvironmentRefsGroup;
     /** The web app virtual host list */
     private List<String> virtualHosts;
     private boolean flushOnSessionInvalidation;
@@ -757,8 +758,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     public void setJndiEnvironmentRefsGroup(Environment env) {
         if (env == null)
             throw new IllegalArgumentException("Null jndiEnvironmentRefsGroup");
-        JBossEnvironmentRefsGroupMetaData jenv = (JBossEnvironmentRefsGroupMetaData) env;
-        jndiEnvironmentRefsGroup = jenv;
+        jndiEnvironmentRefsGroup = (EnvironmentRefsGroupMetaData) env;
     }
 
     // just for the xml binding, to expose correct model group type

@@ -21,13 +21,12 @@
  */
 package org.jboss.metadata.merge.web.jboss;
 
-import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
-import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
 import org.jboss.metadata.javaee.jboss.NamedModule;
 import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
-import org.jboss.metadata.merge.ejb.jboss.JBossEnvironmentRefsGroupMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
@@ -205,14 +204,14 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
                 overrideFile));
 
         if (dest.getJndiEnvironmentRefsGroup() == null)
-            dest.setJndiEnvironmentRefsGroup(new JBossEnvironmentRefsGroupMetaData());
+            dest.setJndiEnvironmentRefsGroup(new EnvironmentRefsGroupMetaData());
         Environment env = null;
-        JBossEnvironmentRefsGroupMetaData jenv = null;
+        EnvironmentRefsGroupMetaData jenv = null;
         if (override != null)
-            jenv = (JBossEnvironmentRefsGroupMetaData) override.getJndiEnvironmentRefsGroup();
+            jenv = (EnvironmentRefsGroupMetaData) override.getJndiEnvironmentRefsGroup();
         if (original != null)
             env = original.getJndiEnvironmentRefsGroup();
-        JBossEnvironmentRefsGroupMetaDataMerger.merge((JBossEnvironmentRefsGroupMetaData) dest.getJndiEnvironmentRefsGroup(), jenv, env, (ResourceManagersMetaData)null, overrideFile, overridenFile, mustOverride);
+        EnvironmentRefsGroupMetaDataMerger.merge((EnvironmentRefsGroupMetaData) dest.getJndiEnvironmentRefsGroup(), jenv, env, overrideFile, overridenFile, mustOverride);
 
         if (override != null && override.getVirtualHosts() != null)
             dest.setVirtualHosts(override.getVirtualHosts());
