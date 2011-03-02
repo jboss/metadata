@@ -114,7 +114,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private String dtdSystemId;
     private String version;
     private String contextRoot;
-    private boolean crossContext;
+    private boolean disableCrossContext;
     private String alternativeDD;
     private String securityDomain;
     private String jaccContextID;
@@ -274,12 +274,12 @@ public class JBossWebMetaData extends NamedModuleImpl {
         this.metadataComplete = metadataComplete;
     }
 
-    public boolean isCrossContext() {
-        return crossContext;
+    public boolean isDisableCrossContext() {
+        return disableCrossContext;
     }
 
-    public void setCrossContext(boolean crossContext) {
-        this.crossContext = crossContext;
+    public void setDisableCrossContext(boolean disableCrossContext) {
+        this.disableCrossContext = disableCrossContext;
     }
 
     public JBossAnnotationsMetaData getAnnotations() {

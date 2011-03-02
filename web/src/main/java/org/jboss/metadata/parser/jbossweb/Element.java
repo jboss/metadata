@@ -45,9 +45,9 @@ public enum Element {
     CONFIG_FILE("config-file"),
     CONFIG_NAME("config-name"),
     CONTEXT_ROOT("context-root"),
-    CROSS_CONTEXT("cross-context"),
 
     DEPENDS("depends"),
+    DISABLE_CROSS_CONTEXT("disable-cross-context"),
 
     EMPTY_ROLE_SEMANTIC("empty-role-semantic"),
 

@@ -71,8 +71,8 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
             dest.setMetadataComplete(web25MD.isMetadataComplete());
         }
 
-        if (override != null && override.isCrossContext())
-            dest.setCrossContext(override.isCrossContext());
+        if (override != null && override.isDisableCrossContext())
+            dest.setDisableCrossContext(override.isDisableCrossContext());
 
         if (override != null && override.getModuleName() != null)
             dest.setModuleName(override.getModuleName());

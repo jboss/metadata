@@ -166,8 +166,8 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case JACC_STAR_ROLE_ALLOW:
                 	wmd.setJaccAllStoreRole(Boolean.valueOf(getElementText(reader)));
                 	break;
-                case CROSS_CONTEXT:
-                	wmd.setCrossContext(Boolean.valueOf(getElementText(reader)));
+                case DISABLE_CROSS_CONTEXT:
+                	wmd.setDisableCrossContext(Boolean.valueOf(getElementText(reader)));
                 	break;
                 default: throw unexpectedElement(reader);
             }
