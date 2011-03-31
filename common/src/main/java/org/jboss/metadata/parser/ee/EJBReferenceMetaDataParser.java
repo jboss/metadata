@@ -25,13 +25,10 @@ package org.jboss.metadata.parser.ee;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceType;
-import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 /**
  * @author Remy Maucherat
@@ -45,7 +42,7 @@ public class EJBReferenceMetaDataParser extends MetaDataElementParser {
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i ++) {
             final String value = reader.getAttributeValue(i);
-            if (reader.getAttributeNamespace(i) != null) {
+            if (attributeHasNamespace(reader, i)) {
                 continue;
             }
             final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));

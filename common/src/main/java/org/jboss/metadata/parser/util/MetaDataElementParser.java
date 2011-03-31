@@ -271,7 +271,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
         if (count == 0) {
             throw missingRequired(reader, Collections.singleton(attributeName));
         }
-        if (reader.getAttributeNamespace(0) != null || ! attributeName.equals(reader.getAttributeLocalName(0))) {
+        if (attributeHasNamespace(reader, 0) || ! attributeName.equals(reader.getAttributeLocalName(0))) {
             throw unexpectedAttribute(reader, 0);
         }
         if (count > 1) {
@@ -336,6 +336,10 @@ public class MetaDataElementParser implements XMLStreamConstants {
         } else {
         	return new QName(qname);
         }
+    }
+
+    protected static boolean attributeHasNamespace(final XMLStreamReader reader, final int i) {
+    	return !(reader.getAttributeNamespace(i) == null || "".equals(reader.getAttributeNamespace(i)));
     }
 
     /**

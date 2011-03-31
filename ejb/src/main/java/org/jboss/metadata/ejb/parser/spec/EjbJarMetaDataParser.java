@@ -100,7 +100,7 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
       for (int i = 0; i < count; i++)
       {
          final String value = reader.getAttributeValue(i);
-         if (reader.getAttributeNamespace(i) != null)
+         if (attributeHasNamespace(reader, i))
          {
             continue;
          }
@@ -194,7 +194,7 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
          final int count = reader.getAttributeCount();
          for (int i = 0; i < count; i++)
          {
-            if (reader.getAttributeNamespace(i) != null)
+            if (attributeHasNamespace(reader, i))
             {
                continue;
             }

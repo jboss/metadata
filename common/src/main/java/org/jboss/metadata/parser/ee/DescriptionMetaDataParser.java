@@ -44,7 +44,7 @@ public class DescriptionMetaDataParser extends MetaDataElementParser {
             		&& Attribute.forName(reader.getAttributeLocalName(i)) == Attribute.LANG) {
             	description.setLanguage(value);
             }
-            if (reader.getAttributeNamespace(i) != null) {
+            if (attributeHasNamespace(reader, i)) {
                 continue;
             }
             final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
