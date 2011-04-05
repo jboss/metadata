@@ -29,7 +29,9 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
+import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.servlet.SessionConfigMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.web.jboss.ContainerListenerMetaData;
@@ -163,6 +165,14 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case SECURITY_DOMAIN:
                 	wmd.setSecurityDomain(getElementText(reader));
                 	break;
+                case SECURITY_ROLE:
+                    SecurityRolesMetaData securityRoles = wmd.getSecurityRoles();
+                    if (securityRoles == null) {
+                        securityRoles = new SecurityRolesMetaData();
+                        wmd.setSecurityRoles(securityRoles);
+                    }
+                    securityRoles.add(SecurityRoleMetaDataParser.parse(reader));
+                    break;
                 case JACC_STAR_ROLE_ALLOW:
                 	wmd.setJaccAllStoreRole(Boolean.valueOf(getElementText(reader)));
                 	break;
