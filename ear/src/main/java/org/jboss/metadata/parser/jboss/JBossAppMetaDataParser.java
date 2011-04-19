@@ -140,7 +140,7 @@ public class JBossAppMetaDataParser extends MetaDataElementParser {
             if (reader.hasText()) {
                 final StringBuilder builder = new StringBuilder();
                 int event = reader.getEventType();
-                while (event != END_ELEMENT) {
+                // while (event != END_ELEMENT) {
                     if (event == XMLStreamConstants.CHARACTERS
                             || event == XMLStreamConstants.CDATA
                             || event == XMLStreamConstants.SPACE
@@ -161,7 +161,7 @@ public class JBossAppMetaDataParser extends MetaDataElementParser {
                                 + event, reader.getLocation());
                     }
                     repositoryMetaData.setName(builder.toString());
-                }
+                // }
             } else if (reader.isStartElement()) {
                 final Set<LoaderRepositoryConfigMetaData> loaderConfigs = new HashSet<LoaderRepositoryConfigMetaData>();
                 final Element element = Element.forName(reader.getLocalName());
