@@ -34,6 +34,7 @@ public class ValveMetaData extends IdMetaDataImplWithDescriptionGroup {
     private static final long serialVersionUID = 1;
 
     private String valveClass;
+    private String module;
     private List<ParamValueMetaData> params;
 
 	public String getValveClass() {
@@ -42,6 +43,14 @@ public class ValveMetaData extends IdMetaDataImplWithDescriptionGroup {
 
 	public void setValveClass(String valveClass) {
 		this.valveClass = valveClass;
+	}
+
+	public String getModule() {
+		return module;
+	}
+
+	public void setModule(String module) {
+		this.module = module;
 	}
 
 	public List<ParamValueMetaData> getParams() {
