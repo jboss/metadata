@@ -64,6 +64,7 @@ public enum Element {
     MAX_UNREPLICATED_INTERVAL("max-unreplicated-interval"),
     MESSAGE_DESTINATION("message-destination"),
     METHOD("method"),
+    MODULE("module"),
     MULTIPART_CONFIG("multipart-config"),
 
     OVERLAY("overlay"),

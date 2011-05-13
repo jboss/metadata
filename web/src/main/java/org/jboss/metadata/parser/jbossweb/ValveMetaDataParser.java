@@ -48,6 +48,9 @@ public class ValveMetaDataParser extends MetaDataElementParser {
                 case CLASS_NAME:
                 	valve.setValveClass(getElementText(reader));
                     break;
+                case MODULE:
+                	valve.setModule(getElementText(reader));
+                    break;
                 case PARAM:
                     List<ParamValueMetaData> params = valve.getParams();
                     if (params == null) {

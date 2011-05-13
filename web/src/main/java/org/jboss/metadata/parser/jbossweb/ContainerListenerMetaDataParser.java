@@ -49,6 +49,9 @@ public class ContainerListenerMetaDataParser extends MetaDataElementParser {
                 case CLASS_NAME:
                 	containerListener.setListenerClass(getElementText(reader));
                     break;
+                case MODULE:
+                	containerListener.setModule(getElementText(reader));
+                    break;
                 case LISTENER_TYPE:
                 	containerListener.setListenerType(ContainerListenerType.valueOf(getElementText(reader)));
                     break;

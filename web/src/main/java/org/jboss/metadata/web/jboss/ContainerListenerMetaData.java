@@ -34,6 +34,7 @@ public class ContainerListenerMetaData extends IdMetaDataImplWithDescriptionGrou
     private static final long serialVersionUID = 1;
 
     private String listenerClass;
+    private String module;
     private ContainerListenerType listenerType = ContainerListenerType.LIFECYCLE;
     private List<ParamValueMetaData> params;
 
@@ -45,7 +46,15 @@ public class ContainerListenerMetaData extends IdMetaDataImplWithDescriptionGrou
         this.listenerClass = listenerClass;
     }
 
-    public ContainerListenerType getListenerType() {
+    public String getModule() {
+		return module;
+	}
+
+	public void setModule(String module) {
+		this.module = module;
+	}
+
+	public ContainerListenerType getListenerType() {
 		return listenerType;
 	}
 
