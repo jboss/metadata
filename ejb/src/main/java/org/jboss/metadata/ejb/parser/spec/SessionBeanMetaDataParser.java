@@ -97,6 +97,7 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
          }
          return;
       }
+      sessionBean.setSessionType(SessionType.Stateless);
 
       // Handle jndi environment ref group
       // get the jndi environment ref group of this bean
