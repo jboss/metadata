@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web version="6.0" xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee schema/jboss-web_6_0.xsd">
+  <valve class-name="bla" module="bla">
+    <param>
+      <param-name>name</param-name>
+      <param-value>value</param-value>
+    </param>
+  </valve>
+</jboss-web>
