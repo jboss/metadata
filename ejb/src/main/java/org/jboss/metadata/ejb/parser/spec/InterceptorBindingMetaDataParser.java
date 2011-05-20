@@ -24,6 +24,7 @@ package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.InterceptorBindingMetaData;
 import org.jboss.metadata.ejb.spec.InterceptorClassesMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorOrderMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 
 import javax.xml.stream.XMLStreamException;
@@ -90,8 +91,9 @@ public class InterceptorBindingMetaDataParser extends AbstractMetaDataParser<Int
             return;
 
          case INTERCEPTOR_ORDER:
-            throw new RuntimeException("<interceptor-order> element parsing is not yet implemented");
-            
+             InterceptorOrderMetaData interceptorOrderMetaData = InterceptorOrderMetaDataParser.INSTANCE.parse(reader);
+             interceptorBinding.setInterceptorOrder(interceptorOrderMetaData);
+            return;
          default:
             throw unexpectedElement(reader);
 
