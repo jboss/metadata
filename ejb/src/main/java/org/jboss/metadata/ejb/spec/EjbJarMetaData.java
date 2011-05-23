@@ -30,7 +30,7 @@ import java.util.HashSet;
 
 /**
  * EjbJarMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -56,12 +56,12 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /** The assembly descriptor */
    private AssemblyDescriptorMetaData assemblyDescriptor;
-   
+
    /**
     * The latest available ejb-jar xsd version
     */
    public static final String LATEST_EJB_JAR_XSD_VERSION = "3.1";
-   
+
    /**
     * Create a new EjbJarMetaData.
     */
@@ -109,7 +109,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Get the version.
-    * 
+    *
     * @return the version.
     */
    public String getVersion()
@@ -119,7 +119,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Set the version.
-    * 
+    *
     * @param version the version.
     * @throws IllegalArgumentException for a null version
     */
@@ -132,7 +132,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Whether this is ejb1.x
-    * 
+    *
     * @return true when ejb1.x
     */
    public boolean isEJB1x()
@@ -142,7 +142,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Whether this is ejb2.x
-    * 
+    *
     * @return true when ejb2.x
     */
    public boolean isEJB2x()
@@ -152,7 +152,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Whether this is ejb2.1
-    * 
+    *
     * @return true when ejb2.1
     */
    public boolean isEJB21()
@@ -162,14 +162,14 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Whether this is ejb3.x
-    * 
+    *
     * @return true when ejb3.x
     */
    public boolean isEJB3x()
    {
       return false;
    }
-   
+
    /**
     * Whether this is EJB3.1 bean
     * @return
@@ -178,10 +178,10 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
    {
       return this.version != null && this.version.trim().equals("3.1");
    }
-   
+
    /**
     * Get the ejbClientJar.
-    * 
+    *
     * @return the ejbClientJar.
     */
    public String getEjbClientJar()
@@ -191,7 +191,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Set the ejbClientJar.
-    * 
+    *
     * @param ejbClientJar the ejbClientJar.
     * @throws IllegalArgumentException for a null ejbClientJar
     */
@@ -204,7 +204,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Get the enterpriseBeans.
-    * 
+    *
     * @return the enterpriseBeans.
     */
    public EnterpriseBeansMetaData getEnterpriseBeans()
@@ -214,7 +214,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Set the enterpriseBeans.
-    * 
+    *
     * @param enterpriseBeans the enterpriseBeans.
     * @throws IllegalArgumentException for a null enterpriseBeans
     */
@@ -228,12 +228,15 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    public EnterpriseBeanMetaData getEnterpriseBean(String name)
    {
+      if(enterpriseBeans == null) {
+         return null;
+      }
       return enterpriseBeans.get(name);
    }
 
    /**
     * Get the relationships.
-    * 
+    *
     * @return the relationships.
     */
    public RelationsMetaData getRelationships()
@@ -243,7 +246,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Set the relationships.
-    * 
+    *
     * @param relationships the relationships.
     * @throws IllegalArgumentException for a null relationships
     */
@@ -256,7 +259,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Get the assemblyDescriptor.
-    * 
+    *
     * @return the assemblyDescriptor.
     */
    public AssemblyDescriptorMetaData getAssemblyDescriptor()
@@ -266,7 +269,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    /**
     * Set the assemblyDescriptor.
-    * 
+    *
     * @param assemblyDescriptor the assemblyDescriptor.
     * @throws IllegalArgumentException for a null assemblyDescriptor
     */
@@ -276,7 +279,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
          throw new IllegalArgumentException("Null assemblyDescriptor");
       this.assemblyDescriptor = (AssemblyDescriptorMetaData) assemblyDescriptor;
    }
-   
+
    /**
     * Returns the {@link InterceptorsMetaData} which are applicable for the <code>beanName</code>
     * in the <code>ejbJarMetaData</code>
@@ -284,7 +287,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     *   An interceptor is considered as bound to an EJB if there's atleast one interceptor
     *   binding between the EJB and the interceptor class. The interceptor binding can either
     *   be through the use of <interceptor-binding> element in ejb-jar.xml or through the
-    *   use of {@link Interceptors} annotation(s) in the EJB class. 
+    *   use of {@link Interceptors} annotation(s) in the EJB class.
     * </p>
     * <p>
     *   If the EJB has an around-invoke element which uses class name other than the EJB class name,
@@ -301,12 +304,12 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     *           <method-name>blah</method-name>
     *       </around-invoke>
     *   </session>
-    *   
-    *   The <code>org.myapp.SomeClass</code> will be considered as a interceptor class bound to the EJB, 
+    *
+    *   The <code>org.myapp.SomeClass</code> will be considered as a interceptor class bound to the EJB,
     *   <code>org.myapp.ejb.MyBean</code>, even if there is no explicit interceptor binding between that EJB
     *   and the <code>org.myapp.SomeClass</code>
     * </p>
-    * 
+    *
     * @param beanName The EJB name
     * @param ejbJarMetaData The {@link EjbJarMetaData} corresponding to the <code>beanName</code>
     * @return
@@ -348,9 +351,9 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     * </p>
     * @param ejbJar The {@link EjbJarMetaData} which will scanned for interceptor classes
     * @return
-    * 
+    *
     */
-   public static Collection<String> getAllInterceptorClasses(EjbJarMetaData ejbJar) 
+   public static Collection<String> getAllInterceptorClasses(EjbJarMetaData ejbJar)
    {
       Collection<String> allInterceptorClassNames = new HashSet<String>();
 
@@ -384,7 +387,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
                      {
                         allInterceptorClassNames.add(interceptorClass);
                      }
-   
+
                   }
                }
             }
@@ -439,7 +442,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     * Utility method which, given a bean name, all interceptors available in a deployment
     * and the all the interceptor binding information, will return only those interceptors
     * which are applicable to the EJB corresponding to the bean name
-    * 
+    *
     * @param ejbName Name of the EJB
     * @param allInterceptors {@link InterceptorsMetaData} of all interceptors
     * @param allInterceptorBindings {@link InterceptorBindingsMetaData} of all interceptor bindings
@@ -449,7 +452,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
          InterceptorBindingsMetaData allInterceptorBindings)
    {
       InterceptorsMetaData beanApplicableInterceptors = new InterceptorsMetaData();
-      // the default interceptors (ejbname = *) will be 
+      // the default interceptors (ejbname = *) will be
       // considered as *not* applicable for a bean, if *all* the interceptor
       // bindings for that bean, have set the exclude-default-interceptors to true
       boolean includeDefaultInterceptors = false;
@@ -503,16 +506,16 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
                if (interceptorMetaData != null)
                {
                   // add the interceptor metadata to the set of default interceptors.
-                  // Whether or not these default interceptors are applicable for 
+                  // Whether or not these default interceptors are applicable for
                   // the bean being processed, will be decide later
                   defaultInterceptors.add(interceptorMetaData);
                }
             }
          }
       }
-      // if the default interceptors (ejb name= *) are to be included 
+      // if the default interceptors (ejb name= *) are to be included
       // for this bean.
-      // the default interceptors (ejbname = *) will be 
+      // the default interceptors (ejbname = *) will be
       // considered as *not* applicable for a bean, if *all* the interceptor
       // bindings for that bean, have set the exclude-default-interceptors to true
       if (includeDefaultInterceptors)
