@@ -120,14 +120,14 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
             return;
 
          case AFTER_BEGIN_METHOD:
-            throw new RuntimeException("<after-begin-method> element parsing is not yet implemented");
-
+             sessionBean.setAfterBeginMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader));
+             return;
          case BEFORE_COMPLETION_METHOD:
-            throw new RuntimeException("<before-completion-method> element parsing is not yet implemented");
-
+             sessionBean.setBeforeCompletionMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader));
+             return;
          case AFTER_COMPLETION_METHOD:
-            throw new RuntimeException("<after-completion-method> element parsing is not yet implemented");
-
+             sessionBean.setAfterCompletionMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader));
+             return;
          case AROUND_TIMEOUT:
             throw new RuntimeException("<around-timeout> element parsing is not yet implemented");
 
