@@ -28,6 +28,7 @@ import org.jboss.metadata.ejb.spec.DependsOnMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
+import org.jboss.metadata.ejb.spec.StatefulTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
 
 import javax.ejb.ConcurrencyManagementType;
@@ -107,9 +108,9 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
             return;
 
          case STATEFUL_TIMEOUT:
-            throw new RuntimeException("<stateful-timeout> element parsing is not yet implemented");
-
-
+            final StatefulTimeoutMetaData statefulTimeout = StatefulTimeoutMetaDataParser.INSTANCE.parse(reader);
+            sessionBean.setStatefulTimeout(statefulTimeout);
+            return;
          case INIT_ON_STARTUP:
             String initOnStartup = getElementText(reader);
             if (initOnStartup == null)
