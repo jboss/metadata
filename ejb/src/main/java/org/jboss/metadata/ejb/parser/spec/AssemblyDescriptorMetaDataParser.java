@@ -24,6 +24,12 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
+import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
+import org.jboss.metadata.ejb.spec.MethodPermissionMetaData;
+import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
+import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -57,6 +63,33 @@ public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<Ass
             }
             ContainerTransactionMetaData containerTransaction = ContainerTransactionMetaDataParser.INSTANCE.parse(reader);
             containerTransactions.add(containerTransaction);
+            return;
+
+         case SECURITY_ROLE:
+            SecurityRolesMetaData securityRoles = assemblyDescriptor.getSecurityRoles();
+            if (securityRoles == null)
+            {
+               securityRoles = new SecurityRolesMetaData();
+               assemblyDescriptor.setSecurityRoles(securityRoles);
+            }
+            SecurityRoleMetaData securityRole = SecurityRoleMetaDataParser.parse(reader);
+            securityRoles.add(securityRole);
+            return;
+
+         case EXCLUDE_LIST:
+            ExcludeListMetaData excludeList = ExcludeListMetaDataParser.INSTANCE.parse(reader);
+            assemblyDescriptor.setExcludeList(excludeList);
+            return;
+
+         case METHOD_PERMISSION:
+            MethodPermissionsMetaData methodPermissions = assemblyDescriptor.getMethodPermissions();
+            if (methodPermissions == null)
+            {
+               methodPermissions = new MethodPermissionsMetaData();
+               assemblyDescriptor.setMethodPermissions(methodPermissions);
+            }
+            MethodPermissionMetaData methodPermission = MethodPermissionMetaDataParser.INSTANCE.parse(reader);
+            methodPermissions.add(methodPermission);
             return;
          
          default:

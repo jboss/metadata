@@ -72,6 +72,7 @@ public enum EjbJarElement
    EXCEPTION_CLASS("exception-class"),
    EXCLUDE_DEFAULT_INTERCEPTORS("exclude-default-interceptors"),
    EXCLUDE_CLASS_INTERCEPTORS("exclude-class-interceptors"),
+   EXCLUDE_LIST("exclude-list"),
 
    HOME("home"),
    HOUR("hour"),
@@ -99,6 +100,7 @@ public enum EjbJarElement
    METHOD_NAME("method-name"),
    METHOD_PARAM("method-param"),
    METHOD_PARAMS("method-params"),
+   METHOD_PERMISSION("method-permission"),
    MINUTE("minute"),
    MODULE_NAME("module-name"),
    MONTH("month"),
@@ -111,11 +113,14 @@ public enum EjbJarElement
    REMOTE("remote"),
    REMOVE_METHOD("remove-method"),
    RETAIN_IF_EXCEPTION("retain-if-exception"),
+   ROLE_NAME("role-name"),
    ROLLBACK("rollback"),
+   RUN_AS("run-as"),
 
    SCHEDULE("schedule"),
    SECOND("second"),
    SECURITY_IDENTITY("security-identity"),
+   SECURITY_ROLE("security-role"),
    SECURITY_ROLE_REF("security-role-ref"),
    SERVICE_ENDPOINT("service-endpoint"),
    SESSION("session"),
@@ -130,7 +135,9 @@ public enum EjbJarElement
    TRANS_ATTRIBUTE("trans-attribute"),
    TRANSACTION_TYPE("transaction-type"),
 
+   UNCHECKED("unchecked"),
    UNIT("unit"),
+   USE_CALLER_IDENTITY("use-caller-identity"),
 
    YEAR("year"),
    

@@ -22,6 +22,7 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
@@ -220,7 +221,9 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
             return;
 
          case SECURITY_IDENTITY:
-            throw new RuntimeException("<security-identity> element parsing is not yet implemented");
+            final SecurityIdentityMetaData securityIdentity = SecurityIdentityParser.INSTANCE.parse(reader);
+            sessionBean.setSecurityIdentity(securityIdentity);
+            return;
 
          default:
             throw unexpectedElement(reader);

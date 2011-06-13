@@ -31,6 +31,9 @@ import org.jboss.metadata.ejb.spec.InitMethodsMetaData;
 import org.jboss.metadata.ejb.spec.RemoveMethodMetaData;
 import org.jboss.metadata.ejb.spec.RemoveMethodsMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
+import org.jboss.metadata.parser.ee.SecurityRoleRefMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
