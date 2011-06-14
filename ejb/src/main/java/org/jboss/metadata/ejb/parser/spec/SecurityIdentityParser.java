@@ -32,6 +32,8 @@ public class SecurityIdentityParser extends AbstractMetaDataParser<SecurityIdent
       switch (ejbJarElement)
       {
          case USE_CALLER_IDENTITY:
+            // read away the emptiness
+            reader.getElementText();
             metaData.setUseCallerIdentity(new EmptyMetaData());
             return;
 

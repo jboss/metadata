@@ -45,6 +45,8 @@ public class MethodPermissionMetaDataParser extends AbstractMetaDataParser<Metho
             return;
 
          case UNCHECKED:
+            // read away the emptiness
+            reader.getElementText();
             methodPermission.setUnchecked(new EmptyMetaData());
             return;
 
