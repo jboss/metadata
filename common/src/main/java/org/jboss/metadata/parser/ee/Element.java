@@ -38,6 +38,8 @@ public enum Element {
     ADDRESSING("addressing"),
 
     CLASS_NAME("class-name"),
+    CONFIG_NAME("config-name"),
+    CONFIG_FILE("config-file"),
 
     DATA_SOURCE("data-source"),
     DATABASE_NAME("database-name"),
@@ -114,7 +116,10 @@ public enum Element {
     PORT_NAME("port-name"),
     PORT_NAME_PATTERN("port-name-pattern"),
     PORT_NUMBER("port-number"),
+    PORT_QNAME("port-qname"),
     POST_CONSTRUCT("post-construct"),
+    PROP_NAME("prop-name"),
+    PROP_VALUE("prop-value"),
     PRE_DESTROY("pre-destroy"),
     PRINCIPAL_NAME("principal-name"),
     PROPERTY("property"),
@@ -148,6 +153,7 @@ public enum Element {
     SMALL_ICON("small-icon"),
     SOAP_HEADER("soap-header"),
     SOAP_ROLE("soap-role"),
+    STUB_PROPERTY("stub-property"),
 
     TRANSACTIONAL("transactional"),
 

@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.javaee.jboss;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -55,7 +54,6 @@ public class JBossPortComponentRef extends PortComponentRef {
     private String configName;
     private String configFile;
     private List<StubPropertyMetaData> stubProperties;
-    private List<CallPropertyMetaData> callProperties;
 
     public String getConfigFile() {
         return configFile;
@@ -89,22 +87,14 @@ public class JBossPortComponentRef extends PortComponentRef {
         this.stubProperties = stubProperties;
     }
 
-    public List<CallPropertyMetaData> getCallProperties() {
-        return callProperties;
-    }
-
-    public void setCallProperties(List<CallPropertyMetaData> callProperties) {
-        this.callProperties = callProperties;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("\n").append("JBossPortComponentRef");
         sb.append("\n ").append("portQname=").append(portQname);
+        sb.append("\n ").append("configName=").append(configName);
         sb.append("\n ").append("configFile=").append(configFile);
         sb.append("\n ").append("stubProperties=").append(stubProperties);
-        sb.append("\n ").append("callProperties=").append(callProperties);
         sb.append(super.toString());
         return sb.toString();
     }

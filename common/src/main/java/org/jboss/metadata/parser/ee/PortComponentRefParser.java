@@ -22,13 +22,17 @@
 
 package org.jboss.metadata.parser.ee;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
+import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
+import org.jboss.metadata.javaee.jboss.StubPropertyMetaData;
 import org.jboss.metadata.javaee.spec.PortComponentRef;
-import org.jboss.metadata.javaee.spec.RunAsMetaData;
 
 /**
  * @author Remy Maucherat
@@ -36,7 +40,7 @@ import org.jboss.metadata.javaee.spec.RunAsMetaData;
 public class PortComponentRefParser extends MetaDataElementParser {
 
     public static PortComponentRef parse(XMLStreamReader reader) throws XMLStreamException {
-        PortComponentRef portComponentRef = new PortComponentRef();
+        JBossPortComponentRef portComponentRef = new JBossPortComponentRef();
 
         // Handle attributes
         final int count = reader.getAttributeCount();
@@ -56,6 +60,7 @@ public class PortComponentRefParser extends MetaDataElementParser {
         }
 
         // Handle elements
+        List<StubPropertyMetaData> stubProperties = new LinkedList<StubPropertyMetaData>();
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
@@ -77,8 +82,24 @@ public class PortComponentRefParser extends MetaDataElementParser {
                 case PORT_COMPONENT_LINK:
                     portComponentRef.setPortComponentLink(getElementText(reader));
                     break;
+                case CONFIG_NAME:
+                    portComponentRef.setConfigName(getElementText(reader));
+                    break;
+                case CONFIG_FILE:
+                    portComponentRef.setConfigFile(getElementText(reader));
+                    break;
+                case PORT_QNAME:
+                    QName portQName = QName.valueOf(getElementText(reader));
+                    portComponentRef.setPortQname(portQName);
+                    break;
+                case STUB_PROPERTY:
+                    stubProperties.add(StubPropertyParser.parse(reader));
+                    break;
                 default: throw unexpectedElement(reader);
             }
+        }
+        if (stubProperties.size() > 0) {
+            portComponentRef.setStubProperties(stubProperties);
         }
 
         return portComponentRef;
