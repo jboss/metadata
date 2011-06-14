@@ -22,7 +22,6 @@
 package org.jboss.metadata.merge.javaee.jboss;
 
 import java.util.ArrayList;
-import org.jboss.metadata.javaee.jboss.CallPropertyMetaData;
 import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
 import org.jboss.metadata.javaee.jboss.StubPropertyMetaData;
 import org.jboss.metadata.merge.javaee.spec.PortComponentRefMerger;
@@ -75,12 +74,5 @@ public class JBossPortComponentRefMerger extends PortComponentRefMerger {
             dest.getStubProperties().addAll(override.getStubProperties());
         else if (original != null && original.getStubProperties() != null)
             dest.getStubProperties().addAll(original.getStubProperties());
-
-        if (dest.getCallProperties() == null)
-            dest.setCallProperties(new ArrayList<CallPropertyMetaData>());
-        if (override != null && override.getCallProperties() != null)
-            dest.getCallProperties().addAll(override.getCallProperties());
-        else if (original != null && original.getCallProperties() != null)
-            dest.getCallProperties().addAll(original.getCallProperties());
     }
 }
