@@ -19,27 +19,38 @@
   ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<jboss-ejb3 xmlns="http://www.jboss.com/xml/ns/javaee"
-            xmlns:jee="http://java.sun.com/xml/ns/javaee"
-            xmlns:x="urn:cache-test"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd
-               http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd
-               urn:cache-test cache-test.xsd"
-            version="3.1"
-            impl-version="2.0">
-   <assembly-descriptor>
-      <container-transaction xmlns="http://java.sun.com/xml/ns/javaee">
+<jboss:jboss-ejb3 xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
+                  xmlns="http://java.sun.com/xml/ns/javaee"
+                  xmlns:c="urn:cache-test"
+                  xmlns:tx="urn:tx-timeout-test"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd
+                     http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd
+                     urn:cache-test cache-test.xsd
+                     urn:tx-timeout-test tx-test.xsd"
+                  version="3.1"
+                  impl-version="2.0">
+   <jboss:assembly-descriptor>
+      <container-transaction>
          <method>
             <ejb-name>A</ejb-name>
             <method-name>*</method-name>
          </method>
-         <trans-attribute>Mandatory</trans-attribute>
+         <trans-attribute>RequiresNew</trans-attribute>
       </container-transaction>
-      <x:cache>
-         <x:description>test</x:description>
-         <x:ejb-name>*</x:ejb-name>
-         <x:size>20</x:size>
-      </x:cache>
-   </assembly-descriptor>
-</jboss-ejb3>
+      <c:cache>
+         <description>test</description>
+         <ejb-name>*</ejb-name>
+         <c:size>20</c:size>
+      </c:cache>
+      <tx:tx-timeout>
+         <method>
+            <ejb-name>A</ejb-name>
+            <method-intf>Local</method-intf>
+            <method-name>*</method-name>
+         </method>
+         <tx:timeout>10</tx:timeout>
+         <tx:unit>Seconds</tx:unit>
+      </tx:tx-timeout>
+   </jboss:assembly-descriptor>
+</jboss:jboss-ejb3>

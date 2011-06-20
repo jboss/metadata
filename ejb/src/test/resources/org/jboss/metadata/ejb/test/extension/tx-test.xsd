@@ -20,34 +20,25 @@
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.jboss.com/xml/ns/javaee"
-           xmlns="http://www.jboss.com/xml/ns/javaee"
+           targetNamespace="urn:tx-timeout-test"
+           xmlns="urn:tx-timeout-test"
            xmlns:javaee="http://java.sun.com/xml/ns/javaee"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
-           version="2.0">
-   <!-- xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="ejb-jar_3_1.xsd"/ -->
-   <!-- xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"/ -->
-   <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="jboss-ejb3-spec-2_0.xsd"/>
+           version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd">
+   <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd"/>
 
-   <xs:element name="jboss-ejb3" type="jboss-ejb-jarType"/>
+   <xs:element name="tx-timeout" type="tx-timeoutType"/>
 
-   <xs:complexType name="jboss-ejb-jarType">
+   <xs:complexType name="tx-timeoutType">
       <xs:complexContent>
-         <xs:extension base="javaee:ejb-jarType">
+         <xs:extension base="javaee:jboss-assembly-descriptor-method-entryType">
             <xs:sequence>
-               <xs:element name="assembly-descriptor" type="jboss-assembly-descriptorType"/>
-            </xs:sequence>
-            <xs:attribute name="impl-version" type="javaee:dewey-versionType" fixed="2.0" use="required"/>
-         </xs:extension>
-      </xs:complexContent>
-   </xs:complexType>
-
-   <xs:complexType name="jboss-assembly-descriptorType">
-      <xs:complexContent>
-         <xs:extension base="javaee:assembly-descriptorType">
-            <xs:sequence>
-               <xs:any namespace="##any" minOccurs="0"/>
+               <xs:element name="timeout"
+                           type="javaee:xsdIntegerType"/>
+               <xs:element name="unit"
+                           type="javaee:time-unit-typeType"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>

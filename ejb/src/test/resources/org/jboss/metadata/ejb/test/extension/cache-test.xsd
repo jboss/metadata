@@ -27,23 +27,22 @@
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
            version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd
               http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd">
    <xs:import namespace="http://www.jboss.com/xml/ns/javaee" schemaLocation="http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd"/>
-   <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"/>
+   <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd"/>
+   <!-- xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"/ -->
 
    <xs:element name="cache" type="cacheType"/>
 
    <xs:complexType name="cacheType">
-      <xs:sequence>
-         <xs:element name="description"
-                     type="javaee:descriptionType"
-                     minOccurs="0"
-                     maxOccurs="unbounded"/>
-         <xs:element name="ejb-name"
-                     type="xs:string"/>
-         <xs:element name="size"
-                     type="xs:positiveInteger"/>
-      </xs:sequence>
+      <xs:complexContent>
+         <xs:extension base="javaee:jboss-assembly-descriptor-bean-entryType">
+            <xs:sequence>
+               <xs:element name="size"
+                           type="xs:positiveInteger"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
    </xs:complexType>
 </xs:schema>
