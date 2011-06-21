@@ -30,10 +30,8 @@
     <version>7.0.0.Beta5-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.jboss.metadata</groupId>
   <artifactId>jboss-metadata-common</artifactId>
   <packaging>jar</packaging>
-  <version>7.0.0.Beta5-SNAPSHOT</version>
 
   <name>JBoss Metadata Common</name>
 
