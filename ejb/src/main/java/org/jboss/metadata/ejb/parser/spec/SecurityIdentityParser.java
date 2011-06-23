@@ -31,6 +31,10 @@ public class SecurityIdentityParser extends AbstractMetaDataParser<SecurityIdent
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
+         case DESCRIPTION:
+            metaData.setDescription(reader.getElementText());
+            break;
+
          case USE_CALLER_IDENTITY:
             // read away the emptiness
             reader.getElementText();

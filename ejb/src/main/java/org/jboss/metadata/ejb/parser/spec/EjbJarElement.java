@@ -58,6 +58,7 @@ public enum EjbJarElement
    CONTAINER_TRANSACTION("container-transaction"),
    CREATE_METHOD("create-method"),
 
+   DESCRIPTION("description"),
    DAY_OF_MONTH("day-of-month"),
    DAY_OF_WEEK("day-of-week"),
    DEPENDS_ON("depends-on"),

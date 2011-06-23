@@ -47,6 +47,9 @@ public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //i
    /** The run as principal */
    private String runAsPrincipal;
 
+   /** The description. */
+   private String description;
+
    /**
     * Create a new SecurityIdentityMetaData
     */
@@ -93,6 +96,26 @@ public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //i
    public RunAsMetaData getRunAs()
    {
       return runAs;
+   }
+
+   /**
+    * Gets description.
+    *
+    * @return description
+    */
+   public String getDescription()
+   {
+      return description;
+   }
+
+   /**
+    * Sets description.
+    *
+    * @param description
+    */
+   public void setDescription(String description)
+   {
+      this.description = description;
    }
 
    /**
