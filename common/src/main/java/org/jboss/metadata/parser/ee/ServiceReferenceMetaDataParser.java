@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
@@ -48,7 +49,7 @@ import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
 
     public static ServiceReferenceMetaData parse(XMLStreamReader reader) throws XMLStreamException {
-        ServiceReferenceMetaData serviceReference = new ServiceReferenceMetaData();
+        JBossServiceReferenceMetaData serviceReference = new JBossServiceReferenceMetaData();
 
         // Handle attributes
         final int count = reader.getAttributeCount();
@@ -123,6 +124,9 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                         serviceReference.setHandlerChains(handlerChains);
                     }
                     handlerChains.getHandlers().add(ServiceReferenceHandlerChainMetaDataParser.parse(reader));
+                    break;
+                case WSDL_OVERRIDE:
+                    serviceReference.setWsdlOverride(getElementText(reader));
                     break;
                 default: throw unexpectedElement(reader);
             }
