@@ -33,7 +33,6 @@ import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -43,8 +42,13 @@ import javax.xml.stream.XMLStreamReader;
  * <p/>
  * User: Jaikiran Pai
  */
-public class EjbJarMetaDataParser extends MetaDataElementParser
+public class EjbJarMetaDataParser<MD extends EjbJarMetaData> extends AbstractMetaDataParser<MD>
 {
+   @Override
+   public MD parse(XMLStreamReader reader) throws XMLStreamException
+   {
+      throw new UnsupportedOperationException("org.jboss.metadata.ejb.parser.spec.EjbJarMetaDataParser.parse");
+   }
 
    /**
     * Create and return {@link EjbJarMetaData} from the passed {@link XMLStreamReader reader}
@@ -53,7 +57,7 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
     * @return
     * @throws XMLStreamException
     */
-   public static EjbJarMetaData parse(XMLStreamReader reader, DTDInfo info) throws XMLStreamException
+   public EjbJarMetaData parse(XMLStreamReader reader, DTDInfo info) throws XMLStreamException
    {
       reader.require(START_DOCUMENT, null, null);
       // Read until the first start element
@@ -149,7 +153,7 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
     *
     * @param version
     * @throws  IllegalArgumentException If the passed {@link EjbJarVersion version} is null
-    * 
+    *
     * @return Returns the {@link EjbJarMetaData} corresponding to the passed {@link EjbJarVersion version}
     */
    private static EjbJarMetaData getEjbJarMetaData(EjbJarVersion version)
@@ -180,15 +184,15 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
     * <p/>
     * Returns null,  if either the "version" attribute is not specified or if the value of the "version" attribute
     * doesn't belong to the known values from {@link EjbJarVersion}.
-    * 
+    *
     * @param reader
     * @return
     * @throws XMLStreamException
     */
-   private static EjbJarVersion readVersionAttribute(XMLStreamReader reader) throws XMLStreamException
+   protected static EjbJarVersion readVersionAttribute(XMLStreamReader reader) throws XMLStreamException
    {
          EjbJarVersion ejbJarVersion = null;
-                 
+
          // Look at the version attribute
          String versionString = null;
          final int count = reader.getAttributeCount();
@@ -230,7 +234,7 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
 
    /**
     * Parses the elements within the ejb-jar root element and updates the passed {@link EjbJarMetaData ejbJarMetData} appropriately.
-    * 
+    *
     * @param ejbJarMetaData The metadata which will be updated after parsing the ejb-jar elements
     * @param  ejbJarVersion The version of ejb-jar
     * @throws XMLStreamException
@@ -238,9 +242,9 @@ public class EjbJarMetaDataParser extends MetaDataElementParser
    private static void parseEjbJarElements(EjbJarMetaData ejbJarMetaData, EjbJarVersion ejbJarVersion, XMLStreamReader reader) throws XMLStreamException
    {
       AssemblyDescriptorMetaDataParser assemblyDescriptorParser = AssemblyDescriptorMetaDataParserFactory.getParser(ejbJarVersion);
-      
+
       DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
-      
+
       // Handle elements
       while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
       {

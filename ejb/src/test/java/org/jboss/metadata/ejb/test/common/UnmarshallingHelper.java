@@ -21,12 +21,18 @@
  */
 package org.jboss.metadata.ejb.test.common;
 
+import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
+import org.jboss.metadata.ejb.parser.jboss.ejb3.JBossEjb3MetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.EjbJarMetaDataParser;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.fail;
 
@@ -38,16 +44,30 @@ public class UnmarshallingHelper
    // TODO: merge with AbstractEJBEverythingTest#merge
    public static <T> T unmarshal(Class<T> expected, String resource) throws Exception
    {
+      return unmarshal(expected, resource, new HashMap<String, AbstractMetaDataParser<?>>());
+   }
+
+   public static <T> T unmarshal(Class<T> expected, String resource, Map<String, AbstractMetaDataParser<?>> parsers) throws Exception
+   {
       MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
       final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
       inputFactory.setXMLResolver(info);
       XMLStreamReader reader = inputFactory.createXMLStreamReader(expected.getResourceAsStream(resource));
 
-      if(EjbJarMetaData.class.isAssignableFrom(expected))
+      final EjbJarMetaDataParser parser;
+      if (JBossEjb31MetaData.class.isAssignableFrom(expected))
       {
-         return expected.cast(EjbJarMetaDataParser.parse(reader, info));
+         parser = new JBossEjb3MetaDataParser(parsers);
       }
-      fail("NYI: parsing for " + expected);
-      return null;
+      else if(EjbJarMetaData.class.isAssignableFrom(expected))
+      {
+         parser = new EjbJarMetaDataParser();
+      }
+      else
+      {
+         fail("NYI: parsing for " + expected);
+         return null;
+      }
+      return expected.cast(parser.parse(reader, info));
    }
 }

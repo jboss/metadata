@@ -1443,7 +1443,8 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
          XMLStreamReader reader = getReader(name, info);
          if(EjbJarMetaData.class.isAssignableFrom(expected))
          {
-            return expected.cast(EjbJarMetaDataParser.parse(reader, info));
+            final EjbJarMetaDataParser parser = new EjbJarMetaDataParser();
+            return expected.cast(parser.parse(reader, info));
          }
          fail("NYI: parsing for " + expected);
          return null;
