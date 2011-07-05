@@ -39,4 +39,10 @@ public class EjbJar30MetaData extends EjbJar3xMetaData
    {
       // For serialization
    }
+
+   @Override
+   public EjbJarVersion getEjbJarVersion()
+   {
+      return EjbJarVersion.EJB_3_0;
+   }
 }

@@ -23,9 +23,9 @@ package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
 import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
-import org.jboss.metadata.ejb.parser.spec.EjbJarMetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.AbstractEjbJarMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.EjbJarNamespaceMapping;
-import org.jboss.metadata.ejb.parser.spec.EjbJarVersion;
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
 
 import javax.xml.stream.XMLStreamException;
@@ -35,7 +35,7 @@ import java.util.Map;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class JBossEjb3MetaDataParser extends EjbJarMetaDataParser<JBossEjb31MetaData>
+public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser<JBossEjb31MetaData>
 {
    private final Map<String, AbstractMetaDataParser<?>> parsers;
 
@@ -45,6 +45,11 @@ public class JBossEjb3MetaDataParser extends EjbJarMetaDataParser<JBossEjb31Meta
    }
 
    @Override
+   public JBossEjb31MetaData parse(XMLStreamReader reader) throws XMLStreamException
+   {
+      throw new UnsupportedOperationException("org.jboss.metadata.ejb.parser.jboss.ejb3.JBossEjb3MetaDataParser.parse");
+   }
+
    public JBossEjb31MetaData parse(final XMLStreamReader reader, final DTDInfo info) throws XMLStreamException
    {
       reader.require(START_DOCUMENT, null, null);

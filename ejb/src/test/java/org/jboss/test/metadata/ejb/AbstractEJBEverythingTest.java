@@ -1437,23 +1437,14 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    @Deprecated
    protected <T> T unmarshal(String name, Class<T> expected) throws Exception
    {
-      try
+      MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
+      XMLStreamReader reader = getReader(name, info);
+      if(EjbJarMetaData.class.isAssignableFrom(expected))
       {
-         MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
-         XMLStreamReader reader = getReader(name, info);
-         if(EjbJarMetaData.class.isAssignableFrom(expected))
-         {
-            final EjbJarMetaDataParser parser = new EjbJarMetaDataParser();
-            return expected.cast(parser.parse(reader, info));
-         }
-         fail("NYI: parsing for " + expected);
-         return null;
+         return expected.cast(EjbJarMetaDataParser.parse(reader, info));
       }
-      catch(XMLStreamException e)
-      {
-         fail("Failed to parse " + name + ": " + e.getMessage());
-         throw e;
-      }
+      fail("NYI: parsing for " + expected);
+      return null;
    }
 
    @Deprecated

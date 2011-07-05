@@ -22,6 +22,8 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
+
 /**
  * Responsible for returning the correct parser, based on the ejb-jar version, for
  * parsing metadata out of ejb-jar.xml
@@ -29,7 +31,7 @@ package org.jboss.metadata.ejb.parser.spec;
  *
  * Author: Jaikiran Pai
  */
-public class SessionBeanMetaDataParserFactory
+class SessionBeanMetaDataParserFactory
 {
 
    /**
@@ -39,7 +41,7 @@ public class SessionBeanMetaDataParserFactory
     * @param ejbJarVersion The ejb-jar version
     * @return
     */
-   public static SessionBeanMetaDataParser getParser(EjbJarVersion ejbJarVersion)
+   static SessionBeanMetaDataParser getParser(EjbJarVersion ejbJarVersion)
    {
       if (ejbJarVersion == null)
       {

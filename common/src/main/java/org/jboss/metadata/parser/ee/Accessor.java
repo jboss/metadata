@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2008, Red Hat Middleware LLC, and individual contributors
+ * Copyright (c) 2011, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,32 +19,12 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.ejb.spec;
-
-import org.jboss.metadata.javaee.jboss.NamedModule;
+package org.jboss.metadata.parser.ee;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
- * @version $Revision: $
  */
-public class EjbJar31MetaData extends EjbJar3xMetaData implements NamedModule
+public interface Accessor<T>
 {
-   private static final long serialVersionUID = 1L;
-
-   private String moduleName;
-
-   @Override
-   public EjbJarVersion getEjbJarVersion()
-   {
-      return EjbJarVersion.EJB_3_1;
-   }
-
-   public String getModuleName()
-   {
-      return moduleName;
-   }
-   public void setModuleName(String moduleName)
-   {
-      this.moduleName = moduleName;
-   }
+   T get();
 }

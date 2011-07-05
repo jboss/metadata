@@ -33,8 +33,14 @@ public class EjbJar20MetaData extends EjbJar2xMetaData
    private static final long serialVersionUID = 1;
 
    @Override
+   public EjbJarVersion getEjbJarVersion()
+   {
+      return EjbJarVersion.EJB_2_0;
+   }
+
+   @Override
    public boolean isEJB2x()
    {
       return true;
-   }   
+   }
 }

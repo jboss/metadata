@@ -24,6 +24,7 @@ package org.jboss.metadata.ejb.test.extension;
 import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.spec.MethodInterfaceType;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -39,6 +40,14 @@ import static org.junit.Assert.assertNotNull;
  */
 public class ExtensionTestCase
 {
+   @Test
+   public void testBean() throws Exception
+   {
+      JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "/org/jboss/metadata/ejb/test/extension/jboss-ejb3-with-bean.xml");
+      SessionBean31MetaData bean = (SessionBean31MetaData) metaData.getEnterpriseBean("Test");
+      assertNotNull(bean);
+   }
+
    @Test
    public void testCacheExtension() throws Exception
    {

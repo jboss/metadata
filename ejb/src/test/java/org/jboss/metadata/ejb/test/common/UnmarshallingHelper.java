@@ -30,7 +30,6 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,20 +53,15 @@ public class UnmarshallingHelper
       inputFactory.setXMLResolver(info);
       XMLStreamReader reader = inputFactory.createXMLStreamReader(expected.getResourceAsStream(resource));
 
-      final EjbJarMetaDataParser parser;
       if (JBossEjb31MetaData.class.isAssignableFrom(expected))
       {
-         parser = new JBossEjb3MetaDataParser(parsers);
+         return expected.cast(new JBossEjb3MetaDataParser(parsers).parse(reader, info));
       }
-      else if(EjbJarMetaData.class.isAssignableFrom(expected))
+      else if (EjbJarMetaData.class.isAssignableFrom(expected))
       {
-         parser = new EjbJarMetaDataParser();
+         return expected.cast(EjbJarMetaDataParser.parse(reader, info));
       }
-      else
-      {
-         fail("NYI: parsing for " + expected);
-         return null;
-      }
-      return expected.cast(parser.parse(reader, info));
+      fail("NYI: parsing for " + expected);
+      return null;
    }
 }

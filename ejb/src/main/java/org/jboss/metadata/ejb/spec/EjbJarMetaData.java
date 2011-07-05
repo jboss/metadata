@@ -234,6 +234,8 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
       return enterpriseBeans.get(name);
    }
 
+   public abstract EjbJarVersion getEjbJarVersion();
+
    /**
     * Get the relationships.
     *
@@ -526,5 +528,4 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
       // return the interceptors which are applicable for the bean
       return beanApplicableInterceptors;
    }
-
 }

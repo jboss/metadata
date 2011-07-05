@@ -27,7 +27,7 @@ package org.jboss.metadata.ejb.spec;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class EjbJar2xMetaData extends EjbJarMetaData
+public abstract class EjbJar2xMetaData extends EjbJarMetaData
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = 809339942454480150L;
