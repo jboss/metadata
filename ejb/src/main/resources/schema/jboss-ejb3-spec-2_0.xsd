@@ -28,18 +28,23 @@
            version="2.0">
 
    <!-- xs:include schemaLocation="ejb-jar_3_1.xsd"/ -->
+   <!--
    <xs:include schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"/>
+   -->
 
-   <xs:element name="assembly-descriptor-entry" abstract="true" type="jboss-assembly-descriptor-entryType"/>
-   <xs:complexType name="jboss-assembly-descriptorType">
-      <xs:complexContent>
-         <xs:extension base="javaee:assembly-descriptorType">
-            <xs:sequence>
-               <xs:element ref="assembly-descriptor-entry" minOccurs="0" maxOccurs="unbounded"/>
-            </xs:sequence>
-         </xs:extension>
-      </xs:complexContent>
-   </xs:complexType>
+   <xs:redefine schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd">
+      <xs:complexType name="assembly-descriptorType">
+         <xs:complexContent>
+            <xs:extension base="javaee:assembly-descriptorType">
+               <xs:sequence>
+                  <xs:element ref="javaee:assembly-descriptor-entry" minOccurs="0" maxOccurs="unbounded"/>
+               </xs:sequence>
+            </xs:extension>
+         </xs:complexContent>
+      </xs:complexType>
+   </xs:redefine>
+
+   <xs:element name="assembly-descriptor-entry" abstract="true" type="javaee:jboss-assembly-descriptor-entryType"/>
 
    <xs:complexType abstract="true" name="jboss-assembly-descriptor-entryType">
       <xs:sequence>
@@ -52,7 +57,7 @@
 
    <xs:complexType name="jboss-assembly-descriptor-bean-entryType">
       <xs:complexContent>
-         <xs:extension base="jboss-assembly-descriptor-entryType">
+         <xs:extension base="javaee:jboss-assembly-descriptor-entryType">
             <xs:sequence>
                <xs:element name="ejb-name"
                            type="javaee:string"/>
@@ -63,7 +68,7 @@
 
    <xs:complexType name="jboss-assembly-descriptor-bean-method-entryType">
       <xs:complexContent>
-         <xs:extension base="jboss-assembly-descriptor-bean-entryType">
+         <xs:extension base="javaee:jboss-assembly-descriptor-bean-entryType">
             <xs:sequence>
                <xs:element name="method"
                            type="javaee:named-methodType"
@@ -75,7 +80,7 @@
 
    <xs:complexType name="jboss-assembly-descriptor-method-entryType">
       <xs:complexContent>
-         <xs:extension base="jboss-assembly-descriptor-entryType">
+         <xs:extension base="javaee:jboss-assembly-descriptor-entryType">
             <xs:sequence>
                <xs:element name="method"
                            type="javaee:methodType"
@@ -89,7 +94,7 @@
       <xs:complexContent>
          <xs:extension base="javaee:ejb-jarType">
             <xs:sequence>
-               <xs:element name="assembly-descriptor" type="jboss-assembly-descriptorType" minOccurs="0"/>
+               <xs:element name="assembly-descriptor" type="javaee:assembly-descriptorType" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="impl-version" type="javaee:dewey-versionType" fixed="2.0" use="required"/>
          </xs:extension>

@@ -26,7 +26,19 @@ import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.spec.MethodInterfaceType;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.junit.Test;
+import org.w3c.dom.Document;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -40,6 +52,14 @@ import static org.junit.Assert.assertNotNull;
  */
 public class ExtensionTestCase
 {
+   private InputSource inputSource(final String systemId, final String resource)
+   {
+      final InputStream in = getClass().getResourceAsStream(resource);
+      final InputSource inputSource = new InputSource(in);
+      inputSource.setSystemId(systemId);
+      return inputSource;
+   }
+
    @Test
    public void testBean() throws Exception
    {
@@ -63,5 +83,121 @@ public class ExtensionTestCase
       assertEquals("*", txTest.getMethods().get(0).getMethodName());
       assertEquals(10, txTest.getTimeout());
       assertEquals(TimeUnit.MINUTES, txTest.getUnit());
+   }
+
+   @Test
+   public void testValidity() throws IOException, SAXException, ParserConfigurationException, URISyntaxException
+   {
+      // parse an XML document into a DOM tree
+      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      factory.setAttribute(
+              "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+              "http://www.w3.org/2001/XMLSchema");
+      factory.setNamespaceAware(true);
+      factory.setValidating(true);
+      DocumentBuilder parser = factory.newDocumentBuilder();
+      final Map<String, String> system = new HashMap<String, String>();
+      system.put("http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd", "/schema/jboss-ejb3-2_0.xsd");
+      system.put("http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd", "/schema/jboss-ejb3-spec-2_0.xsd");
+      system.put("http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd", "/schema/ejb-jar_3_1.xsd");
+      system.put("http://java.sun.com/xml/ns/javaee/javaee_6.xsd", "/schema/javaee_6.xsd");
+      system.put("http://java.sun.com/xml/ns/javaee/javaee_web_services_client_1_3.xsd", "/schema/javaee_web_services_client_1_3.xsd");
+      system.put("http://www.w3.org/2001/xml.xsd", "/schema/xml.xsd");
+      // Somehow this gives a broken URI, see http://en.wikipedia.org/wiki/File_URI_scheme
+//      system.put(new URL(new File(".").toURI().toURL(), "cache-test.xsd").toString(), "cache-test.xsd");
+      system.put("file://" + System.getProperty("user.dir") + "/cache-test.xsd", "cache-test.xsd");
+      system.put("file://" + System.getProperty("user.dir") + "/tx-test.xsd", "tx-test.xsd");
+      parser.setEntityResolver(new EntityResolver()
+      {
+         @Override
+         public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException
+         {
+//            System.out.println("resolve " + publicId + ", " + systemId);
+            final String resource = system.get(systemId);
+            if(resource == null)
+               throw new SAXException("Can't resolve systemId " + systemId);
+            return inputSource(systemId, resource);
+         }
+      });
+      parser.setErrorHandler(new ErrorHandler()
+      {
+         @Override
+         public void warning(SAXParseException exception) throws SAXException
+         {
+            throw exception;
+         }
+
+         @Override
+         public void error(SAXParseException exception) throws SAXException
+         {
+            //System.err.println(exception.getPublicId() + " " + exception.getSystemId() + " " + exception.getLineNumber() + " " + exception.getColumnNumber() + " " + exception.getMessage());
+            throw exception;
+         }
+
+         @Override
+         public void fatalError(SAXParseException exception) throws SAXException
+         {
+            throw exception;
+         }
+      });
+      InputStream in = getClass().getResourceAsStream("/org/jboss/metadata/ejb/test/extension/jboss-ejb3.xml");
+      Document document = parser.parse(new InputSource(in));
+      assertNotNull(document);
+   }
+
+   @Test
+   public void testValidityXSD() throws IOException, SAXException, ParserConfigurationException
+   {
+      // parse an XML document into a DOM tree
+      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      factory.setNamespaceAware(true);
+      factory.setValidating(true);
+      factory.setAttribute(
+              "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+              "http://www.w3.org/2001/XMLSchema");
+      factory.setAttribute(
+              "http://java.sun.com/xml/jaxp/properties/schemaSource",
+              "http://www.w3.org/2001/XMLSchema.xsd");
+      DocumentBuilder parser = factory.newDocumentBuilder();
+      final Map<String, String> system = new HashMap<String, String>();
+      system.put("http://www.w3.org/2001/XMLSchema.xsd", "/schema/XMLSchema.xsd");
+      system.put("http://www.w3.org/2001/XMLSchema.dtd", "/schema/XMLSchema.dtd");
+      system.put("http://www.w3.org/2001/datatypes.dtd", "/schema/datatypes.dtd");
+      system.put("http://www.w3.org/2001/xml.xsd", "/schema/xml.xsd");
+      parser.setEntityResolver(new EntityResolver()
+      {
+         @Override
+         public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException
+         {
+//            System.out.println("resolve " + publicId + ", " + systemId);
+            final String resource = system.get(systemId);
+            if(resource == null)
+               throw new SAXException("Can't resolve systemId " + systemId);
+            return inputSource(systemId, resource);
+         }
+      });
+      parser.setErrorHandler(new ErrorHandler()
+      {
+         @Override
+         public void warning(SAXParseException exception) throws SAXException
+         {
+            throw exception;
+         }
+
+         @Override
+         public void error(SAXParseException exception) throws SAXException
+         {
+            throw exception;
+         }
+
+         @Override
+         public void fatalError(SAXParseException exception) throws SAXException
+         {
+            throw exception;
+         }
+      });
+      InputStream in = getClass().getResourceAsStream("/schema/jboss-ejb3-2_0.xsd");
+      Document document = parser.parse(new InputSource(in));
+      assertNotNull(document);
    }
 }
