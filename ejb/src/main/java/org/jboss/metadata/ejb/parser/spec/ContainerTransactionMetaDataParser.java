@@ -29,14 +29,13 @@ import org.jboss.metadata.ejb.spec.MethodsMetaData;
 import javax.ejb.TransactionAttributeType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.Locale;
 
 /**
  * Parses and creates metadata out of &lt;container-transaction&gt; element in the ejb-jar.xml
  * <p/>
  * Author : Jaikiran Pai
  */
-public class ContainerTransactionMetaDataParser extends AbstractMetaDataParser<ContainerTransactionMetaData>
+public class ContainerTransactionMetaDataParser extends AbstractWithDescriptionsParser<ContainerTransactionMetaData>
 {
 
    /**
@@ -81,7 +80,7 @@ public class ContainerTransactionMetaDataParser extends AbstractMetaDataParser<C
             return;
 
          default:
-            throw unexpectedElement(reader);
+            super.processElement(containerTransactionMetaData, reader);
       }
    }
 

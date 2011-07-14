@@ -19,18 +19,18 @@
   ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
-<jboss:jboss-ejb3 xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
+<jboss:ejb-jar xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
                   xmlns="http://java.sun.com/xml/ns/javaee"
                   xmlns:c="urn:cache-test"
                   xmlns:tx="urn:tx-timeout-test"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd
-                     http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd
+                     http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd
                      urn:cache-test cache-test.xsd
                      urn:tx-timeout-test tx-test.xsd"
                   version="3.1"
                   impl-version="2.0">
-   <jboss:assembly-descriptor>
+   <assembly-descriptor>
       <container-transaction>
          <method>
             <ejb-name>A</ejb-name>
@@ -52,5 +52,5 @@
          <tx:timeout>10</tx:timeout>
          <tx:unit>Minutes</tx:unit>
       </tx:tx-timeout>
-   </jboss:assembly-descriptor>
-</jboss:jboss-ejb3>
+   </assembly-descriptor>
+</jboss:ejb-jar>

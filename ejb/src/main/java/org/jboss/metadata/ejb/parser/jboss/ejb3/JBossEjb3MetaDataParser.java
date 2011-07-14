@@ -106,20 +106,14 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser<JBossE
    @Override
    protected void processElement(JBossEjb31MetaData metaData, XMLStreamReader reader) throws XMLStreamException
    {
-      final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
-      if (namespace == Namespace.JBOSS)
+      final Element element = Element.forName(reader.getLocalName());
+      switch (element)
       {
-         final Element element = Element.forName(reader.getLocalName());
-         switch (element)
-         {
-            case ASSEMBLY_DESCRIPTOR:
-               metaData.setAssemblyDescriptor(parseAssemblyDescriptor(reader));
-               break;
-            default:
-               throw unexpectedElement(reader);
-         }
+         case ASSEMBLY_DESCRIPTOR:
+            metaData.setAssemblyDescriptor(parseAssemblyDescriptor(reader));
+            break;
+         default:
+            super.processElement(metaData, reader);
       }
-      else
-         super.processElement(metaData, reader);
    }
 }

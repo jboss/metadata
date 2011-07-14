@@ -22,18 +22,15 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            targetNamespace="urn:cache-test"
            xmlns="urn:cache-test"
-           xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
            xmlns:javaee="http://java.sun.com/xml/ns/javaee"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
            version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd
-              http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd">
-   <xs:import namespace="http://www.jboss.com/xml/ns/javaee" schemaLocation="http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd"/>
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd">
+   <!--xs:import namespace="http://www.jboss.com/xml/ns/javaee" schemaLocation="http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd"/-->
    <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd"/>
-   <!-- xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"/ -->
 
-   <xs:element name="cache" type="cacheType"/>
+   <xs:element name="cache" type="cacheType" substitutionGroup="javaee:assembly-descriptor-entry"/>
 
    <xs:complexType name="cacheType">
       <xs:complexContent>

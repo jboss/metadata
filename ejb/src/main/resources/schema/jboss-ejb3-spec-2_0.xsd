@@ -30,7 +30,18 @@
    <!-- xs:include schemaLocation="ejb-jar_3_1.xsd"/ -->
    <xs:include schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"/>
 
-   <xs:complexType name="jboss-assembly-descriptor-entryType">
+   <xs:element name="assembly-descriptor-entry" abstract="true" type="jboss-assembly-descriptor-entryType"/>
+   <xs:complexType name="jboss-assembly-descriptorType">
+      <xs:complexContent>
+         <xs:extension base="javaee:assembly-descriptorType">
+            <xs:sequence>
+               <xs:element ref="assembly-descriptor-entry" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType abstract="true" name="jboss-assembly-descriptor-entryType">
       <xs:sequence>
          <xs:element name="description"
                      type="javaee:descriptionType"
@@ -70,6 +81,17 @@
                            type="javaee:methodType"
                            maxOccurs="unbounded"/>
             </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="jboss-ejb-jarType">
+      <xs:complexContent>
+         <xs:extension base="javaee:ejb-jarType">
+            <xs:sequence>
+               <xs:element name="assembly-descriptor" type="jboss-assembly-descriptorType" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="impl-version" type="javaee:dewey-versionType" fixed="2.0" use="required"/>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>

@@ -47,8 +47,23 @@ public class JBossAssemblyDescriptorMetaData extends AssemblyDescriptorMetaData
       current.add(a);
    }
 
+   @Override
+   protected AssemblyDescriptorMetaData createMerged(AssemblyDescriptorMetaData original)
+   {
+      final JBossAssemblyDescriptorMetaData merged = new JBossAssemblyDescriptorMetaData();
+      merged.merge(this, original);
+      return merged;
+   }
+
    public <T> List<T> getAny(Class<T> type)
    {
       return (List<T>) any.get(type);
+   }
+
+   protected void merge(final JBossAssemblyDescriptorMetaData override, final AssemblyDescriptorMetaData original)
+   {
+      super.merge(override, original);
+      if (override.any != null)
+         this.any.putAll(override.any);
    }
 }

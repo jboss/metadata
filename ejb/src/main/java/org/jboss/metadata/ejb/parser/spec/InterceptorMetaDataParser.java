@@ -40,7 +40,7 @@ import javax.xml.stream.XMLStreamReader;
  *
  * Author: Jaikiran Pai
  */
-public class InterceptorMetaDataParser extends AbstractMetaDataParser<InterceptorMetaData>
+public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<InterceptorMetaData>
 {
 
    public static final InterceptorMetaDataParser INSTANCE = new InterceptorMetaDataParser();
@@ -133,7 +133,7 @@ public class InterceptorMetaDataParser extends AbstractMetaDataParser<Intercepto
             
 
          default:
-            throw unexpectedElement(reader);
+            super.processElement(interceptor, reader);
       }
    }
 }

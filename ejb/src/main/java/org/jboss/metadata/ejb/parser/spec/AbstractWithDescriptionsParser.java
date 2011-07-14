@@ -19,24 +19,38 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.ejb.jboss.ejb3;
+package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
+import org.jboss.metadata.javaee.spec.DescriptionsImpl;
+import org.jboss.metadata.javaee.support.WithDescriptions;
+import org.jboss.metadata.parser.ee.DescriptionMetaDataParser;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class JBossEjb31MetaData extends EjbJar31MetaData {
-   public JBossEjb31MetaData createMerged(final EjbJar31MetaData original)
-   {
-      final JBossEjb31MetaData merged = new JBossEjb31MetaData();
-      merged.merge(this, original);
-      return merged;
-   }
-
+public abstract class AbstractWithDescriptionsParser<MD extends WithDescriptions> extends AbstractMetaDataParser<MD>
+{
    @Override
-   public JBossAssemblyDescriptorMetaData getAssemblyDescriptor()
+   protected void processElement(MD metaData, XMLStreamReader reader) throws XMLStreamException
    {
-      return (JBossAssemblyDescriptorMetaData) super.getAssemblyDescriptor();
+      final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
+      switch (ejbJarElement)
+      {
+         case DESCRIPTION:
+            DescriptionsImpl descriptions = (DescriptionsImpl) metaData.getDescriptions();
+            if (descriptions == null)
+            {
+               descriptions = new DescriptionsImpl();
+               metaData.setDescriptions(descriptions);
+            }
+            descriptions.add(DescriptionMetaDataParser.parse(reader));
+            break;
+
+         default:
+            super.processElement(metaData, reader);
+      }
    }
 }

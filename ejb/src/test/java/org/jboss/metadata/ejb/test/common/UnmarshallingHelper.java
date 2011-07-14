@@ -29,7 +29,9 @@ import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,10 +50,18 @@ public class UnmarshallingHelper
 
    public static <T> T unmarshal(Class<T> expected, String resource, Map<String, AbstractMetaDataParser<?>> parsers) throws Exception
    {
+      final InputStream in = expected.getResourceAsStream(resource);
+      if (in == null)
+         throw new IllegalArgumentException("Can't find resource " + resource);
+      return unmarshal(expected, in, parsers);
+   }
+
+   public static <T> T unmarshal(Class<T> expected, InputStream in, Map<String, AbstractMetaDataParser<?>> parsers) throws XMLStreamException
+   {
       MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
       final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
       inputFactory.setXMLResolver(info);
-      XMLStreamReader reader = inputFactory.createXMLStreamReader(expected.getResourceAsStream(resource));
+      XMLStreamReader reader = inputFactory.createXMLStreamReader(in);
 
       if (JBossEjb31MetaData.class.isAssignableFrom(expected))
       {

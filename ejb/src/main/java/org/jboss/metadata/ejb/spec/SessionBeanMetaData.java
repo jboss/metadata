@@ -95,6 +95,13 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
       // For serialization
    }
 
+   protected SessionBeanMetaData createMerged(EnterpriseBeanMetaData original)
+   {
+      final SessionBeanMetaData merged = new SessionBeanMetaData();
+      merged.merge(this, original);
+      return merged;
+   }
+
    @Override
    public boolean isSession()
    {

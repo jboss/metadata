@@ -29,7 +29,7 @@
            xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd">
    <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd"/>
 
-   <xs:element name="tx-timeout" type="tx-timeoutType"/>
+   <xs:element name="tx-timeout" type="tx-timeoutType" substitutionGroup="javaee:assembly-descriptor-entry"/>
 
    <xs:complexType name="tx-timeoutType">
       <xs:complexContent>
