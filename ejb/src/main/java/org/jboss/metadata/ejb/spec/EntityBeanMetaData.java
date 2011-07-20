@@ -81,6 +81,13 @@ public class EntityBeanMetaData extends EnterpriseBeanMetaData
       // For serialization
    }
 
+   protected EntityBeanMetaData createMerged(EnterpriseBeanMetaData original)
+   {
+      final EntityBeanMetaData merged = new EntityBeanMetaData();
+      merged.merge(this, original);
+      return merged;
+   }
+
    @Override
    public boolean isEntity()
    {

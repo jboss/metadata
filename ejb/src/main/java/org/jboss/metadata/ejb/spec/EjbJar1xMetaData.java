@@ -29,6 +29,12 @@ package org.jboss.metadata.ejb.spec;
  */
 public class EjbJar1xMetaData extends EjbJarMetaData
 {
+   @Override
+   public EjbJarVersion getEjbJarVersion()
+   {
+      return EjbJarVersion.EJB_1_1;
+   }
+
    /**
     * Override to get the version from the root element version attribute.
     * 

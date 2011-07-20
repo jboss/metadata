@@ -21,6 +21,7 @@
 */
 package org.jboss.metadata.ejb.spec;
 
+import org.jboss.metadata.javaee.support.WithDescriptions;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;

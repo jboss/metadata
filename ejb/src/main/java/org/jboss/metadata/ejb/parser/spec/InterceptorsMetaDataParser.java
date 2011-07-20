@@ -34,7 +34,7 @@ import javax.xml.stream.XMLStreamReader;
  * <p/>
  * Author: Jaikiran Pai
  */
-public class InterceptorsMetaDataParser extends AbstractMetaDataParser<InterceptorsMetaData>
+public class InterceptorsMetaDataParser extends AbstractWithDescriptionsParser<InterceptorsMetaData>
 {
    public static final InterceptorsMetaDataParser INSTANCE = new InterceptorsMetaDataParser();
 
@@ -74,7 +74,7 @@ public class InterceptorsMetaDataParser extends AbstractMetaDataParser<Intercept
             return;
 
          default:
-            throw unexpectedElement(reader);
+            super.processElement(interceptors, reader);
 
       }
    }

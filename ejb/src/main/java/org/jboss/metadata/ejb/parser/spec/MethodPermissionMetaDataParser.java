@@ -15,7 +15,7 @@ import java.util.Set;
  * 
  * User: Jaikiran Pai
  */
-public class MethodPermissionMetaDataParser extends AbstractMetaDataParser<MethodPermissionMetaData>
+public class MethodPermissionMetaDataParser extends AbstractWithDescriptionsParser<MethodPermissionMetaData>
 {
    public static final MethodPermissionMetaDataParser INSTANCE = new MethodPermissionMetaDataParser();
    
@@ -62,7 +62,7 @@ public class MethodPermissionMetaDataParser extends AbstractMetaDataParser<Metho
             return;
          
          default:
-            throw unexpectedElement(reader);
+            super.processElement(methodPermission, reader);
 
       }
    }

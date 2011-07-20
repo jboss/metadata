@@ -23,6 +23,7 @@ package org.jboss.metadata.ejb.spec;
 
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionGroupMerger;
 
 import javax.interceptor.Interceptors;
 import java.util.Collection;
@@ -68,6 +69,28 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
    public EjbJarMetaData()
    {
       // For serialization
+   }
+
+   protected void merge(final EjbJarMetaData override, final EjbJarMetaData original)
+   {
+      IdMetaDataImplWithDescriptionGroupMerger.merge(this, override, original);
+      if(override != null && override.getAssemblyDescriptor() != null)
+         this.assemblyDescriptor = override.getAssemblyDescriptor().createMerged(original != null ? original.getAssemblyDescriptor() : null);
+      else if(original != null && original.getAssemblyDescriptor() != null)
+         this.assemblyDescriptor = original.getAssemblyDescriptor().createMerged(null);
+      if (override != null && override.getEjbClientJar() != null)
+         setEjbClientJar(override.getEjbClientJar());
+      else if (original != null && original.getEjbClientJar() != null)
+         setEjbClientJar(original.getEjbClientJar());
+      if (override != null && override.getEnterpriseBeans() != null)
+         setEnterpriseBeans(override.getEnterpriseBeans().createMerged(original != null ? original.getEnterpriseBeans() : null));
+      else if (original != null && original.getEnterpriseBeans() != null)
+         setEnterpriseBeans(original.getEnterpriseBeans().createMerged(null));
+      // TODO: relationShips
+      if(override != null && override.getVersion() != null)
+         version = override.getVersion();
+      else if(original != null && original.getVersion() != null)
+         version = original.getVersion();
    }
 
    /**
@@ -233,6 +256,8 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
       }
       return enterpriseBeans.get(name);
    }
+
+   public abstract EjbJarVersion getEjbJarVersion();
 
    /**
     * Get the relationships.
@@ -526,5 +551,4 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
       // return the interceptors which are applicable for the bean
       return beanApplicableInterceptors;
    }
-
 }

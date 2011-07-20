@@ -35,7 +35,7 @@ import javax.xml.stream.XMLStreamReader;
  * <p/>
  * Author : Jaikiran Pai
  */
-public class MethodMetaDataParser extends AbstractMetaDataParser<MethodMetaData>
+public class MethodMetaDataParser extends AbstractWithDescriptionsParser<MethodMetaData>
 {
 
    /**
@@ -83,7 +83,7 @@ public class MethodMetaDataParser extends AbstractMetaDataParser<MethodMetaData>
             return;
 
          default:
-            throw unexpectedElement(reader);
+            super.processElement(methodMetaData, reader);
       }
    }
 }
