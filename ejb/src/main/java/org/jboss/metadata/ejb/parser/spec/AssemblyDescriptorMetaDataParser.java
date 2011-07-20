@@ -93,7 +93,7 @@ public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<Ass
             return;
          
          default:
-            throw unexpectedElement(reader);
+            super.processElement(assemblyDescriptor, reader);
       }
    }
 

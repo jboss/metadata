@@ -76,6 +76,13 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
       // For serialization
    }
 
+   protected MessageDrivenBeanMetaData createMerged(EnterpriseBeanMetaData original)
+   {
+      final MessageDrivenBeanMetaData merged = new MessageDrivenBeanMetaData();
+      merged.merge(this, original);
+      return merged;
+   }
+
    @Override
    public boolean isMessageDriven()
    {

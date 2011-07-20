@@ -22,6 +22,8 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
+
 import java.util.HashMap;
 import java.util.Map;
 

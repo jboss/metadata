@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2010, Red Hat, Inc., and individual contributors
+ * Copyright (c) 2011, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,39 +19,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.metadata.ejb.jboss.ejb3;
 
-package org.jboss.metadata.ejb.parser.spec;
+import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 
 /**
- * Various ejb-jar spec versions
- *
- * User: Jaikiran Pai
+ * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public enum EjbJarVersion
-{
-   /**
-    * 1.1 version of EJB
-    */
-   EJB_1_1,
+public class JBossEjb31MetaData extends EjbJar31MetaData {
+   public JBossEjb31MetaData createMerged(final EjbJar31MetaData original)
+   {
+      final JBossEjb31MetaData merged = new JBossEjb31MetaData();
+      merged.merge(this, original);
+      return merged;
+   }
 
-   /**
-    * 2.0 version of EJB
-    */
-   EJB_2_0,
-
-   /**
-    * 2.1 version of EJB
-    */
-   EJB_2_1,
-
-   /**
-    * 3.0 version of EJB
-    */
-   EJB_3_0,
-
-   /**
-    * 3.1 version of EJB
-    */
-   EJB_3_1
-
+   @Override
+   public JBossAssemblyDescriptorMetaData getAssemblyDescriptor()
+   {
+      return (JBossAssemblyDescriptorMetaData) super.getAssemblyDescriptor();
+   }
 }

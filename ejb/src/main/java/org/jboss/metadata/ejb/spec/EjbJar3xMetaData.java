@@ -82,6 +82,18 @@ public abstract class EjbJar3xMetaData extends EjbJarMetaData
       return interceptors;
    }
 
+   protected void merge(final EjbJar3xMetaData override, final EjbJar3xMetaData original)
+   {
+      if (override != null && override.isMetadataComplete())
+         setMetadataComplete(true);
+      else if (original != null && original.isMetadataComplete())
+         setMetadataComplete(true);
+      if(override != null && override.getInterceptors() != null)
+         this.interceptors = override.getInterceptors().createMerged(original != null ? original.getInterceptors() : null);
+      else if(original != null && original.getInterceptors() != null)
+         this.interceptors = original.getInterceptors().createMerged(null);
+   }
+
    /**
     * Set the interceptors.
     * 

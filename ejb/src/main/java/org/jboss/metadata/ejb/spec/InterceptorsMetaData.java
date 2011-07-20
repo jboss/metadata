@@ -42,7 +42,14 @@ public class InterceptorsMetaData extends MappedMetaDataWithDescriptions<Interce
    {
       super("interceptor class");
    }
-   
+
+   protected InterceptorsMetaData createMerged(InterceptorsMetaData original)
+   {
+      final InterceptorsMetaData merged = new InterceptorsMetaData();
+      merged.merge(this, original);
+      return merged;
+   }
+
    public void merge(InterceptorsMetaData interceptors)
    {
       IdMetaDataImplWithDescriptionsMerger.merge(this, interceptors, null);

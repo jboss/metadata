@@ -118,6 +118,8 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
       // For serialization
    }
 
+   protected abstract EnterpriseBeanMetaData createMerged(EnterpriseBeanMetaData enterpriseBeanMetaData);
+
    public EnterpriseBeansMetaData getEnterpriseBeansMetaData()
    {
       return this.enterpriseBeansMetaData;

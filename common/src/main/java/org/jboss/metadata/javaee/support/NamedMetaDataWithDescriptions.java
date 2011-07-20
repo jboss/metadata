@@ -22,7 +22,6 @@
 package org.jboss.metadata.javaee.support;
 
 import org.jboss.annotation.javaee.Descriptions;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 
 /**
  * NamedMetaData.
@@ -30,7 +29,7 @@ import org.jboss.metadata.javaee.spec.DescriptionsImpl;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public abstract class NamedMetaDataWithDescriptions extends NamedMetaData implements MappableMetaData {
+public abstract class NamedMetaDataWithDescriptions extends NamedMetaData implements MappableMetaData, WithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = -8129636357927225616L;
 
