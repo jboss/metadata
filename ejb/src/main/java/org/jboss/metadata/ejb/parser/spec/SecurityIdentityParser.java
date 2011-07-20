@@ -13,7 +13,7 @@ import javax.xml.stream.XMLStreamReader;
  *
  * User: Jaikiran Pai
  */
-public class SecurityIdentityParser extends AbstractMetaDataParser<SecurityIdentityMetaData>
+public class SecurityIdentityParser extends AbstractWithDescriptionsParser<SecurityIdentityMetaData>
 {
    public static final SecurityIdentityParser INSTANCE = new SecurityIdentityParser();
 
@@ -43,7 +43,7 @@ public class SecurityIdentityParser extends AbstractMetaDataParser<SecurityIdent
             return;
          
          default:
-            throw unexpectedElement(reader);
+            super.processElement(metaData, reader);
 
       }
    }

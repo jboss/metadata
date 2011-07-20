@@ -3,9 +3,6 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
 import org.jboss.metadata.ejb.spec.MethodMetaData;
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
-import org.jboss.metadata.javaee.spec.EmptyMetaData;
-import org.jboss.metadata.javaee.spec.RunAsMetaData;
-import org.jboss.metadata.parser.ee.RunAsMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -15,7 +12,7 @@ import javax.xml.stream.XMLStreamReader;
  * <p/>
  * User: Jaikiran Pai
  */
-public class ExcludeListMetaDataParser extends AbstractMetaDataParser<ExcludeListMetaData>
+public class ExcludeListMetaDataParser extends AbstractWithDescriptionsParser<ExcludeListMetaData>
 {
    public static final ExcludeListMetaDataParser INSTANCE = new ExcludeListMetaDataParser();
 
@@ -45,7 +42,7 @@ public class ExcludeListMetaDataParser extends AbstractMetaDataParser<ExcludeLis
             return;
 
          default:
-            throw unexpectedElement(reader);
+            super.processElement(excludeList, reader);
 
       }
    }

@@ -21,17 +21,18 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData;
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
 import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author Scott.Stark@jboss.org

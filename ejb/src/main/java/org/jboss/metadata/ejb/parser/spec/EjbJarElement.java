@@ -61,6 +61,7 @@ public enum EjbJarElement
    DAY_OF_MONTH("day-of-month"),
    DAY_OF_WEEK("day-of-week"),
    DEPENDS_ON("depends-on"),
+   DESCRIPTION("description"),
    
 
    EJB_CLASS("ejb-class"),

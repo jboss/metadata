@@ -72,6 +72,13 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
       // For serialization
    }
 
+   protected AssemblyDescriptorMetaData createMerged(final AssemblyDescriptorMetaData original)
+   {
+      final AssemblyDescriptorMetaData merged = new AssemblyDescriptorMetaData();
+      merged.merge(this, original);
+      return merged;
+   }
+
    public SecurityRoleMetaData getSecurityRole(String roleName)
    {
       return securityRoles.get(roleName);

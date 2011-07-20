@@ -22,13 +22,14 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
+
 /**
  * User: jpai
  */
-public class AssemblyDescriptorMetaDataParserFactory
+class AssemblyDescriptorMetaDataParserFactory
 {
-
-   public static AssemblyDescriptorMetaDataParser getParser(EjbJarVersion ejbJarVersion)
+   static AssemblyDescriptorMetaDataParser getParser(EjbJarVersion ejbJarVersion)
    {
       if (ejbJarVersion == null)
       {

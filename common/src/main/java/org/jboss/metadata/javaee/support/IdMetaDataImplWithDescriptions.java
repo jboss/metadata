@@ -22,7 +22,6 @@
 package org.jboss.metadata.javaee.support;
 
 import org.jboss.annotation.javaee.Descriptions;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 
 /**
  * IdMetaDataImplWithDescriptions.
@@ -30,7 +29,7 @@ import org.jboss.metadata.javaee.spec.DescriptionsImpl;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public abstract class IdMetaDataImplWithDescriptions extends IdMetaDataImpl {
+public abstract class IdMetaDataImplWithDescriptions extends IdMetaDataImpl implements WithDescriptions {
     /** The serialVersionUID */
     private static final long serialVersionUID = 8444982686386775186L;
 

@@ -39,7 +39,13 @@ public class EjbJar21MetaData extends EjbJar2xMetaData
    {
       // For serialization
    }
-   
+
+   @Override
+   public EjbJarVersion getEjbJarVersion()
+   {
+      return EjbJarVersion.EJB_2_1;
+   }
+
    @Override
    public boolean isEJB21()
    {

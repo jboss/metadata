@@ -33,6 +33,12 @@ public class EjbJar31MetaData extends EjbJar3xMetaData implements NamedModule
 
    private String moduleName;
 
+   @Override
+   public EjbJarVersion getEjbJarVersion()
+   {
+      return EjbJarVersion.EJB_3_1;
+   }
+
    public String getModuleName()
    {
       return moduleName;
@@ -40,5 +46,14 @@ public class EjbJar31MetaData extends EjbJar3xMetaData implements NamedModule
    public void setModuleName(String moduleName)
    {
       this.moduleName = moduleName;
+   }
+
+   public void merge(final EjbJar31MetaData override, final EjbJar31MetaData original)
+   {
+      super.merge(override, original);
+      if (override != null && override.getModuleName() != null)
+         setModuleName(override.getModuleName());
+      else if (original != null && original.getModuleName() != null)
+         setModuleName(original.getModuleName());
    }
 }

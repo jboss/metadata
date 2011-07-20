@@ -21,6 +21,8 @@
 */
 package org.jboss.metadata.ejb.spec;
 
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
+
 /**
  * EnterpriseBeansMetaData.
  * 
@@ -44,6 +46,13 @@ public class EnterpriseBeansMetaData
 //      super.setBeans(this);
    }
 
+   protected EnterpriseBeansMetaData createMerged(final EnterpriseBeansMetaData original)
+   {
+      final EnterpriseBeansMetaData merged = new EnterpriseBeansMetaData();
+      merged.merge(this, original);
+      return merged;
+   }
+
    /**
     * Get the ejbJarMetaData.
     * 
@@ -52,6 +61,26 @@ public class EnterpriseBeansMetaData
    public EjbJarMetaData getEjbJarMetaData()
    {
       return ejbJarMetaData;
+   }
+
+   protected void merge(EnterpriseBeansMetaData override, EnterpriseBeansMetaData original)
+   {
+      IdMetaDataImplMerger.merge(this, override, original);
+      if (override != null)
+      {
+         for (final EnterpriseBeanMetaData bean : override)
+         {
+            add(bean.createMerged(original != null ? original.get(bean.getEjbName()) : null));
+         }
+      }
+      if (original != null)
+      {
+         for (final EnterpriseBeanMetaData bean : original)
+         {
+            if (!contains(bean))
+               add(bean.createMerged(null));
+         }
+      }
    }
 
    /**
@@ -66,5 +95,4 @@ public class EnterpriseBeansMetaData
          throw new IllegalArgumentException("Null ejbJarMetaData");
       this.ejbJarMetaData = ejbJarMetaData;
    }
-
 }
