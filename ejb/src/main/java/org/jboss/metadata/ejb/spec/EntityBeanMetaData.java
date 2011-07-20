@@ -67,9 +67,6 @@ public class EntityBeanMetaData extends EnterpriseBeanMetaData
    /** The primary key field */
    private String primKeyField;
    
-   /** The security role refs */
-   private SecurityRoleRefsMetaData securityRoleRefs;
-   
    /** The queries */
    private QueriesMetaData queries;
 
@@ -381,29 +378,6 @@ public class EntityBeanMetaData extends EnterpriseBeanMetaData
       if (cmpFields == null)
          throw new IllegalArgumentException("Null cmpFields");
       this.cmpFields = cmpFields;
-   }
-
-   /**
-    * Get the securityRoleRefs.
-    * 
-    * @return the securityRoleRefs.
-    */
-   public SecurityRoleRefsMetaData getSecurityRoleRefs()
-   {
-      return securityRoleRefs;
-   }
-
-   /**
-    * Set the securityRoleRefs.
-    * 
-    * @param securityRoleRefs the securityRoleRefs.
-    * @throws IllegalArgumentException for a null securityRoleRefs
-    */
-   public void setSecurityRoleRefs(SecurityRoleRefsMetaData securityRoleRefs)
-   {
-      if (securityRoleRefs == null)
-         throw new IllegalArgumentException("Null securityRoleRefs");
-      this.securityRoleRefs = securityRoleRefs;
    }
 
    /**

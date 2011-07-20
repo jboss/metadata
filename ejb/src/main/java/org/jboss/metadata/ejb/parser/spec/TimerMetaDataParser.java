@@ -25,6 +25,9 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.ScheduleMetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.parser.ee.Accessor;
+import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -62,8 +65,25 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(TimerMetaData timer, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(final TimerMetaData timer, XMLStreamReader reader) throws XMLStreamException
    {
+      Accessor<DescriptionGroupMetaData> accessor = new Accessor<DescriptionGroupMetaData>()
+      {
+         @Override
+         public DescriptionGroupMetaData get()
+         {
+            DescriptionGroupMetaData descriptionGroupMetaData = timer.getDescriptionGroup();
+            if (descriptionGroupMetaData == null)
+            {
+               descriptionGroupMetaData = new DescriptionGroupMetaData();
+               timer.setDescriptionGroup(descriptionGroupMetaData);
+            }
+            return descriptionGroupMetaData;
+         }
+      };
+      if (DescriptionGroupMetaDataParser.parse(reader, accessor))
+         return;
+
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {

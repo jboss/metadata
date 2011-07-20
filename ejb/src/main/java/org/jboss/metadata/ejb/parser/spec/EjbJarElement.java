@@ -38,6 +38,10 @@ public enum EjbJarElement
    UNKNOWN(null),
 
    ACCESS_TIMEOUT("access-timeout"),
+   ACTIVATION_CONFIG("activation-config"),
+   ACTIVATION_CONFIG_PROPERTY("activation-config-property"),
+   ACTIVATION_CONFIG_PROPERTY_NAME("activation-config-property-name"),
+   ACTIVATION_CONFIG_PROPERTY_VALUE("activation-config-property-value"),
    AFTER_BEGIN_METHOD("after-begin-method"),
    AFTER_COMPLETION_METHOD("after-completion-method"),
    APPLICATION_EXCEPTION("application-exception"),
@@ -95,7 +99,10 @@ public enum EjbJarElement
    LOCK("lock"),
 
    MAPPED_NAME("mapped-name"),
+   MESSAGE_DESTINATION_LINK("message-destination-link"),
+   MESSAGE_DESTINATION_TYPE("message-destination-type"),
    MESSAGE_DRIVEN("message-driven"),
+   MESSAGING_TYPE("messaging-type"),
    METHOD("method"),
    METHOD_INTF("method-intf"),
    METHOD_NAME("method-name"),

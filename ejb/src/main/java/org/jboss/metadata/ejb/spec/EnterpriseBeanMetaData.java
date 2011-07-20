@@ -44,6 +44,7 @@ import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
@@ -91,6 +92,9 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
    /** The transaction type cache */
    private transient ConcurrentHashMap<Method, TransactionAttributeType> methodTx; 
    
+   /** The security role ref */
+   private SecurityRoleRefsMetaData securityRoleRefs;
+
    /**
     * Create the correct EnterpriseBeanMetaData for the input
     * standard bean metadata.
@@ -341,6 +345,29 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
       if (securityIdentity == null)
          throw new IllegalArgumentException("Null securityIdentity");
       this.securityIdentity = securityIdentity;
+   }
+
+   /**
+    * Get the securityRoleRefs.
+    *
+    * @return the securityRoleRefs.
+    */
+   public SecurityRoleRefsMetaData getSecurityRoleRefs()
+   {
+      return securityRoleRefs;
+   }
+
+   /**
+    * Set the securityRoleRefs.
+    *
+    * @param securityRoleRefs the securityRoleRefs.
+    * @throws IllegalArgumentException for a null securityRoleRefs
+    */
+   public void setSecurityRoleRefs(SecurityRoleRefsMetaData securityRoleRefs)
+   {
+      if (securityRoleRefs == null)
+         throw new IllegalArgumentException("Null securityRoleRefs");
+      this.securityRoleRefs = securityRoleRefs;
    }
 
    public EJBLocalReferenceMetaData getEjbLocalReferenceByName(String name)
@@ -605,6 +632,12 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
          setSecurityIdentity(override.securityIdentity);
       else if(original != null && original.securityIdentity != null)
          setSecurityIdentity(original.securityIdentity);
+      if(securityRoleRefs == null)
+         securityRoleRefs = new SecurityRoleRefsMetaData();
+      if(override != null && override.securityRoleRefs != null)
+         securityRoleRefs.addAll(override.securityRoleRefs);
+      if(original != null && original.securityRoleRefs != null)
+         securityRoleRefs.addAll(original.securityRoleRefs);
    }
    
    /**

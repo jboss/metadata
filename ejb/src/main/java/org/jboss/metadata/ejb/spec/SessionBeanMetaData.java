@@ -84,9 +84,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
    /** The pre passivates */
    private LifecycleCallbacksMetaData prePassivates;
 
-   /** The security role ref */
-   private SecurityRoleRefsMetaData securityRoleRefs;
-   
    /**
     * Create a new SessionBeanMetaData.
     */
@@ -475,29 +472,6 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
       this.prePassivates = prePassivates;
    }
 
-   /**
-    * Get the securityRoleRefs.
-    * 
-    * @return the securityRoleRefs.
-    */
-   public SecurityRoleRefsMetaData getSecurityRoleRefs()
-   {
-      return securityRoleRefs;
-   }
-
-   /**
-    * Set the securityRoleRefs.
-    * 
-    * @param securityRoleRefs the securityRoleRefs.
-    * @throws IllegalArgumentException for a null securityRoleRefs
-    */
-   public void setSecurityRoleRefs(SecurityRoleRefsMetaData securityRoleRefs)
-   {
-      if (securityRoleRefs == null)
-         throw new IllegalArgumentException("Null securityRoleRefs");
-      this.securityRoleRefs = securityRoleRefs;
-   }
-
    @Override
    public void merge(EnterpriseBeanMetaData eoverride, EnterpriseBeanMetaData eoriginal)
    {
@@ -578,11 +552,5 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
          prePassivates.addAll(override.prePassivates);
       if(original != null && original.prePassivates != null)
          prePassivates.addAll(original.prePassivates);
-      if(securityRoleRefs == null)
-         securityRoleRefs = new SecurityRoleRefsMetaData();
-      if(override != null && override.securityRoleRefs != null)
-         securityRoleRefs.addAll(override.securityRoleRefs);
-      if(original != null && original.securityRoleRefs != null)
-         securityRoleRefs.addAll(original.securityRoleRefs);
    }
 }

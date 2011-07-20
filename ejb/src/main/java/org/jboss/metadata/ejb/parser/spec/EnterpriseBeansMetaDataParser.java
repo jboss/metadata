@@ -39,6 +39,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
 {
+   private static final MessageDrivenBean31Parser MESSAGE_DRIVEN_BEAN_PARSER = new MessageDrivenBean31Parser();
 
    /**
     * Creates and returns {@link EnterpriseBeansMetaData} after parsing the enterprise-beans
@@ -68,7 +69,8 @@ public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
                throw new RuntimeException("<entity> element parsing hasn't yet been implemented");
 
             case MESSAGE_DRIVEN:
-               throw new RuntimeException("<message-driven> element parsing hasn't yet been implemented");
+               enterpriseBeans.add(MESSAGE_DRIVEN_BEAN_PARSER.parse(reader));
+               break;
                
             default:
                throw unexpectedElement(reader);
