@@ -22,6 +22,7 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
@@ -169,7 +170,9 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
             return;
 
          case TIMEOUT_METHOD:
-            throw new RuntimeException("<timeout-method> element parsing is not yet implemented");
+            NamedMethodMetaData timeoutMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader);
+            sessionBean.setTimeoutMethod(timeoutMethod);
+            return;
 
          case TRANSACTION_TYPE:
             String txType = getElementText(reader);

@@ -184,7 +184,6 @@
                         <exclude>org/jboss/test/metadata/jpa/v2/PersistenceMDUnitTestCase.java</exclude>
                         <exclude>org/jboss/test/metadata/ejb/JBoss51EverythingUnitTestCase.java</exclude>
                         <exclude>org/jboss/test/metadata/xml/EjbXmlValidationUnitTestCase.java</exclude>
-                        <exclude>org/jboss/metadata/ejb/test/schedule/unit/ScheduleTestCase.java</exclude>
                         <exclude>org/jboss/test/metadata/annotation/ejb3/JBossAnnotationEjb3UnitTestCase.java</exclude>
                         <exclude>org/jboss/metadata/ejb/test/jbmeta307/unit/SessionSynchronizationTestCase.java</exclude>
                         <exclude>org/jboss/metadata/ejb/test/jbmeta321/unit/StatefulTimeoutTestCase.java</exclude>
