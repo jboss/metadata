@@ -112,12 +112,14 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
             return;
 
          case START:
-            throw new RuntimeException("<start> element parsing in ejb-jar.xml is not yet implemented");
-
+            //TODO: get rid of the javax.xml.bind reference
+            String start = getElementText(reader);
+            timer.setStart(javax.xml.bind.DatatypeConverter.parseDateTime(start));
+            return;
          case END:
-            throw new RuntimeException("<end> element parsing in ejb-jar.xml is not yet implemented");
-
-
+            String end = getElementText(reader);
+            timer.setEnd(javax.xml.bind.DatatypeConverter.parseDateTime(end));
+            return;
          case SCHEDULE:
             ScheduleMetaData schedule = ScheduleMetaDataParser.INSTANCE.parse(reader);
             timer.setSchedule(schedule);
