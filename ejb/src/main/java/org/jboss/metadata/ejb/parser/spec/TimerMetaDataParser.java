@@ -29,22 +29,26 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.Accessor;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 
+import javax.xml.bind.DatatypeConverter;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.Calendar;
 
 /**
  * Parses and creates metadata out of &lt;timer&gt; element in ejb-jar.xml
  * <p/>
- * 
+ * <p/>
  * Author: Jaikiran Pai
  */
 public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
 {
    public static final TimerMetaDataParser INSTANCE = new TimerMetaDataParser();
-   
+
    /**
     * Creates and returns {@link TimerMetaData}
-    * 
+    *
     * @param reader
     * @return
     * @throws XMLStreamException
@@ -60,7 +64,7 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
    /**
     * Parses the child elements of the &lt;timer&gt; element and updates the passed {@link TimerMetaData} accordingly.
     *
-    * @param timer The metadata to update while parsing
+    * @param timer  The metadata to update while parsing
     * @param reader
     * @throws XMLStreamException
     */
@@ -112,12 +116,13 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
             return;
 
          case START:
-            throw new RuntimeException("<start> element parsing in ejb-jar.xml is not yet implemented");
-
+            String start = getElementText(reader);
+            timer.setStart(parseDateTime(start));
+            return;
          case END:
-            throw new RuntimeException("<end> element parsing in ejb-jar.xml is not yet implemented");
-
-
+            String end = getElementText(reader);
+            timer.setEnd(parseDateTime(end));
+            return;
          case SCHEDULE:
             ScheduleMetaData schedule = ScheduleMetaDataParser.INSTANCE.parse(reader);
             timer.setSchedule(schedule);
@@ -127,5 +132,45 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
             throw unexpectedElement(reader);
 
       }
+   }
+
+   //TODO: get rid of the javax.xml.bind reference
+   //TODO: because of CL issues we need to set the CL or DatatypeConverter will fail
+   private static Calendar parseDateTime(String dateTime)
+   {
+      final ClassLoader o = getTccl();
+      try
+      {
+         setTccl(TimerMetaDataParser.class.getClassLoader());
+         return DatatypeConverter.parseDateTime(dateTime);
+      } finally
+      {
+         setTccl(o);
+      }
+   }
+
+   private static ClassLoader getTccl()
+   {
+      return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
+      {
+         @Override
+         public ClassLoader run()
+         {
+            return Thread.currentThread().getContextClassLoader();
+         }
+      });
+   }
+
+   private static void setTccl(final ClassLoader classLoader)
+   {
+      AccessController.doPrivileged(new PrivilegedAction<ClassLoader>()
+      {
+         @Override
+         public ClassLoader run()
+         {
+            Thread.currentThread().setContextClassLoader(classLoader);
+            return null;
+         }
+      });
    }
 }
