@@ -24,6 +24,7 @@ package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 
@@ -54,6 +55,7 @@ public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
    {
       EnterpriseBeansMetaData enterpriseBeans = new EnterpriseBeansMetaData();
       SessionBeanMetaDataParser sessionBeanParser = SessionBeanMetaDataParserFactory.getParser(ejbJarVersion);
+      EntityBeanMetaDataParser entityBeanMetaDataParser = new EntityBeanMetaDataParser();
       // Handle elements
       while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
       {
@@ -66,8 +68,9 @@ public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
                enterpriseBeans.add(sessionBean);
                break;
             case ENTITY:
-               throw new RuntimeException("<entity> element parsing hasn't yet been implemented");
-
+               EntityBeanMetaData entityBean = entityBeanMetaDataParser.parse(reader);
+               enterpriseBeans.add(entityBean);
+               break;
             case MESSAGE_DRIVEN:
                enterpriseBeans.add(MESSAGE_DRIVEN_BEAN_PARSER.parse(reader));
                break;

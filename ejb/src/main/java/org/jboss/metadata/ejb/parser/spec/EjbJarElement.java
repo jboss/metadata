@@ -37,6 +37,7 @@ public enum EjbJarElement
 {
    UNKNOWN(null),
 
+   ABSTRACT_SCHEMA_NAME("abstract-schema-name"),
    ACCESS_TIMEOUT("access-timeout"),
    ACTIVATION_CONFIG("activation-config"),
    ACTIVATION_CONFIG_PROPERTY("activation-config-property"),
@@ -57,6 +58,8 @@ public enum EjbJarElement
    BUSINESS_REMOTE("business-remote"),
 
    CLASS("class"),
+   CMP_FIELD("cmp-field"),
+   CMP_VERSION("cmp-version"),
    CONCURRENCY_MANAGEMENT_TYPE("concurrency-management-type"),
    CONCURRENT_METHOD("concurrent-method"),
    CONTAINER_TRANSACTION("container-transaction"),
@@ -78,6 +81,8 @@ public enum EjbJarElement
    EXCLUDE_DEFAULT_INTERCEPTORS("exclude-default-interceptors"),
    EXCLUDE_CLASS_INTERCEPTORS("exclude-class-interceptors"),
    EXCLUDE_LIST("exclude-list"),
+
+   FIELD_NAME("field-name"),
 
    HOME("home"),
    HOUR("hour"),
@@ -113,10 +118,14 @@ public enum EjbJarElement
    MODULE_NAME("module-name"),
    MONTH("month"),
 
+   PERSISTENCE_TYPE("persistence-type"),
    PERSISTENT("persistent"),
+   PRIM_KEY_CLASS("prim-key-class"),
+   PRIMKEY_FIELD("primkey-field"),
    POST_ACTIVATE("post-activate"),
    PRE_PASSIVATE("pre-passivate"),
-   
+
+   REENTRANT("reentrant"),
    RELATIONSHIPS("relationships"),
    REMOTE("remote"),
    REMOVE_METHOD("remove-method"),
