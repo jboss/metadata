@@ -43,6 +43,9 @@ public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData imple
     * Represents metadata for {@link Schedule}
     */
    private List<TimerMetaData> timers = new ArrayList<TimerMetaData>();
+
+   private AroundTimeoutsMetaData aroundTimeouts;
+
    
    /**
     * Returns the {@link TimerMetaData} associated with this bean
@@ -95,5 +98,15 @@ public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData imple
          MergeUtil.merge(this.timers, overrideTimers, originalTimers);
       }
       
+   }
+
+   public AroundTimeoutsMetaData getAroundTimeouts()
+   {
+      return aroundTimeouts;
+   }
+
+   public void setAroundTimeouts(AroundTimeoutsMetaData aroundTimeouts)
+   {
+      this.aroundTimeouts = aroundTimeouts;
    }
 }

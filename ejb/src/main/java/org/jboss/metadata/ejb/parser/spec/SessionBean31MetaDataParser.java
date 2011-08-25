@@ -22,14 +22,7 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
-import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
-import org.jboss.metadata.ejb.spec.DependsOnMetaData;
-import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
-import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
-import org.jboss.metadata.ejb.spec.SessionType;
-import org.jboss.metadata.ejb.spec.StatefulTimeoutMetaData;
-import org.jboss.metadata.ejb.spec.TimerMetaData;
+import org.jboss.metadata.ejb.spec.*;
 
 import javax.ejb.ConcurrencyManagementType;
 import javax.xml.stream.XMLStreamException;
@@ -129,8 +122,17 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
          case AFTER_COMPLETION_METHOD:
              sessionBean.setAfterCompletionMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader));
              return;
+
          case AROUND_TIMEOUT:
-            throw new RuntimeException("<around-timeout> element parsing is not yet implemented");
+            AroundTimeoutsMetaData aroundTimeouts = sessionBean.getAroundTimeouts();
+            if (aroundTimeouts == null)
+            {
+               aroundTimeouts = new AroundTimeoutsMetaData();
+               sessionBean.setAroundTimeouts(aroundTimeouts);
+            }
+            AroundTimeoutMetaData aroundInvoke = AroundTimeoutMetaDataParser.INSTANCE.parse(reader);
+            aroundTimeouts.add(aroundInvoke);
+            break;
 
          case TIMER:
             List<TimerMetaData> timers = sessionBean.getTimers();
