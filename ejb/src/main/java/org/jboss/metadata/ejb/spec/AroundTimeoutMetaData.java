@@ -21,28 +21,52 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.NamedMetaData;
+import java.io.Serializable;
 
 /**
- * QueryMethodMetaData.
  * 
- * @author <a href="adrian@jboss.com">Adrian Brock</a>
- * @version $Revision: 1.1 $
+ * @author Stuart Douglas
  */
-public class QueryMethodMetaData extends NamedMetaData
+public class AroundTimeoutMetaData implements Serializable
 {
    /** The serialVersionUID */
-   private static final long serialVersionUID = -2699157157608413256L;
+   private static final long serialVersionUID = -4782968110296545024L;
 
-   /** The method parameters */
-   private MethodParametersMetaData methodParams;
-   
+   /** The class */
+   private String className;
+
+   /** The method name */
+   private String methodName;
+
    /**
-    * Create a new QueryMethodMetaData.
+    * Create a new AroundInvokeMetaData.
     */
-   public QueryMethodMetaData()
+   public AroundTimeoutMetaData()
    {
       // For serialization
+   }
+
+   /**
+    * Get the className.
+    * 
+    * @return the className.
+    */
+   public String getClassName()
+   {
+      return className;
+   }
+
+   /**
+    * Set the className.
+    * 
+    * @param className the className.
+    * @throws IllegalArgumentException for a null className
+    */
+   public void setClassName(String className)
+   {
+      if (className == null)
+         throw new IllegalArgumentException("Null className");
+      this.className = className;
    }
 
    /**
@@ -52,7 +76,7 @@ public class QueryMethodMetaData extends NamedMetaData
     */
    public String getMethodName()
    {
-      return getName();
+      return methodName;
    }
 
    /**
@@ -63,29 +87,8 @@ public class QueryMethodMetaData extends NamedMetaData
     */
    public void setMethodName(String methodName)
    {
-      setName(methodName);
-   }
-
-   /**
-    * Get the methodParams.
-    * 
-    * @return the methodParams.
-    */
-   public MethodParametersMetaData getMethodParams()
-   {
-      return methodParams;
-   }
-
-   /**
-    * Set the methodParams.
-    * 
-    * @param methodParams the methodParams.
-    * @throws IllegalArgumentException for a null methodParams
-    */
-   public void setMethodParams(MethodParametersMetaData methodParams)
-   {
-      if (methodParams == null)
-         throw new IllegalArgumentException("Null methodParams");
-      this.methodParams = methodParams;
+      if (methodName == null)
+         throw new IllegalArgumentException("Null methodName");
+      this.methodName = methodName;
    }
 }

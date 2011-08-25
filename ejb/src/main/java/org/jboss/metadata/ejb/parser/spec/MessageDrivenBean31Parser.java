@@ -21,8 +21,7 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.MessageDrivenBean31MetaData;
-import org.jboss.metadata.ejb.spec.TimerMetaData;
+import org.jboss.metadata.ejb.spec.*;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -49,7 +48,15 @@ public class MessageDrivenBean31Parser extends AbstractMessageDrivenBeanParser<M
       switch (ejbJarElement)
       {
          case AROUND_TIMEOUT:
-            throw new RuntimeException("<around-timeout> element parsing is not yet implemented");
+            AroundTimeoutsMetaData aroundTimeouts = bean.getAroundTimeouts();
+            if (aroundTimeouts == null)
+            {
+               aroundTimeouts = new AroundTimeoutsMetaData();
+               bean.setAroundTimeouts(aroundTimeouts);
+            }
+            AroundTimeoutMetaData aroundInvoke = AroundTimeoutMetaDataParser.INSTANCE.parse(reader);
+            aroundTimeouts.add(aroundInvoke);
+            break;
 
          case TIMER:
             List<TimerMetaData> timers = bean.getTimers();

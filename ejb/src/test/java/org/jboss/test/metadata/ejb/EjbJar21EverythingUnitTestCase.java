@@ -25,20 +25,7 @@ import junit.framework.Test;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
-import org.jboss.metadata.ejb.spec.CMPFieldMetaData;
-import org.jboss.metadata.ejb.spec.CMPFieldsMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar21MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar2xMetaData;
-import org.jboss.metadata.ejb.spec.EjbJarMetaData;
-import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
-import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
-import org.jboss.metadata.ejb.spec.PersistenceType;
-import org.jboss.metadata.ejb.spec.QueriesMetaData;
-import org.jboss.metadata.ejb.spec.QueryMetaData;
-import org.jboss.metadata.ejb.spec.QueryMethodMetaData;
-import org.jboss.metadata.ejb.spec.ResultTypeMapping;
-import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
-import org.jboss.metadata.ejb.spec.SessionType;
+import org.jboss.metadata.ejb.spec.*;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
@@ -238,7 +225,7 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
       }
    }
 
-   private void assertQueryMethod(String ejbName, int size, QueryMethodMetaData queryMethodMetaData)
+   private void assertQueryMethod(String ejbName, int size, NamedMethodMetaData queryMethodMetaData)
    {
       assertNotNull(queryMethodMetaData);
       assertId(ejbName + "QueryMethod", queryMethodMetaData);

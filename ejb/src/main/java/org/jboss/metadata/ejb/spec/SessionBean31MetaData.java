@@ -89,6 +89,7 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    private NamedMethodMetaData afterCompletionMethod;
 
    private StatefulTimeoutMetaData statefulTimeout;
+   private AroundTimeoutsMetaData aroundTimeouts;
    
    protected SessionBean31MetaData createMerged(EnterpriseBeanMetaData original)
    {
@@ -487,5 +488,15 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    public void setStatefulTimeout(StatefulTimeoutMetaData statefulTimeout)
    {
       this.statefulTimeout = statefulTimeout;
+   }
+
+   public AroundTimeoutsMetaData getAroundTimeouts()
+   {
+      return aroundTimeouts;
+   }
+
+   public void setAroundTimeouts(AroundTimeoutsMetaData aroundTimeouts)
+   {
+      this.aroundTimeouts = aroundTimeouts;
    }
 }
