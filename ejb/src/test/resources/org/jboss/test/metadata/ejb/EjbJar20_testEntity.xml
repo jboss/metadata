@@ -18,7 +18,7 @@
         -->
         
         <!-- Entity Beans -->
-        <entity >
+        <entity id="entityBean1" >
             <description><![CDATA[An entity.]]></description>
             
             <ejb-name>TestEntity</ejb-name>
@@ -43,6 +43,16 @@
                 <field-name>value1</field-name>
             </cmp-field>
             <primkey-field>entityID</primkey-field>
+            <query>
+                <query-method>
+                    <method-name>myMethod</method-name>
+                    <method-params>
+                        <method-param>java.lang.String</method-param>
+                    </method-params>
+                </query-method>
+                <result-type-mapping>Remote</result-type-mapping>
+                <ejb-ql>SELECT OBJECT(a) FROM SomeTable a WHERE a.name = ?1</ejb-ql>
+            </query>
         </entity>
 
         <entity >

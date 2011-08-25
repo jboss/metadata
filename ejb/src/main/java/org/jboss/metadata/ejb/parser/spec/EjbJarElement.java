@@ -74,6 +74,7 @@ public enum EjbJarElement
    EJB_CLASS("ejb-class"),
    EJB_CLIENT_JAR("ejb-client-jar"),
    EJB_NAME("ejb-name"),
+   EJB_QL("ejb-ql"),
    END("end"),
    ENTERPRISE_BEANS("enterprise-beans"),
    ENTITY("entity"),
@@ -125,10 +126,14 @@ public enum EjbJarElement
    POST_ACTIVATE("post-activate"),
    PRE_PASSIVATE("pre-passivate"),
 
+   QUERY("query"),
+   QUERY_METHOD("query-method"),
+
    REENTRANT("reentrant"),
    RELATIONSHIPS("relationships"),
    REMOTE("remote"),
    REMOVE_METHOD("remove-method"),
+   RESULT_TYPE_MAPPING("result-type-mapping"),
    RETAIN_IF_EXCEPTION("retain-if-exception"),
    ROLE_NAME("role-name"),
    ROLLBACK("rollback"),

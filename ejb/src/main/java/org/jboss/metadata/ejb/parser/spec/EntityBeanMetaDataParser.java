@@ -51,6 +51,22 @@ public class EntityBeanMetaDataParser extends AbstractMetaDataParser<EntityBeanM
    public EntityBeanMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       EntityBeanMetaData bean = new EntityBeanMetaData();
+
+      // Look at the id attribute
+      final int count = reader.getAttributeCount();
+      for (int i = 0; i < count; i++)
+      {
+         if (attributeHasNamespace(reader, i))
+         {
+            continue;
+         }
+         final EjbJarAttribute ejbJarVersionAttribute = EjbJarAttribute.forName(reader.getAttributeLocalName(i));
+         if (ejbJarVersionAttribute == EjbJarAttribute.ID)
+         {
+            bean.setId(reader.getAttributeValue(i));
+         }
+      }
+
       this.processElements(bean, reader);
       // return the metadata created out of parsing
       return bean;
@@ -59,6 +75,7 @@ public class EntityBeanMetaDataParser extends AbstractMetaDataParser<EntityBeanM
    @Override
    protected void processElement(EntityBeanMetaData beanMetaData, XMLStreamReader reader) throws XMLStreamException
    {
+
       // Handle the description group elements
       DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
       if (DescriptionGroupMetaDataParser.parse(reader, descriptionGroup))
@@ -95,22 +112,7 @@ public class EntityBeanMetaDataParser extends AbstractMetaDataParser<EntityBeanM
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
-         case ABSTRACT_SCHEMA_NAME:
-            beanMetaData.setAbstractSchemaName(getElementText(reader));
-            return;
 
-         case CMP_VERSION:
-            beanMetaData.setCmpVersion(getElementText(reader));
-            return;
-
-         case CMP_FIELD:
-            CMPFieldMetaData field = CmpFieldMetaDataParser.INSTANCE.parse(reader);
-            CMPFieldsMetaData fields = beanMetaData.getCmpFields();
-            if(fields == null) {
-               beanMetaData.setCmpFields(fields = new CMPFieldsMetaData());
-            }
-            fields.add(field);
-            return;
 
          case EJB_NAME:
             beanMetaData.setEjbName(getElementText(reader));
@@ -155,12 +157,32 @@ public class EntityBeanMetaDataParser extends AbstractMetaDataParser<EntityBeanM
             beanMetaData.setPrimKeyClass(getElementText(reader));
             return;
 
-         case PRIMKEY_FIELD:
-            beanMetaData.setPrimKeyField(getElementText(reader));
-            return;
-
          case REENTRANT:
             beanMetaData.setReentrant(Boolean.parseBoolean(getElementText(reader)));
+            return;
+
+         case CMP_VERSION:
+            beanMetaData.setCmpVersion(getElementText(reader));
+            return;
+
+         case ABSTRACT_SCHEMA_NAME:
+            beanMetaData.setAbstractSchemaName(getElementText(reader));
+            return;
+
+
+         case CMP_FIELD:
+            CMPFieldMetaData field = CmpFieldMetaDataParser.INSTANCE.parse(reader);
+            CMPFieldsMetaData fields = beanMetaData.getCmpFields();
+            if (fields == null)
+            {
+               beanMetaData.setCmpFields(fields = new CMPFieldsMetaData());
+            }
+            fields.add(field);
+            return;
+
+
+         case PRIMKEY_FIELD:
+            beanMetaData.setPrimKeyField(getElementText(reader));
             return;
 
          case SECURITY_ROLE_REF:
@@ -177,6 +199,16 @@ public class EntityBeanMetaDataParser extends AbstractMetaDataParser<EntityBeanM
          case SECURITY_IDENTITY:
             final SecurityIdentityMetaData securityIdentity = SecurityIdentityParser.INSTANCE.parse(reader);
             beanMetaData.setSecurityIdentity(securityIdentity);
+            return;
+
+         case QUERY:
+            QueryMetaData query = QueryMetaDataParser.INSTANCE.parse(reader);
+            QueriesMetaData queries = beanMetaData.getQueries();
+            if (queries == null)
+            {
+               beanMetaData.setQueries(queries = new QueriesMetaData());
+            }
+            queries.add(query);
             return;
 
          default:
