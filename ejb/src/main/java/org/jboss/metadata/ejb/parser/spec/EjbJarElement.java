@@ -37,6 +37,7 @@ public enum EjbJarElement
 {
    UNKNOWN(null),
 
+   ABSTRACT_SCHEMA_NAME("abstract-schema-name"),
    ACCESS_TIMEOUT("access-timeout"),
    ACTIVATION_CONFIG("activation-config"),
    ACTIVATION_CONFIG_PROPERTY("activation-config-property"),
@@ -57,6 +58,11 @@ public enum EjbJarElement
    BUSINESS_REMOTE("business-remote"),
 
    CLASS("class"),
+   CMP_FIELD("cmp-field"),
+   CMP_VERSION("cmp-version"),
+   CMR_FIELD("cmr-field"),
+   CMR_FIELD_NAME("cmr-field-name"),
+   CMR_FIELD_TYPE("cmr-field-type"),
    CONCURRENCY_MANAGEMENT_TYPE("concurrency-management-type"),
    CONCURRENT_METHOD("concurrent-method"),
    CONTAINER_TRANSACTION("container-transaction"),
@@ -71,6 +77,11 @@ public enum EjbJarElement
    EJB_CLASS("ejb-class"),
    EJB_CLIENT_JAR("ejb-client-jar"),
    EJB_NAME("ejb-name"),
+   EJB_QL("ejb-ql"),
+   EJB_RELATION("ejb-relation"),
+   EJB_RELATION_NAME("ejb-relation-name"),
+   EJB_RELATIONSHIP_ROLE("ejb-relationship-role"),
+   EJB_RELATIONSHIP_ROLE_NAME("ejb-relationship-role-name"),
    END("end"),
    ENTERPRISE_BEANS("enterprise-beans"),
    ENTITY("entity"),
@@ -78,6 +89,8 @@ public enum EjbJarElement
    EXCLUDE_DEFAULT_INTERCEPTORS("exclude-default-interceptors"),
    EXCLUDE_CLASS_INTERCEPTORS("exclude-class-interceptors"),
    EXCLUDE_LIST("exclude-list"),
+
+   FIELD_NAME("field-name"),
 
    HOME("home"),
    HOUR("hour"),
@@ -112,14 +125,24 @@ public enum EjbJarElement
    MINUTE("minute"),
    MODULE_NAME("module-name"),
    MONTH("month"),
+   MULTIPLICITY("multiplicity"),
 
+   PERSISTENCE_TYPE("persistence-type"),
    PERSISTENT("persistent"),
+   PRIM_KEY_CLASS("prim-key-class"),
+   PRIMKEY_FIELD("primkey-field"),
    POST_ACTIVATE("post-activate"),
    PRE_PASSIVATE("pre-passivate"),
-   
+
+   QUERY("query"),
+   QUERY_METHOD("query-method"),
+
+   REENTRANT("reentrant"),
    RELATIONSHIPS("relationships"),
+   RELATIONSHIP_ROLE_SOURCE("relationship-role-source"),
    REMOTE("remote"),
    REMOVE_METHOD("remove-method"),
+   RESULT_TYPE_MAPPING("result-type-mapping"),
    RETAIN_IF_EXCEPTION("retain-if-exception"),
    ROLE_NAME("role-name"),
    ROLLBACK("rollback"),

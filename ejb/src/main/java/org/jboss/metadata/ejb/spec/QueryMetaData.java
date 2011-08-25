@@ -36,7 +36,7 @@ public class QueryMetaData extends IdMetaDataImplWithDescriptions
    private static final long serialVersionUID = -8080829946285127796L;
 
    /** The query method */
-   private QueryMethodMetaData queryMethod;
+   private NamedMethodMetaData queryMethod;
    
    /** The result type mapping */
    private ResultTypeMapping resultTypeMapping = ResultTypeMapping.Local;
@@ -80,7 +80,7 @@ public class QueryMetaData extends IdMetaDataImplWithDescriptions
     * 
     * @return the queryMethod.
     */
-   public QueryMethodMetaData getQueryMethod()
+   public NamedMethodMetaData getQueryMethod()
    {
       return queryMethod;
    }
@@ -91,7 +91,7 @@ public class QueryMetaData extends IdMetaDataImplWithDescriptions
     * @param queryMethod the queryMethod.
     * @throws IllegalArgumentException for a null queryMethod
     */
-   public void setQueryMethod(QueryMethodMetaData queryMethod)
+   public void setQueryMethod(NamedMethodMetaData queryMethod)
    {
       if (queryMethod == null)
          throw new IllegalArgumentException("Null queryMethod");
