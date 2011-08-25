@@ -22,12 +22,7 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
-import org.jboss.metadata.ejb.spec.EjbJarMetaData;
-import org.jboss.metadata.ejb.spec.EjbJarVersion;
-import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
+import org.jboss.metadata.ejb.spec.*;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.Accessor;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
@@ -85,7 +80,8 @@ public abstract class AbstractEjbJarMetaDataParser<MD extends EjbJarMetaData> ex
             break;
 
          case RELATIONSHIPS:
-            // TODO: Implement
+            RelationsMetaData relations = RelationsMetaDataParser.parse(reader);
+            ejbJarMetaData.setRelationships(relations);
             break;
 
          case ASSEMBLY_DESCRIPTOR:
