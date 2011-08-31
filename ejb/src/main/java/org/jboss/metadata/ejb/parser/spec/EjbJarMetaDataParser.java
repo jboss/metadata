@@ -27,7 +27,6 @@ import org.jboss.metadata.ejb.spec.EjbJar20MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar21MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
 
@@ -101,48 +100,7 @@ public class EjbJarMetaDataParser extends AbstractEjbJarMetaDataParser<EjbJarMet
       // Now get the EjbJarMetaData corresponding to the version
       EjbJarMetaData ejbJarMetaData = getEjbJarMetaData(ejbJarVersion);
 
-      // Handle attributes and set them in the EjbJarMetaData
-      final int count = reader.getAttributeCount();
-      for (int i = 0; i < count; i++)
-      {
-         final String value = reader.getAttributeValue(i);
-         if (attributeHasNamespace(reader, i))
-         {
-            continue;
-         }
-         final EjbJarAttribute ejbJarAttribute = EjbJarAttribute.forName(reader.getAttributeLocalName(i));
-         switch (ejbJarAttribute)
-         {
-            case ID:
-            {
-               ejbJarMetaData.setId(value);
-               break;
-            }
-            case VERSION:
-            {
-               ejbJarMetaData.setVersion(value);
-               break;
-            }
-            case METADATA_COMPLETE:
-            {
-               // metadata-complete applies only to EJB 3.x
-               if (ejbJarMetaData instanceof EjbJar3xMetaData)
-               {
-                  if (Boolean.TRUE.equals(Boolean.valueOf(value)))
-                  {
-                     ((EjbJar3xMetaData) ejbJarMetaData).setMetadataComplete(true);
-                  }
-               }
-               else
-               {
-                  throw unexpectedAttribute(reader, i);
-               }
-               break;
-            }
-            default:
-               throw unexpectedAttribute(reader, i);
-         }
-      }
+      processAttributes(ejbJarMetaData, reader);
 
       // parse and create metadata out of the elements under the root ejb-jar element
       processElements(ejbJarMetaData, reader);
