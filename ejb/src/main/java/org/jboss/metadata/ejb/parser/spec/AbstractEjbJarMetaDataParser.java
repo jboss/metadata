@@ -37,6 +37,57 @@ import javax.xml.stream.XMLStreamReader;
  */
 public abstract class AbstractEjbJarMetaDataParser<MD extends EjbJarMetaData> extends AbstractMetaDataParser<MD>
 {
+   protected void processAttribute(MD ejbJarMetaData, XMLStreamReader reader, int i) throws XMLStreamException
+   {
+      final String value = reader.getAttributeValue(i);
+      if (attributeHasNamespace(reader, i))
+      {
+         return;
+      }
+      final EjbJarAttribute ejbJarAttribute = EjbJarAttribute.forName(reader.getAttributeLocalName(i));
+      switch (ejbJarAttribute)
+      {
+         case ID:
+         {
+            ejbJarMetaData.setId(value);
+            break;
+         }
+         case VERSION:
+         {
+            ejbJarMetaData.setVersion(value);
+            break;
+         }
+         case METADATA_COMPLETE:
+         {
+            // metadata-complete applies only to EJB 3.x
+            if (ejbJarMetaData instanceof EjbJar3xMetaData)
+            {
+               if (Boolean.TRUE.equals(Boolean.valueOf(value)))
+               {
+                  ((EjbJar3xMetaData) ejbJarMetaData).setMetadataComplete(true);
+               }
+            }
+            else
+            {
+               throw unexpectedAttribute(reader, i);
+            }
+            break;
+         }
+         default:
+            throw unexpectedAttribute(reader, i);
+      }
+   }
+
+   protected void processAttributes(final MD ejbJarMetaData, XMLStreamReader reader) throws XMLStreamException
+   {
+      // Handle attributes and set them in the EjbJarMetaData
+      final int count = reader.getAttributeCount();
+      for (int i = 0; i < count; i++)
+      {
+         processAttribute(ejbJarMetaData, reader, i);
+      }
+   }
+
    @Override
    protected void processElement(final MD ejbJarMetaData, XMLStreamReader reader) throws XMLStreamException
    {

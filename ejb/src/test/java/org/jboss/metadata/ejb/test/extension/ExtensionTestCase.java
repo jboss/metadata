@@ -46,6 +46,7 @@ import java.util.concurrent.TimeUnit;
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -83,6 +84,13 @@ public class ExtensionTestCase
       assertEquals("*", txTest.getMethods().get(0).getMethodName());
       assertEquals(10, txTest.getTimeout());
       assertEquals(TimeUnit.MINUTES, txTest.getUnit());
+   }
+
+   @Test
+   public void testMetadataComplete() throws Exception
+   {
+      JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "/org/jboss/metadata/ejb/test/extension/jboss-ejb3-metadata-complete.xml");
+      assertTrue(metaData.isMetadataComplete());
    }
 
    @Test

@@ -19,31 +19,52 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.ejb.jboss.ejb3;
+package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class JBossEjb31MetaData extends EjbJar31MetaData {
-   private String implVersion;
+public enum Attribute
+{
+   // always first
+   UNKNOWN(null),
+   IMPL_VERSION("impl-version"),
+   ;
 
-   public JBossEjb31MetaData createMerged(final EjbJar31MetaData original)
+   private String attributeName;
+
+   private static final Map<String, Attribute> ATTRIBUTE_MAP;
+
+   static
    {
-      final JBossEjb31MetaData merged = new JBossEjb31MetaData();
-      merged.merge(this, original);
-      return merged;
+      final Map<String, Attribute> map = new HashMap<String, Attribute>();
+      for (Attribute element : values())
+      {
+         final String name = element.getAttributeName();
+         if (name != null)
+         {
+            map.put(name, element);
+         }
+      }
+      ATTRIBUTE_MAP = map;
    }
 
-   @Override
-   public JBossAssemblyDescriptorMetaData getAssemblyDescriptor()
+   Attribute(String name)
    {
-      return (JBossAssemblyDescriptorMetaData) super.getAssemblyDescriptor();
+      this.attributeName = name;
    }
 
-   public void setImplVersion(String implVersion)
+   public static Attribute forName(String localName)
    {
-      this.implVersion = implVersion;
+      final Attribute element = ATTRIBUTE_MAP.get(localName);
+      return element == null ? UNKNOWN : element;
+   }
+
+   public String getAttributeName()
+   {
+      return this.attributeName;
    }
 }
