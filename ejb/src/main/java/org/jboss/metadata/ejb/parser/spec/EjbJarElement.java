@@ -112,6 +112,7 @@ public enum EjbJarElement
    LOCK("lock"),
 
    MAPPED_NAME("mapped-name"),
+   MESSAGE_DESTINATION("message-destination"),
    MESSAGE_DESTINATION_LINK("message-destination-link"),
    MESSAGE_DESTINATION_TYPE("message-destination-type"),
    MESSAGE_DRIVEN("message-driven"),

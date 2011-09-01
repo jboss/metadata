@@ -22,14 +22,10 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.ApplicationExceptionMetaData;
-import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
-import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorBindingMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
-import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
+import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
+import org.jboss.metadata.parser.ee.MessageDestinationMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -64,7 +60,14 @@ public class AssemblyDescriptor30MetaDataParser extends AssemblyDescriptorMetaDa
             InterceptorBindingMetaData interceptorBinding = InterceptorBindingMetaDataParser.INSTANCE.parse(reader);
             interceptorBindings.add(interceptorBinding);
             return;
-
+         case MESSAGE_DESTINATION:
+            MessageDestinationsMetaData destinations = assemblyDescriptor.getMessageDestinations();
+            if(destinations == null) {
+               assemblyDescriptor.setMessageDestinations(destinations = new MessageDestinationsMetaData());
+            }
+            final  MessageDestinationMetaData data = MessageDestinationMetaDataParser.parse(reader);
+            destinations.add(data);
+            return;
          default:
             super.processElement(assemblyDescriptor, reader);
       }
