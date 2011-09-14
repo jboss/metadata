@@ -25,7 +25,8 @@ import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.test.common.UnmarshallingHelper;
-import org.junit.Ignore;
+import org.jboss.test.metadata.ejb.EjbJar3xEverythingUnitTestCase;
+import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 import org.junit.Test;
 
 import javax.xml.stream.XMLStreamException;
@@ -38,12 +39,17 @@ import java.util.Map;
  */
 public class EjbJarJBossMergeEverythingUnitTestCase
 {
-   @Ignore
+   private static void assertEverything(final EjbJar31MetaData metaData)
+   {
+      final EjbJar3xEverythingUnitTestCase delegate = new EjbJar3xEverythingUnitTestCase("ejb-jar");
+      delegate.assertEverything(metaData, AbstractJavaEEEverythingTest.Mode.JBOSS, "3.1");
+   }
+
    @Test
    public void testJBossEjb31Everything() throws Exception
    {
       JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "JBossEjb31Everything_testEverything.xml");
-      // TODO: finish once entire parsing is working
+      assertEverything(metaData);
    }
 
    @Test

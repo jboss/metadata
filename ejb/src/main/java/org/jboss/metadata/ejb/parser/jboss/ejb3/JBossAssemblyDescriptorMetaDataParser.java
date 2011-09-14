@@ -58,6 +58,7 @@ public class JBossAssemblyDescriptorMetaDataParser extends AssemblyDescriptor30M
    public AssemblyDescriptorMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       AssemblyDescriptorMetaData assemblyDescriptorMetaData = new JBossAssemblyDescriptorMetaData();
+      processAttributes(assemblyDescriptorMetaData, reader);
       this.processElements(assemblyDescriptorMetaData, reader);
       return assemblyDescriptorMetaData;
    }

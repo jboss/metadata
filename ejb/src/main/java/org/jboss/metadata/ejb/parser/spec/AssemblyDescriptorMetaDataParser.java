@@ -29,6 +29,7 @@ import org.jboss.metadata.ejb.spec.MethodPermissionMetaData;
 import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
@@ -38,14 +39,29 @@ import javax.xml.stream.XMLStreamReader;
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
 public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<AssemblyDescriptorMetaData>
+   implements AttributeProcessor<AssemblyDescriptorMetaData>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
+
    @Override
    public AssemblyDescriptorMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       AssemblyDescriptorMetaData assemblyDescriptorMetaData = new AssemblyDescriptorMetaData();
+      processAttributes(assemblyDescriptorMetaData, reader);
       this.processElements(assemblyDescriptorMetaData, reader);
       return assemblyDescriptorMetaData;
 
+   }
+
+   @Override
+   public void processAttribute(AssemblyDescriptorMetaData metaData, XMLStreamReader reader, int i) throws XMLStreamException
+   {
+      ATTRIBUTE_PROCESSOR.processAttribute(metaData, reader, i);
+   }
+
+   protected void processAttributes(AssemblyDescriptorMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   {
+      AttributeProcessorHelper.processAttributes(metaData, reader, this);
    }
 
    @Override
@@ -96,5 +112,4 @@ public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<Ass
             super.processElement(assemblyDescriptor, reader);
       }
    }
-
 }

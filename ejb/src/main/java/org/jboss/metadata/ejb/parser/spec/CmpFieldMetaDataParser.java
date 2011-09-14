@@ -29,6 +29,8 @@ import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+
 /**
  * Parses and creates metadata out of &lt;cmp-field&gt; element for entity beans
  *
@@ -36,6 +38,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class CmpFieldMetaDataParser extends AbstractWithDescriptionsParser<CMPFieldMetaData>
 {
+   private static final AttributeProcessor<CMPFieldMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<CMPFieldMetaData>(UnexpectedAttributeProcessor.instance());
 
    /**
     * Instance of this parser
@@ -46,6 +49,7 @@ public class CmpFieldMetaDataParser extends AbstractWithDescriptionsParser<CMPFi
    public CMPFieldMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       CMPFieldMetaData cmpFieldMetaData = new CMPFieldMetaData();
+      processAttributes(cmpFieldMetaData, reader, ATTRIBUTE_PROCESSOR);
       this.processElements(cmpFieldMetaData, reader);
       return cmpFieldMetaData;
    }

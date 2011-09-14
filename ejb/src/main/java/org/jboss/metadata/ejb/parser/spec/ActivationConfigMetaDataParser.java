@@ -23,21 +23,26 @@ package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
 import org.jboss.metadata.ejb.spec.ActivationConfigPropertiesMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
 public class ActivationConfigMetaDataParser extends AbstractWithDescriptionsParser<ActivationConfigMetaData>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    static final ActivationConfigMetaDataParser INSTANCE = new ActivationConfigMetaDataParser();
 
    @Override
    public ActivationConfigMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       ActivationConfigMetaData metaData = new ActivationConfigMetaData();
+      processAttributes(metaData, reader, ATTRIBUTE_PROCESSOR);
       processElements(metaData, reader);
       return metaData;
    }

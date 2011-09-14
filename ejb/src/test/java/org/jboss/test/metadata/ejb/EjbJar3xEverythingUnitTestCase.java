@@ -64,20 +64,33 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
 
    public void assertEverything(EjbJar3xMetaData ejbJarMetaData, Mode mode)
    {
-      assertVersion(ejbJarMetaData);
+      assertEverything(ejbJarMetaData, mode, "3.0");
+   }
+
+   public void assertEverything(EjbJar3xMetaData ejbJarMetaData, Mode mode, String expectedVersion)
+   {
+      assertVersion(ejbJarMetaData, expectedVersion);
       assertMetaDataComplete(ejbJarMetaData);
-      assertId("ejb-jar", ejbJarMetaData);
+      assertId(mode == Mode.SPEC ? "ejb-jar" : "jboss", ejbJarMetaData);
       assertEjbClientJar(ejbJarMetaData);
-      assertDescriptionGroup("ejb-jar", ejbJarMetaData.getDescriptionGroup());
+      assertDescriptionGroup(mode == Mode.SPEC ? "ejb-jar" : "jboss", ejbJarMetaData.getDescriptionGroup());
       assertEnterpriseBeans(ejbJarMetaData, mode);
-      assertInterceptors(ejbJarMetaData, mode);
-      assertRelationships(ejbJarMetaData);
-      assertAssemblyDescriptor(ejbJarMetaData);
+      if (mode == Mode.SPEC)
+      {
+         assertInterceptors(ejbJarMetaData, mode);
+         assertRelationships(ejbJarMetaData);
+      }
+      else
+      {
+         assertNull(ejbJarMetaData.getInterceptors());
+         assertNull(ejbJarMetaData.getRelationships());
+      }
+      assertAssemblyDescriptor(ejbJarMetaData, mode);
    }
 
    public void assertEverythingWithAppMetaData(EjbJar3xMetaData ejbJarMetaData, Mode mode)
    {
-      assertVersion(ejbJarMetaData);
+      assertVersion(ejbJarMetaData, "3.0");
       assertMetaDataComplete(ejbJarMetaData);
       assertId("ejb-jar", ejbJarMetaData);
       assertEjbClientJar(ejbJarMetaData);
@@ -96,9 +109,9 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       */
    }
 
-   private void assertVersion(EjbJar3xMetaData ejbJar3xMetaData)
+   private void assertVersion(EjbJar3xMetaData ejbJar3xMetaData, String expectedVersion)
    {
-      assertEquals("3.0", ejbJar3xMetaData.getVersion());
+      assertEquals(expectedVersion, ejbJar3xMetaData.getVersion());
       assertFalse(ejbJar3xMetaData.isEJB1x());
       assertFalse(ejbJar3xMetaData.isEJB2x());
       assertFalse(ejbJar3xMetaData.isEJB21());
@@ -131,29 +144,59 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
    public void assertFullSessionBean(String ejbName, SessionBeanMetaData session, Mode mode)
    {
       assertId(ejbName, session);
-      assertMappedName(ejbName, session.getMappedName());
-      assertClass(ejbName, "Home", session.getHome());
-      assertClass(ejbName, "Remote", session.getRemote());
-      assertClass(ejbName, "LocalHome", session.getLocalHome());
-      assertClass(ejbName, "Local", session.getLocal());
-      assertClasses(ejbName, "BusinessLocal", 2, session.getBusinessLocals());
-      assertClasses(ejbName, "BusinessRemote", 2, session.getBusinessRemotes());
-      assertClass(ejbName, "ServiceEndpoint", session.getServiceEndpoint());
-      assertClass(ejbName, "EjbClass", session.getEjbClass());
-      assertEquals(SessionType.Stateless, session.getSessionType());
-      assertNamedMethod(ejbName + "TimeoutMethod", 2, session.getTimeoutMethod());
-      assertInitMethods(ejbName, 2, session.getInitMethods());
-      assertRemoveMethods(ejbName, 3, session.getRemoveMethods());
-      assertEquals(TransactionManagementType.CONTAINER, session.getTransactionType());
-      assertAroundInvokes(ejbName, 2, session.getAroundInvokes());
-      assertLifecycleCallbacks(ejbName, "PostActivate", 2, session.getPostActivates());
-      assertLifecycleCallbacks(ejbName, "PrePassivate", 2, session.getPrePassivates());
-      assertEnvironment(ejbName, session.getJndiEnvironmentRefsGroup(), true, mode);
-      assertContainerTransactions(ejbName, 6, 6, session.getContainerTransactions());
-      assertMethodPermissions(ejbName, ejbName + "MethodPermission", 3, 3, session.getMethodPermissions());
-      assertExcludeList(ejbName, 5, 5, session.getExcludeList());
-      assertSecurityRoleRefs(ejbName, 2, session.getSecurityRoleRefs());
-      assertSecurityIdentity(ejbName, "SecurityIdentity", session.getSecurityIdentity(), true, mode);
+      // TODO: enrich the jboss xml
+      if (mode == Mode.SPEC)
+      {
+         assertMappedName(ejbName, session.getMappedName());
+         assertClass(ejbName, "Home", session.getHome());
+         assertClass(ejbName, "Remote", session.getRemote());
+         assertClass(ejbName, "LocalHome", session.getLocalHome());
+         assertClass(ejbName, "Local", session.getLocal());
+         assertClasses(ejbName, "BusinessLocal", 2, session.getBusinessLocals());
+         assertClasses(ejbName, "BusinessRemote", 2, session.getBusinessRemotes());
+         assertClass(ejbName, "ServiceEndpoint", session.getServiceEndpoint());
+         assertClass(ejbName, "EjbClass", session.getEjbClass());
+         assertEquals(SessionType.Stateless, session.getSessionType());
+         assertNamedMethod(ejbName + "TimeoutMethod", 2, session.getTimeoutMethod());
+         assertInitMethods(ejbName, 2, session.getInitMethods());
+         assertRemoveMethods(ejbName, 3, session.getRemoveMethods());
+         assertEquals(TransactionManagementType.CONTAINER, session.getTransactionType());
+         assertAroundInvokes(ejbName, 2, session.getAroundInvokes());
+         assertLifecycleCallbacks(ejbName, "PostActivate", 2, session.getPostActivates());
+         assertLifecycleCallbacks(ejbName, "PrePassivate", 2, session.getPrePassivates());
+         assertEnvironment(ejbName, session.getJndiEnvironmentRefsGroup(), true, mode);
+         assertContainerTransactions(ejbName, 6, 6, session.getContainerTransactions());
+         assertMethodPermissions(ejbName, ejbName + "MethodPermission", 3, 3, session.getMethodPermissions());
+         assertExcludeList(ejbName, 5, 5, session.getExcludeList());
+         assertSecurityRoleRefs(ejbName, 2, session.getSecurityRoleRefs());
+         assertSecurityIdentity(ejbName, "SecurityIdentity", session.getSecurityIdentity(), true, mode);
+      }
+      else
+      {
+         assertNull(session.getMappedName());
+         assertNull(session.getHome());
+         assertNull(session.getRemote());
+         assertNull(session.getLocalHome());
+         assertNull(session.getLocal());
+         assertNull(session.getBusinessLocals());
+         assertNull(session.getBusinessRemotes());
+         assertNull(session.getServiceEndpoint());
+         assertNull(session.getEjbClass());
+         assertNull(session.getSessionType());
+         assertNull(session.getTimeoutMethod());
+         assertNull(session.getInitMethods());
+         assertNull(session.getRemoveMethods());
+         assertNull(session.getTransactionType());
+         assertNull(session.getAroundInvokes());
+         assertNull(session.getPostActivates());
+         assertNull(session.getPrePassivates());
+         assertEnvironment(ejbName, session.getJndiEnvironmentRefsGroup(), false, mode);
+         assertNull(session.getContainerTransactions());
+         assertNull(session.getMethodPermissions());
+         assertNull(session.getExcludeList());
+         assertNull(session.getSecurityRoleRefs());
+         assertSecurityIdentity(ejbName, "SecurityIdentity", session.getSecurityIdentity(), false, mode);
+      }
    }
    public void assertFullSessionBean(String ejbName, JBossSessionBeanMetaData session, Mode mode)
    {
@@ -234,9 +277,18 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertCmpFields(ejbName, 2, entity.getCmpFields());
       assertEquals(ejbName + "PrimKeyField", entity.getPrimKeyField());
       assertEnvironment(ejbName, entity.getJndiEnvironmentRefsGroup(), true, mode);
-      assertContainerTransactions(ejbName, 6, 6, entity.getContainerTransactions());
-      assertMethodPermissions(ejbName, ejbName + "MethodPermission", 3, 3, entity.getMethodPermissions());
-      assertExcludeList(ejbName, 5, 5, entity.getExcludeList());
+      if (mode == Mode.SPEC)
+      {
+         assertContainerTransactions(ejbName, 6, 6, entity.getContainerTransactions());
+         assertMethodPermissions(ejbName, ejbName + "MethodPermission", 3, 3, entity.getMethodPermissions());
+         assertExcludeList(ejbName, 5, 5, entity.getExcludeList());
+      }
+      else
+      {
+         assertNull(entity.getContainerTransactions());
+         assertNull(entity.getMethodPermissions());
+         assertNull(entity.getExcludeList());
+      }
       assertSecurityRoleRefs(ejbName, 2, entity.getSecurityRoleRefs());
       assertSecurityIdentity(ejbName, "SecurityIdentity", entity.getSecurityIdentity(), true, mode);
       assertQueries(ejbName, 3, entity.getQueries());
@@ -289,20 +341,38 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
    {
       MessageDrivenBeanMetaData mdb = assertMDB(ejbName + "EjbName", enterpriseBeansMetaData);
       assertId(ejbName, mdb);
-      assertMappedName(ejbName, mdb.getMappedName());
-      assertEquals(ejbName + "MessagingType", mdb.getMessagingType());
-      assertNamedMethod(ejbName + "TimeoutMethod", 2, mdb.getTimeoutMethod());
-      assertEquals(TransactionManagementType.CONTAINER, mdb.getTransactionType());
-      assertEquals(ejbName + "MessageDestinationType", mdb.getMessageDestinationType());
-      assertEquals(ejbName + "MessageDestinationLink", mdb.getMessageDestinationLink());
+      if (mode == Mode.SPEC)
+      {
+         assertMappedName(ejbName, mdb.getMappedName());
+         assertEquals(ejbName + "MessagingType", mdb.getMessagingType());
+         assertNamedMethod(ejbName + "TimeoutMethod", 2, mdb.getTimeoutMethod());
+         assertEquals(TransactionManagementType.CONTAINER, mdb.getTransactionType());
+         assertEquals(ejbName + "MessageDestinationType", mdb.getMessageDestinationType());
+         assertEquals(ejbName + "MessageDestinationLink", mdb.getMessageDestinationLink());
+         assertAroundInvokes(ejbName, 2, mdb.getAroundInvokes());
+         assertEnvironment(ejbName, mdb.getJndiEnvironmentRefsGroup(), true, mode);
+         assertContainerTransactions(ejbName, 6, 6, mdb.getContainerTransactions());
+         assertMethodPermissions(ejbName, ejbName + "MethodPermission", 3, 3, mdb.getMethodPermissions());
+         assertExcludeList(ejbName, 5, 5, mdb.getExcludeList());
+         assertSecurityIdentity(ejbName, "SecurityIdentity", mdb.getSecurityIdentity(), true, mode);
+      }
+      else
+      {
+         assertNull(mdb.getMappedName());
+         assertNull(mdb.getMessagingType());
+         assertNull(mdb.getTimeoutMethod());
+         assertNull(mdb.getTransactionType());
+         assertNull(mdb.getMessageDestinationType());
+         assertNull(mdb.getMessageDestinationLink());
+         assertNull(mdb.getAroundInvokes());
+         assertEnvironment(ejbName, mdb.getJndiEnvironmentRefsGroup(), false, mode);
+         assertNull(mdb.getContainerTransactions());
+         assertNull(mdb.getMethodPermissions());
+         assertNull(mdb.getExcludeList());
+         assertSecurityIdentity(ejbName, "SecurityIdentity", mdb.getSecurityIdentity(), false, mode);
+      }
       assertActivationConfig(ejbName, mdb.getActivationConfig(), mode);
-      assertAroundInvokes(ejbName, 2, mdb.getAroundInvokes());
-      assertEnvironment(ejbName, mdb.getJndiEnvironmentRefsGroup(), true, mode);
-      assertContainerTransactions(ejbName, 6, 6, mdb.getContainerTransactions());
-      assertMethodPermissions(ejbName, ejbName + "MethodPermission", 3, 3, mdb.getMethodPermissions());
-      assertExcludeList(ejbName, 5, 5, mdb.getExcludeList());
-      assertSecurityIdentity(ejbName, "SecurityIdentity", mdb.getSecurityIdentity(), true, mode);
-      
+
       return mdb;
    }
    
@@ -329,11 +399,19 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertLifecycleCallbacks(prefix, "PrePassivate", 2, interceptorMetaData.getPrePassivates());
    }
    
-   private AssemblyDescriptorMetaData assertAssemblyDescriptor(EjbJar3xMetaData ejbJarMetaData)
+   private AssemblyDescriptorMetaData assertAssemblyDescriptor(EjbJar3xMetaData ejbJarMetaData, Mode mode)
    {
-      AssemblyDescriptorMetaData assemblyDescriptorMetaData = super.assertAssemblyDescriptor(ejbJarMetaData);
-      assertInterceptorBindings(3, assemblyDescriptorMetaData.getInterceptorBindings());
-      assertApplicationExceptions(2, assemblyDescriptorMetaData.getApplicationExceptions());
+      AssemblyDescriptorMetaData assemblyDescriptorMetaData = super.assertAssemblyDescriptor(ejbJarMetaData, mode);
+      if (mode == Mode.SPEC)
+      {
+         assertInterceptorBindings(3, assemblyDescriptorMetaData.getInterceptorBindings());
+         assertApplicationExceptions(2, assemblyDescriptorMetaData.getApplicationExceptions());
+      }
+      else
+      {
+         assertNull(assemblyDescriptorMetaData.getInterceptorBindings());
+         assertNull(assemblyDescriptorMetaData.getApplicationExceptions());
+      }
       return assemblyDescriptorMetaData;
    }
 
