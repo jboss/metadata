@@ -73,7 +73,7 @@
    </webservices>
    -->
    
-   <enterprise-beans id="enterprise-beans-id">
+   <enterprise-beans id="jboss-enterprise-beans-id">
 
       <session>
          <ejb-name>session0EjbName</ejb-name>

@@ -109,7 +109,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       */
    }
 
-   private void assertVersion(EjbJar3xMetaData ejbJar3xMetaData, String expectedVersion)
+   protected void assertVersion(EjbJar3xMetaData ejbJar3xMetaData, String expectedVersion)
    {
       assertEquals(expectedVersion, ejbJar3xMetaData.getVersion());
       assertFalse(ejbJar3xMetaData.isEJB1x());
@@ -128,7 +128,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
    }
    */
    
-   private void assertMetaDataComplete(EjbJar3xMetaData ejbJar3xMetaData)
+   protected void assertMetaDataComplete(EjbJar3xMetaData ejbJar3xMetaData)
    {
       assertEquals(true, ejbJar3xMetaData.isMetadataComplete());
    }
@@ -226,7 +226,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertSecurityIdentity(ejbName, "SecurityIdentity", session.getSecurityIdentity(), true, mode);
    }
 
-   private void assertInitMethods(String ejbName, int size, InitMethodsMetaData initMethodsMetaData)
+   protected void assertInitMethods(String ejbName, int size, InitMethodsMetaData initMethodsMetaData)
    {
       assertNotNull(initMethodsMetaData);
       assertEquals(size, initMethodsMetaData.size());
@@ -240,7 +240,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       }
    }
 
-   private void assertRemoveMethods(String ejbName, int size, RemoveMethodsMetaData removeMethodsMetaData)
+   protected void assertRemoveMethods(String ejbName, int size, RemoveMethodsMetaData removeMethodsMetaData)
    {
       assertNotNull(removeMethodsMetaData);
       assertEquals(size, removeMethodsMetaData.size());
@@ -415,7 +415,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       return assemblyDescriptorMetaData;
    }
 
-   private void assertAroundInvokes(String ejbName, int size, AroundInvokesMetaData aroundInvokesMetaData)
+   protected void assertAroundInvokes(String ejbName, int size, AroundInvokesMetaData aroundInvokesMetaData)
    {
       assertNotNull(aroundInvokesMetaData);
       assertEquals(size, aroundInvokesMetaData.size());
@@ -428,7 +428,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       }
    }
    
-   private void assertEjbClientJar(EjbJarMetaData ejbJarMetaData)
+   protected void assertEjbClientJar(EjbJarMetaData ejbJarMetaData)
    {
       assertEquals("some/path/client.jar", ejbJarMetaData.getEjbClientJar());
    }
@@ -520,12 +520,12 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
       }
    }
 
-   private void assertMappedName(String prefix, String mappedName)
+   protected void assertMappedName(String prefix, String mappedName)
    {
       assertEquals(prefix + "-mapped-name", mappedName);
    }
 
-   private void assertClasses(String prefix, String type, int size, LinkedHashSet<String> classes)
+   protected void assertClasses(String prefix, String type, int size, LinkedHashSet<String> classes)
    {
       assertNotNull(classes);
       assertEquals(size, classes.size());
@@ -534,7 +534,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertClass(prefix, type + count++, className);
    }
 
-   private void assertNamedMethod(String prefix, int size, NamedMethodMetaData namedMethodMetaData)
+   protected void assertNamedMethod(String prefix, int size, NamedMethodMetaData namedMethodMetaData)
    {
       assertNotNull(namedMethodMetaData);
       assertId(prefix, namedMethodMetaData);

@@ -23,7 +23,6 @@ package org.jboss.metadata.ejb.spec;
 
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 
 import javax.ejb.TransactionManagementType;
 
@@ -494,18 +493,8 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
          setLocal(override.local);
       else if(original != null && original.local != null)
          setLocal(original.local);
-      if(businessLocals == null)
-         businessLocals = new BusinessLocalsMetaData();
-      if(override != null && override.businessLocals != null)
-         businessLocals.addAll(override.businessLocals);
-      if(original != null && original.businessLocals != null)
-         businessLocals.addAll(original.businessLocals);
-      if(businessRemotes == null)
-         businessRemotes = new BusinessRemotesMetaData();
-      if(override != null && override.businessRemotes != null)
-         businessRemotes.addAll(override.businessRemotes);
-      if(original != null && original.businessRemotes != null)
-         businessRemotes.addAll(original.businessRemotes);
+      businessLocals = augment(new BusinessLocalsMetaData(), override != null ? override.businessLocals : null, original != null ? original.businessLocals : null);
+      businessRemotes = augment(new BusinessRemotesMetaData(), override != null ? override.businessRemotes : null, original != null ? original.businessRemotes : null);
       if(override != null && override.serviceEndpoint != null)
          setServiceEndpoint(override.serviceEndpoint);
       else if(original != null && original.serviceEndpoint != null)
@@ -518,39 +507,14 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
          setTimeoutMethod(override.timeoutMethod);
       else if(original != null && original.timeoutMethod != null)
          setTimeoutMethod(original.timeoutMethod);
-      if(initMethods == null)
-         initMethods = new InitMethodsMetaData();
-      if(override != null && override.initMethods != null)
-         initMethods.addAll(override.initMethods);
-      if(original != null && original.initMethods != null)
-         initMethods.addAll(original.initMethods);
-      if(removeMethods == null)
-         removeMethods = new RemoveMethodsMetaData();
-      if(override != null && override.removeMethods != null)
-         removeMethods.addAll(override.removeMethods);
-      if(original != null && original.removeMethods != null)
-         removeMethods.addAll(original.removeMethods);
+      initMethods = augment(new InitMethodsMetaData(), override != null ? override.initMethods : null, original != null ? original.initMethods : null);
+      removeMethods = augment(new RemoveMethodsMetaData(), override != null ? override.removeMethods : null, original != null ? original.removeMethods : null);
       if(override != null && override.transactionType != null)
          setTransactionType(override.transactionType);
       else if(original != null && original.transactionType != null)
          setTransactionType(original.transactionType);
-      if(aroundInvokes == null)
-         aroundInvokes = new AroundInvokesMetaData();
-      if(override != null && override.aroundInvokes != null)
-         aroundInvokes.addAll(override.aroundInvokes);
-      if(original != null && original.aroundInvokes != null)
-         aroundInvokes.addAll(original.aroundInvokes);
-      if(postActivates == null)
-         postActivates = new LifecycleCallbacksMetaData();
-      if(override != null && override.postActivates != null)
-         postActivates.addAll(override.postActivates);
-      if(original != null && original.postActivates != null)
-         postActivates.addAll(original.postActivates);
-      if(prePassivates == null)
-         prePassivates = new LifecycleCallbacksMetaData();
-      if(override != null && override.prePassivates != null)
-         prePassivates.addAll(override.prePassivates);
-      if(original != null && original.prePassivates != null)
-         prePassivates.addAll(original.prePassivates);
+      aroundInvokes = augment(new AroundInvokesMetaData(), override != null ? override.aroundInvokes : null, original != null ? original.aroundInvokes : null);
+      postActivates = augment(new LifecycleCallbacksMetaData(), override != null ? override.postActivates : null, original != null ? original.postActivates : null);
+      prePassivates = augment(new LifecycleCallbacksMetaData(), override != null ? override.prePassivates : null, original != null ? original.prePassivates : null);
    }
 }

@@ -25,10 +25,13 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
 import org.jboss.metadata.ejb.spec.MethodMetaData;
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.ejb.TransactionAttributeType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * Parses and creates metadata out of &lt;container-transaction&gt; element in the ejb-jar.xml
@@ -37,6 +40,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class ContainerTransactionMetaDataParser extends AbstractWithDescriptionsParser<ContainerTransactionMetaData>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
 
    /**
     * Instance of this parser
@@ -47,6 +51,7 @@ public class ContainerTransactionMetaDataParser extends AbstractWithDescriptions
    public ContainerTransactionMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       ContainerTransactionMetaData containerTransactionMetaData = new ContainerTransactionMetaData();
+      processAttributes(containerTransactionMetaData, reader, ATTRIBUTE_PROCESSOR);
       this.processElements(containerTransactionMetaData, reader);
       return containerTransactionMetaData;
    }

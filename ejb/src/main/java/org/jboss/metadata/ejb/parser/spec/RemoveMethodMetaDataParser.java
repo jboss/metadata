@@ -24,9 +24,12 @@ package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.RemoveMethodMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * Parses and creates metadata out of &lt;remove-method&gt; element in ejb-jar.xml
@@ -36,6 +39,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class RemoveMethodMetaDataParser extends AbstractMetaDataParser<RemoveMethodMetaData>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final RemoveMethodMetaDataParser INSTANCE = new RemoveMethodMetaDataParser();
 
    /**
@@ -49,6 +53,7 @@ public class RemoveMethodMetaDataParser extends AbstractMetaDataParser<RemoveMet
    public RemoveMethodMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       RemoveMethodMetaData removeMethod = new RemoveMethodMetaData();
+      processAttributes(removeMethod, reader, ATTRIBUTE_PROCESSOR);
       this.processElements(removeMethod, reader);
       return removeMethod;
    }

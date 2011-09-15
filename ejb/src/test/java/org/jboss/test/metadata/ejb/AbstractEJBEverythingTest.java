@@ -194,7 +194,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       return assertNullSession(ejbName, enterpriseBeansMetaData, Mode.SPEC);
    }
 
-   private SessionBeanMetaData assertNullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
+   protected SessionBeanMetaData assertNullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
    {
       SessionBeanMetaData session = assertSession(ejbName + "EjbName", enterpriseBeansMetaData);
       if (mode == Mode.SPEC)

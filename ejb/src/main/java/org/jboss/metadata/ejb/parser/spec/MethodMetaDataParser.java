@@ -25,9 +25,12 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.MethodInterfaceType;
 import org.jboss.metadata.ejb.spec.MethodMetaData;
 import org.jboss.metadata.ejb.spec.MethodParametersMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * Parses and creates metadata out of &lt;method&gt; element belonging to the &lt;container-transaction&gt;
@@ -37,6 +40,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class MethodMetaDataParser extends AbstractWithDescriptionsParser<MethodMetaData>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
 
    /**
     * Instance of this parser
@@ -47,6 +51,7 @@ public class MethodMetaDataParser extends AbstractWithDescriptionsParser<MethodM
    public MethodMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       MethodMetaData methodMetaData = new MethodMetaData();
+      processAttributes(methodMetaData, reader, ATTRIBUTE_PROCESSOR);
       this.processElements(methodMetaData, reader);
       return methodMetaData;
    }
