@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import java.io.Serializable;
-
 import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
@@ -34,6 +32,8 @@ import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+
+import java.io.Serializable;
 
 /**
  * JBossEnvironmentRefsGroupMetaData.
@@ -114,4 +114,6 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
     public DataSourceMetaData getDataSourceByName(String name) {
         return AbstractMappedMetaData.getByName(name, dataSources);
     }
+
+
 }

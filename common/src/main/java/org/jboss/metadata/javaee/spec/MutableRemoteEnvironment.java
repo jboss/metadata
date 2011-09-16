@@ -96,4 +96,8 @@ public interface MutableRemoteEnvironment extends RemoteEnvironment {
      */
     void setPersistenceUnitRefs(PersistenceUnitReferencesMetaData refs);
 
+    /**
+     * Set the dataSources.
+     */
+    void setDataSources(DataSourcesMetaData dataSources);
 }

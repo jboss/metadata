@@ -36,9 +36,5 @@ public interface MutableEnvironment extends MutableRemoteEnvironment, Environmen
      */
     void setPersistenceContextRefs(PersistenceContextReferencesMetaData refs);
 
-    /**
-     * Set the dataSources.
-     */
-    void setDataSources(DataSourcesMetaData dataSources);
 
 }

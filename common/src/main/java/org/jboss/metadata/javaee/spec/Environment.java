@@ -60,20 +60,5 @@ public interface Environment extends RemoteEnvironment {
      */
     PersistenceContextReferenceMetaData getPersistenceContextReferenceByName(String name);
 
-    /**
-     * Get the dataSources.
-     *
-     * @return the dataSources
-     */
-    DataSourcesMetaData getDataSources();
-
-    /**
-     * Get by name
-     *
-     * @param name the name
-     * @return the result or null if not found
-     * @throws IllegalArgumentException for a null name
-     */
-    DataSourceMetaData getDataSourceByName(String name);
 
 }

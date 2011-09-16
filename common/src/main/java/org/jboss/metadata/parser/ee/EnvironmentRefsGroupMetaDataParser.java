@@ -22,9 +22,6 @@
 
 package org.jboss.metadata.parser.ee;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
@@ -34,9 +31,13 @@ import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
+import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 
 /**
@@ -45,6 +46,32 @@ import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 public class EnvironmentRefsGroupMetaDataParser {
 
     public static boolean parse(XMLStreamReader reader, EnvironmentRefsGroupMetaData env) throws XMLStreamException {
+        // Only look at the current element, no iteration
+        final Element element = Element.forName(reader.getLocalName());
+        switch (element) {
+            case EJB_LOCAL_REF:
+                EJBLocalReferencesMetaData ejbLocalReferences = env.getEjbLocalReferences();
+                if (ejbLocalReferences == null) {
+                    ejbLocalReferences = new EJBLocalReferencesMetaData();
+                    env.setEjbLocalReferences(ejbLocalReferences);
+                }
+                ejbLocalReferences.add(EJBLocalReferenceMetaDataParser.parse(reader));
+                break;
+            case PERSISTENCE_CONTEXT_REF:
+                PersistenceContextReferencesMetaData pcReferences = env.getPersistenceContextRefs();
+                if (pcReferences == null) {
+                    pcReferences = new PersistenceContextReferencesMetaData();
+                    env.setPersistenceContextRefs(pcReferences);
+                }
+                pcReferences.add(PersistenceContextReferenceMetaDataParser.parse(reader));
+                break;
+            default:
+                return parseRemote(reader, env);
+        }
+        return true;
+    }
+
+    public static boolean parseRemote(XMLStreamReader reader, RemoteEnvironmentRefsGroupMetaData env) throws XMLStreamException {
         // Only look at the current element, no iteration
         final Element element = Element.forName(reader.getLocalName());
         switch (element) {
@@ -63,14 +90,6 @@ public class EnvironmentRefsGroupMetaDataParser {
                     env.setEjbReferences(ejbReferences);
                 }
                 ejbReferences.add(EJBReferenceMetaDataParser.parse(reader));
-                break;
-            case EJB_LOCAL_REF:
-                EJBLocalReferencesMetaData ejbLocalReferences = env.getEjbLocalReferences();
-                if (ejbLocalReferences == null) {
-                    ejbLocalReferences = new EJBLocalReferencesMetaData();
-                    env.setEjbLocalReferences(ejbLocalReferences);
-                }
-                ejbLocalReferences.add(EJBLocalReferenceMetaDataParser.parse(reader));
                 break;
             case SERVICE_REF:
                 ServiceReferencesMetaData serviceReferences = env.getServiceReferences();
@@ -104,14 +123,6 @@ public class EnvironmentRefsGroupMetaDataParser {
                 }
                 mdReferences.add(MessageDestinationReferenceMetaDataParser.parse(reader));
                 break;
-            case PERSISTENCE_CONTEXT_REF:
-                PersistenceContextReferencesMetaData pcReferences = env.getPersistenceContextRefs();
-                if (pcReferences == null) {
-                    pcReferences = new PersistenceContextReferencesMetaData();
-                    env.setPersistenceContextRefs(pcReferences);
-                }
-                pcReferences.add(PersistenceContextReferenceMetaDataParser.parse(reader));
-                break;
             case PERSISTENCE_UNIT_REF:
                 PersistenceUnitReferencesMetaData puReferences = env.getPersistenceUnitRefs();
                 if (puReferences == null) {
@@ -144,9 +155,9 @@ public class EnvironmentRefsGroupMetaDataParser {
                 }
                 dataSources.add(DataSourceMetaDataParser.parse(reader));
                 break;
-            default: return false;
+            default:
+                return false;
         }
         return true;
     }
-
 }

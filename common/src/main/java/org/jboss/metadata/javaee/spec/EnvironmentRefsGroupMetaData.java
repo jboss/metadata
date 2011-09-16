@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import java.io.Serializable;
-
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+
+import java.io.Serializable;
 
 /**
  * EnvironmentRefsGroupMetaData.
@@ -43,8 +43,6 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
     /** The persistence context reference */
     private PersistenceContextReferencesMetaData persistenceContextRefs;
 
-    /** The data sources */
-    private DataSourcesMetaData dataSources;
 
     /**
      * Create a new EnvironmentRefsGroupMetaData.
@@ -115,24 +113,4 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
         return AbstractMappedMetaData.getByName(name, persistenceContextRefs);
     }
 
-    @Override
-    public DataSourcesMetaData getDataSources() {
-        return dataSources;
-    }
-
-    @Override
-    public void setDataSources(DataSourcesMetaData dataSources) {
-        this.dataSources = dataSources;
-    }
-
-    @Override
-    public DataSourceMetaData getDataSourceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, dataSources);
-    }
-
-    public static DataSourcesMetaData getDataSources(Environment env) {
-        if (env == null)
-            return null;
-        return env.getDataSources();
-    }
 }
