@@ -4,11 +4,14 @@ import org.jboss.metadata.ejb.spec.MethodMetaData;
 import org.jboss.metadata.ejb.spec.MethodPermissionMetaData;
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * Processes &lt;method-permission&gt; element in ejb-jar.xml
@@ -17,12 +20,14 @@ import java.util.Set;
  */
 public class MethodPermissionMetaDataParser extends AbstractWithDescriptionsParser<MethodPermissionMetaData>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final MethodPermissionMetaDataParser INSTANCE = new MethodPermissionMetaDataParser();
    
    @Override
    public MethodPermissionMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       MethodPermissionMetaData methodPermission = new MethodPermissionMetaData();
+      processAttributes(methodPermission, reader, ATTRIBUTE_PROCESSOR);
       this.processElements(methodPermission, reader);
       return methodPermission;
 
@@ -45,9 +50,11 @@ public class MethodPermissionMetaDataParser extends AbstractWithDescriptionsPars
             return;
 
          case UNCHECKED:
+            final EmptyMetaData unchecked = new EmptyMetaData();
+            processAttributes(unchecked, reader, ATTRIBUTE_PROCESSOR);
             // read away the emptiness
             reader.getElementText();
-            methodPermission.setUnchecked(new EmptyMetaData());
+            methodPermission.setUnchecked(unchecked);
             return;
 
          case METHOD:

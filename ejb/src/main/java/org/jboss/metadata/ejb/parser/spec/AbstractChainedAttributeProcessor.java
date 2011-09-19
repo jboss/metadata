@@ -21,43 +21,24 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class NamedMethodMetaDataParser extends AbstractIdMetaDataParser<NamedMethodMetaData>
+class AbstractChainedAttributeProcessor<MD> implements AttributeProcessor<MD>
 {
-   public static final NamedMethodMetaDataParser INSTANCE = new NamedMethodMetaDataParser();
-   
-   @Override
-   public NamedMethodMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   private final AttributeProcessor<? super MD> next;
+
+   AbstractChainedAttributeProcessor(final AttributeProcessor<? super MD> next)
    {
-      NamedMethodMetaData namedMethodMetaData = new NamedMethodMetaData();
-      processAttributes(namedMethodMetaData, reader, this);
-      processElements(namedMethodMetaData, reader);
-      return namedMethodMetaData;
+      this.next = next;
    }
 
    @Override
-   protected void processElement(NamedMethodMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   public void processAttribute(MD metaData, XMLStreamReader reader, int i) throws XMLStreamException
    {
-      final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
-      switch(ejbJarElement)
-      {
-         case METHOD_NAME:
-            metaData.setMethodName(reader.getElementText());
-            return;
-
-         case METHOD_PARAMS:
-            metaData.setMethodParams(MethodParametersMetaDataParser.INSTANCE.parse(reader));
-            return;
-      }
-      super.processElement(metaData, reader);
+      next.processAttribute(metaData, reader, i);
    }
 }

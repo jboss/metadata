@@ -22,6 +22,7 @@
 package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 import org.jboss.metadata.parser.ee.Accessor;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
@@ -33,7 +34,16 @@ import javax.xml.stream.XMLStreamReader;
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
 public abstract class AbstractNamedMetaDataWithDescriptionGroupParser<MD extends NamedMetaDataWithDescriptionGroup> extends AbstractMetaDataParser<MD>
+   implements AttributeProcessor<MD>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
+
+   @Override
+   public void processAttribute(MD metaData, XMLStreamReader reader, int i) throws XMLStreamException
+   {
+      ATTRIBUTE_PROCESSOR.processAttribute(metaData, reader, i);
+   }
+
    @Override
    protected void processElement(final MD metaData, XMLStreamReader reader) throws XMLStreamException
    {

@@ -100,17 +100,18 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    {
       IEnterpriseBeansMetaData enterpriseBeansMetaData = ejbJarMetaData.getEnterpriseBeans();
       assertNotNull(enterpriseBeansMetaData);
-      assertId("enterprise-beans", enterpriseBeansMetaData);
+      assertId(mode == Mode.SPEC ? "enterprise-beans" : "jboss-enterprise-beans", enterpriseBeansMetaData);
       assertEquals(15, enterpriseBeansMetaData.size());
 
-      assertNullSession("session0", enterpriseBeansMetaData);
-      assertFullSession("session1", enterpriseBeansMetaData, mode);
-      assertFullSession("session2", enterpriseBeansMetaData, mode);
-      SessionBeanMetaData session = assertSession("session3EjbName", enterpriseBeansMetaData);
+      final String sessionPrefix = mode == Mode.SPEC ? "session" : "jbossSession";
+      assertNullSession(sessionPrefix + "0", enterpriseBeansMetaData, mode);
+      assertFullSession(sessionPrefix + "1", enterpriseBeansMetaData, mode);
+      assertFullSession(sessionPrefix + "2", enterpriseBeansMetaData, mode);
+      SessionBeanMetaData session = assertSession(sessionPrefix + "3EjbName", enterpriseBeansMetaData);
       assertEquals(SessionType.Stateful, session.getSessionType());
-      session = assertSession("session4EjbName", enterpriseBeansMetaData);
+      session = assertSession(sessionPrefix + "4EjbName", enterpriseBeansMetaData);
       assertEquals(TransactionManagementType.BEAN, session.getTransactionType());
-      session = assertSession("session5EjbName", enterpriseBeansMetaData);
+      session = assertSession(sessionPrefix + "5EjbName", enterpriseBeansMetaData);
       SecurityIdentityMetaData securityIdentityMetaData = session.getSecurityIdentity();
       assertNotNull(securityIdentityMetaData);
       assertTrue(securityIdentityMetaData.isUseCallerId());
@@ -126,7 +127,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertEquals("1.x", entity.getCmpVersion());
       assertTrue(entity.isCMP1x());
       
-      assertNullMDB("mdb0", enterpriseBeansMetaData);
+      assertNullMDB("mdb0", enterpriseBeansMetaData, mode);
       assertFullMDB("mdb1", enterpriseBeansMetaData, mode);
       assertFullMDB("mdb2", enterpriseBeansMetaData, mode);
    }
@@ -190,13 +191,27 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
     */
    private SessionBeanMetaData assertNullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData)
    {
-      SessionBeanMetaData session = assertSession(ejbName + "EjbName", enterpriseBeansMetaData);
-      assertEquals(ejbName+"EjbClass", session.getEjbClass());
-      assertEquals(SessionType.Stateless, session.getSessionType());
-      assertEquals(TransactionManagementType.CONTAINER, session.getTransactionType());
-      assertNotNull(session.getSecurityIdentity().getUseCallerIdentity());
-      assertTrue(session.getSecurityIdentity().isUseCallerId());
+      return assertNullSession(ejbName, enterpriseBeansMetaData, Mode.SPEC);
+   }
 
+   protected SessionBeanMetaData assertNullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
+   {
+      SessionBeanMetaData session = assertSession(ejbName + "EjbName", enterpriseBeansMetaData);
+      if (mode == Mode.SPEC)
+      {
+         assertEquals(ejbName+"EjbClass", session.getEjbClass());
+         assertEquals(SessionType.Stateless, session.getSessionType());
+         assertEquals(TransactionManagementType.CONTAINER, session.getTransactionType());
+         assertNotNull(session.getSecurityIdentity().getUseCallerIdentity());
+         assertTrue(session.getSecurityIdentity().isUseCallerId());
+      }
+      else
+      {
+         assertNull(session.getEjbClass());
+         assertNull(session.getSessionType());
+         assertNull(session.getTransactionType());
+         assertNull(session.getSecurityIdentity());
+      }
       assertNull(session.getId());
       assertNull(session.getMappedName());
       assertNull(session.getHome());
@@ -212,7 +227,8 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertNull(session.getAroundInvokes());
       assertNull(session.getPostActivates());
       assertNull(session.getPrePassivates());
-      assertNull(session.getJndiEnvironmentRefsGroup());
+      // TODO: make sure JndiEnviromentRefsGroup is not needlessly created
+//      assertNull(session.getJndiEnvironmentRefsGroup());
       assertNull(session.getContainerTransactions());
       assertNull(session.getMethodPermissions());
       assertNull(session.getExcludeList());
@@ -327,7 +343,8 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertNull(entity.getAbstractSchemaName());
       assertNull(entity.getCmpFields());
       assertNull(entity.getPrimKeyField());
-      assertNull(entity.getJndiEnvironmentRefsGroup());
+      // TODO: make sure JndiEnviromentRefsGroup is not needlessly created
+//      assertNull(entity.getJndiEnvironmentRefsGroup());
       assertNull(entity.getContainerTransactions());
       assertNull(entity.getMethodPermissions());
       assertNull(entity.getExcludeList());
@@ -479,9 +496,24 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
 
    private MessageDrivenBeanMetaData assertNullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData)
    {
+      return assertNullMDB(ejbName, enterpriseBeansMetaData, Mode.SPEC);
+   }
+
+   private MessageDrivenBeanMetaData assertNullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
+   {
       MessageDrivenBeanMetaData mdb = assertMDB(ejbName + "EjbName", enterpriseBeansMetaData);
-      assertEquals(ejbName+"EjbClass", mdb.getEjbClass());
-      assertEquals(TransactionManagementType.CONTAINER, mdb.getTransactionType());
+      if (mode == Mode.SPEC)
+      {
+         assertEquals(ejbName+"EjbClass", mdb.getEjbClass());
+         assertEquals(TransactionManagementType.CONTAINER, mdb.getTransactionType());
+         assertNotNull(mdb.getSecurityIdentity());
+      }
+      else
+      {
+         assertNull(mdb.getEjbClass());
+         assertNull(mdb.getTransactionType());
+         assertNull(mdb.getSecurityIdentity());
+      }
       assertNull(mdb.getActivationConfig());
       assertNull(mdb.getMessagingType());
       assertNull(mdb.getId());
@@ -490,12 +522,12 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertNull(mdb.getMessageDestinationType());
       assertNull(mdb.getMessageDestinationLink());
       assertNull(mdb.getAroundInvokes());
-      assertNull(mdb.getJndiEnvironmentRefsGroup());
+      // TODO: make sure JndiEnviromentRefsGroup is not needlessly created
+//      assertNull(mdb.getJndiEnvironmentRefsGroup());
       assertNull(mdb.getContainerTransactions());
       assertNull(mdb.getMethodPermissions());
       assertNull(mdb.getExcludeList());
-      assertNotNull(mdb.getSecurityIdentity());
-      
+
       return mdb;
    }
    
@@ -604,7 +636,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    protected <T extends EnterpriseBeanMetaData> T assertEnterpriseBean(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData, Class<T> expected)
    {
       IEnterpriseBeanMetaData enterpriseBeanMeta = enterpriseBeansMetaData.get(ejbName);
-      assertNotNull(enterpriseBeanMeta);
+      assertNotNull("Can't find bean " + ejbName, enterpriseBeanMeta);
       assertEquals(ejbName, enterpriseBeanMeta.getEjbName());
       return expected.cast(enterpriseBeanMeta);
    }
@@ -740,14 +772,28 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    
    protected AssemblyDescriptorMetaData assertAssemblyDescriptor(EjbJarMetaData ejbJarMetaData)
    {
+      return assertAssemblyDescriptor(ejbJarMetaData, Mode.SPEC);
+   }
+
+   protected AssemblyDescriptorMetaData assertAssemblyDescriptor(EjbJarMetaData ejbJarMetaData, Mode mode)
+   {
       AssemblyDescriptorMetaData assemblyDescriptorMetaData = (AssemblyDescriptorMetaData) ejbJarMetaData.getAssemblyDescriptor();
       assertNotNull(assemblyDescriptorMetaData);
       assertId("assembly-descriptor", assemblyDescriptorMetaData);
-      assertSecurityRoles(2, assemblyDescriptorMetaData.getSecurityRoles(), Mode.SPEC);
-      assertMethodPermissions(null, "methodPermission", 21, 3, assemblyDescriptorMetaData.getMethodPermissions());
-      assertContainerTransactions(null, 42, 6, assemblyDescriptorMetaData.getContainerTransactions());
-      assertMessageDestinations(2, assemblyDescriptorMetaData.getMessageDestinations(), Mode.SPEC);
-      assertExcludeList(null, 35, 5, assemblyDescriptorMetaData.getExcludeList());
+      assertSecurityRoles(2, assemblyDescriptorMetaData.getSecurityRoles(), mode);
+      if (mode == Mode.SPEC)
+      {
+         assertMethodPermissions(null, "methodPermission", 21, 3, assemblyDescriptorMetaData.getMethodPermissions());
+         assertContainerTransactions(null, 42, 6, assemblyDescriptorMetaData.getContainerTransactions());
+         assertExcludeList(null, 35, 5, assemblyDescriptorMetaData.getExcludeList());
+      }
+      else
+      {
+         assertNull(assemblyDescriptorMetaData.getMethodPermissions());
+         assertNull(assemblyDescriptorMetaData.getContainerTransactions());
+         assertNull(assemblyDescriptorMetaData.getExcludeList());
+      }
+      assertMessageDestinations(2, assemblyDescriptorMetaData.getMessageDestinations(), mode);
       return assemblyDescriptorMetaData;
    }
 

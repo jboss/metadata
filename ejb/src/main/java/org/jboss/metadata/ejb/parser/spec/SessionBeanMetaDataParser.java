@@ -42,6 +42,8 @@ import javax.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+
 /**
  * Parses and creates metadata out of the &lt;session&gt; element in the ejb-jar.xml
  * <p/>
@@ -51,7 +53,7 @@ import javax.xml.stream.XMLStreamReader;
  * 
  * User: Jaikiran Pai
  */
-public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> extends AbstractMetaDataParser<T>
+public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> extends AbstractIdMetaDataParser<T>
 {
 
    /**
@@ -74,6 +76,7 @@ public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> e
    public T parse(XMLStreamReader reader) throws XMLStreamException
    {
       T sessionBean = createSessionBeanMetaData();
+      processAttributes(sessionBean, reader, this);
       this.processElements(sessionBean, reader);
       // return the metadata created out of parsing
       return sessionBean;

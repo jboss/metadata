@@ -32,6 +32,7 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  */
 public abstract class IdMetaDataImplWithDescriptionsMerger extends IdMetaDataImplMerger {
     public static void merge(IdMetaDataImpl dest, IdMetaDataImpl override, IdMetaDataImpl original) {
+        IdMetaDataImplMerger.merge(dest, override, original);
         IdMetaDataImplWithDescriptions id0 = (IdMetaDataImplWithDescriptions) override;
         IdMetaDataImplWithDescriptions id1 = (IdMetaDataImplWithDescriptions) original;
         IdMetaDataImplWithDescriptions dest1 = (IdMetaDataImplWithDescriptions) dest;

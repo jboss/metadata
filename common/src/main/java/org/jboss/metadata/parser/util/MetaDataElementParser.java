@@ -22,6 +22,11 @@
 
 package org.jboss.metadata.parser.util;
 
+import javax.xml.namespace.QName;
+import javax.xml.stream.XMLResolver;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import java.io.ByteArrayInputStream;
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,12 +35,6 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import javax.xml.namespace.QName;
-import javax.xml.stream.XMLResolver;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author Emanuel Muckenhuber
@@ -116,7 +115,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
      * @param index the element index
      * @return the exception
      */
-    protected static XMLStreamException unexpectedAttribute(final XMLStreamReader reader, final int index) {
+    public static XMLStreamException unexpectedAttribute(final XMLStreamReader reader, final int index) {
         return new XMLStreamException("Unexpected attribute '" + reader.getAttributeName(index) + "' encountered", reader.getLocation());
     }
 

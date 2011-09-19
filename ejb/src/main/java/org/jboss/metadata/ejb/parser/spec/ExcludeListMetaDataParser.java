@@ -3,9 +3,12 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
 import org.jboss.metadata.ejb.spec.MethodMetaData;
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * Processes &lt;exclude-list&gt; element of ejb-jar.xml
@@ -14,12 +17,14 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class ExcludeListMetaDataParser extends AbstractWithDescriptionsParser<ExcludeListMetaData>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final ExcludeListMetaDataParser INSTANCE = new ExcludeListMetaDataParser();
 
    @Override
    public ExcludeListMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       ExcludeListMetaData excludeListMetaData = new ExcludeListMetaData();
+      processAttributes(excludeListMetaData, reader, ATTRIBUTE_PROCESSOR);
       this.processElements(excludeListMetaData, reader);
       return excludeListMetaData;
    }

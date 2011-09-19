@@ -31,6 +31,8 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+
 /**
  * Parses the enterprise-beans elements in a ejb-jar.xml and creates metadata
  * out of it.
@@ -40,6 +42,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
 {
+   private static final AttributeProcessor<EnterpriseBeansMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<EnterpriseBeansMetaData>(UnexpectedAttributeProcessor.instance());
    private static final MessageDrivenBean31Parser MESSAGE_DRIVEN_BEAN_PARSER = new MessageDrivenBean31Parser();
 
    /**
@@ -54,6 +57,7 @@ public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
    public static EnterpriseBeansMetaData parse(XMLStreamReader reader, EjbJarVersion ejbJarVersion) throws XMLStreamException
    {
       EnterpriseBeansMetaData enterpriseBeans = new EnterpriseBeansMetaData();
+      processAttributes(enterpriseBeans, reader, ATTRIBUTE_PROCESSOR);
       SessionBeanMetaDataParser sessionBeanParser = SessionBeanMetaDataParserFactory.getParser(ejbJarVersion);
       EntityBeanMetaDataParser entityBeanMetaDataParser = new EntityBeanMetaDataParser();
       // Handle elements
