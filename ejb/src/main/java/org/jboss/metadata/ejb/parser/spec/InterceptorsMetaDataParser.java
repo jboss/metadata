@@ -24,9 +24,12 @@ package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.InterceptorMetaData;
 import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * Parses the &lt;interceptors&gt; element in a ejb-jar.xml and creates metadata out of it.
@@ -36,6 +39,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class InterceptorsMetaDataParser extends AbstractWithDescriptionsParser<InterceptorsMetaData>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final InterceptorsMetaDataParser INSTANCE = new InterceptorsMetaDataParser();
 
    /**
@@ -49,6 +53,7 @@ public class InterceptorsMetaDataParser extends AbstractWithDescriptionsParser<I
    public InterceptorsMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       InterceptorsMetaData interceptors = new InterceptorsMetaData();
+      processAttributes(interceptors, reader, ATTRIBUTE_PROCESSOR);
       this.processElements(interceptors, reader);
       return interceptors;
    }

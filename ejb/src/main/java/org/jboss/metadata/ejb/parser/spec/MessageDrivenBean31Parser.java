@@ -28,6 +28,8 @@ import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
@@ -37,6 +39,7 @@ public class MessageDrivenBean31Parser extends AbstractMessageDrivenBeanParser<M
    public MessageDrivenBean31MetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       MessageDrivenBean31MetaData bean = new MessageDrivenBean31MetaData();
+      processAttributes(bean, reader, this);
       processElements(bean, reader);
       return bean;
    }

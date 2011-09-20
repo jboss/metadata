@@ -24,9 +24,12 @@ package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.InitMethodMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * Parses and creates metadata out of &lt;create-method&gt; element in ejb-jar.xml
@@ -35,6 +38,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class InitMethodMetaDataParser extends AbstractMetaDataParser<InitMethodMetaData>
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final InitMethodMetaDataParser INSTANCE = new InitMethodMetaDataParser();
 
    /**
@@ -48,6 +52,7 @@ public class InitMethodMetaDataParser extends AbstractMetaDataParser<InitMethodM
    public InitMethodMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       InitMethodMetaData initMethod = new InitMethodMetaData();
+      processAttributes(initMethod, reader, ATTRIBUTE_PROCESSOR);
       this.processElements(initMethod, reader);
       return initMethod;
    }

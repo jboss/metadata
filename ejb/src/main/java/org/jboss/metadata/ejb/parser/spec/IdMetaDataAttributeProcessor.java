@@ -21,43 +21,35 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
-
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class NamedMethodMetaDataParser extends AbstractIdMetaDataParser<NamedMethodMetaData>
+class IdMetaDataAttributeProcessor<MD extends IdMetaData> extends AbstractChainedAttributeProcessor<MD>
 {
-   public static final NamedMethodMetaDataParser INSTANCE = new NamedMethodMetaDataParser();
-   
-   @Override
-   public NamedMethodMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   IdMetaDataAttributeProcessor(final AttributeProcessor<? super MD> next)
    {
-      NamedMethodMetaData namedMethodMetaData = new NamedMethodMetaData();
-      processAttributes(namedMethodMetaData, reader, this);
-      processElements(namedMethodMetaData, reader);
-      return namedMethodMetaData;
+      super(next);
    }
 
    @Override
-   protected void processElement(NamedMethodMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   public void processAttribute(MD metaData, XMLStreamReader reader, int i) throws XMLStreamException
    {
-      final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
-      switch(ejbJarElement)
+      final String value = reader.getAttributeValue(i);
+      final EjbJarAttribute ejbJarAttribute = EjbJarAttribute.forName(reader.getAttributeLocalName(i));
+      switch (ejbJarAttribute)
       {
-         case METHOD_NAME:
-            metaData.setMethodName(reader.getElementText());
-            return;
-
-         case METHOD_PARAMS:
-            metaData.setMethodParams(MethodParametersMetaDataParser.INSTANCE.parse(reader));
-            return;
+         case ID:
+         {
+            metaData.setId(value);
+            break;
+         }
+         default:
+            super.processAttribute(metaData, reader, i);
       }
-      super.processElement(metaData, reader);
    }
 }

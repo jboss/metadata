@@ -28,11 +28,14 @@ import org.jboss.metadata.ejb.spec.InterceptorMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbackMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.LifecycleCallbackMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
   Parses the &lt;interceptor&gt; element in a ejb-jar.xml and creates metadata out of it.
@@ -42,7 +45,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<InterceptorMetaData>
 {
-
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final InterceptorMetaDataParser INSTANCE = new InterceptorMetaDataParser();
 
    /**
@@ -55,6 +58,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
    public InterceptorMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       InterceptorMetaData interceptor = new InterceptorMetaData();
+      processAttributes(interceptor, reader, ATTRIBUTE_PROCESSOR);
       this.processElements(interceptor, reader);
       return interceptor;
    }

@@ -21,48 +21,22 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.ActivationConfigPropertyMetaData;
 import org.jboss.metadata.javaee.support.IdMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
-
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class ActivationConfigPropertyMetaDataParser extends AbstractMetaDataParser<ActivationConfigPropertyMetaData>
+public abstract class AbstractIdMetaDataParser<MD extends IdMetaData> extends AbstractMetaDataParser<MD>
+   implements AttributeProcessor<MD>
 {
    private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
-   static final ActivationConfigPropertyMetaDataParser INSTANCE = new ActivationConfigPropertyMetaDataParser();
 
    @Override
-   public ActivationConfigPropertyMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public void processAttribute(MD metaData, XMLStreamReader reader, int i) throws XMLStreamException
    {
-      ActivationConfigPropertyMetaData metaData = new ActivationConfigPropertyMetaData();
-      processAttributes(metaData, reader, ATTRIBUTE_PROCESSOR);
-      processElements(metaData, reader);
-      return metaData;
-   }
-
-   @Override
-   protected void processElement(ActivationConfigPropertyMetaData metaData, XMLStreamReader reader) throws XMLStreamException
-   {
-      final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
-      switch (ejbJarElement)
-      {
-         case ACTIVATION_CONFIG_PROPERTY_NAME:
-            metaData.setName(getElementText(reader));
-            break;
-
-         case ACTIVATION_CONFIG_PROPERTY_VALUE:
-            metaData.setValue(getElementText(reader));
-            break;
-
-         default:
-            super.processElement(metaData, reader);
-            break;
-      }
+      ATTRIBUTE_PROCESSOR.processAttribute(metaData, reader, i);
    }
 }

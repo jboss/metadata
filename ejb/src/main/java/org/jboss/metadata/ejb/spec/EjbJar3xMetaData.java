@@ -84,6 +84,7 @@ public abstract class EjbJar3xMetaData extends EjbJarMetaData
 
    protected void merge(final EjbJar3xMetaData override, final EjbJar3xMetaData original)
    {
+      super.merge(override, original);
       if (override != null && override.isMetadataComplete())
          setMetadataComplete(true);
       else if (original != null && original.isMetadataComplete())

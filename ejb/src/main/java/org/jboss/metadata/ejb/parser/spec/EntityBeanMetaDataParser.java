@@ -31,12 +31,14 @@ import org.jboss.metadata.parser.ee.SecurityRoleRefMetaDataParser;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+
 /**
  * Parses and creates metadata out of the &lt;entity&gt; element in the ejb-jar.xml
  *
  * @author Stuart Douglas
  */
-public class EntityBeanMetaDataParser extends AbstractMetaDataParser<EntityBeanMetaData>
+public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<EntityBeanMetaData>
 {
 
    /**
@@ -67,6 +69,7 @@ public class EntityBeanMetaDataParser extends AbstractMetaDataParser<EntityBeanM
          }
       }
 
+      processAttributes(bean, reader, this);
       this.processElements(bean, reader);
       // return the metadata created out of parsing
       return bean;

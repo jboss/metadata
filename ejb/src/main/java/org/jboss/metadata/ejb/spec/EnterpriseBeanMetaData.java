@@ -55,6 +55,7 @@ import org.jboss.metadata.merge.javaee.support.NamedMetaDataWithDescriptionGroup
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -94,6 +95,15 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
    
    /** The security role ref */
    private SecurityRoleRefsMetaData securityRoleRefs;
+
+   protected static <E, T extends Collection<E>> T augment(T result, T override, T original)
+   {
+      if (override != null && override.size() > 0)
+         result.addAll(override);
+      if (original != null && original.size() > 0)
+         result.addAll(original);
+      return result.size() > 0 ? result : null;
+   }
 
    /**
     * Create the correct EnterpriseBeanMetaData for the input
@@ -632,12 +642,7 @@ public abstract class EnterpriseBeanMetaData extends NamedMetaDataWithDescriptio
          setSecurityIdentity(override.securityIdentity);
       else if(original != null && original.securityIdentity != null)
          setSecurityIdentity(original.securityIdentity);
-      if(securityRoleRefs == null)
-         securityRoleRefs = new SecurityRoleRefsMetaData();
-      if(override != null && override.securityRoleRefs != null)
-         securityRoleRefs.addAll(override.securityRoleRefs);
-      if(original != null && original.securityRoleRefs != null)
-         securityRoleRefs.addAll(original.securityRoleRefs);
+      securityRoleRefs = augment(new SecurityRoleRefsMetaData(), override != null ? override.securityRoleRefs : null, original != null ? original.securityRoleRefs : null);
    }
    
    /**
