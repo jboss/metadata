@@ -24,10 +24,10 @@ package org.jboss.metadata.appclient.parser.spec;
 
 import org.jboss.metadata.appclient.spec.AppClientEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.appclient.spec.ApplicationClientMetaData;
-import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -37,12 +37,11 @@ import javax.xml.stream.XMLStreamReader;
  * <p/>
  * @author Stuart Douglas
  */
-public class ApplicationClientMetaDataParser extends AbstractMetaDataParser<ApplicationClientMetaData>
+public class ApplicationClientMetaDataParser extends MetaDataElementParser
 {
 
    public static final ApplicationClientMetaDataParser INSTANCE = new ApplicationClientMetaDataParser();
 
-   @Override
    public ApplicationClientMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       reader.require(START_DOCUMENT, null, null);
@@ -101,7 +100,6 @@ public class ApplicationClientMetaDataParser extends AbstractMetaDataParser<Appl
       }
    }
 
-   @Override
    protected void processElements(final ApplicationClientMetaData applicationClientMetaData, XMLStreamReader reader) throws XMLStreamException
    {
 

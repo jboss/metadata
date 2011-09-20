@@ -17,8 +17,6 @@ public class AppClientEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefs
 
     private MessageDestinationsMetaData messageDestinations;
 
-    private String callbackHandler;
-
     public MessageDestinationsMetaData getMessageDestinations() {
         return messageDestinations;
     }
@@ -27,11 +25,4 @@ public class AppClientEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefs
         this.messageDestinations = messageDestinations;
     }
 
-    public String getCallbackHandler() {
-        return callbackHandler;
-    }
-
-    public void setCallbackHandler(final String callbackHandler) {
-        this.callbackHandler = callbackHandler;
-    }
 }

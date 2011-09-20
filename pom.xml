@@ -55,6 +55,7 @@
         <module>ear</module>
         <module>ejb</module>
         <module>web</module>
+        <module>appclient</module>
     </modules>
 
     <build>
