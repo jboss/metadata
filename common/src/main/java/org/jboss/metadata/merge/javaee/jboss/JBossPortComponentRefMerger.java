@@ -48,9 +48,8 @@ import org.jboss.metadata.merge.javaee.spec.PortComponentRefMerger;
  */
 public class JBossPortComponentRefMerger extends PortComponentRefMerger {
 
-
     public static void merge(JBossPortComponentRef dest, JBossPortComponentRef override, JBossPortComponentRef original) {
-        PortComponentRefMerger.merge(override, original);
+        PortComponentRefMerger.merge(dest, override, original);
 
         if (override != null && override.getPortQname() != null)
             dest.setPortQname(override.getPortQname());
@@ -75,4 +74,5 @@ public class JBossPortComponentRefMerger extends PortComponentRefMerger {
         else if (original != null && original.getStubProperties() != null)
             dest.getStubProperties().addAll(original.getStubProperties());
     }
+
 }

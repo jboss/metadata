@@ -23,8 +23,13 @@ package org.jboss.metadata.merge.javaee.jboss;
 
 // $Id: JBossServiceReferencesMetaData.java 84989 2009-03-02 11:40:52Z alex.loubyansky@jboss.com $
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PortComponentRef;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.merge.javaee.spec.ServiceReferenceMetaDataMerger;
@@ -61,7 +66,7 @@ public class JBossServiceReferencesMetaDataMerger extends ServiceReferencesMetaD
                     jbossServiceRef = override.get(serviceRef.getServiceRefName());
                 if (jbossServiceRef == null)
                     jbossServiceRef = new JBossServiceReferenceMetaData();
-                jbossServiceRef = ServiceReferenceMetaDataMerger.merge(jbossServiceRef, serviceRef);
+                jbossServiceRef = merge((JBossServiceReferenceMetaData)jbossServiceRef, serviceRef);
                 merged.add(jbossServiceRef);
             }
         }
@@ -77,6 +82,64 @@ public class JBossServiceReferencesMetaDataMerger extends ServiceReferencesMetaD
         // JavaEEMetaDataUtil.merge(merged, overriden, override, "service-ref",
         // overridenFile, overrideFile, false);
         return merged;
+    }
+
+    public static ServiceReferenceMetaData merge(JBossServiceReferenceMetaData override, ServiceReferenceMetaData original) {
+        JBossServiceReferenceMetaData merged = new JBossServiceReferenceMetaData();
+        merge(merged, override, original);
+        return merged;
+    }
+
+    /**
+     * Merge the contents of override with original into this.
+     * 
+     * @param override data which overrides original
+     * @param original the original data
+     */
+    private static void merge(JBossServiceReferenceMetaData dest, JBossServiceReferenceMetaData override, ServiceReferenceMetaData original) {
+        ServiceReferenceMetaDataMerger.merge(dest, override, original);
+
+        final List<JBossPortComponentRef> jbossPortComponentRef = new ArrayList<JBossPortComponentRef>();
+        dest.setJBossPortComponentRef(jbossPortComponentRef);
+        // TODO: how to merge portComponentRef
+        if (original != null && original.getPortComponentRef() != null) {
+            for (PortComponentRef ref : original.getPortComponentRef()) {
+                JBossPortComponentRef jref = new JBossPortComponentRef();
+                JBossPortComponentRefMerger.merge(jref, null, ref);
+                jbossPortComponentRef.add(jref);
+            }
+        }
+        if (override != null && override.getJBossPortComponentRef() != null) {
+            for (JBossPortComponentRef ref : override.getJBossPortComponentRef()) {
+                JBossPortComponentRef jref = null;
+                boolean shouldAdd = true;
+                //  TODO: there is no unique key so 
+                for(JBossPortComponentRef ref2 : jbossPortComponentRef) {
+                    String sei = ref2.getServiceEndpointInterface();
+                    if(sei != null && sei.equals(ref.getServiceEndpointInterface())) {
+                        jref = ref2;
+                        shouldAdd = false;
+                        break;
+                    }
+                }
+                if(jref == null)
+                    jref = new JBossPortComponentRef();
+                JBossPortComponentRefMerger.merge(jref, null, ref);
+                if(shouldAdd)
+                    jbossPortComponentRef.add(jref);
+            }
+        }
+
+        if (override != null && override.getServiceClass() != null)
+            dest.setServiceClass(override.getServiceClass());
+        if (override != null && override.getConfigName() != null)
+            dest.setConfigName(override.getConfigName());
+        if (override != null && override.getConfigFile() != null)
+            dest.setConfigFile(override.getConfigFile());
+        if (override != null && override.getHandlerChain() != null)
+            dest.setHandlerChain(override.getHandlerChain());
+        if (override != null && override.getWsdlOverride() != null)
+            dest.setWsdlOverride(override.getWsdlOverride());
     }
 
 }
