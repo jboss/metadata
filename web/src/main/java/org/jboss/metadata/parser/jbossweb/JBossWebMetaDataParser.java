@@ -40,6 +40,7 @@ import org.jboss.metadata.web.jboss.JBoss50DTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50WebMetaData;
 import org.jboss.metadata.web.jboss.JBoss60WebMetaData;
 import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
+import org.jboss.metadata.web.jboss.JBossServletsMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.web.jboss.ValveMetaData;
 
@@ -178,6 +179,14 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 	break;
                 case DISABLE_CROSS_CONTEXT:
                 	wmd.setDisableCrossContext(Boolean.valueOf(getElementText(reader)));
+                	break;
+                case SERVLET:
+                    JBossServletsMetaData servlets = wmd.getServlets();
+                    if (servlets == null) {
+                    	servlets = new JBossServletsMetaData();
+                        wmd.setServlets(servlets);
+                    }
+                    servlets.add(JBossServletMetaDataParser.parse(reader));
                 	break;
                 default: throw unexpectedElement(reader);
             }
