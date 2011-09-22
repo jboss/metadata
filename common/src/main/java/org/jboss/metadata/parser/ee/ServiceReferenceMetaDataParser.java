@@ -25,10 +25,12 @@ package org.jboss.metadata.parser.ee;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
@@ -98,13 +100,13 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                     serviceReference.setJaxrpcMappingFile(getElementText(reader));
                     break;
                 case SERVICE_QNAME:
-                    serviceReference.setServiceQname(parseQName(reader, getElementText(reader)));
+                    serviceReference.setServiceQname(QName.valueOf(getElementText(reader)));
                     break;
                 case PORT_COMPONENT_REF:
-                    List<PortComponentRef> portComponentRefs = (List<PortComponentRef>) serviceReference.getPortComponentRef();
+                    List<JBossPortComponentRef> portComponentRefs = (List<JBossPortComponentRef>) serviceReference.getPortComponentRef();
                     if (portComponentRefs == null) {
-                        portComponentRefs = new ArrayList<PortComponentRef>();
-                        serviceReference.setPortComponentRef(portComponentRefs);
+                        portComponentRefs = new ArrayList<JBossPortComponentRef>();
+                        serviceReference.setJBossPortComponentRef(portComponentRefs);
                     }
                     portComponentRefs.add(PortComponentRefParser.parse(reader));
                     break;

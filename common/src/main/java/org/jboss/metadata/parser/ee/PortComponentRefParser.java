@@ -39,7 +39,7 @@ import org.jboss.metadata.javaee.spec.PortComponentRef;
  */
 public class PortComponentRefParser extends MetaDataElementParser {
 
-    public static PortComponentRef parse(XMLStreamReader reader) throws XMLStreamException {
+    public static JBossPortComponentRef parse(XMLStreamReader reader) throws XMLStreamException {
         JBossPortComponentRef portComponentRef = new JBossPortComponentRef();
 
         // Handle attributes
