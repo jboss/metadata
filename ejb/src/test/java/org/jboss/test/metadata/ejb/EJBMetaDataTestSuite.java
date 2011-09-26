@@ -27,7 +27,7 @@ import junit.textui.TestRunner;
 
 /**
  * EJB Metadata Test Suite.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.8 $
  */
@@ -52,11 +52,10 @@ public class EJBMetaDataTestSuite extends TestSuite
       suite.addTest(EjbJarJBossMergeEverythingUnitTestCase.suite());
       suite.addTest(JBoss42UnitTestCase.suite());
       suite.addTest(EjbJarJBossMergeActivationConfigUnitTestCase.suite());
-      suite.addTestSuite(ResolvedJndiNameUnitTestCase.class);
 
       //suite.addTest(JBossCMPUnitTestCase.suite());
       //suite.addTest(JBossCMPMergeUnitTestCase.suite());
-      
+
       return suite;
    }
 }

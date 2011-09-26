@@ -46,9 +46,6 @@ import org.jboss.metadata.ejb.jboss.ProducerMetaData;
 import org.jboss.metadata.ejb.jboss.RemoteBindingMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
-import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.BasicJndiBindingPolicy;
-import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.JBossSessionPolicyDecorator;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.JbossSessionBeanJndiNameResolver;
 import org.jboss.metadata.ejb.spec.EjbJar21MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar2xMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
@@ -80,7 +77,7 @@ import java.util.Set;
 
 /**
  * Miscellaneous tests with a JBoss 5 xml.
- * 
+ *
  * @author <a href="carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88355 $
@@ -92,7 +89,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
    {
       super(name);
    }
-   
+
    private static ResourceInjectionTargetMetaData createInjectionTarget(String injectionTargetClass, String injectionTargetName)
    {
       ResourceInjectionTargetMetaData injectionTarget = new ResourceInjectionTargetMetaData();
@@ -100,19 +97,19 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       injectionTarget.setInjectionTargetName(injectionTargetName);
       return injectionTarget;
    }
-   
+
    protected JBossMetaData unmarshal() throws Exception
    {
       return unmarshal(JBossMetaData.class);
    }
-   
+
    /**
     * Test for consumer bean
     */
    public void testConsumer() throws Exception
    {
       JBossMetaData result = unmarshal();
-      
+
       assertEquals(1, result.getEnterpriseBeans().size());
       JBossConsumerBeanMetaData bean = (JBossConsumerBeanMetaData) result.getEnterpriseBean("DeploymentDescriptorQueueTestConsumer");
       assertNotNull(bean);
@@ -120,7 +117,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertEquals("org.jboss.ejb3.test.consumer.DeploymentDescriptorQueueTestConsumer", bean.getEjbClass());
       assertEquals("queue/consumertest", bean.getMessageDestination());
       assertEquals("javax.jms.Queue", bean.getMessageDestinationType());
-      
+
       assertEquals(2, bean.getProducers().size());
       {
          ProducerMetaData producer = bean.getProducers().get(0);
@@ -154,7 +151,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
          assertEquals("Persistent", messageProperties.getDelivery());
          assertEquals(4, (int) messageProperties.getPriority());
       }
-      
+
       String pkg = "consumer";
       String injectionTargetClass = "org.jboss.ejb3.test.consumer.DeploymentDescriptorQueueTestConsumer";
       {
@@ -172,7 +169,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
          assertEquals(injectionTargetClass, injectionTarget.getInjectionTargetClass());
          assertEquals("stateless", injectionTarget.getInjectionTargetName());
       }
-      
+
       {
          assertEquals(1, bean.getEjbLocalReferences().size());
          EJBLocalReferenceMetaData ejbLocalRef = bean.getEjbLocalReferenceByName("ejb/StatelessLocal");
@@ -187,7 +184,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
          assertEquals(injectionTargetClass, injectionTarget.getInjectionTargetClass());
          assertEquals("setStatelessLocal", injectionTarget.getInjectionTargetName());
       }
-      
+
       {
          assertEquals(1, bean.getResourceReferences().size());
          ResourceReferenceMetaData resourceRef = bean.getResourceReferenceByName("testDatasource");
@@ -201,14 +198,14 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
          assertEquals(injectionTargetClass, injectionTarget.getInjectionTargetClass());
          assertEquals("testDatasource", injectionTarget.getInjectionTargetName());
       }
-      
+
       {
          assertEquals(1, bean.getResourceEnvironmentReferences().size());
          ResourceEnvironmentReferenceMetaData resourceEnvRef = bean.getResourceEnvironmentReferenceByName("res/aQueue");
          assertEquals("javax.jms.Queue", resourceEnvRef.getType());
          assertEquals("queue/mdbtest", resourceEnvRef.getJndiName());
       }
-      
+
       /*
       {
          assertEquals(1, bean.getMessageDestinationReferences().size());
@@ -218,7 +215,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       }
       */
    }
-   
+
    /**
     * Test whether the cardinality of depends and ignore-dependency is correct.
     */
@@ -226,9 +223,9 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
    {
 //      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
 //      xbdelegate.setValidateSchema(false);
-      
+
       JBossMetaData result = unmarshal();
-      
+
       assertEquals(1, result.getEnterpriseBeans().size());
       JBossEnterpriseBeanMetaData bean = (JBossEnterpriseBeanMetaData) result.getEnterpriseBean("MyStatelessBean");
       assertNotNull(bean);
@@ -236,7 +233,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       expected.add("A");
       expected.add("B");
       assertEquals(expected, bean.getDepends());
-      
+
       assertNotNull(bean.getIgnoreDependency());
       Set<ResourceInjectionTargetMetaData> expectedInjectionTargets  = new HashSet<ResourceInjectionTargetMetaData>();
       for(int i = 1; i <= 2; i++)
@@ -245,7 +242,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       }
       assertEquals(expectedInjectionTargets, bean.getIgnoreDependency().getInjectionTargets());
    }
-   
+
    /**
     * EJBTHREE-936: allow for an unknown bean type
     */
@@ -257,11 +254,11 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       SessionBeanMetaData sessionBean = new SessionBean31MetaData();
       sessionBean.setEjbName("MyStatelessBean");
       ejbJar.getEnterpriseBeans().add(sessionBean);
-      
+
       JBossMetaData jboss = unmarshal();
-      
+
       assertEquals(1, jboss.getEnterpriseBeans().size());
-      
+
       // create a merged view
       JBossMetaData merged = EjbMergeUtil.merge(jboss, ejbJar);
       assertNotNull(merged.getEnterpriseBeans());
@@ -273,16 +270,16 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertNotNull(ref);
       assertEquals("ConnectionFactory", ref.getJndiName());
    }
-   
+
    /**
     * EJBTHREE-936: allow for an unknown bean type
     */
    public void testEjbthree936WithoutScanner() throws Exception
    {
       JBossMetaData jboss = unmarshal("JBoss50_testEjbthree936.xml", JBossMetaData.class);
-      
+
       assertEquals(1, jboss.getEnterpriseBeans().size());
-      
+
       // create a merged view
       JBossMetaData merged = EjbMergeUtil.merge(jboss, null);
       assertNotNull(merged.getEnterpriseBeans());
@@ -292,42 +289,13 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertNotNull(ref);
       assertEquals("ConnectionFactory", ref.getJndiName());
    }
-   
-   /**
-    * Test the cardinality of remote bindings
-    */
-   public void testRemoteBindings() throws Exception
-   {
-      JBossMetaData jboss = unmarshal();
-      
-      assertEquals(1, jboss.getEnterpriseBeans().size());
-      
-      JBossSessionBeanMetaData sessionBean = (JBossSessionBeanMetaData) jboss.getEnterpriseBean("StatefulBean");
-      sessionBean = new JBossSessionPolicyDecorator(sessionBean, new BasicJndiBindingPolicy());
-      String determinedJndiName = JbossSessionBeanJndiNameResolver.resolveRemoteBusinessDefaultJndiName(sessionBean);
-      boolean determinedValid = false;
-      for(int i = 0; i < 2; i++)
-      {
-         RemoteBindingMetaData remoteBinding = sessionBean.getRemoteBindings().get(i);
-         String jndiName = "jndiName" + (i + 1);
-         assertEquals(jndiName, remoteBinding.getJndiName());
-         assertEquals("clientBindUrl" + (i + 1), remoteBinding.getClientBindUrl());
-         determinedValid |= jndiName.equals(determinedJndiName);
-         
-         if(i == 0)
-            assertNull(remoteBinding.getInvokerName());
-         else
-            assertEquals("invokerName" + (i + 1), remoteBinding.getInvokerName());
-      }
-      assertTrue("determinedJndiName is not one of the remote-binding values", determinedValid);
-   }
-   
+
    public void testRemoteBindingsWithoutDecorator() throws Exception
    {
       JBossMetaData jboss = unmarshal("JBoss50_testRemoteBindings.xml", JBossMetaData.class);
-      
+
       assertEquals(1, jboss.getEnterpriseBeans().size());
-      
+
       JBossSessionBeanMetaData sessionBean = (JBossSessionBeanMetaData) jboss.getEnterpriseBean("StatefulBean");
       String determinedJndiName = sessionBean.determineJndiName();
       boolean determinedValid = false;
@@ -341,37 +309,37 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       }
       assertTrue("determinedJndiName is not one of the remote-binding values", determinedValid);
    }
-   
+
    /**
     * A test for resource-adapter-name (ejb3 jca/inflow unit test)
     */
    public void testResourceAdapterName() throws Exception
    {
       JBossMetaData result = unmarshal();
-      
+
       assertEquals(1, result.getEnterpriseBeans().size());
       JBossEnterpriseBeanMetaData bean = result.getEnterpriseBean("TestMDB");
       assertNotNull(bean);
       assertTrue(bean instanceof JBossMessageDrivenBeanMetaData);
       assertEquals("jcainflow.rar", ((JBossMessageDrivenBeanMetaData) bean).getResourceAdapterName());
    }
-   
+
    /**
     * A simple test coming from ejb3 naming unit test.
-    * 
+    *
     * @throws Exception
     */
    public void testSimple() throws Exception
    {
       JBossMetaData result = unmarshal();
-      
+
       assertEquals(1, result.getEnterpriseBeans().size());
       JBossEnterpriseBeanMetaData bean = result.getEnterpriseBean("StatefulOverrideBean");
       assertNotNull(bean);
       assertTrue(bean instanceof JBossSessionBeanMetaData);
       assertEquals("StatefulOverride", ((JBossSessionBeanMetaData) bean).getJndiName());
    }
-   
+
    /**
     * Test the service bean from dd.
     */
@@ -379,15 +347,15 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
    {
 //      JBossXBTestDelegate xbdelegate = (JBossXBTestDelegate) super.getDelegate();
 //      xbdelegate.setValidateSchema(false);
-      
+
       JBossMetaData result = unmarshal();
-      
+
       JBossServiceBeanMetaData bean = (JBossServiceBeanMetaData) result.getEnterpriseBean("ServiceSix");
       assertNotNull(bean);
       assertEquals("ServiceSix", bean.getEjbName());
-      
+
       assertEquals("service description", bean.getDescriptionGroup().getDescription());
-      
+
       assertEquals(1, bean.getBusinessLocals().size());
       assertTrue(bean.getBusinessLocals().contains("org.jboss.ejb3.test.service.ServiceSixLocal"));
       assertEquals(1, bean.getBusinessRemotes().size());
@@ -408,7 +376,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
          assertEquals("org.jboss.ejb3.test.service.ServiceSix", injectionTarget.getInjectionTargetClass());
          assertEquals("stateless", injectionTarget.getInjectionTargetName());
       }
-      
+
       {
          assertEquals(1, bean.getEjbLocalReferences().size());
          EJBLocalReferenceMetaData ejbLocalRef = bean.getEjbLocalReferenceByName("ejb/StatelessLocal");
@@ -423,7 +391,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
          assertEquals("org.jboss.ejb3.test.service.ServiceSix", injectionTarget.getInjectionTargetClass());
          assertEquals("setStatelessLocal", injectionTarget.getInjectionTargetName());
       }
-      
+
       {
          assertEquals(1, bean.getResourceReferences().size());
          ResourceReferenceMetaData resourceRef = bean.getResourceReferenceByName("testDatasource");
@@ -437,28 +405,28 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
          assertEquals("org.jboss.ejb3.test.service.ServiceSix", injectionTarget.getInjectionTargetClass());
          assertEquals("testDatasource", injectionTarget.getInjectionTargetName());
       }
-      
+
       {
          assertEquals(1, bean.getResourceEnvironmentReferences().size());
          ResourceEnvironmentReferenceMetaData resourceEnvRef = bean.getResourceEnvironmentReferenceByName("res/aQueue");
          assertEquals("javax.jms.Queue", resourceEnvRef.getType());
          assertEquals("queue/mdbtest", resourceEnvRef.getJndiName());
       }
-      
+
       {
          assertEquals(1, bean.getMessageDestinationReferences().size());
          MessageDestinationReferenceMetaData messageDestinationRef = bean.getMessageDestinationReferenceByName("messageDestinationRef");
          assertNotNull(messageDestinationRef);
          assertEquals("mappedName", messageDestinationRef.getMappedName());
       }
-      
+
       SecurityIdentityMetaData securityIdentity = bean.getSecurityIdentity();
       assertNotNull(securityIdentity);
       RunAsMetaData runAs = securityIdentity.getRunAs();
       assertNotNull(runAs);
       assertEquals("role name", runAs.getRoleName());
       assertEquals("run as principal", securityIdentity.getRunAsPrincipal());
-      
+
       assertEquals("object name", bean.getObjectName());
       assertEquals("org.jboss.ejb3.test.service.ServiceSixManagement", bean.getManagement());
       assertEquals("xmbean", bean.getXmbean());
@@ -471,7 +439,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertEquals(1, bean.getMethodAttributes().size());
       assertEquals(1, bean.getMethodTransactionTimeout("test"));
    }
-   
+
    /**
     * Validate an ejb-jar.xml/jboss.xml/standardjboss.xml set of metadata used to
     * obtain an ejb container configuration.
@@ -630,7 +598,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertNotNull(imd);
       */
 
-      // Validate the merged StrictlyPooledMDB 
+      // Validate the merged StrictlyPooledMDB
       JBossEnterpriseBeanMetaData strictlyPooledMDB = beans.get("StrictlyPooledMDB");
       JBossMessageDrivenBeanMetaData strictlyPooledMDBMD = (JBossMessageDrivenBeanMetaData) strictlyPooledMDB;
       assertNotNull("strictlyPooledMDB", strictlyPooledMDB);
@@ -727,20 +695,20 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
 //      activationConfig.setActivationConfigProperties(activationConfigProperties);
 //      messageBean.setActivationConfig(activationConfig);
       ejbJar.getEnterpriseBeans().add(messageBean);
-      
+
       JBoss50MetaData metaData = new JBoss50MetaData();
       metaData.setEnterpriseBeans(new JBossEnterpriseBeansMetaData());
       JBossMessageDrivenBeanMetaData jMessageBean = new JBossMessageDrivenBeanMetaData();
       jMessageBean.setEjbName("MyMDB");
       jMessageBean.setDestinationJndiName("destinationJndiName");
       metaData.getEnterpriseBeans().add(jMessageBean);
-      
+
       metaData.merge(null, ejbJar);
-      
+
       JBossMessageDrivenBeanMetaData mergedBean = (JBossMessageDrivenBeanMetaData) metaData.getEnterpriseBean("MyMDB");
       assertNull(mergedBean.getActivationConfig());
    }
-   
+
    public void testInvokerDefaultJndiName() throws Exception
    {
       setValidateSchema(false);
@@ -766,7 +734,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       String invokerJndiName = wrapper.getInvokerBinding("sessionInvokerProxyBindingName");
       assertEquals("SessionEjbName", invokerJndiName);
       */
-      
+
       bean = result.getEnterpriseBean("MdbEjbName");
       assertNotNull(bean);
       invokerBindings = bean.getInvokerBindings();
@@ -803,10 +771,10 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       ResourceManagerMetaData tmgr = resourceMgrs.get("topicref");
       assertNotNull(tmgr);
       assertEquals("topic/testTopic", tmgr.getResJndiName());
-      
+
 
       JBossEnterpriseBeanMetaData mdb = jbossMetaData.getEnterpriseBean("TopicPublisher");
-      
+
       ResourceReferencesMetaData resources = mdb.getResourceReferences();
       ResourceReferenceMetaData jmsRef1 = resources.get("jms/MyTopicConnection");
       assertNotNull(jmsRef1);
@@ -823,7 +791,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertEquals("topicref", jmsRef2.getResourceName());
       assertEquals("topic/testTopic", jmsRef2.getJndiName());
    }
-   
+
    public void testPrincipalVersusRolesMap() throws Exception
    {
       JBossMetaData jbossXmlMetaData = unmarshal();
@@ -849,7 +817,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertEquals("port.component.name", portComponent.getPortComponentName());
       assertEquals("port/component/uri", portComponent.getPortComponentURI());
    }
-   
+
    public void testEjbthreeCacheInvalidationConfig() throws Exception
    {
       setValidateSchema(false);
@@ -857,7 +825,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       JBossEnterpriseBeansMetaData enterpriseBeans = jbossXmlMetaData.getEnterpriseBeans();
       assertNotNull(enterpriseBeans);
       assertEquals(2, enterpriseBeans.size());
-      
+
       // Test that we get a proper default config when there is no
       // <cache-invalidation-config> block in jboss.xml
       JBossEntityBeanMetaData bean = (JBossEntityBeanMetaData) enterpriseBeans.get("TestEntity1");
@@ -869,9 +837,9 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertNull(cicmd.getInvalidationGroupName());
       assertNull(cicmd.getInvalidationManagerName());
       assertEquals("TestEntity1", cicmd.determineInvalidationGroupName());
-      assertEquals(CacheInvalidationConfigMetaData.DEFAULT_INVALIDATION_MANAGER_NAME, 
+      assertEquals(CacheInvalidationConfigMetaData.DEFAULT_INVALIDATION_MANAGER_NAME,
                    cicmd.determineInvalidationManagerName());
-      
+
       // Test that a <cache-invalidation-config> block in jboss.xml
       // is respected
       bean = (JBossEntityBeanMetaData) enterpriseBeans.get("TestEntity2");
@@ -886,7 +854,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertEquals("TestEntityGroup2", cicmd.determineInvalidationGroupName());
       assertEquals("TestInvalidationManager", cicmd.determineInvalidationManagerName());
    }
-   
+
    public void testEjbthreeClusterConfig() throws Exception
    {
       setValidateSchema(true);
@@ -894,38 +862,38 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       JBossEnterpriseBeansMetaData enterpriseBeans = jbossXmlMetaData.getEnterpriseBeans();
       assertNotNull(enterpriseBeans);
       assertEquals(4, enterpriseBeans.size());
-      
+
       JBossSessionBeanMetaData bean = (JBossSessionBeanMetaData) enterpriseBeans.get("SimpleBean");
       assertNotNull(bean);
       ClusterConfigMetaData clusterConfig = bean.getClusterConfig();
-      assertNotNull(clusterConfig);      
+      assertNotNull(clusterConfig);
       assertEquals("ClusterConfigPartition", clusterConfig.getPartitionName());
       assertEquals("SimpleLBP", clusterConfig.getLoadBalancePolicy());
       assertEquals("SimpleLBP", clusterConfig.getBeanLoadBalancePolicy());
       assertNull(clusterConfig.getHomeLoadBalancePolicy());
-      
+
       bean = (JBossSessionBeanMetaData) enterpriseBeans.get("HomeAndBeanBean");
       assertNotNull(bean);
       clusterConfig = bean.getClusterConfig();
-      assertNotNull(clusterConfig);      
+      assertNotNull(clusterConfig);
       assertEquals("ClusterConfigPartition", clusterConfig.getPartitionName());
       assertEquals("BeanLBP", clusterConfig.getLoadBalancePolicy());
       assertEquals("BeanLBP", clusterConfig.getBeanLoadBalancePolicy());
       assertEquals("HomeLBP", clusterConfig.getHomeLoadBalancePolicy());
-      
+
       bean = (JBossSessionBeanMetaData) enterpriseBeans.get("HomeAndSimpleBean");
       assertNotNull(bean);
       clusterConfig = bean.getClusterConfig();
-      assertNotNull(clusterConfig);      
+      assertNotNull(clusterConfig);
       assertEquals("ClusterConfigPartition", clusterConfig.getPartitionName());
       assertEquals("SimpleLBP", clusterConfig.getLoadBalancePolicy());
       assertEquals("SimpleLBP", clusterConfig.getBeanLoadBalancePolicy());
       assertEquals("HomeLBP", clusterConfig.getHomeLoadBalancePolicy());
-      
+
       bean = (JBossSessionBeanMetaData) enterpriseBeans.get("HomeOnlyBean");
       assertNotNull(bean);
       clusterConfig = bean.getClusterConfig();
-      assertNotNull(clusterConfig);      
+      assertNotNull(clusterConfig);
       assertNull(clusterConfig.getPartitionName());
       assertNull(clusterConfig.getLoadBalancePolicy());
       assertNull(clusterConfig.getBeanLoadBalancePolicy());
@@ -944,7 +912,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       JBossEnterpriseBeanMetaData ejb = enterpriseBeans.get("EjbBean");
       assertNotNull(ejb);
       assertEquals("org.jboss.metadata.test.EjbJndiBindingPolicy", ejb.getJndiBindingPolicy());
-      
+
       //ejb = enterpriseBeans.get("MdbName");
       //assertNotNull(ejb);
       //assertEquals("org.jboss.metadata.test.MdbJndiBindingPolicy", ejb.getJndiBindingPolicy());
@@ -965,7 +933,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       assertNull(secid.getRunAs());
       assertEquals("run as principal", secid.getRunAsPrincipal());
    }
-   
+
    private <T> Set<T> toSet(T ... obj)
    {
       Set<T> set = new HashSet<T>();

@@ -22,14 +22,6 @@
 package org.jboss.metadata.ejb.jboss;
 
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
-import org.jboss.metadata.ejb.jboss.jndipolicy.plugins.BasicJndiBindingPolicy;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DeploymentSummary;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.EjbDeploymentSummary;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.KnownInterfaces.KnownInterfaceType;
-import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
-import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
@@ -92,7 +84,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * enterprise-bean/{session,entity,message-driven} metadata
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @author Scott.Stark@jboss.org
  * @version $Revision: 84989 $
@@ -106,7 +98,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /** The enterprise bean container */
    private JBossEnterpriseBeansMetaData enterpriseBeansMetaData;
-   
+
    /** The mapped name */
    private String mappedName;
 
@@ -115,25 +107,25 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /** The local jndi name */
    private String localJndiName;
-   
+
    /** Whether to throw an exception if the transaction is marked for rollback */
    private boolean exceptionOnRollback;
-   
+
    /** Whether to persist timers */
    private boolean timerPersistence = true;
-   
+
    /** The configuration name */
    private String configurationName;
-   
+
    /** The invokers */
    private InvokerBindingsMetaData invokers;
-   
+
    /** The determined invokers */
    private transient InvokerBindingsMetaData determinedInvokers;
 
    /** The ior security config */
    private IORSecurityConfigMetaData iorSecurityConfig;
-   
+
    /** The security proxy */
    private String securityProxy;
 
@@ -142,13 +134,13 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /** The method attributes */
    private MethodAttributesMetaData methodAttributes;
-   
+
    /** The security domain */
    private String securityDomain;
-   
+
    /** The dependencies */
    private Set<String> depends;
-   
+
    /** The annotations */
    private AnnotationsMetaData annotations;
 
@@ -157,10 +149,10 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /** The aop domain name */
    private String aopDomainName;
-   
+
    /** The pool configuration */
    private PoolConfigMetaData poolConfig;
-   
+
    /** The jndi refs */
    private JndiRefsMetaData jndiRefs;
 
@@ -171,7 +163,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    private transient ContainerTransactionsMetaData cachedContainerTransactions;
 
    /** The transaction type cache */
-   private transient ConcurrentHashMap<Method, TransactionAttributeType> methodTx; 
+   private transient ConcurrentHashMap<Method, TransactionAttributeType> methodTx;
    /** The transaction type */
    private TransactionManagementType transactionType;
 
@@ -185,7 +177,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    /**
     * Create the correct JBossEnterpriseBeanMetaData for the input
     * standard bean metadata.
-    * 
+    *
     * @param bean the standard bean metadata
     * @return the corresponding jboss extenstion metadata
     */
@@ -216,7 +208,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          throw new IllegalStateException("Failed to create a new instance of " + getClass(), e);
       }
    }
-   
+
    /**
     * Create a new EnterpriseBeanMetaData.
     */
@@ -227,7 +219,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the enterpriseBeansMetaData.
-    * 
+    *
     * @return the enterpriseBeansMetaData.
     */
    public JBossEnterpriseBeansMetaData getEnterpriseBeansMetaData()
@@ -237,19 +229,19 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the enterpriseBeansMetaData.
-    * 
+    *
     * @param enterpriseBeansMetaData the enterpriseBeansMetaData.
     */
    public void setEnterpriseBeansMetaData(JBossEnterpriseBeansMetaData enterpriseBeansMetaData)
    {
       assert enterpriseBeansMetaData != null : "enterpriseBeansMetaData is null";
-      
+
       this.enterpriseBeansMetaData = enterpriseBeansMetaData;
    }
 
    /**
     * Get the jbossMetaData.
-    * 
+    *
     * @return the jbossMetaData.
     */
    public JBossMetaData getJBossMetaData()
@@ -261,7 +253,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the jbossMetaData.
-    * 
+    *
     * @return the jbossMetaData with check
     */
    public JBossMetaData getJBossMetaDataWithCheck()
@@ -274,14 +266,14 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the jndiEnvironmentRefsGroup.
-    * 
+    *
     * @return the jndiEnvironmentRefsGroup.
     */
    public Environment getJndiEnvironmentRefsGroup()
    {
       return jndiEnvironmentRefsGroup;
    }
-   
+
    public void setJndiEnvironmentRefsGroup(Environment env)
    {
       if (env == null)
@@ -294,10 +286,10 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    {
       this.setJndiEnvironmentRefsGroup(env);
    }
-   
+
    /**
     * Get the ejbName.
-    * 
+    *
     * @return the ejbName.
     */
    public String getEjbName()
@@ -307,7 +299,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the ejbName.
-    * 
+    *
     * @param ejbName the ejbName.
     * @throws IllegalArgumentException for a null ejbName
     */
@@ -328,7 +320,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the container transactions
-    * 
+    *
     * @return the container transactions or null for no result
     */
    public ContainerTransactionsMetaData getContainerTransactions()
@@ -338,12 +330,12 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       JBossAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
       if (assemblyDescriptor == null)
          return null;
-      return assemblyDescriptor.getContainerTransactionsByEjbName(getEjbName()); 
+      return assemblyDescriptor.getContainerTransactionsByEjbName(getEjbName());
    }
 
    /**
     * Get the method transaction type
-    * 
+    *
     * @param methodName the method name
     * @param params the parameters
     * @param iface the interface type
@@ -378,7 +370,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the transaction type
-    * 
+    *
     * @param m the method
     * @param iface the interface type
     * @return the transaction type
@@ -392,7 +384,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       if (methodTx != null)
       {
          result = methodTx.get(m);
-         if (result != null) 
+         if (result != null)
             return result;
       }
 
@@ -410,7 +402,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the exclude list
-    * 
+    *
     * @return the exclude list or null for no result
     */
    public ExcludeListMetaData getExcludeList()
@@ -418,7 +410,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       JBossAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
       if (assemblyDescriptor == null)
          return null;
-      return assemblyDescriptor.getExcludeListByEjbName(getEjbName()); 
+      return assemblyDescriptor.getExcludeListByEjbName(getEjbName());
    }
 
    public String getMappedName()
@@ -438,17 +430,17 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Whether this is a consumer bean
-    * 
+    *
     * @return true when a consumer bean
     */
    public boolean isConsumer()
    {
       return false;
    }
-   
+
    /**
     * Whether this is a service bean
-    * 
+    *
     * @return true when a service bean
     */
    public boolean isService()
@@ -458,7 +450,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Whether this is a session bean
-    * 
+    *
     * @return true when a session bean
     */
    public boolean isSession()
@@ -468,7 +460,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Whether this is a message driven bean
-    * 
+    *
     * @return true when a message driven bean
     */
    public boolean isMessageDriven()
@@ -478,7 +470,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Whether this is an entity bean
-    * 
+    *
     * @return true when an entity bean
     */
    public boolean isEntity()
@@ -490,10 +482,10 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    {
       return false;
    }
-   
+
    /**
     * Is this container managed transactions
-    * 
+    *
     * @return true when CMT
     */
    public boolean isCMT()
@@ -507,7 +499,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Is this bean managed transactions
-    * 
+    *
     * @return true when BMT
     */
    public boolean isBMT()
@@ -527,7 +519,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the localJndiName.
-    * 
+    *
     * @return the localJndiName.
     */
    public String getLocalJndiName()
@@ -537,7 +529,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the localJndiName.
-    * 
+    *
     * @param localJndiName the localJndiName.
     * @throws IllegalArgumentException for a null localJndiName
     */
@@ -550,7 +542,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Determine the localJndiName.
-    * 
+    *
     * @return the localJndiName.
     * @deprecated JBMETA-68
     */
@@ -559,7 +551,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    {
       if (localJndiName != null)
          return localJndiName;
-      
+
       String ejbName = getEjbName();
       return localJndiName = "local/" + ejbName + '@' + System.identityHashCode(ejbName);
    }
@@ -567,7 +559,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    /**
     * Get the base jndi name for the bean if one exists. Not all ejbs have
     * a jndi name notion.
-    * 
+    *
     * @return the base jndi name for the ejb it one exists, null otherwise.
     * @deprecated Handled by Decorators, JBMETA-68
     */
@@ -575,188 +567,22 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    abstract public String determineJndiName();
 
    /**
-    * Determine the jndi name for the proxy associated with iface. This calls
-    * {@link #determineResolvedJndiName(String, null)}
-    * 
-    * @param iface - the fully qualified class name of the interface, or one
-    *    of the {@linkplain KnownInterfaces}. May be null in which case the base
-    *    name as determined by {@link #getMappedName()} or
-    *    {@link #determineJndiName()} is used.
-    * @return the resolved jndi name
-    * @deprecated JBMETA-68
-    */
-   @Deprecated
-   public String determineResolvedJndiName(String iface)
-   {
-      return determineResolvedJndiName(iface, null);
-   }
-   /**
-    * Determine the jndi name for the proxy associated with iface. This uses
-    * the bean DefaultJndiBindingPolicy. This will be one of in the following
-    * order:
-    * - {@link #getJndiBindingPolicy()} the metadata policy
-    * - the argument defaultPolicy
-    * - BasicJndiBindingPolicy(base-jndi-name)
-    * 
-    * @param iface - the fully qualified class name of the interface, or one
-    *    of the {@linkplain KnownInterfaces}. May be null in which case the base
-    *    name as determined by {@link #getMappedName()} or
-    *    {@link #determineJndiName()} is used.
-    * @param defaultPolicy - an optional DefaultJndiBindingPolicy to use if
-    *    {@link #getJndiBindingPolicy()} is null.
-    * @return the resolved jndi name
-    * @deprecated JBMETA-68
-    */
-   @SuppressWarnings("unchecked")
-   @Deprecated
-   public String determineResolvedJndiName(String iface,
-         DefaultJndiBindingPolicy defaultPolicy)
-   {
-      String baseJndiName = getMappedName();
-      if (baseJndiName == null)
-         baseJndiName = determineJndiName();
-      
-      // Obtain the Deployment Summary
-      DeploymentSummary dsummary = getJBossMetaData().getDeploymentSummary();
-      
-      // Initialize the Default JNDI Binding Policy
-      DefaultJndiBindingPolicy policy = null;
-      
-      try
-      {
-         // Initialize a CL
-         ClassLoader loader = null;
-         
-         // Fall back on TCL if there's no DeploymentSummary
-         if (loader == null)
-         {
-            loader = Thread.currentThread().getContextClassLoader();
-         }
-
-         // Create Policy, falling back on the default policy if specified
-         policy = this.createPolicy(loader, defaultPolicy == null ? null : defaultPolicy.getClass());
-      }
-      catch (Exception e)
-      {
-         throw new RuntimeException("Error in creating " + DefaultJndiBindingPolicy.class.getSimpleName(),e);
-      }
-      
-      // If there's still no policy
-      if (policy == null)
-      {
-         // Use the metadata default binding policy
-         policy = new BasicJndiBindingPolicy();
-      }
-
-      if(dsummary==null)
-      {
-         dsummary = new DeploymentSummary();
-      }
-      
-      // Derive the summary info from this metadata and deployment summary
-      EjbDeploymentSummary ejbSummary = new EjbDeploymentSummary(this, dsummary);
-      KnownInterfaceType ifaceType = KnownInterfaces.classifyInterface(iface);
-      // Need to compare iface against the metadata local-home/home & business locals/remotes
-      if (this.isSession() && ifaceType == KnownInterfaceType.UNKNOWN)
-      {
-         JBossSessionBeanMetaData sbeanMD = (JBossSessionBeanMetaData) this;
-         // Figure out the interface type from the metadata
-         if (sbeanMD.getLocalHome() != null && sbeanMD.getLocalHome().equals(iface))
-            ifaceType = KnownInterfaceType.LOCAL_HOME;
-         else if (sbeanMD.getHome() != null && sbeanMD.getHome().equals(iface))
-            ifaceType = KnownInterfaceType.REMOTE_HOME;
-         else
-         {
-            // Check business locals
-            BusinessLocalsMetaData locals = sbeanMD.getBusinessLocals();
-            if (locals != null)
-            {
-               for (String local : locals)
-               {
-                  if (local.equals(iface))
-                  {
-                     ifaceType = KnownInterfaceType.BUSINESS_LOCAL;
-                     break;
-                  }
-               }
-            }
-            if (ifaceType == KnownInterfaceType.UNKNOWN)
-            {
-               // Check business remotes
-               BusinessRemotesMetaData remotes = sbeanMD.getBusinessRemotes();
-               if (remotes != null)
-               {
-                  for (String remote : remotes)
-                  {
-                     if (remote.equals(iface))
-                     {
-                        ifaceType = KnownInterfaceType.BUSINESS_REMOTE;
-                        break;
-                     }
-                  }
-               }
-            }
-         }
-      }
-      else if (this.isEntity() && ifaceType == KnownInterfaceType.UNKNOWN)
-      {
-         JBossEntityBeanMetaData ebeanMD = (JBossEntityBeanMetaData) this;
-         // Figure out the interface type from the metadata
-         if (ebeanMD.getLocalHome() != null && ebeanMD.getLocalHome().equals(iface))
-            ifaceType = KnownInterfaceType.LOCAL_HOME;
-         else if (ebeanMD.getHome() != null && ebeanMD.getHome().equals(iface))
-            ifaceType = KnownInterfaceType.REMOTE_HOME;
-      }      
-      
-      // Have the policy generate the actual name
-      String resolvedJndiName = policy.getJndiName(ejbSummary, iface, ifaceType);
-
-      return resolvedJndiName;
-   }
-
-   /**
-    * Create the DefaultJndiBindingPolicy from the bean metadata.
-    * 
-    * @param loader - the class loader used to load the policy class
-    * @param defaultPolicyClass - a fallback implementation to use if the
-    *    bean has no policy set.
-    * @return the DefaultJndiBindingPolicy implementation
-    * @throws Exception on failure to load the policy class or instantiate it
-    */
-   public DefaultJndiBindingPolicy createPolicy(ClassLoader loader,
-         Class<? extends DefaultJndiBindingPolicy> defaultPolicyClass)
-      throws Exception
-   {
-      Class<? extends DefaultJndiBindingPolicy> policyClass = defaultPolicyClass;
-      String policyClassName = getJndiBindingPolicy();
-      if(policyClassName != null && loader != null)
-      {
-         policyClass = (Class<? extends DefaultJndiBindingPolicy>)
-            loader.loadClass(policyClassName);
-      }
-      DefaultJndiBindingPolicy policy = null;
-      if(policyClass != null)
-         policy = policyClass.newInstance();
-      return policy;
-   }
-
-   /**
     * Determine the container jndi name used in the object name. This is
     * really obsolete as there is no need for jmx names.
-    * 
+    *
     * @return the jndi name suitable for use in the object name
     */
    public String getContainerObjectNameJndiName()
    {
       return getLocalJndiName();
    }
-   
+
    /**
     * Get the kernel name for the ejb container. This is the managed property
     * version admin tools may use to control the name. Generally its not set
     * and the server will set the name via the generatedContainerName
     * non-managed property.
-    * 
+    *
     * @see #setGeneratedContainerName(String)
     * @return containerName property value.
     */
@@ -773,7 +599,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
     * Get the generated kernel name for the ejb container. This is the
     * non-managed property version that the server would use to set the name
     * it generated when no containerName property existed.
-    * 
+    *
     * @see #getContainerName()
     * @return generatedContainerName property value.
     */
@@ -801,7 +627,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the exceptionOnRollback.
-    * 
+    *
     * @return the exceptionOnRollback.
     */
    public boolean isExceptionOnRollback()
@@ -811,7 +637,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the exceptionOnRollback.
-    * 
+    *
     * @param exceptionOnRollback the exceptionOnRollback.
     */
    public void setExceptionOnRollback(boolean exceptionOnRollback)
@@ -821,7 +647,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the timerPersistence.
-    * 
+    *
     * @return the timerPersistence.
     */
    public boolean isTimerPersistence()
@@ -831,7 +657,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the timerPersistence.
-    * 
+    *
     * @param timerPersistence the timerPersistence.
     */
    public void setTimerPersistence(boolean timerPersistence)
@@ -841,7 +667,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the configurationName.
-    * 
+    *
     * @return the configurationName.
     */
    public String getConfigurationName()
@@ -851,7 +677,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the configurationName.
-    * 
+    *
     * @param configurationName the configurationName.
     * @throws IllegalArgumentException for a null configurationName
     */
@@ -861,23 +687,23 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          throw new IllegalArgumentException("Null configurationName");
       this.configurationName = configurationName;
    }
-   
+
    /**
     * Determine the configuration name
-    * 
+    *
     * @return the configuration name
     */
    public String determineConfigurationName()
    {
       if (configurationName != null)
          return configurationName;
-      
+
       return getDefaultConfigurationName();
    }
 
    /**
     * Get the container configuration
-    * 
+    *
     * @return the container configuration
     */
    public ContainerConfigurationMetaData determineContainerConfiguration()
@@ -888,22 +714,22 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          throw new IllegalStateException("Container configuration not found: " + name + " available: " +  getJBossMetaDataWithCheck().getContainerConfigurations());
       return result;
    }
-   
+
    public void setPoolConfig(PoolConfigMetaData poolConfig)
    {
       this.poolConfig = poolConfig;
    }
-   
+
    /**
     * Get the default configuration name
-    * 
+    *
     * @return the default name
     */
    public abstract String getDefaultConfigurationName();
 
    /**
     * Get the securityProxy.
-    * 
+    *
     * @return the securityProxy.
     */
    public String getSecurityProxy()
@@ -913,7 +739,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the securityProxy.
-    * 
+    *
     * @param securityProxy the securityProxy.
     * @throws IllegalArgumentException for a null securityProxy
     */
@@ -926,7 +752,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the securityDomain.
-    * 
+    *
     * @return the securityDomain.
     */
    public String getSecurityDomain()
@@ -936,7 +762,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the securityDomain.
-    * 
+    *
     * @param securityDomain the securityDomain.
     * @throws IllegalArgumentException for a null securityDomain
     */
@@ -949,7 +775,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the depends.
-    * 
+    *
     * @return the depends.
     */
    public Set<String> getDepends()
@@ -959,7 +785,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the depends.
-    * 
+    *
     * @param depends the depends.
     * @throws IllegalArgumentException for a null depends
     */
@@ -972,7 +798,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the depends.
-    * 
+    *
     * @return the depends.
     */
    public Set<String> determineAllDepends()
@@ -982,7 +808,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       Set<String> depends = getDepends();
       if (depends != null)
          result.addAll(depends);
-      
+
       ContainerConfigurationMetaData containerConfigurationMetaData = determineContainerConfiguration();
       if (containerConfigurationMetaData != null)
       {
@@ -990,13 +816,13 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          if (depends != null)
             result.addAll(depends);
       }
-      
+
       return result;
    }
 
    /**
     * Get the invokers.
-    * 
+    *
     * @return the invokers.
     */
    public InvokerBindingsMetaData getInvokerBindings()
@@ -1006,7 +832,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the invokers.
-    * 
+    *
     * @param invokers the invokers.
     * @throws IllegalArgumentException for a null invokers
     */
@@ -1019,7 +845,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Determine the invokers
-    * 
+    *
     * @return the invokers.
     */
    public InvokerBindingsMetaData determineInvokerBindings()
@@ -1027,21 +853,21 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       // We already worked it out
       if (determinedInvokers != null)
          return determinedInvokers;
-      
+
       // Use anything configured
       if (invokers != null)
       {
          determinedInvokers = invokers;
          return determinedInvokers;
       }
-      
+
       // Look at the container configuration
       ContainerConfigurationMetaData containerConfiguration = determineContainerConfiguration();
       Set<String> invokerProxyBindingNames = containerConfiguration.getInvokerProxyBindingNames();
       if (invokerProxyBindingNames != null && invokerProxyBindingNames.isEmpty() == false)
       {
          determinedInvokers = new InvokerBindingsMetaData();
-         
+
          // Like the original code, they all get bound with the same name?
          String jndiName = getDefaultInvokerJndiName();
          for (String name : invokerProxyBindingNames)
@@ -1062,7 +888,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Determine an invoker binding
-    * 
+    *
     * @param invokerName the invoker proxy binding name
     * @return the invoke binding
     * @throws IllegalStateException if there is no such binding
@@ -1077,7 +903,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Determine the jndi name for invoker bindings that come from the container configuration
-    * 
+    *
     * @return the jndi name suitable for use on the default invoker
     */
    protected String getDefaultInvokerJndiName()
@@ -1087,7 +913,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the default invokers
-    * 
+    *
     * @return the default invokers
     */
    protected InvokerBindingsMetaData getDefaultInvokers()
@@ -1104,7 +930,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the default invokers
-    * 
+    *
     * @return the default invokers
     */
    protected abstract String getDefaultInvokerName();
@@ -1199,7 +1025,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    {
       return poolConfig;
    }
-   
+
    public LifecycleCallbacksMetaData getPostConstructs()
    {
       LifecycleCallbacksMetaData lcs = null;
@@ -1267,7 +1093,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the annotations.
-    * 
+    *
     * @return the annotations.
     */
    public AnnotationsMetaData getAnnotations()
@@ -1277,7 +1103,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the annotations.
-    * 
+    *
     * @param annotations the annotations.
     * @throws IllegalArgumentException for a null annotations
     */
@@ -1290,7 +1116,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the aopDomainName.
-    * 
+    *
     * @return the aopDomainName.
     */
    public String getAopDomainName()
@@ -1300,7 +1126,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the aopDomainName.
-    * 
+    *
     * @param aopDomainName the aopDomainName.
     * @throws IllegalArgumentException for a null aopDomainName
     */
@@ -1313,7 +1139,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the jndiRefs.
-    * 
+    *
     * @return the jndiRefs.
     */
    public JndiRefsMetaData getJndiRefs()
@@ -1323,7 +1149,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the jndiRefs.
-    * 
+    *
     * @param jndiRefs the jndiRefs.
     * @throws IllegalArgumentException for a null jndiRefs
     */
@@ -1336,7 +1162,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get a security role
-    * 
+    *
     * @param roleName the role name
     * @return the security role or null if not found
     */
@@ -1351,7 +1177,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get a security role's principals
-    * 
+    *
     * @param roleName the role name
     * @return the principals or null if not found
     */
@@ -1363,7 +1189,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       else
          return assemblyDescriptor.getSecurityRolePrincipals(roleName);
    }
-   
+
    /**
     * Get the Principal versus roles map stored in the security roles
     * @return
@@ -1372,15 +1198,15 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    {
       JBossAssemblyDescriptorMetaData assemblyDescriptor = getJBossMetaDataWithCheck().getAssemblyDescriptor();
       if (assemblyDescriptor == null)
-         return null; 
-      
-      SecurityRolesMetaData securityRolesMetaData = assemblyDescriptor.getSecurityRoles(); 
+         return null;
+
+      SecurityRolesMetaData securityRolesMetaData = assemblyDescriptor.getSecurityRoles();
       return securityRolesMetaData != null ? securityRolesMetaData.getPrincipalVersusRolesMap() : null;
    }
 
    /**
     * Get the methods permissions
-    * 
+    *
     * @return the method permissions or null for no result
     */
    public MethodPermissionsMetaData getMethodPermissions()
@@ -1388,7 +1214,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       JBossAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
       if (assemblyDescriptor == null)
          return null;
-      return assemblyDescriptor.getMethodPermissionsByEjbName(getEjbName()); 
+      return assemblyDescriptor.getMethodPermissionsByEjbName(getEjbName());
    }
 
    /**
@@ -1409,7 +1235,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       Set<String> result = null;
 
       JBossMetaData jbossMetaData = getJBossMetaDataWithCheck();
-      
+
       // First check the excluded method list as this takes priority over
       // all other assignments
       ExcludeListMetaData excluded = getExcludeList();
@@ -1475,11 +1301,11 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          result = Collections.emptySet();
       return result;
    }
-   
+
    /**
     * Check to see if there was a method-permission or exclude-list statement
     * for the given method.
-    * 
+    *
     * @param methodName - the method name
     * @param params - the method parameter signature
     * @param interfaceType - the method interface type
@@ -1510,7 +1336,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the iorSecurityConfig.
-    * 
+    *
     * @return the iorSecurityConfig.
     */
    public IORSecurityConfigMetaData getIorSecurityConfig()
@@ -1520,7 +1346,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the iorSecurityConfig.
-    * 
+    *
     * @param iorSecurityConfig the iorSecurityConfig.
     * @throws IllegalArgumentException for a null iorSecurityConfig
     */
@@ -1533,7 +1359,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the ignoreDependency.
-    * 
+    *
     * @return the ignoreDependency.
     */
    public IgnoreDependencyMetaData getIgnoreDependency()
@@ -1543,7 +1369,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the ignoreDependency.
-    * 
+    *
     * @param ignoreDependency the ignoreDependency.
     * @throws IllegalArgumentException for a null ignoreDependency
     */
@@ -1556,7 +1382,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the methodAttributes.
-    * 
+    *
     * @return the methodAttributes.
     */
    public MethodAttributesMetaData getMethodAttributes()
@@ -1566,7 +1392,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the methodAttributes.
-    * 
+    *
     * @param methodAttributes the methodAttributes.
     * @throws IllegalArgumentException for a null methodAttributes
     */
@@ -1579,7 +1405,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Is this method a read-only method
-    * 
+    *
     * @param methodName the method name
     * @return true for read only
     */
@@ -1592,7 +1418,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Is this method a read-only method
-    * 
+    *
     * @param method the method
     * @return true for read only
     */
@@ -1605,7 +1431,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the transaction timeout for the method
-    * 
+    *
     * @param methodName the method name
     * @return the transaction timeout
     */
@@ -1618,7 +1444,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the transaction timeout for the method
-    * 
+    *
     * @param method the method
     * @return the transaction timeout
     */
@@ -1631,7 +1457,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Get the securityIdentity.
-    * 
+    *
     * @return the securityIdentity.
     */
    public SecurityIdentityMetaData getSecurityIdentity()
@@ -1641,7 +1467,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
    /**
     * Set the securityIdentity.
-    * 
+    *
     * @param securityIdentity the securityIdentity.
     * @throws IllegalArgumentException for a null securityIdentity
     */
@@ -1656,7 +1482,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    {
       this.merge(override, original, "jboss.xml", "ejb-jar.xml", true);
    }
-   
+
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original,
          String overrideFile, String overridenFile, boolean mustOverride)
    {
@@ -1733,7 +1559,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
             }
          }
       }
-      
+
       // Fixup the security identity
       SecurityIdentityMetaData jbossSecurityIdentity = null;
       if (override != null && override.getSecurityIdentity() != null)
@@ -1752,7 +1578,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    public void merge(JBossEnterpriseBeanMetaData override, JBossEnterpriseBeanMetaData original)
    {
       NamedMetaDataWithDescriptionGroupMerger.merge(this, override, original);
-      
+
       AnnotationsMetaData originalAnnotations = null;
       InvokerBindingsMetaData originalInvokers = null;
       JBossEnvironmentRefsGroupMetaData originalEnv = null;
@@ -1785,7 +1611,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
             securityProxy = original.securityProxy;
          if(original.transactionType != null)
             transactionType = original.transactionType;
-         
+
          if(original.depends != null)
          {
             if(depends == null)
@@ -1796,7 +1622,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          // boolean wrapper should be used to differentiate between default and not set values
          timerPersistence = original.timerPersistence;
          exceptionOnRollback = original.exceptionOnRollback;
-         
+
          originalAnnotations = original.annotations;
          originalInvokers = original.invokers;
          originalEnv = original.jndiEnvironmentRefsGroup;
@@ -1805,12 +1631,12 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          originalPool = original.poolConfig;
          originalJndiRefs = original.jndiRefs;
          originalSecId = original.securityIdentity;
-         
+
          // not merged currently but overriden
          if(original.iorSecurityConfig != null)
-            iorSecurityConfig = original.iorSecurityConfig;         
+            iorSecurityConfig = original.iorSecurityConfig;
       }
-      
+
       AnnotationsMetaData overrideAnnotations = null;
       InvokerBindingsMetaData overrideInvokers = null;
       JBossEnvironmentRefsGroupMetaData overrideEnv = null;
@@ -1820,7 +1646,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
       JndiRefsMetaData overrideJndiRefs = null;
       SecurityIdentityMetaData overrideSecId = null;
       if(override != null)
-      {         
+      {
          if(override.aopDomainName != null)
             aopDomainName = override.aopDomainName;
          if(override.configurationName != null)
@@ -1853,7 +1679,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
 
          timerPersistence = override.timerPersistence;
          exceptionOnRollback = override.exceptionOnRollback;
-         
+
          overrideAnnotations = override.annotations;
          overrideInvokers = override.invokers;
          overrideEnv = override.jndiEnvironmentRefsGroup;
@@ -1866,7 +1692,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          if(override.iorSecurityConfig != null)
             iorSecurityConfig = override.iorSecurityConfig;
       }
-      
+
       if(originalAnnotations != null || overrideAnnotations != null)
       {
          if(annotations == null)
@@ -1880,49 +1706,49 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
             invokers = new InvokerBindingsMetaData();
          invokers.merge(overrideInvokers, originalInvokers);
       }
-      
+
       if(originalEnv != null || overrideEnv != null)
       {
          if(jndiEnvironmentRefsGroup == null)
             jndiEnvironmentRefsGroup = new JBossEnvironmentRefsGroupMetaData();
          JBossEnvironmentRefsGroupMetaDataMerger.merge(jndiEnvironmentRefsGroup, overrideEnv, originalEnv, getJBossMetaData().getResourceManagers());
       }
-      
+
       if(originalMethodAttrs != null || overrideMethodAttrs != null)
       {
          if(methodAttributes == null)
             methodAttributes = new MethodAttributesMetaData();
          methodAttributes.merge(overrideMethodAttrs, originalMethodAttrs);
       }
-      
+
       if(originalIgnoreDependency != null || overrideIgnoreDependency != null)
       {
          if(ignoreDependency == null)
             ignoreDependency = new IgnoreDependencyMetaData();
          IgnoreDependencyMetaDataMerger.merge(ignoreDependency, overrideIgnoreDependency, originalIgnoreDependency);
       }
-      
+
       if(originalPool != null || overridePool != null)
       {
          if(poolConfig == null)
             poolConfig = new PoolConfigMetaData();
          poolConfig.merge(overridePool, originalPool);
       }
-      
+
       if(originalJndiRefs != null || overrideJndiRefs != null)
       {
          if(jndiRefs == null)
             jndiRefs = new JndiRefsMetaData();
          JndiRefsMetaDataMerger.merge(jndiRefs, overrideJndiRefs, originalJndiRefs);
       }
-      
+
       if(originalSecId != null || overrideSecId != null)
       {
          if(securityIdentity == null)
             securityIdentity = new SecurityIdentityMetaData();
          securityIdentity.merge(overrideSecId, originalSecId);
       }
-      
+
       // Fixup the invoker binding references on ejb refs
       InvokerBindingsMetaData invokerBindings = getInvokerBindings();
       if (invokerBindings != null && invokerBindings.isEmpty() == false)
@@ -1941,7 +1767,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
             }
          }
       }
-      
+
       // Fixup the security identity
       SecurityIdentityMetaData jbossSecurityIdentity = null;
       if (override != null && override.getSecurityIdentity() != null)
@@ -1955,24 +1781,24 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
             securityIdentity = new SecurityIdentityMetaData();
          securityIdentity.merge(jbossSecurityIdentity, originalSecurityIdentity);
       }
-      
+
       if(original instanceof JBossGenericBeanMetaData)
          merge((JBossGenericBeanMetaData)original);
       if(override instanceof JBossGenericBeanMetaData)
          merge((JBossGenericBeanMetaData)override);
    }
-   
+
    protected void merge(JBossGenericBeanMetaData generic)
-   {  
+   {
    }
-   
+
    public void checkValid()
    {
    }
-   
+
    /**
     * Get the assembly descriptor
-    * 
+    *
     * @return the ejbJarMetaData.
     */
    protected JBossAssemblyDescriptorMetaData getAssemblyDescriptor()
@@ -1982,17 +1808,17 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          return null;
       return ejbJar.getAssemblyDescriptor();
    }
-   
+
    public String getJndiBindingPolicy()
    {
       return jndiBindingPolicy;
    }
-   
+
    public void setJndiBindingPolicy(String jndiBindingPolicy)
    {
       this.jndiBindingPolicy = jndiBindingPolicy;
    }
-   
+
    /**
     * @see org.jboss.metadata.javaee.spec.Environment#getDataSources()
     */
@@ -2003,7 +1829,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
          return jndiEnvironmentRefsGroup.getDataSources();
       return null;
    }
-   
+
    /**
     * @see org.jboss.metadata.javaee.spec.Environment#getDataSourceByName(java.lang.String)
     */
