@@ -22,8 +22,6 @@
 package org.jboss.metadata.ejb.jboss;
 
 import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
-import org.jboss.metadata.javaee.spec.DataSourceMetaData;
-import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.Environment;
@@ -31,7 +29,6 @@ import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
-import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 
 import java.io.Serializable;
 
@@ -53,9 +50,6 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
 
     /** The persistence context reference */
     private PersistenceContextReferencesMetaData persistenceContextRefs;
-
-    /** The data sources */
-    private DataSourcesMetaData dataSources;
 
     @Override
     public EJBLocalReferenceMetaData getEjbLocalReferenceByName(String name) {
@@ -100,20 +94,5 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
     public void setPersistenceContextRefs(PersistenceContextReferencesMetaData persistenceContextRefs) {
         this.persistenceContextRefs = persistenceContextRefs;
     }
-
-    @Override
-    public DataSourcesMetaData getDataSources() {
-        return dataSources;
-    }
-
-    public void setDataSources(DataSourcesMetaData dataSources) {
-        this.dataSources = dataSources;
-    }
-
-    @Override
-    public DataSourceMetaData getDataSourceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, dataSources);
-    }
-
 
 }
