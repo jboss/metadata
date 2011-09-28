@@ -21,14 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import java.lang.reflect.Method;
-import java.util.Map;
-import java.util.Set;
-
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
-
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DefaultJndiBindingPolicy;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
@@ -64,10 +56,16 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagementType;
+import java.lang.reflect.Method;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * Create a JBossSessionBeanMetaData from a JBossGenericBeanMetaData for
  * use in merging a JBossGenericBeanMetaData into a JBossSessionBeanMetaData,
- * 
+ *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 75470 $
  */
@@ -83,15 +81,7 @@ class JBossSessionGenericWrapper extends JBossSessionBean31MetaData
    {
       delegate.checkValid();
    }
-//   public IdMetaDataImpl clone()
-//   {
-//      return delegate.clone();
-//   }
-   public DefaultJndiBindingPolicy createPolicy(ClassLoader loader,
-         Class<? extends DefaultJndiBindingPolicy> defaultPolicyClass) throws Exception
-   {
-      return delegate.createPolicy(loader, defaultPolicyClass);
-   }
+
    @Override
    public Set<String> determineAllDepends()
    {

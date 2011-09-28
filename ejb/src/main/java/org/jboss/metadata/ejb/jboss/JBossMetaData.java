@@ -24,7 +24,6 @@ package org.jboss.metadata.ejb.jboss;
 import org.jboss.logging.Logger;
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DeploymentSummary;
 import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
@@ -53,7 +52,7 @@ import java.util.Set;
 
 /**
  * JBossMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @author Scott.Stark@jboss.org
  * @version $Revision: 81163 $
@@ -63,7 +62,7 @@ public class JBossMetaData extends NamedModuleImpl
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = 598759931857080298L;
-   
+
    /** The log */
    private static final Logger log = Logger.getLogger(JBossMetaData.class);
 
@@ -86,7 +85,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /** The jmx name */
    private String jmxName;
-   
+
    /** The security domain */
    private String securityDomain;
 
@@ -95,34 +94,34 @@ public class JBossMetaData extends NamedModuleImpl
 
    /** Whether to exclude missing methods */
    private boolean excludeMissingMethods = true;
-   
+
    /** The unauthenticated principal */
    private String unauthenticatedPrincipal;
-   
+
    /** Whether to throw an exception when marked rollback */
    private boolean exceptionOnRollback;
-   
+
    /** default JMS RA deployment name */
    private String jmsResourceAdapter;
-   
+
    /** The webservices */
    private WebservicesMetaData webservices;
-   
+
    /** The enterprise beans */
    private JBossEnterpriseBeansMetaData enterpriseBeans;
-   
+
    /** The assembly descriptor */
    private JBossAssemblyDescriptorMetaData assemblyDescriptor;
-   
+
    /** The resource manager */
    private ResourceManagersMetaData resourceManagers;
-   
+
    /** The invoker-proxy-bindings */
    private InvokerProxyBindingsMetaData invokerProxyBindings;
 
    /** The container configurations */
    private ContainerConfigurationsMetaData containerConfigurations;
-   
+
    /** The interceptors */
    private InterceptorsMetaData interceptors;
    /** */
@@ -132,8 +131,6 @@ public class JBossMetaData extends NamedModuleImpl
 
    /** the class name that implements the default JNDI binding policy for this ejb unit*/
    private String jndiBindingPolicy;
-   /** The ejb jar deployment summary information */
-   private DeploymentSummary deploymentSummary;
 
    /**
     * Create a new JBossMetaData.
@@ -186,7 +183,7 @@ public class JBossMetaData extends NamedModuleImpl
    {
       return interceptors;
    }
-   
+
    public void setInterceptors(InterceptorsMetaData interceptors)
    {
       if (interceptors == null)
@@ -195,10 +192,10 @@ public class JBossMetaData extends NamedModuleImpl
       }
       this.interceptors = interceptors;
    }
-   
+
    /**
     * Get the jboss.xml version.
-    * 
+    *
     * @return the version.
     */
    public String getVersion()
@@ -208,7 +205,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the version.
-    * 
+    *
     * @param version the version.
     * @throws IllegalArgumentException for a null version
     */
@@ -223,7 +220,7 @@ public class JBossMetaData extends NamedModuleImpl
    {
       return assemblyDescriptor;
    }
-   
+
    public String getEjbClientJar()
    {
       return this.ejbClientJar;
@@ -274,7 +271,7 @@ public class JBossMetaData extends NamedModuleImpl
    {
       return ejbVersion != null && ejbVersion.contains("3.");
    }
-   
+
    public boolean isEJB31()
    {
       return ejbVersion != null && ejbVersion.trim().equals("3.1");
@@ -282,7 +279,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the loaderRepository.
-    * 
+    *
     * @return the loaderRepository.
     */
    public LoaderRepositoryMetaData getLoaderRepository()
@@ -292,7 +289,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the loaderRepository.
-    * 
+    *
     * @param loaderRepository the loaderRepository.
     * @throws IllegalArgumentException for a null loaderRepository
     */
@@ -305,7 +302,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the jmxName.
-    * 
+    *
     * @return the jmxName.
     */
    public String getJmxName()
@@ -315,7 +312,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the jmxName.
-    * 
+    *
     * @param jmxName the jmxName.
     * @throws IllegalArgumentException for a null jmxName
     */
@@ -342,7 +339,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the securityDomain.
-    * 
+    *
     * @return the securityDomain.
     */
    public String getSecurityDomain()
@@ -352,7 +349,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the securityDomain.
-    * 
+    *
     * @param securityDomain the securityDomain.
     * @throws IllegalArgumentException for a null securityDomain
     */
@@ -365,7 +362,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the excludeMissingMethods.
-    * 
+    *
     * @return the excludeMissingMethods.
     */
    public boolean isExcludeMissingMethods()
@@ -375,7 +372,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the excludeMissingMethods.
-    * 
+    *
     * @param excludeMissingMethods the excludeMissingMethods.
     */
    public void setExcludeMissingMethods(boolean excludeMissingMethods)
@@ -385,7 +382,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the unauthenticatedPrincipal.
-    * 
+    *
     * @return the unauthenticatedPrincipal.
     */
    public String getUnauthenticatedPrincipal()
@@ -395,7 +392,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the unauthenticatedPrincipal.
-    * 
+    *
     * @param unauthenticatedPrincipal the unauthenticatedPrincipal.
     * @throws IllegalArgumentException for a null unauthenticatedPrincipal
     */
@@ -408,7 +405,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the exceptionOnRollback.
-    * 
+    *
     * @return the exceptionOnRollback.
     */
    public boolean isExceptionOnRollback()
@@ -418,7 +415,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the exceptionOnRollback.
-    * 
+    *
     * @param exceptionOnRollback the exceptionOnRollback.
     */
    public void setExceptionOnRollback(boolean exceptionOnRollback)
@@ -438,7 +435,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the enterpriseBeans.
-    * 
+    *
     * @return the enterpriseBeans.
     */
    public JBossEnterpriseBeansMetaData getEnterpriseBeans()
@@ -448,7 +445,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the enterpriseBeans.
-    * 
+    *
     * @param enterpriseBeans the enterpriseBeans.
     * @throws IllegalArgumentException for a null enterpriseBeans
     */
@@ -462,7 +459,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get an enterprise bean
-    * 
+    *
     * @param name the name
     * @return the container configuration
     */
@@ -475,7 +472,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the enforceEjbRestrictions.
-    * 
+    *
     * @param enforceEjbRestrictions the enforceEjbRestrictions.
     * @throws IllegalArgumentException for a null enforceEjbRestrictions
     */
@@ -486,7 +483,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the webservices.
-    * 
+    *
     * @return the webservices.
     */
    public WebservicesMetaData getWebservices()
@@ -496,7 +493,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the webservices.
-    * 
+    *
     * @param webservices the webservices.
     * @throws IllegalArgumentException for a null webservices
     */
@@ -509,7 +506,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the containerConfigurations.
-    * 
+    *
     * @return the containerConfigurations.
     */
    public ContainerConfigurationsMetaData getContainerConfigurations()
@@ -519,7 +516,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the containerConfigurations.
-    * 
+    *
     * @param containerConfigurations the containerConfigurations.
     * @throws IllegalArgumentException for a null containerConfigurations
     */
@@ -532,7 +529,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get a container configuration
-    * 
+    *
     * @param name the name
     * @return the container configuration
     */
@@ -545,7 +542,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the invokerProxyBindings.
-    * 
+    *
     * @return the invokerProxyBindings.
     */
    public InvokerProxyBindingsMetaData getInvokerProxyBindings()
@@ -555,7 +552,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the invokerProxyBindings.
-    * 
+    *
     * @param invokerProxyBindings the invokerProxyBindings.
     * @throws IllegalArgumentException for a null invokerProxyBindings
     */
@@ -568,7 +565,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get an invoker proxy binding
-    * 
+    *
     * @param name the name
     * @return the invoker proxy binding
     */
@@ -581,7 +578,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get the resourceManagers.
-    * 
+    *
     * @return the resourceManagers.
     */
    public ResourceManagersMetaData getResourceManagers()
@@ -591,7 +588,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the resourceManagers.
-    * 
+    *
     * @param resourceManagers the resourceManagers.
     * @throws IllegalArgumentException for a null resourceManagers
     */
@@ -604,7 +601,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Get a resource manager
-    * 
+    *
     * @param name the name
     * @return the resource manager
     */
@@ -617,7 +614,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the assemblyDescriptor.
-    * 
+    *
     * @param assemblyDescriptor the assemblyDescriptor.
     * @throws IllegalArgumentException for a null assemblyDescriptor
     */
@@ -632,22 +629,22 @@ public class JBossMetaData extends NamedModuleImpl
    {
       return jndiBindingPolicy;
    }
-   
+
    public void setJndiBindingPolicy(String jndiBindingPolicy)
    {
       this.jndiBindingPolicy = jndiBindingPolicy;
    }
-   
+
    public String getJMSResourceAdapter()
    {
       return this.jmsResourceAdapter;
    }
-   
+
    public void setJMSResourceAdapter(String jmsResourceAdapter)
    {
       this.jmsResourceAdapter = jmsResourceAdapter;
    }
-   
+
    /**
     * Access the RunAsIdentity associated with the given servlet
     * @param ejbName - the servlet-name from the web.xml
@@ -682,34 +679,20 @@ public class JBossMetaData extends NamedModuleImpl
    }
 
    /**
-    * Get the ejb deployment summary information.
-    * @return the associated ejb deployment summary if a deployer has
-    *    set it. May be null.
-    */
-   public DeploymentSummary getDeploymentSummary()
-   {
-      return deploymentSummary;
-   }
-   public void setDeploymentSummary(DeploymentSummary deploymentSummary)
-   {
-      this.deploymentSummary = deploymentSummary;
-   }
-
-   /**
     * Merge the contents of override with original into this.
-    * 
+    *
     * @param override data which overrides original
     * @param original the original data
     */
    public void merge(JBossMetaData override, EjbJarMetaData original)
    {
       IdMetaDataImplWithDescriptionGroupMerger.merge(this, override, original);
-      
+
       if(override != null && override.getModuleName() != null)
          setModuleName(override.getModuleName());
       else if(original instanceof NamedModule && ((NamedModule) original).getModuleName() != null)
-         setModuleName(((NamedModule) original).getModuleName()); 
-      
+         setModuleName(((NamedModule) original).getModuleName());
+
       if(override != null && override.getVersion() != null)
          version = override.getVersion();
       else if(original != null && original.getVersion() != null)
@@ -760,7 +743,7 @@ public class JBossMetaData extends NamedModuleImpl
          interceptors.merge(override.interceptors);
       else if(original != null && original.getInterceptors() != null)
          interceptors.merge(original.getInterceptors());
-      
+
       if(override != null)
       {
          if(override.jaccContextID != null)
@@ -768,9 +751,9 @@ public class JBossMetaData extends NamedModuleImpl
          if(override.jmxName != null)
             jmxName = override.jmxName;
          if(override.loaderRepository != null)
-            loaderRepository = override.loaderRepository;         
+            loaderRepository = override.loaderRepository;
          if(override.securityDomain != null)
-            securityDomain = override.securityDomain;         
+            securityDomain = override.securityDomain;
          if(override.unauthenticatedPrincipal != null)
             unauthenticatedPrincipal = override.unauthenticatedPrincipal;
          if(override.metadataComplete)
@@ -785,21 +768,21 @@ public class JBossMetaData extends NamedModuleImpl
          enterpriseBeans = new JBossEnterpriseBeansMetaData();
          enterpriseBeans.setJBossMetaData(this);
       }
-      
+
       JBossEnterpriseBeansMetaData jbeans = null;
       if(override != null)
       {
           jbeans = override.enterpriseBeans;
-          
+
           //Ensure that there is no customization of the Unspecified method permissions
           if(override.excludeMissingMethods == false)
-        	  this.excludeMissingMethods = false; 
+        	  this.excludeMissingMethods = false;
       }
-      
+
       EnterpriseBeansMetaData beans = null;
       if(original != null)
          beans = original.getEnterpriseBeans();
-      
+
       boolean isEJB3x = (original == null || original.isEJB3x());
       enterpriseBeans.merge(jbeans, beans, "ejb-jar.xml", "jboss.xml", !isEJB3x);
 
@@ -840,7 +823,7 @@ public class JBossMetaData extends NamedModuleImpl
             }
          }
       }
-      
+
       if(override != null && override.jmsResourceAdapter != null)
          jmsResourceAdapter = override.jmsResourceAdapter;
    }
@@ -853,7 +836,7 @@ public class JBossMetaData extends NamedModuleImpl
          version = override.getVersion();
       else if(original != null && original.getVersion() != null)
          version = original.getVersion();
-      
+
       JBossAssemblyDescriptorMetaData originalAssembly = null;
       InvokerProxyBindingsMetaData originalInvokerProxyBindings = null;
       InterceptorsMetaData originalInterceptors = null;
@@ -866,7 +849,7 @@ public class JBossMetaData extends NamedModuleImpl
          originalInterceptors = original.interceptors;
          originalWebservices = original.webservices;
          originalBeans = original.enterpriseBeans;
-         
+
          if(original.ejbVersion != null)
             ejbVersion = original.ejbVersion;
          if(original.metadataComplete)
@@ -878,9 +861,9 @@ public class JBossMetaData extends NamedModuleImpl
          if(original.jmxName != null)
             jmxName = original.jmxName;
          if(original.loaderRepository != null)
-            loaderRepository = original.loaderRepository;         
+            loaderRepository = original.loaderRepository;
          if(original.securityDomain != null)
-            securityDomain = original.securityDomain;         
+            securityDomain = original.securityDomain;
          if(original.unauthenticatedPrincipal != null)
             unauthenticatedPrincipal = original.unauthenticatedPrincipal;
 
@@ -890,7 +873,7 @@ public class JBossMetaData extends NamedModuleImpl
                containerConfigurations = new ContainerConfigurationsMetaData();
             containerConfigurations.merge(original.containerConfigurations);
          }
-         
+
          if(original.resourceManagers != null)
          {
             if(resourceManagers == null)
@@ -924,22 +907,22 @@ public class JBossMetaData extends NamedModuleImpl
          if(override.jmxName != null)
             jmxName = override.jmxName;
          if(override.loaderRepository != null)
-            loaderRepository = override.loaderRepository;         
+            loaderRepository = override.loaderRepository;
          if(override.securityDomain != null)
-            securityDomain = override.securityDomain;         
+            securityDomain = override.securityDomain;
          if(override.unauthenticatedPrincipal != null)
             unauthenticatedPrincipal = override.unauthenticatedPrincipal;
          //Ensure that there is no customization of the Unspecified method permissions
          if(override.excludeMissingMethods == false)
              this.excludeMissingMethods = false;
-         
+
          if(override.containerConfigurations != null)
          {
             if(containerConfigurations == null)
                containerConfigurations = new ContainerConfigurationsMetaData();
             containerConfigurations.merge(override.containerConfigurations);
          }
-         
+
          if(override.resourceManagers != null)
          {
             if(resourceManagers == null)
@@ -947,12 +930,12 @@ public class JBossMetaData extends NamedModuleImpl
             resourceManagers.addAll(override.resourceManagers);
          }
       }
-      
+
       if(assemblyDescriptor == null)
          assemblyDescriptor = new JBossAssemblyDescriptorMetaData();
       if(overrideAssembly != null || originalAssembly != null)
          assemblyDescriptor.merge(overrideAssembly, originalAssembly);
-      
+
       if(invokerProxyBindings == null)
          invokerProxyBindings = new InvokerProxyBindingsMetaData();
       if(overrideInvokerProxyBindings != null || originalInvokerProxyBindings != null)
@@ -975,10 +958,10 @@ public class JBossMetaData extends NamedModuleImpl
          enterpriseBeans = new JBossEnterpriseBeansMetaData();
          enterpriseBeans.setJBossMetaData(this);
       }
-      
+
       if(originalBeans != null || overrideBeans != null)
          enterpriseBeans.merge(overrideBeans, originalBeans);
-      
+
       // Update run-as indentity for a run-as-principal
       if(enterpriseBeans != null)
       {
@@ -1016,22 +999,22 @@ public class JBossMetaData extends NamedModuleImpl
             }
          }
       }
-      
+
       if(override != null && override.getJMSResourceAdapter() != null)
          jmsResourceAdapter = override.getJMSResourceAdapter();
       else if(original != null && original.getJMSResourceAdapter() != null)
          jmsResourceAdapter = original.getJMSResourceAdapter();
    }
-   
+
    /**
-    * 
+    *
     * @return
     */
    protected JBossEnterpriseBeanMetaData newBean()
    {
       return null;
    }
-   
+
    /**
     * Returns the {@link InterceptorsMetaData} which are applicable for the <code>beanName</code>
     * in the <code>jbossMetaData</code>
@@ -1039,7 +1022,7 @@ public class JBossMetaData extends NamedModuleImpl
     *   An interceptor is considered as bound to an EJB if there's atleast one interceptor
     *   binding between the EJB and the interceptor class. The interceptor binding can either
     *   be through the use of <interceptor-binding> element in ejb-jar.xml or through the
-    *   use of {@link Interceptors} annotation(s) in the EJB class. 
+    *   use of {@link Interceptors} annotation(s) in the EJB class.
     * </p>
     * <p>
     *   If the EJB has an around-invoke element which uses class name other than the EJB class name,
@@ -1056,12 +1039,12 @@ public class JBossMetaData extends NamedModuleImpl
     *           <method-name>blah</method-name>
     *       </around-invoke>
     *   </session>
-    *   
-    *   The <code>org.myapp.SomeClass</code> will be considered as a interceptor class bound to the EJB, 
+    *
+    *   The <code>org.myapp.SomeClass</code> will be considered as a interceptor class bound to the EJB,
     *   <code>org.myapp.ejb.MyBean</code>, even if there is no explicit interceptor binding between that EJB
     *   and the <code>org.myapp.SomeClass</code>
     * </p>
-    * 
+    *
     * @param beanName The EJB name
     * @param jbossMetaData The {@link JBossMetaData} corresponding to the <code>beanName</code>
     * @return
@@ -1089,7 +1072,7 @@ public class JBossMetaData extends NamedModuleImpl
       return getInterceptors(beanName, allInterceptors, allInterceptorBindings);
    }
 
-   
+
    /**
     * Returns all interceptor classes which are present in the passed <code>jbossMetaData</code>.
     * <p>
@@ -1104,9 +1087,9 @@ public class JBossMetaData extends NamedModuleImpl
     * </p>
     * @param jbossMetaData The {@link JBossMetaData} which will scanned for interceptor classes
     * @return
-    * 
+    *
     */
-   public static Collection<String> getAllInterceptorClasses(JBossMetaData jbossMetaData) 
+   public static Collection<String> getAllInterceptorClasses(JBossMetaData jbossMetaData)
    {
       Collection<String> allInterceptorClassNames = new HashSet<String>();
 
@@ -1140,7 +1123,7 @@ public class JBossMetaData extends NamedModuleImpl
                      {
                         allInterceptorClassNames.add(interceptorClass);
                      }
-   
+
                   }
                }
             }
@@ -1195,7 +1178,7 @@ public class JBossMetaData extends NamedModuleImpl
     * Utility method which, given a bean name, all interceptors available in a deployment
     * and the all the interceptor binding information, will return only those interceptors
     * which are applicable to the EJB corresponding to the bean name
-    * 
+    *
     * @param ejbName Name of the EJB
     * @param allInterceptors {@link InterceptorsMetaData} of all interceptors
     * @param allInterceptorBindings {@link InterceptorBindingsMetaData} of all interceptor bindings
@@ -1205,7 +1188,7 @@ public class JBossMetaData extends NamedModuleImpl
          InterceptorBindingsMetaData allInterceptorBindings)
    {
       InterceptorsMetaData beanApplicableInterceptors = new InterceptorsMetaData();
-      // the default interceptors (ejbname = *) will be 
+      // the default interceptors (ejbname = *) will be
       // considered as *not* applicable for a bean, if *all* the interceptor
       // bindings for that bean, have set the exclude-default-interceptors to true
       boolean includeDefaultInterceptors = false;
@@ -1282,16 +1265,16 @@ public class JBossMetaData extends NamedModuleImpl
                if (interceptorMetaData != null)
                {
                   // add the interceptor metadata to the set of default interceptors.
-                  // Whether or not these default interceptors are applicable for 
+                  // Whether or not these default interceptors are applicable for
                   // the bean being processed, will be decide later
                   defaultInterceptors.add(interceptorMetaData);
                }
             }
          }
       }
-      // if the default interceptors (ejb name= *) are to be included 
+      // if the default interceptors (ejb name= *) are to be included
       // for this bean.
-      // the default interceptors (ejbname = *) will be 
+      // the default interceptors (ejbname = *) will be
       // considered as *not* applicable for a bean, if *all* the interceptor
       // bindings for that bean, have set the exclude-default-interceptors to true
       if (includeDefaultInterceptors)

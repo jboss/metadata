@@ -22,7 +22,6 @@
 package org.jboss.metadata.ejb.jboss;
 
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
-import org.jboss.metadata.ejb.jboss.jndipolicy.spi.DeploymentSummary;
 import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
 import org.jboss.metadata.ejb.spec.RelationsMetaData;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
@@ -42,7 +41,7 @@ public class JBossMetaDataWrapper extends JBossMetaData
    private JBossMetaData defaults;
    private ContainerConfigurationsMetaData configurationsWrapper;
    private transient InvokerProxyBindingsMetaData mergedInvokerBindings;
-   
+
 
    public JBossMetaDataWrapper(JBossMetaData primary, JBossMetaData defaults)
    {
@@ -130,7 +129,7 @@ public class JBossMetaDataWrapper extends JBossMetaData
    {
       return primary.getAssemblyDescriptor();
    }
-   
+
    @Override
    public ContainerConfigurationMetaData getContainerConfiguration(String name)
    {
@@ -222,13 +221,6 @@ public class JBossMetaDataWrapper extends JBossMetaData
       return unauthenticatedPrincipal;
    }
 
-   
-   @Override
-   public DeploymentSummary getDeploymentSummary()
-   {
-      DeploymentSummary summary = super.getDeploymentSummary();
-      return summary;
-   }
 
    @Override
    public String getJndiBindingPolicy()
