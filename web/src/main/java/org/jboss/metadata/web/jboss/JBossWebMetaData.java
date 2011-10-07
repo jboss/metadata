@@ -140,6 +140,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private WebserviceDescriptionsMetaData webserviceDescriptions = new WebserviceDescriptionsMetaData();
     private Boolean jaccAllStoreRole;
     private JBossAnnotationsMetaData annotations;
+    private boolean useJBossAuthorization;
 
     private List<ContainerListenerMetaData> containerListeners;
     private List<ValveMetaData> valves;
@@ -611,6 +612,14 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setArbitraryMetadata(HashMap<?, ?> arbitraryMetadata) {
         this.arbitraryMetadata = arbitraryMetadata;
+    }
+
+    public boolean isUseJBossAuthorization() {
+        return useJBossAuthorization;
+    }
+
+    public void setUseJBossAuthorization(boolean useJBossAuthorization) {
+        this.useJBossAuthorization = useJBossAuthorization;
     }
 
     public boolean isFlushOnSessionInvalidation() {
