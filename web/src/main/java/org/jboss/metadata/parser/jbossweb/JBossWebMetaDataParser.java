@@ -180,6 +180,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case DISABLE_CROSS_CONTEXT:
                 	wmd.setDisableCrossContext(Boolean.valueOf(getElementText(reader)));
                 	break;
+                case USE_JBOSS_AUTHORIZATION:
+                	wmd.setUseJBossAuthorization(Boolean.valueOf(getElementText(reader)));
+                	break;
                 case SERVLET:
                     JBossServletsMetaData servlets = wmd.getServlets();
                     if (servlets == null) {
