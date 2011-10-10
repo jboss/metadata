@@ -94,6 +94,7 @@ public enum Element {
 
     TRANSPORT_GUARANTEE("transport-guarantee"),
 
+    USE_JBOSS_AUTHORIZATION("use-jboss-authorization"),
     USE_JK("use-jk"),
     USE_SESSION_COOKIES("use-session-cookies"),
     USE_SESSION_PASSIVATION("use-session-passivation"),
