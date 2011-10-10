@@ -21,18 +21,18 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.NonNullLinkedHashSetWithId;
+import java.util.ArrayList;
 
 /**
  * InterceptorClassesMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class InterceptorClassesMetaData extends NonNullLinkedHashSetWithId<String>
+public class InterceptorClassesMetaData extends ArrayList<String>
 {
    /** The serialVersionUID */
-   private static final long serialVersionUID = 5516210500525606753L;
+   private static final long serialVersionUID = 6516210500525606753L;
 
    /**
     * Create a new InterceptorClassesMetaData.
