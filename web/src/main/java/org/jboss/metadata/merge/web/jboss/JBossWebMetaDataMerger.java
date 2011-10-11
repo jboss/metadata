@@ -260,5 +260,7 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         if (override != null && override.getOverlays() != null)
             dest.setOverlays(override.getOverlays());
 
+        if (override != null && override.isUseJBossAuthorization())
+        	dest.setUseJBossAuthorization(override.isUseJBossAuthorization());
     }
 }
