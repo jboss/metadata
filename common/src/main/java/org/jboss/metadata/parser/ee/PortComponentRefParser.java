@@ -89,8 +89,7 @@ public class PortComponentRefParser extends MetaDataElementParser {
                     portComponentRef.setConfigFile(getElementText(reader));
                     break;
                 case PORT_QNAME:
-                    QName portQName = QName.valueOf(getElementText(reader));
-                    portComponentRef.setPortQname(portQName);
+                    portComponentRef.setPortQname(parseQName(reader, getElementText(reader)));
                     break;
                 case STUB_PROPERTY:
                     stubProperties.add(StubPropertyParser.parse(reader));
