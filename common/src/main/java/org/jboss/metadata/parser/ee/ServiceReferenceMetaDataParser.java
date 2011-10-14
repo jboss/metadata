@@ -100,7 +100,7 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                     serviceReference.setJaxrpcMappingFile(getElementText(reader));
                     break;
                 case SERVICE_QNAME:
-                    serviceReference.setServiceQname(QName.valueOf(getElementText(reader)));
+                    serviceReference.setServiceQname(parseQName(reader, getElementText(reader)));
                     break;
                 case PORT_COMPONENT_REF:
                     List<JBossPortComponentRef> portComponentRefs = (List<JBossPortComponentRef>) serviceReference.getPortComponentRef();
