@@ -47,6 +47,7 @@ public enum Element {
     CONTEXT_ROOT("context-root"),
 
     DEPENDS("depends"),
+    DISABLE_AUDIT("disable-audit"),
     DISABLE_CROSS_CONTEXT("disable-cross-context"),
 
     EMPTY_ROLE_SEMANTIC("empty-role-semantic"),
