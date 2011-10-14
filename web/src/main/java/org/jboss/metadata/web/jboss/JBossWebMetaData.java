@@ -141,6 +141,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private Boolean jaccAllStoreRole;
     private JBossAnnotationsMetaData annotations;
     private boolean useJBossAuthorization;
+    private boolean disableAudit;
 
     private List<ContainerListenerMetaData> containerListeners;
     private List<ValveMetaData> valves;
@@ -620,6 +621,14 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setUseJBossAuthorization(boolean useJBossAuthorization) {
         this.useJBossAuthorization = useJBossAuthorization;
+    }
+    
+    public boolean isDisableAudit() {
+    	return disableAudit;
+    }
+    
+    public void setDisableAudit(boolean disableAudit) {
+    	this.disableAudit = disableAudit;
     }
 
     public boolean isFlushOnSessionInvalidation() {
