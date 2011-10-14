@@ -183,6 +183,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case USE_JBOSS_AUTHORIZATION:
                 	wmd.setUseJBossAuthorization(Boolean.valueOf(getElementText(reader)));
                 	break;
+                case DISABLE_AUDIT:
+                	wmd.setDisableAudit(Boolean.valueOf(getElementText(reader)));
+                	break;
                 case SERVLET:
                     JBossServletsMetaData servlets = wmd.getServlets();
                     if (servlets == null) {
