@@ -22,9 +22,12 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 import org.jboss.metadata.ejb.spec.MultiplicityType;
 import org.jboss.metadata.ejb.spec.RelationRoleMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
+import org.jboss.metadata.javaee.spec.EmptyMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
@@ -37,7 +40,7 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class RelationRoleMetaDataParser extends AbstractMetaDataParser<RelationRoleMetaData>
 {
-
+    private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final RelationRoleMetaDataParser INSTANCE = new RelationRoleMetaDataParser();
 
 
@@ -94,14 +97,18 @@ public class RelationRoleMetaDataParser extends AbstractMetaDataParser<RelationR
             final  String text = getElementText(reader);
             relation.setMultiplicity(MultiplicityType.valueOf(text));
             return;
-
          case RELATIONSHIP_ROLE_SOURCE:
             relation.setRoleSource(RelationRoleSourceMetaDataParser.INSTANCE.parse(reader));
             return;
          case CMR_FIELD:
-            
+            relation.setCmrField(RelationRoleCmrFieldMetaDataParser.INSTANCE.parse(reader));
             return;
-
+        case CASCADE_DELETE:
+            final EmptyMetaData cascade = new EmptyMetaData();
+            processAttributes(cascade, reader, ATTRIBUTE_PROCESSOR);
+            relation.setCascadeDelete(cascade);
+            reader.getElementText();
+            return;
          default:
             throw unexpectedElement(reader);
       }

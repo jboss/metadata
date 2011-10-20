@@ -57,6 +57,7 @@ public enum EjbJarElement
    BUSINESS_LOCAL("business-local"),
    BUSINESS_REMOTE("business-remote"),
 
+   CASCADE_DELETE("cascade-delete"),
    CLASS("class"),
    CMP_FIELD("cmp-field"),
    CMP_VERSION("cmp-version"),
