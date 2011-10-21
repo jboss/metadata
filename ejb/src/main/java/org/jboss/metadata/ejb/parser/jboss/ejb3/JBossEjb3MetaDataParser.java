@@ -22,6 +22,7 @@
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
 import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
+import org.jboss.metadata.ejb.jboss.ejb3.JBossEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractEjbJarMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.EjbJarNamespaceMapping;
@@ -126,14 +127,37 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser<JBossE
    @Override
    protected void processElement(JBossEjb31MetaData metaData, XMLStreamReader reader) throws XMLStreamException
    {
+      final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
       final Element element = Element.forName(reader.getLocalName());
-      switch (element)
+      switch (namespace)
       {
-         case ASSEMBLY_DESCRIPTOR:
-            metaData.setAssemblyDescriptor(parseAssemblyDescriptor(reader));
+         case JBOSS:
+            switch (element)
+            {
+               case ENTERPRISE_BEANS:
+                  metaData.setEnterpriseBeans(parseEnterpriseBeans(reader, metaData.getEjbJarVersion()));
+                  break;
+               default:
+                  super.processElements(metaData, reader);
+            }
+            break;
+         case SPEC:
+            switch (element)
+            {
+               case ASSEMBLY_DESCRIPTOR:
+                  metaData.setAssemblyDescriptor(parseAssemblyDescriptor(reader));
+                  break;
+               default:
+                  super.processElement(metaData, reader);
+            }
             break;
          default:
-            super.processElement(metaData, reader);
+            throw unexpectedElement(reader);
       }
+   }
+
+   private JBossEnterpriseBeansMetaData parseEnterpriseBeans(final XMLStreamReader reader, final EjbJarVersion ejbJarVersion) throws XMLStreamException
+   {
+      return new JBossEnterpriseBeansMetaDataParser(ejbJarVersion).parse(reader);
    }
 }

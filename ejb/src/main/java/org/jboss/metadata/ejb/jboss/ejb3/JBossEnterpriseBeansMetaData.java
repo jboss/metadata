@@ -19,51 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.ejb.parser.jboss.ejb3;
+package org.jboss.metadata.ejb.jboss.ejb3;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public enum Element
+public class JBossEnterpriseBeansMetaData extends EnterpriseBeansMetaData
 {
-   // must be first
-   UNKNOWN(null),
-   ASSEMBLY_DESCRIPTOR("assembly-descriptor"),
-   EJB("ejb"),
-   ENTERPRISE_BEANS("enterprise-beans"),
-   ;
-
-   private final String name;
-
-   Element(String name)
-   {
-      this.name = name;
-   }
-
-   public String getLocalName()
-   {
-      return name;
-   }
-
-   private static final Map<String, Element> MAP;
-
-   static
-   {
-      final Map<String, Element> map = new HashMap<String, Element>();
-      for (Element element : values())
-      {
-         final String name = element.getLocalName();
-         if(name != null) map.put(name, element);
-      }
-      MAP = map;
-   }
-
-   public static Element forName(final String localName)
-   {
-      final Element element = MAP.get(localName);
-      return element == null ? UNKNOWN : element;
-   }
 }

@@ -19,51 +19,36 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.ejb.parser.jboss.ejb3;
+package org.jboss.metadata.ejb.jboss.ejb3;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public enum Element
+public class JBossGenericBeanMetaData extends EnterpriseBeanMetaData
 {
-   // must be first
-   UNKNOWN(null),
-   ASSEMBLY_DESCRIPTOR("assembly-descriptor"),
-   EJB("ejb"),
-   ENTERPRISE_BEANS("enterprise-beans"),
-   ;
-
-   private final String name;
-
-   Element(String name)
+   @Override
+   protected EnterpriseBeanMetaData createMerged(EnterpriseBeanMetaData original)
    {
-      this.name = name;
+      final EnterpriseBeanMetaData merged = newInstance(original);
+      merged.merge(this, original);
+      return merged;
    }
 
-   public String getLocalName()
+   private static EnterpriseBeanMetaData newInstance(final EnterpriseBeanMetaData original)
    {
-      return name;
-   }
-
-   private static final Map<String, Element> MAP;
-
-   static
-   {
-      final Map<String, Element> map = new HashMap<String, Element>();
-      for (Element element : values())
+      try
       {
-         final String name = element.getLocalName();
-         if(name != null) map.put(name, element);
+         return original.getClass().newInstance();
       }
-      MAP = map;
-   }
-
-   public static Element forName(final String localName)
-   {
-      final Element element = MAP.get(localName);
-      return element == null ? UNKNOWN : element;
+      catch (InstantiationException e)
+      {
+         throw new RuntimeException(e);
+      }
+      catch (IllegalAccessException e)
+      {
+         throw new RuntimeException(e);
+      }
    }
 }
