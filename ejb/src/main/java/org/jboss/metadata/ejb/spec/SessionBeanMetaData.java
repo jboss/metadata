@@ -475,6 +475,8 @@ public class SessionBeanMetaData extends EnterpriseBeanMetaData
    public void merge(EnterpriseBeanMetaData eoverride, EnterpriseBeanMetaData eoriginal)
    {
       super.merge(eoverride, eoriginal);
+      if (!(eoverride instanceof SessionBeanMetaData))
+         return;
       SessionBeanMetaData override = (SessionBeanMetaData) eoverride;
       SessionBeanMetaData original = (SessionBeanMetaData) eoriginal;
       if(override != null && override.home != null)
