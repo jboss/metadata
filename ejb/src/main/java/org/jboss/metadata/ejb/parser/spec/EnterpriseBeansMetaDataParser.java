@@ -26,12 +26,9 @@ import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * Parses the enterprise-beans elements in a ejb-jar.xml and creates metadata
@@ -40,10 +37,19 @@ import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.proces
  * <p/>
  * Author: Jaikiran Pai
  */
-public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
+public class EnterpriseBeansMetaDataParser<MD extends EnterpriseBeansMetaData> extends AbstractMetaDataParser<MD>
 {
    private static final AttributeProcessor<EnterpriseBeansMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<EnterpriseBeansMetaData>(UnexpectedAttributeProcessor.instance());
    private static final MessageDrivenBean31Parser MESSAGE_DRIVEN_BEAN_PARSER = new MessageDrivenBean31Parser();
+
+   private final SessionBeanMetaDataParser sessionBeanParser;
+   private final EntityBeanMetaDataParser entityBeanMetaDataParser;
+
+   public EnterpriseBeansMetaDataParser(final EjbJarVersion ejbJarVersion)
+   {
+      sessionBeanParser = SessionBeanMetaDataParserFactory.getParser(ejbJarVersion);
+      entityBeanMetaDataParser = new EntityBeanMetaDataParser();
+   }
 
    /**
     * Creates and returns {@link EnterpriseBeansMetaData} after parsing the enterprise-beans
@@ -53,36 +59,51 @@ public class EnterpriseBeansMetaDataParser extends MetaDataElementParser
     * @param ejbJarVersion The version of ejb-jar
     * @return
     * @throws XMLStreamException
+    * @deprecated use AbstractMetaDataParser setup
     */
+   @Deprecated
    public static EnterpriseBeansMetaData parse(XMLStreamReader reader, EjbJarVersion ejbJarVersion) throws XMLStreamException
    {
-      EnterpriseBeansMetaData enterpriseBeans = new EnterpriseBeansMetaData();
-      processAttributes(enterpriseBeans, reader, ATTRIBUTE_PROCESSOR);
-      SessionBeanMetaDataParser sessionBeanParser = SessionBeanMetaDataParserFactory.getParser(ejbJarVersion);
-      EntityBeanMetaDataParser entityBeanMetaDataParser = new EntityBeanMetaDataParser();
-      // Handle elements
-      while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
-      {
-         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
-         switch (ejbJarElement)
-         {
-            case SESSION:
-               SessionBeanMetaData sessionBean = sessionBeanParser.parse(reader);
-               // add the session bean metadata to the enterprise beans
-               enterpriseBeans.add(sessionBean);
-               break;
-            case ENTITY:
-               EntityBeanMetaData entityBean = entityBeanMetaDataParser.parse(reader);
-               enterpriseBeans.add(entityBean);
-               break;
-            case MESSAGE_DRIVEN:
-               enterpriseBeans.add(MESSAGE_DRIVEN_BEAN_PARSER.parse(reader));
-               break;
-               
-            default:
-               throw unexpectedElement(reader);
-         }
-      }
+      EnterpriseBeansMetaDataParser<EnterpriseBeansMetaData> parser = new EnterpriseBeansMetaDataParser<EnterpriseBeansMetaData>(ejbJarVersion);
+      return parser.parse(reader);
+   }
+
+   @Override
+   public MD parse(XMLStreamReader reader) throws XMLStreamException
+   {
+      MD enterpriseBeans = (MD) new EnterpriseBeansMetaData();
+      processAttributes(enterpriseBeans, reader);
+      processElements(enterpriseBeans, reader);
       return enterpriseBeans;
+   }
+
+   protected void processAttributes(final MD enterpriseBeans, final XMLStreamReader reader) throws XMLStreamException
+   {
+      // TODO: this does not allow for inheritance overrides
+      AttributeProcessorHelper.processAttributes(enterpriseBeans, reader, ATTRIBUTE_PROCESSOR);
+   }
+
+   @Override
+   protected void processElement(MD enterpriseBeans, XMLStreamReader reader) throws XMLStreamException
+   {
+      final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
+      switch (ejbJarElement)
+      {
+         case SESSION:
+            SessionBeanMetaData sessionBean = sessionBeanParser.parse(reader);
+            // add the session bean metadata to the enterprise beans
+            enterpriseBeans.add(sessionBean);
+            break;
+         case ENTITY:
+            EntityBeanMetaData entityBean = entityBeanMetaDataParser.parse(reader);
+            enterpriseBeans.add(entityBean);
+            break;
+         case MESSAGE_DRIVEN:
+            enterpriseBeans.add(MESSAGE_DRIVEN_BEAN_PARSER.parse(reader));
+            break;
+
+         default:
+            throw unexpectedElement(reader);
+      }
    }
 }
