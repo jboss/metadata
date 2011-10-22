@@ -140,8 +140,8 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private WebserviceDescriptionsMetaData webserviceDescriptions = new WebserviceDescriptionsMetaData();
     private Boolean jaccAllStoreRole;
     private JBossAnnotationsMetaData annotations;
-    private boolean useJBossAuthorization;
-    private boolean disableAudit;
+    private boolean useJBossAuthorization = false;
+    private boolean disableAudit = true;
 
     private List<ContainerListenerMetaData> containerListeners;
     private List<ValveMetaData> valves;
