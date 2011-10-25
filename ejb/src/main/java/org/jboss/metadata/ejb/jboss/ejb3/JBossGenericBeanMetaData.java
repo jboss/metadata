@@ -38,6 +38,8 @@ public class JBossGenericBeanMetaData extends EnterpriseBeanMetaData
 
    private static EnterpriseBeanMetaData newInstance(final EnterpriseBeanMetaData original)
    {
+      if (original == null)
+         return new JBossGenericBeanMetaData();
       try
       {
          return original.getClass().newInstance();

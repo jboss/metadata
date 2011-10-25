@@ -70,6 +70,24 @@ public class GenericBeanTestCase
       assertTrue(bean instanceof SessionBeanMetaData);
    }
 
+   /*
+    * Make sure there is no NPE while merging the generic bean.
+    */
+   @Test
+   public void testMerge2() throws Exception
+   {
+      JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "/org/jboss/metadata/ejb/test/ejbthree936/jboss-ejb3.xml");
+      EjbJar31MetaData original = new EjbJar31MetaData();
+      original.setEnterpriseBeans(new EnterpriseBeansMetaData());
+      SessionBeanMetaData sessionBean = new SessionBeanMetaData();
+      sessionBean.setEjbName("OtherStatelessBean");
+      original.getEnterpriseBeans().add(sessionBean);
+      JBossEjb31MetaData merged = metaData.createMerged(original);
+      EnterpriseBeanMetaData bean = merged.getEnterpriseBean("OtherStatelessBean");
+      // TODO: define the output
+      assertNotNull(bean);
+   }
+
    @Test
    public void testParse() throws Exception
    {
