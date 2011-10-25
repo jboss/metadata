@@ -91,9 +91,13 @@ public class SessionBean31MetaData extends SessionBeanMetaData implements ITimeo
    private StatefulTimeoutMetaData statefulTimeout;
    private AroundTimeoutsMetaData aroundTimeouts;
    
-   protected SessionBean31MetaData createMerged(EnterpriseBeanMetaData original)
+   protected SessionBeanMetaData createMerged(EnterpriseBeanMetaData original)
    {
-      final SessionBean31MetaData merged = new SessionBean31MetaData();
+      final SessionBeanMetaData merged;
+      if (original instanceof SessionBean31MetaData)
+         merged = new SessionBean31MetaData();
+      else
+         merged = new SessionBeanMetaData();
       merged.merge(this, original);
       return merged;
    }
