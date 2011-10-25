@@ -52,7 +52,7 @@ public class UnmarshallingHelper
    {
       final InputStream in = expected.getResourceAsStream(resource);
       if (in == null)
-         throw new IllegalArgumentException("Can't find resource " + resource);
+         throw new IllegalArgumentException("Can't find resource " + resource + " relative to " + expected);
       return unmarshal(expected, in, parsers);
    }
 
