@@ -65,6 +65,7 @@ import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+import org.jboss.metadata.javaee.support.NamedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 import org.jboss.metadata.javaee.support.NonNullLinkedHashSet;
 import org.jboss.metadata.merge.ejb.jboss.JBossEnvironmentRefsGroupMetaDataMerger;
@@ -1486,7 +1487,7 @@ public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescr
    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original,
          String overrideFile, String overridenFile, boolean mustOverride)
    {
-      NamedMetaDataWithDescriptionGroupMerger.merge(this, override, original);
+      NamedMetaDataWithDescriptionGroupMerger.merge(this, override, (NamedMetaData) original);
       if(override != null && override.getEjbClass() != null)
          setEjbClass(override.getEjbClass());
       else if(original != null && original.getEjbClass() != null)

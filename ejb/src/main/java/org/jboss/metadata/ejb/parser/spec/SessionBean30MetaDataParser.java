@@ -22,18 +22,18 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.AbstractGenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
+import org.jboss.metadata.ejb.spec.EjbType;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.InitMethodMetaData;
 import org.jboss.metadata.ejb.spec.InitMethodsMetaData;
 import org.jboss.metadata.ejb.spec.RemoveMethodMetaData;
 import org.jboss.metadata.ejb.spec.RemoveMethodsMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-import org.jboss.metadata.parser.ee.SecurityRoleRefMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -44,16 +44,16 @@ import javax.xml.stream.XMLStreamReader;
  *
  * Author: Jaikiran Pai
  */
-public class SessionBean30MetaDataParser<T extends SessionBeanMetaData> extends SessionBeanMetaDataParser<SessionBeanMetaData>
+public class SessionBean30MetaDataParser extends SessionBeanMetaDataParser<AbstractGenericBeanMetaData>
 {
    /**
     * Returns {@link SessionBeanMetaData}
     * @return
     */
    @Override
-   protected SessionBeanMetaData createSessionBeanMetaData()
+   protected AbstractGenericBeanMetaData createSessionBeanMetaData()
    {
-      return new SessionBeanMetaData();
+      return new GenericBeanMetaData(EjbType.SESSION);
    }
 
    /**
@@ -64,7 +64,7 @@ public class SessionBean30MetaDataParser<T extends SessionBeanMetaData> extends 
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(SessionBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AbstractGenericBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)

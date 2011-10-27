@@ -22,9 +22,11 @@
 package org.jboss.metadata.ejb.test.ejbthree936;
 
 import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
+import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
-import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.EjbType;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.test.common.ValidationHelper;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
@@ -47,7 +49,7 @@ public class GenericBeanTestCase
    private static void assertJar(JBossEjb31MetaData metaData)
    {
       assertEquals(1, metaData.getEnterpriseBeans().size());
-      EnterpriseBeanMetaData bean = metaData.getEnterpriseBean("MyStatelessBean");
+      AbstractEnterpriseBeanMetaData bean = metaData.getEnterpriseBean("MyStatelessBean");
       assertNotNull(bean);
       assertEquals(1, bean.getResourceReferences().size());
       ResourceReferenceMetaData resourceRef = bean.getResourceReferences().get("qFactory");
@@ -60,12 +62,13 @@ public class GenericBeanTestCase
       JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "/org/jboss/metadata/ejb/test/ejbthree936/jboss-ejb3.xml");
       EjbJar31MetaData original = new EjbJar31MetaData();
       original.setEnterpriseBeans(new EnterpriseBeansMetaData());
-      SessionBeanMetaData sessionBean = new SessionBeanMetaData();
+      GenericBeanMetaData sessionBean = new GenericBeanMetaData();
+      sessionBean.setEjbType(EjbType.SESSION);
       sessionBean.setEjbName("MyStatelessBean");
       original.getEnterpriseBeans().add(sessionBean);
       JBossEjb31MetaData merged = metaData.createMerged(original);
       assertJar(merged);
-      EnterpriseBeanMetaData bean = merged.getEnterpriseBean("MyStatelessBean");
+      AbstractEnterpriseBeanMetaData bean = merged.getEnterpriseBean("MyStatelessBean");
       assertTrue(bean.isSession());
       assertTrue(bean instanceof SessionBeanMetaData);
    }
@@ -79,11 +82,11 @@ public class GenericBeanTestCase
       JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "/org/jboss/metadata/ejb/test/ejbthree936/jboss-ejb3.xml");
       EjbJar31MetaData original = new EjbJar31MetaData();
       original.setEnterpriseBeans(new EnterpriseBeansMetaData());
-      SessionBeanMetaData sessionBean = new SessionBeanMetaData();
+      GenericBeanMetaData sessionBean = new GenericBeanMetaData();
       sessionBean.setEjbName("OtherStatelessBean");
       original.getEnterpriseBeans().add(sessionBean);
       JBossEjb31MetaData merged = metaData.createMerged(original);
-      EnterpriseBeanMetaData bean = merged.getEnterpriseBean("OtherStatelessBean");
+      AbstractEnterpriseBeanMetaData bean = merged.getEnterpriseBean("OtherStatelessBean");
       // TODO: define the output
       assertNotNull(bean);
    }

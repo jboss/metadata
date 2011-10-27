@@ -35,14 +35,8 @@ import java.util.List;
  * <p/>
  * Author: Jaikiran Pai
  */
-public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends SessionBean30MetaDataParser<SessionBean31MetaData>
+public class SessionBean31MetaDataParser extends SessionBean30MetaDataParser
 {
-   @Override
-   protected void processElement(SessionBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
-   {
-      processElement((SessionBean31MetaData) sessionBean, reader);
-   }
-
    /**
     * Parses EJB3.1 specific ejb-jar.xml elements and updates the passed {@link SessionBean31MetaData ejb metadata} appropriately
     *
@@ -50,7 +44,7 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
     * @param reader      The XMLStreamReader
     * @throws XMLStreamException
     */
-   protected void processElement(SessionBean31MetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AbstractGenericBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
@@ -158,9 +152,9 @@ public class SessionBean31MetaDataParser<T extends SessionBeanMetaData> extends 
     * @return
     */
    @Override
-   protected SessionBean31MetaData createSessionBeanMetaData()
+   protected AbstractGenericBeanMetaData createSessionBeanMetaData()
    {
-      return new SessionBean31MetaData();
+      return new GenericBeanMetaData(EjbType.SESSION);
    }
 
    /**

@@ -25,7 +25,6 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
-import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -90,9 +89,8 @@ public class EnterpriseBeansMetaDataParser<MD extends EnterpriseBeansMetaData> e
       switch (ejbJarElement)
       {
          case SESSION:
-            SessionBeanMetaData sessionBean = sessionBeanParser.parse(reader);
             // add the session bean metadata to the enterprise beans
-            enterpriseBeans.add(sessionBean);
+            enterpriseBeans.add(sessionBeanParser.parse(reader));
             break;
          case ENTITY:
             EntityBeanMetaData entityBean = entityBeanMetaDataParser.parse(reader);
