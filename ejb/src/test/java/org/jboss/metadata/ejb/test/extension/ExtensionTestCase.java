@@ -103,6 +103,14 @@ public class ExtensionTestCase
    }
 
    @Test
+   public void testValidity2() throws IOException, SAXException, ParserConfigurationException, URISyntaxException
+   {
+      InputStream in = getClass().getResourceAsStream("/org/jboss/metadata/ejb/test/extension/jboss-ejb3-with-bean.xml");
+      Document document = ValidationHelper.parse(new InputSource(in), getClass());
+      assertNotNull(document);
+   }
+
+   @Test
    public void testValidityXSD() throws IOException, SAXException, ParserConfigurationException
    {
       // parse an XML document into a DOM tree

@@ -88,7 +88,7 @@ public class AnnotationMergedView
       {
          if(xml.getId() != null)
             merged.setId(xml.getId());
-         for(EnterpriseBeanMetaData bean : xml)
+         for(AbstractEnterpriseBeanMetaData bean : xml)
          {
             String className = bean.getEjbClass();
             if(className != null)
@@ -105,13 +105,13 @@ public class AnnotationMergedView
       // First get the annotation beans without an xml entry
       if(annotation != null)
       {
-         for(EnterpriseBeanMetaData bean : annotation)
+         for(AbstractEnterpriseBeanMetaData bean : annotation)
          {
             if(xml != null)
             {
                // This is either the ejb-name or the ejb-class simple name
                String ejbName = bean.getEjbName();
-               EnterpriseBeanMetaData match = xml.get(ejbName);
+               AbstractEnterpriseBeanMetaData match = xml.get(ejbName);
                if(match == null)
                {
                   // Lookup by the unqualified ejb class
@@ -129,9 +129,9 @@ public class AnnotationMergedView
       // Now merge the xml and annotations
       if(xml != null)
       {
-         for(EnterpriseBeanMetaData bean : xml)
+         for(AbstractEnterpriseBeanMetaData bean : xml)
          {
-            EnterpriseBeanMetaData annBean = null;
+            AbstractEnterpriseBeanMetaData annBean = null;
             if(annotation != null)
             {
                String name = bean.getEjbName();
@@ -151,10 +151,10 @@ public class AnnotationMergedView
                }
             }
             // Merge
-            EnterpriseBeanMetaData mbean = bean;
+            AbstractEnterpriseBeanMetaData mbean = bean;
             if(annBean != null)
             {
-               mbean = EnterpriseBeanMetaData.newBean(bean);
+               mbean = AbstractEnterpriseBeanMetaData.newBean(bean);
                mbean.merge(bean, annBean);
             }
             merged.add(mbean);

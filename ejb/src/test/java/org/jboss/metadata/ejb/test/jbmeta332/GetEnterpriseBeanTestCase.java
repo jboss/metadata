@@ -22,7 +22,7 @@
 package org.jboss.metadata.ejb.test.jbmeta332;
 
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
-import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNull;
@@ -34,7 +34,7 @@ public class GetEnterpriseBeanTestCase {
     @Test
     public void testGetEnterpriseBean() {
         final EjbJar31MetaData metaData = new EjbJar31MetaData();
-        final EnterpriseBeanMetaData bean = metaData.getEnterpriseBean("Test");
+        final AbstractEnterpriseBeanMetaData bean = metaData.getEnterpriseBean("Test");
         assertNull(bean);
     }
 }

@@ -30,7 +30,7 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
  * @version $Revision: 1.1 $
  */
 public class EnterpriseBeansMetaData
-   extends EnterpriseBeansMap<AssemblyDescriptorMetaData, EnterpriseBeansMetaData, EnterpriseBeanMetaData, EjbJarMetaData>
+   extends EnterpriseBeansMap<AssemblyDescriptorMetaData, EnterpriseBeansMetaData, AbstractEnterpriseBeanMetaData, EjbJarMetaData>
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = -5528174778237011844L;
@@ -68,14 +68,14 @@ public class EnterpriseBeansMetaData
       IdMetaDataImplMerger.merge(this, override, original);
       if (override != null)
       {
-         for (final EnterpriseBeanMetaData bean : override)
+         for (final AbstractEnterpriseBeanMetaData bean : override)
          {
             add(bean.createMerged(original != null ? original.get(bean.getEjbName()) : null));
          }
       }
       if (original != null)
       {
-         for (final EnterpriseBeanMetaData bean : original)
+         for (final AbstractEnterpriseBeanMetaData bean : original)
          {
             if (!contains(bean))
                add(bean.createMerged(null));

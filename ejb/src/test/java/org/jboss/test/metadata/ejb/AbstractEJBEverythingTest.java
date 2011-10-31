@@ -76,7 +76,6 @@ import org.jboss.util.NotImplementedException;
 
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.Iterator;
 import java.util.List;

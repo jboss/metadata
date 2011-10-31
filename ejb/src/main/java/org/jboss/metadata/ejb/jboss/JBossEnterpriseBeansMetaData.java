@@ -21,6 +21,7 @@
 */
 package org.jboss.metadata.ejb.jboss;
 
+import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMap;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
@@ -118,7 +119,7 @@ public class JBossEnterpriseBeansMetaData
       // Merge original beans with this
       else if(original != null)
       {
-         for(EnterpriseBeanMetaData ejb : original)
+         for(AbstractEnterpriseBeanMetaData ejb : original)
          {
             JBossEnterpriseBeanMetaData mergedEJB = null;
             // First look for an override JBossEnterpriseBeanMetaData
