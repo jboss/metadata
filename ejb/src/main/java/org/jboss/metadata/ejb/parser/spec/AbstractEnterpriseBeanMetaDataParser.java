@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
@@ -35,7 +35,7 @@ import javax.xml.stream.XMLStreamReader;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public abstract class AbstractEnterpriseBeanMetaDataParser<MD extends EnterpriseBeanMetaData> extends AbstractNamedMetaDataWithDescriptionGroupParser<MD>
+public abstract class AbstractEnterpriseBeanMetaDataParser<MD extends AbstractEnterpriseBeanMetaData> extends AbstractNamedMetaDataWithDescriptionGroupParser<MD>
 {
    @Override
    protected void processElement(MD bean, XMLStreamReader reader) throws XMLStreamException

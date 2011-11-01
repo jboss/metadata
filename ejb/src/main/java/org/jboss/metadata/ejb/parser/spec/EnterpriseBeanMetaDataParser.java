@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
@@ -34,7 +34,7 @@ import javax.xml.stream.XMLStreamReader;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public abstract class EnterpriseBeanMetaDataParser<MD extends EnterpriseBeanMetaData> extends AbstractIdMetaDataParser<MD>
+public abstract class EnterpriseBeanMetaDataParser<MD extends AbstractEnterpriseBeanMetaData> extends AbstractIdMetaDataParser<MD>
 {
    @Override
    protected void processElement(MD metaData, XMLStreamReader reader) throws XMLStreamException

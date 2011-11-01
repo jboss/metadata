@@ -35,7 +35,7 @@ import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
-import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
@@ -326,7 +326,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
       EjbJar30MetaData spec = new EjbJar30MetaData();
       EnterpriseBeansMetaData specBeans = new EnterpriseBeansMetaData();
       spec.setEnterpriseBeans(specBeans);
-      SessionBeanMetaData specBean = new SessionBeanMetaData();
+      GenericBeanMetaData specBean = new GenericBeanMetaData();
       specBean.setEjbName("ejb3session");
       specBeans.add(specBean);
 

@@ -22,6 +22,7 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.AbstractGenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
@@ -53,7 +54,7 @@ import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.proces
  * 
  * User: Jaikiran Pai
  */
-public abstract class SessionBeanMetaDataParser<T extends SessionBeanMetaData> extends AbstractIdMetaDataParser<T>
+public abstract class SessionBeanMetaDataParser<T extends AbstractGenericBeanMetaData> extends AbstractIdMetaDataParser<T>
 {
 
    /**

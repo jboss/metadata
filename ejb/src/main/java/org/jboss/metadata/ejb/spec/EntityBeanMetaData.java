@@ -21,15 +21,13 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-
 /**
  * EntityBeanMetaData.
  * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class EntityBeanMetaData extends EnterpriseBeanMetaData
+public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = 1538890391418490043L;
@@ -76,19 +74,15 @@ public class EntityBeanMetaData extends EnterpriseBeanMetaData
    public EntityBeanMetaData()
    {
       // For serialization
+
+      setEjbType(EjbType.ENTITY);
    }
 
-   protected EntityBeanMetaData createMerged(EnterpriseBeanMetaData original)
+   protected EntityBeanMetaData createMerged(AbstractEnterpriseBeanMetaData original)
    {
       final EntityBeanMetaData merged = new EntityBeanMetaData();
       merged.merge(this, original);
       return merged;
-   }
-
-   @Override
-   public boolean isEntity()
-   {
-      return true;
    }
 
    /**

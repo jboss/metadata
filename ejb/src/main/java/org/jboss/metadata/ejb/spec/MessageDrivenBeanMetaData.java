@@ -32,7 +32,7 @@ import javax.ejb.TransactionManagementType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
+public class MessageDrivenBeanMetaData extends AbstractEnterpriseBeanMetaData
    implements ITimeoutTarget
 {
    /** The serialVersionUID */
@@ -40,31 +40,31 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
    
    /** The messaging type */
    private String messagingType;
-   
+
    /** The timeout method */
    private NamedMethodMetaData timeoutMethod;
 
    /** The transaction type */
    private TransactionManagementType transactionType;
-   
+
    /** The message destination type */
    private String messageDestinationType;
-   
+
    /** The message destination link */
    private String messageDestinationLink;
 
    /** The activation config */
    private ActivationConfigMetaData activationConfig;
-   
+
    /** The around invokes */
    private AroundInvokesMetaData aroundInvokes;
 
    /** The message selector */
    private String messageSelector;
-   
+
    /** The acknowledge mode */
    private String acknowledgeMode;
-   
+
    /** The subscription durability */
    private SubscriptionDurability subscriptionDurability;
 
@@ -74,21 +74,16 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
    public MessageDrivenBeanMetaData()
    {
       // For serialization
+
+      setEjbType(EjbType.MESSAGE_DRIVEN);
    }
 
-   protected MessageDrivenBeanMetaData createMerged(EnterpriseBeanMetaData original)
+   protected MessageDrivenBeanMetaData createMerged(AbstractEnterpriseBeanMetaData original)
    {
       final MessageDrivenBeanMetaData merged = new MessageDrivenBeanMetaData();
       merged.merge(this, original);
       return merged;
    }
-
-   @Override
-   public boolean isMessageDriven()
-   {
-      return true;
-   }
-
 
    /**
     * Get the messagingType.
@@ -352,7 +347,7 @@ public class MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
    }
    
    @Override
-   public void merge(EnterpriseBeanMetaData override, EnterpriseBeanMetaData original)
+   public void merge(AbstractEnterpriseBeanMetaData override, AbstractEnterpriseBeanMetaData original)
    {
       merge((MessageDrivenBeanMetaData) override, (MessageDrivenBeanMetaData) original);
    }

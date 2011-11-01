@@ -36,7 +36,7 @@ import java.util.HashSet;
  * @version $Revision: 1.1 $
  */
 public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
-   implements IEjbJarMetaData<AssemblyDescriptorMetaData, EnterpriseBeansMetaData, EnterpriseBeanMetaData, EjbJarMetaData>
+   implements IEjbJarMetaData<AssemblyDescriptorMetaData, EnterpriseBeansMetaData, AbstractEnterpriseBeanMetaData, EjbJarMetaData>
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = 809339942454480150L;
@@ -249,7 +249,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
       enterpriseBeans.setEjbJarMetaData(this);
    }
 
-   public EnterpriseBeanMetaData getEnterpriseBean(String name)
+   public AbstractEnterpriseBeanMetaData getEnterpriseBean(String name)
    {
       if(enterpriseBeans == null) {
          return null;
@@ -422,7 +422,7 @@ public abstract class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
       EnterpriseBeansMetaData enterpriseBeans = ejbJar.getEnterpriseBeans();
       if (enterpriseBeans != null)
       {
-         for (EnterpriseBeanMetaData enterpriseBean : enterpriseBeans)
+         for (AbstractEnterpriseBeanMetaData enterpriseBean : enterpriseBeans)
          {
             String enterpriseBeanClassName = enterpriseBean.getEjbClass();
             AroundInvokesMetaData aroundInvokes = null;

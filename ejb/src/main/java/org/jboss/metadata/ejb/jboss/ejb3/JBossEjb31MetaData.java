@@ -21,13 +21,31 @@
  */
 package org.jboss.metadata.ejb.jboss.ejb3;
 
+import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
 public class JBossEjb31MetaData extends EjbJar31MetaData {
    private String implVersion;
+
+   public JBossEjb31MetaData createMerged(final EjbJarMetaData original)
+   {
+      if (original instanceof EjbJar30MetaData)
+         return createMerged((EjbJar30MetaData) original);
+      else if (original instanceof EjbJar31MetaData)
+         return createMerged((EjbJar31MetaData) original);
+      throw new UnsupportedOperationException("JBMETA-341: merging of " + original + " is not supported");
+   }
+
+   public JBossEjb31MetaData createMerged(final EjbJar30MetaData original)
+   {
+      final JBossEjb31MetaData merged = new JBossEjb31MetaData();
+      merged.merge(this, original);
+      return merged;
+   }
 
    public JBossEjb31MetaData createMerged(final EjbJar31MetaData original)
    {

@@ -51,10 +51,9 @@ import org.jboss.metadata.ejb.spec.EjbJar2xMetaData;
 import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
-import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
-import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SubscriptionDurability;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
@@ -251,7 +250,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
       // normally from the annotation scanner
       EjbJar30MetaData ejbJar = new EjbJar30MetaData();
       ejbJar.setEnterpriseBeans(new EnterpriseBeansMetaData());
-      SessionBeanMetaData sessionBean = new SessionBean31MetaData();
+      GenericBeanMetaData sessionBean = new GenericBeanMetaData();
       sessionBean.setEjbName("MyStatelessBean");
       ejbJar.getEnterpriseBeans().add(sessionBean);
 
