@@ -50,6 +50,7 @@ import java.util.Map;
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
+@Deprecated
 public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData implements ITimeoutTarget, IScheduleTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
 {
    private static final long serialVersionUID = 1L;

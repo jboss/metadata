@@ -21,12 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.ejb.Schedule;
-
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
@@ -34,12 +28,18 @@ import org.jboss.metadata.ejb.spec.MessageDrivenBean31MetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
 import org.jboss.metadata.merge.MergeUtil;
 
+import javax.ejb.Schedule;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * Metadata for EJB3.1 MDBs
  *
  * @author Jaikiran Pai
  * @version $Revision: $
  */
+@Deprecated
 public class JBossMessageDrivenBean31MetaData extends JBossMessageDrivenBeanMetaData implements ITimeoutTarget, IScheduleTarget
 {
 
