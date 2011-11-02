@@ -69,9 +69,15 @@ abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEn
       }
    }
 
-   private void assertUnknownOrMessageDrivenOrSessionBean31()
+   private void assertUnknownOrMessageDriven31OrSessionBean31()
    {
-      throw new RuntimeException("NYI: assertUnknownOrMessageDrivenOrSessionBean31");
+      final EjbType type = getEjbType();
+      if (type != null && type != EjbType.MESSAGE_DRIVEN && type != EjbType.SESSION)
+         throw new IllegalStateException("Bean " + this + " is not an unknown, message driven or session bean, but " + getEjbType());
+      final EjbJarMetaData ejbJarMetaData = getEjbJarMetaData();
+      // the bean might not have been added yet
+      if(ejbJarMetaData != null && ejbJarMetaData.getEjbJarVersion() != EjbJarVersion.EJB_3_1)
+         throw new IllegalStateException("Bean " + this + " is not an 3.1 EJB, but " + ejbJarMetaData.getEjbJarVersion());
    }
 
    @Override
@@ -186,13 +192,13 @@ abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEn
 
    public AroundTimeoutsMetaData getAroundTimeouts()
    {
-      assertUnknownOrMessageDrivenOrSessionBean31();
+      assertUnknownOrMessageDriven31OrSessionBean31();
       return aroundTimeouts;
    }
 
    public void setAroundTimeouts(AroundTimeoutsMetaData aroundTimeouts)
    {
-      assertUnknownOrMessageDrivenOrSessionBean31();
+      assertUnknownOrMessageDriven31OrSessionBean31();
       this.aroundTimeouts = aroundTimeouts;
    }
 
@@ -201,7 +207,7 @@ abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEn
     */
    public List<TimerMetaData> getTimers()
    {
-      assertUnknownOrMessageDrivenOrSessionBean31();
+      assertUnknownOrMessageDriven31OrSessionBean31();
       return this.timers;
    }
 
@@ -210,13 +216,13 @@ abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEn
     */
    public void setTimers(List<TimerMetaData> timers)
    {
-      assertUnknownOrMessageDrivenOrSessionBean31();
+      assertUnknownOrMessageDriven31OrSessionBean31();
       this.timers = timers;
    }
 
    public void addTimer(TimerMetaData timer)
    {
-      assertUnknownOrMessageDrivenOrSessionBean31();
+      assertUnknownOrMessageDriven31OrSessionBean31();
       if (this.timers == null)
       {
          this.timers = new ArrayList<TimerMetaData>();
