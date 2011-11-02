@@ -21,12 +21,14 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import org.jboss.metadata.common.ejb.IScheduleTarget;
+
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
 // TODO: should not be public
 public class GenericBeanMetaData extends AbstractGenericBeanMetaData
-   implements SessionBean31MetaData
+   implements IScheduleTarget, SessionBean31MetaData
 {
    public GenericBeanMetaData()
    {
