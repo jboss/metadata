@@ -147,6 +147,14 @@ public abstract class AbstractEnterpriseBeanMetaData extends NamedMetaDataWithDe
 
    protected abstract AbstractEnterpriseBeanMetaData createMerged(AbstractEnterpriseBeanMetaData enterpriseBeanMetaData);
 
+   public EjbJarVersion getEjbJarVersion()
+   {
+      final EjbJarMetaData ejbJarMetaData = getEjbJarMetaData();
+      if (ejbJarMetaData == null)
+         return null;
+      return ejbJarMetaData.getEjbJarVersion();
+   }
+
    public EnterpriseBeansMetaData getEnterpriseBeansMetaData()
    {
       return this.enterpriseBeansMetaData;

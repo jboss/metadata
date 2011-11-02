@@ -59,6 +59,12 @@ public interface EnterpriseBeanMetaData extends Environment, IdMetaData
 {
    DescriptionGroupMetaData getDescriptionGroup();
 
+   /**
+    * A shortcut for getEjbJarMetaData().getEjbJarVersion()
+    * @return the version of the EJB or null if not yet attached to an EjbJar
+    */
+   EjbJarVersion getEjbJarVersion();
+
    EnterpriseBeansMetaData getEnterpriseBeansMetaData();
 
    /**
