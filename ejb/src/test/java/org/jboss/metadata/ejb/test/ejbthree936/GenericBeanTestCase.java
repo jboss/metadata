@@ -23,10 +23,13 @@ package org.jboss.metadata.ejb.test.ejbthree936;
 
 import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
 import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
 import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.EjbType;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.test.common.ValidationHelper;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
@@ -38,7 +41,9 @@ import java.io.InputStream;
 
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -96,6 +101,39 @@ public class GenericBeanTestCase
    {
       JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "/org/jboss/metadata/ejb/test/ejbthree936/jboss-ejb3.xml");
       assertJar(metaData);
+   }
+
+   /**
+    * If it looks like a duck, swims like a duck, and quacks like a duck, then it really should be a duck.
+    */
+   @Test
+   public void testPolymorphism() throws Exception
+   {
+      final EjbJar30MetaData jarMetaData = new EjbJar30MetaData();
+      jarMetaData.setEnterpriseBeans(new EnterpriseBeansMetaData());
+      final GenericBeanMetaData bean = new GenericBeanMetaData(EjbType.SESSION);
+      bean.setEjbName("Simple30Bean");
+      jarMetaData.getEnterpriseBeans().add(bean);
+      assertEquals(EjbJarVersion.EJB_3_0, bean.getEjbJarVersion());
+      // quack quack
+      assertTrue(bean instanceof SessionBean31MetaData);
+      // call the 3.1 methods
+      assertNull(bean.getAroundTimeouts());
+      assertNull(bean.getTimers());
+      assertNull(bean.getAccessTimeout());
+      assertNull(bean.getAfterBeginMethod());
+      assertNull(bean.getAfterCompletionMethod());
+      assertNull(bean.getAsyncMethods());
+      assertNull(bean.getBeforeCompletionMethod());
+      assertNull(bean.getConcurrencyManagementType());
+      assertNull(bean.getConcurrentMethods());
+      assertNull(bean.getDependsOn());
+      assertNull(bean.getLocalBean());
+      assertNull(bean.getLockType());
+      assertNull(bean.getStatefulTimeout());
+      assertNull(bean.isInitOnStartup());
+      assertFalse(bean.isNoInterfaceBean());
+      assertFalse(bean.isSingleton());
    }
 
    @Test

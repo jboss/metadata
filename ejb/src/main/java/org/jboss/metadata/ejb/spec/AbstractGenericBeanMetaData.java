@@ -777,7 +777,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public Boolean isInitOnStartup()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return initOnStartup;
    }
 
@@ -789,7 +789,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
 
    public AsyncMethodsMetaData getAsyncMethods()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return asyncMethods;
    }
 
@@ -812,7 +812,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public EmptyMetaData getLocalBean()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return this.localBean;
    }
 
@@ -836,7 +836,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public boolean isNoInterfaceBean()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return this.localBean == null ? false : true;
    }
 
@@ -855,7 +855,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public boolean isSingleton()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       if (this.getSessionType() == null)
          return false;
       return this.getSessionType() == SessionType.Singleton;
@@ -882,7 +882,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public ConcurrencyManagementType getConcurrencyManagementType()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return this.concurrencyManagementType;
    }
 
@@ -905,7 +905,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public ConcurrentMethodsMetaData getConcurrentMethods()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return this.concurrentMethods;
    }
 
@@ -926,7 +926,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public LockType getLockType()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return this.beanLevelLockType;
    }
 
@@ -947,7 +947,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public AccessTimeoutMetaData getAccessTimeout()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return this.beanLevelAccessTimeout;
    }
 
@@ -958,7 +958,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public String[] getDependsOn()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       if (this.dependsOn == null || this.dependsOn.getEjbNames() == null)
       {
          return null;
@@ -1011,7 +1011,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
 
    public NamedMethodMetaData getAfterBeginMethod()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return afterBeginMethod;
    }
 
@@ -1023,7 +1023,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
 
    public NamedMethodMetaData getBeforeCompletionMethod()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return beforeCompletionMethod;
    }
 
@@ -1035,7 +1035,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
 
    public NamedMethodMetaData getAfterCompletionMethod()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return afterCompletionMethod;
    }
 
@@ -1130,7 +1130,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
 
    public StatefulTimeoutMetaData getStatefulTimeout()
    {
-      assertUnknownOrSessionBean31();
+      assertUnknownOrSessionBean();
       return statefulTimeout;
    }
 

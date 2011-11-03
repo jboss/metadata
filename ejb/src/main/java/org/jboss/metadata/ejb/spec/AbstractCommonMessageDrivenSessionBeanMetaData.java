@@ -49,7 +49,7 @@ abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEn
    /**
     * Represents metadata for {@link javax.ejb.Schedule}
     */
-   private List<TimerMetaData> timers = new ArrayList<TimerMetaData>();
+   private List<TimerMetaData> timers;
 
    private AroundTimeoutsMetaData aroundTimeouts;
 
@@ -192,7 +192,7 @@ abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEn
 
    public AroundTimeoutsMetaData getAroundTimeouts()
    {
-      assertUnknownOrMessageDriven31OrSessionBean31();
+      assertUnknownOrMessageDrivenOrSessionBean();
       return aroundTimeouts;
    }
 
@@ -207,7 +207,7 @@ abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEn
     */
    public List<TimerMetaData> getTimers()
    {
-      assertUnknownOrMessageDriven31OrSessionBean31();
+      assertUnknownOrMessageDrivenOrSessionBean();
       return this.timers;
    }
 
