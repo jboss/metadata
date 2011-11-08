@@ -36,20 +36,15 @@ public class JBossClientMetaData extends ApplicationClientMetaData  {
     private List<String> depends;
 
 
-    public void merge(final JBossClientMetaData override, final JBossClientMetaData original) {
+    public void merge(final JBossClientMetaData override, final ApplicationClientMetaData original) {
         super.merge(override, original);
         if (override != null && override.getJndiName() != null) {
             this.jndiName = override.jndiName;
-        } else if (original != null && original.getJndiName() != null) {
-            this.jndiName = original.getJndiName();
         }
-        
+
         if (override != null && override.getDepends() != null) {
             this.depends = override.getDepends();
-        } else if (original != null && original.getDepends() != null) {
-            this.depends = original.getDepends();
         }
-        
     }
     public String getJndiName() {
         return jndiName;
