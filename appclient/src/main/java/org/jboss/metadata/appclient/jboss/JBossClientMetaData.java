@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.appclient.jboss;
 
-import org.jboss.metadata.appclient.spec.ApplicationClientMetaData;
-
 import java.util.List;
+
+import org.jboss.metadata.appclient.spec.ApplicationClientMetaData;
 
 /**
  * Common javaee application metadata
@@ -31,10 +31,26 @@ import java.util.List;
  * @author Stuart Douglas
  */
 public class JBossClientMetaData extends ApplicationClientMetaData  {
-
+    private static final long serialVersionUID = 4090931111411299228L;
     private String jndiName;
     private List<String> depends;
 
+
+    public void merge(final JBossClientMetaData override, final JBossClientMetaData original) {
+        super.merge(override, original);
+        if (override != null && override.getJndiName() != null) {
+            this.jndiName = override.jndiName;
+        } else if (original != null && original.getJndiName() != null) {
+            this.jndiName = original.getJndiName();
+        }
+        
+        if (override != null && override.getDepends() != null) {
+            this.depends = override.getDepends();
+        } else if (original != null && original.getDepends() != null) {
+            this.depends = original.getDepends();
+        }
+        
+    }
     public String getJndiName() {
         return jndiName;
     }

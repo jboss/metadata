@@ -44,7 +44,7 @@ public class JBossClientMetaDataParser extends MetaDataElementParser {
 
     public static final JBossClientMetaDataParser INSTANCE = new JBossClientMetaDataParser();
 
-    public ApplicationClientMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public JBossClientMetaData parse(XMLStreamReader reader) throws XMLStreamException {
         reader.require(START_DOCUMENT, null, null);
         // Read until the first start element
         while (reader.hasNext() && reader.next() != START_ELEMENT) {

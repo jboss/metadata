@@ -22,6 +22,8 @@
 package org.jboss.metadata.appclient.spec;
 
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
+import org.jboss.metadata.merge.MergeUtil;
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionGroupMerger;
 
 /**
  * Common javaee application metadata
@@ -38,6 +40,35 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
     private boolean metadataComplete;
 
     private String version;
+    
+    
+    public void merge(final ApplicationClientMetaData override, final ApplicationClientMetaData original) {
+        IdMetaDataImplWithDescriptionGroupMerger.merge(this, override, original);
+
+        if (override != null) {
+            this.metadataComplete = override.isMetadataComplete();
+        }
+
+        if (override != null && override.getEnvironmentRefsGroupMetaData() != null) {
+            MergeUtil.merge(override.getEnvironmentRefsGroupMetaData(), original.getEnvironmentRefsGroupMetaData(), null, null,
+                    false);
+        } else if (original != null && original.getEnvironmentRefsGroupMetaData() != null) {
+            this.environmentRefsGroupMetaData = original.getEnvironmentRefsGroupMetaData();
+        }
+
+        if (override != null && override.getCallbackHandler() != null) {
+            this.callbackHandler = override.getCallbackHandler();
+        } else if (original != null && original.getCallbackHandler() != null) {
+            this.callbackHandler = original.getCallbackHandler();
+        }
+
+        if (override != null && override.getVersion() != null) {
+            version = override.getVersion();
+        } else if (original != null && original.getVersion() != null) {
+            version = original.getVersion();
+        }
+    }
+    
 
     public String getVersion() {
         return version;
