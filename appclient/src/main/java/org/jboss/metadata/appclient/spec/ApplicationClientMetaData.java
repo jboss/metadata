@@ -21,6 +21,7 @@
  */
 package org.jboss.metadata.appclient.spec;
 
+import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
 import org.jboss.metadata.merge.MergeUtil;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionGroupMerger;
@@ -50,8 +51,7 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
         }
 
         if (override != null && override.getEnvironmentRefsGroupMetaData() != null) {
-            MergeUtil.merge(override.getEnvironmentRefsGroupMetaData(), original.getEnvironmentRefsGroupMetaData(), null, null,
-                    false);
+			this.environmentRefsGroupMetaData.merge(override.getEnvironmentRefsGroupMetaData(), original.getEnvironmentRefsGroupMetaData());				
         } else if (original != null && original.getEnvironmentRefsGroupMetaData() != null) {
             this.environmentRefsGroupMetaData = original.getEnvironmentRefsGroupMetaData();
         }
