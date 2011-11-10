@@ -1,6 +1,5 @@
 package org.jboss.metadata.appclient.spec;
 
-import org.jboss.metadata.appclient.jboss.JBossClientMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.merge.javaee.spec.RemoteEnvironmentRefsGroupMetaDataMerger;
