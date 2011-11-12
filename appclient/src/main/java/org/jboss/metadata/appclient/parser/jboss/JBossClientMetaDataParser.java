@@ -22,6 +22,11 @@
 
 package org.jboss.metadata.appclient.parser.jboss;
 
+import java.util.ArrayList;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.appclient.jboss.JBossClientMetaData;
 import org.jboss.metadata.appclient.spec.AppClientEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.appclient.spec.ApplicationClientMetaData;
@@ -29,10 +34,6 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.util.ArrayList;
 
 /**
  * Parses an application-client.xml file and creates metadata out of it
@@ -74,6 +75,7 @@ public class JBossClientMetaDataParser extends MetaDataElementParser {
             }
             case VERSION: {
                 metaData.setVersion(value);
+                break;
             }
             default:
                 throw unexpectedAttribute(reader, i);
