@@ -21,51 +21,79 @@
 */
 package org.jboss.metadata.ejb.spec;
 
+import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
+
 /**
  * EntityBeanMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
 public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 {
-   /** The serialVersionUID */
+   /**
+    * The serialVersionUID
+    */
    private static final long serialVersionUID = 1538890391418490043L;
-   
-   /** The home interface */
+
+   /**
+    * The home interface
+    */
    private String home;
 
-   /** The remote interface */
+   /**
+    * The remote interface
+    */
    private String remote;
 
-   /** The local home */
+   /**
+    * The local home
+    */
    private String localHome;
 
-   /** The local */
+   /**
+    * The local
+    */
    private String local;
-   
-   /** The persistence type */
+
+   /**
+    * The persistence type
+    */
    private PersistenceType persistenceType;
-   
-   /** The primary key class */
+
+   /**
+    * The primary key class
+    */
    private String primKeyClass;
-   
-   /** The reentrant */
+
+   /**
+    * The reentrant
+    */
    private boolean reentrant;
 
-   /** The cmp version */
+   /**
+    * The cmp version
+    */
    private String cmpVersion;
 
-   /** The abstract schema name */
+   /**
+    * The abstract schema name
+    */
    private String abstractSchemaName;
-   
-   /** The cmp fields */
+
+   /**
+    * The cmp fields
+    */
    private CMPFieldsMetaData cmpFields;
-   
-   /** The primary key field */
+
+   /**
+    * The primary key field
+    */
    private String primKeyField;
-   
-   /** The queries */
+
+   /**
+    * The queries
+    */
    private QueriesMetaData queries;
 
    /**
@@ -85,9 +113,44 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
       return merged;
    }
 
+   @Override
+   public void merge(AbstractEnterpriseBeanMetaData or, AbstractEnterpriseBeanMetaData o)
+   {
+      super.merge(or, o);
+      EntityBeanMetaData original = (EntityBeanMetaData) o;
+      JBossGenericBeanMetaData override = (JBossGenericBeanMetaData) or;
+      if (override != null && override.getHome() != null)
+         setHome(override.getHome());
+      else if (original != null && original.home != null)
+         setHome(original.home);
+      if (override != null && override.getRemote() != null)
+         setRemote(override.getRemote());
+      else if (original != null && original.remote != null)
+         setRemote(original.remote);
+      if (override != null && override.getLocalHome() != null)
+         setLocalHome(override.getLocalHome());
+      else if (original != null && original.localHome != null)
+         setLocalHome(original.localHome);
+      if (override != null && override.getLocal() != null)
+         setLocal(override.getLocal());
+      else if (original != null && original.local != null)
+         setLocal(original.local);
+      if (original != null)
+      {
+         primKeyClass = original.getPrimKeyClass();
+         persistenceType = original.getPersistenceType();
+         reentrant = original.isReentrant();
+         cmpVersion = original.getCmpVersion();
+         abstractSchemaName = original.getAbstractSchemaName();
+         cmpFields = original.getCmpFields();
+         primKeyField = original.getPrimKeyField();
+         queries = original.getQueries();
+      }
+   }
+
    /**
     * Get the home.
-    * 
+    *
     * @return the home.
     */
    public String getHome()
@@ -97,7 +160,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the home.
-    * 
+    *
     * @param home the home.
     * @throws IllegalArgumentException for a null home
     */
@@ -110,7 +173,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the remote.
-    * 
+    *
     * @return the remote.
     */
    public String getRemote()
@@ -120,7 +183,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the remote.
-    * 
+    *
     * @param remote the remote.
     * @throws IllegalArgumentException for a null remote
     */
@@ -133,7 +196,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the localHome.
-    * 
+    *
     * @return the localHome.
     */
    public String getLocalHome()
@@ -143,7 +206,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the localHome.
-    * 
+    *
     * @param localHome the localHome.
     * @throws IllegalArgumentException for a null localHome
     */
@@ -156,7 +219,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the local.
-    * 
+    *
     * @return the local.
     */
    public String getLocal()
@@ -166,7 +229,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the local.
-    * 
+    *
     * @param local the local.
     * @throws IllegalArgumentException for a null local
     */
@@ -179,7 +242,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Is this container managed persistence
-    * 
+    *
     * @return true for cmp
     */
    public boolean isCMP()
@@ -191,7 +254,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Is this bean managed persistence
-    * 
+    *
     * @return true for bmp
     */
    public boolean isBMP()
@@ -201,7 +264,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the persistenceType.
-    * 
+    *
     * @return the persistenceType.
     */
    public PersistenceType getPersistenceType()
@@ -211,7 +274,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the persistenceType.
-    * 
+    *
     * @param persistenceType the persistenceType.
     * @throws IllegalArgumentException for a null persistenceType
     */
@@ -224,7 +287,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the primKeyClass.
-    * 
+    *
     * @return the primKeyClass.
     */
    public String getPrimKeyClass()
@@ -234,7 +297,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the primKeyClass.
-    * 
+    *
     * @param primKeyClass the primKeyClass.
     * @throws IllegalArgumentException for a null primKeyClass
     */
@@ -247,7 +310,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the reentrant.
-    * 
+    *
     * @return the reentrant.
     */
    public boolean isReentrant()
@@ -257,7 +320,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the reentrant.
-    * 
+    *
     * @param reentrant the reentrant.
     */
    public void setReentrant(boolean reentrant)
@@ -267,24 +330,24 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Whether it is CMP1x
-    * 
+    *
     * @return true for cmp1x
     */
    public boolean isCMP1x()
    {
-      if(cmpVersion == null)
+      if (cmpVersion == null)
       {
-         if(getEjbJarMetaData().isEJB2x() || getEjbJarMetaData().isEJB3x())
+         if (getEjbJarMetaData().isEJB2x() || getEjbJarMetaData().isEJB3x())
             return false;
          else
             return true;
       }
       return "1.x".equals(cmpVersion);
    }
-   
+
    /**
     * Get the cmpVersion.
-    * 
+    *
     * @return the cmpVersion.
     */
    public String getCmpVersion()
@@ -294,7 +357,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the cmpVersion.
-    * 
+    *
     * @param cmpVersion the cmpVersion.
     * @throws IllegalArgumentException for a null cmpVersion
     */
@@ -307,7 +370,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the abstractSchemaName.
-    * 
+    *
     * @return the abstractSchemaName.
     */
    public String getAbstractSchemaName()
@@ -317,7 +380,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the abstractSchemaName.
-    * 
+    *
     * @param abstractSchemaName the abstractSchemaName.
     * @throws IllegalArgumentException for a null abstractSchemaName
     */
@@ -330,7 +393,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the primKeyField.
-    * 
+    *
     * @return the primKeyField.
     */
    public String getPrimKeyField()
@@ -340,7 +403,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the primKeyField.
-    * 
+    *
     * @param primKeyField the primKeyField.
     * @throws IllegalArgumentException for a null primKeyField
     */
@@ -353,7 +416,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the cmpFields.
-    * 
+    *
     * @return the cmpFields.
     */
    public CMPFieldsMetaData getCmpFields()
@@ -363,7 +426,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the cmpFields.
-    * 
+    *
     * @param cmpFields the cmpFields.
     * @throws IllegalArgumentException for a null cmpFields
     */
@@ -376,7 +439,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Get the queries.
-    * 
+    *
     * @return the queries.
     */
    public QueriesMetaData getQueries()
@@ -386,7 +449,7 @@ public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
 
    /**
     * Set the queries.
-    * 
+    *
     * @param queries the queries.
     * @throws IllegalArgumentException for a null queries
     */

@@ -46,15 +46,7 @@ import org.jboss.metadata.ejb.jboss.ProducerMetaData;
 import org.jboss.metadata.ejb.jboss.RemoteBindingMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar21MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar2xMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
-import org.jboss.metadata.ejb.spec.EjbJarMetaData;
-import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
-import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
-import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
-import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
-import org.jboss.metadata.ejb.spec.SubscriptionDurability;
+import org.jboss.metadata.ejb.spec.*;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceType;
@@ -248,7 +240,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
    public void testEjbthree936() throws Exception
    {
       // normally from the annotation scanner
-      EjbJar30MetaData ejbJar = new EjbJar30MetaData();
+      EjbJarMetaData ejbJar = new EjbJarMetaData(EjbJarVersion.EJB_3_1);
       ejbJar.setEnterpriseBeans(new EnterpriseBeansMetaData());
       GenericBeanMetaData sessionBean = new GenericBeanMetaData();
       sessionBean.setEjbName("MyStatelessBean");
@@ -449,7 +441,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
    {
       setValidateSchema(false);
       long start = System.currentTimeMillis();
-      EjbJarMetaData specMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJar21MetaData.class, null);
+      EjbJarMetaData specMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJarMetaData.class, null);
       long end = System.currentTimeMillis();
       getLog().info("EjbJar21Everything_testEverything.xml parse time = "+(end - start));
       JBoss50DTDMetaData stdMetaData = unmarshal("JBoss5xEverything_testStandard.xml", JBoss50DTDMetaData.class, null);
@@ -639,7 +631,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
    public void testResourceRefsMergeSelf()
       throws Exception
    {
-      EjbJar2xMetaData specData = unmarshal("EjbJar20_testResourceRefs.xml", EjbJar2xMetaData.class, null);
+      EjbJarMetaData specData = unmarshal("EjbJar20_testResourceRefs.xml", EjbJarMetaData.class, null);
       setValidateSchema(false);
       JBossMetaData jbossMetaData = unmarshal("JBoss50_testResourceRefs.xml", JBossMetaData.class, null);
       jbossMetaData.merge(null, specData);
@@ -656,7 +648,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
    public void testResourceRefs()
       throws Exception
    {
-      EjbJar2xMetaData specData = unmarshal("EjbJar20_testResourceRefs.xml", EjbJar2xMetaData.class, null);
+      EjbJarMetaData specData = unmarshal("EjbJar20_testResourceRefs.xml", EjbJarMetaData.class, null);
       setValidateSchema(false);
       JBossMetaData jbossXmlMetaData = unmarshal();
       JBossMetaData jbossMetaData = new JBossMetaData();
@@ -680,7 +672,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
 
    public void testMDBActivationConfigMerge()
    {
-      EjbJar30MetaData ejbJar = new EjbJar30MetaData();
+      EjbJarMetaData ejbJar = new EjbJarMetaData(EjbJarVersion.EJB_3_1);
       ejbJar.setEnterpriseBeans(new EnterpriseBeansMetaData());
       MessageDrivenBeanMetaData messageBean = new MessageDrivenBeanMetaData();
       messageBean.setEjbName("MyMDB");

@@ -29,8 +29,7 @@ import org.jboss.metadata.ejb.jboss.ContainerConfigurationMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaDataWrapper;
-import org.jboss.metadata.ejb.spec.EjbJar20MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar2xMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
 import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.spec.SubscriptionDurability;
@@ -43,7 +42,7 @@ import java.util.HashSet;
 
 /**
  * 2.0 ejb-jar.xml tests.
- * 
+ *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88255 $
  */
@@ -54,21 +53,21 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest
    {
       return suite(EjbJar20UnitTestCase.class);
    }
-   
+
    public EjbJar20UnitTestCase(String name)
    {
       super(name);
    }
-   
-   protected EjbJar2xMetaData unmarshal() throws Exception
+
+   protected EjbJarMetaData unmarshal() throws Exception
    {
-      return unmarshal(EjbJar20MetaData.class);
+      return unmarshal(EjbJarMetaData.class);
    }
 
    public void testVersion()
       throws Exception
    {
-      EjbJar2xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       assertEquals("2.0", result.getVersion());
       assertFalse(result.isEJB1x());
       assertTrue(result.isEJB2x());
@@ -87,7 +86,7 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest
    public void testMDB()
       throws Exception
    {
-      EjbJar2xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       assertEquals("2.0", result.getVersion());
 
       IEnterpriseBeansMetaData beans = result.getEnterpriseBeans();
@@ -131,7 +130,7 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest
    public void testResourceRefs()
       throws Exception
    {
-      EjbJar2xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       IEnterpriseBeanMetaData mdb = result.getEnterpriseBeans().get("TopicPublisher");
       ResourceReferencesMetaData resources = mdb.getResourceReferences();
       ResourceReferenceMetaData jmsRef1 = resources.get("jms/MyTopicConnection");
@@ -154,7 +153,7 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest
    public void testEntity()
       throws Exception
    {
-      EjbJar2xMetaData specMetaData = unmarshal();
+      EjbJarMetaData specMetaData = unmarshal();
       JBossMetaData jbossMetaData = unmarshal("JBoss30_entityConfig.xml", JBossMetaData.class, null);
       JBossMetaData stdMetaData = unmarshal("JBoss5xEverything_testStandard.xml", JBossMetaData.class, null);
       JBossMetaData mergedMetaData = new JBossMetaData();
@@ -189,20 +188,20 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest
       assertEquals(null, conf2.getSecurityDomain());
       assertNotNull(conf2.getClusterConfig());
       assertEquals("DefaultPartition", conf2.getClusterConfig().getPartitionName());
-      
+
       assertTrue(specMetaData.isEJB2x());
       EntityBeanMetaData entity = (EntityBeanMetaData) specMetaData.getEnterpriseBean("TestEntity");
       assertNotNull(entity);
       assertFalse(entity.isCMP1x());
-      
+
       entity = (EntityBeanMetaData) specMetaData.getEnterpriseBean("TestEntityCmp1");
       assertNotNull(entity);
       assertTrue(entity.isCMP1x());
-      
+
       JBossEntityBeanMetaData jbe = (JBossEntityBeanMetaData) mergedMetaData.getEnterpriseBean("TestEntity");
       assertNotNull(jbe);
       assertFalse(jbe.isCMP1x());
-      
+
       jbe = (JBossEntityBeanMetaData) mergedMetaData.getEnterpriseBean("TestEntityCmp1");
       assertNotNull(jbe);
       assertTrue(jbe.isCMP1x());
@@ -216,7 +215,7 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest
    public void testRedefinedContainer()
       throws Exception
    {
-      EjbJar2xMetaData specMetaData = unmarshal();
+      EjbJarMetaData specMetaData = unmarshal();
       JBossMetaData jbossMetaData = unmarshal("JBoss32_redefinedContainer.xml", JBossMetaData.class, null);
       JBossMetaData stdMetaData = unmarshal("JBoss5xEverything_testStandard.xml", JBossMetaData.class, null);
       JBossMetaData mergedMetaData = new JBossMetaData();
@@ -235,11 +234,11 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest
       assertEquals("entity-unified-invoker", conf.getDefaultInvokerName());
       assertEquals(CommitOption.C, conf.getCommitOption());
       assertEquals(30000, conf.getOptiondRefreshRateMillis());
-      
+
       assertNotNull(conf.getDepends());
       assertEquals(1, conf.getDepends().size());
       assertTrue(conf.getDepends().contains("test:name=Test"));
-      
+
       assertTrue(specMetaData.isEJB2x());
       EntityBeanMetaData entity = (EntityBeanMetaData) specMetaData.getEnterpriseBean("TestEntity");
       assertNotNull(entity);
@@ -249,7 +248,7 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest
    public void testOneMany()
       throws Exception
    {
-      EjbJar2xMetaData specMetaData = unmarshal();
-      
+      EjbJarMetaData specMetaData = unmarshal();
+
    }
 }

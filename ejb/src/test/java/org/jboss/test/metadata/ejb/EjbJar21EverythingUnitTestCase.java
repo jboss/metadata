@@ -36,7 +36,7 @@ import javax.ejb.TransactionManagementType;
 
 /**
  * EjbJar2xUnitTestCase.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -46,26 +46,26 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
    {
       return suite(EjbJar21EverythingUnitTestCase.class);
    }
-      
+
    public EjbJar21EverythingUnitTestCase(String name)
    {
       super(name);
    }
-   
-   protected EjbJar2xMetaData unmarshal() throws Exception
+
+   protected EjbJarMetaData unmarshal() throws Exception
    {
-      return unmarshal(EjbJar21MetaData.class);
+      return unmarshal(EjbJarMetaData.class);
    }
-   
+
    public void testEverything() throws Exception
    {
       //enableTrace("org.jboss.xb");
       //enableTrace("org.jboss.xb.builder");
-      EjbJar2xMetaData ejbJarMetaData = unmarshal();
+      EjbJarMetaData ejbJarMetaData = unmarshal();
       assertEverythingWithAppMetaData(ejbJarMetaData, Mode.SPEC);
    }
 
-   public void assertEverything(EjbJar2xMetaData ejbJarMetaData, Mode mode)
+   public void assertEverything(EjbJarMetaData ejbJarMetaData, Mode mode)
    {
       assertVersion(ejbJarMetaData);
       assertId("ejb-jar", ejbJarMetaData);
@@ -77,7 +77,7 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertAssemblyDescriptor(ejbJarMetaData);
    }
 
-   public void assertEverythingWithAppMetaData(EjbJar2xMetaData ejbJarMetaData, Mode mode)
+   public void assertEverythingWithAppMetaData(EjbJarMetaData ejbJarMetaData, Mode mode)
    {
       JBossMetaData jbossMetaData = new JBossMetaData();
       //jbossMetaData.setOverridenMetaData(ejbJarMetaData);
@@ -96,8 +96,8 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertAssemblyDescriptor(ejbJarMetaData);
       //assertAssemblyDescriptor(applicationMetaData);
    }
-   
-   private void assertVersion(EjbJar2xMetaData ejbJar2xMetaData)
+
+   private void assertVersion(EjbJarMetaData ejbJar2xMetaData)
    {
       assertEquals("2.1", ejbJar2xMetaData.getVersion());
       assertFalse(ejbJar2xMetaData.isEJB1x());
@@ -119,7 +119,7 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
    protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData, Mode mode)
    {
       SessionBeanMetaData session = assertSession(ejbName + "EjbName", enterpriseBeansMetaData);
-      assertFullSessionBean(ejbName, session, mode);      
+      assertFullSessionBean(ejbName, session, mode);
       return session;
    }
 
@@ -159,11 +159,11 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertSecurityRoleRefs(ejbName, 2, session.getSecurityRoleRefs());
       assertSecurityIdentity(ejbName, "SecurityIdentity", session.getSecurityIdentity(), true, mode);
    }
-   
+
    protected EntityBeanMetaData assertFullEntity(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData, Mode mode)
    {
       EntityBeanMetaData entity = assertEntity(ejbName + "EjbName", enterpriseBeansMetaData);
-      assertFullEntity(ejbName, entity, mode);      
+      assertFullEntity(ejbName, entity, mode);
       return entity;
    }
 
@@ -233,7 +233,7 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
       if (size > 0)
          assertMethodParams(ejbName + "QueryMethod", size, queryMethodMetaData.getMethodParams());
    }
-   
+
    protected MessageDrivenBeanMetaData assertFullMDB(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData, Mode mode)
    {
       MessageDrivenBeanMetaData mdb = assertMDB(ejbName + "EjbName", enterpriseBeansMetaData);
@@ -248,10 +248,10 @@ public class EjbJar21EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertMethodPermissions(ejbName, ejbName + "MethodPermission", 3, 3, mdb.getMethodPermissions());
       assertExcludeList(ejbName, 5, 5, mdb.getExcludeList());
       assertSecurityIdentity(ejbName, "SecurityIdentity", mdb.getSecurityIdentity(), true, mode);
-      
+
       return mdb;
    }
-   
+
    private void assertEjbClientJar(EjbJarMetaData ejbJarMetaData)
    {
       assertEquals("some/path/client.jar", ejbJarMetaData.getEjbClientJar());

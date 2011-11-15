@@ -23,14 +23,8 @@ package org.jboss.test.metadata.jbmeta56.unit;
 
 import org.jboss.metadata.ejb.jboss.JBoss50DTDMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar20MetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferenceType;
-import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ResourceAuthorityType;
-import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.javaee.spec.*;
 import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 
 /**
@@ -44,14 +38,14 @@ public class EnvironmentTestCase extends AbstractEJBEverythingTest
       super(name);
    }
 
-   protected EjbJar20MetaData unmarshal() throws Exception
+   protected EjbJarMetaData unmarshal() throws Exception
    {
-      return unmarshal(EjbJar20MetaData.class);
+      return unmarshal(EjbJarMetaData.class);
    }
 
    public void test() throws Exception
    {
-      EjbJar20MetaData ejbJarMetaData = unmarshal("EnvironmentTestCase_testEnv.xml", EjbJar20MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EnvironmentTestCase_testEnv.xml", EjbJarMetaData.class, null);
       assertNotNull(ejbJarMetaData);
 
       JBoss50DTDMetaData jbossMetaData = unmarshal("jboss.xml", JBoss50DTDMetaData.class, null);

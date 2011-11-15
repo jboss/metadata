@@ -21,18 +21,14 @@
  */
 package org.jboss.metadata.ejb.test.extension;
 
-import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.MethodInterfaceType;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.test.common.ValidationHelper;
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
+import org.xml.sax.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,10 +40,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshalJboss;
+import static org.junit.Assert.*;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -65,7 +59,7 @@ public class ExtensionTestCase
    @Test
    public void testBean() throws Exception
    {
-      JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "/org/jboss/metadata/ejb/test/extension/jboss-ejb3-with-bean.xml");
+      EjbJarMetaData metaData = unmarshalJboss(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/extension/jboss-ejb3-with-bean.xml");
       SessionBean31MetaData bean = (SessionBean31MetaData) metaData.getEnterpriseBean("Test");
       assertNotNull(bean);
    }
@@ -76,7 +70,7 @@ public class ExtensionTestCase
       Map<String, AbstractMetaDataParser<?>> parsers = new HashMap<String, AbstractMetaDataParser<?>>();
       parsers.put("urn:cache-test", new CacheTestParser());
       parsers.put("urn:tx-timeout-test", new TxTestParser());
-      JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "/org/jboss/metadata/ejb/test/extension/jboss-ejb3.xml", parsers);
+      EjbJarMetaData metaData = unmarshalJboss(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/extension/jboss-ejb3.xml", parsers);
       assertNotNull(metaData.getAssemblyDescriptor());
       assertEquals(20, metaData.getAssemblyDescriptor().getAny(CacheTest.class).get(0).getSize());
       final TxTest txTest = metaData.getAssemblyDescriptor().getAny(TxTest.class).get(0);
@@ -90,7 +84,7 @@ public class ExtensionTestCase
    @Test
    public void testMetadataComplete() throws Exception
    {
-      JBossEjb31MetaData metaData = unmarshal(JBossEjb31MetaData.class, "/org/jboss/metadata/ejb/test/extension/jboss-ejb3-metadata-complete.xml");
+      EjbJarMetaData metaData = unmarshalJboss(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/extension/jboss-ejb3-metadata-complete.xml");
       assertTrue(metaData.isMetadataComplete());
    }
 

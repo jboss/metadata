@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.ejb.test.common;
 
-import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
 import org.jboss.metadata.ejb.parser.jboss.ejb3.JBossEjb3MetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.EjbJarMetaDataParser;
@@ -47,7 +46,10 @@ public class UnmarshallingHelper
    {
       return unmarshal(expected, resource, new HashMap<String, AbstractMetaDataParser<?>>());
    }
-
+   public static <T> T unmarshalJboss(Class<T> expected, String resource) throws Exception
+   {
+      return unmarshalJboss(expected, resource, new HashMap<String, AbstractMetaDataParser<?>>());
+   }
    public static <T> T unmarshal(Class<T> expected, String resource, Map<String, AbstractMetaDataParser<?>> parsers) throws Exception
    {
       final InputStream in = expected.getResourceAsStream(resource);
@@ -62,16 +64,33 @@ public class UnmarshallingHelper
       final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
       inputFactory.setXMLResolver(info);
       XMLStreamReader reader = inputFactory.createXMLStreamReader(in);
-
-      if (JBossEjb31MetaData.class.isAssignableFrom(expected))
-      {
-         return expected.cast(new JBossEjb3MetaDataParser(parsers).parse(reader, info));
-      }
-      else if (EjbJarMetaData.class.isAssignableFrom(expected))
+      if (EjbJarMetaData.class.isAssignableFrom(expected))
       {
          return expected.cast(EjbJarMetaDataParser.parse(reader, info));
-      }
-      fail("NYI: parsing for " + expected);
+      } else
+         fail("NYI: parsing for " + expected);
+      return null;
+   }
+
+   public static <T> T unmarshalJboss(Class<T> expected, String resource, Map<String, AbstractMetaDataParser<?>> parsers) throws Exception
+   {
+      final InputStream in = expected.getResourceAsStream(resource);
+      if (in == null)
+         throw new IllegalArgumentException("Can't find resource " + resource + " relative to " + expected);
+      return unmarshalJboss(expected, in, parsers);
+   }
+
+   public static <T> T unmarshalJboss(Class<T> expected, InputStream in, Map<String, AbstractMetaDataParser<?>> parsers) throws XMLStreamException
+   {
+      MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
+      final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+      inputFactory.setXMLResolver(info);
+      XMLStreamReader reader = inputFactory.createXMLStreamReader(in);
+      if (EjbJarMetaData.class.isAssignableFrom(expected))
+      {
+         return expected.cast(new JBossEjb3MetaDataParser(parsers).parse(reader, info));
+      } else
+         fail("NYI: parsing for " + expected);
       return null;
    }
 }

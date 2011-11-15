@@ -21,12 +21,12 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
 import org.jboss.metadata.ejb.jboss.ejb3.JBossEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractEjbJarMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.EjbJarNamespaceMapping;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
 
 import javax.xml.stream.XMLStreamException;
@@ -36,7 +36,7 @@ import java.util.Map;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser<JBossEjb31MetaData>
+public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser
 {
    private final Map<String, AbstractMetaDataParser<?>> parsers;
 
@@ -46,12 +46,12 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser<JBossE
    }
 
    @Override
-   public JBossEjb31MetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public EjbJarMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       throw new UnsupportedOperationException("org.jboss.metadata.ejb.parser.jboss.ejb3.JBossEjb3MetaDataParser.parse");
    }
 
-   public JBossEjb31MetaData parse(final XMLStreamReader reader, final DTDInfo info) throws XMLStreamException
+   public EjbJarMetaData parse(final XMLStreamReader reader, final DTDInfo info) throws XMLStreamException
    {
       reader.require(START_DOCUMENT, null, null);
       // Read until the first start element
@@ -94,7 +94,7 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser<JBossE
       if (ejbJarVersion != EjbJarVersion.EJB_3_1)
          throw new UnsupportedOperationException("Only EJB 3.1 descriptor is supported, found " + ejbJarVersion);
 
-      final JBossEjb31MetaData metaData = new JBossEjb31MetaData();
+      final EjbJarMetaData metaData = new EjbJarMetaData(ejbJarVersion);
       processAttributes(metaData, reader);
       processElements(metaData, reader);
       return metaData;
@@ -106,7 +106,7 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser<JBossE
    }
 
    @Override
-   protected void processAttribute(JBossEjb31MetaData metaData, XMLStreamReader reader, int i) throws XMLStreamException
+   protected void processAttribute(EjbJarMetaData metaData, XMLStreamReader reader, int i) throws XMLStreamException
    {
       final String value = reader.getAttributeValue(i);
       if (attributeHasNamespace(reader, i))
@@ -117,7 +117,7 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser<JBossE
       switch (attr)
       {
          case IMPL_VERSION:
-            metaData.setImplVersion(value);
+           // metaData.setImplVersion(value);
             break;
          default:
             super.processAttribute(metaData, reader, i);
@@ -125,7 +125,7 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser<JBossE
    }
 
    @Override
-   protected void processElement(JBossEjb31MetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(EjbJarMetaData metaData, XMLStreamReader reader) throws XMLStreamException
    {
       final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
       final Element element = Element.forName(reader.getLocalName());

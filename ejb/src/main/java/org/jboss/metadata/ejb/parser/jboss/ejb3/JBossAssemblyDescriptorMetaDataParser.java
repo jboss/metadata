@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import org.jboss.metadata.ejb.jboss.ejb3.JBossAssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.AssemblyDescriptor30MetaDataParser;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
@@ -57,7 +56,7 @@ public class JBossAssemblyDescriptorMetaDataParser extends AssemblyDescriptor30M
    @Override
    public AssemblyDescriptorMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
-      AssemblyDescriptorMetaData assemblyDescriptorMetaData = new JBossAssemblyDescriptorMetaData();
+      AssemblyDescriptorMetaData assemblyDescriptorMetaData = new AssemblyDescriptorMetaData();
       processAttributes(assemblyDescriptorMetaData, reader);
       this.processElements(assemblyDescriptorMetaData, reader);
       return assemblyDescriptorMetaData;
@@ -79,7 +78,7 @@ public class JBossAssemblyDescriptorMetaDataParser extends AssemblyDescriptor30M
 //            ((XMLExtendedStreamReader) reader).handleAny(result);
 //            ((JBossAssemblyDescriptorMetaData) assemblyDescriptor).addAny(result.getResult());
             AbstractMetaDataParser<?> parser = getParser(reader.getNamespaceURI());
-            ((JBossAssemblyDescriptorMetaData) assemblyDescriptor).addAny(parser.parse(reader));
+            assemblyDescriptor.addAny(parser.parse(reader));
             break;
       }
    }

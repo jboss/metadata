@@ -21,9 +21,8 @@
  */
 package org.jboss.metadata.ejb.test.merge;
 
-import org.jboss.metadata.ejb.jboss.ejb3.JBossEjb31MetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
-import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.test.common.UnmarshallingHelper;
 import org.junit.Test;
 
@@ -40,8 +39,8 @@ public class EjbJarJBossMergeDifferentVersionsTestCase
    @Test
    public void testMerge30() throws Exception
    {
-      final EjbJar30MetaData original = unmarshal(EjbJar30MetaData.class, "ejb-jar-version-30.xml");
-      final JBossEjb31MetaData override = unmarshal(JBossEjb31MetaData.class, "jboss-ejb3-version-30.xml");
+      final EjbJarMetaData original = unmarshal(EjbJarMetaData.class, "ejb-jar-version-30.xml");
+      final EjbJarMetaData override = unmarshalJboss(EjbJarMetaData.class, "jboss-ejb3-version-30.xml");
       override.createMerged(original);
    }
 
@@ -52,5 +51,14 @@ public class EjbJarJBossMergeDifferentVersionsTestCase
          throw new IllegalArgumentException("Can't find resource " + resource + " relative to " + getClass());
       final Map<String, AbstractMetaDataParser<?>> parsers = new HashMap<String, AbstractMetaDataParser<?>>();
       return UnmarshallingHelper.unmarshal(expected, in, parsers);
+   }
+
+   private <T> T unmarshalJboss(Class<T> expected, String resource) throws XMLStreamException
+   {
+      final InputStream in = getClass().getResourceAsStream(resource);
+      if (in == null)
+         throw new IllegalArgumentException("Can't find resource " + resource + " relative to " + getClass());
+      final Map<String, AbstractMetaDataParser<?>> parsers = new HashMap<String, AbstractMetaDataParser<?>>();
+      return UnmarshallingHelper.unmarshalJboss(expected, in, parsers);
    }
 }

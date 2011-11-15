@@ -31,9 +31,14 @@ import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * AssemblyDescriptorMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -48,21 +53,44 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /** The method permissions */
    private MethodPermissionsMetaData methodPermissions;
-   
+
    /** The container transactions */
    private ContainerTransactionsMetaData containerTransactions;
-   
+
    /** The interceptor bindings */
    private InterceptorBindingsMetaData interceptorBindings;
 
    /** The message destinations */
    private MessageDestinationsMetaData messageDestinations;
-   
+
    /** The exclude list */
    private ExcludeListMetaData excludeList;
-   
+
    /** The application exceptions */
    private ApplicationExceptionsMetaData applicationExceptions;
+
+   /**
+    * Any additional attachments
+    */
+   private Map<Class<?>, List<?>> any = new HashMap<Class<?>, List<?>>();
+
+   public void addAny(Object a)
+   {
+      Class<?> cls = a.getClass();
+      List<Object> current = (List<Object>) any.get(cls);
+      if (current == null)
+      {
+         current = new ArrayList<Object>();
+         any.put(cls, current);
+      }
+      current.add(a);
+   }
+
+
+   public <T> List<T> getAny(Class<T> type)
+   {
+      return (List<T>) any.get(type);
+   }
 
    /**
     * Create a new AssemblyDescriptorMetaData
@@ -85,7 +113,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
    }
    /**
     * Get the securityRoles.
-    * 
+    *
     * @return the securityRoles.
     */
    public SecurityRolesMetaData getSecurityRoles()
@@ -95,7 +123,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Set the securityRoles.
-    * 
+    *
     * @param securityRoles the securityRoles.
     * @throws IllegalArgumentException for a null securityRoles
     */
@@ -108,7 +136,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Get the methodPermissions.
-    * 
+    *
     * @return the methodPermissions.
     */
    public MethodPermissionsMetaData getMethodPermissions()
@@ -118,7 +146,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Set the methodPermissions.
-    * 
+    *
     * @param methodPermissions the methodPermissions.
     * @throws IllegalArgumentException for a null methodPermissions
     */
@@ -131,7 +159,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Get the methods permissions for an ejb
-    * 
+    *
     * @param ejbName the ejb name
     * @return the method permissions or null for no result
     * @throws IllegalArgumentException for a null ejb name
@@ -148,7 +176,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Get the containerTransactions.
-    * 
+    *
     * @return the containerTransactions.
     */
    public ContainerTransactionsMetaData getContainerTransactions()
@@ -158,7 +186,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Set the containerTransactions.
-    * 
+    *
     * @param containerTransactions the containerTransactions.
     * @throws IllegalArgumentException for a null containerTransactions
     */
@@ -171,7 +199,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Get the container transactions for an ejb
-    * 
+    *
     * @param ejbName the ejb name
     * @return the container transactions or null for no result
     * @throws IllegalArgumentException for a null ejb name
@@ -188,7 +216,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Get the interceptorBindings.
-    * 
+    *
     * @return the interceptorBindings.
     */
    public InterceptorBindingsMetaData getInterceptorBindings()
@@ -198,7 +226,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Set the interceptorBindings.
-    * 
+    *
     * @param interceptorBindings the interceptorBindings.
     * @throws IllegalArgumentException for a null interceptorBindings
     */
@@ -211,7 +239,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Get the messageDestinations.
-    * 
+    *
     * @return the messageDestinations.
     */
    public MessageDestinationsMetaData getMessageDestinations()
@@ -221,7 +249,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Set the messageDestinations.
-    * 
+    *
     * @param messageDestinations the messageDestinations.
     * @throws IllegalArgumentException for a null messageDestinations
     */
@@ -234,7 +262,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Get a message destination
-    * 
+    *
     * @param name the name of the destination
     * @return the destination or null if not found
     */
@@ -244,10 +272,10 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
          return null;
       return messageDestinations.get(name);
    }
-   
+
    /**
     * Get the excludeList.
-    * 
+    *
     * @return the excludeList.
     */
    public ExcludeListMetaData getExcludeList()
@@ -257,7 +285,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Set the excludeList.
-    * 
+    *
     * @param excludeList the excludeList.
     * @throws IllegalArgumentException for a null excludeList
     */
@@ -270,7 +298,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Get the exclude list for an ejb
-    * 
+    *
     * @param ejbName the ejb name
     * @return the exclude list or null for no result
     * @throws IllegalArgumentException for a null ejb name
@@ -287,7 +315,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Get the applicationExceptions.
-    * 
+    *
     * @return the applicationExceptions.
     */
    public ApplicationExceptionsMetaData getApplicationExceptions()
@@ -297,7 +325,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
 
    /**
     * Set the applicationExceptions.
-    * 
+    *
     * @param applicationExceptions the applicationExceptions.
     * @throws IllegalArgumentException for a null applicationExceptions
     */
@@ -307,53 +335,57 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
          throw new IllegalArgumentException("Null applicationExceptions");
       this.applicationExceptions = applicationExceptions;
    }
-   
+
    public void merge(AssemblyDescriptorMetaData override, AssemblyDescriptorMetaData original)
    {
       IdMetaDataImplMerger.merge(this, override, original);
-      
+
+      if (override != null && override.any != null)
+      {
+         this.any.putAll(override.any);
+      }
       if((override != null && override.applicationExceptions != null) || (original != null && original.applicationExceptions != null))
       {
          applicationExceptions = new ApplicationExceptionsMetaData();
          applicationExceptions.merge(override != null ? override.applicationExceptions : null, original != null ? original.applicationExceptions : null);
       }
-      
+
       if((override != null && override.containerTransactions != null) || (original != null && original.containerTransactions != null))
       {
          containerTransactions = new ContainerTransactionsMetaData();
          containerTransactions.merge(override != null ? override.containerTransactions : null, original != null ? original.containerTransactions : null);
       }
-      
+
       if((override != null && override.excludeList != null) || (original != null && original.excludeList != null))
       {
          excludeList = new ExcludeListMetaData();
          excludeList.merge(override != null ? override.excludeList : null, original != null ? original.excludeList : null);
       }
-      
+
       if((override != null && override.interceptorBindings != null) || (original != null && original.interceptorBindings != null))
       {
          interceptorBindings = new InterceptorBindingsMetaData();
          interceptorBindings.merge(override != null ? override.interceptorBindings : null, original != null ? original.interceptorBindings : null);
       }
-      
+
       if((override != null && override.messageDestinations != null) || (original != null && original.messageDestinations != null))
       {
          messageDestinations = new MessageDestinationsMetaData();
          MessageDestinationsMetaDataMerger.merge(messageDestinations, override != null ? override.messageDestinations : null, original != null ? original.messageDestinations : null);
       }
-      
+
       if((override != null && override.methodPermissions != null) || (original != null && original.methodPermissions != null))
       {
          methodPermissions = new MethodPermissionsMetaData();
          methodPermissions.merge(override != null ? override.methodPermissions : null, original != null ? original.methodPermissions : null);
       }
-      
+
       if((override != null && override.securityRoles != null) || (original != null && original.securityRoles != null))
       {
          securityRoles = new SecurityRolesMetaData();
          SecurityRolesMetaDataMerger.merge(securityRoles, override != null ? override.securityRoles : null, original != null ? original.securityRoles : null);
       }
-      
-      
+
+
    }
 }

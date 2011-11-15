@@ -35,8 +35,7 @@ import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaDataWrapper;
 import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
 import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
@@ -53,7 +52,7 @@ import java.util.Set;
 
 /**
  * EjbJar3xUnitTestCase.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -69,20 +68,20 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
       super(name);
    }
 
-   protected EjbJar3xMetaData unmarshal() throws Exception
+   protected EjbJarMetaData unmarshal() throws Exception
    {
-      return unmarshal(EjbJar30MetaData.class);
+      return unmarshal(EjbJarMetaData.class);
    }
 
    public void testId() throws Exception
    {
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       assertEquals("ejb-jar-test-id", result.getId());
    }
 
    public void testVersion() throws Exception
    {
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       assertEquals("3.0", result.getVersion());
       assertFalse(result.isEJB1x());
       assertFalse(result.isEJB2x());
@@ -118,7 +117,7 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
 
    public void testDescriptionDefaultLanguage() throws Exception
    {
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       DescriptionGroupMetaData group = result.getDescriptionGroup();
       assertNotNull(group);
       Descriptions descriptions = group.getDescriptions();
@@ -132,7 +131,7 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
 
    public void testDisplayNameDefaultLanguage() throws Exception
    {
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       DescriptionGroupMetaData group = result.getDescriptionGroup();
       assertNotNull(group);
       DisplayNames displayNames = group.getDisplayNames();
@@ -146,7 +145,7 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
 
    public void testIconDefaultLanguage() throws Exception
    {
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       DescriptionGroupMetaData group = result.getDescriptionGroup();
       assertNotNull(group);
       Icons icons = group.getIcons();
@@ -161,13 +160,13 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
 
    public void testEjbClientJar() throws Exception
    {
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       assertEquals("some/path/client.jar", result.getEjbClientJar());
    }
 
    public void testEnterpriseBeans() throws Exception
    {
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       EnterpriseBeansMetaData beans = result.getEnterpriseBeans();
       assertNotNull(beans);
 
@@ -191,7 +190,7 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
     */
    public void testEnvEntry() throws Exception
    {
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       IEnterpriseBeansMetaData beans = result.getEnterpriseBeans();
       assertNotNull(beans);
       IEnterpriseBeanMetaData bean = beans.get("StatelessSession1");
@@ -215,7 +214,7 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
    public void testServiceRefs() throws Exception
    {
       //enableTrace("org.jboss.xb");
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       IEnterpriseBeansMetaData beans = result.getEnterpriseBeans();
       assertNotNull(beans);
       IEnterpriseBeanMetaData bean = beans.get("StatelessSession1");
@@ -240,14 +239,14 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
    public void testMultipleBusinessInterfaces() throws Exception
    {
       // Obtain Metadata
-      EjbJar3xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
 
       // Get metadata for our bean
       SessionBeanMetaData metaData = (SessionBeanMetaData) result.getEnterpriseBeans().get(
             "MultipleBusinessInterfacesBean");
       BusinessRemotesMetaData businessRemotesMetaData = metaData.getBusinessRemotes();
       BusinessLocalsMetaData businessLocalsMetaData = metaData.getBusinessLocals();
-      
+
       // Ensure 2 business interfaces are defined for each local and remote
       assertTrue(businessRemotesMetaData.size()==2);
       assertTrue(businessLocalsMetaData.size()==2);

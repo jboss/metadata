@@ -35,9 +35,9 @@ import javax.xml.stream.XMLStreamReader;
  * <p/>
  * User: Jaikiran Pai
  */
-public abstract class AbstractEjbJarMetaDataParser<MD extends EjbJarMetaData> extends AbstractMetaDataParser<MD>
+public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParser<EjbJarMetaData>
 {
-   protected void processAttribute(MD ejbJarMetaData, XMLStreamReader reader, int i) throws XMLStreamException
+   protected void processAttribute(EjbJarMetaData ejbJarMetaData, XMLStreamReader reader, int i) throws XMLStreamException
    {
       final String value = reader.getAttributeValue(i);
       if (attributeHasNamespace(reader, i))
@@ -60,11 +60,11 @@ public abstract class AbstractEjbJarMetaDataParser<MD extends EjbJarMetaData> ex
          case METADATA_COMPLETE:
          {
             // metadata-complete applies only to EJB 3.x
-            if (ejbJarMetaData instanceof EjbJar3xMetaData)
+            if (ejbJarMetaData.isEJB3x())
             {
                if (Boolean.TRUE.equals(Boolean.valueOf(value)))
                {
-                  ((EjbJar3xMetaData) ejbJarMetaData).setMetadataComplete(true);
+                  ejbJarMetaData.setMetadataComplete(true);
                }
             }
             else
@@ -78,7 +78,7 @@ public abstract class AbstractEjbJarMetaDataParser<MD extends EjbJarMetaData> ex
       }
    }
 
-   protected void processAttributes(final MD ejbJarMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processAttributes(final EjbJarMetaData ejbJarMetaData, XMLStreamReader reader) throws XMLStreamException
    {
       // Handle attributes and set them in the EjbJarMetaData
       final int count = reader.getAttributeCount();
@@ -89,17 +89,17 @@ public abstract class AbstractEjbJarMetaDataParser<MD extends EjbJarMetaData> ex
    }
 
    @Override
-   protected void processElement(final MD ejbJarMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(final EjbJarMetaData ejbJarMetaData, XMLStreamReader reader) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case MODULE_NAME:
             // only EJB 3.1 allows module-name
-            if (ejbJarMetaData.isEJB31() && ejbJarMetaData instanceof EjbJar31MetaData)
+            if (ejbJarMetaData.isEJB31())
             {
                String moduleName = getElementText(reader);
-               ((EjbJar31MetaData) ejbJarMetaData).setModuleName(moduleName);
+               ejbJarMetaData.setModuleName(moduleName);
             }
             else
             {
@@ -119,10 +119,10 @@ public abstract class AbstractEjbJarMetaDataParser<MD extends EjbJarMetaData> ex
 
          case INTERCEPTORS:
             // only applicable for EJB 3.x
-            if (ejbJarMetaData.isEJB3x() && ejbJarMetaData instanceof EjbJar3xMetaData)
+            if (ejbJarMetaData.isEJB3x())
             {
                InterceptorsMetaData intercpetors = InterceptorsMetaDataParser.INSTANCE.parse(reader);
-               ((EjbJar3xMetaData)ejbJarMetaData).setInterceptors(intercpetors);
+               ejbJarMetaData.setInterceptors(intercpetors);
             }
             else
             {

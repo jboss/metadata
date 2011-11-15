@@ -29,12 +29,10 @@ import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
 import org.jboss.metadata.ejb.spec.ActivationConfigPropertiesMetaData;
 import org.jboss.metadata.ejb.spec.ActivationConfigPropertyMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar21MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 
 /**
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -53,7 +51,7 @@ public class EjbJarJBossMergeActivationConfigUnitTestCase
 
    public void testEJB3xMergeActivationConfig() throws Exception
    {
-      EjbJar3xMetaData ejbJarMetaData = unmarshal("EjbJar3xMergeActivationConfig.xml", EjbJar30MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xMergeActivationConfig.xml", EjbJarMetaData.class, null);
       JBoss50MetaData jbossMetaData = unmarshal("JBoss5xMergeActivationConfig.xml", JBoss50MetaData.class, null);
       jbossMetaData.merge(jbossMetaData, ejbJarMetaData);
       testMergeActivationConfig(jbossMetaData);
@@ -61,12 +59,12 @@ public class EjbJarJBossMergeActivationConfigUnitTestCase
 
    public void testEJB21MergeActivationConfig() throws Exception
    {
-      EjbJar21MetaData ejbJarMetaData = unmarshal("EjbJar21MergeActivationConfig.xml", EjbJar21MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar21MergeActivationConfig.xml", EjbJarMetaData.class, null);
       JBoss50MetaData jbossMetaData = unmarshal("JBoss5xMergeActivationConfig.xml", JBoss50MetaData.class, null);
       jbossMetaData.merge(jbossMetaData, ejbJarMetaData);
       testMergeActivationConfig(jbossMetaData);
    }
-   
+
    protected void testMergeActivationConfig(JBoss50MetaData jbossMetaData)
    {
       JBossEnterpriseBeanMetaData enterpriseBeanMetaData = jbossMetaData.getEnterpriseBean("testmdb");
@@ -85,7 +83,7 @@ public class EjbJarJBossMergeActivationConfigUnitTestCase
       assertProperty(properties, "shared1", "FromJBossShared1");
       assertProperty(properties, "shared2", "FromJBossShared2");
    }
-   
+
    protected void assertProperty(ActivationConfigPropertiesMetaData properties, String key, String value)
    {
       ActivationConfigPropertyMetaData property = properties.get(key);

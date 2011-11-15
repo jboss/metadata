@@ -22,25 +22,12 @@
 package org.jboss.test.metadata.ejb;
 
 import junit.framework.Test;
-import org.jboss.metadata.ejb.jboss.InvokerProxyBindingsMetaData;
-import org.jboss.metadata.ejb.jboss.JBoss50DTDMetaData;
-import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
-import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
-import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeansMetaData;
-import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
-import org.jboss.metadata.ejb.jboss.JBossMetaData;
-import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar21MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
+import org.jboss.metadata.ejb.jboss.*;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
-import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.*;
 import org.jboss.metadata.merge.javaee.spec.EJBLocalReferenceMetaDataMerger;
 
 import java.io.File;
@@ -75,7 +62,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
     */
    public void testEJB3xEverything() throws Exception
    {
-      EjbJar3xMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testEverything.xml", EjbJar30MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testEverything.xml", EjbJarMetaData.class, null);
       EjbJar3xEverythingUnitTestCase ejbJar = new EjbJar3xEverythingUnitTestCase("ejb-jar");
       ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
 
@@ -113,7 +100,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
     */
    public void testEJB3xEverythingDualMerge() throws Exception
    {
-      EjbJar3xMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testEverything.xml", EjbJar30MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testEverything.xml", EjbJarMetaData.class, null);
       EjbJar3xEverythingUnitTestCase ejbJar = new EjbJar3xEverythingUnitTestCase("ejb-jar");
       ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
 
@@ -155,7 +142,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
     */
    public void testEJB21EverythingDualMerge() throws Exception
    {
-      EjbJar21MetaData ejbJarMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJar21MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJarMetaData.class, null);
       EjbJar21EverythingUnitTestCase ejbJar = new EjbJar21EverythingUnitTestCase("ejb-jar");
       ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
 
@@ -190,7 +177,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
     */
    public void testEJB21Everything() throws Exception
    {
-      EjbJar21MetaData ejbJarMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJar21MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJarMetaData.class, null);
       EjbJar21EverythingUnitTestCase ejbJar = new EjbJar21EverythingUnitTestCase("ejb-jar");
       ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
 
@@ -222,7 +209,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
     */
    public void testBeanOnlyInJBoss() throws Exception
    {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testBeanOnlyInJBoss.xml", EjbJar30MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testBeanOnlyInJBoss.xml", EjbJarMetaData.class, null);
       JBossMetaData jbossMetaData = unmarshal("JBoss5xEverything_testBeanOnlyInJBoss.xml", JBoss50MetaData.class, null);
       // Create a merged view
       JBossMetaData mergedMetaData = new JBossMetaData();
@@ -256,7 +243,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
     */
    public void testMdbGeneric() throws Exception
    {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_MdbGeneric_ejb-jar.xml", EjbJar30MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_MdbGeneric_ejb-jar.xml", EjbJarMetaData.class, null);
       JBossMetaData jbossMetaData = unmarshal("EjbJarJBossMerge_generic_jboss.xml", JBoss50MetaData.class, null);
       // Create a merged view
       JBossMetaData mergedMetaData = new JBossMetaData();
@@ -275,7 +262,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
     */
    public void testSessionGeneric() throws Exception
    {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_SessionGeneric_ejb-jar.xml", EjbJar30MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_SessionGeneric_ejb-jar.xml", EjbJarMetaData.class, null);
       JBossMetaData jbossMetaData = unmarshal("EjbJarJBossMerge_generic_jboss.xml", JBoss50MetaData.class, null);
       // Create a merged view
       JBossMetaData mergedMetaData = new JBossMetaData();
@@ -294,7 +281,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
     */
    public void testEntityGeneric() throws Exception
    {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_EntityGeneric_ejb-jar.xml", EjbJar30MetaData.class, null);
+      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_EntityGeneric_ejb-jar.xml", EjbJarMetaData.class, null);
       JBossMetaData jbossMetaData = unmarshal("EjbJarJBossMerge_generic_jboss.xml", JBoss50MetaData.class, null);
       // Create a merged view
       JBossMetaData mergedMetaData = new JBossMetaData();
@@ -323,7 +310,7 @@ public class EjbJarJBossMergeEverythingUnitTestCase
 
    public void testHomeJndiNameForEJB3() throws Exception
    {
-      EjbJar30MetaData spec = new EjbJar30MetaData();
+      EjbJarMetaData spec = new EjbJarMetaData(EjbJarVersion.EJB_3_1);
       EnterpriseBeansMetaData specBeans = new EnterpriseBeansMetaData();
       spec.setEnterpriseBeans(specBeans);
       GenericBeanMetaData specBean = new GenericBeanMetaData();

@@ -22,7 +22,7 @@
 package org.jboss.metadata.ejb.test.jbmeta335;
 
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.test.common.UnmarshallingHelper;
 import org.junit.Test;
 
@@ -38,7 +38,7 @@ public class ParseMDBTestCase
    @Test
    public void testParseMDB() throws XMLStreamException
    {
-      EjbJar31MetaData metaData = unmarshal(EjbJar31MetaData.class, "ejb-jar.xml");
+      EjbJarMetaData metaData = unmarshal(EjbJarMetaData.class, "ejb-jar.xml");
    }
 
    private <T> T unmarshal(Class<T> expectedType, String resource) throws XMLStreamException

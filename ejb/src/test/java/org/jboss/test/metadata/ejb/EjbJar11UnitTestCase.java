@@ -23,13 +23,13 @@ package org.jboss.test.metadata.ejb;
 
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar1xMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
 
 
 /**
  * A EjbJar11UnitTestCase.
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -40,14 +40,14 @@ public class EjbJar11UnitTestCase extends AbstractEJBEverythingTest
       super(name);
    }
 
-   protected EjbJar1xMetaData unmarshal() throws Exception
+   protected EjbJarMetaData unmarshal() throws Exception
    {
-      return unmarshal(EjbJar1xMetaData.class);
+      return unmarshal(EjbJarMetaData.class);
    }
 
    public void testEntity() throws Exception
    {
-      EjbJar1xMetaData specMetaData = unmarshal();
+      EjbJarMetaData specMetaData = unmarshal();
       assertEquals("1.1", specMetaData.getVersion());
       assertTrue(specMetaData.isEJB1x());
       assertFalse(specMetaData.isEJB2x());
@@ -61,7 +61,7 @@ public class EjbJar11UnitTestCase extends AbstractEJBEverythingTest
       assertFalse(old.isEJB21());
       assertFalse(old.isEJB3x());
       */
-      
+
       EntityBeanMetaData entity = (EntityBeanMetaData) specMetaData.getEnterpriseBean("EjbName");
       assertNotNull(entity);
       assertTrue(entity.isCMP1x());

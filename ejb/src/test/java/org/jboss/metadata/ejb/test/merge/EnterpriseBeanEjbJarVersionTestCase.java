@@ -22,7 +22,7 @@
 package org.jboss.metadata.ejb.test.merge;
 
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
-import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.test.common.UnmarshallingHelper;
@@ -43,7 +43,7 @@ public class EnterpriseBeanEjbJarVersionTestCase
    @Test
    public void testEjbJarVersion() throws Exception
    {
-      final EjbJar30MetaData original = unmarshal(EjbJar30MetaData.class, "ejb-jar-version-30.xml");
+      final EjbJarMetaData original = unmarshal(EjbJarMetaData.class, "ejb-jar-version-30.xml");
       final EnterpriseBeanMetaData bean = original.getEnterpriseBean("Simple30Bean");
       assertEquals(EjbJarVersion.EJB_3_0, bean.getEjbJarVersion());
    }

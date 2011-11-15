@@ -24,11 +24,11 @@ package org.jboss.test.metadata.ejb;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationsMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaDataWrapper;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 
 /**
  * Basic parsing test for EjbJar31MetaData.
- * 
+ *
  * @author Brian Stansberry
  * @version $Revision$
  */
@@ -43,30 +43,30 @@ public class EjbJar31UnitTestCase extends AbstractEJBEverythingTest
       super(name);
    }
 
-   protected EjbJar31MetaData unmarshal() throws Exception
+   protected EjbJarMetaData unmarshal() throws Exception
    {
-      return unmarshal(EjbJar31MetaData.class);
+      return unmarshal(EjbJarMetaData.class);
    }
-   
-   protected void assertModuleName(EjbJar31MetaData ejbJarMetaData)
+
+   protected void assertModuleName(EjbJarMetaData ejbJarMetaData)
    {
       assertEquals("ejb-jar-test-module-name", ejbJarMetaData.getModuleName());
    }
 
    public void testModuleName() throws Exception
    {
-      EjbJar31MetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       assertEquals("spec-ejb-jar", result.getModuleName());
-      
+
       // Test merged view
       JBossMetaData merged = new JBossMetaData();
       merged.merge(null, result);
       assertEquals("spec-ejb-jar", merged.getModuleName());
    }
-   
+
    public void testVersion() throws Exception
    {
-      EjbJar31MetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       assertEquals("3.1", result.getVersion());
       assertFalse(result.isEJB1x());
       assertFalse(result.isEJB2x());

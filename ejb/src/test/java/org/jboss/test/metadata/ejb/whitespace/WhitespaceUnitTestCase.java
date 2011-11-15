@@ -26,11 +26,6 @@ import org.jboss.metadata.ejb.jboss.JBoss50DTDMetaData;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar1xMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar20MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar21MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
@@ -53,25 +48,25 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
 
    public void testEjbJar30EnvEntry() throws Exception
    {
-      EjbJar3xMetaData xml = unmarshal(EjbJar30MetaData.class);
+      EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
       assertEjbJarEnvEntry(xml);
    }
 
    public void testEjbJar20EnvEntry() throws Exception
    {
-      EjbJarMetaData xml = unmarshal(EjbJar20MetaData.class);
+      EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
       assertEjbJarEnvEntry(xml);
    }
 
    public void testEjbJar21EnvEntry() throws Exception
    {
-      EjbJarMetaData xml = unmarshal(EjbJar21MetaData.class);
+      EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
       assertEjbJarEnvEntry(xml);
    }
 
    public void testEjbJar1xEnvEntry() throws Exception
    {
-      EjbJarMetaData xml = unmarshal(EjbJar1xMetaData.class);
+      EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
       assertEjbJarEnvEntry(xml);
    }
 

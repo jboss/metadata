@@ -24,19 +24,7 @@ package org.jboss.metadata.ejb.jboss;
 import org.jboss.logging.Logger;
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
-import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
-import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar3xMetaData;
-import org.jboss.metadata.ejb.spec.EjbJarMetaData;
-import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorBindingMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorClassesMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
-import org.jboss.metadata.ejb.spec.RelationsMetaData;
-import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
-import org.jboss.metadata.javaee.jboss.NamedModule;
+import org.jboss.metadata.ejb.spec.*;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.support.NamedModuleImpl;
@@ -44,11 +32,7 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionGrou
 import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
 
 import javax.interceptor.Interceptors;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * JBossMetaData.
@@ -58,78 +42,126 @@ import java.util.Set;
  * @version $Revision: 81163 $
  */
 public class JBossMetaData extends NamedModuleImpl
-   implements IEjbJarMetaData<JBossAssemblyDescriptorMetaData, JBossEnterpriseBeansMetaData, JBossEnterpriseBeanMetaData, JBossMetaData>
+      implements IEjbJarMetaData<JBossAssemblyDescriptorMetaData, JBossEnterpriseBeansMetaData, JBossEnterpriseBeanMetaData, JBossMetaData>
 {
-   /** The serialVersionUID */
+   /**
+    * The serialVersionUID
+    */
    private static final long serialVersionUID = 598759931857080298L;
 
-   /** The log */
+   /**
+    * The log
+    */
    private static final Logger log = Logger.getLogger(JBossMetaData.class);
 
-   /** DTD information */
+   /**
+    * DTD information
+    */
    private String dtdPublicId;
    private String dtdSystemId;
-   /** The version */
+   /**
+    * The version
+    */
    private String version;
-   /** The ejb jar version */
+   /**
+    * The ejb jar version
+    */
    private String ejbVersion;
 
-   /** The ejb client jar */
+   /**
+    * The ejb client jar
+    */
    private String ejbClientJar;
 
-   /** The relations */
+   /**
+    * The relations
+    */
    private RelationsMetaData relationships;
 
-   /** The loader repository */
+   /**
+    * The loader repository
+    */
    private LoaderRepositoryMetaData loaderRepository;
 
-   /** The jmx name */
+   /**
+    * The jmx name
+    */
    private String jmxName;
 
-   /** The security domain */
+   /**
+    * The security domain
+    */
    private String securityDomain;
 
-   /** The jacc context id */
+   /**
+    * The jacc context id
+    */
    private String jaccContextID;
 
-   /** Whether to exclude missing methods */
+   /**
+    * Whether to exclude missing methods
+    */
    private boolean excludeMissingMethods = true;
 
-   /** The unauthenticated principal */
+   /**
+    * The unauthenticated principal
+    */
    private String unauthenticatedPrincipal;
 
-   /** Whether to throw an exception when marked rollback */
+   /**
+    * Whether to throw an exception when marked rollback
+    */
    private boolean exceptionOnRollback;
 
-   /** default JMS RA deployment name */
+   /**
+    * default JMS RA deployment name
+    */
    private String jmsResourceAdapter;
 
-   /** The webservices */
+   /**
+    * The webservices
+    */
    private WebservicesMetaData webservices;
 
-   /** The enterprise beans */
+   /**
+    * The enterprise beans
+    */
    private JBossEnterpriseBeansMetaData enterpriseBeans;
 
-   /** The assembly descriptor */
+   /**
+    * The assembly descriptor
+    */
    private JBossAssemblyDescriptorMetaData assemblyDescriptor;
 
-   /** The resource manager */
+   /**
+    * The resource manager
+    */
    private ResourceManagersMetaData resourceManagers;
 
-   /** The invoker-proxy-bindings */
+   /**
+    * The invoker-proxy-bindings
+    */
    private InvokerProxyBindingsMetaData invokerProxyBindings;
 
-   /** The container configurations */
+   /**
+    * The container configurations
+    */
    private ContainerConfigurationsMetaData containerConfigurations;
 
-   /** The interceptors */
+   /**
+    * The interceptors
+    */
    private InterceptorsMetaData interceptors;
    /** */
    private Map<String, RunAsIdentityMetaData> runAsIdentity = new HashMap<String, RunAsIdentityMetaData>();
-   /** Is this a complete metadata description */
+   /**
+    * Is this a complete metadata description
+    */
    private boolean metadataComplete;
 
-   /** the class name that implements the default JNDI binding policy for this ejb unit*/
+   /**
+    * the class name that implements the default JNDI binding policy for this ejb unit
+    */
    private String jndiBindingPolicy;
 
    /**
@@ -142,6 +174,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Callback for the DTD information
+    *
     * @param root
     * @param publicId
     * @param systemId
@@ -162,16 +195,20 @@ public class JBossMetaData extends NamedModuleImpl
       if (dtdPublicId != null && dtdPublicId.contains("5.0"))
          setVersion("5.0");
    }
+
    /**
     * Get the DTD public id if one was seen
+    *
     * @return the value of the web.xml dtd public id
     */
    public String getDtdPublicId()
    {
       return dtdPublicId;
    }
+
    /**
     * Get the DTD system id if one was seen
+    *
     * @return the value of the web.xml dtd system id
     */
    public String getDtdSystemId()
@@ -225,6 +262,7 @@ public class JBossMetaData extends NamedModuleImpl
    {
       return this.ejbClientJar;
    }
+
    public void setEjbClientJar(String ejbClientJar)
    {
       this.ejbClientJar = ejbClientJar;
@@ -232,12 +270,14 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * The spec metadata version information
+    *
     * @return
     */
    public String getEjbVersion()
    {
       return ejbVersion;
    }
+
    public void setEjbVersion(String ejbVersion)
    {
       this.ejbVersion = ejbVersion;
@@ -247,6 +287,7 @@ public class JBossMetaData extends NamedModuleImpl
    {
       return this.relationships;
    }
+
    public void setRelationships(RelationsMetaData relationships)
    {
       this.relationships = relationships;
@@ -330,6 +371,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Set the JACC context id
+    *
     * @param jaccContextID the id to use for the bean JACC context
     */
    public void setJaccContextID(String jaccContextID)
@@ -647,6 +689,7 @@ public class JBossMetaData extends NamedModuleImpl
 
    /**
     * Access the RunAsIdentity associated with the given servlet
+    *
     * @param ejbName - the servlet-name from the web.xml
     * @return RunAsIdentity for the servet if one exists, null otherwise
     */
@@ -662,7 +705,7 @@ public class JBossMetaData extends NamedModuleImpl
             synchronized (runAsIdentity)
             {
                SecurityIdentityMetaData si = ejb.getSecurityIdentity();
-               if(si != null)
+               if (si != null)
                {
                   RunAsMetaData runAs = si.getRunAs();
                   if (runAs != null)
@@ -688,48 +731,46 @@ public class JBossMetaData extends NamedModuleImpl
    {
       IdMetaDataImplWithDescriptionGroupMerger.merge(this, override, original);
 
-      if(override != null && override.getModuleName() != null)
+      if (override != null && override.getModuleName() != null)
+      {
          setModuleName(override.getModuleName());
-      else if(original instanceof NamedModule && ((NamedModule) original).getModuleName() != null)
-         setModuleName(((NamedModule) original).getModuleName());
+      } else if (original != null)
+      {
+         setModuleName(original.getModuleName());
+      }
 
-      if(override != null && override.getVersion() != null)
+      if (override != null && override.getVersion() != null)
          version = override.getVersion();
-      else if(original != null && original.getVersion() != null)
+      else if (original != null && original.getVersion() != null)
          version = original.getVersion();
-      if(assemblyDescriptor == null)
+      if (assemblyDescriptor == null)
          assemblyDescriptor = new JBossAssemblyDescriptorMetaData();
-      if(resourceManagers == null)
+      if (resourceManagers == null)
          resourceManagers = new ResourceManagersMetaData();
-      if(containerConfigurations == null)
+      if (containerConfigurations == null)
          containerConfigurations = new ContainerConfigurationsMetaData();
-      if(override != null && override.containerConfigurations != null)
+      if (override != null && override.containerConfigurations != null)
          containerConfigurations.merge(override.containerConfigurations);
-      if(invokerProxyBindings == null)
+      if (invokerProxyBindings == null)
          invokerProxyBindings = new InvokerProxyBindingsMetaData();
-      if(override != null && override.invokerProxyBindings != null)
+      if (override != null && override.invokerProxyBindings != null)
          invokerProxyBindings.merge(override.invokerProxyBindings);
-      if(interceptors == null)
+      if (interceptors == null)
          interceptors = new InterceptorsMetaData();
-      if(override != null && override.webservices != null)
+      if (override != null && override.webservices != null)
          webservices = new WebservicesMetaData();
 
-      if(original != null)
+      if (original != null)
       {
          ejbVersion = original.getVersion();
          relationships = original.getRelationships();
-         if(original instanceof EjbJar3xMetaData)
-         {
-            EjbJar3xMetaData original3x = (EjbJar3xMetaData) original;
-            metadataComplete = original3x.isMetadataComplete();
-         }
+         metadataComplete = original.isMetadataComplete();
       }
 
-      if(override != null && override.assemblyDescriptor != null)
+      if (override != null && override.assemblyDescriptor != null)
       {
          assemblyDescriptor.merge(override.assemblyDescriptor, original.getAssemblyDescriptor());
-      }
-      else if(original != null && original.getAssemblyDescriptor() != null)
+      } else if (original != null && original.getAssemblyDescriptor() != null)
       {
          assemblyDescriptor.merge(null, original.getAssemblyDescriptor());
       }
@@ -739,64 +780,64 @@ public class JBossMetaData extends NamedModuleImpl
          resourceManagers.merge(override.resourceManagers);
       */
 
-      if(override != null && override.interceptors != null)
+      if (override != null && override.interceptors != null)
          interceptors.merge(override.interceptors);
-      else if(original != null && original.getInterceptors() != null)
+      else if (original != null && original.getInterceptors() != null)
          interceptors.merge(original.getInterceptors());
 
-      if(override != null)
+      if (override != null)
       {
-         if(override.jaccContextID != null)
+         if (override.jaccContextID != null)
             jaccContextID = override.jaccContextID;
-         if(override.jmxName != null)
+         if (override.jmxName != null)
             jmxName = override.jmxName;
-         if(override.loaderRepository != null)
+         if (override.loaderRepository != null)
             loaderRepository = override.loaderRepository;
-         if(override.securityDomain != null)
+         if (override.securityDomain != null)
             securityDomain = override.securityDomain;
-         if(override.unauthenticatedPrincipal != null)
+         if (override.unauthenticatedPrincipal != null)
             unauthenticatedPrincipal = override.unauthenticatedPrincipal;
-         if(override.metadataComplete)
+         if (override.metadataComplete)
             metadataComplete = true;
       }
 
       if (webservices != null && override != null)
          webservices.merge(override.webservices);
 
-      if(enterpriseBeans == null)
+      if (enterpriseBeans == null)
       {
          enterpriseBeans = new JBossEnterpriseBeansMetaData();
          enterpriseBeans.setJBossMetaData(this);
       }
 
       JBossEnterpriseBeansMetaData jbeans = null;
-      if(override != null)
+      if (override != null)
       {
-          jbeans = override.enterpriseBeans;
+         jbeans = override.enterpriseBeans;
 
-          //Ensure that there is no customization of the Unspecified method permissions
-          if(override.excludeMissingMethods == false)
-        	  this.excludeMissingMethods = false;
+         //Ensure that there is no customization of the Unspecified method permissions
+         if (override.excludeMissingMethods == false)
+            this.excludeMissingMethods = false;
       }
 
       EnterpriseBeansMetaData beans = null;
-      if(original != null)
+      if (original != null)
          beans = original.getEnterpriseBeans();
 
       boolean isEJB3x = (original == null || original.isEJB3x());
       enterpriseBeans.merge(jbeans, beans, "ejb-jar.xml", "jboss.xml", !isEJB3x);
 
       // Update run-as indentity for a run-as-principal
-      if(enterpriseBeans != null)
+      if (enterpriseBeans != null)
       {
-         for(JBossEnterpriseBeanMetaData ejb : enterpriseBeans)
+         for (JBossEnterpriseBeanMetaData ejb : enterpriseBeans)
          {
             String ejbName = ejb.getEjbName();
             SecurityIdentityMetaData si = ejb.getSecurityIdentity();
             String principalName = si != null ? si.getRunAsPrincipal() : null;
             // Get the run-as primary role
             String ejbXmlRunAs = null;
-            if(si != null && si.getRunAs() != null)
+            if (si != null && si.getRunAs() != null)
                ejbXmlRunAs = si.getRunAs().getRoleName();
             if (principalName != null)
             {
@@ -809,14 +850,13 @@ public class JBossMetaData extends NamedModuleImpl
                }
                // See if there are any additional roles for this principal
                Set<String> extraRoles = null;
-               if(getAssemblyDescriptor() != null)
+               if (getAssemblyDescriptor() != null)
                {
                   extraRoles = getAssemblyDescriptor().getSecurityRoleNamesByPrincipal(principalName);
                }
                RunAsIdentityMetaData runAsId = new RunAsIdentityMetaData(ejbXmlRunAs, principalName, extraRoles);
                runAsIdentity.put(ejbName, runAsId);
-            }
-            else if (ejbXmlRunAs != null)
+            } else if (ejbXmlRunAs != null)
             {
                RunAsIdentityMetaData runAsId = new RunAsIdentityMetaData(ejbXmlRunAs, null);
                runAsIdentity.put(ejbName, runAsId);
@@ -824,7 +864,7 @@ public class JBossMetaData extends NamedModuleImpl
          }
       }
 
-      if(override != null && override.jmsResourceAdapter != null)
+      if (override != null && override.jmsResourceAdapter != null)
          jmsResourceAdapter = override.jmsResourceAdapter;
    }
 
@@ -832,9 +872,9 @@ public class JBossMetaData extends NamedModuleImpl
    {
       NamedModuleImplMerger.merge(this, override, original);
 
-      if(override != null && override.getVersion() != null)
+      if (override != null && override.getVersion() != null)
          version = override.getVersion();
-      else if(original != null && original.getVersion() != null)
+      else if (original != null && original.getVersion() != null)
          version = original.getVersion();
 
       JBossAssemblyDescriptorMetaData originalAssembly = null;
@@ -842,7 +882,7 @@ public class JBossMetaData extends NamedModuleImpl
       InterceptorsMetaData originalInterceptors = null;
       WebservicesMetaData originalWebservices = null;
       JBossEnterpriseBeansMetaData originalBeans = null;
-      if(original != null)
+      if (original != null)
       {
          originalAssembly = original.assemblyDescriptor;
          originalInvokerProxyBindings = original.invokerProxyBindings;
@@ -850,33 +890,33 @@ public class JBossMetaData extends NamedModuleImpl
          originalWebservices = original.webservices;
          originalBeans = original.enterpriseBeans;
 
-         if(original.ejbVersion != null)
+         if (original.ejbVersion != null)
             ejbVersion = original.ejbVersion;
-         if(original.metadataComplete)
+         if (original.metadataComplete)
             metadataComplete = true;
-         if(original.relationships != null)
+         if (original.relationships != null)
             relationships = original.relationships;
-         if(original.jaccContextID != null)
+         if (original.jaccContextID != null)
             jaccContextID = original.jaccContextID;
-         if(original.jmxName != null)
+         if (original.jmxName != null)
             jmxName = original.jmxName;
-         if(original.loaderRepository != null)
+         if (original.loaderRepository != null)
             loaderRepository = original.loaderRepository;
-         if(original.securityDomain != null)
+         if (original.securityDomain != null)
             securityDomain = original.securityDomain;
-         if(original.unauthenticatedPrincipal != null)
+         if (original.unauthenticatedPrincipal != null)
             unauthenticatedPrincipal = original.unauthenticatedPrincipal;
 
-         if(original.containerConfigurations != null)
+         if (original.containerConfigurations != null)
          {
-            if(containerConfigurations == null)
+            if (containerConfigurations == null)
                containerConfigurations = new ContainerConfigurationsMetaData();
             containerConfigurations.merge(original.containerConfigurations);
          }
 
-         if(original.resourceManagers != null)
+         if (original.resourceManagers != null)
          {
-            if(resourceManagers == null)
+            if (resourceManagers == null)
                resourceManagers = new ResourceManagersMetaData();
             resourceManagers.addAll(original.resourceManagers);
          }
@@ -887,7 +927,7 @@ public class JBossMetaData extends NamedModuleImpl
       InterceptorsMetaData overrideInterceptors = null;
       WebservicesMetaData overrideWebservices = null;
       JBossEnterpriseBeansMetaData overrideBeans = null;
-      if(override != null)
+      if (override != null)
       {
          overrideAssembly = override.assemblyDescriptor;
          overrideInvokerProxyBindings = override.invokerProxyBindings;
@@ -895,84 +935,84 @@ public class JBossMetaData extends NamedModuleImpl
          overrideWebservices = override.webservices;
          overrideBeans = override.enterpriseBeans;
 
-         if(override.ejbVersion != null)
-           ejbVersion = override.ejbVersion;
-         if(override.metadataComplete)
+         if (override.ejbVersion != null)
+            ejbVersion = override.ejbVersion;
+         if (override.metadataComplete)
             metadataComplete = true;
          // TODO: relationships should be merged
-         if(override.relationships != null)
+         if (override.relationships != null)
             relationships = original.relationships;
-         if(override.jaccContextID != null)
+         if (override.jaccContextID != null)
             jaccContextID = override.jaccContextID;
-         if(override.jmxName != null)
+         if (override.jmxName != null)
             jmxName = override.jmxName;
-         if(override.loaderRepository != null)
+         if (override.loaderRepository != null)
             loaderRepository = override.loaderRepository;
-         if(override.securityDomain != null)
+         if (override.securityDomain != null)
             securityDomain = override.securityDomain;
-         if(override.unauthenticatedPrincipal != null)
+         if (override.unauthenticatedPrincipal != null)
             unauthenticatedPrincipal = override.unauthenticatedPrincipal;
          //Ensure that there is no customization of the Unspecified method permissions
-         if(override.excludeMissingMethods == false)
-             this.excludeMissingMethods = false;
+         if (override.excludeMissingMethods == false)
+            this.excludeMissingMethods = false;
 
-         if(override.containerConfigurations != null)
+         if (override.containerConfigurations != null)
          {
-            if(containerConfigurations == null)
+            if (containerConfigurations == null)
                containerConfigurations = new ContainerConfigurationsMetaData();
             containerConfigurations.merge(override.containerConfigurations);
          }
 
-         if(override.resourceManagers != null)
+         if (override.resourceManagers != null)
          {
-            if(resourceManagers == null)
+            if (resourceManagers == null)
                resourceManagers = new ResourceManagersMetaData();
             resourceManagers.addAll(override.resourceManagers);
          }
       }
 
-      if(assemblyDescriptor == null)
+      if (assemblyDescriptor == null)
          assemblyDescriptor = new JBossAssemblyDescriptorMetaData();
-      if(overrideAssembly != null || originalAssembly != null)
+      if (overrideAssembly != null || originalAssembly != null)
          assemblyDescriptor.merge(overrideAssembly, originalAssembly);
 
-      if(invokerProxyBindings == null)
+      if (invokerProxyBindings == null)
          invokerProxyBindings = new InvokerProxyBindingsMetaData();
-      if(overrideInvokerProxyBindings != null || originalInvokerProxyBindings != null)
+      if (overrideInvokerProxyBindings != null || originalInvokerProxyBindings != null)
          invokerProxyBindings.merge(overrideInvokerProxyBindings, originalInvokerProxyBindings);
 
-      if(interceptors == null)
+      if (interceptors == null)
          interceptors = new InterceptorsMetaData();
-      if(overrideInterceptors != null || originalInterceptors != null)
+      if (overrideInterceptors != null || originalInterceptors != null)
          interceptors.merge(overrideInterceptors, originalInterceptors);
 
       if (overrideWebservices != null || originalWebservices != null)
       {
-         if(webservices == null)
+         if (webservices == null)
             webservices = new WebservicesMetaData();
          webservices.merge(overrideWebservices, originalWebservices);
       }
 
-      if(enterpriseBeans == null)
+      if (enterpriseBeans == null)
       {
          enterpriseBeans = new JBossEnterpriseBeansMetaData();
          enterpriseBeans.setJBossMetaData(this);
       }
 
-      if(originalBeans != null || overrideBeans != null)
+      if (originalBeans != null || overrideBeans != null)
          enterpriseBeans.merge(overrideBeans, originalBeans);
 
       // Update run-as indentity for a run-as-principal
-      if(enterpriseBeans != null)
+      if (enterpriseBeans != null)
       {
-         for(JBossEnterpriseBeanMetaData ejb : enterpriseBeans)
+         for (JBossEnterpriseBeanMetaData ejb : enterpriseBeans)
          {
             String ejbName = ejb.getEjbName();
             SecurityIdentityMetaData si = ejb.getSecurityIdentity();
             String principalName = si != null ? si.getRunAsPrincipal() : null;
             // Get the run-as primary role
             String ejbXmlRunAs = null;
-            if(si != null && si.getRunAs() != null)
+            if (si != null && si.getRunAs() != null)
                ejbXmlRunAs = si.getRunAs().getRoleName();
             if (principalName != null)
             {
@@ -985,14 +1025,13 @@ public class JBossMetaData extends NamedModuleImpl
                }
                // See if there are any additional roles for this principal
                Set<String> extraRoles = null;
-               if(getAssemblyDescriptor() != null)
+               if (getAssemblyDescriptor() != null)
                {
                   extraRoles = getAssemblyDescriptor().getSecurityRoleNamesByPrincipal(principalName);
                }
                RunAsIdentityMetaData runAsId = new RunAsIdentityMetaData(ejbXmlRunAs, principalName, extraRoles);
                runAsIdentity.put(ejbName, runAsId);
-            }
-            else if (ejbXmlRunAs != null)
+            } else if (ejbXmlRunAs != null)
             {
                RunAsIdentityMetaData runAsId = new RunAsIdentityMetaData(ejbXmlRunAs, null);
                runAsIdentity.put(ejbName, runAsId);
@@ -1000,14 +1039,13 @@ public class JBossMetaData extends NamedModuleImpl
          }
       }
 
-      if(override != null && override.getJMSResourceAdapter() != null)
+      if (override != null && override.getJMSResourceAdapter() != null)
          jmsResourceAdapter = override.getJMSResourceAdapter();
-      else if(original != null && original.getJMSResourceAdapter() != null)
+      else if (original != null && original.getJMSResourceAdapter() != null)
          jmsResourceAdapter = original.getJMSResourceAdapter();
    }
 
    /**
-    *
     * @return
     */
    protected JBossEnterpriseBeanMetaData newBean()
@@ -1019,37 +1057,37 @@ public class JBossMetaData extends NamedModuleImpl
     * Returns the {@link InterceptorsMetaData} which are applicable for the <code>beanName</code>
     * in the <code>jbossMetaData</code>
     * <p>
-    *   An interceptor is considered as bound to an EJB if there's atleast one interceptor
-    *   binding between the EJB and the interceptor class. The interceptor binding can either
-    *   be through the use of <interceptor-binding> element in ejb-jar.xml or through the
-    *   use of {@link Interceptors} annotation(s) in the EJB class.
+    * An interceptor is considered as bound to an EJB if there's atleast one interceptor
+    * binding between the EJB and the interceptor class. The interceptor binding can either
+    * be through the use of <interceptor-binding> element in ejb-jar.xml or through the
+    * use of {@link Interceptors} annotation(s) in the EJB class.
     * </p>
     * <p>
-    *   If the EJB has an around-invoke element which uses class name other than the EJB class name,
-    *   then even that class is considered as an interceptor class and is considered to be bound to
-    *   the EJB.
+    * If the EJB has an around-invoke element which uses class name other than the EJB class name,
+    * then even that class is considered as an interceptor class and is considered to be bound to
+    * the EJB.
     * </p>
     * <p>
-    *   For example:
-    *   <session>
-    *       <ejb-name>Dummy</ejb-name>
-    *       <ejb-class>org.myapp.ejb.MyBean</ejb-class>
-    *       <around-invoke>
-    *           <class>org.myapp.SomeClass</class>
-    *           <method-name>blah</method-name>
-    *       </around-invoke>
-    *   </session>
-    *
-    *   The <code>org.myapp.SomeClass</code> will be considered as a interceptor class bound to the EJB,
-    *   <code>org.myapp.ejb.MyBean</code>, even if there is no explicit interceptor binding between that EJB
-    *   and the <code>org.myapp.SomeClass</code>
+    * For example:
+    * <session>
+    * <ejb-name>Dummy</ejb-name>
+    * <ejb-class>org.myapp.ejb.MyBean</ejb-class>
+    * <around-invoke>
+    * <class>org.myapp.SomeClass</class>
+    * <method-name>blah</method-name>
+    * </around-invoke>
+    * </session>
+    * <p/>
+    * The <code>org.myapp.SomeClass</code> will be considered as a interceptor class bound to the EJB,
+    * <code>org.myapp.ejb.MyBean</code>, even if there is no explicit interceptor binding between that EJB
+    * and the <code>org.myapp.SomeClass</code>
     * </p>
     *
-    * @param beanName The EJB name
+    * @param beanName      The EJB name
     * @param jbossMetaData The {@link JBossMetaData} corresponding to the <code>beanName</code>
     * @return
     * @throws NullPointerException If either of <code>beanName</code> or <code>jbossMetaData</code>
-    *               is null
+    *                              is null
     */
    public static InterceptorsMetaData getInterceptors(String beanName, JBossMetaData jbossMetaData)
    {
@@ -1076,18 +1114,18 @@ public class JBossMetaData extends NamedModuleImpl
    /**
     * Returns all interceptor classes which are present in the passed <code>jbossMetaData</code>.
     * <p>
-    *   A class is considered an interceptor class, if it is listed in either of the following:
-    *   <ul>
-    *       <li>In the <interceptor> element of ejb-jar.xml</li>
-    *       <li>In the <interceptor-binding> element of ejb-jar.xml</li>
-    *       <li>In the <class> sub-element of <around-invoke> element in the ejb-jar.xml</li>
-    *       <li>Marked as an interceptor class through the use of {@link Interceptors} annotation
-    *           in a bean class</li>
-    *   </ul>
+    * A class is considered an interceptor class, if it is listed in either of the following:
+    * <ul>
+    * <li>In the <interceptor> element of ejb-jar.xml</li>
+    * <li>In the <interceptor-binding> element of ejb-jar.xml</li>
+    * <li>In the <class> sub-element of <around-invoke> element in the ejb-jar.xml</li>
+    * <li>Marked as an interceptor class through the use of {@link Interceptors} annotation
+    * in a bean class</li>
+    * </ul>
     * </p>
+    *
     * @param jbossMetaData The {@link JBossMetaData} which will scanned for interceptor classes
     * @return
-    *
     */
    public static Collection<String> getAllInterceptorClasses(JBossMetaData jbossMetaData)
    {
@@ -1141,8 +1179,7 @@ public class JBossMetaData extends NamedModuleImpl
             {
                JBossSessionBeanMetaData sessionBean = (JBossSessionBeanMetaData) enterpriseBean;
                aroundInvokes = sessionBean.getAroundInvokes();
-            }
-            else if (enterpriseBean.isMessageDriven())
+            } else if (enterpriseBean.isMessageDriven())
             {
                JBossMessageDrivenBeanMetaData messageDrivenBean = (JBossMessageDrivenBeanMetaData) enterpriseBean;
                aroundInvokes = messageDrivenBean.getAroundInvokes();
@@ -1179,13 +1216,13 @@ public class JBossMetaData extends NamedModuleImpl
     * and the all the interceptor binding information, will return only those interceptors
     * which are applicable to the EJB corresponding to the bean name
     *
-    * @param ejbName Name of the EJB
-    * @param allInterceptors {@link InterceptorsMetaData} of all interceptors
+    * @param ejbName                Name of the EJB
+    * @param allInterceptors        {@link InterceptorsMetaData} of all interceptors
     * @param allInterceptorBindings {@link InterceptorBindingsMetaData} of all interceptor bindings
     * @return
     */
    private static InterceptorsMetaData getInterceptors(String ejbName, InterceptorsMetaData allInterceptors,
-         InterceptorBindingsMetaData allInterceptorBindings)
+                                                       InterceptorBindingsMetaData allInterceptorBindings)
    {
       InterceptorsMetaData beanApplicableInterceptors = new InterceptorsMetaData();
       // the default interceptors (ejbname = *) will be
@@ -1209,8 +1246,7 @@ public class JBossMetaData extends NamedModuleImpl
             if (binding.isTotalOrdering())
             {
                interceptorClasses = binding.getInterceptorOrder();
-            }
-            else
+            } else
             {
                interceptorClasses = binding.getInterceptorClasses();
             }
@@ -1232,15 +1268,13 @@ public class JBossMetaData extends NamedModuleImpl
                   beanApplicableInterceptors.add(interceptorMetaData);
                }
             }
-         }
-         else if (binding.getEjbName().equals("*")) // binding for default interceptors
+         } else if (binding.getEjbName().equals("*")) // binding for default interceptors
          {
             InterceptorClassesMetaData interceptorClasses = null;
             if (binding.isTotalOrdering())
             {
                interceptorClasses = binding.getInterceptorOrder();
-            }
-            else
+            } else
             {
                interceptorClasses = binding.getInterceptorClasses();
             }

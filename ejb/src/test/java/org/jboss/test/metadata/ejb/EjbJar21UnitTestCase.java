@@ -28,13 +28,12 @@ import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar21MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar2xMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
 
 /**
  * EjbJarUnitTestCase.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
@@ -45,20 +44,20 @@ public class EjbJar21UnitTestCase extends AbstractEJBEverythingTest
    {
       return suite(EjbJar21UnitTestCase.class);
    }
-   
+
    public EjbJar21UnitTestCase(String name)
    {
       super(name);
    }
-   
-   protected EjbJar21MetaData unmarshal() throws Exception
+
+   protected EjbJarMetaData unmarshal() throws Exception
    {
-      return unmarshal(EjbJar21MetaData.class);
+      return unmarshal(EjbJarMetaData.class);
    }
-   
+
    public void testVersion() throws Exception
    {
-      EjbJar2xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       assertEquals("2.1", result.getVersion());
       assertFalse(result.isEJB1x());
       assertTrue(result.isEJB2x());
@@ -76,7 +75,7 @@ public class EjbJar21UnitTestCase extends AbstractEJBEverythingTest
    public void testMethodPermissions()
       throws Exception
    {
-      EjbJar2xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       JBossMetaData jbossMetaData = new JBossMetaData();
       jbossMetaData.merge(null, result);
       //ApplicationMetaData appData = new ApplicationMetaData(jbossMetaData);
@@ -114,7 +113,7 @@ public class EjbJar21UnitTestCase extends AbstractEJBEverythingTest
    public void testMultipleMerge()
       throws Exception
    {
-      EjbJar2xMetaData result = unmarshal();
+      EjbJarMetaData result = unmarshal();
       JBossMetaData jboss = unmarshal("JBoss40_testMultipleMerge.xml", JBossMetaData.class);
       JBossEnterpriseBeansMetaData beans = jboss.getEnterpriseBeans();
       assertEquals(4, beans.size());

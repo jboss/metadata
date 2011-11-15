@@ -22,11 +22,6 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.EjbJar1xMetaData;
-import org.jboss.metadata.ejb.spec.EjbJar20MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar21MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar30MetaData;
-import org.jboss.metadata.ejb.spec.EjbJar31MetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
 
@@ -38,7 +33,7 @@ import javax.xml.stream.XMLStreamReader;
  * <p/>
  * User: Jaikiran Pai
  */
-public class EjbJarMetaDataParser extends AbstractEjbJarMetaDataParser<EjbJarMetaData>
+public class EjbJarMetaDataParser extends AbstractEjbJarMetaDataParser
 {
    @Override
    public EjbJarMetaData parse(XMLStreamReader reader) throws XMLStreamException
@@ -121,20 +116,6 @@ public class EjbJarMetaDataParser extends AbstractEjbJarMetaDataParser<EjbJarMet
       {
          throw new IllegalArgumentException(EjbJarVersion.class.getSimpleName() + " is null. Cannot return " + EjbJarMetaData.class);
       }
-      switch (version)
-      {
-         case EJB_1_1:
-            return new EjbJar1xMetaData();
-         case EJB_2_0:
-            return new EjbJar20MetaData();
-         case EJB_2_1:
-            return new EjbJar21MetaData();
-         case EJB_3_0:
-            return new EjbJar30MetaData();
-         case EJB_3_1:
-            return new EjbJar31MetaData();
-         default:
-            throw new IllegalArgumentException("Unknown ejb-jar version: " + version.name());
-      }
+      return new EjbJarMetaData(version);
    }
 }
