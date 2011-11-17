@@ -56,17 +56,25 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser
       reader.require(START_DOCUMENT, null, null);
       // Read until the first start element
       EjbJarVersion ejbJarVersion = null;
+      boolean dtd = false;
       while (reader.hasNext() && reader.next() != START_ELEMENT)
       {
          // read the version from the dtd namespace
          if (reader.getEventType() == DTD)
          {
-            // TODO: we should be depending on the public id, not the system id
-            String dtdLocation = info.getSystemID();
-            if (dtdLocation != null)
-            {
-               ejbJarVersion = EjbJarNamespaceMapping.getEjbJarVersion(dtdLocation);
-            }
+            dtd = true;
+         }
+      }
+
+      //the DTD is not actually initalized in the DTD event
+      //it only gets initalized on the first element
+      if (dtd)
+      {
+         // TODO: we should be depending on the public id, not the system id
+         String dtdLocation = info.getSystemID();
+         if (dtdLocation != null)
+         {
+            ejbJarVersion = EjbJarNamespaceMapping.getEjbJarVersion(dtdLocation);
          }
       }
       // if it wasn't a DTD namespace, then check for the xsd schema location
@@ -117,7 +125,7 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser
       switch (attr)
       {
          case IMPL_VERSION:
-           // metaData.setImplVersion(value);
+            // metaData.setImplVersion(value);
             break;
          default:
             super.processAttribute(metaData, reader, i);

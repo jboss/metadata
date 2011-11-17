@@ -660,7 +660,7 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
 
    public EjbJarMetaData createMerged(final EjbJarMetaData original)
    {
-      final EjbJarMetaData merged = new EjbJarMetaData(ejbJarVersion);
+      final EjbJarMetaData merged = new EjbJarMetaData(original.getEjbJarVersion());
       merged.merge(this, original);
       return merged;
    }
