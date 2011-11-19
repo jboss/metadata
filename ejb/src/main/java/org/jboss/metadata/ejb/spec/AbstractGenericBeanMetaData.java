@@ -49,6 +49,9 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
    /** The message destination link */
    private String messageDestinationLink;
 
+   /** The queue or topic to get messages from */
+   private String destinationJndiName;
+
    /** The activation config */
    private ActivationConfigMetaData activationConfig;
 
@@ -155,7 +158,8 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
 
    private final void assertUnknownOrMessageDrivenBean()
    {
-      throw new RuntimeException("NYI: assertUnknownOrMessageDrivenBean");
+      if (getEjbType() != null && getEjbType() != EjbType.MESSAGE_DRIVEN)
+         throw new IllegalStateException("Bean " + this + " is not an unknown or message driven bean, but " + getEjbType());
    }
 
    private final void assertUnknownOrSessionBean()
@@ -1138,5 +1142,15 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
    {
       assertUnknownOrSessionBean31();
       this.statefulTimeout = statefulTimeout;
+   }
+
+   public void setDestinationJndiName(String destinationJndiName)
+   {
+      this.destinationJndiName = destinationJndiName;
+   }
+
+   public String getDestinationJndiName()
+   {
+      return destinationJndiName;
    }
 }

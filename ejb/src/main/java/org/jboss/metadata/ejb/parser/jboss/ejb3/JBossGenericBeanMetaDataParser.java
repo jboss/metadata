@@ -39,4 +39,34 @@ public class JBossGenericBeanMetaDataParser extends EnterpriseBeanMetaDataParser
       processElements(metaData, reader);
       return metaData;
    }
+
+   @Override
+   protected void processElement(JBossGenericBeanMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   {
+      final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
+      switch (namespace)
+      {
+         case JBOSS:
+            processJBossElement(metaData, reader);
+            break;
+         case SPEC:
+            super.processElement(metaData, reader);
+            break;
+         case UNKNOWN:
+            throw unexpectedElement(reader);
+      }
+   }
+
+   private void processJBossElement(JBossGenericBeanMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   {
+      final Element element = Element.forName(reader.getLocalName());
+      switch (element)
+      {
+         case DESTINATION_JNDI_NAME:
+            metaData.setDestinationJndiName(getElementText(reader));
+            break;
+         default:
+            throw unexpectedElement(reader);
+      }
+   }
 }

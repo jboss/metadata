@@ -23,6 +23,7 @@ package org.jboss.metadata.ejb.spec;
 
 
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
+import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
 
 import javax.ejb.TransactionManagementType;
 
@@ -349,62 +350,85 @@ public class MessageDrivenBeanMetaData extends AbstractEnterpriseBeanMetaData
    @Override
    public void merge(AbstractEnterpriseBeanMetaData override, AbstractEnterpriseBeanMetaData original)
    {
-      merge((MessageDrivenBeanMetaData) override, (MessageDrivenBeanMetaData) original);
+      merge((JBossGenericBeanMetaData) override, (MessageDrivenBeanMetaData) original);
    }
    
-   public void merge(MessageDrivenBeanMetaData override, MessageDrivenBeanMetaData original)
+   public void merge(JBossGenericBeanMetaData override, MessageDrivenBeanMetaData original)
    {
       super.merge(override, original);
       
-      if(override != null && override.acknowledgeMode != null)
-         this.acknowledgeMode = override.acknowledgeMode;
+      if(override != null && override.getAcknowledgeMode() != null)
+         this.acknowledgeMode = override.getAcknowledgeMode();
       else if(original != null)
          this.acknowledgeMode = original.acknowledgeMode;
       
-      if((override != null && override.activationConfig != null) || (original != null && original.activationConfig != null))
+      if((override != null && override.getActivationConfig() != null) || (original != null && original.activationConfig != null))
       {
          activationConfig = new ActivationConfigMetaData();
-         activationConfig.merge(override != null ? override.activationConfig : null, original != null ? original.activationConfig : null);
-      }
-      
-      if((override != null && override.aroundInvokes != null) || (original != null && original.aroundInvokes != null))
-      {
-         aroundInvokes = new AroundInvokesMetaData();
-         aroundInvokes.merge(override != null ? override.aroundInvokes : null, original != null ? original.aroundInvokes : null);
+         activationConfig.merge(override != null ? override.getActivationConfig() : null, original != null ? original.activationConfig : null);
       }
 
-      if(override != null && override.messageDestinationLink != null)
-         this.messageDestinationLink = override.messageDestinationLink;
+      if(override != null && override.getDestinationJndiName() != null) {
+         //TODO: is merging this into the activation config the bast approach?
+         if(activationConfig == null ) {
+            activationConfig = new ActivationConfigMetaData();
+         }
+         ActivationConfigPropertyMetaData destination = null;
+         if(activationConfig.getActivationConfigProperties() == null) {
+            activationConfig.setActivationConfigProperties(new ActivationConfigPropertiesMetaData());
+         }
+         for(ActivationConfigPropertyMetaData prop : activationConfig.getActivationConfigProperties()) {
+            if(prop.getActivationConfigPropertyName().equals("destination")) {
+               destination = prop;
+               break;
+            }
+         }
+         if(destination == null) {
+            destination = new ActivationConfigPropertyMetaData();
+            destination.setActivationConfigPropertyName("destination");
+            activationConfig.getActivationConfigProperties().add(destination);
+         }
+         destination.setValue(override.getDestinationJndiName());
+      }
+      
+      if((override != null && override.getAroundInvokes() != null) || (original != null && original.aroundInvokes != null))
+      {
+         aroundInvokes = new AroundInvokesMetaData();
+         aroundInvokes.merge(override != null ? override.getAroundInvokes() : null, original != null ? original.aroundInvokes : null);
+      }
+
+      if(override != null && override.getMessageDestinationLink() != null)
+         this.messageDestinationLink = override.getMessageDestinationLink();
       else if(original != null)
          this.messageDestinationLink = original.messageDestinationLink;
 
-      if(override != null && override.messageDestinationType != null)
-         this.messageDestinationType = override.messageDestinationType;
+      if(override != null && override.getMessageDestinationType() != null)
+         this.messageDestinationType = override.getMessageDestinationType();
       else if(original != null)
          this.messageDestinationType = original.messageDestinationType;
 
-      if(override != null && override.messageSelector != null)
-         this.messageSelector = override.messageSelector;
+      if(override != null && override.getMessageSelector() != null)
+         this.messageSelector = override.getMessageSelector();
       else if(original != null)
          this.messageSelector = original.messageSelector;
 
-      if(override != null && override.messagingType != null)
-         this.messagingType = override.messagingType;
+      if(override != null && override.getMessagingType() != null)
+         this.messagingType = override.getMessagingType();
       else if(original != null)
          this.messagingType = original.messagingType;
 
-      if(override != null && override.subscriptionDurability != null)
-         this.subscriptionDurability = override.subscriptionDurability;
+      if(override != null && override.getSubscriptionDurability() != null)
+         this.subscriptionDurability = override.getSubscriptionDurability();
       else if(original != null)
          this.subscriptionDurability = original.subscriptionDurability;
 
-      if(override != null && override.timeoutMethod != null)
-         this.timeoutMethod = override.timeoutMethod;
+      if(override != null && override.getTimeoutMethod() != null)
+         this.timeoutMethod = override.getTimeoutMethod();
       else if(original != null)
          this.timeoutMethod = original.timeoutMethod;
 
-      if(override != null && override.transactionType != null)
-         this.transactionType = override.transactionType;
+      if(override != null && override.getTransactionType() != null)
+         this.transactionType = override.getTransactionType();
       else if(original != null)
          this.transactionType = original.transactionType; 
    }

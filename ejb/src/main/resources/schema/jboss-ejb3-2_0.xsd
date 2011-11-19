@@ -35,4 +35,6 @@
    <xs:element name="ejb-jar" type="javaee:jboss-ejb-jarType"/>
 
    <xs:element name="enterprise-beans" type="javaee:jboss-enterprise-beansType"/>
+
+   <xs:element name="destination-jndi-name" type="xs:string" />
 </xs:schema>

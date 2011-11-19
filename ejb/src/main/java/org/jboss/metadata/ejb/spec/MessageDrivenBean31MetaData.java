@@ -23,6 +23,7 @@ package org.jboss.metadata.ejb.spec;
 
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
+import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
 import org.jboss.metadata.merge.MergeUtil;
 
 import javax.ejb.Schedule;
@@ -79,16 +80,15 @@ public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData imple
     * {@inheritDoc}
     */
    @Override
-   public void merge(MessageDrivenBeanMetaData override, MessageDrivenBeanMetaData original)
+   public void merge(JBossGenericBeanMetaData override, MessageDrivenBeanMetaData original)
    {
       super.merge(override, original);
-      
-      MessageDrivenBean31MetaData overrideMetaData = (MessageDrivenBean31MetaData) override;
+
       MessageDrivenBean31MetaData originalMetaData = (MessageDrivenBean31MetaData) original;
       
       // merge the (auto)timer metadata
       Collection<TimerMetaData> originalTimers = original == null ? null : originalMetaData.timers;
-      Collection<TimerMetaData> overrideTimers = override == null ? null : overrideMetaData.timers;
+      Collection<TimerMetaData> overrideTimers = override == null ? null : override.getTimers();
       if(originalTimers != null || overrideTimers != null)
       {
          if (this.timers == null)

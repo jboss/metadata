@@ -22,6 +22,7 @@
 package org.jboss.metadata.ejb.test.schedule.unit;
 
 import junit.framework.Assert;
+import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbType;
@@ -511,7 +512,7 @@ public class ScheduleTestCase
       original.setEjbName("DummyBean");
       original.addTimer(nonPersistentTimer);
       
-      MessageDrivenBean31MetaData overriden = new MessageDrivenBean31MetaData();
+      JBossGenericBeanMetaData overriden = new JBossGenericBeanMetaData();
       overriden.setEjbName("DummyBean");
       overriden.addTimer(persistentTimer);
       
@@ -554,12 +555,12 @@ public class ScheduleTestCase
       MessageDrivenBean31MetaData original = new MessageDrivenBean31MetaData();
       original.setEjbName("DummyBean");
       
-      MessageDrivenBean31MetaData overriden = new MessageDrivenBean31MetaData();
+      JBossGenericBeanMetaData overriden = new JBossGenericBeanMetaData();
       overriden.setEjbName("DummyBean");
       overriden.addTimer(persistentTimer);
       
       MessageDrivenBean31MetaData mergedBean = new MessageDrivenBean31MetaData();
-      mergedBean.merge(original, overriden);
+      mergedBean.merge( overriden, original);
       
       List<TimerMetaData> mergedTimers = mergedBean.getTimers();
       Assert.assertNotNull("Merged timers is null", mergedTimers);
