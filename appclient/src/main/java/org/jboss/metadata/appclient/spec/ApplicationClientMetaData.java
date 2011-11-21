@@ -39,17 +39,19 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
     private boolean metadataComplete;
 
     private String version;
-    
-    
+
+
     public void merge(final ApplicationClientMetaData override, final ApplicationClientMetaData original) {
         IdMetaDataImplWithDescriptionGroupMerger.merge(this, override, original);
 
         if (override != null) {
             this.metadataComplete = override.isMetadataComplete();
+        } else if(original != null) {
+           this.metadataComplete = original.isMetadataComplete();
         }
 
         if (override != null && override.getEnvironmentRefsGroupMetaData() != null) {
-	    this.environmentRefsGroupMetaData.merge(override.getEnvironmentRefsGroupMetaData(), original.getEnvironmentRefsGroupMetaData());				
+	    this.environmentRefsGroupMetaData.merge(override.getEnvironmentRefsGroupMetaData(), original.getEnvironmentRefsGroupMetaData());
         } else if (original != null && original.getEnvironmentRefsGroupMetaData() != null) {
             this.environmentRefsGroupMetaData = original.getEnvironmentRefsGroupMetaData();
         }
@@ -66,7 +68,7 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
             version = original.getVersion();
         }
     }
-    
+
 
     public String getVersion() {
         return version;
