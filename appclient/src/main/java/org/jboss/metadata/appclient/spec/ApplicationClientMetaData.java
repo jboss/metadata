@@ -44,14 +44,16 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
     public void merge(final ApplicationClientMetaData override, final ApplicationClientMetaData original) {
         IdMetaDataImplWithDescriptionGroupMerger.merge(this, override, original);
 
-        if (override != null) {
+        //if either original or override is MD complete the result is MD complete
+        if (override != null && override.isMetadataComplete()) {
             this.metadataComplete = override.isMetadataComplete();
-        } else if(original != null) {
-           this.metadataComplete = original.isMetadataComplete();
+        }
+        if(original != null && original.isMetadataComplete()) {
+           this.metadataComplete = true;
         }
 
         if (override != null && override.getEnvironmentRefsGroupMetaData() != null) {
-	    this.environmentRefsGroupMetaData.merge(override.getEnvironmentRefsGroupMetaData(), original.getEnvironmentRefsGroupMetaData());
+	      this.environmentRefsGroupMetaData.merge(override.getEnvironmentRefsGroupMetaData(), original.getEnvironmentRefsGroupMetaData());
         } else if (original != null && original.getEnvironmentRefsGroupMetaData() != null) {
             this.environmentRefsGroupMetaData = original.getEnvironmentRefsGroupMetaData();
         }

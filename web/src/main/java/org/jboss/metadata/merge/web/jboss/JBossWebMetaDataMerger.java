@@ -33,10 +33,7 @@ import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
 import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
 import org.jboss.metadata.web.jboss.JBossServletsMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
-import org.jboss.metadata.web.spec.AnnotationsMetaData;
-import org.jboss.metadata.web.spec.ServletsMetaData;
-import org.jboss.metadata.web.spec.Web25MetaData;
-import org.jboss.metadata.web.spec.WebMetaData;
+import org.jboss.metadata.web.spec.*;
 
 /**
  * The combined web.xml/jboss-web.xml metadata
@@ -66,11 +63,15 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
 
         if (override != null && override.isMetadataComplete() != false)
             dest.setMetadataComplete(override.isMetadataComplete());
-        else if (original != null && (original instanceof Web25MetaData)) {
+        if (original instanceof Web25MetaData) {
+            //if either original or override is MD complete the result is MD complete
             Web25MetaData web25MD = (Web25MetaData) original;
             dest.setMetadataComplete(web25MD.isMetadataComplete());
+        }else if (original instanceof Web30MetaData) {
+            //if either original or override is MD complete the result is MD complete
+            Web30MetaData web30MetaData = (Web30MetaData) original;
+            dest.setMetadataComplete(web30MetaData.isMetadataComplete());
         }
-
         if (override != null && override.isDisableCrossContext())
             dest.setDisableCrossContext(override.isDisableCrossContext());
 
