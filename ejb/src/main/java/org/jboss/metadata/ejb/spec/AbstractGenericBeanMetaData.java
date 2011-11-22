@@ -1075,7 +1075,33 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
       this.concurrentMethods.merge(override != null ? override.concurrentMethods : null, original != null ? original.concurrentMethods : null);
 
       this.statefulTimeout = override(override != null ? override.statefulTimeout : null, original != null ? original.statefulTimeout : null);
-
+      if (original != null)
+      {
+         if (original.localBean != null)
+         {
+            this.localBean = original.localBean;
+         }
+         if (original.initOnStartup != null)
+         {
+            this.initOnStartup = original.initOnStartup;
+         }
+         if (original.concurrencyManagementType != null)
+         {
+            this.concurrencyManagementType = original.concurrencyManagementType;
+         }
+         if (original.beanLevelLockType != null)
+         {
+            this.beanLevelLockType = original.beanLevelLockType;
+         }
+         if (original.beanLevelAccessTimeout != null)
+         {
+            this.beanLevelAccessTimeout = original.beanLevelAccessTimeout;
+         }
+         if (original.dependsOn != null)
+         {
+            this.dependsOn = original.dependsOn;
+         }
+      }
       if (override != null)
       {
          if (override.localBean != null)
@@ -1103,33 +1129,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
             this.dependsOn = override.dependsOn;
          }
       }
-      else if (original != null)
-      {
-         if (original.localBean != null)
-         {
-            this.localBean = original.localBean;
-         }
-         if (original.initOnStartup != null)
-         {
-            this.initOnStartup = original.initOnStartup;
-         }
-         if (original.concurrencyManagementType != null)
-         {
-            this.concurrencyManagementType = original.concurrencyManagementType;
-         }
-         if (original.beanLevelLockType != null)
-         {
-            this.beanLevelLockType = original.beanLevelLockType;
-         }
-         if (original.beanLevelAccessTimeout != null)
-         {
-            this.beanLevelAccessTimeout = original.beanLevelAccessTimeout;
-         }
-         if (original.dependsOn != null)
-         {
-            this.dependsOn = original.dependsOn;
-         }
-      }
+
    }
 
    public StatefulTimeoutMetaData getStatefulTimeout()
