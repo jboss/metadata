@@ -231,7 +231,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       RemoveMethodMetaData removeMethod = removeMethods.get(1);
       assertNotNull(removeMethod);
       assertEquals("overrideId", removeMethod.getId());
-      assertTrue(removeMethod.isRetainIfException());
+      assertTrue(removeMethod.getRetainIfException());
       NamedMethodMetaData namedMethod = removeMethod.getBeanMethod();
       assertNotNull(namedMethod);
       assertEquals("overrideMethodName", namedMethod.getMethodName());
@@ -275,7 +275,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       RemoveMethodMetaData removeMethod = removeMethods.get(0);
       assertNotNull(removeMethod);
       assertEquals("overrideId", removeMethod.getId());
-      assertTrue(removeMethod.isRetainIfException());
+      assertTrue(removeMethod.getRetainIfException());
       NamedMethodMetaData namedMethod = removeMethod.getBeanMethod();
       assertNotNull(namedMethod);
       assertEquals("overrideMethodName", namedMethod.getMethodName());

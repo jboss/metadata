@@ -79,10 +79,9 @@ public class RemoveMethodMetaData extends IdMetaDataImpl
     * 
     * @return the retainIfException.
     */
-   public boolean isRetainIfException()
+   public Boolean getRetainIfException()
    {
-      if(retainIfException == null) return retainIfExceptionDefault;
-      return retainIfException.booleanValue();
+      return retainIfException;
    }
 
    /**
@@ -90,9 +89,9 @@ public class RemoveMethodMetaData extends IdMetaDataImpl
     * 
     * @param retainIfException the retainIfException.
     */
-   public void setRetainIfException(boolean retainIfException)
+   public void setRetainIfException(Boolean retainIfException)
    {
-      this.retainIfException = new Boolean(retainIfException);
+      this.retainIfException = retainIfException;
    }
    
    public boolean equals(Object o, boolean checkRetainIfException)

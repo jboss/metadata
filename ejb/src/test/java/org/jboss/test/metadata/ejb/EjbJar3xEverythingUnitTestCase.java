@@ -250,9 +250,9 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertId(ejbName + "RemoveMethod" + count, removeMethod);
          assertNamedMethod(ejbName + "RemoveBeanMethod" + count, 0, removeMethod.getBeanMethod());
          if (count == 1)
-            assertTrue(removeMethod.isRetainIfException());
+            assertTrue(removeMethod.getRetainIfException());
          else
-            assertFalse(removeMethod.isRetainIfException());
+            assertFalse(removeMethod.getRetainIfException());
          ++count;
       }
    }
