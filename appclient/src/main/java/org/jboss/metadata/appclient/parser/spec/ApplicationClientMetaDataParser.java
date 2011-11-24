@@ -79,10 +79,11 @@ public class ApplicationClientMetaDataParser extends MetaDataElementParser
          case VERSION:
          {
              metaData.setVersion(value);
+             break;
          }
          case METADATA_COMPLETE:
          {
-            metaData.setMetadataComplete(true);
+            metaData.setMetadataComplete(Boolean.parseBoolean(value));
             break;
          }
          default:
