@@ -180,6 +180,10 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
          version = override.getVersion();
       else if (original != null && original.getVersion() != null)
          version = original.getVersion();
+
+      if(original != null ) {
+         relationships = original.getRelationships();
+      }
    }
 
    /**
