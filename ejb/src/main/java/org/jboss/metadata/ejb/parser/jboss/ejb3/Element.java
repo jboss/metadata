@@ -34,7 +34,7 @@ public enum Element
    ASSEMBLY_DESCRIPTOR("assembly-descriptor"),
    EJB("ejb"),
    ENTERPRISE_BEANS("enterprise-beans"),
-   DESTINATION_JNDI_NAME("destination-jndi-name")
+   ACTIVATION_CONFIG("activation-config")
    ;
 
    private final String name;

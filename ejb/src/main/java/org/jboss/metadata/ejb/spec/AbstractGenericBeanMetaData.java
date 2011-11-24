@@ -49,9 +49,6 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
    /** The message destination link */
    private String messageDestinationLink;
 
-   /** The queue or topic to get messages from */
-   private String destinationJndiName;
-
    /** The activation config */
    private ActivationConfigMetaData activationConfig;
 
@@ -1144,13 +1141,4 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
       this.statefulTimeout = statefulTimeout;
    }
 
-   public void setDestinationJndiName(String destinationJndiName)
-   {
-      this.destinationJndiName = destinationJndiName;
-   }
-
-   public String getDestinationJndiName()
-   {
-      return destinationJndiName;
-   }
 }

@@ -368,29 +368,6 @@ public class MessageDrivenBeanMetaData extends AbstractEnterpriseBeanMetaData
          activationConfig.merge(override != null ? override.getActivationConfig() : null, original != null ? original.activationConfig : null);
       }
 
-      if(override != null && override.getDestinationJndiName() != null) {
-         //TODO: is merging this into the activation config the bast approach?
-         if(activationConfig == null ) {
-            activationConfig = new ActivationConfigMetaData();
-         }
-         ActivationConfigPropertyMetaData destination = null;
-         if(activationConfig.getActivationConfigProperties() == null) {
-            activationConfig.setActivationConfigProperties(new ActivationConfigPropertiesMetaData());
-         }
-         for(ActivationConfigPropertyMetaData prop : activationConfig.getActivationConfigProperties()) {
-            if(prop.getActivationConfigPropertyName().equals("destination")) {
-               destination = prop;
-               break;
-            }
-         }
-         if(destination == null) {
-            destination = new ActivationConfigPropertyMetaData();
-            destination.setActivationConfigPropertyName("destination");
-            activationConfig.getActivationConfigProperties().add(destination);
-         }
-         destination.setValue(override.getDestinationJndiName());
-      }
-      
       if((override != null && override.getAroundInvokes() != null) || (original != null && original.aroundInvokes != null))
       {
          aroundInvokes = new AroundInvokesMetaData();

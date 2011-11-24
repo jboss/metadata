@@ -22,6 +22,8 @@
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
 import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
+import org.jboss.metadata.ejb.parser.spec.ActivationConfigMetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
 import org.jboss.metadata.ejb.parser.spec.EnterpriseBeanMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
@@ -50,7 +52,7 @@ public class JBossGenericBeanMetaDataParser extends EnterpriseBeanMetaDataParser
             processJBossElement(metaData, reader);
             break;
          case SPEC:
-            super.processElement(metaData, reader);
+            processSpecElement(metaData, reader);
             break;
          case UNKNOWN:
             throw unexpectedElement(reader);
@@ -62,11 +64,21 @@ public class JBossGenericBeanMetaDataParser extends EnterpriseBeanMetaDataParser
       final Element element = Element.forName(reader.getLocalName());
       switch (element)
       {
-         case DESTINATION_JNDI_NAME:
-            metaData.setDestinationJndiName(getElementText(reader));
-            break;
          default:
             throw unexpectedElement(reader);
+      }
+   }
+
+   protected void processSpecElement(JBossGenericBeanMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   {
+      final EjbJarElement element = EjbJarElement.forName(reader.getLocalName());
+      switch (element)
+      {
+         case ACTIVATION_CONFIG:
+            metaData.setActivationConfig(ActivationConfigMetaDataParser.INSTANCE.parse(reader));
+            break;
+         default:
+            super.processElement(metaData, reader);
       }
    }
 }

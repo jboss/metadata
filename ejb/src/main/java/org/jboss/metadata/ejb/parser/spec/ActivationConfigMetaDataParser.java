@@ -36,7 +36,7 @@ import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.proces
 public class ActivationConfigMetaDataParser extends AbstractWithDescriptionsParser<ActivationConfigMetaData>
 {
    private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
-   static final ActivationConfigMetaDataParser INSTANCE = new ActivationConfigMetaDataParser();
+   public static final ActivationConfigMetaDataParser INSTANCE = new ActivationConfigMetaDataParser();
 
    @Override
    public ActivationConfigMetaData parse(XMLStreamReader reader) throws XMLStreamException
