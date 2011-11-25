@@ -60,6 +60,7 @@ public enum Element {
 
     HANDLER("handler"),
     HANDLER_CHAIN("handler-chain"),
+    HANDLER_CHAINS("handler-chains"),
     HANDLER_CLASS("handler-class"),
     HANDLER_NAME("handler-name"),
     HOME("home"),

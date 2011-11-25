@@ -25,25 +25,17 @@ package org.jboss.metadata.parser.ee;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
-import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferenceType;
-import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
-import org.jboss.metadata.javaee.spec.PortComponentRef;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainsMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlersMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 /**
  * @author Remy Maucherat
@@ -119,13 +111,22 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                     handlers.add(ServiceReferenceHandlerMetaDataParser.parse(reader));
                     break;
                 case HANDLER_CHAIN:
+                    ServiceReferenceHandlerChainsMetaData handlerChain = serviceReference.getHandlerChains();
+                    if (handlerChain == null) {
+                        handlerChain = new ServiceReferenceHandlerChainsMetaData();
+                        handlerChain.setHandlers(new ArrayList<ServiceReferenceHandlerChainMetaData>());
+                        serviceReference.setHandlerChains(handlerChain);
+                    }
+                    handlerChain.getHandlers().add(ServiceReferenceHandlerChainMetaDataParser.parse(reader));
+                    break;
+                case HANDLER_CHAINS:
                     ServiceReferenceHandlerChainsMetaData handlerChains = serviceReference.getHandlerChains();
                     if (handlerChains == null) {
                         handlerChains = new ServiceReferenceHandlerChainsMetaData();
                         handlerChains.setHandlers(new ArrayList<ServiceReferenceHandlerChainMetaData>());
                         serviceReference.setHandlerChains(handlerChains);
                     }
-                    handlerChains.getHandlers().add(ServiceReferenceHandlerChainMetaDataParser.parse(reader));
+                    handlerChains.getHandlers().addAll(ServiceReferenceHandlerChainsMetaDataParser.parse(reader));
                     break;
                 case WSDL_OVERRIDE:
                     serviceReference.setWsdlOverride(getElementText(reader));
