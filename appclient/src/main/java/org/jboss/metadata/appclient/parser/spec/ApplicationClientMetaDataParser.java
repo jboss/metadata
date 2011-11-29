@@ -119,6 +119,9 @@ public class ApplicationClientMetaDataParser extends MetaDataElementParser
                 case CALLBACK_HANDLER: {
                     applicationClientMetaData.setCallbackHandler(getElementText(reader));
                     break;
+                } case MODULE_NAME: {
+                    applicationClientMetaData.setModuleName(getElementText(reader));
+                    break;
                 }
                 default:
                     throw unexpectedElement(reader);

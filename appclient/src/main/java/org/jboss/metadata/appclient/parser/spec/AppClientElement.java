@@ -35,7 +35,9 @@ public enum AppClientElement
 {
    UNKNOWN(null),
 
-   CALLBACK_HANDLER("callback-handler")
+   CALLBACK_HANDLER("callback-handler"),
+   MODULE_NAME("module-name"),
+
 
    ;
 

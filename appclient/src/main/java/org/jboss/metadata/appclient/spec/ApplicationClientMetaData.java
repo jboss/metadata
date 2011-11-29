@@ -40,6 +40,8 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
 
     private String version;
 
+   private String moduleName;
+
 
     public void merge(final ApplicationClientMetaData override, final ApplicationClientMetaData original) {
         IdMetaDataImplWithDescriptionGroupMerger.merge(this, override, original);
@@ -103,4 +105,14 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
     public void setMetadataComplete(final boolean metadataComplete) {
         this.metadataComplete = metadataComplete;
     }
+
+   public String getModuleName()
+   {
+      return moduleName;
+   }
+
+   public void setModuleName(String moduleName)
+   {
+      this.moduleName = moduleName;
+   }
 }
