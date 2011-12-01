@@ -33,20 +33,21 @@ import javax.xml.stream.XMLStreamReader;
  * Helper class for the unmarshal logic.
  *
  * @author jfclere@gmail.com
- * @version $Revision: 88255 $
  */
-public class WebAppUnitTestCase extends AbstractJavaEEEverythingTest
-{
-   /* Otherwise it complains that there isn't any tests there */
-   public void testEmpty() throws Exception
-   {
-   }
-   protected WebMetaData unmarshal() throws Exception
-   {
-      MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
-      final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-      inputFactory.setXMLResolver(info);
-      XMLStreamReader reader = inputFactory.createXMLStreamReader(findXML());
-      return WebMetaDataParser.parse(reader, info);
-   }
+abstract class WebAppUnitTestCase extends AbstractJavaEEEverythingTest {
+
+    protected WebMetaData unmarshal() throws Exception {
+        return unmarshal(false);
+    }
+
+    protected WebMetaData unmarshal(boolean validating) throws Exception {
+        MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
+        final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
+        inputFactory.setXMLResolver(info);
+        if (validating == true) {
+            inputFactory.setProperty(XMLInputFactory.IS_VALIDATING, Boolean.TRUE);
+        }
+        XMLStreamReader reader = inputFactory.createXMLStreamReader(findXML());
+        return WebMetaDataParser.parse(reader, info, validating);
+    }
 }

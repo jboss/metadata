@@ -104,10 +104,6 @@ public class AbstractJavaEEMetaDataTest extends TestCase
 
    /**
     * Find the xml
-    * 
-    * @param name the name
-    * @return the url of the xml
-    * @throws IOException 
     */
    protected  InputStream findXML() throws IOException
    {

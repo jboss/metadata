@@ -22,12 +22,17 @@
 
 package org.jboss.metadata.parser.servlet;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.codehaus.stax2.XMLStreamReader2;
+import org.codehaus.stax2.validation.XMLValidationSchema;
+import org.codehaus.stax2.validation.XMLValidationSchemaFactory;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
@@ -48,41 +53,48 @@ import org.jboss.metadata.web.spec.WebMetaData;
  */
 public class WebMetaDataParser extends MetaDataElementParser {
 
-    @Deprecated
-    public static WebMetaData parse(XMLStreamReader reader) throws XMLStreamException {
-        return parse(reader, null);
-    }
     public static WebMetaData parse(XMLStreamReader reader, DTDInfo info) throws XMLStreamException {
-        
+        return parse(reader, info, false);
+    }
+
+    public static WebMetaData parse(XMLStreamReader reader, DTDInfo info, boolean validate) throws XMLStreamException {
+        if (reader == null)
+            throw new IllegalArgumentException("Null reader");
+        if (info == null)
+            throw new IllegalArgumentException("Null info");
+
         reader.require(START_DOCUMENT, null, null);
+
         // Read until the first start element
+        while (reader.hasNext() && reader.next() != START_ELEMENT) ;
+
         Version version = null;
-        while (reader.hasNext() && reader.next() != START_ELEMENT) {
-            if (reader.getEventType() == DTD) {
-                String dtdLocation;
-                if (info == null)
-                    dtdLocation = readDTDLocation(reader);
-                else
-                    dtdLocation = info.getSystemID();
-                if (dtdLocation != null) {
-                    version = Location.getVersion(dtdLocation);
-                }
-                if (version == null) {
-                    // DTD->getText() is incomplete and not parsable with Xerces from Sun JDK 6,
-                    // so assume Servlet 2.3 rather than 2.2
-                    version = Version.SERVLET_2_3;
+        if (info.getPublicID() != null) {
+            version = Version.fromPublicID(info.getPublicID());
+        }
+        if (version == null && info.getSystemID() != null) {
+            version = Version.fromSystemID(info.getSystemID());
+        }
+        if (version == null) {
+            String schemaLocation = readSchemaLocation(reader);
+            if (schemaLocation != null) {
+                version = Version.fromSystemID(schemaLocation);
+                if (validate == true) {
+                    XMLValidationSchemaFactory sf = XMLValidationSchemaFactory.newInstance(XMLValidationSchema.SCHEMA_ID_W3C_SCHEMA);
+                    try {
+                        XMLValidationSchema validationSchema = sf.createSchema(new URL(schemaLocation));
+                        ((XMLStreamReader2)reader).validateAgainst(validationSchema);
+                    } catch (MalformedURLException ex) {
+                        throw new XMLStreamException(ex);
+                    }
                 }
             }
-        }
-        String schemaLocation = readSchemaLocation(reader);
-        if (schemaLocation != null) {
-            version = Location.getVersion(schemaLocation);
         }
         if (version == null) {
             // Look at the version attribute
             String versionString = null;
             final int count = reader.getAttributeCount();
-            for (int i = 0; i < count; i ++) {
+            for (int i = 0; i < count; i++) {
                 if (attributeHasNamespace(reader, i)) {
                     continue;
                 }
@@ -99,26 +111,36 @@ public class WebMetaDataParser extends MetaDataElementParser {
                 version = Version.SERVLET_3_0;
             }
         }
-        if (version == null) {
-            // It is likely an error to not have a version at this point though
-            version = Version.SERVLET_3_0;
-        }
+
+        if (version == null)
+            throw new IllegalStateException("Cannot obtain servlet version");
+
         WebMetaData wmd = null;
         switch (version) {
-            case SERVLET_2_2: wmd = new Web22MetaData(); break;
-            case SERVLET_2_3: wmd = new Web23MetaData(); break;
-            case SERVLET_2_4: wmd = new Web24MetaData(); break;
-            case SERVLET_2_5: wmd = new Web25MetaData(); break;
-            case SERVLET_3_0: wmd = new Web30MetaData(); break;
+            case SERVLET_2_2:
+                wmd = new Web22MetaData();
+                break;
+            case SERVLET_2_3:
+                wmd = new Web23MetaData();
+                break;
+            case SERVLET_2_4:
+                wmd = new Web24MetaData();
+                break;
+            case SERVLET_2_5:
+                wmd = new Web25MetaData();
+                break;
+            case SERVLET_3_0:
+                wmd = new Web30MetaData();
+                break;
         }
 
         // Set the publicId / systemId
         if (info != null)
-        wmd.setDTD(info.getBaseURI(), info.getPublicID(), info.getSystemID());
+            wmd.setDTD(info.getBaseURI(), info.getPublicID(), info.getSystemID());
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -148,7 +170,8 @@ public class WebMetaDataParser extends MetaDataElementParser {
                     }
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -204,7 +227,8 @@ public class WebMetaDataParser extends MetaDataElementParser {
                         throw unexpectedElement(reader);
                     }
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

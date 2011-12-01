@@ -22,15 +22,16 @@
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-      <groupId>org.jboss</groupId>
-      <artifactId>jboss-parent</artifactId>
-      <version>6-beta-1</version>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>6-beta-1</version>
     </parent>
-    
+
     <groupId>org.jboss.metadata</groupId>
     <artifactId>jboss-as-parent-metadata</artifactId>
     <version>7.0.0.Beta26-SNAPSHOT</version>
@@ -47,7 +48,10 @@
         <maven.min.version>3.0-beta-1</maven.min.version>
 
         <!-- Dependency versions. Please keep alphabetical -->
-        <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Beta2</version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
+        <version.org.codehaus.woodstox>4.1.1</version.org.codehaus.woodstox>
+        <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Beta2
+        </version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
+        <version.com.sun.xml.bind>2.2.2</version.com.sun.xml.bind>
     </properties>
 
     <modules>
@@ -113,35 +117,21 @@
 
     <dependencyManagement>
         <dependencies>
-
-            <!-- Modules in this project -->
-
             <dependency>
-                <groupId>org.jboss.metadata</groupId>
-                <artifactId>jboss-metadata-common</artifactId>
-                <version>${project.version}</version>
+                <groupId>org.jboss.spec.javax.servlet</groupId>
+                <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+                <version>${version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec}</version>
             </dependency>
-
             <dependency>
-                <groupId>org.jboss.metadata</groupId>
-                <artifactId>jboss-metadata-common</artifactId>
-                <version>${project.version}</version>
-                <type>test-jar</type>
-                <scope>test</scope>
+                <groupId>org.codehaus.woodstox</groupId>
+                <artifactId>woodstox-core-asl</artifactId>
+                <version>${version.org.codehaus.woodstox}</version>
             </dependency>
-
             <dependency>
-                <groupId>org.jboss.metadata</groupId>
-                <artifactId>jboss-metadata-ejb</artifactId>
-                <version>${project.version}</version>
+              <groupId>com.sun.xml.bind</groupId>
+              <artifactId>jaxb1-impl</artifactId>
+              <version>${version.com.sun.xml.bind}</version>
             </dependency>
-
-            <dependency>
-                <groupId>org.jboss.metadata</groupId>
-                <artifactId>jboss-metadata-web</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -177,9 +167,9 @@
     </pluginRepositories>
 
     <scm>
- 	<connection>scm:git:git@github.com:jboss/metadata.git</connection>
- 	<url>scm:git:git@github.com:jboss/metadata.git</url>
- 	<developerConnection>scm:git:git@github.com:jboss/metadata.git</developerConnection>	
+        <connection>scm:git:git@github.com:jboss/metadata.git</connection>
+        <url>scm:git:git@github.com:jboss/metadata.git</url>
+        <developerConnection>scm:git:git@github.com:jboss/metadata.git</developerConnection>
     </scm>
 
 </project>
