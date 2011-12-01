@@ -105,7 +105,7 @@ public class AbstractJavaEEMetaDataTest extends TestCase
    /**
     * Find the xml
     */
-   protected  InputStream findXML() throws IOException
+   protected InputStream findXML() throws IOException
    {
       String name = getClass().getSimpleName();
       int index = name.lastIndexOf("UnitTestCase");
@@ -114,23 +114,12 @@ public class AbstractJavaEEMetaDataTest extends TestCase
       name = name + "_" + getName() + ".xml";
       return findXML(name);
    }
-   /**
-    * Find the xml
-    * 
-    * @param name the name
-    * @return the url of the xml
-    */
-   protected static String findXSD(String name)
-   {
-      URL url = findResource(AbstractJavaEEMetaDataTest.class, "test" +"/" + name);
-      if (url == null)
-         fail(name + " not found");
-      return url.toString();
-   }
+
    public URL getResource(final String name)
    {
       return findResource(getClass(), name);
    }
+
    public static URL findResource(final Class<?> clazz, final String name)
    {
 	  return clazz.getResource(name);

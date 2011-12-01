@@ -22,22 +22,11 @@
 
 package org.jboss.metadata.parser.servlet;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
-import org.codehaus.stax2.XMLStreamReader2;
-import org.codehaus.stax2.validation.XMLValidationSchema;
-import org.codehaus.stax2.validation.XMLValidationSchemaFactory;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.web.spec.JspConfigMetaData;
 import org.jboss.metadata.web.spec.TaglibMetaData;
 import org.jboss.metadata.web.spec.Web22MetaData;
@@ -47,6 +36,11 @@ import org.jboss.metadata.web.spec.Web25MetaData;
 import org.jboss.metadata.web.spec.Web30MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author Remy Maucherat
@@ -54,10 +48,6 @@ import org.jboss.metadata.web.spec.WebMetaData;
 public class WebMetaDataParser extends MetaDataElementParser {
 
     public static WebMetaData parse(XMLStreamReader reader, DTDInfo info) throws XMLStreamException {
-        return parse(reader, info, false);
-    }
-
-    public static WebMetaData parse(XMLStreamReader reader, DTDInfo info, boolean validate) throws XMLStreamException {
         if (reader == null)
             throw new IllegalArgumentException("Null reader");
         if (info == null)
@@ -79,15 +69,6 @@ public class WebMetaDataParser extends MetaDataElementParser {
             String schemaLocation = readSchemaLocation(reader);
             if (schemaLocation != null) {
                 version = Version.fromSystemID(schemaLocation);
-                if (validate == true) {
-                    XMLValidationSchemaFactory sf = XMLValidationSchemaFactory.newInstance(XMLValidationSchema.SCHEMA_ID_W3C_SCHEMA);
-                    try {
-                        XMLValidationSchema validationSchema = sf.createSchema(new URL(schemaLocation));
-                        ((XMLStreamReader2)reader).validateAgainst(validationSchema);
-                    } catch (MalformedURLException ex) {
-                        throw new XMLStreamException(ex);
-                    }
-                }
             }
         }
         if (version == null) {

@@ -23,11 +23,14 @@ package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.parser.servlet.WebMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.parser.util.MetaDataElementParser.DTDInfo;
 import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import java.io.IOException;
 
 /**
  * Helper class for the unmarshal logic.
@@ -37,17 +40,14 @@ import javax.xml.stream.XMLStreamReader;
 abstract class WebAppUnitTestCase extends AbstractJavaEEEverythingTest {
 
     protected WebMetaData unmarshal() throws Exception {
-        return unmarshal(false);
+        MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
+        XMLStreamReader reader = getXMLStreamReader(info);
+        return WebMetaDataParser.parse(reader, info);
     }
 
-    protected WebMetaData unmarshal(boolean validating) throws Exception {
-        MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
+    protected XMLStreamReader getXMLStreamReader(DTDInfo info) throws Exception {
         final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
         inputFactory.setXMLResolver(info);
-        if (validating == true) {
-            inputFactory.setProperty(XMLInputFactory.IS_VALIDATING, Boolean.TRUE);
-        }
-        XMLStreamReader reader = inputFactory.createXMLStreamReader(findXML());
-        return WebMetaDataParser.parse(reader, info, validating);
+        return inputFactory.createXMLStreamReader(findXML());
     }
 }

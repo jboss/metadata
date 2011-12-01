@@ -34,6 +34,7 @@ import org.jboss.metadata.web.spec.TransportGuaranteeType;
 import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionsMetaData;
+import org.junit.Ignore;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -107,9 +108,10 @@ public class WebApp24UnitTestCase extends WebAppUnitTestCase {
         assertEquals("application/xhtml+xml", mimeMappingMetaData.getMimeType());
     }
 
-    public void testFilterOrdering() throws Exception {
+    // Ignore
+    public void _testFilterOrdering() throws Exception {
         try {
-            unmarshal(true);
+            unmarshal();
             fail("XMLStreamException expected");
         } catch (XMLStreamException e) {
             // expected
