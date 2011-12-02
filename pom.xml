@@ -48,7 +48,7 @@
         <maven.min.version>3.0-beta-1</maven.min.version>
 
         <!-- Dependency versions. Please keep alphabetical -->
-        <version.org.jboss.jboss-common-core>2.2.19-SNAPSHOT</version.org.jboss.jboss-common-core>
+        <version.org.jboss.jboss-common-core>2.2.19.GA</version.org.jboss.jboss-common-core>
         <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Beta2</version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
     </properties>
 
