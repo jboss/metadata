@@ -27,7 +27,7 @@
   <parent>
     <groupId>org.jboss.metadata</groupId>
     <artifactId>jboss-as-parent-metadata</artifactId>
-    <version>7.0.0.Beta25-SNAPSHOT</version>
+    <version>7.0.0.Beta25</version>
   </parent>
 
   <artifactId>jboss-metadata-web</artifactId>
@@ -88,7 +88,7 @@
     <dependency>
       <groupId>org.jboss.metadata</groupId>
       <artifactId>jboss-metadata-common</artifactId>
-      <version>7.0.0.Beta25-SNAPSHOT</version>
+      <version>7.0.0.Beta25</version>
     </dependency>
 
     <dependency>
@@ -127,7 +127,7 @@
     <dependency>
       <groupId>org.jboss.metadata</groupId>
       <artifactId>jboss-metadata-common</artifactId>
-      <version>7.0.0.Beta25-SNAPSHOT</version>
+      <version>7.0.0.Beta25</version>
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
