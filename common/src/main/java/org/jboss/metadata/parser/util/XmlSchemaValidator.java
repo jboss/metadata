@@ -119,9 +119,13 @@ public class XmlSchemaValidator {
                     schemaMap.put(schemaLocation, schema);
                 }
             } catch (Exception ex) {
-                log.debugf(ex, "Cannot get schema for location: %s", schemaLocation);
+                log.errorf(ex, "Cannot get schema for location: %s", schemaLocation);
             }
         }
+
+        if (schema == null)
+            log.warnf("Cannot get schema for location: %s", schemaLocation);
+
         return schema;
     }
 }

@@ -51,6 +51,10 @@ import java.util.List;
 public class WebMetaDataParser extends MetaDataElementParser {
 
     public static WebMetaData parse(XMLStreamReader reader, DTDInfo info) throws XMLStreamException {
+        return parse(reader, info, false);
+    }
+
+    public static WebMetaData parse(XMLStreamReader reader, DTDInfo info, boolean validation) throws XMLStreamException {
         if (reader == null)
             throw new IllegalArgumentException("Null reader");
         if (info == null)

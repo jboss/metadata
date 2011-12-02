@@ -30,6 +30,7 @@ import org.jboss.metadata.web.spec.WebResourceCollectionMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionsMetaData;
 import org.xml.sax.SAXParseException;
 
+import javax.xml.stream.XMLStreamException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -104,12 +105,20 @@ public class WebApp24UnitTestCase extends WebAppUnitTestCase {
         assertEquals("application/xhtml+xml", mimeMappingMetaData.getMimeType());
     }
 
-    // Ignore
     public void testFilterOrdering() throws Exception {
         try {
             unmarshal(true);
             fail("SAXParseException expected");
         } catch (SAXParseException e) {
+            // expected
+        }
+    }
+
+    public void testMultipleSessionConfig() throws Exception {
+        try {
+            unmarshal(true);
+            fail("XMLStreamException expected");
+        } catch (XMLStreamException e) {
             // expected
         }
     }
