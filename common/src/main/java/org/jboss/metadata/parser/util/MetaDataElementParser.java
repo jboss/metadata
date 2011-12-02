@@ -308,7 +308,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
                 loc = loc.substring(pos + 1);
             }
         }
-        return loc;
+        return loc != null ? loc.trim() : null;
     }
 
     protected static String readDTDLocation(final XMLStreamReader reader) throws XMLStreamException {

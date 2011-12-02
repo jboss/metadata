@@ -66,6 +66,7 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
     private String dtdPublicId;
     private String dtdSystemId;
     private String version;
+    private String schemaLocation;
     private EmptyMetaData distributable;
     private List<ParamValueMetaData> contextParams;
     private SessionConfigMetaData sessionConfig;
@@ -127,6 +128,14 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public String getSchemaLocation() {
+        return schemaLocation;
+    }
+
+    public void setSchemaLocation(String schemaLocation) {
+        this.schemaLocation = schemaLocation;
     }
 
     /**
