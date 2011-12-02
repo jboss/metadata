@@ -30,9 +30,9 @@ import javax.xml.stream.XMLStreamException;
 /**
  * @author Emanuel Muckenhuber
  */
-public class NoopXmlResolver implements XMLResolver {
+public class NoopXMLResolver implements XMLResolver {
 
-    private static final XMLResolver INSTANCE = new NoopXmlResolver();
+    private static final XMLResolver INSTANCE = new NoopXMLResolver();
 
     /** {@inheritDoc} */
     public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace) throws XMLStreamException {
