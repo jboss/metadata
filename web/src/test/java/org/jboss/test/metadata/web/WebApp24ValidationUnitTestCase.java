@@ -21,10 +21,7 @@
  */
 package org.jboss.test.metadata.web;
 
-import org.codehaus.stax2.XMLStreamReader2;
-import org.codehaus.stax2.validation.XMLValidationException;
-import org.codehaus.stax2.validation.XMLValidationSchema;
-import org.codehaus.stax2.validation.XMLValidationSchemaFactory;
+import org.jboss.util.xml.JBossEntityResolver;
 import org.junit.Assert;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
@@ -32,8 +29,6 @@ import org.xml.sax.SAXParseException;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -42,8 +37,6 @@ import javax.xml.validation.Validator;
 import java.io.InputStream;
 import java.net.URL;
 
-import static org.codehaus.stax2.validation.XMLValidationSchema.SCHEMA_ID_W3C_SCHEMA;
-
 /**
  * Tests of 2.4 web-app elements
  *
@@ -51,33 +44,12 @@ import static org.codehaus.stax2.validation.XMLValidationSchema.SCHEMA_ID_W3C_SC
  */
 public class WebApp24ValidationUnitTestCase extends WebAppUnitTestCase {
 
-    private static XMLValidationSchema staxSchema;
     private static Schema jaxpSchema;
-
-    public void testStaxSchema() throws Exception {
-        URL schemaURL = new URL("http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd");
-        XMLValidationSchemaFactory schemaFactory = XMLValidationSchemaFactory.newInstance(SCHEMA_ID_W3C_SCHEMA);
-        staxSchema = schemaFactory.createSchema(schemaURL);
-    }
-
-    public void testStaxValidation() throws Exception {
-        XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-        XMLStreamReader reader = inputFactory.createXMLStreamReader(findXML("WebApp24_testFilterOrdering.xml"));
-        ((XMLStreamReader2)reader).validateAgainst(staxSchema);
-        try {
-            while(reader.hasNext()) {
-                reader.next();
-            }
-            fail("XMLValidationException expected");
-        } catch (XMLValidationException ex) {
-            String msg = ex.getMessage();
-            Assert.assertTrue(msg, msg.indexOf("init-param") > 0);
-        }
-    }
 
     public void testJAXPSchema() throws Exception {
         URL schemaURL = new URL("http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd");
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        factory.setResourceResolver(new JBossEntityResolver());
         InputStream is = schemaURL.openStream();
         jaxpSchema = factory.newSchema(new StreamSource(is, schemaURL.toExternalForm()));
     }

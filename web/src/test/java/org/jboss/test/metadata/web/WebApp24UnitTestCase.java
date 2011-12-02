@@ -21,22 +21,18 @@
  */
 package org.jboss.test.metadata.web;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import org.codehaus.stax2.validation.XMLValidationException;
 import org.jboss.metadata.web.spec.AuthConstraintMetaData;
-import org.jboss.metadata.web.spec.FiltersMetaData;
 import org.jboss.metadata.web.spec.MimeMappingMetaData;
 import org.jboss.metadata.web.spec.SecurityConstraintMetaData;
 import org.jboss.metadata.web.spec.TransportGuaranteeType;
 import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionsMetaData;
-import org.junit.Ignore;
+import org.xml.sax.SAXParseException;
 
-import javax.xml.stream.XMLStreamException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Tests of 2.4 web-app elements
@@ -109,11 +105,11 @@ public class WebApp24UnitTestCase extends WebAppUnitTestCase {
     }
 
     // Ignore
-    public void _testFilterOrdering() throws Exception {
+    public void testFilterOrdering() throws Exception {
         try {
-            unmarshal();
-            fail("XMLStreamException expected");
-        } catch (XMLStreamException e) {
+            unmarshal(true);
+            fail("SAXParseException expected");
+        } catch (SAXParseException e) {
             // expected
         }
     }

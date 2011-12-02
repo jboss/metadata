@@ -48,10 +48,8 @@
         <maven.min.version>3.0-beta-1</maven.min.version>
 
         <!-- Dependency versions. Please keep alphabetical -->
-        <version.org.codehaus.woodstox>4.1.1</version.org.codehaus.woodstox>
-        <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Beta2
-        </version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
-        <version.com.sun.xml.bind>2.2.2</version.com.sun.xml.bind>
+        <version.org.jboss.jboss-common-core>2.2.19-SNAPSHOT</version.org.jboss.jboss-common-core>
+        <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Beta2</version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
     </properties>
 
     <modules>
@@ -118,19 +116,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>org.jboss</groupId>
+                <artifactId>jboss-common-core</artifactId>
+                <version>${version.org.jboss.jboss-common-core}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jboss.spec.javax.servlet</groupId>
                 <artifactId>jboss-servlet-api_3.0_spec</artifactId>
                 <version>${version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.woodstox</groupId>
-                <artifactId>woodstox-core-asl</artifactId>
-                <version>${version.org.codehaus.woodstox}</version>
-            </dependency>
-            <dependency>
-              <groupId>com.sun.xml.bind</groupId>
-              <artifactId>jaxb1-impl</artifactId>
-              <version>${version.com.sun.xml.bind}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -43,7 +43,10 @@ import java.util.List;
 
 
 /**
+ * Stax parser for web metadata
+ *
  * @author Remy Maucherat
+ * @author Thomas.Diesler@jboss.com
  */
 public class WebMetaDataParser extends MetaDataElementParser {
 
@@ -58,6 +61,8 @@ public class WebMetaDataParser extends MetaDataElementParser {
         // Read until the first start element
         while (reader.hasNext() && reader.next() != START_ELEMENT) ;
 
+        String schemaLocation = readSchemaLocation(reader);
+
         Version version = null;
         if (info.getPublicID() != null) {
             version = Version.fromPublicID(info.getPublicID());
@@ -65,11 +70,8 @@ public class WebMetaDataParser extends MetaDataElementParser {
         if (version == null && info.getSystemID() != null) {
             version = Version.fromSystemID(info.getSystemID());
         }
-        if (version == null) {
-            String schemaLocation = readSchemaLocation(reader);
-            if (schemaLocation != null) {
-                version = Version.fromSystemID(schemaLocation);
-            }
+        if (version == null && schemaLocation != null) {
+            version = Version.fromSystemID(schemaLocation);
         }
         if (version == null) {
             // Look at the version attribute
@@ -118,6 +120,10 @@ public class WebMetaDataParser extends MetaDataElementParser {
         // Set the publicId / systemId
         if (info != null)
             wmd.setDTD(info.getBaseURI(), info.getPublicID(), info.getSystemID());
+
+        // Set the schema location if we have one
+        if (schemaLocation != null)
+            wmd.setSchemaLocation(schemaLocation);
 
         // Handle attributes
         final int count = reader.getAttributeCount();
