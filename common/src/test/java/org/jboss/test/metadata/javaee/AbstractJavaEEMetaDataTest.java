@@ -22,7 +22,7 @@
 package org.jboss.test.metadata.javaee;
 
 import junit.framework.TestCase;
-import org.jboss.metadata.parser.util.NoopXmlResolver;
+import org.jboss.metadata.parser.util.NoopXMLResolver;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLResolver;
@@ -77,7 +77,7 @@ public class AbstractJavaEEMetaDataTest extends TestCase
    @Deprecated
    protected XMLStreamReader getReader(String name) throws Exception
    {
-      return getReader(name, NoopXmlResolver.create());
+      return getReader(name, NoopXMLResolver.create());
    }
 
    protected XMLStreamReader getReader(String name, XMLResolver resolver) throws IOException, XMLStreamException

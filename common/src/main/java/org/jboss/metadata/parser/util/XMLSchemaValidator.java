@@ -23,7 +23,6 @@
 package org.jboss.metadata.parser.util;
 
 import org.jboss.logging.Logger;
-import org.jboss.util.xml.JBossEntityResolver;
 import org.w3c.dom.Document;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.EntityResolver;
@@ -41,7 +40,6 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,21 +52,21 @@ import java.util.Map;
  * @author Thomas.Diesler@jboss.com
  * @since 02-Dec-2011
  */
-public class XmlSchemaValidator {
+public class XMLSchemaValidator {
 
     public static final String PROPERTY_SCHEMA_VALIDATION = "org.jboss.metadata.parser.validate";
 
-    private static final Logger log = Logger.getLogger(XmlSchemaValidator.class);
+    private static final Logger log = Logger.getLogger(XMLSchemaValidator.class);
 
     private final EntityResolver entityResolver;
     private final LSResourceResolver resourceResolver;
     private static Map<String, Schema> schemaMap = new HashMap<String, Schema>();
 
-    public XmlSchemaValidator(JBossEntityResolver resolver) {
+    public XMLSchemaValidator(XMLResourceResolver resolver) {
         this(resolver, resolver);
     }
 
-    public XmlSchemaValidator(EntityResolver entityResolver, LSResourceResolver resourceResolver) {
+    public XMLSchemaValidator(EntityResolver entityResolver, LSResourceResolver resourceResolver) {
         if (entityResolver == null)
             throw new IllegalArgumentException("Null entityResolver");
         if (resourceResolver == null)

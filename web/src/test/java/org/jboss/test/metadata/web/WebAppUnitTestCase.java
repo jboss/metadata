@@ -24,26 +24,13 @@ package org.jboss.test.metadata.web;
 import org.jboss.metadata.parser.servlet.WebMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser.DTDInfo;
-import org.jboss.metadata.parser.util.XmlSchemaValidator;
+import org.jboss.metadata.parser.util.XMLResourceResolver;
+import org.jboss.metadata.parser.util.XMLSchemaValidator;
 import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
-import org.jboss.util.xml.JBossEntityResolver;
-import org.junit.Assert;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXParseException;
 
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -64,7 +51,7 @@ abstract class WebAppUnitTestCase extends AbstractJavaEEEverythingTest {
         WebMetaData metaData = WebMetaDataParser.parse(reader, info);
         String schemaLocation = metaData.getSchemaLocation();
         if (validate == true && schemaLocation != null) {
-            XmlSchemaValidator validator = new XmlSchemaValidator(new JBossEntityResolver());
+            XMLSchemaValidator validator = new XMLSchemaValidator(new XMLResourceResolver());
             validator.validate(schemaLocation, getXMLInputStream());
         }
         return metaData;

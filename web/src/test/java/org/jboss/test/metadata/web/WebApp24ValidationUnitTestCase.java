@@ -21,7 +21,7 @@
  */
 package org.jboss.test.metadata.web;
 
-import org.jboss.util.xml.JBossEntityResolver;
+import org.jboss.metadata.parser.util.XMLResourceResolver;
 import org.junit.Assert;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
@@ -49,7 +49,7 @@ public class WebApp24ValidationUnitTestCase extends WebAppUnitTestCase {
     public void testJAXPSchema() throws Exception {
         URL schemaURL = new URL("http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd");
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        factory.setResourceResolver(new JBossEntityResolver());
+        factory.setResourceResolver(new XMLResourceResolver());
         InputStream is = schemaURL.openStream();
         jaxpSchema = factory.newSchema(new StreamSource(is, schemaURL.toExternalForm()));
     }

@@ -45,10 +45,10 @@
         <!-- Build configuration -->
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.min.version>3.0-beta-1</maven.min.version>
+        <maven.min.version>3.0.3</maven.min.version>
 
         <!-- Dependency versions. Please keep alphabetical -->
-        <version.org.jboss.jboss-common-core>2.2.19.GA</version.org.jboss.jboss-common-core>
+        <version.org.jboss.logging>3.1.0.CR2</version.org.jboss.logging>
         <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Beta2</version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
     </properties>
 
@@ -83,7 +83,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.1</version>
                     <configuration>
                         <source>1.6</source>
                         <target>1.6</target>
@@ -96,7 +95,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.1</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -116,14 +114,9 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jboss</groupId>
-                <artifactId>jboss-common-core</artifactId>
-                <version>${version.org.jboss.jboss-common-core}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.spec.javax.servlet</groupId>
-                <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-                <version>${version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec}</version>
+              <groupId>org.jboss.logging</groupId>
+              <artifactId>jboss-logging</artifactId>
+              <version>${version.org.jboss.logging}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
