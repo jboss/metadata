@@ -22,6 +22,32 @@
 
 package org.jboss.metadata.parser.servlet;
 
+import java.util.HashMap;
+
 public enum Version {
-    SERVLET_2_2, SERVLET_2_3, SERVLET_2_4, SERVLET_2_5, SERVLET_3_0
+
+    SERVLET_2_2, SERVLET_2_3, SERVLET_2_4, SERVLET_2_5, SERVLET_3_0;
+
+    private static final HashMap<String, Version> systemIDmap = new HashMap<String, Version>();
+    static {
+        systemIDmap.put("http://java.sun.com/j2ee/dtds/web-app_2_2.dtd", Version.SERVLET_2_2);
+        systemIDmap.put("http://java.sun.com/dtd/web-app_2_3.dtd", Version.SERVLET_2_3);
+        systemIDmap.put("http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd", Version.SERVLET_2_4);
+        systemIDmap.put("http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd", Version.SERVLET_2_5);
+        systemIDmap.put("http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd", Version.SERVLET_3_0);
+    }
+
+    private static final HashMap<String, Version> publicIDmap = new HashMap<String, Version>();
+    static {
+        publicIDmap.put("-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN", Version.SERVLET_2_2);
+        publicIDmap.put("-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN", Version.SERVLET_2_3);
+    }
+
+    public static Version fromSystemID(String systemID) {
+        return systemIDmap.get(systemID);
+    }
+
+    public static Version fromPublicID(String publicID) {
+        return publicIDmap.get(publicID);
+    }
 }

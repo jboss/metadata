@@ -109,6 +109,8 @@ public class WebCommonMetaDataParser extends MetaDataElementParser {
                 servletMappings.add(ServletMappingMetaDataParser.parse(reader));
                 break;
             case SESSION_CONFIG:
+                if (wmd.getSessionConfig() != null)
+                    throw new XMLStreamException("Multiple session-config elements detected", reader.getLocation());
                 wmd.setSessionConfig(SessionConfigMetaDataParser.parse(reader));
                 break;
             case MIME_MAPPING:
@@ -131,6 +133,8 @@ public class WebCommonMetaDataParser extends MetaDataElementParser {
                 errorPages.add(ErrorPageMetaDataParser.parse(reader));
                 break;
             case JSP_CONFIG:
+                if (wmd.getJspConfig() != null)
+                    throw new XMLStreamException("Multiple jsp-config elements detected", reader.getLocation());
                 wmd.setJspConfig(JspConfigMetaDataParser.parse(reader));
                 break;
             case SECURITY_CONSTRAINT:
@@ -142,6 +146,8 @@ public class WebCommonMetaDataParser extends MetaDataElementParser {
                 securityConstraints.add(SecurityConstraintMetaDataParser.parse(reader));
                 break;
             case LOGIN_CONFIG:
+                if (wmd.getLoginConfig() != null)
+                    throw new XMLStreamException("Multiple login-config elements detected", reader.getLocation());
                 wmd.setLoginConfig(LoginConfigMetaDataParser.parse(reader));
                 break;
             case SECURITY_ROLE:

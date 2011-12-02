@@ -95,8 +95,7 @@
 
     <dependency>
       <groupId>org.jboss.logging</groupId>
-      <artifactId>jboss-logging-spi</artifactId>
-      <version>2.2.0.CR1</version>
+      <artifactId>jboss-logging</artifactId>
     </dependency>
 
     <dependency>
