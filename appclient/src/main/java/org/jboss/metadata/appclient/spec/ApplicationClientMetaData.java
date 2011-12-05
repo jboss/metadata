@@ -66,6 +66,12 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
             this.callbackHandler = original.getCallbackHandler();
         }
 
+       if (override != null && override.getModuleName() != null) {
+         this.moduleName = override.getModuleName();
+       } else if (original != null && original.getModuleName() != null) {
+         this.moduleName = original.getModuleName();
+       }
+
         if (override != null && override.getVersion() != null) {
             version = override.getVersion();
         } else if (original != null && original.getVersion() != null) {
