@@ -100,7 +100,8 @@ public class WebMetaDataParser extends MetaDataElementParser {
         }
 
         if (version == null)
-            throw new IllegalStateException("Cannot obtain servlet version");
+        	version = Version.SERVLET_3_0;
+            // throw new IllegalStateException("Cannot obtain servlet version");
 
         WebMetaData wmd = null;
         switch (version) {
