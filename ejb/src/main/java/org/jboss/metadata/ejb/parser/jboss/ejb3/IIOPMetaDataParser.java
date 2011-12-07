@@ -106,101 +106,108 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
 
     protected IORTransportConfigMetaData processTransportConfig(XMLStreamReader reader) throws XMLStreamException {
 
-        EnumSet<Attribute> requiredAttributes = EnumSet.of(Attribute.INTEGRITY, Attribute.CONFIDENTIALITY,
-                Attribute.ESTABLISH_TRUST_IN_CLIENT, Attribute.ESTABLISH_TRUST_IN_TARGET);
+        // the transport-config element doesn't have attributes.
+        requireNoAttributes(reader);
+
+        EnumSet<Element> requiredElements = EnumSet.of(Element.INTEGRITY, Element.CONFIDENTIALITY,
+                Element.ESTABLISH_TRUST_IN_CLIENT, Element.ESTABLISH_TRUST_IN_TARGET);
 
         IORTransportConfigMetaData transportConfig = new IORTransportConfigMetaData();
 
-        // process the transport config attributes.
-        for (int i = 0; i < reader.getAttributeCount(); i++) {
-            final String attrValue = reader.getAttributeValue(i);
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
+        // process the transport config elements.
+        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+            Element element = Element.forName(reader.getLocalName());
 
-            // set the attribute in the transport config metadata.
-            switch (attribute) {
+            // set the element text in the transport config metadata.
+            switch (element) {
                 case INTEGRITY: {
-                    transportConfig.setIntegrity(attrValue);
+                    requireNoAttributes(reader);
+                    transportConfig.setIntegrity(getElementText(reader));
                     break;
                 }
                 case CONFIDENTIALITY: {
-                    transportConfig.setConfidentiality(attrValue);
+                    requireNoAttributes(reader);
+                    transportConfig.setConfidentiality(getElementText(reader));
                     break;
                 }
                 case DETECT_MISORDERING: {
-                    transportConfig.setDetectMisordering(attrValue);
+                    requireNoAttributes(reader);
+                    transportConfig.setDetectMisordering(getElementText(reader));
                     break;
                 }
                 case DETECT_REPLAY: {
-                    transportConfig.setDetectReplay(attrValue);
+                    requireNoAttributes(reader);
+                    transportConfig.setDetectReplay(getElementText(reader));
                     break;
                 }
                 case ESTABLISH_TRUST_IN_CLIENT: {
-                    transportConfig.setEstablishTrustInClient(attrValue);
+                    requireNoAttributes(reader);
+                    transportConfig.setEstablishTrustInClient(getElementText(reader));
                     break;
                 }
                 case ESTABLISH_TRUST_IN_TARGET: {
-                    transportConfig.setEstablishTrustInTarget(attrValue);
+                    requireNoAttributes(reader);
+                    transportConfig.setEstablishTrustInTarget(getElementText(reader));
                     break;
                 }
                 default: {
-                    throw unexpectedAttribute(reader, i);
+                    throw unexpectedElement(reader);
                 }
             }
 
-            requiredAttributes.remove(attribute);
+            requiredElements.remove(element);
         }
 
-        // throw an exception if a required attribute wasn't found.
-        if (!requiredAttributes.isEmpty()) {
-            throw missingRequired(reader, requiredAttributes);
+        // throw an exception if a required element wasn't found.
+        if (!requiredElements.isEmpty()) {
+            throw missingRequiredElement(reader, requiredElements);
         }
-
-        // the transport-config element doesn't have sub-elements.
-        requireNoContent(reader);
 
         return transportConfig;
     }
 
     protected IORASContextMetaData processASContext(XMLStreamReader reader) throws XMLStreamException {
 
-        EnumSet<Attribute> requiredAttributes = EnumSet.of(Attribute.AUTH_METHOD, Attribute.REALM, Attribute.REQUIRED);
+        // the as-context element doesn't have attributes.
+        requireNoAttributes(reader);
+
+        EnumSet<Element> requiredElements = EnumSet.of(Element.AUTH_METHOD, Element.REALM, Element.REQUIRED);
 
         IORASContextMetaData asContext = new IORASContextMetaData();
 
-        // process the authentication service (AS) attributes.
-        for (int i = 0; i < reader.getAttributeCount(); i++) {
-            final String attrValue = reader.getAttributeValue(i);
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
+        // process the authentication service (AS) elements.
+        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+            Element element = Element.forName(reader.getLocalName());
 
-            // set the attribute in the authentication service (AS) metadata.
-            switch (attribute) {
+            // set the element text in the authentication service (AS) metadata.
+            switch (element) {
                 case AUTH_METHOD: {
-                    asContext.setAuthMethod(attrValue);
+                    requireNoAttributes(reader);
+                    asContext.setAuthMethod(getElementText(reader));
                     break;
                 }
                 case REALM: {
-                    asContext.setRealm(attrValue);
+                    requireNoAttributes(reader);
+                    asContext.setRealm(getElementText(reader));
                     break;
                 }
                 case REQUIRED: {
-                    asContext.setRequired(Boolean.valueOf(attrValue));
+                    requireNoAttributes(reader);
+                    asContext.setRequired(Boolean.valueOf(getElementText(reader)));
                     break;
                 }
                 default: {
-                    throw unexpectedAttribute(reader, i);
+                    throw unexpectedElement(reader);
                 }
             }
 
-            requiredAttributes.remove(attribute);
+            requiredElements.remove(element);
         }
 
-        // throw an exception if a required attribute wasn't found.
-        if (!requiredAttributes.isEmpty()) {
-            throw missingRequired(reader, requiredAttributes);
+        // throw an exception if a required element wasn't found.
+        if (!requiredElements.isEmpty()) {
+            throw missingRequiredElement(reader, requiredElements);
         }
-
-        // the sas-context element doesn't have sub-elements.
-        requireNoContent(reader);
 
         return asContext;
 
@@ -208,36 +215,36 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
 
     protected IORSASContextMetaData processSASContext(XMLStreamReader reader) throws XMLStreamException {
 
-        EnumSet<Attribute> requiredAttributes = EnumSet.of(Attribute.CALLER_PROPAGATION);
+        // the sas-context element doesn't have attributes.
+        requireNoAttributes(reader);
+
+        EnumSet<Element> requiredElements = EnumSet.of(Element.CALLER_PROPAGATION);
 
         IORSASContextMetaData sasContext = new IORSASContextMetaData();
 
-        // process the security attribute service (SAS) attributes.
-        for (int i = 0; i < reader.getAttributeCount(); i++) {
-            final String attrValue = reader.getAttributeValue(i);
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
+        // process the security attribute service (SAS) elements.
+        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+            Element element = Element.forName(reader.getLocalName());
 
-            // set the attribute in the security attribute service (SAS) metadata.
-            switch (attribute) {
+            // set the element text in the security attribute service (SAS) metadata.
+            switch (element) {
                 case CALLER_PROPAGATION: {
-                    sasContext.setCallerPropagation(attrValue);
+                    requireNoAttributes(reader);
+                    sasContext.setCallerPropagation(getElementText(reader));
                     break;
                 }
                 default: {
-                    throw unexpectedAttribute(reader, i);
+                    throw unexpectedElement(reader);
                 }
             }
 
-            requiredAttributes.remove(attribute);
+            requiredElements.remove(element);
         }
 
         // throw an exception if a required attribute wasn't found.
-        if (!requiredAttributes.isEmpty()) {
-            throw missingRequired(reader, requiredAttributes);
+        if (!requiredElements.isEmpty()) {
+            throw missingRequiredElement(reader, requiredElements);
         }
-
-        // the sas-context element doesn't have sub-elements.
-        requireNoContent(reader);
 
         return sasContext;
 
@@ -315,20 +322,30 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
       *
       * @author <a href="mailto:sguilhen@redhat.com">Stefan Guilhen</a>
       */
-     enum Element {
+    enum Element {
 
-         UNKNOWN(null),
+        UNKNOWN(null),
 
-         // elements used to configure the IIOP settings.
-         BINDING_NAME("binding-name"),
-         IOR_SECURITY_CONFIG("ior-security-config"),
+        BINDING_NAME("binding-name"),
+        IOR_SECURITY_CONFIG("ior-security-config"),
+        // transport configuration elements.
+        TRANSPORT_CONFIG("transport-config"),
+        INTEGRITY("integrity"),
+        CONFIDENTIALITY("confidentiality"),
+        DETECT_MISORDERING("detect-misordering"),
+        DETECT_REPLAY("detect-replay"),
+        ESTABLISH_TRUST_IN_CLIENT("establish-trust-in-client"),
+        ESTABLISH_TRUST_IN_TARGET("establish-trust-in-target"),
+        // authentication context configuration elements.
+        AS_CONTEXT("as-context"),
+        AUTH_METHOD("auth-method"),
+        REALM("realm"),
+        REQUIRED("required"),
+        // secure attribute service context configuration elements.
+        SAS_CONTEXT("sas-context"),
+        CALLER_PROPAGATION("caller-propagation");
 
-         // sub-elements of the ior-security-config element.
-         TRANSPORT_CONFIG("transport-config"),
-         AS_CONTEXT("as-context"),
-         SAS_CONTEXT("sas-context");
-
-         private final String name;
+        private final String name;
 
          /**
           * <p>
@@ -381,83 +398,4 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
          }
 
      }
-
-       /**
-     * <p>
-     * Enumeration of the EJB3/IIOP configuration attributes.
-     * </p>
-     *
-     * @author <a href="mailto:sguilhen@redhat.com">Stefan Guilhen</a>
-     */
-    enum Attribute {
-
-        UNKNOWN(null),
-
-        // attributes of the transport-config element.
-        INTEGRITY("integrity"),
-        CONFIDENTIALITY("confidentiality"),
-        DETECT_MISORDERING("detect-misordering"),
-        DETECT_REPLAY("detect-replay"),
-        ESTABLISH_TRUST_IN_CLIENT("establish-trust-in-client"),
-        ESTABLISH_TRUST_IN_TARGET("establish-trust-in-target"),
-
-        // attributes of the as-context element.
-        AUTH_METHOD("auth-method"),
-        REALM("realm"),
-        REQUIRED("required"),
-
-        // atributes of the sas-context element.
-        CALLER_PROPAGATION("caller-propagation");
-
-        private final String name;
-
-        /**
-         * <p>
-         * {@code Attribute} constructor. Sets the attribute name.
-         * </p>
-         *
-         * @param name a {@code String} representing the local name of the attribute.
-         */
-        Attribute(final String name) {
-            this.name = name;
-        }
-
-        /**
-         * <p>
-         * Obtains the local name of this attribute.
-         * </p>
-         *
-         * @return a {@code String} representing the attribute local name.
-         */
-        public String getLocalName() {
-            return this.name;
-        }
-
-        // a map that caches all available attributes by name.
-        private static final Map<String, Attribute> MAP;
-
-        static {
-            final Map<String, Attribute> map = new HashMap<String, Attribute>();
-            for (Attribute attribute : values()) {
-                final String name = attribute.name;
-                if (name != null)
-                    map.put(name, attribute);
-            }
-            MAP = map;
-        }
-
-        /**
-         * <p>
-         * Gets the {@code Attribute} identified by the specified name.
-         * </p>
-         *
-         * @param localName a {@code String} representing the local name of the attribute.
-         * @return the {@code Attribute} identified by the name. If no attribute can be found, the {@code Attribute.UNKNOWN}
-         * type is returned.
-         */
-        public static Attribute forName(String localName) {
-            final Attribute attribute = MAP.get(localName);
-            return attribute == null ? UNKNOWN : attribute;
-        }
-    }
 }
