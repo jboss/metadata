@@ -21,12 +21,7 @@
  */
 package org.jboss.metadata.merge.javaee.spec;
 
-import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
-import org.jboss.metadata.javaee.spec.Environment;
-import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
-import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.*;
 
 /**
  * EnvironmentRefsGroupMetaData.
@@ -63,10 +58,6 @@ public class EnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRefsGro
         if (persistenceContextRefs != null)
             dest.setPersistenceContextRefs(persistenceContextRefs);
 
-        DataSourcesMetaData dataSources = DataSourcesMetaDataMerger.merge(EnvironmentRefsGroupMetaData.getDataSources(jbossEnv), EnvironmentRefsGroupMetaData.getDataSources(specEnv),
-                overridenFile, overrideFile);
-        if (dataSources != null)
-            dest.setDataSources(dataSources);
 
     }
 

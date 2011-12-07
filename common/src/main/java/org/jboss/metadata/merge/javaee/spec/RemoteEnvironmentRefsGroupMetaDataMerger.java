@@ -21,18 +21,7 @@
  */
 package org.jboss.metadata.merge.javaee.spec;
 
-import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
-import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
-import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
-import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
-import org.jboss.metadata.javaee.spec.RemoteEnvironment;
-import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.*;
 import org.jboss.metadata.merge.javaee.jboss.JBossServiceReferencesMetaDataMerger;
 
 /**
@@ -59,6 +48,8 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
         MessageDestinationReferencesMetaData jbossMessageDestinationRefs = null;
         PersistenceUnitReferencesMetaData persistenceUnitRefs = null;
         PersistenceUnitReferencesMetaData jbossPersistenceUnitRefs = null;
+        DataSourcesMetaData dataSourceMetaData = null;
+        DataSourcesMetaData jbossDataSourceMetaData = null;
         LifecycleCallbacksMetaData postConstructs = null;
         LifecycleCallbacksMetaData preDestroys = null;
 
@@ -87,6 +78,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             resEnvRefs = specEnv.getResourceEnvironmentReferences();
             messageDestinationRefs = specEnv.getMessageDestinationReferences();
             persistenceUnitRefs = specEnv.getPersistenceUnitRefs();
+            dataSourceMetaData = specEnv.getDataSources();
         }
 
         if (jbossEnv != null) {
@@ -96,6 +88,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             jbossResEnvRefs = jbossEnv.getResourceEnvironmentReferences();
             jbossMessageDestinationRefs = jbossEnv.getMessageDestinationReferences();
             jbossPersistenceUnitRefs = jbossEnv.getPersistenceUnitRefs();
+            jbossDataSourceMetaData = jbossEnv.getDataSources();
         } else {
             // Merge into this
             jbossEjbRefs = dest.getEjbReferences();
@@ -104,6 +97,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             jbossResEnvRefs = dest.getResourceEnvironmentReferences();
             jbossMessageDestinationRefs = dest.getMessageDestinationReferences();
             jbossPersistenceUnitRefs = dest.getPersistenceUnitRefs();
+            jbossDataSourceMetaData = dest.getDataSources();
         }
 
         EJBReferencesMetaData mergedEjbRefs = EJBReferencesMetaDataMerger.merge(jbossEjbRefs, ejbRefs, overrideFile, overridenFile,
@@ -161,6 +155,13 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             if (dest.getPersistenceUnitRefs() == null)
                 dest.setPersistenceUnitRefs(new PersistenceUnitReferencesMetaData());
             PersistenceUnitReferencesMetaDataMerger.merge(dest.getPersistenceUnitRefs(), jbossPersistenceUnitRefs, persistenceUnitRefs);
+        }
+
+        if (dataSourceMetaData != null || jbossDataSourceMetaData != null) {
+            if (dest.getDataSources() == null)
+               dest.setDataSources(new DataSourcesMetaData());
+            DataSourcesMetaData datasources = DataSourcesMetaDataMerger.merge(jbossDataSourceMetaData, dataSourceMetaData, "spec.xml", "jboss.xml");
+            dest.setDataSources(datasources);
         }
 
         // Fill the annotated refs with the xml descriptor

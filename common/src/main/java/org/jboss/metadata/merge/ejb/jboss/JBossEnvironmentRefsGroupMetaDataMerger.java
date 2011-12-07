@@ -158,11 +158,6 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
         if (mergedPctxRefs != null)
             dest.setPersistenceContextRefs(mergedPctxRefs);
 
-        DataSourcesMetaData mergedDataSources = DataSourcesMetaDataMerger.merge(overrideDataSources, originalDataSources, null,
-                "jboss.xml");
-        if (mergedDataSources != null)
-            dest.setDataSources(mergedDataSources);
-
         // Need to set the jndi name from resource mgr if referenced
         ResourceReferencesMetaData jbossResRefs = dest.getResourceReferences();
         if (resourceManagers != null && jbossResRefs != null) {
