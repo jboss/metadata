@@ -23,7 +23,12 @@ package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.AssemblyDescriptor30MetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.ContainerTransactionMetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
+import org.jboss.metadata.ejb.parser.spec.ExtendingMetaDataParser;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
+import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
+import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -32,34 +37,14 @@ import java.util.Map;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class JBossAssemblyDescriptorMetaDataParser extends AssemblyDescriptor30MetaDataParser
+public class JBossAssemblyDescriptorMetaDataParser extends ExtendingMetaDataParser<AssemblyDescriptorMetaData>
 {
-   private final Map<String, AbstractMetaDataParser<?>> parsers;
+   private final ExtendingMetaDataParser<ContainerTransactionMetaData> containerTransactionMetaDataParser;
 
    public JBossAssemblyDescriptorMetaDataParser(Map<String, AbstractMetaDataParser<?>> parsers)
    {
-      this.parsers = parsers;
-   }
-
-   protected AbstractMetaDataParser<?> getParser(String uri)
-   {
-      return mandatory(parsers.get(uri), "No parser found for " + uri);
-   }
-
-   private static <V> V mandatory(V value, String message)
-   {
-      if (value == null)
-         throw new IllegalStateException(message);
-      return value;
-   }
-
-   @Override
-   public AssemblyDescriptorMetaData parse(XMLStreamReader reader) throws XMLStreamException
-   {
-      AssemblyDescriptorMetaData assemblyDescriptorMetaData = new AssemblyDescriptorMetaData();
-      processAttributes(assemblyDescriptorMetaData, reader);
-      this.processElements(assemblyDescriptorMetaData, reader);
-      return assemblyDescriptorMetaData;
+      super(new AssemblyDescriptor30MetaDataParser(), parsers);
+      this.containerTransactionMetaDataParser = new ExtendingMetaDataParser<ContainerTransactionMetaData>(ContainerTransactionMetaDataParser.INSTANCE, parsers);
    }
 
    @Override
@@ -68,17 +53,32 @@ public class JBossAssemblyDescriptorMetaDataParser extends AssemblyDescriptor30M
       final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
       switch (namespace)
       {
-         case JBOSS:
-            throw new RuntimeException("NYI");
          case SPEC:
+            processSpecElement(assemblyDescriptor, reader);
+            break;
+         default:
             super.processElement(assemblyDescriptor, reader);
             break;
-         case UNKNOWN:
-//            ParseResult<?> result = new ParseResult<Object>();
-//            ((XMLExtendedStreamReader) reader).handleAny(result);
-//            ((JBossAssemblyDescriptorMetaData) assemblyDescriptor).addAny(result.getResult());
-            AbstractMetaDataParser<?> parser = getParser(reader.getNamespaceURI());
-            assemblyDescriptor.addAny(parser.parse(reader));
+      }
+   }
+
+   protected void processSpecElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader) throws XMLStreamException
+   {
+      final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
+      switch (ejbJarElement)
+      {
+         case CONTAINER_TRANSACTION :
+            ContainerTransactionsMetaData containerTransactions = assemblyDescriptor.getContainerTransactions();
+            if (containerTransactions == null)
+            {
+               containerTransactions = new ContainerTransactionsMetaData();
+               assemblyDescriptor.setContainerTransactions(containerTransactions);
+            }
+            ContainerTransactionMetaData containerTransaction = containerTransactionMetaDataParser.parse(reader);
+            containerTransactions.add(containerTransaction);
+            break;
+         default:
+            super.processElement(assemblyDescriptor, reader);
             break;
       }
    }

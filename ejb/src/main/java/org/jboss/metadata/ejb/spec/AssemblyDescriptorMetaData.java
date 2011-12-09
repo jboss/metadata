@@ -31,10 +31,7 @@ import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * AssemblyDescriptorMetaData.
@@ -43,7 +40,7 @@ import java.util.Map;
  * @version $Revision: 1.1 $
  */
 public class AssemblyDescriptorMetaData extends IdMetaDataImpl
-   implements IAssemblyDescriptorMetaData
+   implements ExtendableMetaData, IAssemblyDescriptorMetaData
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = 7634431073492003512L;
@@ -69,27 +66,17 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
    /** The application exceptions */
    private ApplicationExceptionsMetaData applicationExceptions;
 
-   /**
-    * Any additional attachments
-    */
-   private Map<Class<?>, List<?>> any = new HashMap<Class<?>, List<?>>();
+   private ExtendableMetaDataSupport extendableSupport = new ExtendableMetaDataSupport();
 
    public void addAny(Object a)
    {
-      Class<?> cls = a.getClass();
-      List<Object> current = (List<Object>) any.get(cls);
-      if (current == null)
-      {
-         current = new ArrayList<Object>();
-         any.put(cls, current);
-      }
-      current.add(a);
+      extendableSupport.addAny(a);
    }
 
 
    public <T> List<T> getAny(Class<T> type)
    {
-      return (List<T>) any.get(type);
+      return extendableSupport.getAny(type);
    }
 
    /**
@@ -340,10 +327,7 @@ public class AssemblyDescriptorMetaData extends IdMetaDataImpl
    {
       IdMetaDataImplMerger.merge(this, override, original);
 
-      if (override != null && override.any != null)
-      {
-         this.any.putAll(override.any);
-      }
+      extendableSupport.merge(override.extendableSupport, original.extendableSupport);
       if((override != null && override.applicationExceptions != null) || (original != null && original.applicationExceptions != null))
       {
          applicationExceptions = new ApplicationExceptionsMetaData();

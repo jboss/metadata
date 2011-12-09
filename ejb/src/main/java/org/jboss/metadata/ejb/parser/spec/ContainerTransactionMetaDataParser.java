@@ -39,6 +39,7 @@ import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.proces
  * Author : Jaikiran Pai
  */
 public class ContainerTransactionMetaDataParser extends AbstractWithDescriptionsParser<ContainerTransactionMetaData>
+   implements ExtendableMetaDataParser<ContainerTransactionMetaData>
 {
    private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
 
@@ -46,6 +47,12 @@ public class ContainerTransactionMetaDataParser extends AbstractWithDescriptions
     * Instance of this parser
     */
    public static final ContainerTransactionMetaDataParser INSTANCE = new ContainerTransactionMetaDataParser();
+
+   @Override
+   public ContainerTransactionMetaData create()
+   {
+      return new ContainerTransactionMetaData();
+   }
 
    @Override
    public ContainerTransactionMetaData parse(XMLStreamReader reader) throws XMLStreamException
@@ -57,7 +64,13 @@ public class ContainerTransactionMetaDataParser extends AbstractWithDescriptions
    }
 
    @Override
-   protected void processElement(ContainerTransactionMetaData containerTransactionMetaData, XMLStreamReader reader) throws XMLStreamException
+   public void processAttribute(ContainerTransactionMetaData metaData, XMLStreamReader reader, int i) throws XMLStreamException
+   {
+      throw new RuntimeException("NYI: org.jboss.metadata.ejb.parser.spec.ContainerTransactionMetaDataParser.processAttribute");
+   }
+
+   @Override
+   public void processElement(ContainerTransactionMetaData containerTransactionMetaData, XMLStreamReader reader) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)

@@ -34,10 +34,16 @@ import javax.xml.stream.XMLStreamReader;
  * Author: Jaikiran Pai
  */
 public class AssemblyDescriptor30MetaDataParser extends AssemblyDescriptorMetaDataParser
+   implements ExtendableMetaDataParser<AssemblyDescriptorMetaData>
 {
+   @Override
+   public AssemblyDescriptorMetaData create()
+   {
+      return new AssemblyDescriptorMetaData();
+   }
 
    @Override
-   protected void processElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader) throws XMLStreamException
+   public void processElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -99,5 +105,4 @@ public class AssemblyDescriptor30MetaDataParser extends AssemblyDescriptorMetaDa
       }
       return applicationExceptionMetaData;
    }
-
 }

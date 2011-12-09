@@ -21,9 +21,11 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
+import java.util.List;
 
 import javax.ejb.TransactionAttributeType;
+
+import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
 /**
  * ContainerTransactionMetaData.
@@ -32,6 +34,7 @@ import javax.ejb.TransactionAttributeType;
  * @version $Revision: 1.1 $
  */
 public class ContainerTransactionMetaData extends IdMetaDataImplWithDescriptions
+   implements ExtendableMetaData
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = -8080829946285127796L;
@@ -41,13 +44,27 @@ public class ContainerTransactionMetaData extends IdMetaDataImplWithDescriptions
    
    /** The transaction attribute */
    private TransactionAttributeType transAttribute;
-   
+
+   private final ExtendableMetaDataSupport extendableSupport = new ExtendableMetaDataSupport();
+
    /**
     * Create a new MethodPermissionMetaData.
     */
    public ContainerTransactionMetaData()
    {
       // For serialization
+   }
+
+   @Override
+   public void addAny(Object a)
+   {
+      extendableSupport.addAny(a);
+   }
+
+   @Override
+   public <T> List<T> getAny(Class<T> type)
+   {
+      return extendableSupport.getAny(type);
    }
 
    /**

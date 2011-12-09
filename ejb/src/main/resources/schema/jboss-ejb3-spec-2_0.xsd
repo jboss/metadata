@@ -49,6 +49,18 @@
       </xs:complexType>
    </xs:redefine>
 
+   <xs:redefine schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd">
+      <xs:complexType name="container-transactionType">
+         <xs:complexContent>
+            <xs:extension base="javaee:container-transactionType">
+               <xs:sequence>
+                  <xs:element ref="javaee:container-transaction-entry" minOccurs="0" maxOccurs="unbounded"/>
+               </xs:sequence>
+            </xs:extension>
+         </xs:complexContent>
+      </xs:complexType>
+   </xs:redefine>
+
    <xs:element name="assembly-descriptor-entry" abstract="true" type="javaee:jboss-assembly-descriptor-entryType"/>
 
    <xs:complexType abstract="true" name="jboss-assembly-descriptor-entryType">
@@ -94,6 +106,10 @@
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
+
+   <xs:element name="container-transaction-entry" abstract="true" type="javaee:jboss-container-transaction-entryType"/>
+
+   <xs:complexType abstract="true" name="jboss-container-transaction-entryType"/>
 
    <xs:complexType name="jboss-ejb-beanType">
       <xs:sequence>
