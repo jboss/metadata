@@ -142,7 +142,7 @@ public class ServletMetaDataMerger {
         // Load on startup
         if (!dest.getLoadOnStartupSet()) {
             if (webFragmentMetaData.getLoadOnStartupSet()) {
-                dest.setLoadOnStartup(webFragmentMetaData.getLoadOnStartup());
+                dest.setLoadOnStartupInt(webFragmentMetaData.getLoadOnStartupInt());
             }
         } else {
             if (!resolveConflicts && webFragmentMetaData.getLoadOnStartupSet()
