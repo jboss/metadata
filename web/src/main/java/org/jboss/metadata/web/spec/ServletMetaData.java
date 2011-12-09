@@ -105,13 +105,11 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
     }
 
     public void setLoadOnStartup(String loadOnStartup) {
-        if (loadOnStartup != null) {
-            this.loadOnStartup = loadOnStartup;
-            try {
-                setLoadOnStartupInt(Integer.parseInt(loadOnStartup));
-            } catch (NumberFormatException e) {
-                setLoadOnStartupInt(0);
-            }
+        this.loadOnStartup = loadOnStartup;
+        try {
+            setLoadOnStartupInt(Integer.parseInt(loadOnStartup));
+        } catch (NumberFormatException e) {
+            setLoadOnStartupInt(0); 
         }
     }
     public int getLoadOnStartupDefault() {
