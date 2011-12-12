@@ -21,10 +21,7 @@
  */
 package org.jboss.test.metadata.web;
 
-import org.jboss.metadata.parser.util.XMLResourceResolver;
-import org.junit.Assert;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXParseException;
+import java.net.URL;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -34,8 +31,12 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import java.io.InputStream;
-import java.net.URL;
+
+import org.jboss.metadata.parser.util.XMLResourceResolver;
+import org.junit.Assert;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXParseException;
 
 /**
  * Tests of 2.4 web-app elements
@@ -48,10 +49,11 @@ public class WebApp24ValidationUnitTestCase extends WebAppUnitTestCase {
 
     public void testJAXPSchema() throws Exception {
         URL schemaURL = new URL("http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd");
+        XMLResourceResolver resolver = new XMLResourceResolver();
+        InputSource source = resolver.resolveEntity(schemaURL.toExternalForm(), null);
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        factory.setResourceResolver(new XMLResourceResolver());
-        InputStream is = schemaURL.openStream();
-        jaxpSchema = factory.newSchema(new StreamSource(is, schemaURL.toExternalForm()));
+        factory.setResourceResolver(resolver);
+        jaxpSchema = factory.newSchema(new StreamSource(source.getByteStream(), schemaURL.toExternalForm()));
     }
 
     public void testJAXPValidation() throws Exception {
