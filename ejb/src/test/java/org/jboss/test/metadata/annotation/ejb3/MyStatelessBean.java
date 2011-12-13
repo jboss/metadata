@@ -47,9 +47,6 @@ import javax.interceptor.InvocationContext;
 import javax.jms.Queue;
 import javax.sql.DataSource;
 
-import org.jboss.ejb3.annotation.LocalBinding;
-import org.jboss.ejb3.annotation.RemoteBinding;
-
 /**
  * Comment
  *
@@ -60,8 +57,6 @@ import org.jboss.ejb3.annotation.RemoteBinding;
 @SuppressWarnings("unused")
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NEVER)
-@LocalBinding(jndiBinding = "LocalJndiBinding")
-@RemoteBinding(clientBindUrl = "clientBind", interceptorStack = "stack", jndiBinding = "RemoteBinding", invokerName = "invokerName")
 @Resources({
    @Resource(description="url-resource-ref", name="googleHome", type=java.net.URL.class, mappedName="http://www.google.com"),
    @Resource(description="DataSource-resource-ref", name="jdbc/ds", type=DataSource.class, mappedName="java:/DefaultDS")

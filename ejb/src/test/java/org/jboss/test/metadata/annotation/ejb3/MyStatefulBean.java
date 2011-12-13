@@ -37,12 +37,7 @@ import javax.ejb.Stateful;
 import javax.persistence.PersistenceContext;
 import javax.xml.ws.WebServiceRef;
 
-import org.jboss.ejb3.annotation.CacheConfig;
 import org.jboss.ejb3.annotation.Clustered;
-import org.jboss.ejb3.annotation.LocalHomeBinding;
-import org.jboss.ejb3.annotation.RemoteBinding;
-import org.jboss.ejb3.annotation.RemoteBindings;
-import org.jboss.ejb3.annotation.RemoteHomeBinding;
 
 /**
  * Comment
@@ -54,17 +49,6 @@ import org.jboss.ejb3.annotation.RemoteHomeBinding;
 @Stateful(name="AnotherName")
 @Remote(MyStateful.class)
 @RemoteHome(MyStatefulHome.class)
-@RemoteBindings(
-      value = {
-            @RemoteBinding(clientBindUrl = "clientBind1", interceptorStack = "stack1", jndiBinding = "RemoteBinding1"),
-            @RemoteBinding(clientBindUrl = "clientBind2", interceptorStack = "stack2", jndiBinding = "RemoteBinding2"),
-            @RemoteBinding(invokerName="invokerName1", jndiBinding = "RemoteBinding3")
-            
-         }
-)
-@RemoteBinding(jndiBinding = "jndiBind3")
-@LocalHomeBinding(jndiBinding = "localHome")
-@RemoteHomeBinding(jndiBinding = "remoteHomeBinding")
 @EJBs(
       value={
             @EJB(name="ejb/local1", beanInterface=MyStatelessLocal.class,
@@ -75,13 +59,7 @@ import org.jboss.ejb3.annotation.RemoteHomeBinding;
                   description="A reference to MyLocalSession2")
       }
 )
-@CacheConfig(name = "test",
-      idleTimeoutSeconds = 123,
-      maxSize = 234,
-      removalTimeoutSeconds = 345,
-      replicationIsPassivation = true
-      )
-@Clustered(homeLoadBalancePolicy = "home", loadBalancePolicy = "bean", partition = "partition")
+@Clustered()
 public class MyStatefulBean
 {
    

@@ -118,17 +118,8 @@
       <dependency>
          <groupId>org.jboss.ejb3</groupId>
          <artifactId>jboss-ejb3-ext-api</artifactId>
-         <version>1.1.0</version>
-         <exclusions>
-            <exclusion>
-               <groupId>org.jboss.metadata</groupId>
-               <artifactId>jboss-metadata</artifactId>
-            </exclusion>
-            <exclusion>
-               <groupId>org.jboss.javaee</groupId>
-               <artifactId>jboss-ejb-api</artifactId>
-            </exclusion>
-         </exclusions>
+         <version>2.0.0-beta-2</version>
+         <scope>provided</scope>
       </dependency>
 
       <!-- Test Dependencies -->
