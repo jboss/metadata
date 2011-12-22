@@ -65,8 +65,8 @@ public class ValidationHelper {
        system.put("http://www.jboss.org/j2ee/schema/trans-timeout-1_0.xsd", "/schema/trans-timeout-1_0.xsd");
        // Somehow this gives a broken URI, see http://en.wikipedia.org/wiki/File_URI_scheme
 //      system.put(new URL(new File(".").toURI().toURL(), "cache-test.xsd").toString(), "cache-test.xsd");
-       system.put("file://" + new File(System.getProperty("user.dir"), "cache-test.xsd").toURI().getRawPath(), "cache-test.xsd");
-       system.put("file://" + new File(System.getProperty("user.dir"), "tx-test.xsd").toURI().getRawPath(), "tx-test.xsd");
+       system.put("file://" + new File(System.getProperty("user.dir"), "cache-test.xsd").toURI().toASCIIString().substring(5), "cache-test.xsd");
+       system.put("file://" + new File(System.getProperty("user.dir"), "tx-test.xsd").toURI().toASCIIString().substring(5), "tx-test.xsd");
        parser.setEntityResolver(new EntityResolver()
        {
           @Override
