@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.metadata.parser.spec;
+package org.jboss.metadata.ear.spec;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,19 +28,19 @@ import java.util.Map;
 /**
  * @author John Bailey
  */
-public enum Version {
+public enum EarVersion {
     UNKNOWN(null, null),
     APP_1_3("http://java.sun.com/dtd/application_1_3.dtd", "1.3"),
     APP_1_4("http://java.sun.com/xml/ns/j2ee/application_1_4.xsd", "1.4"),
     APP_5_0("http://java.sun.com/xml/ns/javaee/application_5.xsd", "5.0"),
     APP_6_0("http://java.sun.com/xml/ns/javaee/application_6.xsd", "6.0");
 
-    private static final Map<String, Version> bindings = new HashMap<String, Version>();
+    private static final Map<String, EarVersion> bindings = new HashMap<String, EarVersion>();
 
     private final String location;
     private final String version;
 
-    Version(final String location, final String version) {
+    EarVersion(final String location, final String version) {
         this.location = location;
         this.version = version;
     }
@@ -50,13 +50,13 @@ public enum Version {
     }
 
     static {
-        for (Version version : values()) {
+        for (EarVersion version : values()) {
             bindings.put(version.location, version);
         }
     }
 
-    public static Version forLocation(final String location) {
-        final Version version = bindings.get(location);
+    public static EarVersion forLocation(final String location) {
+        final EarVersion version = bindings.get(location);
         return version != null ? version : UNKNOWN;
     }
 }

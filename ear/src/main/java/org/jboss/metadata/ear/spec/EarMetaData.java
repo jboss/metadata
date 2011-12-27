@@ -32,10 +32,16 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
  * @version $Revision: 75470 $
  */
 public class EarMetaData extends IdMetaDataImplWithDescriptionGroup {
-    private static final long serialVersionUID = 1;
-    private String dtdPublicId;
-    private String dtdSystemId;
-    private String version;
+    private static final long serialVersionUID = 2;
+
+    private final EarVersion earVersion;
+
+    private String libraryDirectory;
+
+    private String applicationName;
+    private boolean initializeInOrder;
+    private EarEnvironmentRefsGroupMetaData earEnv;
+
     /**
      * The application modules
      */
@@ -45,98 +51,16 @@ public class EarMetaData extends IdMetaDataImplWithDescriptionGroup {
      */
     private SecurityRolesMetaData securityRoles;
 
-    /**
-     * Callback for the DTD information
-     *
-     * @param root
-     * @param publicId
-     * @param systemId
-     */
-    public void setDTD(String root, String publicId, String systemId) {
-        this.dtdPublicId = publicId;
-        this.dtdSystemId = systemId;
-        // Set the version based on
-        if (dtdPublicId != null && dtdPublicId.contains("1.3"))
-            setVersion("1.3");
-        else if (dtdSystemId != null && dtdSystemId.contains("1.3"))
-            setVersion("1.3");
-        else if (dtdSystemId != null && dtdSystemId.contains("1.2"))
-            setVersion("1.2");
+    public EarMetaData(EarVersion earVersion) {
+        this.earVersion = earVersion;
     }
 
-    /**
-     * Get the DTD public id if one was seen
-     *
-     * @return the value of the web.xml dtd public id
-     */
-    public String getDtdPublicId() {
-        return dtdPublicId;
+    public String getLibraryDirectory() {
+        return libraryDirectory;
     }
 
-    /**
-     * Get the DTD system id if one was seen
-     *
-     * @return the value of the web.xml dtd system id
-     */
-    public String getDtdSystemId() {
-        return dtdSystemId;
-    }
-
-    /**
-     * Is this a javaee 6 version application
-     *
-     * @return true if this is a javaee 6 version application
-     */
-    public boolean isEE6() {
-        return false;
-    }
-
-    /**
-     * Is this a javaee 5 version application
-     *
-     * @return true if this is a javaee 5 version application
-     */
-    public boolean isEE5() {
-        return false;
-    }
-
-    /**
-     * Is this a javaee 1.4 version application
-     *
-     * @return true if this is a javaee 1.4 version application
-     */
-    public boolean isEE14() {
-        return false;
-    }
-
-    /**
-     * Is this a javaee 1.3 version application
-     *
-     * @return true if this is a javaee 1.3 version application
-     */
-    public boolean isEE13() {
-        return false;
-    }
-
-    /**
-     * Get the version.
-     *
-     * @return the version.
-     */
-    public String getVersion() {
-        return version;
-    }
-
-    /**
-     * Set the version.
-     *
-     * @param version the version.
-     * @throws IllegalArgumentException for a null version
-     */
-    public void setVersion(String version) {
-        if (version == null)
-            throw new IllegalArgumentException("Null version");
-        this.version = version;
+    public void setLibraryDirectory(String libraryDirectory) {
+        this.libraryDirectory = libraryDirectory;
     }
 
     /**
@@ -173,5 +97,48 @@ public class EarMetaData extends IdMetaDataImplWithDescriptionGroup {
      */
     public void setSecurityRoles(SecurityRolesMetaData securityRoles) {
         this.securityRoles = securityRoles;
+    }
+
+    public EarVersion getEarVersion() {
+        return earVersion;
+    }
+
+
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
+    }
+
+    /**
+     * If initialize-in-order is true, modules must be initialized
+     * in the order they're listed in this deployment descriptor,
+     * with the exception of application client modules, which can
+     * be initialized in any order.
+     * If initialize-in-order is not set or set to false, the order
+     * of initialization is unspecified and may be product-dependent.
+     */
+    public boolean getInitializeInOrder() {
+        return initializeInOrder;
+    }
+
+    public void setInitializeInOrder(boolean initializeInOrder) {
+        this.initializeInOrder = initializeInOrder;
+    }
+
+    /**
+     * Get the jndiEnvironmentRefsGroup.
+     *
+     * @return the jndiEnvironmentRefsGroup.
+     */
+    public EarEnvironmentRefsGroupMetaData getEarEnvironmentRefsGroup() {
+        return earEnv;
+    }
+
+    // just for XML binding, to expose the type of the model group
+    public void setEarEnvironmentRefsGroup(EarEnvironmentRefsGroupMetaData env) {
+        this.earEnv = env;
     }
 }

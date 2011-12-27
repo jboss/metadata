@@ -26,6 +26,7 @@ import org.jboss.metadata.ear.jboss.JBossAppMetaData;
 import org.jboss.metadata.ear.jboss.ServiceModuleMetaData;
 import org.jboss.metadata.ear.spec.ConnectorModuleMetaData;
 import org.jboss.metadata.ear.spec.EarMetaData;
+import org.jboss.metadata.ear.spec.EarVersion;
 import org.jboss.metadata.ear.spec.EjbModuleMetaData;
 import org.jboss.metadata.ear.spec.JavaModuleMetaData;
 import org.jboss.metadata.ear.spec.ModuleMetaData;
@@ -48,11 +49,11 @@ public class JBossApp5xEverythingUnitTestCase extends AbstractJavaEEMetaDataTest
     private boolean hasJBossAppOverride = false;
 
     protected JBossAppMetaData unmarshal() throws Exception {
-        return JBossAppMetaDataParser.parse(getReader());
+        return JBossAppMetaDataParser.INSTANCE.parse(getReader());
     }
 
     public void testOverride() throws Exception {
-        EarMetaData spec = EarMetaDataParser.parse(getReader("Ear5xEverything_testEverything.xml"));
+        EarMetaData spec = EarMetaDataParser.INSTANCE.parse(getReader("Ear5xEverything_testEverything.xml"));
         JBossAppMetaData jbossAppMD = new JBossAppMetaData();
         JBossAppMetaDataMerger.merge(jbossAppMD, null, spec);
         hasJBossAppOverride = false;
@@ -62,14 +63,13 @@ public class JBossApp5xEverythingUnitTestCase extends AbstractJavaEEMetaDataTest
     public void testEverything()
             throws Exception {
         //enableTrace("org.jboss.xb");
-        EarMetaData spec = EarMetaDataParser.parse(getReader("Ear5xEverything_testEverything.xml"));
+        EarMetaData spec = EarMetaDataParser.INSTANCE.parse(getReader("Ear5xEverything_testEverything.xml"));
         JBossAppMetaData jbossAppXml = unmarshal();
         JBossAppMetaData jbossAppMD = new JBossAppMetaData();
         JBossAppMetaDataMerger.merge(jbossAppMD, jbossAppXml, spec);
         hasJBossAppOverride = true;
         assertEveryting(jbossAppMD);
         assertEquals("jboss-app-id", jbossAppMD.getId());
-        assertEquals("5.0", jbossAppMD.getVersion());
         assertEveryting(jbossAppMD);
     }
 

@@ -28,8 +28,8 @@ import org.jboss.annotation.javaee.DisplayName;
 import org.jboss.annotation.javaee.DisplayNames;
 import org.jboss.annotation.javaee.Icon;
 import org.jboss.annotation.javaee.Icons;
-import org.jboss.metadata.ear.spec.Ear5xMetaData;
 import org.jboss.metadata.ear.spec.EarMetaData;
+import org.jboss.metadata.ear.spec.EarVersion;
 import org.jboss.metadata.ear.spec.ModulesMetaData;
 import org.jboss.metadata.ear.spec.WebModuleMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
@@ -52,26 +52,24 @@ public class Ear5xUnitTestCase extends AbstractJavaEEMetaDataTest {
         return true;
     }
 
-    protected Ear5xMetaData unmarshal() throws Exception {
-        final EarMetaData earMetaData = EarMetaDataParser.parse(getReader());
-        assertTrue(earMetaData instanceof  Ear5xMetaData);
-        return Ear5xMetaData.class.cast(earMetaData);
+    protected EarMetaData unmarshal() throws Exception {
+        final EarMetaData earMetaData = EarMetaDataParser.INSTANCE.parse(getReader());
+        assertTrue(earMetaData instanceof  EarMetaData);
+        return EarMetaData.class.cast(earMetaData);
     }
 
     public void testId() throws Exception {
-        Ear5xMetaData result = unmarshal();
+        EarMetaData result = unmarshal();
         assertEquals("application-test-id", result.getId());
     }
 
     public void testVersion() throws Exception {
-        Ear5xMetaData result = unmarshal();
-        assertEquals("5", result.getVersion());
-        assertFalse(result.isEE14());
-        assertTrue(result.isEE5());
+        EarMetaData result = unmarshal();
+        assertEquals(EarVersion.APP_5_0, result.getEarVersion());
     }
 
     public void testDescriptionGroup() throws Exception {
-        Ear5xMetaData result = unmarshal();
+        EarMetaData result = unmarshal();
         DescriptionGroupMetaData group = result.getDescriptionGroup();
         assertNotNull(group);
         Descriptions descriptions = group.getDescriptions();
@@ -127,7 +125,7 @@ public class Ear5xUnitTestCase extends AbstractJavaEEMetaDataTest {
 
     public void testWhitespace()
             throws Exception {
-        Ear5xMetaData result = unmarshal();
+        EarMetaData result = unmarshal();
         ModulesMetaData modules = result.getModules();
         assertEquals(4, modules.size());
         assertEquals("transport_ejb_vehicle_client.jar", modules.get(0).getName());

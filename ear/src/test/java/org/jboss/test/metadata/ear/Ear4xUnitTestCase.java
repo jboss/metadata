@@ -32,6 +32,7 @@ import org.jboss.annotation.javaee.Icon;
 import org.jboss.annotation.javaee.Icons;
 import org.jboss.metadata.ear.jboss.JBossAppMetaData;
 import org.jboss.metadata.ear.spec.EarMetaData;
+import org.jboss.metadata.ear.spec.EarVersion;
 import org.jboss.metadata.ear.spec.ModuleMetaData;
 import org.jboss.metadata.ear.spec.ModulesMetaData;
 import org.jboss.metadata.ear.spec.WebModuleMetaData;
@@ -57,7 +58,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 public class Ear4xUnitTestCase extends AbstractJavaEEMetaDataTest {
 
     protected EarMetaData unmarshal() throws Exception {
-        return EarMetaDataParser.parse(getReader());
+        return EarMetaDataParser.INSTANCE.parse(getReader());
     }
 
     public void testNoDtd() throws Exception {
@@ -75,19 +76,13 @@ public class Ear4xUnitTestCase extends AbstractJavaEEMetaDataTest {
     public void testVersion14() throws Exception {
         EarMetaData result = unmarshal();
         assertEquals("application_1_4-id", result.getId());
-        assertEquals("1.4", result.getVersion());
-        assertFalse(result.isEE13());
-        assertTrue(result.isEE14());
-        assertFalse(result.isEE5());
+        assertEquals(EarVersion.APP_1_4, result.getEarVersion());
     }
 
     public void testVersion13() throws Exception {
         EarMetaData result = unmarshal();
         assertEquals("application_1_3-id", result.getId());
-        assertEquals("1.3", result.getVersion());
-        assertTrue(result.isEE13());
-        assertFalse(result.isEE14());
-        assertFalse(result.isEE5());
+        assertEquals(EarVersion.APP_1_3, result.getEarVersion());
     }
 
     public void testDescriptionGroup() throws Exception {
@@ -158,7 +153,7 @@ public class Ear4xUnitTestCase extends AbstractJavaEEMetaDataTest {
             throws Exception {
         EarMetaData specMetaData = unmarshal();
 
-        JBossAppMetaData jbossMetaData = JBossAppMetaDataParser.parse(getReader("Ear4x_testJBossSecurityRoles.xml"));
+        JBossAppMetaData jbossMetaData = JBossAppMetaDataParser.INSTANCE.parse(getReader("Ear4x_testJBossSecurityRoles.xml"));
         JBossAppMetaData metaData = new JBossAppMetaData();
         JBossAppMetaDataMerger.merge(metaData, jbossMetaData, specMetaData);
 
@@ -229,19 +224,19 @@ public class Ear4xUnitTestCase extends AbstractJavaEEMetaDataTest {
         JBossAppMetaDataMerger.merge(metaData, metaData, specMetaData);
 
         assertEquals(6, metaData.getModules().size());
-        ModuleMetaData rar = metaData.getModule("rar0.rar");
+        ModuleMetaData rar = metaData.getModules().get("rar0.rar");
         assertEquals("connector0", rar.getId());
         assertEquals(ModuleType.Connector, rar.getType());
         assertEquals("META-INF/alt-ra.xml", rar.getAlternativeDD());
-        ModuleMetaData car = metaData.getModule("client0.jar");
+        ModuleMetaData car = metaData.getModules().get("client0.jar");
         assertEquals("java0", car.getId());
         assertEquals(ModuleType.Client, car.getType());
         assertEquals("META-INF/alt-application-client.xml", car.getAlternativeDD());
-        ModuleMetaData ejb1 = metaData.getModule("ejb-jar1.jar");
+        ModuleMetaData ejb1 = metaData.getModules().get("ejb-jar1.jar");
         assertEquals("ejb1", ejb1.getId());
         assertEquals(ModuleType.Ejb, ejb1.getType());
         assertEquals("META-INF/alt-ejb-jar.xml", ejb1.getAlternativeDD());
-        ModuleMetaData web1 = metaData.getModule("web-app1.war");
+        ModuleMetaData web1 = metaData.getModules().get("web-app1.war");
         assertEquals("web1", web1.getId());
         assertEquals(ModuleType.Web, web1.getType());
         assertEquals("WEB-INF/alt-web.xml", web1.getAlternativeDD());

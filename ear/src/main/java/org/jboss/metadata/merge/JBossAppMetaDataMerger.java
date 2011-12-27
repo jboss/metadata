@@ -1,7 +1,7 @@
 package org.jboss.metadata.merge;
 
 import org.jboss.metadata.ear.jboss.JBossAppMetaData;
-import org.jboss.metadata.ear.spec.Ear5xMetaData;
+import org.jboss.metadata.ear.spec.EarEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.ear.spec.EarMetaData;
 import org.jboss.metadata.ear.spec.ModulesMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
@@ -10,65 +10,90 @@ import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
 /**
  * @author John Bailey
  */
-public class JBossAppMetaDataMerger {
+public class JBossAppMetaDataMerger
+{
 
-    public static void merge(final JBossAppMetaData dest, final JBossAppMetaData override, final EarMetaData original) {
-        if (override != null && override.getId() != null) {
-            dest.setId(override.getId());
-        } else if (original != null && original.getId() != null) {
-            dest.setId(original.getId());
-        }
+   public static void merge(final JBossAppMetaData dest, final JBossAppMetaData override, final EarMetaData original)
+   {
+      dest.setEarEnvironmentRefsGroup(new EarEnvironmentRefsGroupMetaData());
+      if (original != null && override != null)
+      {
+         EarEnvironmentRefsGroupMetaDataMerger.merge(dest.getEarEnvironmentRefsGroup(), override.getEarEnvironmentRefsGroup(), original.getEarEnvironmentRefsGroup(), "", "", false);
+      } else if (original != null)
+      {
+         dest.setEarEnvironmentRefsGroup(original.getEarEnvironmentRefsGroup());
+      } else if (override != null)
+      {
+         dest.setEarEnvironmentRefsGroup(override.getEarEnvironmentRefsGroup());
+      } else
+      {
+         dest.setEarEnvironmentRefsGroup(new EarEnvironmentRefsGroupMetaData());
+      }
 
-        if (override != null && override.getDescriptionGroup() != null) {
-            dest.setDescriptionGroup(override.getDescriptionGroup());
-        } else if (original != null && original.getDescriptionGroup() != null) {
-            dest.setDescriptionGroup(original.getDescriptionGroup());
-        }
+      if (original != null)
+      {
+         dest.setInitializeInOrder(original.getInitializeInOrder());
+      }
 
-        Ear5xMetaData original5x = null;
-        if (original instanceof Ear5xMetaData)
-            original5x = (Ear5xMetaData) original;
+      if (override != null && override.getId() != null)
+      {
+         dest.setId(override.getId());
+      } else if (original != null && original.getId() != null)
+      {
+         dest.setId(original.getId());
+      }
 
-        if (override != null) {
-            if (override.getDtdPublicId() != null)
-                dest.setDTD(null, override.getDtdPublicId(), override.getDtdSystemId());
-            if (override.getVersion() != null)
-                dest.setVersion(override.getVersion());
-            if (override.getSecurityDomain() != null)
-                dest.setSecurityDomain(override.getSecurityDomain());
-            if (override.getLoaderRepository() != null)
-                dest.setLoaderRepository(override.getLoaderRepository());
-            if (override.getUnauthenticatedPrincipal() != null)
-                dest.setUnauthenticatedPrincipal(override.getUnauthenticatedPrincipal());
-            if (override.getLibraryDirectory() != null)
-                dest.setLibraryDirectory(override.getLibraryDirectory());
-            else if (original5x != null && original5x.getLibraryDirectory() != null)
-                dest.setLibraryDirectory(original5x.getLibraryDirectory());
-            if (override.getJmxName() != null)
-                dest.setJmxName(override.getJmxName());
-        } else if (original5x != null && original5x.getLibraryDirectory() != null) {
-            dest.setLibraryDirectory(original5x.getLibraryDirectory());
-        }
+      if (override != null && override.getDescriptionGroup() != null)
+      {
+         dest.setDescriptionGroup(override.getDescriptionGroup());
+      } else if (original != null && original.getDescriptionGroup() != null)
+      {
+         dest.setDescriptionGroup(original.getDescriptionGroup());
+      }
+      if (override != null && override.getLibraryDirectory() != null)
+      {
+         dest.setLibraryDirectory(override.getLibraryDirectory());
+      } else if (original != null && original.getLibraryDirectory() != null)
+      {
+         dest.setLibraryDirectory(original.getLibraryDirectory());
+      }
+      if (override != null && override.getApplicationName() != null)
+      {
+         dest.setApplicationName(override.getApplicationName());
+      } else if (original != null && original.getApplicationName() != null)
+      {
+         dest.setApplicationName(original.getApplicationName());
+      }
 
-        if (dest.getModules() == null) {
-            dest.setModules(new ModulesMetaData());
-        }
-        ModulesMetaData overrideModules = null;
-        ModulesMetaData originalModules = null;
-        if (override != null)
-            overrideModules = override.getModules();
-        if (original != null)
-            originalModules = original.getModules();
-        ModulesMetaDataMerger.merge(dest.getModules(), overrideModules, originalModules);
+      if (override != null)
+      {
+         if (override.getSecurityDomain() != null)
+            dest.setSecurityDomain(override.getSecurityDomain());
+         if (override.getUnauthenticatedPrincipal() != null)
+            dest.setUnauthenticatedPrincipal(override.getUnauthenticatedPrincipal());
+      }
 
-        SecurityRolesMetaData securityRolesMetaData = null;
-        SecurityRolesMetaData overrideSecurityRolesMetaData = null;
-        if (original != null)
-            securityRolesMetaData = original.getSecurityRoles();
-        if (override != null)
-            overrideSecurityRolesMetaData = override.getSecurityRoles();
-        if (dest.getSecurityRoles() == null)
-            dest.setSecurityRoles(new SecurityRolesMetaData());
-        SecurityRolesMetaDataMerger.merge(dest.getSecurityRoles(), overrideSecurityRolesMetaData, securityRolesMetaData);
-    }
+      if (dest.getModules() == null)
+      {
+         dest.setModules(new ModulesMetaData());
+      }
+
+      ModulesMetaData overrideModules = null;
+      ModulesMetaData originalModules = null;
+      if (override != null)
+         overrideModules = override.getModules();
+      if (original != null)
+         originalModules = original.getModules();
+      ModulesMetaDataMerger.merge(dest.getModules(), overrideModules, originalModules);
+
+      SecurityRolesMetaData securityRolesMetaData = null;
+      SecurityRolesMetaData overrideSecurityRolesMetaData = null;
+      if (original != null)
+         securityRolesMetaData = original.getSecurityRoles();
+      if (override != null)
+         overrideSecurityRolesMetaData = override.getSecurityRoles();
+      if (dest.getSecurityRoles() == null)
+         dest.setSecurityRoles(new SecurityRolesMetaData());
+      SecurityRolesMetaDataMerger.merge(dest.getSecurityRoles(), overrideSecurityRolesMetaData, securityRolesMetaData);
+   }
 }

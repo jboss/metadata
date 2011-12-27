@@ -1,26 +1,37 @@
 package org.jboss.metadata.parser.jboss;
 
-import java.util.HashSet;
-import java.util.Set;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
+import org.jboss.logging.Logger;
 import org.jboss.metadata.common.jboss.LoaderRepositoryConfigMetaData;
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
 import org.jboss.metadata.ear.jboss.JBossAppMetaData;
 import org.jboss.metadata.ear.jboss.ServiceModuleMetaData;
+import org.jboss.metadata.ear.spec.EarEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.ear.spec.ModuleMetaData;
 import org.jboss.metadata.ear.spec.ModulesMetaData;
 import org.jboss.metadata.ear.spec.WebModuleMetaData;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.parser.spec.EarMetaDataParser;
+
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author John Bailey
  */
-public class JBossAppMetaDataParser extends MetaDataElementParser {
-    public static JBossAppMetaData parse(final XMLStreamReader reader) throws XMLStreamException {
+public class JBossAppMetaDataParser extends EarMetaDataParser {
+
+    private static final Logger logger = Logger.getLogger(JBossAppMetaDataParser.class);
+
+    public static final JBossAppMetaDataParser INSTANCE = new JBossAppMetaDataParser();
+
+    public JBossAppMetaData parse(final XMLStreamReader reader) throws XMLStreamException {
+        final EarMetaDataParser earMetaDataParser = new EarMetaDataParser();
         reader.require(START_DOCUMENT, null, null);
 
         // Read until the first start element
@@ -43,7 +54,6 @@ public class JBossAppMetaDataParser extends MetaDataElementParser {
         }
 
         JBossAppMetaData appMetaData = new JBossAppMetaData();
-        appMetaData.setVersion(version.getVersion());
 
         // Handle attributes
         final int count = reader.getAttributeCount();
@@ -59,7 +69,6 @@ public class JBossAppMetaDataParser extends MetaDataElementParser {
                     break;
                 }
                 case VERSION: {
-                    appMetaData.setVersion(value);
                     break;
                 }
                 default:
@@ -67,49 +76,60 @@ public class JBossAppMetaDataParser extends MetaDataElementParser {
             }
         }
 
-        final ModulesMetaData modules = new ModulesMetaData();
-        final SecurityRolesMetaData securityRoles = new SecurityRolesMetaData();
+        //TODO: hn
+
+        final EarEnvironmentRefsGroupMetaData environmentRefsGroupMetaData = new EarEnvironmentRefsGroupMetaData();
+        appMetaData.setDescriptionGroup(new DescriptionGroupMetaData());
+        appMetaData.setModules(new ModulesMetaData());
+        appMetaData.setSecurityRoles(new SecurityRolesMetaData());
+        environmentRefsGroupMetaData.setMessageDestinations(new MessageDestinationsMetaData());
+        appMetaData.setEarEnvironmentRefsGroup(environmentRefsGroupMetaData);
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
             final Element element = Element.forName(reader.getLocalName());
-            switch (element) {
-                case MODULE_ORDER: {
-                    appMetaData.setModuleOrder(getElementText(reader));
-                    break;
-                }
-                case SECURITY_DOMAIN: {
-                    appMetaData.setSecurityDomain(getElementText(reader));
-                    break;
-                }
-                case UNAUTHENTICATED_PRINCIPAL: {
-                    appMetaData.setUnauthenticatedPrincipal(getElementText(reader));
-                    break;
-                }
-                case JMX_NAME: {
-                    appMetaData.setJmxName(getElementText(reader));
-                    break;
-                }
-                case LIBRARY_DIRECTORY: {
-                    appMetaData.setLibraryDirectory(getElementText(reader));
-                    break;
-                }
-                case LOADER_REPOSITORY: {
-                    appMetaData.setLoaderRepository(parseLoaderRepository(reader));
-                    break;
-                }
-                case MODULE: {
-                    modules.add(parseModule(reader));
-                    break;
-                }
-                case SECURITY_ROLE: {
-                    securityRoles.add(SecurityRoleMetaDataParser.parse(reader));
-                    break;
-                }
-                default:
-                    throw unexpectedElement(reader);
+            Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
+            if(namespace == Namespace.SPEC) {
+               super.handleElement(reader, appMetaData);
+            } else {
+               switch (element) {
+                   case MODULE_ORDER: {
+                       logger.warn("module-order element in jboss-app.xml is deprecated and has been ignored");
+                       //depricated
+                       break;
+                   }
+                   case SECURITY_DOMAIN: {
+                       appMetaData.setSecurityDomain(getElementText(reader));
+                       break;
+                   }
+                   case UNAUTHENTICATED_PRINCIPAL: {
+                       appMetaData.setUnauthenticatedPrincipal(getElementText(reader));
+                       break;
+                   }
+                   case JMX_NAME: {
+                       logger.warn("jmx-name element in jboss-app.xml is deprecated and has been ignored");
+                       break;
+                   }
+                   case LIBRARY_DIRECTORY: {
+                       appMetaData.setLibraryDirectory(getElementText(reader));
+                       break;
+                   }
+                   case LOADER_REPOSITORY: {
+                       parseLoaderRepository(reader);
+                       logger.warn("loader-repository element in jboss-app.xml is deprecated and has been ignored");
+                       break;
+                   }
+                   case MODULE: {
+                       appMetaData.getModules().add(parseModule(reader));
+                       break;
+                   }
+                   case SECURITY_ROLE: {
+                       appMetaData.getSecurityRoles().add(SecurityRoleMetaDataParser.parse(reader));
+                       break;
+                   }
+                   default:
+                      throw unexpectedElement(reader);
+               }
             }
         }
-        appMetaData.setModules(modules);
-        appMetaData.setSecurityRoles(securityRoles);
 
         return appMetaData;
     }

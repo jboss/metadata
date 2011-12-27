@@ -29,8 +29,8 @@ import org.jboss.annotation.javaee.DisplayNames;
 import org.jboss.annotation.javaee.Icon;
 import org.jboss.annotation.javaee.Icons;
 import org.jboss.metadata.ear.spec.ConnectorModuleMetaData;
-import org.jboss.metadata.ear.spec.Ear5xMetaData;
 import org.jboss.metadata.ear.spec.EarMetaData;
+import org.jboss.metadata.ear.spec.EarVersion;
 import org.jboss.metadata.ear.spec.EjbModuleMetaData;
 import org.jboss.metadata.ear.spec.JavaModuleMetaData;
 import org.jboss.metadata.ear.spec.ModuleMetaData;
@@ -54,17 +54,16 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
  */
 public class Ear5xEverythingUnitTestCase extends AbstractJavaEEMetaDataTest {
 
-    protected Ear5xMetaData unmarshal() throws Exception {
-        final EarMetaData earMetaData = EarMetaDataParser.parse(getReader());
-        assertTrue(earMetaData instanceof Ear5xMetaData);
-        return Ear5xMetaData.class.cast(earMetaData);
+    protected EarMetaData unmarshal() throws Exception {
+        final EarMetaData earMetaData = EarMetaDataParser.INSTANCE.parse(getReader());
+        return EarMetaData.class.cast(earMetaData);
     }
 
     public void testEverything() throws Exception {
         //enableTrace("org.jboss.xb");
-        Ear5xMetaData result = unmarshal();
+        EarMetaData result = unmarshal();
         assertEquals("application-test-everything", result.getId());
-        assertEquals("5", result.getVersion());
+        assertEquals(EarVersion.APP_5_0, result.getEarVersion());
         assertDescriptions(result);
         assertDisplayName(result);
         assertIcon(result);
@@ -73,7 +72,7 @@ public class Ear5xEverythingUnitTestCase extends AbstractJavaEEMetaDataTest {
         assertModules(result);
     }
 
-    protected void assertDescriptions(Ear5xMetaData ear)
+    protected void assertDescriptions(EarMetaData ear)
             throws Exception {
         DescriptionGroupMetaData group = ear.getDescriptionGroup();
         assertNotNull(group);
@@ -92,7 +91,7 @@ public class Ear5xEverythingUnitTestCase extends AbstractJavaEEMetaDataTest {
         assertEqualsIgnoreOrder(expected, descriptions.value());
     }
 
-    protected void assertDisplayName(Ear5xMetaData ear)
+    protected void assertDisplayName(EarMetaData ear)
             throws Exception {
         DescriptionGroupMetaData group = ear.getDescriptionGroup();
         assertNotNull(group);
@@ -112,7 +111,7 @@ public class Ear5xEverythingUnitTestCase extends AbstractJavaEEMetaDataTest {
         assertEqualsIgnoreOrder(expected, displayNames.value());
     }
 
-    protected void assertIcon(Ear5xMetaData ear)
+    protected void assertIcon(EarMetaData ear)
             throws Exception {
         DescriptionGroupMetaData group = ear.getDescriptionGroup();
         assertNotNull(group);
@@ -138,7 +137,7 @@ public class Ear5xEverythingUnitTestCase extends AbstractJavaEEMetaDataTest {
         assertEqualsIgnoreOrder(expected, icons.value());
     }
 
-    protected void assertSecurityRoles(Ear5xMetaData ear) {
+    protected void assertSecurityRoles(EarMetaData ear) {
         SecurityRolesMetaData roles = ear.getSecurityRoles();
         assertEquals("There are 2 roles", 2, roles.size());
         SecurityRoleMetaData role0 = roles.get("role0");
@@ -151,11 +150,11 @@ public class Ear5xEverythingUnitTestCase extends AbstractJavaEEMetaDataTest {
         assertEquals("The 1 security role", role1.getDescriptions().value()[0].value());
     }
 
-    protected void assertLibraryDirectory(Ear5xMetaData ear) {
+    protected void assertLibraryDirectory(EarMetaData ear) {
         assertEquals("lib0", ear.getLibraryDirectory());
     }
 
-    protected void assertModules(Ear5xMetaData ear) {
+    protected void assertModules(EarMetaData ear) {
         ModulesMetaData modules = ear.getModules();
         assertEquals(6, modules.size());
         ModuleMetaData connector = modules.get(0);
