@@ -38,9 +38,7 @@ public class JBossWeb60UnitTestCase extends AbstractJavaEEEverythingTest
 {
    public void testClustering() throws Exception
    {
-      System.out.println("JBossWeb60UnitTestCase.java skipped");
-   }
-  /*
+//      System.out.println("JBossWeb60UnitTestCase.java skipped");
       JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader());
       ReplicationConfig replConfig = jbossWeb.getReplicationConfig();
       assertNotNull(replConfig);
@@ -73,5 +71,4 @@ public class JBossWeb60UnitTestCase extends AbstractJavaEEEverythingTest
       assertNotNull(passConfig.getPassivationMaxIdleTime());
       assertEquals(5, passConfig.getPassivationMaxIdleTime().intValue());
    }
-   */
 }
