@@ -194,6 +194,15 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     }
                     servlets.add(JBossServletMetaDataParser.parse(reader));
                 	break;
+                case MAX_ACTIVE_SESSIONS:
+                    wmd.setMaxActiveSessions(Integer.valueOf(getElementText(reader)));
+                    break;
+                case REPLICATION_CONFIG:
+                    wmd.setReplicationConfig(ReplicationConfigParser.parse(reader));
+                    break;
+                case PASSIVATION_CONFIG:
+                    wmd.setPassivationConfig(PassivationConfigParser.parse(reader));
+                    break;
                 default: throw unexpectedElement(reader);
             }
         }
