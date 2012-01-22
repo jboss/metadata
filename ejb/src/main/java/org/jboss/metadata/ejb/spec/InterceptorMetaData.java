@@ -21,31 +21,7 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.WithDescriptions;
-import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
-import org.jboss.metadata.javaee.spec.DataSourceMetaData;
-import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
-import org.jboss.metadata.javaee.spec.Environment;
-import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
-import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
-import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceUnitReferenceMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.*;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
@@ -53,7 +29,7 @@ import org.jboss.metadata.merge.javaee.support.NamedMetaDataMerger;
 
 /**
  * InterceptorMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -61,19 +37,21 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = 334047485589422650L;
-   
+
    /** The around invokes */
    private AroundInvokesMetaData aroundInvokes;
-   
+
+   private AroundTimeoutsMetaData aroundTimeouts;
+
    /** The environment */
    private EnvironmentRefsGroupMetaData environment;
-   
-   /** The post activate method */ 
+
+   /** The post activate method */
    private LifecycleCallbacksMetaData postActivates;
-   
+
    /** The pre passivate method */
    private LifecycleCallbacksMetaData prePassivates;
-   
+
    /**
     * Create a new InterceptorMetaData.
     */
@@ -84,7 +62,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Get the environment.
-    * 
+    *
     * @return the environment.
     */
    public EnvironmentRefsGroupMetaData getJndiEnvironmentRefsGroup()
@@ -94,7 +72,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Set the environment.
-    * 
+    *
     * @param environment the environment.
     * @throws IllegalArgumentException for a null environment
     */
@@ -107,7 +85,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Get the interceptorClass.
-    * 
+    *
     * @return the interceptorClass.
     */
    public String getInterceptorClass()
@@ -117,7 +95,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Set the interceptorClass.
-    * 
+    *
     * @param interceptorClass the interceptorClass.
     * @throws IllegalArgumentException for a null interceptorClass
     */
@@ -128,7 +106,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Get the aroundInvokes.
-    * 
+    *
     * @return the aroundInvokes.
     */
    public AroundInvokesMetaData getAroundInvokes()
@@ -138,7 +116,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Set the aroundInvokes.
-    * 
+    *
     * @param aroundInvokes the aroundInvokes.
     * @throws IllegalArgumentException for a null aroundInvokes
     */
@@ -151,7 +129,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Get the postActivates.
-    * 
+    *
     * @return the postActivates.
     */
    public LifecycleCallbacksMetaData getPostActivates()
@@ -161,7 +139,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Set the postActivates.
-    * 
+    *
     * @param postActivates the postActivates.
     * @throws IllegalArgumentException for a null postActivates
     */
@@ -174,7 +152,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Get the prePassivates.
-    * 
+    *
     * @return the prePassivates.
     */
    public LifecycleCallbacksMetaData getPrePassivates()
@@ -184,7 +162,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
 
    /**
     * Set the prePassivates.
-    * 
+    *
     * @param prePassivates the prePassivates.
     * @throws IllegalArgumentException for a null prePassivates
     */
@@ -325,6 +303,16 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
       return null;
    }
 
+   public AroundTimeoutsMetaData getAroundTimeouts()
+   {
+      return aroundTimeouts;
+   }
+
+   public void setAroundTimeouts(AroundTimeoutsMetaData aroundTimeouts)
+   {
+      this.aroundTimeouts = aroundTimeouts;
+   }
+
    /**
     * @see org.jboss.metadata.javaee.spec.Environment#getDataSourceByName(java.lang.String)
     */
@@ -344,17 +332,17 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
          return environment.getDataSources();
       return null;
    }
-   
+
    /**
     * Merge two instances of {@link InterceptorMetaData}
-    * 
+    *
     * @param override The override interceptor metadata (usually the metadata created out of xml deployment descriptor)
     * @param original The original interceptor metadata (usually the metadata created out of annotation scanning)
     */
    public void merge(InterceptorMetaData override, InterceptorMetaData original)
    {
       NamedMetaDataMerger.merge(this, override, original);
-      
+
       // merge interceptor class name
       if (original != null && original.getInterceptorClass() != null)
       {
@@ -364,7 +352,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
       {
          this.setInterceptorClass(override.getInterceptorClass());
       }
-      
+
       // merge environment
       if(this.environment == null)
          this.environment = new EnvironmentRefsGroupMetaData();
@@ -383,9 +371,9 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
       {
          if (original.getAroundInvokes() != null)
          {
-            this.aroundInvokes.addAll(original.getAroundInvokes());   
+            this.aroundInvokes.addAll(original.getAroundInvokes());
          }
-         
+
       }
       else if (override != null)
       {
@@ -394,7 +382,29 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
             this.aroundInvokes.addAll(override.getAroundInvokes());
          }
       }
-      
+
+      if(aroundTimeouts == null)
+         aroundTimeouts = new AroundTimeoutsMetaData();
+      if (original != null && override != null)
+      {
+         this.aroundTimeouts.merge(override.getAroundTimeouts(), original.getAroundTimeouts());
+      }
+      else if (original != null)
+      {
+         if (original.getAroundTimeouts() != null)
+         {
+            this.aroundTimeouts.addAll(original.getAroundTimeouts());
+         }
+
+      }
+      else if (override != null)
+      {
+         if (override.getAroundTimeouts() != null)
+         {
+            this.aroundTimeouts.addAll(override.getAroundTimeouts());
+         }
+      }
+
       // merge post-activate(s)
       if(this.postActivates == null)
          this.postActivates = new LifecycleCallbacksMetaData();
@@ -403,7 +413,7 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
       if(original != null && original.postActivates != null)
          postActivates.addAll(original.postActivates);
 
-      // merge pre-passivate(s)      
+      // merge pre-passivate(s)
       if(prePassivates == null)
          prePassivates = new LifecycleCallbacksMetaData();
       if(override != null && override.prePassivates != null)

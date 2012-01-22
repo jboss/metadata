@@ -22,9 +22,7 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
-import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorMetaData;
+import org.jboss.metadata.ejb.spec.*;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbackMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
@@ -38,9 +36,9 @@ import javax.xml.stream.XMLStreamReader;
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
-  Parses the &lt;interceptor&gt; element in a ejb-jar.xml and creates metadata out of it.
+ * Parses the &lt;interceptor&gt; element in a ejb-jar.xml and creates metadata out of it.
  * <p/>
- *
+ * <p/>
  * Author: Jaikiran Pai
  */
 public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<InterceptorMetaData>
@@ -50,6 +48,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
 
    /**
     * Parses and creates InterceptorMetaData of the interceptor element
+    *
     * @param reader
     * @return
     * @throws XMLStreamException
@@ -65,8 +64,8 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
 
    /**
     * Parses the child elements of &lt;interceptor&gt; element and updates the passed {@link InterceptorMetaData}
-    *  accordingly.
-    * 
+    * accordingly.
+    *
     * @param interceptor
     * @param reader
     * @throws XMLStreamException
@@ -91,7 +90,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
          // than just return
          return;
       }
-      
+
       switch (ejbJarElement)
       {
          case INTERCEPTOR_CLASS:
@@ -111,7 +110,15 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
             return;
 
          case AROUND_TIMEOUT:
-            throw new RuntimeException("around-timeout element parsing is not yet implemented");
+            AroundTimeoutsMetaData aroundTimeouts = interceptor.getAroundTimeouts();
+            if (aroundTimeouts == null)
+            {
+               aroundTimeouts = new AroundTimeoutsMetaData();
+               interceptor.setAroundTimeouts(aroundTimeouts);
+            }
+            AroundTimeoutMetaData aroundTimeout = AroundTimeoutMetaDataParser.INSTANCE.parse(reader);
+            aroundTimeouts.add(aroundTimeout);
+            return;
 
          case POST_ACTIVATE:
             LifecycleCallbacksMetaData postActivates = interceptor.getPostActivates();
@@ -134,7 +141,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
             LifecycleCallbackMetaData prePassivate = LifecycleCallbackMetaDataParser.parse(reader);
             prePassivates.add(prePassivate);
             return;
-            
+
 
          default:
             super.processElement(interceptor, reader);
