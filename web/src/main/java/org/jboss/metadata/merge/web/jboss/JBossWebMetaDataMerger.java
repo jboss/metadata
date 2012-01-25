@@ -264,7 +264,7 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         if (override != null && override.isUseJBossAuthorization())
         	dest.setUseJBossAuthorization(override.isUseJBossAuthorization());
         
-        if (override != null && override.isDisableAudit())
+        if (override != null && !override.isDisableAudit())
         	dest.setDisableAudit(override.isDisableAudit());
     }
 }
