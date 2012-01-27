@@ -29,31 +29,31 @@
           http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd"
        version="3.1"
        impl-version="2.0"
-       id="jboss-id"
+       id="ejb-jar-id"
        metadata-complete="true">
          
-   <description>en-jboss-desc</description>
-   <description xml:lang="fr">fr-jboss-desc</description>
-   <description xml:lang="de">de-jboss-desc</description>
-   <display-name>en-jboss-disp</display-name>
-   <display-name xml:lang="fr">fr-jboss-disp</display-name>
-   <display-name xml:lang="de">de-jboss-disp</display-name>
-   <icon id="en-jboss-icon-id">
-      <small-icon>en-jboss-small-icon</small-icon>
-      <large-icon>en-jboss-large-icon</large-icon>
+   <description>en-ejb-jar-desc</description>
+   <description xml:lang="fr">fr-ejb-jar-desc</description>
+   <description xml:lang="de">de-ejb-jar-desc</description>
+   <display-name>en-ejb-jar-disp</display-name>
+   <display-name xml:lang="fr">fr-ejb-jar-disp</display-name>
+   <display-name xml:lang="de">de-ejb-jar-disp</display-name>
+   <icon id="en-ejb-jar-icon-id">
+      <small-icon>en-ejb-jar-small-icon</small-icon>
+      <large-icon>en-ejb-jar-large-icon</large-icon>
    </icon>
-   <icon xml:lang="fr" id="fr-jboss-icon-id">
-      <small-icon>fr-jboss-small-icon</small-icon>
-      <large-icon>fr-jboss-large-icon</large-icon>
+   <icon xml:lang="fr" id="fr-ejb-jar-icon-id">
+      <small-icon>fr-ejb-jar-small-icon</small-icon>
+      <large-icon>fr-ejb-jar-large-icon</large-icon>
    </icon>
-   <icon xml:lang="de" id="de-jboss-icon-id">
-      <small-icon>de-jboss-small-icon</small-icon>
-      <large-icon>de-jboss-large-icon</large-icon>
+   <icon xml:lang="de" id="de-ejb-jar-icon-id">
+      <small-icon>de-ejb-jar-small-icon</small-icon>
+      <large-icon>de-ejb-jar-large-icon</large-icon>
    </icon>
 
    <!--
-   <security-domain>jboss-security-domain</security-domain>
-   <unauthenticated-principal>jboss-unauthenticated-principal</unauthenticated-principal>
+   <security-domain>ejb-jar-security-domain</security-domain>
+   <unauthenticated-principal>ejb-jar-unauthenticated-principal</unauthenticated-principal>
    -->
 
    <!--
@@ -74,830 +74,828 @@
    </webservices>
    -->
    
-   <enterprise-beans id="jboss-enterprise-beans-id">
+   <enterprise-beans id="enterprise-beans-id">
 
       <session>
-         <ejb-name>jbossSession0EjbName</ejb-name>
+         <ejb-name>session0EjbName</ejb-name>
       </session>
 
-      <session id="jbossSession1-id">
-         <description>en-jbossSession1-desc</description>
-         <description xml:lang="fr">fr-jbossSession1-desc</description>
-         <description xml:lang="de">de-jbossSession1-desc</description>
-         <display-name>en-jbossSession1-disp</display-name>
-         <display-name xml:lang="fr">fr-jbossSession1-disp</display-name>
-         <display-name xml:lang="de">de-jbossSession1-disp</display-name>
-         <icon id="en-jbossSession1-icon-id">
-            <small-icon>en-jbossSession1-small-icon</small-icon>
-            <large-icon>en-jbossSession1-large-icon</large-icon>
+      <session id="session1-id">
+         <description>en-session1-desc</description>
+         <description xml:lang="fr">fr-session1-desc</description>
+         <description xml:lang="de">de-session1-desc</description>
+         <display-name>en-session1-disp</display-name>
+         <display-name xml:lang="fr">fr-session1-disp</display-name>
+         <display-name xml:lang="de">de-session1-disp</display-name>
+         <icon id="en-session1-icon-id">
+            <small-icon>en-session1-small-icon</small-icon>
+            <large-icon>en-session1-large-icon</large-icon>
          </icon>
-         <icon xml:lang="fr" id="fr-jbossSession1-icon-id">
-            <small-icon>fr-jbossSession1-small-icon</small-icon>
-            <large-icon>fr-jbossSession1-large-icon</large-icon>
+         <icon xml:lang="fr" id="fr-session1-icon-id">
+            <small-icon>fr-session1-small-icon</small-icon>
+            <large-icon>fr-session1-large-icon</large-icon>
          </icon>
-         <icon xml:lang="de" id="de-jbossSession1-icon-id">
-            <small-icon>de-jbossSession1-small-icon</small-icon>
-            <large-icon>de-jbossSession1-large-icon</large-icon>
+         <icon xml:lang="de" id="de-session1-icon-id">
+            <small-icon>de-session1-small-icon</small-icon>
+            <large-icon>de-session1-large-icon</large-icon>
          </icon>
 
-         <ejb-name>jbossSession1EjbName</ejb-name>
+         <ejb-name>session1EjbName</ejb-name>
 
-         <ejb-ref id="jbossSession1EjbRef1-id">
-            <description>en-jbossSession1EjbRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession1EjbRef1-desc</description>
-            <description xml:lang="de">de-jbossSession1EjbRef1-desc</description>
+         <ejb-ref id="session1EjbRef1-id">
+            <description>en-session1EjbRef1-desc</description>
+            <description xml:lang="fr">fr-session1EjbRef1-desc</description>
+            <description xml:lang="de">de-session1EjbRef1-desc</description>
 
-            <ejb-ref-name>jbossSession1EjbRef1Name</ejb-ref-name>
+            <ejb-ref-name>session1EjbRef1Name</ejb-ref-name>
             <!--
-            <lookup-name>jbossSession1EjbRef1JndiName</lookup-name>
+            <lookup-name>session1EjbRef1JndiName</lookup-name>
             -->
-            <mapped-name>jbossSession1EjbRef1MappedName</mapped-name>
             <injection-target>
-               <injection-target-class>jbossSession1EjbRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1EjbRef1Injection1Name</injection-target-name>
+               <injection-target-class>session1EjbRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1EjbRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1EjbRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1EjbRef1Injection2Name</injection-target-name>
+               <injection-target-class>session1EjbRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1EjbRef1Injection2Name</injection-target-name>
             </injection-target>
             <!--
             <ignore-dependency/>
             -->
          </ejb-ref>
-         <ejb-ref id="jbossSession1EjbRef2-id">
-            <description>en-jbossSession1EjbRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession1EjbRef2-desc</description>
-            <description xml:lang="de">de-jbossSession1EjbRef2-desc</description>
+         <ejb-ref id="session1EjbRef2-id">
+            <description>en-session1EjbRef2-desc</description>
+            <description xml:lang="fr">fr-session1EjbRef2-desc</description>
+            <description xml:lang="de">de-session1EjbRef2-desc</description>
 
-            <ejb-ref-name>jbossSession1EjbRef2Name</ejb-ref-name>
+            <ejb-ref-name>session1EjbRef2Name</ejb-ref-name>
             <!--
-            <lookup-name>jbossSession1EjbRef2JndiName</lookup-name>
+            <lookup-name>session1EjbRef2JndiName</lookup-name>
             -->
-            <mapped-name>jbossSession1EjbRef2MappedName</mapped-name>
             <injection-target>
-               <injection-target-class>jbossSession1EjbRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1EjbRef2Injection1Name</injection-target-name>
+               <injection-target-class>session1EjbRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1EjbRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1EjbRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1EjbRef2Injection2Name</injection-target-name>
+               <injection-target-class>session1EjbRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1EjbRef2Injection2Name</injection-target-name>
             </injection-target>
          </ejb-ref>
 
-         <ejb-local-ref id="jbossSession1EjbLocalRef1-id">
-            <description>en-jbossSession1EjbLocalRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession1EjbLocalRef1-desc</description>
-            <description xml:lang="de">de-jbossSession1EjbLocalRef1-desc</description>
+         <ejb-local-ref id="session1EjbLocalRef1-id">
+            <description>en-session1EjbLocalRef1-desc</description>
+            <description xml:lang="fr">fr-session1EjbLocalRef1-desc</description>
+            <description xml:lang="de">de-session1EjbLocalRef1-desc</description>
 
-            <ejb-ref-name>jbossSession1EjbLocalRef1Name</ejb-ref-name>
+            <ejb-ref-name>session1EjbLocalRef1Name</ejb-ref-name>
+            <lookup-name>session1EjbLocalRef1JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession1EjbLocalRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1EjbLocalRef1Injection1Name</injection-target-name>
+               <injection-target-class>session1EjbLocalRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1EjbLocalRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1EjbLocalRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1EjbLocalRef1Injection2Name</injection-target-name>
+               <injection-target-class>session1EjbLocalRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1EjbLocalRef1Injection2Name</injection-target-name>
             </injection-target>
             <!--
             <ignore-dependency/>
             -->
-            <lookup-name>jbossSession1EjbLocalRef1JndiName</lookup-name>
          </ejb-local-ref>
-         <ejb-local-ref id="jbossSession1EjbLocalRef2-id">
-            <description>en-jbossSession1EjbLocalRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession1EjbLocalRef2-desc</description>
-            <description xml:lang="de">de-jbossSession1EjbLocalRef2-desc</description>
+         <ejb-local-ref id="session1EjbLocalRef2-id">
+            <description>en-session1EjbLocalRef2-desc</description>
+            <description xml:lang="fr">fr-session1EjbLocalRef2-desc</description>
+            <description xml:lang="de">de-session1EjbLocalRef2-desc</description>
 
-            <ejb-ref-name>jbossSession1EjbLocalRef2Name</ejb-ref-name>
+            <ejb-ref-name>session1EjbLocalRef2Name</ejb-ref-name>
+            <lookup-name>session1EjbLocalRef2JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession1EjbLocalRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1EjbLocalRef2Injection1Name</injection-target-name>
+               <injection-target-class>session1EjbLocalRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1EjbLocalRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1EjbLocalRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1EjbLocalRef2Injection2Name</injection-target-name>
+               <injection-target-class>session1EjbLocalRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1EjbLocalRef2Injection2Name</injection-target-name>
             </injection-target>
-            <lookup-name>jbossSession1EjbLocalRef2JndiName</lookup-name>
          </ejb-local-ref>
 
          <!-- TODO service-ref -->
 
-         <resource-ref id="jbossSession1ResourceRef1-id">
-            <description>en-jbossSession1ResourceRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession1ResourceRef1-desc</description>
-            <description xml:lang="de">de-jbossSession1ResourceRef1-desc</description>
-            <res-ref-name>jbossSession1ResourceRef1Name</res-ref-name>
+         <resource-ref id="session1ResourceRef1-id">
+            <description>en-session1ResourceRef1-desc</description>
+            <description xml:lang="fr">fr-session1ResourceRef1-desc</description>
+            <description xml:lang="de">de-session1ResourceRef1-desc</description>
+            <res-ref-name>session1ResourceRef1Name</res-ref-name>
+            <lookup-name>session1ResourceRef1JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession1ResourceRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1ResourceRef1Injection1Name</injection-target-name>
+               <injection-target-class>session1ResourceRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1ResourceRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1ResourceRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1ResourceRef1Injection2Name</injection-target-name>
+               <injection-target-class>session1ResourceRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1ResourceRef1Injection2Name</injection-target-name>
             </injection-target>
             <!--
             <ignore-dependency/>
             -->
-            <lookup-name>jbossSession1ResourceRef1JndiName</lookup-name>
          </resource-ref>
-         <resource-ref id="jbossSession1ResourceRef2-id">
-            <description>en-jbossSession1ResourceRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession1ResourceRef2-desc</description>
-            <description xml:lang="de">de-jbossSession1ResourceRef2-desc</description>
-            <res-ref-name>jbossSession1ResourceRef2Name</res-ref-name>
+         <resource-ref id="session1ResourceRef2-id">
+            <description>en-session1ResourceRef2-desc</description>
+            <description xml:lang="fr">fr-session1ResourceRef2-desc</description>
+            <description xml:lang="de">de-session1ResourceRef2-desc</description>
+            <res-ref-name>session1ResourceRef2Name</res-ref-name>
+            <lookup-name>session1ResourceRef2JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession1ResourceRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1ResourceRef2Injection1Name</injection-target-name>
+               <injection-target-class>session1ResourceRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1ResourceRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1ResourceRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1ResourceRef2Injection2Name</injection-target-name>
+               <injection-target-class>session1ResourceRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1ResourceRef2Injection2Name</injection-target-name>
             </injection-target>
-            <lookup-name>jbossSession1ResourceRef2JndiName</lookup-name>
          </resource-ref>
-         <resource-env-ref id="jbossSession1ResourceEnvRef1-id">
-            <description>en-jbossSession1ResourceEnvRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession1ResourceEnvRef1-desc</description>
-            <description xml:lang="de">de-jbossSession1ResourceEnvRef1-desc</description>
-            <resource-env-ref-name>jbossSession1ResourceEnvRef1Name</resource-env-ref-name>
+         <resource-env-ref id="session1ResourceEnvRef1-id">
+            <description>en-session1ResourceEnvRef1-desc</description>
+            <description xml:lang="fr">fr-session1ResourceEnvRef1-desc</description>
+            <description xml:lang="de">de-session1ResourceEnvRef1-desc</description>
+            <resource-env-ref-name>session1ResourceEnvRef1Name</resource-env-ref-name>
+            <lookup-name>session1ResourceEnvRef1JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession1ResourceEnvRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1ResourceEnvRef1Injection1Name</injection-target-name>
+               <injection-target-class>session1ResourceEnvRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1ResourceEnvRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1ResourceEnvRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1ResourceEnvRef1Injection2Name</injection-target-name>
-            </injection-target>
-            <!--
-            <ignore-dependency/>
-            -->
-            <lookup-name>jbossSession1ResourceEnvRef1JndiName</lookup-name>
-         </resource-env-ref>
-         <resource-env-ref id="jbossSession1ResourceEnvRef2-id">
-            <description>en-jbossSession1ResourceEnvRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession1ResourceEnvRef2-desc</description>
-            <description xml:lang="de">de-jbossSession1ResourceEnvRef2-desc</description>
-            <resource-env-ref-name>jbossSession1ResourceEnvRef2Name</resource-env-ref-name>
-            <injection-target>
-               <injection-target-class>jbossSession1ResourceEnvRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1ResourceEnvRef2Injection1Name</injection-target-name>
-            </injection-target>
-            <injection-target>
-               <injection-target-class>jbossSession1ResourceEnvRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1ResourceEnvRef2Injection2Name</injection-target-name>
-            </injection-target>
-            <lookup-name>jbossSession1ResourceEnvRef2JndiName</lookup-name>
-         </resource-env-ref>
-         <message-destination-ref id="jbossSession1MessageDestinationRef1-id">
-            <description>en-jbossSession1MessageDestinationRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession1MessageDestinationRef1-desc</description>
-            <description xml:lang="de">de-jbossSession1MessageDestinationRef1-desc</description>
-            <message-destination-ref-name>jbossSession1MessageDestinationRef1Name</message-destination-ref-name>
-            <injection-target>
-               <injection-target-class>jbossSession1MessageDestinationRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1MessageDestinationRef1Injection1Name</injection-target-name>
-            </injection-target>
-            <injection-target>
-               <injection-target-class>jbossSession1MessageDestinationRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1MessageDestinationRef1Injection2Name</injection-target-name>
+               <injection-target-class>session1ResourceEnvRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1ResourceEnvRef1Injection2Name</injection-target-name>
             </injection-target>
             <!--
             <ignore-dependency/>
             -->
-            <lookup-name>jbossSession1MessageDestinationRef1JndiName</lookup-name>
-         </message-destination-ref>
-         <message-destination-ref id="jbossSession1MessageDestinationRef2-id">
-            <description>en-jbossSession1MessageDestinationRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession1MessageDestinationRef2-desc</description>
-            <description xml:lang="de">de-jbossSession1MessageDestinationRef2-desc</description>
-            <message-destination-ref-name>jbossSession1MessageDestinationRef2Name</message-destination-ref-name>
+         </resource-env-ref>
+         <resource-env-ref id="session1ResourceEnvRef2-id">
+            <description>en-session1ResourceEnvRef2-desc</description>
+            <description xml:lang="fr">fr-session1ResourceEnvRef2-desc</description>
+            <description xml:lang="de">de-session1ResourceEnvRef2-desc</description>
+            <resource-env-ref-name>session1ResourceEnvRef2Name</resource-env-ref-name>
+            <lookup-name>session1ResourceEnvRef2JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession1MessageDestinationRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1MessageDestinationRef2Injection1Name</injection-target-name>
+               <injection-target-class>session1ResourceEnvRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1ResourceEnvRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1MessageDestinationRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1MessageDestinationRef2Injection2Name</injection-target-name>
+               <injection-target-class>session1ResourceEnvRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1ResourceEnvRef2Injection2Name</injection-target-name>
             </injection-target>
-            <lookup-name>jbossSession1MessageDestinationRef2JndiName</lookup-name>
-         </message-destination-ref>
-         <message-destination-ref id="jbossSession1MessageDestinationRef3-id">
-            <description>en-jbossSession1MessageDestinationRef3-desc</description>
-            <description xml:lang="fr">fr-jbossSession1MessageDestinationRef3-desc</description>
-            <description xml:lang="de">de-jbossSession1MessageDestinationRef3-desc</description>
-            <message-destination-ref-name>jbossSession1MessageDestinationRef3Name</message-destination-ref-name>
+         </resource-env-ref>
+         <message-destination-ref id="session1MessageDestinationRef1-id">
+            <description>en-session1MessageDestinationRef1-desc</description>
+            <description xml:lang="fr">fr-session1MessageDestinationRef1-desc</description>
+            <description xml:lang="de">de-session1MessageDestinationRef1-desc</description>
+            <message-destination-ref-name>session1MessageDestinationRef1Name</message-destination-ref-name>
+            <lookup-name>session1MessageDestinationRef1JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession1MessageDestinationRef3Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1MessageDestinationRef3Injection1Name</injection-target-name>
+               <injection-target-class>session1MessageDestinationRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1MessageDestinationRef3Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1MessageDestinationRef3Injection2Name</injection-target-name>
+               <injection-target-class>session1MessageDestinationRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef1Injection2Name</injection-target-name>
             </injection-target>
-            <lookup-name>jbossSession1MessageDestinationRef3JndiName</lookup-name>
-         </message-destination-ref>
-         
-         <security-identity id="jbossSession1SecurityIdentity-id">
-            <description>en-jbossSession1SecurityIdentity-desc</description>
-            <description xml:lang="fr">fr-jbossSession1SecurityIdentity-desc</description>
-            <description xml:lang="de">de-jbossSession1SecurityIdentity-desc</description>
             <!--
-            <run-as-principal>jbossSession1SecurityIdentityRunAsPrincipal</run-as-principal>
+            <ignore-dependency/>
+            -->
+         </message-destination-ref>
+         <message-destination-ref id="session1MessageDestinationRef2-id">
+            <description>en-session1MessageDestinationRef2-desc</description>
+            <description xml:lang="fr">fr-session1MessageDestinationRef2-desc</description>
+            <description xml:lang="de">de-session1MessageDestinationRef2-desc</description>
+            <message-destination-ref-name>session1MessageDestinationRef2Name</message-destination-ref-name>
+            <lookup-name>session1MessageDestinationRef2JndiName</lookup-name>
+            <injection-target>
+               <injection-target-class>session1MessageDestinationRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1MessageDestinationRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef2Injection2Name</injection-target-name>
+            </injection-target>
+         </message-destination-ref>
+         <message-destination-ref id="session1MessageDestinationRef3-id">
+            <description>en-session1MessageDestinationRef3-desc</description>
+            <description xml:lang="fr">fr-session1MessageDestinationRef3-desc</description>
+            <description xml:lang="de">de-session1MessageDestinationRef3-desc</description>
+            <message-destination-ref-name>session1MessageDestinationRef3Name</message-destination-ref-name>
+            <lookup-name>session1MessageDestinationRef3JndiName</lookup-name>
+            <injection-target>
+               <injection-target-class>session1MessageDestinationRef3Injection1Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef3Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1MessageDestinationRef3Injection2Class</injection-target-class>
+               <injection-target-name>session1MessageDestinationRef3Injection2Name</injection-target-name>
+            </injection-target>
+         </message-destination-ref>
+
+         <security-identity id="session1SecurityIdentity-id">
+            <description>en-session1SecurityIdentity-desc</description>
+            <description xml:lang="fr">fr-session1SecurityIdentity-desc</description>
+            <description xml:lang="de">de-session1SecurityIdentity-desc</description>
+            <!--
+            <run-as-principal>session1SecurityIdentityRunAsPrincipal</run-as-principal>
             -->
          </security-identity>
 
          <!--
-         <remote-binding id="jbossSession1RemoteBinding-id">
-            <description>en-jbossSession1RemoteBinding-desc</description>
-            <description xml:lang="fr">fr-jbossSession1RemoteBinding-desc</description>
-            <description xml:lang="de">de-jbossSession1RemoteBinding-desc</description>
-            <jndi-name>jbossSession1RemoteBindingJndiName</jndi-name>
-            <client-bind-url>jbossSession1RemoteBindingClientBindUrl</client-bind-url>
-            <interceptor-stack>jbossSession1RemoteBindingInterceptorStack</interceptor-stack>
-            <invoker-name>jbossSession1RemoteBindingInvokerName</invoker-name>
+         <remote-binding id="session1RemoteBinding-id">
+            <description>en-session1RemoteBinding-desc</description>
+            <description xml:lang="fr">fr-session1RemoteBinding-desc</description>
+            <description xml:lang="de">de-session1RemoteBinding-desc</description>
+            <jndi-name>session1RemoteBindingJndiName</jndi-name>
+            <client-bind-url>session1RemoteBindingClientBindUrl</client-bind-url>
+            <interceptor-stack>session1RemoteBindingInterceptorStack</interceptor-stack>
+            <invoker-name>session1RemoteBindingInvokerName</invoker-name>
          </remote-binding>
 
-         <jndi-name>jbossSession1JndiName</jndi-name>
-         <home-jndi-name>jbossSession1HomeJndiName</home-jndi-name>
-         
-         <local-jndi-name>jbossSession1LocalJndiName</local-jndi-name>
-         <local-home-jndi-name>jbossSession1LocalHomeJndiName</local-home-jndi-name>
+         <jndi-name>session1JndiName</jndi-name>
+         <home-jndi-name>session1HomeJndiName</home-jndi-name>
+
+         <local-jndi-name>session1LocalJndiName</local-jndi-name>
+         <local-home-jndi-name>session1LocalHomeJndiName</local-home-jndi-name>
 
          <clustered>true</clustered>
-         
-         <cluster-config id="jbossSession1ClusterConfig-id">
-            <description>en-jbossSession1ClusterConfig-desc</description>
-            <description xml:lang="fr">fr-jbossSession1ClusterConfig-desc</description>
-            <description xml:lang="de">de-jbossSession1ClusterConfig-desc</description>
-            <partition-name>jbossSession1ClusterConfigPartitionName</partition-name>
-            <home-load-balance-policy>jbossSession1ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
-            <bean-load-balance-policy>jbossSession1ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
-            <session-state-manager-jndi-name>jbossSession1ClusterConfigSessionStateManagerJndiName</session-state-manager-jndi-name>
+
+         <cluster-config id="session1ClusterConfig-id">
+            <description>en-session1ClusterConfig-desc</description>
+            <description xml:lang="fr">fr-session1ClusterConfig-desc</description>
+            <description xml:lang="de">de-session1ClusterConfig-desc</description>
+            <partition-name>session1ClusterConfigPartitionName</partition-name>
+            <home-load-balance-policy>session1ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>session1ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
+            <session-state-manager-jndi-name>session1ClusterConfigSessionStateManagerJndiName</session-state-manager-jndi-name>
          </cluster-config>
-         
-         <security-domain>jbossSession1SecurityDomain</security-domain>
-         
-         <method-attributes id="jbossSession1MethodAttributes-id">
-            <method id="jbossSession1MethodAttributesMethod1-id">
+
+         <security-domain>session1SecurityDomain</security-domain>
+
+         <method-attributes id="session1MethodAttributes-id">
+            <method id="session1MethodAttributesMethod1-id">
                <method-name>get*</method-name>
                <read-only>true</read-only>
                <idempotent>true</idempotent>
                <transaction-timeout>5000</transaction-timeout>
             </method>
-            <method id="jbossSession1MethodAttributesMethod2-id">
+            <method id="session1MethodAttributesMethod2-id">
                <method-name>*</method-name>
             </method>
          </method-attributes>
-         
-         <depends>jbossSession1Depends1</depends>
-         <depends>jbossSession1Depends2</depends>
 
-         <annotation id="jbossSession1Annotation1-id">
-            <description>en-jbossSession1Annotation1-desc</description>
-            <description xml:lang="fr">fr-jbossSession1Annotation1-desc</description>
-            <description xml:lang="de">de-jbossSession1Annotation1-desc</description>
-            
-            <annotation-class>jbossSession1Annotation1Class</annotation-class>
-            <annotation-implementation-class>jbossSession1Annotation1Impl</annotation-implementation-class>
+         <depends>session1Depends1</depends>
+         <depends>session1Depends2</depends>
+
+         <annotation id="session1Annotation1-id">
+            <description>en-session1Annotation1-desc</description>
+            <description xml:lang="fr">fr-session1Annotation1-desc</description>
+            <description xml:lang="de">de-session1Annotation1-desc</description>
+
+            <annotation-class>session1Annotation1Class</annotation-class>
+            <annotation-implementation-class>session1Annotation1Impl</annotation-implementation-class>
             <injection-target>
-               <injection-target-class>jbossSession1Annotation1InjectionTargetClass</injection-target-class>
-               <injection-target-name>jbossSession1Annotation1InjectionTargetName</injection-target-name>
+               <injection-target-class>session1Annotation1InjectionTargetClass</injection-target-class>
+               <injection-target-name>session1Annotation1InjectionTargetName</injection-target-name>
             </injection-target>
-            <property id="jbossSession1Annotation1Property1-id">
-               <description>en-jbossSession1Annotation1Property1-desc</description>
-               <description xml:lang="fr">fr-jbossSession1Annotation1Property1-desc</description>
-               <description xml:lang="de">de-jbossSession1Annotation1Property1-desc</description>
-               <property-name>jbossSession1Annotation1Property1Name</property-name>
-               <property-value>jbossSession1Annotation1Property1Value</property-value>
+            <property id="session1Annotation1Property1-id">
+               <description>en-session1Annotation1Property1-desc</description>
+               <description xml:lang="fr">fr-session1Annotation1Property1-desc</description>
+               <description xml:lang="de">de-session1Annotation1Property1-desc</description>
+               <property-name>session1Annotation1Property1Name</property-name>
+               <property-value>session1Annotation1Property1Value</property-value>
             </property>
-            <property id="jbossSession1Annotation1Property2-id">
-               <description>en-jbossSession1Annotation1Property2-desc</description>
-               <description xml:lang="fr">fr-jbossSession1Annotation1Property2-desc</description>
-               <description xml:lang="de">de-jbossSession1Annotation1Property2-desc</description>
-               <property-name>jbossSession1Annotation1Property2Name</property-name>
-               <property-value>jbossSession1Annotation1Property2Value</property-value>
+            <property id="session1Annotation1Property2-id">
+               <description>en-session1Annotation1Property2-desc</description>
+               <description xml:lang="fr">fr-session1Annotation1Property2-desc</description>
+               <description xml:lang="de">de-session1Annotation1Property2-desc</description>
+               <property-name>session1Annotation1Property2Name</property-name>
+               <property-value>session1Annotation1Property2Value</property-value>
             </property>
          </annotation>
-         <annotation id="jbossSession1Annotation2-id">
-            <description>en-jbossSession1Annotation2-desc</description>
-            <description xml:lang="fr">fr-jbossSession1Annotation2-desc</description>
-            <description xml:lang="de">de-jbossSession1Annotation2-desc</description>
-            
-            <annotation-class>jbossSession1Annotation2Class</annotation-class>
-            <annotation-implementation-class>jbossSession1Annotation2Impl</annotation-implementation-class>
+         <annotation id="session1Annotation2-id">
+            <description>en-session1Annotation2-desc</description>
+            <description xml:lang="fr">fr-session1Annotation2-desc</description>
+            <description xml:lang="de">de-session1Annotation2-desc</description>
+
+            <annotation-class>session1Annotation2Class</annotation-class>
+            <annotation-implementation-class>session1Annotation2Impl</annotation-implementation-class>
             <injection-target>
-               <injection-target-class>jbossSession1Annotation2InjectionTargetClass</injection-target-class>
-               <injection-target-name>jbossSession1Annotation2InjectionTargetName</injection-target-name>
+               <injection-target-class>session1Annotation2InjectionTargetClass</injection-target-class>
+               <injection-target-name>session1Annotation2InjectionTargetName</injection-target-name>
             </injection-target>
-            <property id="jbossSession1Annotation2Property1-id">
-               <description>en-jbossSession1Annotation2Property1-desc</description>
-               <description xml:lang="fr">fr-jbossSession1Annotation2Property1-desc</description>
-               <description xml:lang="de">de-jbossSession1Annotation2Property1-desc</description>
-               <property-name>jbossSession1Annotation2Property1Name</property-name>
-               <property-value>jbossSession1Annotation2Property1Value</property-value>
+            <property id="session1Annotation2Property1-id">
+               <description>en-session1Annotation2Property1-desc</description>
+               <description xml:lang="fr">fr-session1Annotation2Property1-desc</description>
+               <description xml:lang="de">de-session1Annotation2Property1-desc</description>
+               <property-name>session1Annotation2Property1Name</property-name>
+               <property-value>session1Annotation2Property1Value</property-value>
             </property>
-            <property id="jbossSession1Annotation2Property2-id">
-               <description>en-jbossSession1Annotation2Property2-desc</description>
-               <description xml:lang="fr">fr-jbossSession1Annotation2Property2-desc</description>
-               <description xml:lang="de">de-jbossSession1Annotation2Property2-desc</description>
-               <property-name>jbossSession1Annotation2Property2Name</property-name>
-               <property-value>jbossSession1Annotation2Property2Value</property-value>
+            <property id="session1Annotation2Property2-id">
+               <description>en-session1Annotation2Property2-desc</description>
+               <description xml:lang="fr">fr-session1Annotation2Property2-desc</description>
+               <description xml:lang="de">de-session1Annotation2Property2-desc</description>
+               <property-name>session1Annotation2Property2Name</property-name>
+               <property-value>session1Annotation2Property2Value</property-value>
             </property>
          </annotation>
 
-         <ignore-dependency id="jbossSession1IgnoreDependency-id">
-            <description>en-jbossSession1IgnoreDependency-desc</description>
-            <description xml:lang="fr">fr-jbossSession1IgnoreDependency-desc</description>
-            <description xml:lang="de">de-jbossSession1IgnoreDependency-desc</description>
+         <ignore-dependency id="session1IgnoreDependency-id">
+            <description>en-session1IgnoreDependency-desc</description>
+            <description xml:lang="fr">fr-session1IgnoreDependency-desc</description>
+            <description xml:lang="de">de-session1IgnoreDependency-desc</description>
             <injection-target>
-               <injection-target-class>jbossSession1IgnoreDependencyInjection1Class</injection-target-class>
-               <injection-target-name>jbossSession1IgnoreDependencyInjection1Name</injection-target-name>
+               <injection-target-class>session1IgnoreDependencyInjection1Class</injection-target-class>
+               <injection-target-name>session1IgnoreDependencyInjection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1IgnoreDependencyInjection2Class</injection-target-class>
-               <injection-target-name>jbossSession1IgnoreDependencyInjection2Name</injection-target-name>
+               <injection-target-class>session1IgnoreDependencyInjection2Class</injection-target-class>
+               <injection-target-name>session1IgnoreDependencyInjection2Name</injection-target-name>
             </injection-target>
          </ignore-dependency>
 
-         <aop-domain-name>jbossSession1AOPDomain</aop-domain-name>
-         
+         <aop-domain-name>session1AOPDomain</aop-domain-name>
+
          <cache-config>
-            <cache-value>jbossSession1CacheClass</cache-value>
+            <cache-value>session1CacheClass</cache-value>
             <cache-max-size>10</cache-max-size>
             <idle-timeout-seconds>11</idle-timeout-seconds>
             <remove-timeout-seconds>12</remove-timeout-seconds>
-            <cache-name>jbossSession1CacheName</cache-name>
-            <persistence-manager>jbossSession1PersistenceManager</persistence-manager>
+            <cache-name>session1CacheName</cache-name>
+            <persistence-manager>session1PersistenceManager</persistence-manager>
          </cache-config>
-         
+
          <pool-config>
-            <pool-value>jbossSession1PoolClass</pool-value>
+            <pool-value>session1PoolClass</pool-value>
             <pool-max-size>10</pool-max-size>
             <pool-timeout>11</pool-timeout>
          </pool-config>
 
-         <concurrent>true</concurrent>         
-         
-         <jndi-ref id="jbossSession1JndiRef1-id">
-            <description>en-jbossSession1JndiRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession1JndiRef1-desc</description>
-            <description xml:lang="de">de-jbossSession1JndiRef1-desc</description>
-            <jndi-ref-name>jbossSession1JndiRef1Name</jndi-ref-name>
-            <mapped-name>jbossSession1JndiRef1MappedName</mapped-name>
+         <concurrent>true</concurrent>
+
+         <jndi-ref id="session1JndiRef1-id">
+            <description>en-session1JndiRef1-desc</description>
+            <description xml:lang="fr">fr-session1JndiRef1-desc</description>
+            <description xml:lang="de">de-session1JndiRef1-desc</description>
+            <jndi-ref-name>session1JndiRef1Name</jndi-ref-name>
+            <mapped-name>session1JndiRef1MappedName</mapped-name>
             <injection-target>
-               <injection-target-class>jbossSession1JndiRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1JndiRef1Injection1Name</injection-target-name>
+               <injection-target-class>session1JndiRef1Injection1Class</injection-target-class>
+               <injection-target-name>session1JndiRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession1JndiRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1JndiRef1Injection2Name</injection-target-name>
-            </injection-target>
-         </jndi-ref>
-         <jndi-ref id="jbossSession1JndiRef2-id">
-            <description>en-jbossSession1JndiRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession1JndiRef2-desc</description>
-            <description xml:lang="de">de-jbossSession1JndiRef2-desc</description>
-            <jndi-ref-name>jbossSession1JndiRef2Name</jndi-ref-name>
-            <mapped-name>jbossSession1JndiRef2MappedName</mapped-name>
-            <injection-target>
-               <injection-target-class>jbossSession1JndiRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession1JndiRef2Injection1Name</injection-target-name>
-            </injection-target>
-            <injection-target>
-               <injection-target-class>jbossSession1JndiRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession1JndiRef2Injection2Name</injection-target-name>
+               <injection-target-class>session1JndiRef1Injection2Class</injection-target-class>
+               <injection-target-name>session1JndiRef1Injection2Name</injection-target-name>
             </injection-target>
          </jndi-ref>
-         
-         <port-component id="jbossSession1PortComponent-id">
-            <port-component-name>jbossSession1-PortComponent</port-component-name>
-            <port-component-uri>/jbossSession1/PortComponentURI</port-component-uri>
+         <jndi-ref id="session1JndiRef2-id">
+            <description>en-session1JndiRef2-desc</description>
+            <description xml:lang="fr">fr-session1JndiRef2-desc</description>
+            <description xml:lang="de">de-session1JndiRef2-desc</description>
+            <jndi-ref-name>session1JndiRef2Name</jndi-ref-name>
+            <mapped-name>session1JndiRef2MappedName</mapped-name>
+            <injection-target>
+               <injection-target-class>session1JndiRef2Injection1Class</injection-target-class>
+               <injection-target-name>session1JndiRef2Injection1Name</injection-target-name>
+            </injection-target>
+            <injection-target>
+               <injection-target-class>session1JndiRef2Injection2Class</injection-target-class>
+               <injection-target-name>session1JndiRef2Injection2Name</injection-target-name>
+            </injection-target>
+         </jndi-ref>
+
+         <port-component id="session1PortComponent-id">
+            <port-component-name>session1-PortComponent</port-component-name>
+            <port-component-uri>/session1/PortComponentURI</port-component-uri>
             <auth-method>BASIC</auth-method>
             <transport-guarantee>NONE</transport-guarantee>
             <secure-wsdl-access>true</secure-wsdl-access>
          </port-component>
-         
-         <ejb-timeout-identity id="jbossSession1EjbTimeoutIdentity-id">
-            <description>en-jbossSession1EjbTimeoutIdentity-desc</description>
-            <description xml:lang="fr">fr-jbossSession1EjbTimeoutIdentity-desc</description>
-            <description xml:lang="de">de-jbossSession1EjbTimeoutIdentity-desc</description>
-            <run-as-principal>jbossSession1EjbTimeoutIdentityRunAsPrincipal</run-as-principal>
+
+         <ejb-timeout-identity id="session1EjbTimeoutIdentity-id">
+            <description>en-session1EjbTimeoutIdentity-desc</description>
+            <description xml:lang="fr">fr-session1EjbTimeoutIdentity-desc</description>
+            <description xml:lang="de">de-session1EjbTimeoutIdentity-desc</description>
+            <run-as-principal>session1EjbTimeoutIdentityRunAsPrincipal</run-as-principal>
          </ejb-timeout-identity>
          -->
       </session>
 
-      <session id="jbossSession2-id">
-         <description>en-jbossSession2-desc</description>
-         <description xml:lang="fr">fr-jbossSession2-desc</description>
-         <description xml:lang="de">de-jbossSession2-desc</description>
-         <display-name>en-jbossSession2-disp</display-name>
-         <display-name xml:lang="fr">fr-jbossSession2-disp</display-name>
-         <display-name xml:lang="de">de-jbossSession2-disp</display-name>
-         <icon id="en-jbossSession2-icon-id">
-            <small-icon>en-jbossSession2-small-icon</small-icon>
-            <large-icon>en-jbossSession2-large-icon</large-icon>
+      <session id="session2-id">
+         <description>en-session2-desc</description>
+         <description xml:lang="fr">fr-session2-desc</description>
+         <description xml:lang="de">de-session2-desc</description>
+         <display-name>en-session2-disp</display-name>
+         <display-name xml:lang="fr">fr-session2-disp</display-name>
+         <display-name xml:lang="de">de-session2-disp</display-name>
+         <icon id="en-session2-icon-id">
+            <small-icon>en-session2-small-icon</small-icon>
+            <large-icon>en-session2-large-icon</large-icon>
          </icon>
-         <icon xml:lang="fr" id="fr-jbossSession2-icon-id">
-            <small-icon>fr-jbossSession2-small-icon</small-icon>
-            <large-icon>fr-jbossSession2-large-icon</large-icon>
+         <icon xml:lang="fr" id="fr-session2-icon-id">
+            <small-icon>fr-session2-small-icon</small-icon>
+            <large-icon>fr-session2-large-icon</large-icon>
          </icon>
-         <icon xml:lang="de" id="de-jbossSession2-icon-id">
-            <small-icon>de-jbossSession2-small-icon</small-icon>
-            <large-icon>de-jbossSession2-large-icon</large-icon>
+         <icon xml:lang="de" id="de-session2-icon-id">
+            <small-icon>de-session2-small-icon</small-icon>
+            <large-icon>de-session2-large-icon</large-icon>
          </icon>
 
-         <ejb-name>jbossSession2EjbName</ejb-name>
+         <ejb-name>session2EjbName</ejb-name>
 
-         <ejb-ref id="jbossSession2EjbRef1-id">
-            <description>en-jbossSession2EjbRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession2EjbRef1-desc</description>
-            <description xml:lang="de">de-jbossSession2EjbRef1-desc</description>
+         <ejb-ref id="session2EjbRef1-id">
+            <description>en-session2EjbRef1-desc</description>
+            <description xml:lang="fr">fr-session2EjbRef1-desc</description>
+            <description xml:lang="de">de-session2EjbRef1-desc</description>
 
-            <ejb-ref-name>jbossSession2EjbRef1Name</ejb-ref-name>
-            <lookup-name>jbossSession2EjbRef1JndiName</lookup-name>
+            <ejb-ref-name>session2EjbRef1Name</ejb-ref-name>
+            <lookup-name>session2EjbRef1JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2EjbRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2EjbRef1Injection1Name</injection-target-name>
+               <injection-target-class>session2EjbRef1Injection1Class</injection-target-class>
+               <injection-target-name>session2EjbRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2EjbRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2EjbRef1Injection2Name</injection-target-name>
+               <injection-target-class>session2EjbRef1Injection2Class</injection-target-class>
+               <injection-target-name>session2EjbRef1Injection2Name</injection-target-name>
             </injection-target>
             <!--
             <ignore-dependency/>
             -->
          </ejb-ref>
-         <ejb-ref id="jbossSession2EjbRef2-id">
-            <description>en-jbossSession2EjbRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession2EjbRef2-desc</description>
-            <description xml:lang="de">de-jbossSession2EjbRef2-desc</description>
+         <ejb-ref id="session2EjbRef2-id">
+            <description>en-session2EjbRef2-desc</description>
+            <description xml:lang="fr">fr-session2EjbRef2-desc</description>
+            <description xml:lang="de">de-session2EjbRef2-desc</description>
 
-            <ejb-ref-name>jbossSession2EjbRef2Name</ejb-ref-name>
-            <lookup-name>jbossSession2EjbRef2JndiName</lookup-name>
+            <ejb-ref-name>session2EjbRef2Name</ejb-ref-name>
+            <lookup-name>session2EjbRef2JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2EjbRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2EjbRef2Injection1Name</injection-target-name>
+               <injection-target-class>session2EjbRef2Injection1Class</injection-target-class>
+               <injection-target-name>session2EjbRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2EjbRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2EjbRef2Injection2Name</injection-target-name>
+               <injection-target-class>session2EjbRef2Injection2Class</injection-target-class>
+               <injection-target-name>session2EjbRef2Injection2Name</injection-target-name>
             </injection-target>
          </ejb-ref>
 
-         <ejb-local-ref id="jbossSession2EjbLocalRef1-id">
-            <description>en-jbossSession2EjbLocalRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession2EjbLocalRef1-desc</description>
-            <description xml:lang="de">de-jbossSession2EjbLocalRef1-desc</description>
+         <ejb-local-ref id="session2EjbLocalRef1-id">
+            <description>en-session2EjbLocalRef1-desc</description>
+            <description xml:lang="fr">fr-session2EjbLocalRef1-desc</description>
+            <description xml:lang="de">de-session2EjbLocalRef1-desc</description>
 
-            <ejb-ref-name>jbossSession2EjbLocalRef1Name</ejb-ref-name>
-            <lookup-name>jbossSession2EjbLocalRef1JndiName</lookup-name>
+            <ejb-ref-name>session2EjbLocalRef1Name</ejb-ref-name>
+            <lookup-name>session2EjbLocalRef1JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2EjbLocalRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2EjbLocalRef1Injection1Name</injection-target-name>
+               <injection-target-class>session2EjbLocalRef1Injection1Class</injection-target-class>
+               <injection-target-name>session2EjbLocalRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2EjbLocalRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2EjbLocalRef1Injection2Name</injection-target-name>
+               <injection-target-class>session2EjbLocalRef1Injection2Class</injection-target-class>
+               <injection-target-name>session2EjbLocalRef1Injection2Name</injection-target-name>
             </injection-target>
             <!--
             <ignore-dependency/>
             -->
          </ejb-local-ref>
-         <ejb-local-ref id="jbossSession2EjbLocalRef2-id">
-            <description>en-jbossSession2EjbLocalRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession2EjbLocalRef2-desc</description>
-            <description xml:lang="de">de-jbossSession2EjbLocalRef2-desc</description>
+         <ejb-local-ref id="session2EjbLocalRef2-id">
+            <description>en-session2EjbLocalRef2-desc</description>
+            <description xml:lang="fr">fr-session2EjbLocalRef2-desc</description>
+            <description xml:lang="de">de-session2EjbLocalRef2-desc</description>
 
-            <ejb-ref-name>jbossSession2EjbLocalRef2Name</ejb-ref-name>
-            <lookup-name>jbossSession2EjbLocalRef2JndiName</lookup-name>
+            <ejb-ref-name>session2EjbLocalRef2Name</ejb-ref-name>
+            <lookup-name>session2EjbLocalRef2JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2EjbLocalRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2EjbLocalRef2Injection1Name</injection-target-name>
+               <injection-target-class>session2EjbLocalRef2Injection1Class</injection-target-class>
+               <injection-target-name>session2EjbLocalRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2EjbLocalRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2EjbLocalRef2Injection2Name</injection-target-name>
+               <injection-target-class>session2EjbLocalRef2Injection2Class</injection-target-class>
+               <injection-target-name>session2EjbLocalRef2Injection2Name</injection-target-name>
             </injection-target>
          </ejb-local-ref>
 
          <!-- TODO service-ref -->
 
-         <resource-ref id="jbossSession2ResourceRef1-id">
-            <description>en-jbossSession2ResourceRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession2ResourceRef1-desc</description>
-            <description xml:lang="de">de-jbossSession2ResourceRef1-desc</description>
-            <res-ref-name>jbossSession2ResourceRef1Name</res-ref-name>
-            <lookup-name>jbossSession2ResourceRef1JndiName</lookup-name>
+         <resource-ref id="session2ResourceRef1-id">
+            <description>en-session2ResourceRef1-desc</description>
+            <description xml:lang="fr">fr-session2ResourceRef1-desc</description>
+            <description xml:lang="de">de-session2ResourceRef1-desc</description>
+            <res-ref-name>session2ResourceRef1Name</res-ref-name>
+            <lookup-name>session2ResourceRef1JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2ResourceRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2ResourceRef1Injection1Name</injection-target-name>
+               <injection-target-class>session2ResourceRef1Injection1Class</injection-target-class>
+               <injection-target-name>session2ResourceRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2ResourceRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2ResourceRef1Injection2Name</injection-target-name>
+               <injection-target-class>session2ResourceRef1Injection2Class</injection-target-class>
+               <injection-target-name>session2ResourceRef1Injection2Name</injection-target-name>
             </injection-target>
             <!--
             <ignore-dependency/>
             -->
          </resource-ref>
-         <resource-ref id="jbossSession2ResourceRef2-id">
-            <description>en-jbossSession2ResourceRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession2ResourceRef2-desc</description>
-            <description xml:lang="de">de-jbossSession2ResourceRef2-desc</description>
-            <res-ref-name>jbossSession2ResourceRef2Name</res-ref-name>
-            <lookup-name>jbossSession2ResourceRef2JndiName</lookup-name>
+         <resource-ref id="session2ResourceRef2-id">
+            <description>en-session2ResourceRef2-desc</description>
+            <description xml:lang="fr">fr-session2ResourceRef2-desc</description>
+            <description xml:lang="de">de-session2ResourceRef2-desc</description>
+            <res-ref-name>session2ResourceRef2Name</res-ref-name>
+            <lookup-name>session2ResourceRef2JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2ResourceRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2ResourceRef2Injection1Name</injection-target-name>
+               <injection-target-class>session2ResourceRef2Injection1Class</injection-target-class>
+               <injection-target-name>session2ResourceRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2ResourceRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2ResourceRef2Injection2Name</injection-target-name>
+               <injection-target-class>session2ResourceRef2Injection2Class</injection-target-class>
+               <injection-target-name>session2ResourceRef2Injection2Name</injection-target-name>
             </injection-target>
          </resource-ref>
-         <resource-env-ref id="jbossSession2ResourceEnvRef1-id">
-            <description>en-jbossSession2ResourceEnvRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession2ResourceEnvRef1-desc</description>
-            <description xml:lang="de">de-jbossSession2ResourceEnvRef1-desc</description>
-            <resource-env-ref-name>jbossSession2ResourceEnvRef1Name</resource-env-ref-name>
-            <lookup-name>jbossSession2ResourceEnvRef1JndiName</lookup-name>
+         <resource-env-ref id="session2ResourceEnvRef1-id">
+            <description>en-session2ResourceEnvRef1-desc</description>
+            <description xml:lang="fr">fr-session2ResourceEnvRef1-desc</description>
+            <description xml:lang="de">de-session2ResourceEnvRef1-desc</description>
+            <resource-env-ref-name>session2ResourceEnvRef1Name</resource-env-ref-name>
+            <lookup-name>session2ResourceEnvRef1JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2ResourceEnvRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2ResourceEnvRef1Injection1Name</injection-target-name>
+               <injection-target-class>session2ResourceEnvRef1Injection1Class</injection-target-class>
+               <injection-target-name>session2ResourceEnvRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2ResourceEnvRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2ResourceEnvRef1Injection2Name</injection-target-name>
+               <injection-target-class>session2ResourceEnvRef1Injection2Class</injection-target-class>
+               <injection-target-name>session2ResourceEnvRef1Injection2Name</injection-target-name>
             </injection-target>
             <!--
             <ignore-dependency/>
             -->
          </resource-env-ref>
-         <resource-env-ref id="jbossSession2ResourceEnvRef2-id">
-            <description>en-jbossSession2ResourceEnvRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession2ResourceEnvRef2-desc</description>
-            <description xml:lang="de">de-jbossSession2ResourceEnvRef2-desc</description>
-            <resource-env-ref-name>jbossSession2ResourceEnvRef2Name</resource-env-ref-name>
-            <lookup-name>jbossSession2ResourceEnvRef2JndiName</lookup-name>
+         <resource-env-ref id="session2ResourceEnvRef2-id">
+            <description>en-session2ResourceEnvRef2-desc</description>
+            <description xml:lang="fr">fr-session2ResourceEnvRef2-desc</description>
+            <description xml:lang="de">de-session2ResourceEnvRef2-desc</description>
+            <resource-env-ref-name>session2ResourceEnvRef2Name</resource-env-ref-name>
+            <lookup-name>session2ResourceEnvRef2JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2ResourceEnvRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2ResourceEnvRef2Injection1Name</injection-target-name>
+               <injection-target-class>session2ResourceEnvRef2Injection1Class</injection-target-class>
+               <injection-target-name>session2ResourceEnvRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2ResourceEnvRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2ResourceEnvRef2Injection2Name</injection-target-name>
+               <injection-target-class>session2ResourceEnvRef2Injection2Class</injection-target-class>
+               <injection-target-name>session2ResourceEnvRef2Injection2Name</injection-target-name>
             </injection-target>
          </resource-env-ref>
-         <message-destination-ref id="jbossSession2MessageDestinationRef1-id">
-            <description>en-jbossSession2MessageDestinationRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession2MessageDestinationRef1-desc</description>
-            <description xml:lang="de">de-jbossSession2MessageDestinationRef1-desc</description>
-            <message-destination-ref-name>jbossSession2MessageDestinationRef1Name</message-destination-ref-name>
-            <lookup-name>jbossSession2MessageDestinationRef1JndiName</lookup-name>
+         <message-destination-ref id="session2MessageDestinationRef1-id">
+            <description>en-session2MessageDestinationRef1-desc</description>
+            <description xml:lang="fr">fr-session2MessageDestinationRef1-desc</description>
+            <description xml:lang="de">de-session2MessageDestinationRef1-desc</description>
+            <message-destination-ref-name>session2MessageDestinationRef1Name</message-destination-ref-name>
+            <lookup-name>session2MessageDestinationRef1JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2MessageDestinationRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2MessageDestinationRef1Injection1Name</injection-target-name>
+               <injection-target-class>session2MessageDestinationRef1Injection1Class</injection-target-class>
+               <injection-target-name>session2MessageDestinationRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2MessageDestinationRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2MessageDestinationRef1Injection2Name</injection-target-name>
+               <injection-target-class>session2MessageDestinationRef1Injection2Class</injection-target-class>
+               <injection-target-name>session2MessageDestinationRef1Injection2Name</injection-target-name>
             </injection-target>
             <!--
             <ignore-dependency/>
             -->
          </message-destination-ref>
-         <message-destination-ref id="jbossSession2MessageDestinationRef2-id">
-            <description>en-jbossSession2MessageDestinationRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession2MessageDestinationRef2-desc</description>
-            <description xml:lang="de">de-jbossSession2MessageDestinationRef2-desc</description>
-            <message-destination-ref-name>jbossSession2MessageDestinationRef2Name</message-destination-ref-name>
-            <lookup-name>jbossSession2MessageDestinationRef2JndiName</lookup-name>
+         <message-destination-ref id="session2MessageDestinationRef2-id">
+            <description>en-session2MessageDestinationRef2-desc</description>
+            <description xml:lang="fr">fr-session2MessageDestinationRef2-desc</description>
+            <description xml:lang="de">de-session2MessageDestinationRef2-desc</description>
+            <message-destination-ref-name>session2MessageDestinationRef2Name</message-destination-ref-name>
+            <lookup-name>session2MessageDestinationRef2JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2MessageDestinationRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2MessageDestinationRef2Injection1Name</injection-target-name>
+               <injection-target-class>session2MessageDestinationRef2Injection1Class</injection-target-class>
+               <injection-target-name>session2MessageDestinationRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2MessageDestinationRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2MessageDestinationRef2Injection2Name</injection-target-name>
+               <injection-target-class>session2MessageDestinationRef2Injection2Class</injection-target-class>
+               <injection-target-name>session2MessageDestinationRef2Injection2Name</injection-target-name>
             </injection-target>
          </message-destination-ref>
-         <message-destination-ref id="jbossSession2MessageDestinationRef3-id">
-            <description>en-jbossSession2MessageDestinationRef3-desc</description>
-            <description xml:lang="fr">fr-jbossSession2MessageDestinationRef3-desc</description>
-            <description xml:lang="de">de-jbossSession2MessageDestinationRef3-desc</description>
-            <message-destination-ref-name>jbossSession2MessageDestinationRef3Name</message-destination-ref-name>
-            <lookup-name>jbossSession2MessageDestinationRef3JndiName</lookup-name>
+         <message-destination-ref id="session2MessageDestinationRef3-id">
+            <description>en-session2MessageDestinationRef3-desc</description>
+            <description xml:lang="fr">fr-session2MessageDestinationRef3-desc</description>
+            <description xml:lang="de">de-session2MessageDestinationRef3-desc</description>
+            <message-destination-ref-name>session2MessageDestinationRef3Name</message-destination-ref-name>
+            <lookup-name>session2MessageDestinationRef3JndiName</lookup-name>
             <injection-target>
-               <injection-target-class>jbossSession2MessageDestinationRef3Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2MessageDestinationRef3Injection1Name</injection-target-name>
+               <injection-target-class>session2MessageDestinationRef3Injection1Class</injection-target-class>
+               <injection-target-name>session2MessageDestinationRef3Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2MessageDestinationRef3Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2MessageDestinationRef3Injection2Name</injection-target-name>
+               <injection-target-class>session2MessageDestinationRef3Injection2Class</injection-target-class>
+               <injection-target-name>session2MessageDestinationRef3Injection2Name</injection-target-name>
             </injection-target>
          </message-destination-ref>
 
-         <security-identity id="jbossSession2SecurityIdentity-id">
-            <description>en-jbossSession2SecurityIdentity-desc</description>
-            <description xml:lang="fr">fr-jbossSession2SecurityIdentity-desc</description>
-            <description xml:lang="de">de-jbossSession2SecurityIdentity-desc</description>
+         <security-identity id="session2SecurityIdentity-id">
+            <description>en-session2SecurityIdentity-desc</description>
+            <description xml:lang="fr">fr-session2SecurityIdentity-desc</description>
+            <description xml:lang="de">de-session2SecurityIdentity-desc</description>
             <!--
-            <run-as-principal>jbossSession2SecurityIdentityRunAsPrincipal</run-as-principal>
+            <run-as-principal>session2SecurityIdentityRunAsPrincipal</run-as-principal>
             -->
          </security-identity>
 
          <!--
-         <remote-binding id="jbossSession2RemoteBinding-id">
-            <description>en-jbossSession2RemoteBinding-desc</description>
-            <description xml:lang="fr">fr-jbossSession2RemoteBinding-desc</description>
-            <description xml:lang="de">de-jbossSession2RemoteBinding-desc</description>
-            <lookup-name>jbossSession2RemoteBindingJndiName</lookup-name>
-            <client-bind-url>jbossSession2RemoteBindingClientBindUrl</client-bind-url>
-            <interceptor-stack>jbossSession2RemoteBindingInterceptorStack</interceptor-stack>
-            <invoker-name>jbossSession2RemoteBindingInvokerName</invoker-name>
+         <remote-binding id="session2RemoteBinding-id">
+            <description>en-session2RemoteBinding-desc</description>
+            <description xml:lang="fr">fr-session2RemoteBinding-desc</description>
+            <description xml:lang="de">de-session2RemoteBinding-desc</description>
+            <lookup-name>session2RemoteBindingJndiName</lookup-name>
+            <client-bind-url>session2RemoteBindingClientBindUrl</client-bind-url>
+            <interceptor-stack>session2RemoteBindingInterceptorStack</interceptor-stack>
+            <invoker-name>session2RemoteBindingInvokerName</invoker-name>
          </remote-binding>
 
-         <jndi-name>jbossSession2JndiName</jndi-name>
-         <home-jndi-name>jbossSession2HomeJndiName</home-jndi-name>
+         <jndi-name>session2JndiName</jndi-name>
+         <home-jndi-name>session2HomeJndiName</home-jndi-name>
 
-         <local-jndi-name>jbossSession2LocalJndiName</local-jndi-name>
-         <local-home-jndi-name>jbossSession2LocalHomeJndiName</local-home-jndi-name>
+         <local-jndi-name>session2LocalJndiName</local-jndi-name>
+         <local-home-jndi-name>session2LocalHomeJndiName</local-home-jndi-name>
 
          <clustered>false</clustered>
-         
-         <cluster-config id="jbossSession2ClusterConfig-id">
-            <description>en-jbossSession2ClusterConfig-desc</description>
-            <description xml:lang="fr">fr-jbossSession2ClusterConfig-desc</description>
-            <description xml:lang="de">de-jbossSession2ClusterConfig-desc</description>
-            <partition-name>jbossSession2ClusterConfigPartitionName</partition-name>
-            <home-load-balance-policy>jbossSession2ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
-            <bean-load-balance-policy>jbossSession2ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
-            <session-state-manager-jndi-name>jbossSession2ClusterConfigSessionStateManagerJndiName</session-state-manager-jndi-name>
+
+         <cluster-config id="session2ClusterConfig-id">
+            <description>en-session2ClusterConfig-desc</description>
+            <description xml:lang="fr">fr-session2ClusterConfig-desc</description>
+            <description xml:lang="de">de-session2ClusterConfig-desc</description>
+            <partition-name>session2ClusterConfigPartitionName</partition-name>
+            <home-load-balance-policy>session2ClusterConfigHomeLoadBalancePolicy</home-load-balance-policy>
+            <bean-load-balance-policy>session2ClusterConfigBeanLoadBalancePolicy</bean-load-balance-policy>
+            <session-state-manager-jndi-name>session2ClusterConfigSessionStateManagerJndiName</session-state-manager-jndi-name>
          </cluster-config>
 
-         <security-domain>jbossSession2SecurityDomain</security-domain>
+         <security-domain>session2SecurityDomain</security-domain>
 
-         <method-attributes id="jbossSession2MethodAttributes-id">
-            <method id="jbossSession2MethodAttributesMethod1-id">
+         <method-attributes id="session2MethodAttributes-id">
+            <method id="session2MethodAttributesMethod1-id">
                <method-name>get*</method-name>
                <read-only>true</read-only>
                <idempotent>true</idempotent>
                <transaction-timeout>5000</transaction-timeout>
             </method>
-            <method id="jbossSession2MethodAttributesMethod2-id">
+            <method id="session2MethodAttributesMethod2-id">
                <method-name>*</method-name>
             </method>
          </method-attributes>
-         
-         <depends>jbossSession2Depends1</depends>
-         <depends>jbossSession2Depends2</depends>
 
-         <annotation id="jbossSession2Annotation1-id">
-            <description>en-jbossSession2Annotation1-desc</description>
-            <description xml:lang="fr">fr-jbossSession2Annotation1-desc</description>
-            <description xml:lang="de">de-jbossSession2Annotation1-desc</description>
-            
-            <annotation-class>jbossSession2Annotation1Class</annotation-class>
-            <annotation-implementation-class>jbossSession2Annotation1Impl</annotation-implementation-class>
+         <depends>session2Depends1</depends>
+         <depends>session2Depends2</depends>
+
+         <annotation id="session2Annotation1-id">
+            <description>en-session2Annotation1-desc</description>
+            <description xml:lang="fr">fr-session2Annotation1-desc</description>
+            <description xml:lang="de">de-session2Annotation1-desc</description>
+
+            <annotation-class>session2Annotation1Class</annotation-class>
+            <annotation-implementation-class>session2Annotation1Impl</annotation-implementation-class>
             <injection-target>
-               <injection-target-class>jbossSession2Annotation1InjectionTargetClass</injection-target-class>
-               <injection-target-name>jbossSession2Annotation1InjectionTargetName</injection-target-name>
+               <injection-target-class>session2Annotation1InjectionTargetClass</injection-target-class>
+               <injection-target-name>session2Annotation1InjectionTargetName</injection-target-name>
             </injection-target>
-            <property id="jbossSession2Annotation1Property1-id">
-               <description>en-jbossSession2Annotation1Property1-desc</description>
-               <description xml:lang="fr">fr-jbossSession2Annotation1Property1-desc</description>
-               <description xml:lang="de">de-jbossSession2Annotation1Property1-desc</description>
-               <property-name>jbossSession2Annotation1Property1Name</property-name>
-               <property-value>jbossSession2Annotation1Property1Value</property-value>
+            <property id="session2Annotation1Property1-id">
+               <description>en-session2Annotation1Property1-desc</description>
+               <description xml:lang="fr">fr-session2Annotation1Property1-desc</description>
+               <description xml:lang="de">de-session2Annotation1Property1-desc</description>
+               <property-name>session2Annotation1Property1Name</property-name>
+               <property-value>session2Annotation1Property1Value</property-value>
             </property>
-            <property id="jbossSession2Annotation1Property2-id">
-               <description>en-jbossSession2Annotation1Property2-desc</description>
-               <description xml:lang="fr">fr-jbossSession2Annotation1Property2-desc</description>
-               <description xml:lang="de">de-jbossSession2Annotation1Property2-desc</description>
-               <property-name>jbossSession2Annotation1Property2Name</property-name>
-               <property-value>jbossSession2Annotation1Property2Value</property-value>
+            <property id="session2Annotation1Property2-id">
+               <description>en-session2Annotation1Property2-desc</description>
+               <description xml:lang="fr">fr-session2Annotation1Property2-desc</description>
+               <description xml:lang="de">de-session2Annotation1Property2-desc</description>
+               <property-name>session2Annotation1Property2Name</property-name>
+               <property-value>session2Annotation1Property2Value</property-value>
             </property>
          </annotation>
-         <annotation id="jbossSession2Annotation2-id">
-            <description>en-jbossSession2Annotation2-desc</description>
-            <description xml:lang="fr">fr-jbossSession2Annotation2-desc</description>
-            <description xml:lang="de">de-jbossSession2Annotation2-desc</description>
-            
-            <annotation-class>jbossSession2Annotation2Class</annotation-class>
-            <annotation-implementation-class>jbossSession2Annotation2Impl</annotation-implementation-class>
+         <annotation id="session2Annotation2-id">
+            <description>en-session2Annotation2-desc</description>
+            <description xml:lang="fr">fr-session2Annotation2-desc</description>
+            <description xml:lang="de">de-session2Annotation2-desc</description>
+
+            <annotation-class>session2Annotation2Class</annotation-class>
+            <annotation-implementation-class>session2Annotation2Impl</annotation-implementation-class>
             <injection-target>
-               <injection-target-class>jbossSession2Annotation2InjectionTargetClass</injection-target-class>
-               <injection-target-name>jbossSession2Annotation2InjectionTargetName</injection-target-name>
+               <injection-target-class>session2Annotation2InjectionTargetClass</injection-target-class>
+               <injection-target-name>session2Annotation2InjectionTargetName</injection-target-name>
             </injection-target>
-            <property id="jbossSession2Annotation2Property1-id">
-               <description>en-jbossSession2Annotation2Property1-desc</description>
-               <description xml:lang="fr">fr-jbossSession2Annotation2Property1-desc</description>
-               <description xml:lang="de">de-jbossSession2Annotation2Property1-desc</description>
-               <property-name>jbossSession2Annotation2Property1Name</property-name>
-               <property-value>jbossSession2Annotation2Property1Value</property-value>
+            <property id="session2Annotation2Property1-id">
+               <description>en-session2Annotation2Property1-desc</description>
+               <description xml:lang="fr">fr-session2Annotation2Property1-desc</description>
+               <description xml:lang="de">de-session2Annotation2Property1-desc</description>
+               <property-name>session2Annotation2Property1Name</property-name>
+               <property-value>session2Annotation2Property1Value</property-value>
             </property>
-            <property id="jbossSession2Annotation2Property2-id">
-               <description>en-jbossSession2Annotation2Property2-desc</description>
-               <description xml:lang="fr">fr-jbossSession2Annotation2Property2-desc</description>
-               <description xml:lang="de">de-jbossSession2Annotation2Property2-desc</description>
-               <property-name>jbossSession2Annotation2Property2Name</property-name>
-               <property-value>jbossSession2Annotation2Property2Value</property-value>
+            <property id="session2Annotation2Property2-id">
+               <description>en-session2Annotation2Property2-desc</description>
+               <description xml:lang="fr">fr-session2Annotation2Property2-desc</description>
+               <description xml:lang="de">de-session2Annotation2Property2-desc</description>
+               <property-name>session2Annotation2Property2Name</property-name>
+               <property-value>session2Annotation2Property2Value</property-value>
             </property>
          </annotation>
 
-         <ignore-dependency id="jbossSession2IgnoreDependency-id">
-            <description>en-jbossSession2IgnoreDependency-desc</description>
-            <description xml:lang="fr">fr-jbossSession2IgnoreDependency-desc</description>
-            <description xml:lang="de">de-jbossSession2IgnoreDependency-desc</description>
+         <ignore-dependency id="session2IgnoreDependency-id">
+            <description>en-session2IgnoreDependency-desc</description>
+            <description xml:lang="fr">fr-session2IgnoreDependency-desc</description>
+            <description xml:lang="de">de-session2IgnoreDependency-desc</description>
             <injection-target>
-               <injection-target-class>jbossSession2IgnoreDependencyInjection1Class</injection-target-class>
-               <injection-target-name>jbossSession2IgnoreDependencyInjection1Name</injection-target-name>
+               <injection-target-class>session2IgnoreDependencyInjection1Class</injection-target-class>
+               <injection-target-name>session2IgnoreDependencyInjection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2IgnoreDependencyInjection2Class</injection-target-class>
-               <injection-target-name>jbossSession2IgnoreDependencyInjection2Name</injection-target-name>
+               <injection-target-class>session2IgnoreDependencyInjection2Class</injection-target-class>
+               <injection-target-name>session2IgnoreDependencyInjection2Name</injection-target-name>
             </injection-target>
          </ignore-dependency>
 
-         <aop-domain-name>jbossSession2AOPDomain</aop-domain-name>
-         
+         <aop-domain-name>session2AOPDomain</aop-domain-name>
+
          <cache-config>
-            <cache-value>jbossSession2CacheClass</cache-value>
+            <cache-value>session2CacheClass</cache-value>
             <cache-max-size>20</cache-max-size>
             <idle-timeout-seconds>22</idle-timeout-seconds>
             <remove-timeout-seconds>24</remove-timeout-seconds>
-            <cache-name>jbossSession2CacheName</cache-name>
-            <persistence-manager>jbossSession2PersistenceManager</persistence-manager>
+            <cache-name>session2CacheName</cache-name>
+            <persistence-manager>session2PersistenceManager</persistence-manager>
          </cache-config>
-         
+
          <pool-config>
-            <pool-value>jbossSession2PoolClass</pool-value>
+            <pool-value>session2PoolClass</pool-value>
             <pool-max-size>10</pool-max-size>
             <pool-timeout>11</pool-timeout>
          </pool-config>
 
-         <concurrent>false</concurrent>         
-         
-         <jndi-ref id="jbossSession2JndiRef1-id">
-            <description>en-jbossSession2JndiRef1-desc</description>
-            <description xml:lang="fr">fr-jbossSession2JndiRef1-desc</description>
-            <description xml:lang="de">de-jbossSession2JndiRef1-desc</description>
-            <jndi-ref-name>jbossSession2JndiRef1Name</jndi-ref-name>
-            <mapped-name>jbossSession2JndiRef1MappedName</mapped-name>
+         <concurrent>false</concurrent>
+
+         <jndi-ref id="session2JndiRef1-id">
+            <description>en-session2JndiRef1-desc</description>
+            <description xml:lang="fr">fr-session2JndiRef1-desc</description>
+            <description xml:lang="de">de-session2JndiRef1-desc</description>
+            <jndi-ref-name>session2JndiRef1Name</jndi-ref-name>
+            <mapped-name>session2JndiRef1MappedName</mapped-name>
             <injection-target>
-               <injection-target-class>jbossSession2JndiRef1Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2JndiRef1Injection1Name</injection-target-name>
+               <injection-target-class>session2JndiRef1Injection1Class</injection-target-class>
+               <injection-target-name>session2JndiRef1Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2JndiRef1Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2JndiRef1Injection2Name</injection-target-name>
+               <injection-target-class>session2JndiRef1Injection2Class</injection-target-class>
+               <injection-target-name>session2JndiRef1Injection2Name</injection-target-name>
             </injection-target>
          </jndi-ref>
-         <jndi-ref id="jbossSession2JndiRef2-id">
-            <description>en-jbossSession2JndiRef2-desc</description>
-            <description xml:lang="fr">fr-jbossSession2JndiRef2-desc</description>
-            <description xml:lang="de">de-jbossSession2JndiRef2-desc</description>
-            <jndi-ref-name>jbossSession2JndiRef2Name</jndi-ref-name>
-            <mapped-name>jbossSession2JndiRef2MappedName</mapped-name>
+         <jndi-ref id="session2JndiRef2-id">
+            <description>en-session2JndiRef2-desc</description>
+            <description xml:lang="fr">fr-session2JndiRef2-desc</description>
+            <description xml:lang="de">de-session2JndiRef2-desc</description>
+            <jndi-ref-name>session2JndiRef2Name</jndi-ref-name>
+            <mapped-name>session2JndiRef2MappedName</mapped-name>
             <injection-target>
-               <injection-target-class>jbossSession2JndiRef2Injection1Class</injection-target-class>
-               <injection-target-name>jbossSession2JndiRef2Injection1Name</injection-target-name>
+               <injection-target-class>session2JndiRef2Injection1Class</injection-target-class>
+               <injection-target-name>session2JndiRef2Injection1Name</injection-target-name>
             </injection-target>
             <injection-target>
-               <injection-target-class>jbossSession2JndiRef2Injection2Class</injection-target-class>
-               <injection-target-name>jbossSession2JndiRef2Injection2Name</injection-target-name>
+               <injection-target-class>session2JndiRef2Injection2Class</injection-target-class>
+               <injection-target-name>session2JndiRef2Injection2Name</injection-target-name>
             </injection-target>
          </jndi-ref>
 
-         <port-component id="jbossSession2PortComponent-id">
-            <port-component-name>jbossSession2-PortComponent</port-component-name>
-            <port-component-uri>/jbossSession2/PortComponentURI</port-component-uri>
+         <port-component id="session2PortComponent-id">
+            <port-component-name>session2-PortComponent</port-component-name>
+            <port-component-uri>/session2/PortComponentURI</port-component-uri>
             <auth-method>BASIC</auth-method>
             <transport-guarantee>NONE</transport-guarantee>
             <secure-wsdl-access>true</secure-wsdl-access>
-         </port-component>         
+         </port-component>
 
-         <ejb-timeout-identity id="jbossSession2EjbTimeoutIdentity-id">
-            <description>en-jbossSession2EjbTimeoutIdentity-desc</description>
-            <description xml:lang="fr">fr-jbossSession2EjbTimeoutIdentity-desc</description>
-            <description xml:lang="de">de-jbossSession2EjbTimeoutIdentity-desc</description>
-            <run-as-principal>jbossSession2EjbTimeoutIdentityRunAsPrincipal</run-as-principal>
+         <ejb-timeout-identity id="session2EjbTimeoutIdentity-id">
+            <description>en-session2EjbTimeoutIdentity-desc</description>
+            <description xml:lang="fr">fr-session2EjbTimeoutIdentity-desc</description>
+            <description xml:lang="de">de-session2EjbTimeoutIdentity-desc</description>
+            <run-as-principal>session2EjbTimeoutIdentityRunAsPrincipal</run-as-principal>
          </ejb-timeout-identity>
          -->
       </session>
 
       <session>
-         <ejb-name>jbossSession3EjbName</ejb-name>
+         <ejb-name>session3EjbName</ejb-name>
          <session-type>Stateful</session-type>
       </session>
 
       <session>
-         <ejb-name>jbossSession4EjbName</ejb-name>
+         <ejb-name>session4EjbName</ejb-name>
          <transaction-type>Bean</transaction-type>
       </session>
 
       <session>
-         <ejb-name>jbossSession5EjbName</ejb-name>
+         <ejb-name>session5EjbName</ejb-name>
          <ejb-class>jbossSession5EjbClass</ejb-class>
          <session-type>Stateless</session-type>
          <transaction-type>Container</transaction-type>

@@ -33,7 +33,7 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMer
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //implements MergeableMetaData<SecurityIdentityMetaData>
+public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions implements MergeableMetaData<SecurityIdentityMetaData>
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = -6336033602938028216L;
@@ -166,6 +166,7 @@ public class SecurityIdentityMetaData extends IdMetaDataImplWithDescriptions //i
     * @param override
     * @param original
     */
+   @Override
    public void merge(SecurityIdentityMetaData override, SecurityIdentityMetaData original)
    {
       IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);

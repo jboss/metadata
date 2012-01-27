@@ -111,7 +111,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
    protected void assertId(String prefix, Object object)
    {
       assertNotNull(object);
-      assertTrue(object.getClass()+" is an IdMetaData", object instanceof IdMetaData);
+      assertTrue(object.getClass()+" is not an IdMetaData", object instanceof IdMetaData);
       IdMetaData idMetaData = (IdMetaData) object;
       assertEquals(prefix + "-id", idMetaData.getId());
    }

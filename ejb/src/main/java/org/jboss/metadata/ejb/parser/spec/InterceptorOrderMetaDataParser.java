@@ -27,13 +27,15 @@ import org.jboss.metadata.ejb.spec.InterceptorOrderMetaData;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+
 /**
  * Parses the &lt;interceptor-order&gt; element in a ejb-jar.xml and creates metadata out of it.
  * <p/>
  * <p/>
  * Author: Stuart Douglas
  */
-public class InterceptorOrderMetaDataParser extends AbstractMetaDataParser<InterceptorOrderMetaData>
+public class InterceptorOrderMetaDataParser extends AbstractIdMetaDataParser<InterceptorOrderMetaData>
 {
    public static final InterceptorOrderMetaDataParser INSTANCE = new InterceptorOrderMetaDataParser();
 
@@ -48,6 +50,7 @@ public class InterceptorOrderMetaDataParser extends AbstractMetaDataParser<Inter
    public InterceptorOrderMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       InterceptorOrderMetaData interceptors = new InterceptorOrderMetaData();
+      processAttributes(interceptors, reader, this);
       this.processElements(interceptors, reader);
       return interceptors;
    }

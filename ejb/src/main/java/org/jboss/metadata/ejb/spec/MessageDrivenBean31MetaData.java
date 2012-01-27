@@ -21,14 +21,6 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.common.ejb.IScheduleTarget;
-import org.jboss.metadata.common.ejb.ITimeoutTarget;
-import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
-import org.jboss.metadata.merge.MergeUtil;
-
-import javax.ejb.Schedule;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -37,76 +29,12 @@ import java.util.List;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData implements ITimeoutTarget, IScheduleTarget
+public interface MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData
 {
-
-   /**
-    * Represents metadata for {@link Schedule}
-    */
-   private List<TimerMetaData> timers = new ArrayList<TimerMetaData>();
-
-   private AroundTimeoutsMetaData aroundTimeouts;
-
-   
    /**
     * Returns the {@link TimerMetaData} associated with this bean
     */
-   @Override
-   public List<TimerMetaData> getTimers()
-   {
-      return this.timers;
-   }
+   List<TimerMetaData> getTimers();
 
-   /**
-    * Sets the {@link TimerMetaData} for this bean
-    */
-   @Override
-   public void setTimers(List<TimerMetaData> timers)
-   {
-      this.timers = timers;
-   }
-
-   @Override
-   public void addTimer(TimerMetaData timer)
-   {
-      if (this.timers == null)
-      {
-         this.timers = new ArrayList<TimerMetaData>();
-      }
-      this.timers.add(timer);
-   }
-   
-   /**
-    * {@inheritDoc}
-    */
-   @Override
-   public void merge(JBossGenericBeanMetaData override, MessageDrivenBeanMetaData original)
-   {
-      super.merge(override, original);
-
-      MessageDrivenBean31MetaData originalMetaData = (MessageDrivenBean31MetaData) original;
-      
-      // merge the (auto)timer metadata
-      Collection<TimerMetaData> originalTimers = original == null ? null : originalMetaData.timers;
-      Collection<TimerMetaData> overrideTimers = override == null ? null : override.getTimers();
-      if(originalTimers != null || overrideTimers != null)
-      {
-         if (this.timers == null)
-         {
-            this.timers = new ArrayList<TimerMetaData>();
-         }
-         MergeUtil.merge(this.timers, overrideTimers, originalTimers);
-      }
-      
-   }
-
-   public AroundTimeoutsMetaData getAroundTimeouts()
-   {
-      return aroundTimeouts;
-   }
-
-   public void setAroundTimeouts(AroundTimeoutsMetaData aroundTimeouts)
-   {
-      this.aroundTimeouts = aroundTimeouts;
-   }
+   AroundTimeoutsMetaData getAroundTimeouts();
 }

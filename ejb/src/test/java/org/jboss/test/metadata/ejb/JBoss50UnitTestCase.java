@@ -674,7 +674,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest
    {
       EjbJarMetaData ejbJar = new EjbJarMetaData(EjbJarVersion.EJB_3_1);
       ejbJar.setEnterpriseBeans(new EnterpriseBeansMetaData());
-      MessageDrivenBeanMetaData messageBean = new MessageDrivenBeanMetaData();
+      GenericBeanMetaData messageBean = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       messageBean.setEjbName("MyMDB");
       // Do not add an activationConfig
 //      ActivationConfigMetaData activationConfig = new ActivationConfigMetaData();

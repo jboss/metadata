@@ -26,6 +26,8 @@ import org.jboss.metadata.javaee.support.IdMetaData;
 
 import java.util.ArrayList;
 
+import static org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData.override;
+
 /**
  * RelationsMetaData.
  * 
@@ -34,7 +36,7 @@ import java.util.ArrayList;
  * @version $Revision: 1.1 $
  */
 public class RelationsMetaData extends ArrayList<RelationMetaData>
-   implements IdMetaData
+   implements IdMetaData, MergeableMetaData<RelationsMetaData>
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = -3080564843998267217L;
@@ -86,4 +88,10 @@ public class RelationsMetaData extends ArrayList<RelationMetaData>
       this.descriptions = descriptions;
    }
 
+   @Override
+   public void merge(RelationsMetaData override, RelationsMetaData original)
+   {
+      this.id = override(override != null ? override.id : null, original != null ? original.id : null);
+      this.descriptions = override(override != null ? override.descriptions : null, original != null ? original.descriptions : null);
+   }
 }

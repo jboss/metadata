@@ -637,6 +637,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       IEnterpriseBeanMetaData enterpriseBeanMeta = enterpriseBeansMetaData.get(ejbName);
       assertNotNull("Can't find bean " + ejbName, enterpriseBeanMeta);
       assertEquals(ejbName, enterpriseBeanMeta.getEjbName());
+      assertTrue("Bean " + ejbName + " is not a " + expected + ", but " + enterpriseBeanMeta.getClass(), expected.isAssignableFrom(enterpriseBeanMeta.getClass()));
       return expected.cast(enterpriseBeanMeta);
    }
 

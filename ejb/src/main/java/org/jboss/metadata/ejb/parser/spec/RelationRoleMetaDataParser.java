@@ -22,23 +22,22 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 import org.jboss.metadata.ejb.spec.MultiplicityType;
 import org.jboss.metadata.ejb.spec.RelationRoleMetaData;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.javaee.support.IdMetaData;
-import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * Parses and creates metadata out of the &lt;ejb-relation-role&gt; element in the ejb-jar.xml
  *
  * @author Stuart Douglas
  */
-public class RelationRoleMetaDataParser extends AbstractMetaDataParser<RelationRoleMetaData>
+public class RelationRoleMetaDataParser extends AbstractWithDescriptionsParser<RelationRoleMetaData>
 {
     private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final RelationRoleMetaDataParser INSTANCE = new RelationRoleMetaDataParser();
@@ -72,18 +71,6 @@ public class RelationRoleMetaDataParser extends AbstractMetaDataParser<RelationR
    @Override
    protected void processElement(RelationRoleMetaData relation, XMLStreamReader reader) throws XMLStreamException
    {
-
-      // Handle the description group elements
-      DescriptionsImpl descriptionGroup = new DescriptionsImpl();
-      if (DescriptionsMetaDataParser.parse(reader, descriptionGroup))
-      {
-         if (relation.getDescriptions() == null)
-         {
-            relation.setDescriptions(descriptionGroup);
-         }
-         return;
-      }
-
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -110,7 +97,8 @@ public class RelationRoleMetaDataParser extends AbstractMetaDataParser<RelationR
             reader.getElementText();
             return;
          default:
-            throw unexpectedElement(reader);
+            super.processElement(relation, reader);
+            break;
       }
    }
 

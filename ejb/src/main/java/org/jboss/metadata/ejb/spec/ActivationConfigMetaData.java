@@ -30,7 +30,7 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMer
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class ActivationConfigMetaData extends IdMetaDataImplWithDescriptions
+public class ActivationConfigMetaData extends IdMetaDataImplWithDescriptions implements MergeableMetaData<ActivationConfigMetaData>
 {
    /** The serialVersionUID */
    private static final long serialVersionUID = -9138498601978922673L;

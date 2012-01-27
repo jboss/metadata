@@ -25,17 +25,21 @@ package org.jboss.metadata.ejb.parser.spec;
 import org.jboss.metadata.ejb.spec.RelationMetaData;
 import org.jboss.metadata.ejb.spec.RelationsMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
+import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+
 /**
  * Parses the relations elements of ejb-jar.xml
  */
 public class RelationsMetaDataParser extends MetaDataElementParser
 {
+   private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
 
    /**
     * Creates and returns {@link org.jboss.metadata.ejb.spec.RelationsMetaData} after parsing the enterprise-beans
@@ -49,6 +53,7 @@ public class RelationsMetaDataParser extends MetaDataElementParser
    public static RelationsMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
       RelationsMetaData relations = new RelationsMetaData();
+      processAttributes(relations, reader, ATTRIBUTE_PROCESSOR);
       DescriptionsImpl descriptions = new DescriptionsImpl();
       // Handle elements
       while (reader.hasNext() && reader.nextTag() != END_ELEMENT)

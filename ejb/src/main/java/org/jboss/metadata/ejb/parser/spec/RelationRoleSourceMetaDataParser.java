@@ -23,8 +23,6 @@
 package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.RelationRoleSourceMetaData;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
-import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -34,7 +32,7 @@ import javax.xml.stream.XMLStreamReader;
  *
  * @author Stuart Douglas
  */
-public class RelationRoleSourceMetaDataParser extends AbstractMetaDataParser<RelationRoleSourceMetaData>
+public class RelationRoleSourceMetaDataParser extends AbstractWithDescriptionsParser<RelationRoleSourceMetaData>
 {
 
    public static final RelationRoleSourceMetaDataParser INSTANCE = new RelationRoleSourceMetaDataParser();
@@ -75,18 +73,6 @@ public class RelationRoleSourceMetaDataParser extends AbstractMetaDataParser<Rel
    @Override
    protected void processElement(RelationRoleSourceMetaData source, XMLStreamReader reader) throws XMLStreamException
    {
-
-      // Handle the description group elements
-      DescriptionsImpl descriptionGroup = new DescriptionsImpl();
-      if (DescriptionsMetaDataParser.parse(reader, descriptionGroup))
-      {
-         if (source.getDescriptions() == null)
-         {
-            source.setDescriptions(descriptionGroup);
-         }
-         return;
-      }
-
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -97,7 +83,8 @@ public class RelationRoleSourceMetaDataParser extends AbstractMetaDataParser<Rel
             return;
 
          default:
-            throw unexpectedElement(reader);
+            super.processElement(source, reader);
+            break;
       }
    }
 

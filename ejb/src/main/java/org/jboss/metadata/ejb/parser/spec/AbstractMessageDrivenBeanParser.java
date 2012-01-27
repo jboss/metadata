@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.AbstractGenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
-import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 
 import javax.ejb.TransactionManagementType;
@@ -33,7 +33,7 @@ import javax.xml.stream.XMLStreamReader;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public abstract class AbstractMessageDrivenBeanParser<MD extends MessageDrivenBeanMetaData> extends AbstractEnterpriseBeanMetaDataParser<MD>
+public abstract class AbstractMessageDrivenBeanParser<MD extends AbstractGenericBeanMetaData> extends AbstractEnterpriseBeanMetaDataParser<MD>
 {
    @Override
    protected void processElement(MD bean, XMLStreamReader reader) throws XMLStreamException

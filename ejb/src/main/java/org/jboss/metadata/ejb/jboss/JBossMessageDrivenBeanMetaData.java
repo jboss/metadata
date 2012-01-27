@@ -38,6 +38,7 @@ import org.jboss.metadata.ejb.spec.SubscriptionDurability;
  * @version $Revision: 1.1 $
  */
 // unordered for pre-jboss-5_0.dtd
+@Deprecated
 public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData implements ITimeoutTarget
 {
    /** The serialVersionUID */

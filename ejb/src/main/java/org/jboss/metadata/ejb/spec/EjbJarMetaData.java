@@ -175,15 +175,12 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
          setEnterpriseBeans(override.getEnterpriseBeans().createMerged(original != null ? original.getEnterpriseBeans() : null));
       else if (original != null && original.getEnterpriseBeans() != null)
          setEnterpriseBeans(original.getEnterpriseBeans().createMerged(null));
-      // TODO: relationShips
       if (override != null && override.getVersion() != null)
          version = override.getVersion();
       else if (original != null && original.getVersion() != null)
          version = original.getVersion();
 
-      if(original != null ) {
-         relationships = original.getRelationships();
-      }
+      relationships = AbstractEnterpriseBeanMetaData.augment(new RelationsMetaData(), override != null ? override.relationships : null, original != null ? original.relationships : null);
    }
 
    /**

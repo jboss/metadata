@@ -1,15 +1,16 @@
 package org.jboss.metadata.ejb.test.entity;
 
-import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
+import org.jboss.metadata.ejb.spec.EjbType;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
 import org.junit.Test;
 
 public class EntityBeanMetaDataMergingTestCase {
 
     @Test
     public void testMerging() {
-        EntityBeanMetaData ebMetaData1 = new EntityBeanMetaData();
+        GenericBeanMetaData ebMetaData1 = new GenericBeanMetaData(EjbType.ENTITY);
         ebMetaData1.setName("Entity Bean 1");
-        EntityBeanMetaData ebMetaData2 = new EntityBeanMetaData();
+        GenericBeanMetaData ebMetaData2 = new GenericBeanMetaData(EjbType.ENTITY);
         ebMetaData2.setName("Entity Bean 2");
         ebMetaData1.merge(ebMetaData1, ebMetaData2);
     }

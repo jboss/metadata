@@ -21,442 +21,116 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
-
 /**
  * EntityBeanMetaData.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class EntityBeanMetaData extends AbstractEnterpriseBeanMetaData
+public interface EntityBeanMetaData extends EnterpriseBeanMetaData
 {
-   /**
-    * The serialVersionUID
-    */
-   private static final long serialVersionUID = 1538890391418490043L;
-
-   /**
-    * The home interface
-    */
-   private String home;
-
-   /**
-    * The remote interface
-    */
-   private String remote;
-
-   /**
-    * The local home
-    */
-   private String localHome;
-
-   /**
-    * The local
-    */
-   private String local;
-
-   /**
-    * The persistence type
-    */
-   private PersistenceType persistenceType;
-
-   /**
-    * The primary key class
-    */
-   private String primKeyClass;
-
-   /**
-    * The reentrant
-    */
-   private boolean reentrant;
-
-   /**
-    * The cmp version
-    */
-   private String cmpVersion;
-
-   /**
-    * The abstract schema name
-    */
-   private String abstractSchemaName;
-
-   /**
-    * The cmp fields
-    */
-   private CMPFieldsMetaData cmpFields;
-
-   /**
-    * The primary key field
-    */
-   private String primKeyField;
-
-   /**
-    * The queries
-    */
-   private QueriesMetaData queries;
-
-   /**
-    * Create a new EntityBeanMetaData.
-    */
-   public EntityBeanMetaData()
-   {
-      // For serialization
-
-      setEjbType(EjbType.ENTITY);
-   }
-
-   protected EntityBeanMetaData createMerged(AbstractEnterpriseBeanMetaData original)
-   {
-      final EntityBeanMetaData merged = new EntityBeanMetaData();
-      merged.merge(this, original);
-      return merged;
-   }
-
-   @Override
-   public void merge(AbstractEnterpriseBeanMetaData or, AbstractEnterpriseBeanMetaData o)
-   {
-      super.merge(or, o);
-      EntityBeanMetaData original = (EntityBeanMetaData) o;
-      JBossGenericBeanMetaData override = (JBossGenericBeanMetaData) or;
-      if (override != null && override.getHome() != null)
-         setHome(override.getHome());
-      else if (original != null && original.home != null)
-         setHome(original.home);
-      if (override != null && override.getRemote() != null)
-         setRemote(override.getRemote());
-      else if (original != null && original.remote != null)
-         setRemote(original.remote);
-      if (override != null && override.getLocalHome() != null)
-         setLocalHome(override.getLocalHome());
-      else if (original != null && original.localHome != null)
-         setLocalHome(original.localHome);
-      if (override != null && override.getLocal() != null)
-         setLocal(override.getLocal());
-      else if (original != null && original.local != null)
-         setLocal(original.local);
-      if (original != null)
-      {
-         primKeyClass = original.getPrimKeyClass();
-         persistenceType = original.getPersistenceType();
-         reentrant = original.isReentrant();
-         cmpVersion = original.getCmpVersion();
-         abstractSchemaName = original.getAbstractSchemaName();
-         cmpFields = original.getCmpFields();
-         primKeyField = original.getPrimKeyField();
-         queries = original.getQueries();
-      }
-   }
-
    /**
     * Get the home.
     *
     * @return the home.
     */
-   public String getHome()
-   {
-      return home;
-   }
-
-   /**
-    * Set the home.
-    *
-    * @param home the home.
-    * @throws IllegalArgumentException for a null home
-    */
-   public void setHome(String home)
-   {
-      if (home == null)
-         throw new IllegalArgumentException("Null home");
-      this.home = home;
-   }
+   String getHome();
 
    /**
     * Get the remote.
     *
     * @return the remote.
     */
-   public String getRemote()
-   {
-      return remote;
-   }
-
-   /**
-    * Set the remote.
-    *
-    * @param remote the remote.
-    * @throws IllegalArgumentException for a null remote
-    */
-   public void setRemote(String remote)
-   {
-      if (remote == null)
-         throw new IllegalArgumentException("Null remote");
-      this.remote = remote;
-   }
+   String getRemote();
 
    /**
     * Get the localHome.
     *
     * @return the localHome.
     */
-   public String getLocalHome()
-   {
-      return localHome;
-   }
-
-   /**
-    * Set the localHome.
-    *
-    * @param localHome the localHome.
-    * @throws IllegalArgumentException for a null localHome
-    */
-   public void setLocalHome(String localHome)
-   {
-      if (localHome == null)
-         throw new IllegalArgumentException("Null localHome");
-      this.localHome = localHome;
-   }
+   String getLocalHome();
 
    /**
     * Get the local.
     *
     * @return the local.
     */
-   public String getLocal()
-   {
-      return local;
-   }
-
-   /**
-    * Set the local.
-    *
-    * @param local the local.
-    * @throws IllegalArgumentException for a null local
-    */
-   public void setLocal(String local)
-   {
-      if (local == null)
-         throw new IllegalArgumentException("Null local");
-      this.local = local;
-   }
+   String getLocal();
 
    /**
     * Is this container managed persistence
     *
     * @return true for cmp
     */
-   public boolean isCMP()
-   {
-      if (persistenceType == null)
-         return true;
-      return persistenceType == PersistenceType.Container;
-   }
+   boolean isCMP();
 
    /**
     * Is this bean managed persistence
     *
     * @return true for bmp
     */
-   public boolean isBMP()
-   {
-      return isCMP() == false;
-   }
+   boolean isBMP();
 
    /**
     * Get the persistenceType.
     *
     * @return the persistenceType.
     */
-   public PersistenceType getPersistenceType()
-   {
-      return persistenceType;
-   }
-
-   /**
-    * Set the persistenceType.
-    *
-    * @param persistenceType the persistenceType.
-    * @throws IllegalArgumentException for a null persistenceType
-    */
-   public void setPersistenceType(PersistenceType persistenceType)
-   {
-      if (persistenceType == null)
-         throw new IllegalArgumentException("Null persistenceType");
-      this.persistenceType = persistenceType;
-   }
+   PersistenceType getPersistenceType();
 
    /**
     * Get the primKeyClass.
     *
     * @return the primKeyClass.
     */
-   public String getPrimKeyClass()
-   {
-      return primKeyClass;
-   }
-
-   /**
-    * Set the primKeyClass.
-    *
-    * @param primKeyClass the primKeyClass.
-    * @throws IllegalArgumentException for a null primKeyClass
-    */
-   public void setPrimKeyClass(String primKeyClass)
-   {
-      if (primKeyClass == null)
-         throw new IllegalArgumentException("Null primKeyClass");
-      this.primKeyClass = primKeyClass;
-   }
+   String getPrimKeyClass();
 
    /**
     * Get the reentrant.
     *
     * @return the reentrant.
     */
-   public boolean isReentrant()
-   {
-      return reentrant;
-   }
-
-   /**
-    * Set the reentrant.
-    *
-    * @param reentrant the reentrant.
-    */
-   public void setReentrant(boolean reentrant)
-   {
-      this.reentrant = reentrant;
-   }
+   boolean isReentrant();
 
    /**
     * Whether it is CMP1x
     *
     * @return true for cmp1x
     */
-   public boolean isCMP1x()
-   {
-      if (cmpVersion == null)
-      {
-         if (getEjbJarMetaData().isEJB2x() || getEjbJarMetaData().isEJB3x())
-            return false;
-         else
-            return true;
-      }
-      return "1.x".equals(cmpVersion);
-   }
+   boolean isCMP1x();
 
    /**
     * Get the cmpVersion.
     *
     * @return the cmpVersion.
     */
-   public String getCmpVersion()
-   {
-      return cmpVersion;
-   }
-
-   /**
-    * Set the cmpVersion.
-    *
-    * @param cmpVersion the cmpVersion.
-    * @throws IllegalArgumentException for a null cmpVersion
-    */
-   public void setCmpVersion(String cmpVersion)
-   {
-      if (cmpVersion == null)
-         throw new IllegalArgumentException("Null cmpVersion");
-      this.cmpVersion = cmpVersion;
-   }
+   String getCmpVersion();
 
    /**
     * Get the abstractSchemaName.
     *
     * @return the abstractSchemaName.
     */
-   public String getAbstractSchemaName()
-   {
-      return abstractSchemaName;
-   }
-
-   /**
-    * Set the abstractSchemaName.
-    *
-    * @param abstractSchemaName the abstractSchemaName.
-    * @throws IllegalArgumentException for a null abstractSchemaName
-    */
-   public void setAbstractSchemaName(String abstractSchemaName)
-   {
-      if (abstractSchemaName == null)
-         throw new IllegalArgumentException("Null abstractSchemaName");
-      this.abstractSchemaName = abstractSchemaName;
-   }
+   String getAbstractSchemaName();
 
    /**
     * Get the primKeyField.
     *
     * @return the primKeyField.
     */
-   public String getPrimKeyField()
-   {
-      return primKeyField;
-   }
-
-   /**
-    * Set the primKeyField.
-    *
-    * @param primKeyField the primKeyField.
-    * @throws IllegalArgumentException for a null primKeyField
-    */
-   public void setPrimKeyField(String primKeyField)
-   {
-      if (primKeyField == null)
-         throw new IllegalArgumentException("Null primKeyField");
-      this.primKeyField = primKeyField;
-   }
+   String getPrimKeyField();
 
    /**
     * Get the cmpFields.
     *
     * @return the cmpFields.
     */
-   public CMPFieldsMetaData getCmpFields()
-   {
-      return cmpFields;
-   }
-
-   /**
-    * Set the cmpFields.
-    *
-    * @param cmpFields the cmpFields.
-    * @throws IllegalArgumentException for a null cmpFields
-    */
-   public void setCmpFields(CMPFieldsMetaData cmpFields)
-   {
-      if (cmpFields == null)
-         throw new IllegalArgumentException("Null cmpFields");
-      this.cmpFields = cmpFields;
-   }
+   CMPFieldsMetaData getCmpFields();
 
    /**
     * Get the queries.
     *
     * @return the queries.
     */
-   public QueriesMetaData getQueries()
-   {
-      return queries;
-   }
-
-   /**
-    * Set the queries.
-    *
-    * @param queries the queries.
-    * @throws IllegalArgumentException for a null queries
-    */
-   public void setQueries(QueriesMetaData queries)
-   {
-      if (queries == null)
-         throw new IllegalArgumentException("Null queries");
-      this.queries = queries;
-   }
+   QueriesMetaData getQueries();
 }

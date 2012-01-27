@@ -1,17 +1,20 @@
 package org.jboss.metadata.ejb.parser.spec;
 
+import org.jboss.metadata.ejb.spec.CMRFieldMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import org.jboss.metadata.ejb.spec.CMRFieldMetaData;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
-import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
+
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 
 /**
  * @author John Bailey
  */
-public class RelationRoleCmrFieldMetaDataParser extends AbstractMetaDataParser<CMRFieldMetaData> {
+public class RelationRoleCmrFieldMetaDataParser extends AbstractWithDescriptionsParser<CMRFieldMetaData> {
 
     public static final RelationRoleCmrFieldMetaDataParser INSTANCE = new RelationRoleCmrFieldMetaDataParser();
+    private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
 
     /**
      * Creates and returns {@link org.jboss.metadata.ejb.spec.CMRFieldMetaData} after parsing the cmr-field element.
@@ -25,37 +28,13 @@ public class RelationRoleCmrFieldMetaDataParser extends AbstractMetaDataParser<C
     public CMRFieldMetaData parse(XMLStreamReader reader) throws XMLStreamException {
 
         CMRFieldMetaData data = new CMRFieldMetaData();
-
-        final int count = reader.getAttributeCount();
-        for (
-                int i = 0;
-                i < count; i++)
-
-        {
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final EjbJarAttribute ejbJarVersionAttribute = EjbJarAttribute.forName(reader.getAttributeLocalName(i));
-            if (ejbJarVersionAttribute == EjbJarAttribute.ID) {
-                data.setId(reader.getAttributeValue(i));
-            }
-        }
-
+        processAttributes(data, reader, ATTRIBUTE_PROCESSOR);
         this.processElements(data, reader);
         return data;
     }
 
     @Override
     protected void processElement(CMRFieldMetaData field, XMLStreamReader reader) throws XMLStreamException {
-
-        DescriptionsImpl descriptionGroup = new DescriptionsImpl();
-        if (DescriptionsMetaDataParser.parse(reader, descriptionGroup)) {
-            if (field.getDescriptions() == null) {
-                field.setDescriptions(descriptionGroup);
-            }
-            return;
-        }
-
         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
         switch (ejbJarElement) {
             case CMR_FIELD_NAME: {
@@ -67,7 +46,8 @@ public class RelationRoleCmrFieldMetaDataParser extends AbstractMetaDataParser<C
                 return;
             }
             default:
-                throw unexpectedElement(reader);
+                super.processElement(field, reader);
+                break;
         }
     }
 }

@@ -22,9 +22,6 @@
 package org.jboss.metadata.ejb.spec;
 
 
-import org.jboss.metadata.common.ejb.ITimeoutTarget;
-import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
-
 import javax.ejb.TransactionManagementType;
 
 /**
@@ -33,105 +30,28 @@ import javax.ejb.TransactionManagementType;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class MessageDrivenBeanMetaData extends AbstractEnterpriseBeanMetaData
-   implements ITimeoutTarget
+public interface MessageDrivenBeanMetaData extends EnterpriseBeanMetaData
 {
-   /** The serialVersionUID */
-   private static final long serialVersionUID = -7353017099819838715L;
-   
-   /** The messaging type */
-   private String messagingType;
-
-   /** The timeout method */
-   private NamedMethodMetaData timeoutMethod;
-
-   /** The transaction type */
-   private TransactionManagementType transactionType;
-
-   /** The message destination type */
-   private String messageDestinationType;
-
-   /** The message destination link */
-   private String messageDestinationLink;
-
-   /** The activation config */
-   private ActivationConfigMetaData activationConfig;
-
-   /** The around invokes */
-   private AroundInvokesMetaData aroundInvokes;
-
-   /** The message selector */
-   private String messageSelector;
-
-   /** The acknowledge mode */
-   private String acknowledgeMode;
-
-   /** The subscription durability */
-   private SubscriptionDurability subscriptionDurability;
-
-   /**
-    * Create a new MessageDrivenBeanMetaData.
-    */
-   public MessageDrivenBeanMetaData()
-   {
-      // For serialization
-
-      setEjbType(EjbType.MESSAGE_DRIVEN);
-   }
-
-   protected MessageDrivenBeanMetaData createMerged(AbstractEnterpriseBeanMetaData original)
-   {
-      final MessageDrivenBeanMetaData merged = new MessageDrivenBeanMetaData();
-      merged.merge(this, original);
-      return merged;
-   }
-
    /**
     * Get the messagingType.
     * 
     * @return the messagingType.
     */
-   public String getMessagingType()
-   {
-      return messagingType;
-   }
+   String getMessagingType();
 
    /**
     * Is this JMS
     * 
     * @return true for jms
     */
-   public boolean isJMS()
-   {
-      String messagingType = getMessagingType();
-      return messagingType == null || "javax.jms.MessageListener".equals(messagingType);
-   }
-
-
-   /**
-    * Set the messagingType.
-    * 
-    * @param messagingType the messagingType.
-    * @throws IllegalArgumentException for a null messagingType
-    */
-   public void setMessagingType(String messagingType)
-   {
-      if (messagingType == null)
-         throw new IllegalArgumentException("Null messagingType");
-      this.messagingType = messagingType;
-   }
-
+   boolean isJMS();
 
    /**
     * Get the timeoutMethod.
     * 
     * @return the timeoutMethod.
     */
-   public NamedMethodMetaData getTimeoutMethod()
-   {
-      return timeoutMethod;
-   }
-
+   NamedMethodMetaData getTimeoutMethod();
 
    /**
     * Set the timeoutMethod.
@@ -139,274 +59,57 @@ public class MessageDrivenBeanMetaData extends AbstractEnterpriseBeanMetaData
     * @param timeoutMethod the timeoutMethod.
     * @throws IllegalArgumentException for a null timeoutMethod
     */
-   public void setTimeoutMethod(NamedMethodMetaData timeoutMethod)
-   {
-      if (timeoutMethod == null)
-         throw new IllegalArgumentException("Null timeoutMethod");
-      this.timeoutMethod = timeoutMethod;
-   }
-
+   void setTimeoutMethod(NamedMethodMetaData timeoutMethod);
 
    @Override
-   public TransactionManagementType getTransactionType()
-   {
-      return transactionType;
-   }
-
-
-   /**
-    * Set the transactionType.
-    * 
-    * @param transactionType the transactionType.
-    * @throws IllegalArgumentException for a null transactionType
-    */
-   public void setTransactionType(TransactionManagementType transactionType)
-   {
-      if (transactionType == null)
-         throw new IllegalArgumentException("Null transactionType");
-      this.transactionType = transactionType;
-   }
-
+   TransactionManagementType getTransactionType();
 
    /**
     * Get the messageDestinationType.
     * 
     * @return the messageDestinationType.
     */
-   public String getMessageDestinationType()
-   {
-      return messageDestinationType;
-   }
-
-
-   /**
-    * Set the messageDestinationType.
-    * 
-    * @param messageDestinationType the messageDestinationType.
-    * @throws IllegalArgumentException for a null messageDestinationType
-    */
-   public void setMessageDestinationType(String messageDestinationType)
-   {
-      if (messageDestinationType == null)
-         throw new IllegalArgumentException("Null messageDestinationType");
-      this.messageDestinationType = messageDestinationType;
-   }
-
+   String getMessageDestinationType();
 
    /**
     * Get the aroundInvokes.
     * 
     * @return the aroundInvokes.
     */
-   public AroundInvokesMetaData getAroundInvokes()
-   {
-      return aroundInvokes;
-   }
-
-
-   /**
-    * Set the aroundInvokes.
-    * 
-    * @param aroundInvokes the aroundInvokes.
-    * @throws IllegalArgumentException for a null aroundInvokes
-    */
-   public void setAroundInvokes(AroundInvokesMetaData aroundInvokes)
-   {
-      if (aroundInvokes == null)
-         throw new IllegalArgumentException("Null aroundInvokes");
-      this.aroundInvokes = aroundInvokes;
-   }
-
+   AroundInvokesMetaData getAroundInvokes();
 
    /**
     * Get the messageDestinationLink.
     * 
     * @return the messageDestinationLink.
     */
-   public String getMessageDestinationLink()
-   {
-      return messageDestinationLink;
-   }
-
-
-   /**
-    * Set the messageDestinationLink.
-    * 
-    * @param messageDestinationLink the messageDestinationLink.
-    * @throws IllegalArgumentException for a null messageDestinationLink
-    */
-   public void setMessageDestinationLink(String messageDestinationLink)
-   {
-      if (messageDestinationLink == null)
-         throw new IllegalArgumentException("Null messageDestinationLink");
-      this.messageDestinationLink = messageDestinationLink;
-   }
-
+   String getMessageDestinationLink();
 
    /**
     * Get the activationConfig.
     * 
     * @return the activationConfig.
     */
-   public ActivationConfigMetaData getActivationConfig()
-   {
-      return activationConfig;
-   }
-
-
-   /**
-    * Set the activationConfig.
-    * 
-    * @param activationConfig the activationConfig.
-    * @throws IllegalArgumentException for a null activationConfig
-    */
-   public void setActivationConfig(ActivationConfigMetaData activationConfig)
-   {
-      if (activationConfig == null)
-         throw new IllegalArgumentException("Null activationConfig");
-      this.activationConfig = activationConfig;
-   }
+   ActivationConfigMetaData getActivationConfig();
 
    /**
     * Get the messageSelector.
     * 
     * @return the messageSelector.
     */
-   public String getMessageSelector()
-   {
-      return messageSelector;
-   }
-
-   /**
-    * Set the messageSelector.
-    * 
-    * @param messageSelector the messageSelector.
-    * @throws IllegalArgumentException for a null messageSelector
-    */
-   public void setMessageSelector(String messageSelector)
-   {
-      if (messageSelector == null)
-         throw new IllegalArgumentException("Null messageSelector");
-      this.messageSelector = messageSelector;
-   }
+   String getMessageSelector();
 
    /**
     * Get the acknowledgeMode.
     * 
     * @return the acknowledgeMode.
     */
-   public String getAcknowledgeMode()
-   {
-      return acknowledgeMode;
-   }
-
-   /**
-    * Set the acknowledgeMode.
-    * 
-    * @param acknowledgeMode the acknowledgeMode.
-    * @throws IllegalArgumentException for a null acknowledgeMode
-    */
-   public void setAcknowledgeMode(String acknowledgeMode)
-   {
-      if (acknowledgeMode == null)
-         throw new IllegalArgumentException("Null acknowledgeMode");
-      this.acknowledgeMode = acknowledgeMode;
-   }
+   String getAcknowledgeMode();
 
    /**
     * Get the subscriptionDurability.
     * 
     * @return the subscriptionDurability.
     */
-   public SubscriptionDurability getSubscriptionDurability()
-   {
-      return subscriptionDurability;
-   }
-
-   /**
-    * Set the subscriptionDurability.
-    * 
-    * @param subscriptionDurability the subscriptionDurability.
-    * @throws IllegalArgumentException for a null subscriptionDurability
-    */
-   public void setSubscriptionDurability(SubscriptionDurability subscriptionDurability)
-   {
-      if (subscriptionDurability == null)
-         throw new IllegalArgumentException("Null subscriptionDurability");
-      this.subscriptionDurability = subscriptionDurability;
-   }
-
-   public void setMessageDrivenDestination(MessageDrivenDestinationMetaData mdd)
-   {
-      // Translate this into destinationType, subscriptionDurability
-      this.setMessageDestinationType(mdd.getDestinationType());
-      String durability = mdd.getSubscriptionDurability();
-      SubscriptionDurability sd = SubscriptionDurability.NonDurable;
-      if (durability != null && durability.equalsIgnoreCase("Durable"))
-         sd = SubscriptionDurability.Durable;
-      this.setSubscriptionDurability(sd);
-   }
-   
-   @Override
-   public void merge(AbstractEnterpriseBeanMetaData override, AbstractEnterpriseBeanMetaData original)
-   {
-      merge((JBossGenericBeanMetaData) override, (MessageDrivenBeanMetaData) original);
-   }
-   
-   public void merge(JBossGenericBeanMetaData override, MessageDrivenBeanMetaData original)
-   {
-      super.merge(override, original);
-      
-      if(override != null && override.getAcknowledgeMode() != null)
-         this.acknowledgeMode = override.getAcknowledgeMode();
-      else if(original != null)
-         this.acknowledgeMode = original.acknowledgeMode;
-      
-      if((override != null && override.getActivationConfig() != null) || (original != null && original.activationConfig != null))
-      {
-         activationConfig = new ActivationConfigMetaData();
-         activationConfig.merge(override != null ? override.getActivationConfig() : null, original != null ? original.activationConfig : null);
-      }
-
-      if((override != null && override.getAroundInvokes() != null) || (original != null && original.aroundInvokes != null))
-      {
-         aroundInvokes = new AroundInvokesMetaData();
-         aroundInvokes.merge(override != null ? override.getAroundInvokes() : null, original != null ? original.aroundInvokes : null);
-      }
-
-      if(override != null && override.getMessageDestinationLink() != null)
-         this.messageDestinationLink = override.getMessageDestinationLink();
-      else if(original != null)
-         this.messageDestinationLink = original.messageDestinationLink;
-
-      if(override != null && override.getMessageDestinationType() != null)
-         this.messageDestinationType = override.getMessageDestinationType();
-      else if(original != null)
-         this.messageDestinationType = original.messageDestinationType;
-
-      if(override != null && override.getMessageSelector() != null)
-         this.messageSelector = override.getMessageSelector();
-      else if(original != null)
-         this.messageSelector = original.messageSelector;
-
-      if(override != null && override.getMessagingType() != null)
-         this.messagingType = override.getMessagingType();
-      else if(original != null)
-         this.messagingType = original.messagingType;
-
-      if(override != null && override.getSubscriptionDurability() != null)
-         this.subscriptionDurability = override.getSubscriptionDurability();
-      else if(original != null)
-         this.subscriptionDurability = original.subscriptionDurability;
-
-      if(override != null && override.getTimeoutMethod() != null)
-         this.timeoutMethod = override.getTimeoutMethod();
-      else if(original != null)
-         this.timeoutMethod = original.timeoutMethod;
-
-      if(override != null && override.getTransactionType() != null)
-         this.transactionType = override.getTransactionType();
-      else if(original != null)
-         this.transactionType = original.transactionType; 
-   }
+   SubscriptionDurability getSubscriptionDurability();
 }

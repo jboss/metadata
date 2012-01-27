@@ -38,7 +38,7 @@ import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.proces
  *
  * @author Stuart Douglas
  */
-public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<EntityBeanMetaData>
+public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<AbstractGenericBeanMetaData>
 {
 
    /**
@@ -50,9 +50,9 @@ public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<EntityBea
     *
     */
    @Override
-   public EntityBeanMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public AbstractGenericBeanMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
-      EntityBeanMetaData bean = new EntityBeanMetaData();
+      GenericBeanMetaData bean = new GenericBeanMetaData(EjbType.ENTITY);
 
       // Look at the id attribute
       final int count = reader.getAttributeCount();
@@ -76,7 +76,7 @@ public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<EntityBea
    }
 
    @Override
-   protected void processElement(EntityBeanMetaData beanMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AbstractGenericBeanMetaData beanMetaData, XMLStreamReader reader) throws XMLStreamException
    {
 
       // Handle the description group elements

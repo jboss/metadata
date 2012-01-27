@@ -39,6 +39,47 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
    /** The serialVersionUID */
    private static final long serialVersionUID = 1L;
 
+   // EntityBean
+   /**
+    * The persistence type
+    */
+   private PersistenceType persistenceType;
+
+   /**
+    * The primary key class
+    */
+   private String primKeyClass;
+
+   /**
+    * The reentrant
+    */
+   private boolean reentrant;
+
+   /**
+    * The cmp version
+    */
+   private String cmpVersion;
+
+   /**
+    * The abstract schema name
+    */
+   private String abstractSchemaName;
+
+   /**
+    * The cmp fields
+    */
+   private CMPFieldsMetaData cmpFields;
+
+   /**
+    * The primary key field
+    */
+   private String primKeyField;
+
+   /**
+    * The queries
+    */
+   private QueriesMetaData queries;
+
    // MessageDrivenBean
    /** The messaging type */
    private String messagingType;
@@ -151,6 +192,18 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
    protected AbstractGenericBeanMetaData()
    {
       // For serialization
+   }
+
+   private final void assertUnknownEntityOrSessionBean()
+   {
+      if (getEjbType() != null && getEjbType() != EjbType.ENTITY && getEjbType() != EjbType.SESSION)
+         throw new IllegalStateException("Bean " + this + " is not an unknown, entity or session bean, but " + getEjbType());
+   }
+
+   private final void assertUnknownOrEntityBean()
+   {
+      if (getEjbType() != null && getEjbType() != EjbType.ENTITY)
+         throw new IllegalStateException("Bean " + this + " is not an unknown or entity bean, but " + getEjbType());
    }
 
    private final void assertUnknownOrMessageDrivenBean()
@@ -389,7 +442,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public String getHome()
    {
-      assertUnknownOrSessionBean();
+      assertUnknownEntityOrSessionBean();
       return home;
    }
 
@@ -401,7 +454,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public void setHome(String home)
    {
-      assertUnknownOrSessionBean();
+      assertUnknownEntityOrSessionBean();
       if (home == null)
          throw new IllegalArgumentException("Null home");
       this.home = home;
@@ -414,7 +467,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public String getRemote()
    {
-      assertUnknownOrSessionBean();
+      assertUnknownEntityOrSessionBean();
       return remote;
    }
 
@@ -426,7 +479,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public void setRemote(String remote)
    {
-      assertUnknownOrSessionBean();
+      assertUnknownEntityOrSessionBean();
       if (remote == null)
          throw new IllegalArgumentException("Null remote");
       this.remote = remote;
@@ -439,7 +492,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public String getLocalHome()
    {
-      assertUnknownOrSessionBean();
+      assertUnknownEntityOrSessionBean();
       return localHome;
    }
 
@@ -451,7 +504,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public void setLocalHome(String localHome)
    {
-      assertUnknownOrSessionBean();
+      assertUnknownEntityOrSessionBean();
       if (localHome == null)
          throw new IllegalArgumentException("Null localHome");
       this.localHome = localHome;
@@ -464,7 +517,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public String getLocal()
    {
-      assertUnknownOrSessionBean();
+      assertUnknownEntityOrSessionBean();
       return local;
    }
 
@@ -476,7 +529,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public void setLocal(String local)
    {
-      assertUnknownOrSessionBean();
+      assertUnknownEntityOrSessionBean();
       if (local == null)
          throw new IllegalArgumentException("Null local");
       this.local = local;
@@ -616,7 +669,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public void setTimeoutMethod(NamedMethodMetaData timeoutMethod)
    {
-      if (getSessionType() != null && getSessionType() != SessionType.Stateless)
+      if (getEjbType() != EjbType.MESSAGE_DRIVEN && getSessionType() != null && getSessionType() != SessionType.Stateless)
          throw new IllegalStateException("EJB 3.1 FR 4.3.8: Only stateless beans can have timeouts: "+this);
       super.setTimeoutMethod(timeoutMethod);
    }
@@ -766,7 +819,32 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
       AbstractGenericBeanMetaData override = (AbstractGenericBeanMetaData) eoverride;
       AbstractGenericBeanMetaData original = (AbstractGenericBeanMetaData) eoriginal;
 
+      mergeEntityBean(override, original);
+      mergeMessageDrivenBean(override, original);
       mergeSessionBean(override, original);
+   }
+
+   private void mergeEntityBean(final AbstractGenericBeanMetaData override, final AbstractGenericBeanMetaData original)
+   {
+      primKeyClass = override(override != null ? override.primKeyClass : null, original != null ? original.primKeyClass : null);
+      persistenceType = override(override != null ? override.persistenceType : null, original != null ? original.persistenceType : null);
+      reentrant = override(override != null ? override.reentrant : null, original != null ? original.reentrant : null);
+      cmpVersion = override(override != null ? override.cmpVersion : null, original != null ? original.cmpVersion : null);
+      abstractSchemaName = override(override != null ? override.abstractSchemaName : null, original != null ? original.abstractSchemaName : null);
+      cmpFields = override(override != null ? override.cmpFields : null, original != null ? original.cmpFields : null);
+      primKeyField = override(override != null ? override.primKeyField : null, original != null ? original.primKeyField : null);
+      queries = override(override != null ? override.queries : null, original != null ? original.queries : null);
+   }
+
+   private void mergeMessageDrivenBean(final AbstractGenericBeanMetaData override, final AbstractGenericBeanMetaData original)
+   {
+      messagingType = override(override != null ? override.messagingType : null, original != null ? original.messagingType : null);
+      messageDestinationType = override(override != null ? override.messageDestinationType : null, original != null ? original.messageDestinationType : null);
+      messageDestinationLink = override(override != null ? override.messageDestinationLink : null, original != null ? original.messageDestinationLink : null);
+      activationConfig = merged(new ActivationConfigMetaData(), override != null ? override.activationConfig : null, original != null ? original.activationConfig : null);
+      messageSelector = override(override != null ? override.messageSelector : null, original != null ? original.messageSelector : null);
+      acknowledgeMode = override(override != null ? override.acknowledgeMode : null, original != null ? original.acknowledgeMode : null);
+      subscriptionDurability = override(override != null ? override.subscriptionDurability : null, original != null ? original.subscriptionDurability : null);
    }
 
    // SessionBean 3.1
@@ -1046,13 +1124,6 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
       this.afterCompletionMethod = method;
    }
 
-   private static <T> T override(T override, T original)
-   {
-      if(override != null)
-         return override;
-      return original;
-   }
-
    private void mergeSessionBean31(AbstractGenericBeanMetaData override, AbstractGenericBeanMetaData original)
    {
       if (asyncMethods == null)
@@ -1141,4 +1212,242 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
       this.statefulTimeout = statefulTimeout;
    }
 
+   /**
+    * Is this container managed persistence
+    *
+    * @return true for cmp
+    */
+   public boolean isCMP()
+   {
+      assertUnknownOrEntityBean();
+      if (persistenceType == null)
+         return true;
+      return persistenceType == PersistenceType.Container;
+   }
+
+   /**
+    * Is this bean managed persistence
+    *
+    * @return true for bmp
+    */
+   public boolean isBMP()
+   {
+      assertUnknownOrEntityBean();
+      return isCMP() == false;
+   }
+
+   /**
+    * Get the persistenceType.
+    *
+    * @return the persistenceType.
+    */
+   public PersistenceType getPersistenceType()
+   {
+      assertUnknownOrEntityBean();
+      return persistenceType;
+   }
+
+   /**
+    * Set the persistenceType.
+    *
+    * @param persistenceType the persistenceType.
+    * @throws IllegalArgumentException for a null persistenceType
+    */
+   public void setPersistenceType(PersistenceType persistenceType)
+   {
+      assertUnknownOrEntityBean();
+      if (persistenceType == null)
+         throw new IllegalArgumentException("Null persistenceType");
+      this.persistenceType = persistenceType;
+   }
+
+   /**
+    * Get the primKeyClass.
+    *
+    * @return the primKeyClass.
+    */
+   public String getPrimKeyClass()
+   {
+      assertUnknownOrEntityBean();
+      return primKeyClass;
+   }
+
+   /**
+    * Set the primKeyClass.
+    *
+    * @param primKeyClass the primKeyClass.
+    * @throws IllegalArgumentException for a null primKeyClass
+    */
+   public void setPrimKeyClass(String primKeyClass)
+   {
+      assertUnknownOrEntityBean();
+      if (primKeyClass == null)
+         throw new IllegalArgumentException("Null primKeyClass");
+      this.primKeyClass = primKeyClass;
+   }
+
+   /**
+    * Get the reentrant.
+    *
+    * @return the reentrant.
+    */
+   public boolean isReentrant()
+   {
+      assertUnknownOrEntityBean();
+      return reentrant;
+   }
+
+   /**
+    * Set the reentrant.
+    *
+    * @param reentrant the reentrant.
+    */
+   public void setReentrant(boolean reentrant)
+   {
+      assertUnknownOrEntityBean();
+      this.reentrant = reentrant;
+   }
+
+   /**
+    * Whether it is CMP1x
+    *
+    * @return true for cmp1x
+    */
+   public boolean isCMP1x()
+   {
+      assertUnknownOrEntityBean();
+      if (cmpVersion == null)
+      {
+         if (getEjbJarMetaData().isEJB2x() || getEjbJarMetaData().isEJB3x())
+            return false;
+         else
+            return true;
+      }
+      return "1.x".equals(cmpVersion);
+   }
+
+   /**
+    * Get the cmpVersion.
+    *
+    * @return the cmpVersion.
+    */
+   public String getCmpVersion()
+   {
+      assertUnknownOrEntityBean();
+      return cmpVersion;
+   }
+
+   /**
+    * Set the cmpVersion.
+    *
+    * @param cmpVersion the cmpVersion.
+    * @throws IllegalArgumentException for a null cmpVersion
+    */
+   public void setCmpVersion(String cmpVersion)
+   {
+      assertUnknownOrEntityBean();
+      if (cmpVersion == null)
+         throw new IllegalArgumentException("Null cmpVersion");
+      this.cmpVersion = cmpVersion;
+   }
+
+   /**
+    * Get the abstractSchemaName.
+    *
+    * @return the abstractSchemaName.
+    */
+   public String getAbstractSchemaName()
+   {
+      assertUnknownOrEntityBean();
+      return abstractSchemaName;
+   }
+
+   /**
+    * Set the abstractSchemaName.
+    *
+    * @param abstractSchemaName the abstractSchemaName.
+    * @throws IllegalArgumentException for a null abstractSchemaName
+    */
+   public void setAbstractSchemaName(String abstractSchemaName)
+   {
+      assertUnknownOrEntityBean();
+      if (abstractSchemaName == null)
+         throw new IllegalArgumentException("Null abstractSchemaName");
+      this.abstractSchemaName = abstractSchemaName;
+   }
+
+   /**
+    * Get the primKeyField.
+    *
+    * @return the primKeyField.
+    */
+   public String getPrimKeyField()
+   {
+      assertUnknownOrEntityBean();
+      return primKeyField;
+   }
+
+   /**
+    * Set the primKeyField.
+    *
+    * @param primKeyField the primKeyField.
+    * @throws IllegalArgumentException for a null primKeyField
+    */
+   public void setPrimKeyField(String primKeyField)
+   {
+      assertUnknownOrEntityBean();
+      if (primKeyField == null)
+         throw new IllegalArgumentException("Null primKeyField");
+      this.primKeyField = primKeyField;
+   }
+
+   /**
+    * Get the cmpFields.
+    *
+    * @return the cmpFields.
+    */
+   public CMPFieldsMetaData getCmpFields()
+   {
+      assertUnknownOrEntityBean();
+      return cmpFields;
+   }
+
+   /**
+    * Set the cmpFields.
+    *
+    * @param cmpFields the cmpFields.
+    * @throws IllegalArgumentException for a null cmpFields
+    */
+   public void setCmpFields(CMPFieldsMetaData cmpFields)
+   {
+      assertUnknownOrEntityBean();
+      if (cmpFields == null)
+         throw new IllegalArgumentException("Null cmpFields");
+      this.cmpFields = cmpFields;
+   }
+
+   /**
+    * Get the queries.
+    *
+    * @return the queries.
+    */
+   public QueriesMetaData getQueries()
+   {
+      assertUnknownOrEntityBean();
+      return queries;
+   }
+
+   /**
+    * Set the queries.
+    *
+    * @param queries the queries.
+    * @throws IllegalArgumentException for a null queries
+    */
+   public void setQueries(QueriesMetaData queries)
+   {
+      assertUnknownOrEntityBean();
+      if (queries == null)
+         throw new IllegalArgumentException("Null queries");
+      this.queries = queries;
+   }
 }

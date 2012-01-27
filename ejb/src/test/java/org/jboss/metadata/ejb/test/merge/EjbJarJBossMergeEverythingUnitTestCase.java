@@ -31,7 +31,6 @@ import org.jboss.metadata.ejb.test.common.UnmarshallingHelper;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.test.metadata.ejb.EjbJar3xEverythingUnitTestCase;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.ejb.TransactionManagementType;
@@ -48,18 +47,19 @@ public class EjbJarJBossMergeEverythingUnitTestCase
    private static void assertEverything(final EjbJarMetaData metaData)
    {
       final EjbJar3xEverythingUnitTestCase delegate = new EjbJar3xEverythingUnitTestCase("ejb-jar");
-      delegate.assertEverything(metaData, AbstractJavaEEEverythingTest.Mode.JBOSS, "3.1");
+      delegate.assertEverything(metaData, AbstractJavaEEEverythingTest.Mode.SPEC, "3.1");
    }
 
    @Test
    public void testJBossEjb31Everything() throws Exception
    {
-      EjbJarMetaData metaData = unmarshal(EjbJarMetaData.class, "JBossEjb31Everything_testEverything.xml");
-      assertEverything(metaData);
+      EjbJarMetaData original = unmarshal(EjbJarMetaData.class, "EjbJar31Everything_testEverything.xml");
+      EjbJarMetaData override = unmarshal(EjbJarMetaData.class, "JBossEjb31Everything_testEverything.xml");
+      EjbJarMetaData merged = override.createMerged(original);
+      assertEverything(merged);
    }
 
    @Test
-   @Ignore
    public void testJBossEjb31Partial() throws Exception
    {
       EjbJarMetaData original = unmarshal(EjbJarMetaData.class, "EjbJar31Everything_testPartial.xml");

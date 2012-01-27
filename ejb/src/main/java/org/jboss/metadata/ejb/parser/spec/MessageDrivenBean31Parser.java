@@ -33,19 +33,19 @@ import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.proces
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class MessageDrivenBean31Parser extends AbstractMessageDrivenBeanParser<MessageDrivenBean31MetaData>
+public class MessageDrivenBean31Parser extends AbstractMessageDrivenBeanParser<AbstractGenericBeanMetaData>
 {
    @Override
-   public MessageDrivenBean31MetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public AbstractGenericBeanMetaData parse(XMLStreamReader reader) throws XMLStreamException
    {
-      MessageDrivenBean31MetaData bean = new MessageDrivenBean31MetaData();
+      AbstractGenericBeanMetaData bean = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       processAttributes(bean, reader, this);
       processElements(bean, reader);
       return bean;
    }
 
    @Override
-   protected void processElement(MessageDrivenBean31MetaData bean, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AbstractGenericBeanMetaData bean, XMLStreamReader reader) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)

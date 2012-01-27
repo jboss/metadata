@@ -53,7 +53,7 @@ public class AssemblyDescriptor30MetaDataParser extends AssemblyDescriptorMetaDa
             {
                assemblyDescriptor.setApplicationExceptions(new ApplicationExceptionsMetaData());
             }
-            assemblyDescriptor.getApplicationExceptions().add(parseApplicationException(reader));
+            assemblyDescriptor.getApplicationExceptions().add(ApplicationExceptionMetaDataParser.INSTANCE.parse(reader));
             return;
 
          case INTERCEPTOR_BINDING:
@@ -77,32 +77,5 @@ public class AssemblyDescriptor30MetaDataParser extends AssemblyDescriptorMetaDa
          default:
             super.processElement(assemblyDescriptor, reader);
       }
-   }
-
-   protected ApplicationExceptionMetaData parseApplicationException(XMLStreamReader reader) throws XMLStreamException
-   {
-      ApplicationExceptionMetaData applicationExceptionMetaData = new ApplicationExceptionMetaData();
-      while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
-      {
-         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
-         switch (ejbJarElement)
-         {
-            case EXCEPTION_CLASS:
-               applicationExceptionMetaData.setExceptionClass(reader.getElementText());
-               break;
-
-            case INHERITED:
-               applicationExceptionMetaData.setInherited(Boolean.valueOf(reader.getElementText()));
-               break;
-
-            case ROLLBACK:
-               applicationExceptionMetaData.setRollback(Boolean.valueOf(reader.getElementText()));
-               break;
-
-            default:
-               throw unexpectedElement(reader);
-         }
-      }
-      return applicationExceptionMetaData;
    }
 }

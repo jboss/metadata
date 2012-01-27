@@ -108,6 +108,8 @@ public abstract class AbstractEnterpriseBeanMetaData extends NamedMetaDataWithDe
 
    protected static <E, T extends Collection<E>> T augment(T result, T override, T original)
    {
+      if (result instanceof MergeableMetaData)
+         ((MergeableMetaData) result).merge(override, original);
       if (override != null && override.size() > 0)
          result.addAll(override);
       if (original != null && original.size() > 0)
@@ -673,13 +675,18 @@ public abstract class AbstractEnterpriseBeanMetaData extends NamedMetaDataWithDe
       Environment env1 = override != null ? override.getJndiEnvironmentRefsGroup() : null;
       Environment env2 = original != null ? original.getJndiEnvironmentRefsGroup() : null;
       EnvironmentRefsGroupMetaDataMerger.merge(jndiEnvironmentRefsGroup, env1, env2, "", "", false);
-      if(override != null && override.securityIdentity != null)
-         setSecurityIdentity(override.securityIdentity);
-      else if(original != null && original.securityIdentity != null)
-         setSecurityIdentity(original.securityIdentity);
+      securityIdentity = merged(new SecurityIdentityMetaData(), override != null ? override.securityIdentity : null, original != null ? original.securityIdentity : null);
       securityRoleRefs = augment(new SecurityRoleRefsMetaData(), override != null ? override.securityRoleRefs : null, original != null ? original.securityRoleRefs : null);
    }
-   
+
+   protected static <T extends MergeableMetaData<T>> T merged(final T merged, final T override, final T original)
+   {
+      if (override == null && original == null)
+         return null;
+      merged.merge(override, original);
+      return merged;
+   }
+
    /**
     * @see org.jboss.metadata.javaee.spec.Environment#getDataSources()
     */
@@ -700,7 +707,7 @@ public abstract class AbstractEnterpriseBeanMetaData extends NamedMetaDataWithDe
       return AbstractMappedMetaData.getByName(name, getDataSources());
    }
 
-   private static <T> T override(T override, T original)
+   protected static <T> T override(T override, T original)
    {
       if(override != null)
          return override;

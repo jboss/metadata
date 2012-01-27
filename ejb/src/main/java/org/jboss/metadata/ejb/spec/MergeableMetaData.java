@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright (c) 2011, Red Hat, Inc., and individual contributors
+ * Copyright (c) 2012, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -21,29 +21,9 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.common.ejb.IScheduleTarget;
-
 /**
- * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
+ * @author <a href="mailto:carlo@redhat.com">Carlo de Wolf</a>
  */
-// TODO: should not be public
-public class GenericBeanMetaData extends AbstractGenericBeanMetaData
-   implements IScheduleTarget, EntityBeanMetaData, MessageDrivenBean31MetaData, SessionBean31MetaData
-{
-   public GenericBeanMetaData()
-   {
-   }
-
-   public GenericBeanMetaData(final EjbType ejbType)
-   {
-      setEjbType(ejbType);
-   }
-
-   @Override
-   protected AbstractEnterpriseBeanMetaData createMerged(AbstractEnterpriseBeanMetaData original)
-   {
-      final GenericBeanMetaData merged = new GenericBeanMetaData();
-      merged.merge(this, original);
-      return merged;
-   }
+public interface MergeableMetaData<T> {
+    void merge(T override, T original);
 }

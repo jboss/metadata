@@ -508,7 +508,7 @@ public class ScheduleTestCase
       TimerMetaData persistentTimer = new TimerMetaData();
       persistentTimer.setPersistent(true);
       
-      MessageDrivenBean31MetaData original = new MessageDrivenBean31MetaData();
+      GenericBeanMetaData original = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       original.setEjbName("DummyBean");
       original.addTimer(nonPersistentTimer);
       
@@ -516,7 +516,7 @@ public class ScheduleTestCase
       overriden.setEjbName("DummyBean");
       overriden.addTimer(persistentTimer);
       
-      MessageDrivenBean31MetaData mergedBean = new MessageDrivenBean31MetaData();
+      GenericBeanMetaData mergedBean = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       mergedBean.merge(overriden, original);
       
       List<TimerMetaData> mergedTimers = mergedBean.getTimers();
@@ -552,14 +552,14 @@ public class ScheduleTestCase
       TimerMetaData persistentTimer = new TimerMetaData();
       persistentTimer.setPersistent(true);
       
-      MessageDrivenBean31MetaData original = new MessageDrivenBean31MetaData();
+      GenericBeanMetaData original = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       original.setEjbName("DummyBean");
       
       JBossGenericBeanMetaData overriden = new JBossGenericBeanMetaData();
       overriden.setEjbName("DummyBean");
       overriden.addTimer(persistentTimer);
       
-      MessageDrivenBean31MetaData mergedBean = new MessageDrivenBean31MetaData();
+      GenericBeanMetaData mergedBean = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       mergedBean.merge( overriden, original);
       
       List<TimerMetaData> mergedTimers = mergedBean.getTimers();

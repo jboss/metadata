@@ -90,6 +90,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 84989 $
  */
+@Deprecated
 public abstract class JBossEnterpriseBeanMetaData extends NamedMetaDataWithDescriptionGroup
    implements Environment,
    IEnterpriseBeanMetaData<JBossAssemblyDescriptorMetaData, JBossEnterpriseBeansMetaData, JBossEnterpriseBeanMetaData, JBossMetaData>

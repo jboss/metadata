@@ -24,8 +24,6 @@ package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.RelationMetaData;
 import org.jboss.metadata.ejb.spec.RelationRoleMetaData;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
-import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -36,7 +34,7 @@ import java.util.List;
  *
  * @author Stuart Douglas
  */
-public class RelationMetaDataParser extends AbstractMetaDataParser<RelationMetaData>
+public class RelationMetaDataParser extends AbstractWithDescriptionsParser<RelationMetaData>
 {
 
    public static final RelationMetaDataParser INSTANCE = new RelationMetaDataParser();
@@ -77,18 +75,6 @@ public class RelationMetaDataParser extends AbstractMetaDataParser<RelationMetaD
    @Override
    protected void processElement(RelationMetaData relation, XMLStreamReader reader) throws XMLStreamException
    {
-
-      // Handle the description group elements
-      DescriptionsImpl descriptionGroup = new DescriptionsImpl();
-      if (DescriptionsMetaDataParser.parse(reader, descriptionGroup))
-      {
-         if (relation.getDescriptions() == null)
-         {
-            relation.setDescriptions(descriptionGroup);
-         }
-         return;
-      }
-
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -104,7 +90,8 @@ public class RelationMetaDataParser extends AbstractMetaDataParser<RelationMetaD
             roles.add(role);
             return;
          default:
-            throw unexpectedElement(reader);
+            super.processElement(relation, reader);
+            break;
       }
    }
 
