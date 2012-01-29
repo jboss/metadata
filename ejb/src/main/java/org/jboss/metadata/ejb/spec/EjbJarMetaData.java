@@ -85,6 +85,11 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
    private InterceptorsMetaData interceptors;
 
    /**
+    * The distinct name for this EJB module
+    */
+   private String distinctName;
+
+   /**
     * The latest available ejb-jar xsd version
     */
    public static final String LATEST_EJB_JAR_XSD_VERSION = "3.1";
@@ -665,4 +670,12 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
       merged.merge(this, original);
       return merged;
    }
+
+    public void setDistinctName(final String distinctName) {
+        this.distinctName = distinctName;
+    }
+
+    public String getDistinctName() {
+        return this.distinctName;
+    }
 }

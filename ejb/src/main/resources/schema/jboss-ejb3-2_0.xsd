@@ -37,4 +37,12 @@
    <xs:element name="enterprise-beans" type="javaee:jboss-enterprise-beansType"/>
 
    <xs:element name="destination-jndi-name" type="xs:string" />
+
+   <xs:element name="distinct-name" type="xs:string">
+       <xs:annotation>
+           <xs:documentation>
+               The distinct-name for this EJB module.
+           </xs:documentation>
+       </xs:annotation>
+   </xs:element>
 </xs:schema>

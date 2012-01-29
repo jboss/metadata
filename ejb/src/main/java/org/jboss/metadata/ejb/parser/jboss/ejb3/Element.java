@@ -32,6 +32,7 @@ public enum Element
    // must be first
    UNKNOWN(null),
    ASSEMBLY_DESCRIPTOR("assembly-descriptor"),
+   DISTINCT_NAME("distinct-name"),
    EJB("ejb"),
    ENTERPRISE_BEANS("enterprise-beans"),
    ACTIVATION_CONFIG("activation-config")

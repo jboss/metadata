@@ -28,6 +28,7 @@ import org.jboss.metadata.ejb.parser.spec.EjbJarNamespaceMapping;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
+import org.jboss.metadata.parser.util.PropertiesValueResolver;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -145,8 +146,12 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser
                case ENTERPRISE_BEANS:
                   metaData.setEnterpriseBeans(parseEnterpriseBeans(reader, metaData.getEjbJarVersion()));
                   break;
+               case DISTINCT_NAME:
+                    final String val = reader.getElementText();
+                    metaData.setDistinctName(PropertiesValueResolver.replaceProperties(val));
+                    break;
                default:
-                  super.processElements(metaData, reader);
+                  super.processElement(metaData, reader);
             }
             break;
          case SPEC:
