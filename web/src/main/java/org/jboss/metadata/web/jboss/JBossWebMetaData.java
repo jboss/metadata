@@ -147,6 +147,11 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private List<ValveMetaData> valves;
     private List<String> overlays;
 
+    /**
+     * Distinct name for this web application
+     */
+    private String distinctName;
+
     /** The web context class loader used to create the java:comp context */
     @Deprecated
     private transient ClassLoader encLoader;
@@ -948,4 +953,11 @@ public class JBossWebMetaData extends NamedModuleImpl {
         }
     }
 
+    public void setDistinctName(final String distinctName) {
+        this.distinctName = distinctName;
+    }
+    
+    public String getDistinctName() {
+        return this.distinctName;
+    }
 }

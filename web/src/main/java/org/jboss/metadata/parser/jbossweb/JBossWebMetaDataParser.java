@@ -34,6 +34,7 @@ import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.servlet.SessionConfigMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.parser.util.PropertiesValueResolver;
 import org.jboss.metadata.web.jboss.ContainerListenerMetaData;
 import org.jboss.metadata.web.jboss.JBoss4xDTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50DTDWebMetaData;
@@ -202,6 +203,10 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     break;
                 case PASSIVATION_CONFIG:
                     wmd.setPassivationConfig(PassivationConfigParser.parse(reader));
+                    break;
+                case DISTINCT_NAME:
+                    final String val = getElementText(reader);
+                    wmd.setDistinctName(PropertiesValueResolver.replaceProperties(val));
                     break;
                 default: throw unexpectedElement(reader);
             }

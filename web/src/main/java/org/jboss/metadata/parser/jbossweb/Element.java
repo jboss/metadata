@@ -49,6 +49,7 @@ public enum Element {
     DEPENDS("depends"),
     DISABLE_AUDIT("disable-audit"),
     DISABLE_CROSS_CONTEXT("disable-cross-context"),
+    DISTINCT_NAME("distinct-name"),
 
     EMPTY_ROLE_SEMANTIC("empty-role-semantic"),
 
