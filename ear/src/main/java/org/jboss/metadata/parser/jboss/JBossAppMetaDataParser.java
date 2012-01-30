@@ -14,6 +14,7 @@ import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.spec.EarMetaDataParser;
+import org.jboss.metadata.parser.util.PropertiesValueResolver;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -91,6 +92,11 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                super.handleElement(reader, appMetaData);
             } else {
                switch (element) {
+                   case DISTINCT_NAME: {
+                       final String val = getElementText(reader);
+                       appMetaData.setDistinctName(PropertiesValueResolver.replaceProperties(val));
+                       break;
+                   }
                    case MODULE_ORDER: {
                        logger.warn("module-order element in jboss-app.xml is deprecated and has been ignored");
                        //depricated

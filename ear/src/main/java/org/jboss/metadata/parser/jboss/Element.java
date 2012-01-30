@@ -32,6 +32,7 @@ public enum Element {
     // must be first
     UNKNOWN(null),
     CONTEXT_ROOT("context-root"),
+    DISTINCT_NAME("distinct-name"),
     HAR("har"),
     JMX_NAME("jmx-name"),
     LIBRARY_DIRECTORY("library-directory"),

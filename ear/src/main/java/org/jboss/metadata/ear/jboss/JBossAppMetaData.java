@@ -42,6 +42,11 @@ public class JBossAppMetaData extends EarMetaData {
      */
     private String unauthenticatedPrincipal;
 
+    /**
+     * Distinct name for this application
+     */
+    private String distinctName;
+
     public JBossAppMetaData() {
         super(EarVersion.APP_6_0);
     }
@@ -64,5 +69,13 @@ public class JBossAppMetaData extends EarMetaData {
 
     public void setUnauthenticatedPrincipal(String unauthenticatedPrincipal) {
         this.unauthenticatedPrincipal = unauthenticatedPrincipal;
+    }
+    
+    public void setDistinctName(final String distinctName) {
+        this.distinctName = distinctName;
+    }
+    
+    public String getDistinctName() {
+        return this.distinctName;
     }
 }
