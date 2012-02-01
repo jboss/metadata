@@ -53,7 +53,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
    /**
     * The reentrant
     */
-   private boolean reentrant;
+   private Boolean reentrant;
 
    /**
     * The cmp version
@@ -1294,7 +1294,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
    public boolean isReentrant()
    {
       assertUnknownOrEntityBean();
-      return reentrant;
+      return reentrant == null ? false : reentrant;
    }
 
    /**
