@@ -94,20 +94,13 @@
   <dependencies>
 
     <dependency>
+      <groupId>${javax.persistence.groupId}</groupId>
+      <artifactId>${javax.persistence.artifactId}</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.jboss.logging</groupId>
       <artifactId>jboss-logging</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.jboss</groupId>
-      <artifactId>jboss-vfs</artifactId>
-      <version>3.0.0.CR1</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>ejb3-persistence</artifactId>
-      <version>1.0.2.GA</version>
     </dependency>
 
     <dependency>
@@ -115,12 +108,6 @@
       <artifactId>jaxb-api</artifactId>
       <version>2.1.4</version>
     </dependency>
-
-     <dependency>
-        <groupId>org.jboss.spec.javax.ejb</groupId>
-        <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-        <version>1.0.0.Final</version>
-     </dependency>
 
     <dependency>
        <groupId>org.jboss.spec.javax.annotation</groupId>
@@ -132,21 +119,13 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.4</version>
       <scope>test</scope>
     </dependency>
 
     <dependency>
       <groupId>org.jboss.test</groupId>
       <artifactId>jboss-test</artifactId>
-      <version>1.1.4.GA</version>
       <scope>test</scope>
-      <exclusions>
-          <exclusion>
-              <groupId>apache-log4j</groupId>
-              <artifactId>log4j</artifactId>
-          </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
 

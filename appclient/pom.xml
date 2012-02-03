@@ -84,58 +84,43 @@
    <dependencies>
 
       <dependency>
-         <groupId>org.jboss.spec.javax.ejb</groupId>
-         <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-         <version>1.0.0.Final</version>
+         <groupId>${project.groupId}</groupId>
+         <artifactId>jboss-metadata-common</artifactId>
       </dependency>
 
       <dependency>
-         <groupId>org.jboss.metadata</groupId>
+         <groupId>${project.groupId}</groupId>
          <artifactId>jboss-metadata-common</artifactId>
-         <version>${project.version}</version>
+         <type>test-jar</type>
+         <scope>test</scope>
       </dependency>
 
       <dependency>
          <groupId>org.jboss.logging</groupId>
          <artifactId>jboss-logging</artifactId>
-         <version>3.0.0.Beta4</version>
-      </dependency>
-
-      <dependency>
-         <groupId>org.jboss.metadata</groupId>
-         <artifactId>jboss-metadata-common</artifactId>
-         <version>${project.version}</version>
-         <type>test-jar</type>
-         <scope>test</scope>
       </dependency>
 
       <!-- Test Dependencies -->
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <version>4.4</version>
          <scope>test</scope>
       </dependency>
 
       <!-- To counter AbstractMethodErrors -->
+      <!--
       <dependency>
          <groupId>org.jboss.logging</groupId>
          <artifactId>jboss-logging-log4j</artifactId>
          <version>2.2.0.CR1</version>
          <scope>test</scope>
       </dependency>
+      -->
 
       <dependency>
          <groupId>org.jboss.test</groupId>
          <artifactId>jboss-test</artifactId>
-         <version>1.1.4.GA</version>
          <scope>test</scope>
-          <exclusions>
-              <exclusion>
-                  <groupId>apache-log4j</groupId>
-                  <artifactId>log4j</artifactId>
-              </exclusion>
-          </exclusions>
       </dependency>
 
    </dependencies>

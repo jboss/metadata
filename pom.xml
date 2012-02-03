@@ -41,6 +41,10 @@
     <packaging>pom</packaging>
 
     <properties>
+        <javax.persistence.groupId>org.hibernate.javax.persistence</javax.persistence.groupId>
+        <javax.persistence.artifactId>hibernate-jpa-2.0-api</javax.persistence.artifactId>
+        <javax.persistence.version>1.0.1.Final</javax.persistence.version>
+
         <!-- Build configuration -->
         <maven.compiler.source>1.6</maven.compiler.source>
         <maven.compiler.target>1.6</maven.compiler.target>
@@ -112,10 +116,52 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jboss-metadata-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jboss-metadata-common</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>${javax.persistence.groupId}</groupId>
+                <artifactId>${javax.persistence.artifactId}</artifactId>
+                <version>${javax.persistence.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.8.2</version>
+                <scope>test</scope>
+            </dependency>
+
             <dependency>
               <groupId>org.jboss.logging</groupId>
               <artifactId>jboss-logging</artifactId>
               <version>${version.org.jboss.logging}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.test</groupId>
+                <artifactId>jboss-test</artifactId>
+                <version>1.1.4.GA</version>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>apache-log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>

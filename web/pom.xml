@@ -121,14 +121,7 @@
         <dependency>
             <groupId>org.jboss.test</groupId>
             <artifactId>jboss-test</artifactId>
-            <version>1.1.4.GA</version>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>apache-log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
     </dependencies>
