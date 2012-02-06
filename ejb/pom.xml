@@ -92,8 +92,7 @@
       <dependency>
          <groupId>org.jboss.spec.javax.ejb</groupId>
          <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-         <!-- FIXME: up to 1.0.1.Final, but that one has wrong dependencies listed -->
-         <version>1.0.0.Final</version>
+         <version>1.0.1.Final</version>
          <scope>provided</scope>
       </dependency>
 
@@ -107,6 +106,13 @@
       <dependency>
           <groupId>org.jboss.spec.javax.jms</groupId>
           <artifactId>jboss-jms-api_1.1_spec</artifactId>
+          <version>1.0.0.Final</version>
+          <scope>test</scope>
+      </dependency>
+
+      <dependency>
+          <groupId>org.jboss.spec.javax.transaction</groupId>
+          <artifactId>jboss-transaction-api_1.1_spec</artifactId>
           <version>1.0.0.Final</version>
           <scope>test</scope>
       </dependency>
@@ -141,16 +147,6 @@
          <artifactId>junit</artifactId>
          <scope>test</scope>
       </dependency>
-
-      <!-- To counter AbstractMethodErrors -->
-      <!--
-      <dependency>
-         <groupId>org.jboss.logging</groupId>
-         <artifactId>jboss-logging-log4j</artifactId>
-         <version>2.2.0.CR1</version>
-         <scope>test</scope>
-      </dependency>
-      -->
 
       <dependency>
          <groupId>org.jboss.test</groupId>
