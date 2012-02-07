@@ -51,7 +51,7 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
         }
 
         if (version == null || Version.UNKNOWN.equals(version)) {
-            version = Version.APP_5_0;
+            version = Version.APP_7_0;
         }
 
         JBossAppMetaData appMetaData = new JBossAppMetaData();

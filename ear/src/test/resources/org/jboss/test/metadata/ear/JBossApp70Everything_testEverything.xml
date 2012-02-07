@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ JBoss, Home of Professional Open Source.
+  ~ Copyright 2012, Red Hat, Inc., and individual contributors
+  ~ as indicated by the @author tags. See the copyright.txt file in the
+  ~ distribution for a full listing of individual contributors.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it
+  ~ under the terms of the GNU Lesser General Public License as
+  ~ published by the Free Software Foundation; either version 2.1 of
+  ~ the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this software; if not, write to the Free
+  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+
+<jboss-app xmlns="http://www.jboss.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-app_7_0.xsd"
+           version="7.0"
+           id="jboss-app-id">
+
+    <distinct-name>foo</distinct-name>
+    <library-directory>jboss-app-lib0</library-directory>
+
+	<!-- Add a sar0 module -->
+    <module id="sar0">
+        <service>sar0.sar</service>
+    </module>
+    <!-- Override the web1 context-root -->
+    <module id="web1">
+        <web>
+            <web-uri>web-app1.war</web-uri>
+            <context-root>/web1-override</context-root>
+        </web>
+    </module>
+    <!-- Add a web2 module -->
+    <module id="web2">
+        <web>
+            <web-uri>web-app2.war</web-uri>
+            <context-root>/web2</context-root>
+        </web>
+    </module>
+    <module id="har0">
+        <har>har0.har</har>
+    </module>
+    <security-role id="security-role0">
+        <description>The 0 security role</description>
+        <role-name>role0</role-name>
+        <principal-name>principal0</principal-name>
+    </security-role>
+    <security-role id="security-role1">
+        <description>The 1 security role</description>
+        <role-name>role1</role-name>
+        <principal-name>principal1</principal-name>
+    </security-role>
+</jboss-app>
