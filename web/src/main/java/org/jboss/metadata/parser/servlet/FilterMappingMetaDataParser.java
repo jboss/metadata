@@ -86,7 +86,11 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
                         dispatchers = new ArrayList<DispatcherType>();
                         filterMapping.setDispatchers(dispatchers);
                     }
-                    dispatchers.add(DispatcherType.valueOf(getElementText(reader)));
+                    try {
+                        dispatchers.add(DispatcherType.valueOf(getElementText(reader)));
+                    } catch (IllegalArgumentException e) {
+                        throw unexpectedValue(reader, e);
+                    }
                     break;
                 default: throw unexpectedElement(reader);
             }

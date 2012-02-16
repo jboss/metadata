@@ -53,7 +53,11 @@ public class ContainerListenerMetaDataParser extends MetaDataElementParser {
                 	containerListener.setModule(getElementText(reader));
                     break;
                 case LISTENER_TYPE:
-                	containerListener.setListenerType(ContainerListenerType.valueOf(getElementText(reader)));
+                    try {
+                        containerListener.setListenerType(ContainerListenerType.valueOf(getElementText(reader)));
+                    } catch (IllegalArgumentException e) {
+                        throw unexpectedValue(reader, e);
+                    }
                     break;
                 case PARAM:
                     List<ParamValueMetaData> params = containerListener.getParams();

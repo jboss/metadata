@@ -77,7 +77,11 @@ public class SessionConfigMetaDataParser extends MetaDataElementParser {
                         trackingModes = new ArrayList<SessionTrackingModeType>();
                         sessionConfig.setSessionTrackingModes(trackingModes);
                     }
-                    trackingModes.add(SessionTrackingModeType.valueOf(getElementText(reader)));
+                    try {
+                        trackingModes.add(SessionTrackingModeType.valueOf(getElementText(reader)));
+                    } catch (IllegalArgumentException e) {
+                        throw unexpectedValue(reader, e);
+                    }
                     break;
                  default: throw unexpectedElement(reader);
             }

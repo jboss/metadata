@@ -114,14 +114,26 @@ public class TagMetaDataParser extends MetaDataElementParser {
                     }
                     break;
                 case BODY_CONTENT:
-                    tag.setBodyContent(BodyContentType.valueOf(getElementText(reader)));
+                    try {
+                        tag.setBodyContent(BodyContentType.valueOf(getElementText(reader)));
+                    } catch (IllegalArgumentException e) {
+                        throw unexpectedValue(reader, e);
+                    }
                     break;
                 case BODYCONTENT:
                     if (version == Version.TLD_1_1) {
-                        tag.setBodyContent(BodyContentType.valueOf(getElementText(reader)));
+                        try {
+                            tag.setBodyContent(BodyContentType.valueOf(getElementText(reader)));
+                        } catch (IllegalArgumentException e) {
+                            throw unexpectedValue(reader, e);
+                        }
                     } else if (version == Version.TLD_1_2) {
                     	// Allow invalid legacy element
-                    	tag.setBodyContent(BodyContentType.valueOf(getElementText(reader)));
+                        try {
+                            tag.setBodyContent(BodyContentType.valueOf(getElementText(reader)));
+                        } catch (IllegalArgumentException e) {
+                            throw unexpectedValue(reader, e);
+                        }
                     } else {
                         throw unexpectedElement(reader);
                     }

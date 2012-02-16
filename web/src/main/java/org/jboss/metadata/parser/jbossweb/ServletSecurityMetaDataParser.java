@@ -55,10 +55,18 @@ public class ServletSecurityMetaDataParser extends MetaDataElementParser {
                     httpMethodConstraints.add(HttpMethodConstraintMetaDataParser.parse(reader));
                     break;
                 case EMPTY_ROLE_SEMANTIC:
-                    servletSecurity.setEmptyRoleSemantic(EmptyRoleSemanticType.valueOf(getElementText(reader)));
+                    try {
+                        servletSecurity.setEmptyRoleSemantic(EmptyRoleSemanticType.valueOf(getElementText(reader)));
+                    } catch (IllegalArgumentException e) {
+                        throw unexpectedValue(reader, e);
+                    }
                     break;
                 case TRANSPORT_GUARANTEE:
-                    servletSecurity.setTransportGuarantee(TransportGuaranteeType.valueOf(getElementText(reader)));
+                    try {
+                        servletSecurity.setTransportGuarantee(TransportGuaranteeType.valueOf(getElementText(reader)));
+                    } catch (IllegalArgumentException e) {
+                        throw unexpectedValue(reader, e);
+                    }
                     break;
                 case ROLE_ALLOWED:
                     List<String> rolesAllowed = servletSecurity.getRolesAllowed();

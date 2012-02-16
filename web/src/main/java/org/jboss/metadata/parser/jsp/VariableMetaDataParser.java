@@ -80,7 +80,11 @@ public class VariableMetaDataParser extends MetaDataElementParser {
                     variable.setDeclare(getElementText(reader));
                     break;
                 case SCOPE:
-                    variable.setScope(VariableScopeType.valueOf(getElementText(reader)));
+                    try {
+                        variable.setScope(VariableScopeType.valueOf(getElementText(reader)));
+                    } catch (IllegalArgumentException e) {
+                        throw unexpectedValue(reader, e);
+                    }
                     break;
                 default: throw unexpectedElement(reader);
             }
