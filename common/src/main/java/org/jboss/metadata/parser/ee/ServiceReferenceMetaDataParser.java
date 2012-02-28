@@ -82,6 +82,9 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                 case SERVICE_INTERFACE:
                     serviceReference.setServiceInterface(getElementText(reader));
                     break;
+                case SERVICE_IMPL_CLASS:
+                   serviceReference.setServiceClass(getElementText(reader));
+                    break;
                 case SERVICE_REF_TYPE:
                     serviceReference.setServiceRefType(getElementText(reader));
                     break;
@@ -128,6 +131,12 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                     }
                     handlerChains.getHandlers().addAll(ServiceReferenceHandlerChainsMetaDataParser.parse(reader));
                     break;
+                case CONFIG_NAME:
+                   serviceReference.setConfigName(getElementText(reader));
+                   break;
+                case CONFIG_FILE:
+                   serviceReference.setConfigFile(getElementText(reader));
+                   break;
                 case WSDL_OVERRIDE:
                     serviceReference.setWsdlOverride(getElementText(reader));
                     break;

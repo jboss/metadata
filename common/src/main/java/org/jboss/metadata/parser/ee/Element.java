@@ -146,6 +146,7 @@ public enum Element {
     SERVER_NAME("server-name"),
     SERVICE_ENDPOINT_INTERFACE("service-endpoint-interface"),
     SERVICE_INTERFACE("service-interface"),
+    SERVICE_IMPL_CLASS("service-impl-class"),
     SERVICE_NAME_PATTERN("service-name-pattern"),
     SERVICE_QNAME("service-qname"),
     SERVICE_REF("service-ref"),
