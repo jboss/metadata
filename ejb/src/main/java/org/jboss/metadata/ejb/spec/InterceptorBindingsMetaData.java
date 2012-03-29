@@ -23,11 +23,9 @@ package org.jboss.metadata.ejb.spec;
 
 import java.util.ArrayList;
 
-import org.jboss.metadata.merge.MergeUtil;
-
 /**
  * InterceptorBindingsMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -42,9 +40,43 @@ public class InterceptorBindingsMetaData extends ArrayList<InterceptorBindingMet
    public InterceptorBindingsMetaData()
    {
    }
-   
+
    public void merge(InterceptorBindingsMetaData override, InterceptorBindingsMetaData original)
    {
-      MergeUtil.merge(this, override, original);
+      if (original != null)
+      {
+         if(override != null)
+         {
+            //if there are duplicate bindings we want the override to take precedence
+            for(InterceptorBindingMetaData binding : original) {
+               boolean found = false;
+               for(InterceptorBindingMetaData other : override)
+               {
+                  if(other.getEjbName() != null && other.getEjbName().equals(binding.getEjbName()))
+                  {
+                     if(other.getMethod() == null && binding.getMethod() == null)
+                     {
+                        found = true;
+                        break;
+                     } else if (other.getMethod() != null && other.getMethod().equals(binding.getMethod()))
+                     {
+                        found = true;
+                        break;
+                     }
+                  }
+               }
+               if(!found)
+               {
+                  this.add(binding);
+               }
+            }
+         } else {
+            this.addAll(original);
+         }
+      }
+      if (override != null)
+      {
+         this.addAll(override);
+      }
    }
 }
