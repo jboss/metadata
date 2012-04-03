@@ -66,15 +66,15 @@ public class ApplicationExceptionMetaDataParser extends AbstractIdMetaDataParser
         switch (ejbJarElement)
         {
            case EXCEPTION_CLASS:
-              applicationExceptionMetaData.setExceptionClass(reader.getElementText());
+              applicationExceptionMetaData.setExceptionClass(super.getElementText(reader));
               break;
 
            case INHERITED:
-              applicationExceptionMetaData.setInherited(Boolean.valueOf(reader.getElementText()));
+              applicationExceptionMetaData.setInherited(Boolean.valueOf(super.getElementText(reader)));
               break;
 
            case ROLLBACK:
-              applicationExceptionMetaData.setRollback(Boolean.valueOf(reader.getElementText()));
+              applicationExceptionMetaData.setRollback(Boolean.valueOf(super.getElementText(reader)));
               break;
 
            default:
