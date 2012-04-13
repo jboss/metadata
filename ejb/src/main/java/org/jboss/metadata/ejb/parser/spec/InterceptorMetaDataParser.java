@@ -34,6 +34,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses the &lt;interceptor&gt; element in a ejb-jar.xml and creates metadata out of it.
@@ -46,7 +48,8 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
    private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final InterceptorMetaDataParser INSTANCE = new InterceptorMetaDataParser();
 
-   /**
+
+    /**
     * Parses and creates InterceptorMetaData of the interceptor element
     *
     * @param reader
@@ -54,11 +57,11 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
     * @throws XMLStreamException
     */
    @Override
-   public InterceptorMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public InterceptorMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       InterceptorMetaData interceptor = new InterceptorMetaData();
       processAttributes(interceptor, reader, ATTRIBUTE_PROCESSOR);
-      this.processElements(interceptor, reader);
+      this.processElements(interceptor, reader, propertyReplacer);
       return interceptor;
    }
 
@@ -71,7 +74,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(InterceptorMetaData interceptor, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(InterceptorMetaData interceptor, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
@@ -94,7 +97,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
       switch (ejbJarElement)
       {
          case INTERCEPTOR_CLASS:
-            String interceptorClass = getElementText(reader);
+            String interceptorClass = getElementText(reader, propertyReplacer);
             interceptor.setInterceptorClass(interceptorClass);
             return;
 
@@ -105,7 +108,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
                aroundInvokes = new AroundInvokesMetaData();
                interceptor.setAroundInvokes(aroundInvokes);
             }
-            AroundInvokeMetaData aroundInvoke = AroundInvokeMetaDataParser.INSTANCE.parse(reader);
+            AroundInvokeMetaData aroundInvoke = AroundInvokeMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             aroundInvokes.add(aroundInvoke);
             return;
 
@@ -116,7 +119,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
                aroundTimeouts = new AroundTimeoutsMetaData();
                interceptor.setAroundTimeouts(aroundTimeouts);
             }
-            AroundTimeoutMetaData aroundTimeout = AroundTimeoutMetaDataParser.INSTANCE.parse(reader);
+            AroundTimeoutMetaData aroundTimeout = AroundTimeoutMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             aroundTimeouts.add(aroundTimeout);
             return;
 
@@ -127,7 +130,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
                postActivates = new LifecycleCallbacksMetaData();
                interceptor.setPostActivates(postActivates);
             }
-            LifecycleCallbackMetaData postActivate = LifecycleCallbackMetaDataParser.parse(reader);
+            LifecycleCallbackMetaData postActivate = LifecycleCallbackMetaDataParser.parse(reader, propertyReplacer);
             postActivates.add(postActivate);
             return;
 
@@ -138,13 +141,13 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
                prePassivates = new LifecycleCallbacksMetaData();
                interceptor.setPrePassivates(prePassivates);
             }
-            LifecycleCallbackMetaData prePassivate = LifecycleCallbackMetaDataParser.parse(reader);
+            LifecycleCallbackMetaData prePassivate = LifecycleCallbackMetaDataParser.parse(reader, propertyReplacer);
             prePassivates.add(prePassivate);
             return;
 
 
          default:
-            super.processElement(interceptor, reader);
+            super.processElement(interceptor, reader, propertyReplacer);
       }
    }
 }

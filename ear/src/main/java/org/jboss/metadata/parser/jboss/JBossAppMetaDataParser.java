@@ -14,13 +14,15 @@ import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.spec.EarMetaDataParser;
-import org.jboss.metadata.parser.util.PropertiesValueResolver;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.HashSet;
 import java.util.Set;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
+import org.jboss.metadata.property.PropertyResolver;
 
 /**
  * @author John Bailey
@@ -32,6 +34,11 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
     public static final JBossAppMetaDataParser INSTANCE = new JBossAppMetaDataParser();
 
     public JBossAppMetaData parse(final XMLStreamReader reader) throws XMLStreamException {
+        return parse(reader, PropertyReplacers.noop());
+    }
+
+
+    public JBossAppMetaData parse(final XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         final EarMetaDataParser earMetaDataParser = new EarMetaDataParser();
         reader.require(START_DOCUMENT, null, null);
 
@@ -89,12 +96,12 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
             final Element element = Element.forName(reader.getLocalName());
             Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
             if(namespace == Namespace.SPEC) {
-               super.handleElement(reader, appMetaData);
+               super.handleElement(reader, appMetaData, propertyReplacer);
             } else {
                switch (element) {
                    case DISTINCT_NAME: {
-                       final String val = getElementText(reader);
-                       appMetaData.setDistinctName(PropertiesValueResolver.replaceProperties(val));
+                       final String val = getElementText(reader, propertyReplacer);
+                       appMetaData.setDistinctName(val);
                        break;
                    }
                    case MODULE_ORDER: {
@@ -103,11 +110,11 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                        break;
                    }
                    case SECURITY_DOMAIN: {
-                       appMetaData.setSecurityDomain(getElementText(reader));
+                       appMetaData.setSecurityDomain(getElementText(reader, propertyReplacer));
                        break;
                    }
                    case UNAUTHENTICATED_PRINCIPAL: {
-                       appMetaData.setUnauthenticatedPrincipal(getElementText(reader));
+                       appMetaData.setUnauthenticatedPrincipal(getElementText(reader, propertyReplacer));
                        break;
                    }
                    case JMX_NAME: {
@@ -115,20 +122,20 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                        break;
                    }
                    case LIBRARY_DIRECTORY: {
-                       appMetaData.setLibraryDirectory(getElementText(reader));
+                       appMetaData.setLibraryDirectory(getElementText(reader, propertyReplacer));
                        break;
                    }
                    case LOADER_REPOSITORY: {
-                       parseLoaderRepository(reader);
+                       parseLoaderRepository(reader, propertyReplacer);
                        logger.warn("loader-repository element in jboss-app.xml is deprecated and has been ignored");
                        break;
                    }
                    case MODULE: {
-                       appMetaData.getModules().add(parseModule(reader));
+                       appMetaData.getModules().add(parseModule(reader, propertyReplacer));
                        break;
                    }
                    case SECURITY_ROLE: {
-                       appMetaData.getSecurityRoles().add(SecurityRoleMetaDataParser.parse(reader));
+                       appMetaData.getSecurityRoles().add(SecurityRoleMetaDataParser.parse(reader, propertyReplacer));
                        break;
                    }
                    default:
@@ -140,7 +147,7 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
         return appMetaData;
     }
 
-    private static LoaderRepositoryMetaData parseLoaderRepository(XMLStreamReader reader) throws XMLStreamException {
+    private static LoaderRepositoryMetaData parseLoaderRepository(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         final LoaderRepositoryMetaData repositoryMetaData = new LoaderRepositoryMetaData();
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i++) {
@@ -193,7 +200,7 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                 final Element element = Element.forName(reader.getLocalName());
                 switch (element) {
                     case LOADER_REPOSITORY_CONFIG: {
-                        loaderConfigs.add(parseLoaderRepositoryConfig(reader));
+                        loaderConfigs.add(parseLoaderRepositoryConfig(reader, propertyReplacer));
                         break;
                     }
                 }
@@ -205,7 +212,7 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
         return repositoryMetaData;
     }
 
-    private static LoaderRepositoryConfigMetaData parseLoaderRepositoryConfig(XMLStreamReader reader) throws XMLStreamException {
+    private static LoaderRepositoryConfigMetaData parseLoaderRepositoryConfig(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         final LoaderRepositoryConfigMetaData configMetaData = new LoaderRepositoryConfigMetaData();
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i++) {
@@ -226,12 +233,12 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                     throw unexpectedAttribute(reader, i);
             }
         }
-        configMetaData.setConfig(getElementText(reader));
+        configMetaData.setConfig(getElementText(reader, propertyReplacer));
         return configMetaData;
     }
 
 
-    private static ModuleMetaData parseModule(XMLStreamReader reader) throws XMLStreamException {
+    private static ModuleMetaData parseModule(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         final ModuleMetaData moduleMetaData = new ModuleMetaData();
 
         final int count = reader.getAttributeCount();
@@ -255,13 +262,13 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case HAR:
-                    moduleMetaData.setValue(parseService(reader));
+                    moduleMetaData.setValue(parseService(reader, propertyReplacer));
                     break;
                 case SERVICE:
-                    moduleMetaData.setValue(parseService(reader));
+                    moduleMetaData.setValue(parseService(reader, propertyReplacer));
                     break;
                 case WEB:
-                    moduleMetaData.setValue(parseWeb(reader));
+                    moduleMetaData.setValue(parseWeb(reader, propertyReplacer));
                     break;
                 default:
                     throw unexpectedElement(reader);
@@ -270,13 +277,13 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
         return moduleMetaData;
     }
 
-    private static ServiceModuleMetaData parseService(final XMLStreamReader reader) throws XMLStreamException {
+    private static ServiceModuleMetaData parseService(final XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         final ServiceModuleMetaData module = new ServiceModuleMetaData();
-        module.setFileName(getElementText(reader));
+        module.setFileName(getElementText(reader, propertyReplacer));
         return module;
     }
 
-    private static WebModuleMetaData parseWeb(final XMLStreamReader reader) throws XMLStreamException {
+    private static WebModuleMetaData parseWeb(final XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         final WebModuleMetaData webModuleMetaData = new WebModuleMetaData();
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i++) {
@@ -299,10 +306,10 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
             final org.jboss.metadata.parser.spec.Element element = org.jboss.metadata.parser.spec.Element.forName(reader.getLocalName());
             switch (element) {
                 case CONTEXT_ROOT:
-                    webModuleMetaData.setContextRoot(getElementText(reader));
+                    webModuleMetaData.setContextRoot(getElementText(reader, propertyReplacer));
                     break;
                 case WEB_URI:
-                    webModuleMetaData.setWebURI(getElementText(reader));
+                    webModuleMetaData.setWebURI(getElementText(reader, propertyReplacer));
                     break;
                 default:
                     throw unexpectedElement(reader);

@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.ServletMappingMetaData;
 
 /**
@@ -36,7 +37,7 @@ import org.jboss.metadata.web.spec.ServletMappingMetaData;
  */
 public class ServletMappingMetaDataParser extends MetaDataElementParser {
 
-    public static ServletMappingMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ServletMappingMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         ServletMappingMetaData servletMapping = new ServletMappingMetaData();
 
         // Handle attributes
@@ -61,7 +62,7 @@ public class ServletMappingMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SERVLET_NAME:
-                    servletMapping.setServletName(getElementText(reader));
+                    servletMapping.setServletName(getElementText(reader, propertyReplacer));
                     break;
                 case URL_PATTERN:
                     List<String> urlPatterns = servletMapping.getUrlPatterns();
@@ -69,7 +70,7 @@ public class ServletMappingMetaDataParser extends MetaDataElementParser {
                         urlPatterns = new ArrayList<String>();
                         servletMapping.setUrlPatterns(urlPatterns);
                     }
-                    urlPatterns.add(getElementText(reader));
+                    urlPatterns.add(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

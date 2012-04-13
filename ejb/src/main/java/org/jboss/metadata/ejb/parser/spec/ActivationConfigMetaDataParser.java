@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -39,16 +40,16 @@ public class ActivationConfigMetaDataParser extends AbstractWithDescriptionsPars
    public static final ActivationConfigMetaDataParser INSTANCE = new ActivationConfigMetaDataParser();
 
    @Override
-   public ActivationConfigMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public ActivationConfigMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       ActivationConfigMetaData metaData = new ActivationConfigMetaData();
       processAttributes(metaData, reader, ATTRIBUTE_PROCESSOR);
-      processElements(metaData, reader);
+      processElements(metaData, reader, propertyReplacer);
       return metaData;
    }
 
    @Override
-   protected void processElement(ActivationConfigMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(ActivationConfigMetaData metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -60,11 +61,11 @@ public class ActivationConfigMetaDataParser extends AbstractWithDescriptionsPars
                propertiesMetaData = new ActivationConfigPropertiesMetaData();
                metaData.setActivationConfigProperties(propertiesMetaData);
             }
-            propertiesMetaData.add(ActivationConfigPropertyMetaDataParser.INSTANCE.parse(reader));
+            propertiesMetaData.add(ActivationConfigPropertyMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             break;
 
          default:
-            super.processElement(metaData, reader);
+            super.processElement(metaData, reader, propertyReplacer);
             break;
       }
    }

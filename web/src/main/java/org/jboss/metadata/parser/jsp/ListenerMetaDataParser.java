@@ -28,6 +28,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.ListenerMetaData;
 
 /**

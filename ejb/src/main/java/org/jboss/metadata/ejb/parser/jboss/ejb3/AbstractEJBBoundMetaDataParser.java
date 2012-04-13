@@ -26,6 +26,7 @@ import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * jboss-assembly-descriptor-bean-entryType
@@ -35,7 +36,7 @@ import javax.xml.stream.XMLStreamReader;
 public abstract class AbstractEJBBoundMetaDataParser<MD extends AbstractEJBBoundMetaData> extends AbstractMetaDataParser<MD>
 {
    @Override
-   protected void processElement(MD metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(MD metaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
       switch (namespace)
@@ -49,10 +50,10 @@ public abstract class AbstractEJBBoundMetaDataParser<MD extends AbstractEJBBound
                   reader.getElementText();
                   return;
                case EJB_NAME:
-                  metaData.setEjbName(getElementText(reader));
+                  metaData.setEjbName(getElementText(reader, propertyReplacer));
                   return;
             }
       }
-      super.processElement(metaData, reader);
+      super.processElement(metaData, reader, propertyReplacer);
    }
 }

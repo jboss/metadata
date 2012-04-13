@@ -26,6 +26,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.jboss.PassivationConfig;
 
 /**
@@ -33,22 +34,22 @@ import org.jboss.metadata.web.jboss.PassivationConfig;
  *
  */
 public class PassivationConfigParser extends MetaDataElementParser {
-    public static PassivationConfig parse(XMLStreamReader reader) throws XMLStreamException {
+    public static PassivationConfig parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         PassivationConfig config = new PassivationConfig();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case USE_SESSION_PASSIVATION: {
-                    config.setUseSessionPassivation(Boolean.valueOf(getElementText(reader)));
+                    config.setUseSessionPassivation(Boolean.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case PASSIVATION_MIN_IDLE_TIME: {
-                    config.setPassivationMinIdleTime(Integer.valueOf(getElementText(reader)));
+                    config.setPassivationMinIdleTime(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case PASSIVATION_MAX_IDLE_TIME: {
-                    config.setPassivationMaxIdleTime(Integer.valueOf(getElementText(reader)));
+                    config.setPassivationMaxIdleTime(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 default: {

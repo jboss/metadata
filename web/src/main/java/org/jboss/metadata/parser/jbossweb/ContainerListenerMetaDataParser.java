@@ -31,6 +31,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.parser.ee.ParamValueMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.jboss.ContainerListenerMetaData;
 import org.jboss.metadata.web.jboss.ContainerListenerType;
 
@@ -39,7 +40,7 @@ import org.jboss.metadata.web.jboss.ContainerListenerType;
  */
 public class ContainerListenerMetaDataParser extends MetaDataElementParser {
 
-    public static ContainerListenerMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ContainerListenerMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
     	ContainerListenerMetaData containerListener = new ContainerListenerMetaData();
 
         // Handle elements
@@ -47,14 +48,14 @@ public class ContainerListenerMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case CLASS_NAME:
-                	containerListener.setListenerClass(getElementText(reader));
+                	containerListener.setListenerClass(getElementText(reader, propertyReplacer));
                     break;
                 case MODULE:
-                	containerListener.setModule(getElementText(reader));
+                	containerListener.setModule(getElementText(reader, propertyReplacer));
                     break;
                 case LISTENER_TYPE:
                     try {
-                        containerListener.setListenerType(ContainerListenerType.valueOf(getElementText(reader)));
+                        containerListener.setListenerType(ContainerListenerType.valueOf(getElementText(reader, propertyReplacer)));
                     } catch (IllegalArgumentException e) {
                         throw unexpectedValue(reader, e);
                     }
@@ -65,7 +66,7 @@ public class ContainerListenerMetaDataParser extends MetaDataElementParser {
                     	params = new ArrayList<ParamValueMetaData>();
                     	containerListener.setParams(params);
                     }
-                    params.add(ParamValueMetaDataParser.parse(reader));
+                    params.add(ParamValueMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

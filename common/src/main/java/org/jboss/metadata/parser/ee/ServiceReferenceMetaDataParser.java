@@ -36,13 +36,14 @@ import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainsMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlersMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Remy Maucherat
  */
 public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
 
-    public static ServiceReferenceMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ServiceReferenceMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         JBossServiceReferenceMetaData serviceReference = new JBossServiceReferenceMetaData();
 
         // Handle attributes
@@ -71,31 +72,31 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                 }
                 continue;
             }
-            if (ResourceInjectionMetaDataParser.parse(reader, serviceReference)) {
+            if (ResourceInjectionMetaDataParser.parse(reader, serviceReference, propertyReplacer)) {
                 continue;
             }
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SERVICE_REF_NAME:
-                    serviceReference.setServiceRefName(getElementText(reader));
+                    serviceReference.setServiceRefName(getElementText(reader, propertyReplacer));
                     break;
                 case SERVICE_INTERFACE:
-                    serviceReference.setServiceInterface(getElementText(reader));
+                    serviceReference.setServiceInterface(getElementText(reader, propertyReplacer));
                     break;
                 case SERVICE_IMPL_CLASS:
-                   serviceReference.setServiceClass(getElementText(reader));
+                   serviceReference.setServiceClass(getElementText(reader, propertyReplacer));
                     break;
                 case SERVICE_REF_TYPE:
-                    serviceReference.setServiceRefType(getElementText(reader));
+                    serviceReference.setServiceRefType(getElementText(reader, propertyReplacer));
                     break;
                 case WSDL_FILE:
-                    serviceReference.setWsdlFile(getElementText(reader));
+                    serviceReference.setWsdlFile(getElementText(reader, propertyReplacer));
                     break;
                 case JAXRPC_MAPPING_FILE:
-                    serviceReference.setJaxrpcMappingFile(getElementText(reader));
+                    serviceReference.setJaxrpcMappingFile(getElementText(reader, propertyReplacer));
                     break;
                 case SERVICE_QNAME:
-                    serviceReference.setServiceQname(parseQName(reader, getElementText(reader)));
+                    serviceReference.setServiceQname(parseQName(reader, getElementText(reader, propertyReplacer)));
                     break;
                 case PORT_COMPONENT_REF:
                     List<JBossPortComponentRef> portComponentRefs = (List<JBossPortComponentRef>) serviceReference.getPortComponentRef();
@@ -103,7 +104,7 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                         portComponentRefs = new ArrayList<JBossPortComponentRef>();
                         serviceReference.setJBossPortComponentRef(portComponentRefs);
                     }
-                    portComponentRefs.add(PortComponentRefParser.parse(reader));
+                    portComponentRefs.add(PortComponentRefParser.parse(reader, propertyReplacer));
                     break;
                 case HANDLER:
                     ServiceReferenceHandlersMetaData handlers = serviceReference.getHandlers();
@@ -111,7 +112,7 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                         handlers = new ServiceReferenceHandlersMetaData();
                         serviceReference.setHandlers(handlers);
                     }
-                    handlers.add(ServiceReferenceHandlerMetaDataParser.parse(reader));
+                    handlers.add(ServiceReferenceHandlerMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case HANDLER_CHAIN:
                     ServiceReferenceHandlerChainsMetaData handlerChain = serviceReference.getHandlerChains();
@@ -120,7 +121,7 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                         handlerChain.setHandlers(new ArrayList<ServiceReferenceHandlerChainMetaData>());
                         serviceReference.setHandlerChains(handlerChain);
                     }
-                    handlerChain.getHandlers().add(ServiceReferenceHandlerChainMetaDataParser.parse(reader));
+                    handlerChain.getHandlers().add(ServiceReferenceHandlerChainMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case HANDLER_CHAINS:
                     ServiceReferenceHandlerChainsMetaData handlerChains = serviceReference.getHandlerChains();
@@ -129,16 +130,16 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                         handlerChains.setHandlers(new ArrayList<ServiceReferenceHandlerChainMetaData>());
                         serviceReference.setHandlerChains(handlerChains);
                     }
-                    handlerChains.getHandlers().addAll(ServiceReferenceHandlerChainsMetaDataParser.parse(reader));
+                    handlerChains.getHandlers().addAll(ServiceReferenceHandlerChainsMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case CONFIG_NAME:
-                   serviceReference.setConfigName(getElementText(reader));
+                   serviceReference.setConfigName(getElementText(reader, propertyReplacer));
                    break;
                 case CONFIG_FILE:
-                   serviceReference.setConfigFile(getElementText(reader));
+                   serviceReference.setConfigFile(getElementText(reader, propertyReplacer));
                    break;
                 case WSDL_OVERRIDE:
-                    serviceReference.setWsdlOverride(getElementText(reader));
+                    serviceReference.setWsdlOverride(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

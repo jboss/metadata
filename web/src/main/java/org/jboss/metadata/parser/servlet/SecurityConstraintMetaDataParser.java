@@ -26,6 +26,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.SecurityConstraintMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionsMetaData;
 
@@ -34,7 +35,7 @@ import org.jboss.metadata.web.spec.WebResourceCollectionsMetaData;
  */
 public class SecurityConstraintMetaDataParser extends MetaDataElementParser {
 
-    public static SecurityConstraintMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static SecurityConstraintMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         SecurityConstraintMetaData securityConstraint = new SecurityConstraintMetaData();
 
         // Handle attributes
@@ -59,7 +60,7 @@ public class SecurityConstraintMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case DISPLAY_NAME:
-                    securityConstraint.setDisplayName(getElementText(reader));
+                    securityConstraint.setDisplayName(getElementText(reader, propertyReplacer));
                     break;
                 case WEB_RESOURCE_COLLECTION:
                     WebResourceCollectionsMetaData resourceCollections = securityConstraint.getResourceCollections();
@@ -67,13 +68,13 @@ public class SecurityConstraintMetaDataParser extends MetaDataElementParser {
                         resourceCollections = new WebResourceCollectionsMetaData();
                         securityConstraint.setResourceCollections(resourceCollections);
                     }
-                    resourceCollections.add(WebResourceCollectionMetaDataParser.parse(reader));
+                    resourceCollections.add(WebResourceCollectionMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case AUTH_CONSTRAINT:
-                    securityConstraint.setAuthConstraint(AuthConstraintMetaDataParser.parse(reader));
+                    securityConstraint.setAuthConstraint(AuthConstraintMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case USER_DATA_CONSTRAINT:
-                    securityConstraint.setUserDataConstraint(UserDataConstraintMetaDataParser.parse(reader));
+                    securityConstraint.setUserDataConstraint(UserDataConstraintMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

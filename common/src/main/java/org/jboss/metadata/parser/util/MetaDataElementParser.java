@@ -35,6 +35,7 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Emanuel Muckenhuber
@@ -180,6 +181,29 @@ public class MetaDataElementParser implements XMLStreamConstants {
     */
     protected static String getElementText(final XMLStreamReader reader) throws XMLStreamException {
     	return getElementText(reader, true);
+    }
+
+    /**
+     * Read the element text, with trimming and replace in properties.
+     *
+     * @param reader the reader
+     * @param propertyReplacer propertyReplacer
+     * @throws XMLStreamException if an error occurs
+    */
+    protected static String getElementText(final XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
+        return propertyReplacer.replaceProperties(getElementText(reader));
+    }
+
+    /**
+     * Read the element text, with trimming and replace in properties.
+     *
+     * @param reader the reader
+     * @param propertyReplacer propertyReplacer
+     * @param trim True if the text has to be trimmed before returning. False otherwise
+     * @throws XMLStreamException if an error occurs
+    */
+    protected static String getElementText(final XMLStreamReader reader, boolean trim,  final PropertyReplacer propertyReplacer) throws XMLStreamException {
+        return propertyReplacer.replaceProperties(getElementText(reader, trim));
     }
 
    /**

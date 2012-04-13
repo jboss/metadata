@@ -31,6 +31,10 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
+import org.jboss.metadata.property.PropertyResolver;
+import org.jboss.metadata.property.SystemPropertyResolver;
 
 /**
  * @author Remy Maucherat
@@ -38,6 +42,10 @@ import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 public class SecurityRoleMetaDataParser extends MetaDataElementParser {
 
     public static SecurityRoleMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+        return parse(reader, PropertyReplacers.noop());
+    }
+
+    public static SecurityRoleMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         SecurityRoleMetaData securityRole = new SecurityRoleMetaData();
 
         // Handle attributes
@@ -60,7 +68,7 @@ public class SecurityRoleMetaDataParser extends MetaDataElementParser {
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (DescriptionsMetaDataParser.parse(reader, descriptions)) {
+            if (DescriptionsMetaDataParser.parse(reader, descriptions, propertyReplacer)) {
                 if (securityRole.getDescriptions() == null) {
                     securityRole.setDescriptions(descriptions);
                 }
@@ -69,7 +77,7 @@ public class SecurityRoleMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ROLE_NAME:
-                    securityRole.setRoleName(getElementText(reader));
+                    securityRole.setRoleName(getElementText(reader, propertyReplacer));
                     break;
                 case PRINCIPAL_NAME:
                     Set<String> principalNames = securityRole.getPrincipals();
@@ -77,7 +85,7 @@ public class SecurityRoleMetaDataParser extends MetaDataElementParser {
                         principalNames = new HashSet<String>();
                         securityRole.setPrincipals(principalNames);
                     }
-                    principalNames.add(getElementText(reader));
+                    principalNames.add(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

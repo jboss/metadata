@@ -31,6 +31,7 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses an application-client.xml file and creates metadata out of it
@@ -42,7 +43,7 @@ public class ApplicationClientMetaDataParser extends MetaDataElementParser
 
    public static final ApplicationClientMetaDataParser INSTANCE = new ApplicationClientMetaDataParser();
 
-   public ApplicationClientMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public ApplicationClientMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       reader.require(START_DOCUMENT, null, null);
       // Read until the first start element
@@ -56,7 +57,7 @@ public class ApplicationClientMetaDataParser extends MetaDataElementParser
       processAttributes(appClientMetadata, reader);
 
       // parse and create metadata out of the elements under the root ejb-jar element
-      processElements(appClientMetadata, reader);
+      processElements(appClientMetadata, reader, propertyReplacer);
 
       return appClientMetadata;
    }
@@ -101,7 +102,7 @@ public class ApplicationClientMetaDataParser extends MetaDataElementParser
       }
    }
 
-   protected void processElements(final ApplicationClientMetaData applicationClientMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElements(final ApplicationClientMetaData applicationClientMetaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
 
         final DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
@@ -117,10 +118,10 @@ public class ApplicationClientMetaDataParser extends MetaDataElementParser
             final AppClientElement element = AppClientElement.forName(reader.getLocalName());
             switch (element) {
                 case CALLBACK_HANDLER: {
-                    applicationClientMetaData.setCallbackHandler(getElementText(reader));
+                    applicationClientMetaData.setCallbackHandler(getElementText(reader, propertyReplacer));
                     break;
                 } case MODULE_NAME: {
-                    applicationClientMetaData.setModuleName(getElementText(reader));
+                    applicationClientMetaData.setModuleName(getElementText(reader, propertyReplacer));
                     break;
                 }
                 default:

@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.SessionConfigMetaData;
 import org.jboss.metadata.web.spec.SessionTrackingModeType;
 
@@ -37,7 +38,7 @@ import org.jboss.metadata.web.spec.SessionTrackingModeType;
  */
 public class SessionConfigMetaDataParser extends MetaDataElementParser {
 
-    public static SessionConfigMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static SessionConfigMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         SessionConfigMetaData sessionConfig = new SessionConfigMetaData();
 
         // Handle attributes
@@ -63,13 +64,13 @@ public class SessionConfigMetaDataParser extends MetaDataElementParser {
             switch (element) {
                 case SESSION_TIMEOUT:
                     try {
-                        sessionConfig.setSessionTimeout(Integer.valueOf(getElementText(reader)));
+                        sessionConfig.setSessionTimeout(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     } catch (NumberFormatException e) {
                         throw unexpectedValue(reader, e);
                     }
                     break;
                 case COOKIE_CONFIG:
-                    sessionConfig.setCookieConfig(CookieConfigMetaDataParser.parse(reader));
+                    sessionConfig.setCookieConfig(CookieConfigMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case TRACKING_MODE:
                     List<SessionTrackingModeType> trackingModes = sessionConfig.getSessionTrackingModes();
@@ -78,7 +79,7 @@ public class SessionConfigMetaDataParser extends MetaDataElementParser {
                         sessionConfig.setSessionTrackingModes(trackingModes);
                     }
                     try {
-                        trackingModes.add(SessionTrackingModeType.valueOf(getElementText(reader)));
+                        trackingModes.add(SessionTrackingModeType.valueOf(getElementText(reader, propertyReplacer)));
                     } catch (IllegalArgumentException e) {
                         throw unexpectedValue(reader, e);
                     }

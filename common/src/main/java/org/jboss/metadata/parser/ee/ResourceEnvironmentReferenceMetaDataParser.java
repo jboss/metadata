@@ -26,23 +26,16 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
-import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferenceType;
-import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
-import org.jboss.metadata.javaee.spec.ResourceAuthorityType;
 import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceSharingScopeType;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Remy Maucherat
  */
 public class ResourceEnvironmentReferenceMetaDataParser extends MetaDataElementParser {
 
-    public static ResourceEnvironmentReferenceMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ResourceEnvironmentReferenceMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ResourceEnvironmentReferenceMetaData resourceReference = new ResourceEnvironmentReferenceMetaData();
 
         // Handle attributes
@@ -65,22 +58,22 @@ public class ResourceEnvironmentReferenceMetaDataParser extends MetaDataElementP
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (DescriptionsMetaDataParser.parse(reader, descriptions)) {
+            if (DescriptionsMetaDataParser.parse(reader, descriptions, propertyReplacer)) {
                 if (resourceReference.getDescriptions() == null) {
                     resourceReference.setDescriptions(descriptions);
                 }
                 continue;
             }
-            if (ResourceInjectionMetaDataParser.parse(reader, resourceReference)) {
+            if (ResourceInjectionMetaDataParser.parse(reader, resourceReference, propertyReplacer)) {
                 continue;
             }
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case RESOURCE_ENV_REF_NAME:
-                    resourceReference.setResourceEnvRefName(getElementText(reader));
+                    resourceReference.setResourceEnvRefName(getElementText(reader, propertyReplacer));
                     break;
                 case RESOURCE_ENV_REF_TYPE:
-                    resourceReference.setType(getElementText(reader));
+                    resourceReference.setType(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

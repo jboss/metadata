@@ -28,13 +28,14 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.javaee.jboss.StubPropertyMetaData;
 import org.jboss.metadata.javaee.spec.RespectBinding;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:ropalka@redhat.com">Richard Opalka</a>
  */
 public class StubPropertyParser extends MetaDataElementParser {
 
-    public static StubPropertyMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static StubPropertyMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         StubPropertyMetaData stubPropertyMD = new StubPropertyMetaData();
 
         // Handle elements
@@ -42,10 +43,10 @@ public class StubPropertyParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case PROP_NAME:
-                    stubPropertyMD.setPropName(getElementText(reader));
+                    stubPropertyMD.setPropName(getElementText(reader, propertyReplacer));
                     break;
                 case PROP_VALUE:
-                    stubPropertyMD.setPropValue(getElementText(reader));
+                    stubPropertyMD.setPropValue(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }
@@ -53,15 +54,4 @@ public class StubPropertyParser extends MetaDataElementParser {
 
         return stubPropertyMD;
     }
-
-    /**
-     * Read the element text, with trimming.
-     *
-     * @param reader the reader
-     * @throws XMLStreamException if an error occurs
-    */
-    protected static String getElementText(final XMLStreamReader reader) throws XMLStreamException {
-        return getElementText(reader, true);
-    }
-
 }

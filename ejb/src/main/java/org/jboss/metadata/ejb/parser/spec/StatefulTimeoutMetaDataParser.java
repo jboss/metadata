@@ -30,6 +30,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses and creates metadata out of &lt;stateful-timeout&gt; element of ejb-jar.xml
@@ -65,35 +66,35 @@ public class StatefulTimeoutMetaDataParser extends AbstractMetaDataParser<Statef
      *
      */
     @Override
-    public StatefulTimeoutMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public StatefulTimeoutMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         StatefulTimeoutMetaData schedule = new StatefulTimeoutMetaData();
-        this.processElements(schedule, reader);
+        this.processElements(schedule, reader, propertyReplacer);
 
         return schedule;
 
     }
 
     @Override
-    protected void processElement(final StatefulTimeoutMetaData schedule, final XMLStreamReader reader) throws XMLStreamException {
+    protected void processElement(final StatefulTimeoutMetaData schedule, final XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
         switch (ejbJarElement) {
             case UNIT:
-                processUnitElement(schedule, reader);
+                processUnitElement(schedule, reader, propertyReplacer);
                 break;
             case TIMEOUT:
-                processValueElement(schedule, reader);
+                processValueElement(schedule, reader, propertyReplacer);
                 break;
             default:
-                super.processElement(schedule, reader);
+                super.processElement(schedule, reader, propertyReplacer);
         }
     }
 
-    private void processValueElement(final StatefulTimeoutMetaData schedule, final XMLStreamReader reader) throws XMLStreamException {
-        schedule.setTimeout(Long.valueOf(reader.getElementText()));
+    private void processValueElement(final StatefulTimeoutMetaData schedule, final XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
+        schedule.setTimeout(Long.valueOf(getElementText(reader, propertyReplacer)));
     }
 
-    protected void processUnitElement(StatefulTimeoutMetaData metaData, XMLStreamReader reader) throws XMLStreamException {
-        TimeUnit unit = TIME_UNITS.get(reader.getElementText());
+    protected void processUnitElement(StatefulTimeoutMetaData metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
+        TimeUnit unit = TIME_UNITS.get(getElementText(reader, propertyReplacer));
         if(unit != null) {
             metaData.setUnit(unit);
         } else {

@@ -26,6 +26,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.TaglibMetaData;
 
 /**
@@ -33,7 +34,7 @@ import org.jboss.metadata.web.spec.TaglibMetaData;
  */
 public class TaglibMetaDataParser extends MetaDataElementParser {
 
-    public static TaglibMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static TaglibMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         TaglibMetaData taglib = new TaglibMetaData();
 
         // Handle attributes
@@ -58,10 +59,10 @@ public class TaglibMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case TAGLIB_URI:
-                    taglib.setTaglibUri(getElementText(reader));
+                    taglib.setTaglibUri(getElementText(reader, propertyReplacer));
                     break;
                 case TAGLIB_LOCATION:
-                    taglib.setTaglibLocation(getElementText(reader));
+                    taglib.setTaglibLocation(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

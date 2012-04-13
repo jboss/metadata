@@ -70,6 +70,8 @@ import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.test.AbstractTestSetup;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 import org.jboss.util.NotImplementedException;
@@ -1477,26 +1479,32 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       if (index != -1)
          name = name.substring(0, index);
       name = name + "_" + getName() + ".xml";
-      return unmarshal(name, expected, null);
+      return unmarshal(name, expected, null, PropertyReplacers.noop());
    }
 
    @Deprecated
    protected <T> T unmarshal(String name, Class<T> expected) throws Exception
    {
+       return unmarshal(name, expected, PropertyReplacers.noop());
+   }
+
+   @Deprecated
+   protected <T> T unmarshal(String name, Class<T> expected, PropertyReplacer propertyReplacer) throws Exception
+   {
       MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
       XMLStreamReader reader = getReader(name, info);
       if(EjbJarMetaData.class.isAssignableFrom(expected))
       {
-         return expected.cast(EjbJarMetaDataParser.parse(reader, info));
+         return expected.cast(EjbJarMetaDataParser.parse(reader, info, propertyReplacer));
       }
       fail("NYI: parsing for " + expected);
       return null;
    }
 
    @Deprecated
-   protected <T> T unmarshal(String name, Class<T> expected, Object resolver) throws Exception
+   protected <T> T unmarshal(String name, Class<T> expected, Object resolver, PropertyReplacer propertyReplacer) throws Exception
    {
       assertNull("specifying a resolver is no longer supported", resolver);
-      return unmarshal(name, expected);
+      return unmarshal(name, expected, propertyReplacer);
    }
 }

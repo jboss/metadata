@@ -28,6 +28,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -37,31 +39,31 @@ public class ActivationConfigPropertyMetaDataParser extends AbstractMetaDataPars
    private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    static final ActivationConfigPropertyMetaDataParser INSTANCE = new ActivationConfigPropertyMetaDataParser();
 
-   @Override
-   public ActivationConfigPropertyMetaData parse(XMLStreamReader reader) throws XMLStreamException
+    @Override
+   public ActivationConfigPropertyMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       ActivationConfigPropertyMetaData metaData = new ActivationConfigPropertyMetaData();
       processAttributes(metaData, reader, ATTRIBUTE_PROCESSOR);
-      processElements(metaData, reader);
+      processElements(metaData, reader, propertyReplacer);
       return metaData;
    }
 
    @Override
-   protected void processElement(ActivationConfigPropertyMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(ActivationConfigPropertyMetaData metaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case ACTIVATION_CONFIG_PROPERTY_NAME:
-            metaData.setName(getElementText(reader));
+            metaData.setName(getElementText(reader, propertyReplacer));
             break;
 
          case ACTIVATION_CONFIG_PROPERTY_VALUE:
-            metaData.setValue(getElementText(reader));
+            metaData.setValue(getElementText(reader, propertyReplacer));
             break;
 
          default:
-            super.processElement(metaData, reader);
+            super.processElement(metaData, reader, propertyReplacer);
             break;
       }
    }

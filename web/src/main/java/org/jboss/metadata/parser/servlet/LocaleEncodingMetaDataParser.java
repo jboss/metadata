@@ -26,6 +26,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.LocaleEncodingMetaData;
 
 /**
@@ -33,7 +34,7 @@ import org.jboss.metadata.web.spec.LocaleEncodingMetaData;
  */
 public class LocaleEncodingMetaDataParser extends MetaDataElementParser {
 
-    public static LocaleEncodingMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static LocaleEncodingMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         LocaleEncodingMetaData localeEncoding = new LocaleEncodingMetaData();
 
         // Handle attributes
@@ -58,10 +59,10 @@ public class LocaleEncodingMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case LOCALE:
-                    localeEncoding.setLocale(getElementText(reader));
+                    localeEncoding.setLocale(getElementText(reader, propertyReplacer));
                     break;
                 case ENCODING:
-                    localeEncoding.setEncoding(getElementText(reader));
+                    localeEncoding.setEncoding(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

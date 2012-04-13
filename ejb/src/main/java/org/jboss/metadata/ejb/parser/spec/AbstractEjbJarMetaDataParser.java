@@ -29,6 +29,7 @@ import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses a ejb-jar.xml file and creates metadata out of it
@@ -89,7 +90,7 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
    }
 
    @Override
-   protected void processElement(final EjbJarMetaData ejbJarMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(final EjbJarMetaData ejbJarMetaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -98,7 +99,7 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
             // only EJB 3.1 allows module-name
             if (ejbJarMetaData.isEJB31())
             {
-               String moduleName = getElementText(reader);
+               String moduleName = getElementText(reader, propertyReplacer);
                ejbJarMetaData.setModuleName(moduleName);
             }
             else
@@ -108,7 +109,7 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
             break;
 
          case ENTERPRISE_BEANS:
-            EnterpriseBeansMetaData enterpriseBeans = EnterpriseBeansMetaDataParser.parse(reader, ejbJarMetaData.getEjbJarVersion());
+            EnterpriseBeansMetaData enterpriseBeans = EnterpriseBeansMetaDataParser.parse(reader, ejbJarMetaData.getEjbJarVersion(), propertyReplacer);
             if (enterpriseBeans != null)
             {
                // setup the bi-directional relationship
@@ -121,7 +122,7 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
             // only applicable for EJB 3.x
             if (ejbJarMetaData.isEJB3x())
             {
-               InterceptorsMetaData intercpetors = InterceptorsMetaDataParser.INSTANCE.parse(reader);
+               InterceptorsMetaData intercpetors = InterceptorsMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
                ejbJarMetaData.setInterceptors(intercpetors);
             }
             else
@@ -131,17 +132,17 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
             break;
 
          case RELATIONSHIPS:
-            RelationsMetaData relations = RelationsMetaDataParser.parse(reader);
+            RelationsMetaData relations = RelationsMetaDataParser.parse(reader, propertyReplacer);
             ejbJarMetaData.setRelationships(relations);
             break;
 
          case ASSEMBLY_DESCRIPTOR:
             AssemblyDescriptorMetaDataParser assemblyDescriptorParser = AssemblyDescriptorMetaDataParserFactory.getParser(ejbJarMetaData.getEjbJarVersion());
-            ejbJarMetaData.setAssemblyDescriptor(assemblyDescriptorParser.parse(reader));
+            ejbJarMetaData.setAssemblyDescriptor(assemblyDescriptorParser.parse(reader, propertyReplacer));
             break;
 
          case EJB_CLIENT_JAR:
-            String ejbClientJar = getElementText(reader);
+            String ejbClientJar = getElementText(reader, propertyReplacer);
             ejbJarMetaData.setEjbClientJar(ejbClientJar);
             break;
 
@@ -160,7 +161,7 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
                   return descriptionGroup;
                }
             };
-            if (DescriptionGroupMetaDataParser.parse(reader, accessor))
+            if (DescriptionGroupMetaDataParser.parse(reader, accessor, propertyReplacer))
                break;
             throw unexpectedElement(reader);
       }

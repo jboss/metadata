@@ -30,6 +30,8 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PropertiesMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * @author Remy Maucherat
@@ -37,6 +39,10 @@ import org.jboss.metadata.javaee.spec.PropertiesMetaData;
 public class PersistenceContextReferenceMetaDataParser extends MetaDataElementParser {
 
     public static PersistenceContextReferenceMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+        return parse(reader, PropertyReplacers.noop());
+    }
+
+    public static PersistenceContextReferenceMetaData parse(XMLStreamReader reader,final PropertyReplacer propertyReplacer) throws XMLStreamException {
         PersistenceContextReferenceMetaData pcReference = new PersistenceContextReferenceMetaData();
 
         // Handle attributes
@@ -59,25 +65,25 @@ public class PersistenceContextReferenceMetaDataParser extends MetaDataElementPa
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (DescriptionsMetaDataParser.parse(reader, descriptions)) {
+            if (DescriptionsMetaDataParser.parse(reader, descriptions, propertyReplacer)) {
                 if (pcReference.getDescriptions() == null) {
                     pcReference.setDescriptions(descriptions);
                 }
                 continue;
             }
-            if (ResourceInjectionMetaDataParser.parse(reader, pcReference)) {
+            if (ResourceInjectionMetaDataParser.parse(reader, pcReference, propertyReplacer)) {
                 continue;
             }
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case PERSISTENCE_CONTEXT_REF_NAME:
-                    pcReference.setPersistenceContextRefName(getElementText(reader));
+                    pcReference.setPersistenceContextRefName(getElementText(reader, propertyReplacer));
                     break;
                 case PERSISTENCE_CONTEXT_TYPE:
-                    pcReference.setPersistenceContextType(PersistenceContextType.valueOf(getElementText(reader).toUpperCase()));
+                    pcReference.setPersistenceContextType(PersistenceContextType.valueOf(propertyReplacer.replaceProperties(getElementText(reader, propertyReplacer).toUpperCase())));
                     break;
                 case PERSISTENCE_UNIT_NAME:
-                    pcReference.setPersistenceUnitName(getElementText(reader));
+                    pcReference.setPersistenceUnitName(getElementText(reader, propertyReplacer));
                     break;
                 case PERSISTENCE_PROPERTY:
                     PropertiesMetaData properties = pcReference.getProperties();
@@ -85,7 +91,7 @@ public class PersistenceContextReferenceMetaDataParser extends MetaDataElementPa
                         properties = new PropertiesMetaData();
                         pcReference.setProperties(properties);
                     }
-                    properties.add(PropertyMetaDataParser.parse(reader));
+                    properties.add(PropertyMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

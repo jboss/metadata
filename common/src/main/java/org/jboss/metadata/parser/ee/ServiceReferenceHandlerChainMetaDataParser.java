@@ -31,13 +31,14 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Remy Maucherat
  */
 public class ServiceReferenceHandlerChainMetaDataParser extends MetaDataElementParser {
 
-    public static ServiceReferenceHandlerChainMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ServiceReferenceHandlerChainMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ServiceReferenceHandlerChainMetaData handlerChain = new ServiceReferenceHandlerChainMetaData();
 
         // Handle attributes
@@ -62,13 +63,13 @@ public class ServiceReferenceHandlerChainMetaDataParser extends MetaDataElementP
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SERVICE_NAME_PATTERN:
-                    handlerChain.setServiceNamePattern(parseQName(reader, getElementText(reader)));
+                    handlerChain.setServiceNamePattern(parseQName(reader, getElementText(reader, propertyReplacer)));
                     break;
                 case PORT_NAME_PATTERN:
-                    handlerChain.setPortNamePattern(parseQName(reader, getElementText(reader)));
+                    handlerChain.setPortNamePattern(parseQName(reader, getElementText(reader, propertyReplacer)));
                     break;
                 case PROTOCOL_BINDINGS:
-                    handlerChain.setProtocolBindings(getElementText(reader));
+                    handlerChain.setProtocolBindings(getElementText(reader, propertyReplacer));
                     break;
                 case HANDLER:
                     List<ServiceReferenceHandlerMetaData> handlers = handlerChain.getHandler();
@@ -76,7 +77,7 @@ public class ServiceReferenceHandlerChainMetaDataParser extends MetaDataElementP
                         handlers = new ArrayList<ServiceReferenceHandlerMetaData>();
                         handlerChain.setHandler(handlers);
                     }
-                    handlers.add(ServiceReferenceHandlerMetaDataParser.parse(reader));
+                    handlers.add(ServiceReferenceHandlerMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

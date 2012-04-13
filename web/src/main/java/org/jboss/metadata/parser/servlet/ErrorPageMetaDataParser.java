@@ -26,6 +26,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.ErrorPageMetaData;
 
 /**
@@ -33,7 +34,7 @@ import org.jboss.metadata.web.spec.ErrorPageMetaData;
  */
 public class ErrorPageMetaDataParser extends MetaDataElementParser {
 
-    public static ErrorPageMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ErrorPageMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         ErrorPageMetaData errorPage = new ErrorPageMetaData();
 
         // Handle attributes
@@ -58,13 +59,13 @@ public class ErrorPageMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ERROR_CODE:
-                    errorPage.setErrorCode(getElementText(reader));
+                    errorPage.setErrorCode(getElementText(reader, propertyReplacer));
                     break;
                 case EXCEPTION_TYPE:
-                    errorPage.setExceptionType(getElementText(reader));
+                    errorPage.setExceptionType(getElementText(reader, propertyReplacer));
                     break;
                 case LOCATION:
-                    errorPage.setLocation(getElementText(reader));
+                    errorPage.setLocation(getElementText(reader, propertyReplacer));
                     break;
                  default: throw unexpectedElement(reader);
             }

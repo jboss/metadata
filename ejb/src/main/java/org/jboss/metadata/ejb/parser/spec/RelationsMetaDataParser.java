@@ -33,6 +33,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses the relations elements of ejb-jar.xml
@@ -40,6 +42,10 @@ import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.proces
 public class RelationsMetaDataParser extends MetaDataElementParser
 {
    private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
+
+   public static RelationsMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+       return parse(reader, PropertyReplacers.noop());
+   }
 
    /**
     * Creates and returns {@link org.jboss.metadata.ejb.spec.RelationsMetaData} after parsing the enterprise-beans
@@ -50,7 +56,7 @@ public class RelationsMetaDataParser extends MetaDataElementParser
     * @throws javax.xml.stream.XMLStreamException
     *
     */
-   public static RelationsMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public static RelationsMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       RelationsMetaData relations = new RelationsMetaData();
       processAttributes(relations, reader, ATTRIBUTE_PROCESSOR);
@@ -58,7 +64,7 @@ public class RelationsMetaDataParser extends MetaDataElementParser
       // Handle elements
       while (reader.hasNext() && reader.nextTag() != END_ELEMENT)
       {
-         if (DescriptionsMetaDataParser.parse(reader, descriptions))
+         if (DescriptionsMetaDataParser.parse(reader, descriptions, propertyReplacer))
          {
             if (relations.getDescriptions() == null)
             {
@@ -71,7 +77,7 @@ public class RelationsMetaDataParser extends MetaDataElementParser
          {
             case EJB_RELATION:
                
-               RelationMetaData relation = RelationMetaDataParser.INSTANCE.parse(reader);
+               RelationMetaData relation = RelationMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
                relations.add(relation);
                break;
 

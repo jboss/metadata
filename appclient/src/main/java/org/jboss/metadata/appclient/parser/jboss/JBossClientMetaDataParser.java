@@ -34,6 +34,7 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses an application-client.xml file and creates metadata out of it
@@ -45,7 +46,7 @@ public class JBossClientMetaDataParser extends MetaDataElementParser {
 
     public static final JBossClientMetaDataParser INSTANCE = new JBossClientMetaDataParser();
 
-    public JBossClientMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public JBossClientMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         reader.require(START_DOCUMENT, null, null);
         // Read until the first start element
         while (reader.hasNext() && reader.next() != START_ELEMENT) {
@@ -57,7 +58,7 @@ public class JBossClientMetaDataParser extends MetaDataElementParser {
         processAttributes(appClientMetadata, reader);
 
         // parse and create metadata out of the elements under the root ejb-jar element
-        processElements(appClientMetadata, reader);
+        processElements(appClientMetadata, reader, propertyReplacer);
 
         return appClientMetadata;
     }
@@ -90,7 +91,7 @@ public class JBossClientMetaDataParser extends MetaDataElementParser {
         }
     }
 
-    protected void processElements(final JBossClientMetaData metaData, XMLStreamReader reader) throws XMLStreamException {
+    protected void processElements(final JBossClientMetaData metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         final DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
         final AppClientEnvironmentRefsGroupMetaData environmentRefsGroupMetaData = new AppClientEnvironmentRefsGroupMetaData();
@@ -105,22 +106,22 @@ public class JBossClientMetaDataParser extends MetaDataElementParser {
             final JBossClientElement element = JBossClientElement.forName(reader.getLocalName());
             switch (element) {
                 case CALLBACK_HANDLER: {
-                    metaData.setCallbackHandler(getElementText(reader));
+                    metaData.setCallbackHandler(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case DEPENDS: {
                     if (metaData.getDepends() == null) {
                         metaData.setDepends(new ArrayList<String>());
                     }
-                    metaData.getDepends().add(getElementText(reader));
+                    metaData.getDepends().add(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case JNDI_NAME: {
-                    metaData.setJndiName(getElementText(reader));
+                    metaData.setJndiName(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case METADATA_COMPLETE: {
-                    metaData.setMetadataComplete(Boolean.parseBoolean(getElementText(reader)));
+                    metaData.setMetadataComplete(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 default:

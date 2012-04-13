@@ -36,6 +36,8 @@ import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.MessageDestinationMetaDataParser;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * @author John Bailey
@@ -45,6 +47,10 @@ public class EarMetaDataParser extends MetaDataElementParser {
     public static final EarMetaDataParser INSTANCE = new EarMetaDataParser();
 
     public EarMetaData parse(final XMLStreamReader reader) throws XMLStreamException {
+        return parse(reader, PropertyReplacers.noop());
+    }
+
+    public EarMetaData parse(final XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         reader.require(START_DOCUMENT, null, null);
 
         // Read until the first start element
@@ -123,13 +129,13 @@ public class EarMetaDataParser extends MetaDataElementParser {
 
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            handleElement(reader, earMetaData);
+            handleElement(reader, earMetaData, propertyReplacer);
         }
 
         return earMetaData;
     }
 
-    protected void handleElement(XMLStreamReader reader, EarMetaData earMetaData) throws XMLStreamException {
+    protected void handleElement(XMLStreamReader reader, EarMetaData earMetaData, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         if (DescriptionGroupMetaDataParser.parse(reader, earMetaData.getDescriptionGroup())) {
             return;
         }
@@ -139,27 +145,27 @@ public class EarMetaDataParser extends MetaDataElementParser {
         final Element element = Element.forName(reader.getLocalName());
         switch (element) {
             case APPLICATION_NAME: {
-                earMetaData.setApplicationName(getElementText(reader));
+                earMetaData.setApplicationName(getElementText(reader, propertyReplacer));
                 break;
             }
             case INITIALIZATION_IN_ORDER: {
-                earMetaData.setInitializeInOrder(Boolean.parseBoolean(getElementText(reader)));
+                earMetaData.setInitializeInOrder(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
                 break;
             }
             case LIBRARY_DIRECTORY: {
-                earMetaData.setLibraryDirectory(getElementText(reader));
+                earMetaData.setLibraryDirectory(getElementText(reader, propertyReplacer));
                 break;
             }
             case MESSAGE_DESTINATION: {
-                earMetaData.getEarEnvironmentRefsGroup().getMessageDestinations().add(MessageDestinationMetaDataParser.parse(reader));
+                earMetaData.getEarEnvironmentRefsGroup().getMessageDestinations().add(MessageDestinationMetaDataParser.parse(reader, propertyReplacer));
                 break;
             }
             case MODULE: {
-                earMetaData.getModules().add(EarModuleMetaDataParser.parse(reader));
+                earMetaData.getModules().add(EarModuleMetaDataParser.parse(reader, propertyReplacer));
                 break;
             }
             case SECURITY_ROLE: {
-                earMetaData.getSecurityRoles().add(SecurityRoleMetaDataParser.parse(reader));
+                earMetaData.getSecurityRoles().add(SecurityRoleMetaDataParser.parse(reader, propertyReplacer));
                 break;
             }
             default:

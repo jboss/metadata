@@ -30,6 +30,7 @@ import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * EjbJarUnitTestCase.
@@ -114,7 +115,7 @@ public class EjbJar21UnitTestCase extends AbstractEJBEverythingTest
       throws Exception
    {
       EjbJarMetaData result = unmarshal();
-      JBossMetaData jboss = unmarshal("JBoss40_testMultipleMerge.xml", JBossMetaData.class);
+      JBossMetaData jboss = unmarshal("JBoss40_testMultipleMerge.xml", JBossMetaData.class, PropertyReplacers.noop());
       JBossEnterpriseBeansMetaData beans = jboss.getEnterpriseBeans();
       assertEquals(4, beans.size());
       JBossEnterpriseBeanMetaData entity = beans.get("EntityCallee");

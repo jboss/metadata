@@ -26,6 +26,8 @@ import org.jboss.metadata.ejb.spec.RelationRoleSourceMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * relationship-role-sourceType
@@ -37,7 +39,7 @@ public class RelationRoleSourceMetaDataParser extends AbstractWithDescriptionsPa
 
    public static final RelationRoleSourceMetaDataParser INSTANCE = new RelationRoleSourceMetaDataParser();
 
-   /**
+    /**
     * Creates and returns {@link org.jboss.metadata.ejb.spec.EntityBeanMetaData} after parsing the entity element.
     *
     * @param reader
@@ -46,7 +48,7 @@ public class RelationRoleSourceMetaDataParser extends AbstractWithDescriptionsPa
     *
     */
    @Override
-   public RelationRoleSourceMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public RelationRoleSourceMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       RelationRoleSourceMetaData data = new RelationRoleSourceMetaData();
 
@@ -65,13 +67,13 @@ public class RelationRoleSourceMetaDataParser extends AbstractWithDescriptionsPa
          }
       }
 
-      this.processElements(data, reader);
+      this.processElements(data, reader, propertyReplacer);
       // return the metadata created out of parsing
       return data;
    }
 
    @Override
-   protected void processElement(RelationRoleSourceMetaData source, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(RelationRoleSourceMetaData source, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
@@ -79,11 +81,11 @@ public class RelationRoleSourceMetaDataParser extends AbstractWithDescriptionsPa
       {
 
          case EJB_NAME:
-            source.setEjbName(getElementText(reader));
+            source.setEjbName(getElementText(reader, propertyReplacer));
             return;
 
          default:
-            super.processElement(source, reader);
+            super.processElement(source, reader, propertyReplacer);
             break;
       }
    }

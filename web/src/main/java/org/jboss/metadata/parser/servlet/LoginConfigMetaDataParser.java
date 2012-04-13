@@ -26,6 +26,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.LoginConfigMetaData;
 
 /**
@@ -33,7 +34,7 @@ import org.jboss.metadata.web.spec.LoginConfigMetaData;
  */
 public class LoginConfigMetaDataParser extends MetaDataElementParser {
 
-    public static LoginConfigMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static LoginConfigMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         LoginConfigMetaData loginConfig = new LoginConfigMetaData();
 
         // Handle attributes
@@ -58,13 +59,13 @@ public class LoginConfigMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case AUTH_METHOD:
-                    loginConfig.setAuthMethod(getElementText(reader));
+                    loginConfig.setAuthMethod(getElementText(reader, propertyReplacer));
                     break;
                 case REALM_NAME:
-                    loginConfig.setRealmName(getElementText(reader));
+                    loginConfig.setRealmName(getElementText(reader, propertyReplacer));
                     break;
                 case FORM_LOGIN_CONFIG:
-                    loginConfig.setFormLoginConfig(FormLoginConfigMetaDataParser.parse(reader));
+                    loginConfig.setFormLoginConfig(FormLoginConfigMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

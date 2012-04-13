@@ -26,6 +26,8 @@ import org.jboss.metadata.ejb.spec.AroundTimeoutMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of &lt;around-timeout&gt; element in ejb-jar.xml
@@ -38,7 +40,7 @@ public class AroundTimeoutMetaDataParser extends AbstractMetaDataParser<AroundTi
 
    public static final AroundTimeoutMetaDataParser INSTANCE = new AroundTimeoutMetaDataParser();
 
-   /**
+    /**
     * Parses and creates AroundInvokeMetaData out of the around-invoke element
     *
     * @param reader
@@ -46,10 +48,10 @@ public class AroundTimeoutMetaDataParser extends AbstractMetaDataParser<AroundTi
     * @throws javax.xml.stream.XMLStreamException
     */
    @Override
-   public AroundTimeoutMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public AroundTimeoutMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       AroundTimeoutMetaData aroundTimeoutMetaData = new AroundTimeoutMetaData();
-      this.processElements(aroundTimeoutMetaData, reader);
+      this.processElements(aroundTimeoutMetaData, reader, propertyReplacer);
       return aroundTimeoutMetaData;
    }
 
@@ -62,19 +64,19 @@ public class AroundTimeoutMetaDataParser extends AbstractMetaDataParser<AroundTi
     * @throws javax.xml.stream.XMLStreamException
     */
    @Override
-   protected void processElement(AroundTimeoutMetaData aroundTimeout, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AroundTimeoutMetaData aroundTimeout, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case CLASS:
-            String klass = getElementText(reader);
+            String klass = getElementText(reader, propertyReplacer);
             aroundTimeout.setClassName(klass);
             return;
 
          case METHOD_NAME:
-            String methodName = getElementText(reader);
+            String methodName = getElementText(reader, propertyReplacer);
             aroundTimeout.setMethodName(methodName);
             return;
 

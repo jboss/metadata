@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.EmptyRoleSemanticType;
 import org.jboss.metadata.web.spec.HttpMethodConstraintMetaData;
 import org.jboss.metadata.web.spec.ServletSecurityMetaData;
@@ -39,7 +40,7 @@ import org.jboss.metadata.web.spec.TransportGuaranteeType;
  */
 public class ServletSecurityMetaDataParser extends MetaDataElementParser {
 
-    public static ServletSecurityMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ServletSecurityMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ServletSecurityMetaData servletSecurity = new ServletSecurityMetaData();
 
         // Handle elements
@@ -52,18 +53,18 @@ public class ServletSecurityMetaDataParser extends MetaDataElementParser {
                         httpMethodConstraints = new ArrayList<HttpMethodConstraintMetaData>();
                         servletSecurity.setHttpMethodConstraints(httpMethodConstraints);
                     }
-                    httpMethodConstraints.add(HttpMethodConstraintMetaDataParser.parse(reader));
+                    httpMethodConstraints.add(HttpMethodConstraintMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case EMPTY_ROLE_SEMANTIC:
                     try {
-                        servletSecurity.setEmptyRoleSemantic(EmptyRoleSemanticType.valueOf(getElementText(reader)));
+                        servletSecurity.setEmptyRoleSemantic(EmptyRoleSemanticType.valueOf(getElementText(reader, propertyReplacer)));
                     } catch (IllegalArgumentException e) {
                         throw unexpectedValue(reader, e);
                     }
                     break;
                 case TRANSPORT_GUARANTEE:
                     try {
-                        servletSecurity.setTransportGuarantee(TransportGuaranteeType.valueOf(getElementText(reader)));
+                        servletSecurity.setTransportGuarantee(TransportGuaranteeType.valueOf(getElementText(reader, propertyReplacer)));
                     } catch (IllegalArgumentException e) {
                         throw unexpectedValue(reader, e);
                     }
@@ -74,7 +75,7 @@ public class ServletSecurityMetaDataParser extends MetaDataElementParser {
                         rolesAllowed = new ArrayList<String>();
                         servletSecurity.setRolesAllowed(rolesAllowed);
                     }
-                    rolesAllowed.add(getElementText(reader));
+                    rolesAllowed.add(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

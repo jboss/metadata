@@ -36,6 +36,7 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.ServletMetaData;
 
 /**
@@ -43,7 +44,7 @@ import org.jboss.metadata.web.spec.ServletMetaData;
  */
 public class ServletMetaDataParser extends MetaDataElementParser {
 
-    public static ServletMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ServletMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ServletMetaData servlet = new ServletMetaData();
 
         // Handle attributes
@@ -75,13 +76,13 @@ public class ServletMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SERVLET_NAME:
-                    servlet.setServletName(getElementText(reader));
+                    servlet.setServletName(getElementText(reader, propertyReplacer));
                     break;
                 case SERVLET_CLASS:
-                    servlet.setServletClass(getElementText(reader));
+                    servlet.setServletClass(getElementText(reader, propertyReplacer));
                     break;
                 case JSP_FILE:
-                    servlet.setJspFile(getElementText(reader));
+                    servlet.setJspFile(getElementText(reader, propertyReplacer));
                     break;
                 case INIT_PARAM:
                     List<ParamValueMetaData> initParams = servlet.getInitParam();
@@ -89,27 +90,27 @@ public class ServletMetaDataParser extends MetaDataElementParser {
                         initParams = new ArrayList<ParamValueMetaData>();
                         servlet.setInitParam(initParams);
                     }
-                    initParams.add(ParamValueMetaDataParser.parse(reader));
+                    initParams.add(ParamValueMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case LOAD_ON_STARTUP:
-                    servlet.setLoadOnStartup(getElementText(reader));
+                    servlet.setLoadOnStartup(getElementText(reader, propertyReplacer));
                     break;
                 case ENABLED:
-                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader)))) {
+                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader, propertyReplacer)))) {
                         servlet.setEnabled(true);
                     } else {
                         servlet.setEnabled(false);
                     }
                     break;
                 case ASYNC_SUPPORTED:
-                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader)))) {
+                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader, propertyReplacer)))) {
                         servlet.setAsyncSupported(true);
                     } else {
                         servlet.setAsyncSupported(false);
                     }
                     break;
                 case RUN_AS:
-                    servlet.setRunAs(RunAsMetaDataParser.parse(reader));
+                    servlet.setRunAs(RunAsMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case SECURITY_ROLE_REF:
                     SecurityRoleRefsMetaData securityRoleRefs = servlet.getSecurityRoleRefs();
@@ -117,10 +118,10 @@ public class ServletMetaDataParser extends MetaDataElementParser {
                         securityRoleRefs = new SecurityRoleRefsMetaData();
                         servlet.setSecurityRoleRefs(securityRoleRefs);
                     }
-                    securityRoleRefs.add(SecurityRoleRefMetaDataParser.parse(reader));
+                    securityRoleRefs.add(SecurityRoleRefMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case MULTIPART_CONFIG:
-                    servlet.setMultipartConfig(MultipartConfigMetaDataParser.parse(reader));
+                    servlet.setMultipartConfig(MultipartConfigMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

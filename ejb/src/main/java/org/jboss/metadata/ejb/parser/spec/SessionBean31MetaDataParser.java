@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * EJB3.1 version specific ejb-jar.xml parser
@@ -44,7 +45,7 @@ public class SessionBean31MetaDataParser extends SessionBean30MetaDataParser
     * @param reader      The XMLStreamReader
     * @throws XMLStreamException
     */
-   protected void processElement(AbstractGenericBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AbstractGenericBeanMetaData sessionBean, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
@@ -58,7 +59,7 @@ public class SessionBean31MetaDataParser extends SessionBean30MetaDataParser
             return;
 
          case CONCURRENCY_MANAGEMENT_TYPE:
-            String concurrencyManagementType = getElementText(reader);
+            String concurrencyManagementType = getElementText(reader, propertyReplacer);
             if (concurrencyManagementType.equals("Bean"))
             {
                sessionBean.setConcurrencyManagementType(ConcurrencyManagementType.BEAN);
@@ -78,7 +79,7 @@ public class SessionBean31MetaDataParser extends SessionBean30MetaDataParser
             {
                sessionBean.setConcurrentMethods(new ConcurrentMethodsMetaData());
             }
-            sessionBean.getConcurrentMethods().add(ConcurrentMethodMetaDataParser.INSTANCE.parse(reader));
+            sessionBean.getConcurrentMethods().add(ConcurrentMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             return;
 
          case ASYNC_METHOD:
@@ -86,20 +87,20 @@ public class SessionBean31MetaDataParser extends SessionBean30MetaDataParser
             {
                sessionBean.setAsyncMethods(new AsyncMethodsMetaData());
             }
-            sessionBean.getAsyncMethods().add(AsyncMethodMetaDataParser.INSTANCE.parse(reader));
+            sessionBean.getAsyncMethods().add(AsyncMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             return;
 
          case DEPENDS_ON:
-            DependsOnMetaData dependsOn = DependsOnMetaDataParser.INSTANCE.parse(reader);
+            DependsOnMetaData dependsOn = DependsOnMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             sessionBean.setDependsOnMetaData(dependsOn);
             return;
 
          case STATEFUL_TIMEOUT:
-            final StatefulTimeoutMetaData statefulTimeout = StatefulTimeoutMetaDataParser.INSTANCE.parse(reader);
+            final StatefulTimeoutMetaData statefulTimeout = StatefulTimeoutMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             sessionBean.setStatefulTimeout(statefulTimeout);
             return;
          case INIT_ON_STARTUP:
-            String initOnStartup = getElementText(reader);
+            String initOnStartup = getElementText(reader, propertyReplacer);
             if (initOnStartup == null)
             {
                throw unexpectedValue(reader, new Exception("Unexpected null value for init-on-startup element"));
@@ -108,13 +109,13 @@ public class SessionBean31MetaDataParser extends SessionBean30MetaDataParser
             return;
 
          case AFTER_BEGIN_METHOD:
-             sessionBean.setAfterBeginMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader));
+             sessionBean.setAfterBeginMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
              return;
          case BEFORE_COMPLETION_METHOD:
-             sessionBean.setBeforeCompletionMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader));
+             sessionBean.setBeforeCompletionMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
              return;
          case AFTER_COMPLETION_METHOD:
-             sessionBean.setAfterCompletionMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader));
+             sessionBean.setAfterCompletionMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
              return;
 
          case AROUND_TIMEOUT:
@@ -124,7 +125,7 @@ public class SessionBean31MetaDataParser extends SessionBean30MetaDataParser
                aroundTimeouts = new AroundTimeoutsMetaData();
                sessionBean.setAroundTimeouts(aroundTimeouts);
             }
-            AroundTimeoutMetaData aroundInvoke = AroundTimeoutMetaDataParser.INSTANCE.parse(reader);
+            AroundTimeoutMetaData aroundInvoke = AroundTimeoutMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             aroundTimeouts.add(aroundInvoke);
             break;
 
@@ -135,12 +136,12 @@ public class SessionBean31MetaDataParser extends SessionBean30MetaDataParser
                timers = new ArrayList<TimerMetaData>();
                sessionBean.setTimers(timers);
             }
-            TimerMetaData timerMetaData = TimerMetaDataParser.INSTANCE.parse(reader);
+            TimerMetaData timerMetaData = TimerMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             timers.add(timerMetaData);
             return;
 
          default:
-            super.processElement(sessionBean, reader);
+            super.processElement(sessionBean, reader, propertyReplacer);
             return;
 
       }

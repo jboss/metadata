@@ -29,6 +29,7 @@ import org.jboss.metadata.ejb.spec.MethodsMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * jboss-assembly-descriptor-method-entryType
@@ -38,7 +39,7 @@ import javax.xml.stream.XMLStreamReader;
 public abstract class AbstractMethodsBoundMetaDataParser<MD extends AbstractMethodsBoundMetaData> extends AbstractMetaDataParser<MD>
 {
    @Override
-   protected void processElement(MD metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(MD metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
       switch (namespace)
@@ -54,11 +55,11 @@ public abstract class AbstractMethodsBoundMetaDataParser<MD extends AbstractMeth
                      methods = new MethodsMetaData();
                      metaData.setMethods(methods);
                   }
-                  MethodMetaData method = MethodMetaDataParser.INSTANCE.parse(reader);
+                  MethodMetaData method = MethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
                   methods.add(method);
                   return;
             }
       }
-      super.processElement(metaData, reader);
+      super.processElement(metaData, reader, propertyReplacer);
    }
 }

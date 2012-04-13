@@ -27,6 +27,7 @@ import org.jboss.metadata.ejb.spec.ExtendableMetaData;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.Map;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -51,10 +52,10 @@ public class ExtendingMetaDataParser<MD extends ExtendableMetaData> extends Abst
     }
 
     @Override
-    public MD parse(XMLStreamReader reader) throws XMLStreamException {
+    public MD parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         MD metaData = delegate.create();
         processAttributes(metaData, reader);
-        processElements(metaData, reader);
+        processElements(metaData, reader, propertyReplacer);
         return metaData;
     }
 
@@ -68,16 +69,16 @@ public class ExtendingMetaDataParser<MD extends ExtendableMetaData> extends Abst
     }
 
     @Override
-    protected void processElement(MD metaData, XMLStreamReader reader) throws XMLStreamException {
+    protected void processElement(MD metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
         switch (namespace) {
             case SPEC:
-                delegate.processElement(metaData, reader);
+                delegate.processElement(metaData, reader, propertyReplacer);
                 break;
             case JBOSS:
             case UNKNOWN:
                 AbstractMetaDataParser<?> parser = getParser(reader.getNamespaceURI());
-                metaData.addAny(parser.parse(reader));
+                metaData.addAny(parser.parse(reader, propertyReplacer));
                 break;
             default:
                 throw new RuntimeException("Unable to process namespace " + namespace);

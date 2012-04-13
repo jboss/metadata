@@ -25,6 +25,9 @@ package org.jboss.test.metadata.ear;
 import org.jboss.metadata.ear.jboss.JBossAppMetaData;
 import org.jboss.metadata.parser.jboss.JBossAppMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
+import org.jboss.metadata.property.SystemPropertyResolver;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,7 +39,6 @@ import org.junit.Test;
  */
 public class DistinctNameTestCase extends AbstractJavaEEMetaDataTest {
 
-
     /**
      * Test parsing of a simple distinct-name (which doesn't have any reference to system properties) in jboss-app.xml
      *
@@ -45,7 +47,7 @@ public class DistinctNameTestCase extends AbstractJavaEEMetaDataTest {
     @Test
     public void testSimpleDistinctName() throws Exception {
         final MetaDataElementParser.DTDInfo resolver = new MetaDataElementParser.DTDInfo();
-        final JBossAppMetaData jBossAppMetaData = JBossAppMetaDataParser.INSTANCE.parse(getReader("simple-distinct-name-jboss-app.xml", resolver));
+        final JBossAppMetaData jBossAppMetaData = JBossAppMetaDataParser.INSTANCE.parse(getReader("simple-distinct-name-jboss-app.xml", resolver), propertyReplacer);
         Assert.assertEquals("Unexpected distinct name", "simple-foo-bar", jBossAppMetaData.getDistinctName());
     }
 
@@ -60,7 +62,7 @@ public class DistinctNameTestCase extends AbstractJavaEEMetaDataTest {
         // set the system property first
         System.setProperty("org.jboss.test.metadata.ear.sysprop.foo", "bar");
         final MetaDataElementParser.DTDInfo resolver = new MetaDataElementParser.DTDInfo();
-        final JBossAppMetaData jBossAppMetaData = JBossAppMetaDataParser.INSTANCE.parse(getReader("expression-distinct-name-jboss-app.xml", resolver));
+        final JBossAppMetaData jBossAppMetaData = JBossAppMetaDataParser.INSTANCE.parse(getReader("expression-distinct-name-jboss-app.xml", resolver), propertyReplacer);
         Assert.assertEquals("Unexpected distinct name", "bar-distinct-name", jBossAppMetaData.getDistinctName());
     }
 
@@ -72,7 +74,7 @@ public class DistinctNameTestCase extends AbstractJavaEEMetaDataTest {
     @Test
     public void testDistinctNameAbsence() throws Exception {
         final MetaDataElementParser.DTDInfo resolver = new MetaDataElementParser.DTDInfo();
-        final JBossAppMetaData jBossAppMetaData = JBossAppMetaDataParser.INSTANCE.parse(getReader("no-distinct-name-jboss-app.xml", resolver));
+        final JBossAppMetaData jBossAppMetaData = JBossAppMetaDataParser.INSTANCE.parse(getReader("no-distinct-name-jboss-app.xml", resolver), propertyReplacer);
         Assert.assertNull("Distinct name was expected to be null", jBossAppMetaData.getDistinctName());
     }
 }

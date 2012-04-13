@@ -30,6 +30,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of &lt;cmp-field&gt; element for entity beans
@@ -45,20 +47,20 @@ public class CmpFieldMetaDataParser extends AbstractWithDescriptionsParser<CMPFi
     */
    public static final CmpFieldMetaDataParser INSTANCE = new CmpFieldMetaDataParser();
 
-   @Override
-   public CMPFieldMetaData parse(XMLStreamReader reader) throws XMLStreamException
+    @Override
+   public CMPFieldMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       CMPFieldMetaData cmpFieldMetaData = new CMPFieldMetaData();
       processAttributes(cmpFieldMetaData, reader, ATTRIBUTE_PROCESSOR);
-      this.processElements(cmpFieldMetaData, reader);
+      this.processElements(cmpFieldMetaData, reader, propertyReplacer);
       return cmpFieldMetaData;
    }
 
    @Override
-   protected void processElement(CMPFieldMetaData methodMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(CMPFieldMetaData methodMetaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       DescriptionsImpl descriptionGroup = new DescriptionsImpl();
-      if (DescriptionsMetaDataParser.parse(reader, descriptionGroup))
+      if (DescriptionsMetaDataParser.parse(reader, descriptionGroup, propertyReplacer))
       {
          if (methodMetaData.getDescriptions() == null)
          {
@@ -70,12 +72,12 @@ public class CmpFieldMetaDataParser extends AbstractWithDescriptionsParser<CMPFi
       switch (ejbJarElement)
       {
          case FIELD_NAME:
-            String methodName = getElementText(reader);
+            String methodName = getElementText(reader, propertyReplacer);
             methodMetaData.setFieldName(methodName);
             return;
 
          default:
-            super.processElement(methodMetaData, reader);
+            super.processElement(methodMetaData, reader, propertyReplacer);
       }
    }
 }

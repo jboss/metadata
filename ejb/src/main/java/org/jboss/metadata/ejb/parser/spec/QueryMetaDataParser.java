@@ -29,6 +29,8 @@ import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of &lt;query&gt; element for entity beans
@@ -43,8 +45,8 @@ public class QueryMetaDataParser extends AbstractWithDescriptionsParser<QueryMet
     */
    public static final QueryMetaDataParser INSTANCE = new QueryMetaDataParser();
 
-   @Override
-   public QueryMetaData parse(XMLStreamReader reader) throws XMLStreamException
+    @Override
+   public QueryMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       QueryMetaData queryMetaData = new QueryMetaData();
       // Look at the id attribute
@@ -61,15 +63,15 @@ public class QueryMetaDataParser extends AbstractWithDescriptionsParser<QueryMet
             queryMetaData.setId(reader.getAttributeValue(i));
          }
       }
-      this.processElements(queryMetaData, reader);
+      this.processElements(queryMetaData, reader, propertyReplacer);
       return queryMetaData;
    }
 
    @Override
-   protected void processElement(QueryMetaData methodMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(QueryMetaData methodMetaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       DescriptionsImpl descriptionGroup = new DescriptionsImpl();
-      if (DescriptionsMetaDataParser.parse(reader, descriptionGroup))
+      if (DescriptionsMetaDataParser.parse(reader, descriptionGroup, propertyReplacer))
       {
          if (methodMetaData.getDescriptions() == null)
          {
@@ -81,18 +83,18 @@ public class QueryMetaDataParser extends AbstractWithDescriptionsParser<QueryMet
       switch (ejbJarElement)
       {
          case QUERY_METHOD:
-            methodMetaData.setQueryMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader));
+            methodMetaData.setQueryMethod(NamedMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             return;
          case RESULT_TYPE_MAPPING:
-            String type = getElementText(reader);
+            String type = getElementText(reader, propertyReplacer);
             methodMetaData.setResultTypeMapping(ResultTypeMapping.valueOf(type));
             return;
          case EJB_QL:
-            methodMetaData.setEjbQL(getElementText(reader));
+            methodMetaData.setEjbQL(getElementText(reader, propertyReplacer));
             return;
          
          default:
-            super.processElement(methodMetaData, reader);
+            super.processElement(methodMetaData, reader, propertyReplacer);
       }
    }
 }

@@ -33,6 +33,7 @@ import org.jboss.metadata.parser.ee.ParamValueMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.FilterMetaData;
 
 /**
@@ -40,7 +41,7 @@ import org.jboss.metadata.web.spec.FilterMetaData;
  */
 public class FilterMetaDataParser extends MetaDataElementParser {
 
-    public static FilterMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static FilterMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         FilterMetaData filter = new FilterMetaData();
 
         // Handle attributes
@@ -72,13 +73,13 @@ public class FilterMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case FILTER_NAME:
-                    filter.setFilterName(getElementText(reader));
+                    filter.setFilterName(getElementText(reader, propertyReplacer));
                     break;
                 case FILTER_CLASS:
-                    filter.setFilterClass(getElementText(reader));
+                    filter.setFilterClass(getElementText(reader, propertyReplacer));
                     break;
                 case ASYNC_SUPPORTED:
-                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader)))) {
+                    if (Boolean.TRUE.equals(Boolean.valueOf(getElementText(reader, propertyReplacer)))) {
                         filter.setAsyncSupported(true);
                     } else {
                         filter.setAsyncSupported(false);
@@ -90,7 +91,7 @@ public class FilterMetaDataParser extends MetaDataElementParser {
                         initParams = new ArrayList<ParamValueMetaData>();
                         filter.setInitParam(initParams);
                     }
-                    initParams.add(ParamValueMetaDataParser.parse(reader));
+                    initParams.add(ParamValueMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

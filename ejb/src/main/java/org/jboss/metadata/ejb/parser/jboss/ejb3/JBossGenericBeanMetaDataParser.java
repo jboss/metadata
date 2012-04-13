@@ -28,6 +28,7 @@ import org.jboss.metadata.ejb.parser.spec.EnterpriseBeanMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -35,15 +36,15 @@ import javax.xml.stream.XMLStreamReader;
 public class JBossGenericBeanMetaDataParser extends EnterpriseBeanMetaDataParser<JBossGenericBeanMetaData>
 {
    @Override
-   public JBossGenericBeanMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public JBossGenericBeanMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       JBossGenericBeanMetaData metaData = new JBossGenericBeanMetaData();
-      processElements(metaData, reader);
+      processElements(metaData, reader, propertyReplacer);
       return metaData;
    }
 
    @Override
-   protected void processElement(JBossGenericBeanMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(JBossGenericBeanMetaData metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
       switch (namespace)
@@ -52,7 +53,7 @@ public class JBossGenericBeanMetaDataParser extends EnterpriseBeanMetaDataParser
             processJBossElement(metaData, reader);
             break;
          case SPEC:
-            processSpecElement(metaData, reader);
+            processSpecElement(metaData, reader, propertyReplacer);
             break;
          case UNKNOWN:
             throw unexpectedElement(reader);
@@ -69,16 +70,16 @@ public class JBossGenericBeanMetaDataParser extends EnterpriseBeanMetaDataParser
       }
    }
 
-   protected void processSpecElement(JBossGenericBeanMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processSpecElement(JBossGenericBeanMetaData metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement element = EjbJarElement.forName(reader.getLocalName());
       switch (element)
       {
          case ACTIVATION_CONFIG:
-            metaData.setActivationConfig(ActivationConfigMetaDataParser.INSTANCE.parse(reader));
+            metaData.setActivationConfig(ActivationConfigMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             break;
          default:
-            super.processElement(metaData, reader);
+            super.processElement(metaData, reader, propertyReplacer);
       }
    }
 }

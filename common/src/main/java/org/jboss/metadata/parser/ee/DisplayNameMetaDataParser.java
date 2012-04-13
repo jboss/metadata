@@ -27,6 +27,8 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.javaee.spec.DisplayNameImpl;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 
 /**
@@ -35,6 +37,10 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 public class DisplayNameMetaDataParser extends MetaDataElementParser {
 
     public static DisplayNameImpl parse(XMLStreamReader reader) throws XMLStreamException {
+        return parse(reader, PropertyReplacers.noop());
+    }
+
+    public static DisplayNameImpl parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         DisplayNameImpl displayName = new DisplayNameImpl();
         // Handle attributes
         final int count = reader.getAttributeCount();
@@ -56,7 +62,7 @@ public class DisplayNameMetaDataParser extends MetaDataElementParser {
                 default: throw unexpectedAttribute(reader, i);
             }
         }
-        displayName.setDisplayName(getElementText(reader));
+        displayName.setDisplayName(getElementText(reader, propertyReplacer));
         return displayName;
     }
 

@@ -34,7 +34,7 @@ import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.servlet.SessionConfigMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.parser.util.PropertiesValueResolver;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.jboss.ContainerListenerMetaData;
 import org.jboss.metadata.web.jboss.JBoss4xDTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50DTDWebMetaData;
@@ -51,7 +51,7 @@ import org.jboss.metadata.web.jboss.ValveMetaData;
  */
 public class JBossWebMetaDataParser extends MetaDataElementParser {
 
-    public static JBossWebMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static JBossWebMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         reader.require(START_DOCUMENT, null, null);
         // Read until the first start element
@@ -117,7 +117,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case CONTEXT_ROOT:
-                    wmd.setContextRoot(getElementText(reader));
+                    wmd.setContextRoot(getElementText(reader, propertyReplacer));
                     break;
                 case VIRTUAL_HOST:
                     // We only support one virtual host, at least for now
@@ -125,7 +125,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     if (virtualHosts == null) {
                         virtualHosts = new ArrayList<String>();
                         wmd.setVirtualHosts(virtualHosts);
-                        virtualHosts.add(getElementText(reader));
+                        virtualHosts.add(getElementText(reader, propertyReplacer));
                     } else {
                         throw duplicateNamedElement(reader, Element.VIRTUAL_HOST.toString());
                     }
@@ -136,7 +136,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                         annotations = new JBossAnnotationsMetaData();
                         wmd.setAnnotations(annotations);
                     }
-                    annotations.add(JBossAnnotationMetaDataParser.parse(reader));
+                    annotations.add(JBossAnnotationMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case LISTENER:
                 	List<ContainerListenerMetaData> listeners = wmd.getContainerListeners();
@@ -144,10 +144,10 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 		listeners = new ArrayList<ContainerListenerMetaData>();
                 		wmd.setContainerListeners(listeners);
                 	}
-                	listeners.add(ContainerListenerMetaDataParser.parse(reader));
+                	listeners.add(ContainerListenerMetaDataParser.parse(reader, propertyReplacer));
                 	break;
                 case SESSION_CONFIG:
-                	wmd.setSessionConfig(SessionConfigMetaDataParser.parse(reader));
+                	wmd.setSessionConfig(SessionConfigMetaDataParser.parse(reader, propertyReplacer));
                 	break;
                 case VALVE:
                 	List<ValveMetaData> valves = wmd.getValves();
@@ -155,7 +155,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 		valves = new ArrayList<ValveMetaData>();
                 		wmd.setValves(valves);
                 	}
-                	valves.add(ValveMetaDataParser.parse(reader));
+                	valves.add(ValveMetaDataParser.parse(reader, propertyReplacer));
                 	break;
                 case OVERLAY:
                 	List<String> overlays = wmd.getOverlays();
@@ -163,10 +163,10 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 		overlays = new ArrayList<String>();
                 		wmd.setOverlays(overlays);
                 	}
-                	overlays.add(getElementText(reader));
+                	overlays.add(getElementText(reader, propertyReplacer));
                 	break;
                 case SECURITY_DOMAIN:
-                	wmd.setSecurityDomain(getElementText(reader));
+                	wmd.setSecurityDomain(getElementText(reader, propertyReplacer));
                 	break;
                 case SECURITY_ROLE:
                     SecurityRolesMetaData securityRoles = wmd.getSecurityRoles();
@@ -174,19 +174,19 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                         securityRoles = new SecurityRolesMetaData();
                         wmd.setSecurityRoles(securityRoles);
                     }
-                    securityRoles.add(SecurityRoleMetaDataParser.parse(reader));
+                    securityRoles.add(SecurityRoleMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case JACC_STAR_ROLE_ALLOW:
-                	wmd.setJaccAllStoreRole(Boolean.valueOf(getElementText(reader)));
+                	wmd.setJaccAllStoreRole(Boolean.valueOf(getElementText(reader, propertyReplacer)));
                 	break;
                 case DISABLE_CROSS_CONTEXT:
-                	wmd.setDisableCrossContext(Boolean.valueOf(getElementText(reader)));
+                	wmd.setDisableCrossContext(Boolean.valueOf(getElementText(reader, propertyReplacer)));
                 	break;
                 case USE_JBOSS_AUTHORIZATION:
-                	wmd.setUseJBossAuthorization(Boolean.valueOf(getElementText(reader)));
+                	wmd.setUseJBossAuthorization(Boolean.valueOf(getElementText(reader, propertyReplacer)));
                 	break;
                 case DISABLE_AUDIT:
-                	wmd.setDisableAudit(Boolean.valueOf(getElementText(reader)));
+                	wmd.setDisableAudit(Boolean.valueOf(getElementText(reader, propertyReplacer)));
                 	break;
                 case SERVLET:
                     JBossServletsMetaData servlets = wmd.getServlets();
@@ -194,20 +194,20 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     	servlets = new JBossServletsMetaData();
                         wmd.setServlets(servlets);
                     }
-                    servlets.add(JBossServletMetaDataParser.parse(reader));
+                    servlets.add(JBossServletMetaDataParser.parse(reader, propertyReplacer));
                 	break;
                 case MAX_ACTIVE_SESSIONS:
-                    wmd.setMaxActiveSessions(Integer.valueOf(getElementText(reader)));
+                    wmd.setMaxActiveSessions(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case REPLICATION_CONFIG:
-                    wmd.setReplicationConfig(ReplicationConfigParser.parse(reader));
+                    wmd.setReplicationConfig(ReplicationConfigParser.parse(reader, propertyReplacer));
                     break;
                 case PASSIVATION_CONFIG:
-                    wmd.setPassivationConfig(PassivationConfigParser.parse(reader));
+                    wmd.setPassivationConfig(PassivationConfigParser.parse(reader, propertyReplacer));
                     break;
                 case DISTINCT_NAME:
-                    final String val = getElementText(reader);
-                    wmd.setDistinctName(PropertiesValueResolver.replaceProperties(val));
+                    final String val = getElementText(reader, propertyReplacer);
+                    wmd.setDistinctName(val);
                     break;
                 default: throw unexpectedElement(reader);
             }

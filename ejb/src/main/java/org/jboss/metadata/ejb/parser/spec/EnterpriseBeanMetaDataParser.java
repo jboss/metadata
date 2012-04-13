@@ -30,6 +30,7 @@ import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -37,7 +38,7 @@ import javax.xml.stream.XMLStreamReader;
 public abstract class EnterpriseBeanMetaDataParser<MD extends AbstractEnterpriseBeanMetaData> extends AbstractIdMetaDataParser<MD>
 {
    @Override
-   protected void processElement(MD metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(MD metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // Handle the description group elements
       DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
@@ -75,16 +76,16 @@ public abstract class EnterpriseBeanMetaDataParser<MD extends AbstractEnterprise
       switch (ejbJarElement)
       {
          case EJB_CLASS:
-            metaData.setEjbClass(getElementText(reader));
+            metaData.setEjbClass(getElementText(reader, propertyReplacer));
             return;
          case EJB_NAME:
-            metaData.setEjbName(getElementText(reader));
+            metaData.setEjbName(getElementText(reader, propertyReplacer));
             return;
          case MAPPED_NAME:
-            metaData.setMappedName(getElementText(reader));
+            metaData.setMappedName(getElementText(reader, propertyReplacer));
             return;
          default:
-            super.processElement(metaData, reader);
+            super.processElement(metaData, reader, propertyReplacer);
       }
    }
 }

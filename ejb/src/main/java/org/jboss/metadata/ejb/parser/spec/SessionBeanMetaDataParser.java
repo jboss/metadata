@@ -44,12 +44,14 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of the &lt;session&gt; element in the ejb-jar.xml
  * <p/>
  * This class parses the common ejb-jar.xml elements. Individual ejb-jar version specific implementations
- * should override the {@link #processElement(org.jboss.metadata.ejb.spec.SessionBeanMetaData, javax.xml.stream.XMLStreamReader)}
+ * should override the {@link #processElement(org.jboss.metadata.ejb.spec.SessionBeanMetaData, javax.xml.stream.XMLStreamReader, PropertyReplacer)}
  * method to parse the version specific ejb-jar.xml elements
  * 
  * User: Jaikiran Pai
@@ -74,11 +76,11 @@ public abstract class SessionBeanMetaDataParser<T extends AbstractGenericBeanMet
     * @throws XMLStreamException
     */
    @Override
-   public T parse(XMLStreamReader reader) throws XMLStreamException
+   public T parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       T sessionBean = createSessionBeanMetaData();
       processAttributes(sessionBean, reader, this);
-      this.processElements(sessionBean, reader);
+      this.processElements(sessionBean, reader, propertyReplacer);
       // return the metadata created out of parsing
       return sessionBean;
    }
@@ -91,7 +93,7 @@ public abstract class SessionBeanMetaDataParser<T extends AbstractGenericBeanMet
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(T sessionBean, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(T sessionBean, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // Handle the description group elements
       DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
@@ -117,7 +119,7 @@ public abstract class SessionBeanMetaDataParser<T extends AbstractGenericBeanMet
       if (jndiEnvRefGroup instanceof EnvironmentRefsGroupMetaData)
       {
          // parse any jndi ref group elements
-         if (EnvironmentRefsGroupMetaDataParser.parse(reader, (EnvironmentRefsGroupMetaData) jndiEnvRefGroup))
+         if (EnvironmentRefsGroupMetaDataParser.parse(reader, (EnvironmentRefsGroupMetaData) jndiEnvRefGroup, propertyReplacer))
          {
             // it was jndi ref group element which was parsed successfully, so nothing more to do
             // than just return
@@ -130,39 +132,39 @@ public abstract class SessionBeanMetaDataParser<T extends AbstractGenericBeanMet
       switch (ejbJarElement)
       {
          case EJB_NAME:
-            sessionBean.setEjbName(getElementText(reader));
+            sessionBean.setEjbName(getElementText(reader, propertyReplacer));
             return;
 
          case MAPPED_NAME:
-            sessionBean.setMappedName(getElementText(reader));
+            sessionBean.setMappedName(getElementText(reader, propertyReplacer));
             return;
 
          case HOME:
-            sessionBean.setHome(getElementText(reader));
+            sessionBean.setHome(getElementText(reader, propertyReplacer));
             return;
 
          case REMOTE:
-            sessionBean.setRemote(getElementText(reader));
+            sessionBean.setRemote(getElementText(reader, propertyReplacer));
             return;
 
          case LOCAL_HOME:
-            sessionBean.setLocalHome(getElementText(reader));
+            sessionBean.setLocalHome(getElementText(reader, propertyReplacer));
             return;
 
          case LOCAL:
-            sessionBean.setLocal(getElementText(reader));
+            sessionBean.setLocal(getElementText(reader, propertyReplacer));
             return;
 
          case SERVICE_ENDPOINT:
-            sessionBean.setServiceEndpoint(getElementText(reader));
+            sessionBean.setServiceEndpoint(getElementText(reader, propertyReplacer));
             return;
 
          case EJB_CLASS:
-            sessionBean.setEjbClass(getElementText(reader));
+            sessionBean.setEjbClass(getElementText(reader, propertyReplacer));
             return;
 
          case SESSION_TYPE:
-            SessionType sessionType = this.processSessionType(getElementText(reader));
+            SessionType sessionType = this.processSessionType(getElementText(reader, propertyReplacer));
             if (sessionType == null)
             {
                throw unexpectedValue(reader, new Exception("Unexpected value: " + sessionType + " for session-type"));
@@ -174,12 +176,12 @@ public abstract class SessionBeanMetaDataParser<T extends AbstractGenericBeanMet
             return;
 
          case TIMEOUT_METHOD:
-            NamedMethodMetaData timeoutMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader);
+            NamedMethodMetaData timeoutMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader,propertyReplacer);
             sessionBean.setTimeoutMethod(timeoutMethod);
             return;
 
          case TRANSACTION_TYPE:
-            String txType = getElementText(reader);
+            String txType = getElementText(reader, propertyReplacer);
             if (txType.equals("Bean"))
             {
                sessionBean.setTransactionType(TransactionManagementType.BEAN);
@@ -201,7 +203,7 @@ public abstract class SessionBeanMetaDataParser<T extends AbstractGenericBeanMet
                postActivates = new LifecycleCallbacksMetaData();
                sessionBean.setPostActivates(postActivates);
             }
-            LifecycleCallbackMetaData postActivate = LifecycleCallbackMetaDataParser.parse(reader);
+            LifecycleCallbackMetaData postActivate = LifecycleCallbackMetaDataParser.parse(reader, propertyReplacer);
             postActivates.add(postActivate);
             return;
 
@@ -212,7 +214,7 @@ public abstract class SessionBeanMetaDataParser<T extends AbstractGenericBeanMet
                prePassivates = new LifecycleCallbacksMetaData();
                sessionBean.setPrePassivates(prePassivates);
             }
-            LifecycleCallbackMetaData prePassivate = LifecycleCallbackMetaDataParser.parse(reader);
+            LifecycleCallbackMetaData prePassivate = LifecycleCallbackMetaDataParser.parse(reader, propertyReplacer);
             prePassivates.add(prePassivate);
             return;
 
@@ -223,12 +225,12 @@ public abstract class SessionBeanMetaDataParser<T extends AbstractGenericBeanMet
                securityRoleRefs = new SecurityRoleRefsMetaData();
                sessionBean.setSecurityRoleRefs(securityRoleRefs);
             }
-            SecurityRoleRefMetaData securityRoleRef = SecurityRoleRefMetaDataParser.parse(reader);
+            SecurityRoleRefMetaData securityRoleRef = SecurityRoleRefMetaDataParser.parse(reader, propertyReplacer);
             securityRoleRefs.add(securityRoleRef);
             return;
 
          case SECURITY_IDENTITY:
-            final SecurityIdentityMetaData securityIdentity = SecurityIdentityParser.INSTANCE.parse(reader);
+            final SecurityIdentityMetaData securityIdentity = SecurityIdentityParser.INSTANCE.parse(reader, propertyReplacer);
             sessionBean.setSecurityIdentity(securityIdentity);
             return;
 

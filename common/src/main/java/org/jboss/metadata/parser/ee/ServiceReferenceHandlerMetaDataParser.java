@@ -31,16 +31,16 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Remy Maucherat
  */
 public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser {
 
-    public static ServiceReferenceHandlerMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ServiceReferenceHandlerMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ServiceReferenceHandlerMetaData handler = new ServiceReferenceHandlerMetaData();
 
         // Handle attributes
@@ -72,10 +72,10 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case HANDLER_NAME:
-                    handler.setHandlerName(getElementText(reader));
+                    handler.setHandlerName(getElementText(reader, propertyReplacer));
                     break;
                 case HANDLER_CLASS:
-                    handler.setHandlerClass(getElementText(reader));
+                    handler.setHandlerClass(getElementText(reader, propertyReplacer));
                     break;
                 case INIT_PARAM:
                     List<ParamValueMetaData> initParams = handler.getInitParam();
@@ -83,7 +83,7 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
                         initParams = new ArrayList<ParamValueMetaData>();
                         handler.setInitParam(initParams);
                     }
-                    initParams.add(ParamValueMetaDataParser.parse(reader));
+                    initParams.add(ParamValueMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case SOAP_HEADER:
                     List<QName> soapHeaders = handler.getSoapHeader();
@@ -91,7 +91,7 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
                         soapHeaders = new ArrayList<QName>();
                         handler.setSoapHeader(soapHeaders);
                     }
-                    soapHeaders.add(parseQName(reader, getElementText(reader)));
+                    soapHeaders.add(parseQName(reader, getElementText(reader, propertyReplacer)));
                     break;
                 case SOAP_ROLE:
                     List<String> soapRoles = handler.getSoapRole();
@@ -99,7 +99,7 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
                         soapRoles = new ArrayList<String>();
                         handler.setSoapRole(soapRoles);
                     }
-                    soapRoles.add(getElementText(reader));
+                    soapRoles.add(getElementText(reader, propertyReplacer));
                     break;
                 case PORT_NAME:
                     List<String> portNames = handler.getPortName();
@@ -107,7 +107,7 @@ public class ServiceReferenceHandlerMetaDataParser extends MetaDataElementParser
                         portNames = new ArrayList<String>();
                         handler.setPortName(portNames);
                     }
-                    portNames.add(getElementText(reader));
+                    portNames.add(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

@@ -37,6 +37,7 @@ import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * EJB3.0 version specific ejb-jar.xml parser
@@ -64,7 +65,7 @@ public class SessionBean30MetaDataParser extends SessionBeanMetaDataParser<Abstr
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(AbstractGenericBeanMetaData sessionBean, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AbstractGenericBeanMetaData sessionBean, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -76,7 +77,7 @@ public class SessionBean30MetaDataParser extends SessionBeanMetaDataParser<Abstr
                aroundInvokes = new AroundInvokesMetaData();
                sessionBean.setAroundInvokes(aroundInvokes);
             }
-            AroundInvokeMetaData aroundInvoke = AroundInvokeMetaDataParser.INSTANCE.parse(reader);
+            AroundInvokeMetaData aroundInvoke = AroundInvokeMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             aroundInvokes.add(aroundInvoke);
             return;
 
@@ -87,7 +88,7 @@ public class SessionBean30MetaDataParser extends SessionBeanMetaDataParser<Abstr
                businessLocals = new BusinessLocalsMetaData();
                sessionBean.setBusinessLocals(businessLocals);
             }
-            businessLocals.add(getElementText(reader));
+            businessLocals.add(getElementText(reader, propertyReplacer));
             return;
 
          case BUSINESS_REMOTE:
@@ -97,7 +98,7 @@ public class SessionBean30MetaDataParser extends SessionBeanMetaDataParser<Abstr
                businessRemotes = new BusinessRemotesMetaData();
                sessionBean.setBusinessRemotes(businessRemotes);
             }
-            businessRemotes.add(getElementText(reader));
+            businessRemotes.add(getElementText(reader, propertyReplacer));
             return;
 
          case INIT_METHOD:
@@ -107,7 +108,7 @@ public class SessionBean30MetaDataParser extends SessionBeanMetaDataParser<Abstr
                initMethods = new InitMethodsMetaData();
                sessionBean.setInitMethods(initMethods);
             }
-            InitMethodMetaData initMethod = InitMethodMetaDataParser.INSTANCE.parse(reader);
+            InitMethodMetaData initMethod = InitMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             initMethods.add(initMethod);
             return;
          
@@ -118,12 +119,12 @@ public class SessionBean30MetaDataParser extends SessionBeanMetaDataParser<Abstr
                removeMethods = new RemoveMethodsMetaData();
                sessionBean.setRemoveMethods(removeMethods);
             }
-            RemoveMethodMetaData removeMethod = RemoveMethodMetaDataParser.INSTANCE.parse(reader);
+            RemoveMethodMetaData removeMethod = RemoveMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             removeMethods.add(removeMethod);
             return;
 
          default:
-            super.processElement(sessionBean, reader);
+            super.processElement(sessionBean, reader, propertyReplacer);
             return;
       }
    }

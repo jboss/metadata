@@ -29,6 +29,7 @@ import org.jboss.metadata.parser.ee.MessageDestinationMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Author: Jaikiran Pai
@@ -43,7 +44,7 @@ public class AssemblyDescriptor30MetaDataParser extends AssemblyDescriptorMetaDa
    }
 
    @Override
-   public void processElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader) throws XMLStreamException
+   public void processElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -53,7 +54,7 @@ public class AssemblyDescriptor30MetaDataParser extends AssemblyDescriptorMetaDa
             {
                assemblyDescriptor.setApplicationExceptions(new ApplicationExceptionsMetaData());
             }
-            assemblyDescriptor.getApplicationExceptions().add(ApplicationExceptionMetaDataParser.INSTANCE.parse(reader));
+            assemblyDescriptor.getApplicationExceptions().add(ApplicationExceptionMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             return;
 
          case INTERCEPTOR_BINDING:
@@ -63,7 +64,7 @@ public class AssemblyDescriptor30MetaDataParser extends AssemblyDescriptorMetaDa
                interceptorBindings = new InterceptorBindingsMetaData();
                assemblyDescriptor.setInterceptorBindings(interceptorBindings);
             }
-            InterceptorBindingMetaData interceptorBinding = InterceptorBindingMetaDataParser.INSTANCE.parse(reader);
+            InterceptorBindingMetaData interceptorBinding = InterceptorBindingMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             interceptorBindings.add(interceptorBinding);
             return;
          case MESSAGE_DESTINATION:
@@ -71,11 +72,11 @@ public class AssemblyDescriptor30MetaDataParser extends AssemblyDescriptorMetaDa
             if(destinations == null) {
                assemblyDescriptor.setMessageDestinations(destinations = new MessageDestinationsMetaData());
             }
-            final  MessageDestinationMetaData data = MessageDestinationMetaDataParser.parse(reader);
+            final  MessageDestinationMetaData data = MessageDestinationMetaDataParser.parse(reader, propertyReplacer);
             destinations.add(data);
             return;
          default:
-            super.processElement(assemblyDescriptor, reader);
+            super.processElement(assemblyDescriptor, reader, propertyReplacer);
       }
    }
 }

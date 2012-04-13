@@ -20,17 +20,19 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.metadata.parser.util;
+package org.jboss.metadata.property;
 
 import java.io.File;
 
 /**
- * Parses a string and replaces any references to system properties or environment variables in the string
+ * Replace properties of the form:
+     * <code>${<i>&lt;[env.]name&gt;[</i>,<i>&lt;[env.]name2&gt;[</i>,<i>&lt;[env.]name3&gt;...]][</i>:<i>&lt;default&gt;]</i>}</code>
  *
  * @author Jaikiran Pai (copied from JBoss DMR project)
  * @author <a href="mailto:david.lloyd@redhat.com">David M. Lloyd</a>
+ * @author John Bailey
  */
-public class PropertiesValueResolver {
+class DefaultPropertyReplacer implements PropertyReplacer {
 
     private static final int INITIAL = 0;
     private static final int GOT_DOLLAR = 1;
@@ -38,15 +40,14 @@ public class PropertiesValueResolver {
     private static final int RESOLVED = 3;
     private static final int DEFAULT = 4;
 
-    /**
-     * Replace properties of the form:
-     * <code>${<i>&lt;[env.]name&gt;[</i>,<i>&lt;[env.]name2&gt;[</i>,<i>&lt;[env.]name3&gt;...]][</i>:<i>&lt;default&gt;]</i>}</code>
-     *
-     * @param value - either a system property or environment variable reference
-     * @return the value of the system property or environment variable referenced if
-     *         it exists
-     */
-    public static String replaceProperties(final String value) {
+    private final PropertyResolver resolver;
+
+    DefaultPropertyReplacer(PropertyResolver resolver) {
+        this.resolver = resolver;
+    }
+
+    @Override
+    public String replaceProperties(final String value) {
         final StringBuilder builder = new StringBuilder();
         final int len = value.length();
         int state = INITIAL;
@@ -106,10 +107,7 @@ public class PropertiesValueResolver {
                                 state = ch == '}' ? INITIAL : RESOLVED;
                                 continue;
                             }
-                            // First check for system property, then env variable
-                            String val = System.getProperty(name);
-                            if (val == null && name.startsWith("env."))
-                                val = System.getenv(name.substring(4));
+                           final String val = resolver.resolve(name);
 
                             if (val != null) {
                                 builder.append(val);

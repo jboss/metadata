@@ -28,6 +28,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses the &lt;interceptor-order&gt; element in a ejb-jar.xml and creates metadata out of it.
@@ -39,7 +41,7 @@ public class InterceptorOrderMetaDataParser extends AbstractIdMetaDataParser<Int
 {
    public static final InterceptorOrderMetaDataParser INSTANCE = new InterceptorOrderMetaDataParser();
 
-   /**
+    /**
     * Parses and creates InterceptorsMetaData out of the interceptors element
     *
     * @param reader
@@ -47,11 +49,11 @@ public class InterceptorOrderMetaDataParser extends AbstractIdMetaDataParser<Int
     * @throws javax.xml.stream.XMLStreamException
     */
    @Override
-   public InterceptorOrderMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public InterceptorOrderMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       InterceptorOrderMetaData interceptors = new InterceptorOrderMetaData();
       processAttributes(interceptors, reader, this);
-      this.processElements(interceptors, reader);
+      this.processElements(interceptors, reader, propertyReplacer);
       return interceptors;
    }
 
@@ -64,14 +66,14 @@ public class InterceptorOrderMetaDataParser extends AbstractIdMetaDataParser<Int
     * @throws javax.xml.stream.XMLStreamException
     */
    @Override
-   protected void processElement(InterceptorOrderMetaData interceptors, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(InterceptorOrderMetaData interceptors, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case INTERCEPTOR_CLASS:
-            interceptors.add(getElementText(reader));
+            interceptors.add(getElementText(reader, propertyReplacer));
             return;
 
          default:

@@ -31,6 +31,9 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
+import org.jboss.metadata.property.SystemPropertyResolver;
 
 /**
  * A JavaEE metadata Test.
@@ -40,6 +43,8 @@ import java.net.URL;
  */
 public class AbstractJavaEEMetaDataTest extends TestCase
 {
+   protected final PropertyReplacer propertyReplacer = PropertyReplacers.resolvingReplacer(SystemPropertyResolver.INSTANCE);
+
    public AbstractJavaEEMetaDataTest()
    {
       super();

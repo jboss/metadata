@@ -21,6 +21,7 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
+import com.sun.xml.internal.bind.v2.runtime.property.Property;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.AssemblyDescriptor30MetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.ContainerTransactionMetaDataParser;
@@ -33,6 +34,7 @@ import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.Map;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -48,21 +50,21 @@ public class JBossAssemblyDescriptorMetaDataParser extends ExtendingMetaDataPars
    }
 
    @Override
-   protected void processElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
       switch (namespace)
       {
          case SPEC:
-            processSpecElement(assemblyDescriptor, reader);
+            processSpecElement(assemblyDescriptor, reader, propertyReplacer);
             break;
          default:
-            super.processElement(assemblyDescriptor, reader);
+            super.processElement(assemblyDescriptor, reader, propertyReplacer);
             break;
       }
    }
 
-   protected void processSpecElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader) throws XMLStreamException
+   protected void processSpecElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -74,11 +76,11 @@ public class JBossAssemblyDescriptorMetaDataParser extends ExtendingMetaDataPars
                containerTransactions = new ContainerTransactionsMetaData();
                assemblyDescriptor.setContainerTransactions(containerTransactions);
             }
-            ContainerTransactionMetaData containerTransaction = containerTransactionMetaDataParser.parse(reader);
+            ContainerTransactionMetaData containerTransaction = containerTransactionMetaDataParser.parse(reader, propertyReplacer);
             containerTransactions.add(containerTransaction);
             break;
          default:
-            super.processElement(assemblyDescriptor, reader);
+            super.processElement(assemblyDescriptor, reader, propertyReplacer);
             break;
       }
    }

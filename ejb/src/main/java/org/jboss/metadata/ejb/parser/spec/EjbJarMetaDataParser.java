@@ -27,6 +27,7 @@ import org.jboss.metadata.ejb.spec.EjbJarVersion;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses a ejb-jar.xml file and creates metadata out of it
@@ -36,7 +37,7 @@ import javax.xml.stream.XMLStreamReader;
 public class EjbJarMetaDataParser extends AbstractEjbJarMetaDataParser
 {
    @Override
-   public EjbJarMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public EjbJarMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       throw new UnsupportedOperationException("org.jboss.metadata.ejb.parser.spec.EjbJarMetaDataParser.parse");
    }
@@ -48,12 +49,12 @@ public class EjbJarMetaDataParser extends AbstractEjbJarMetaDataParser
     * @return
     * @throws XMLStreamException
     */
-   public static EjbJarMetaData parse(XMLStreamReader reader, DTDInfo info) throws XMLStreamException
+   public static EjbJarMetaData parse(XMLStreamReader reader, DTDInfo info, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
-      return new EjbJarMetaDataParser().parseDocument(reader, info);
+      return new EjbJarMetaDataParser().parseDocument(reader, info, propertyReplacer);
    }
 
-   public EjbJarMetaData parseDocument(XMLStreamReader reader, DTDInfo info) throws XMLStreamException
+   public EjbJarMetaData parseDocument(XMLStreamReader reader, DTDInfo info, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       reader.require(START_DOCUMENT, null, null);
       // Read until the first start element
@@ -106,7 +107,7 @@ public class EjbJarMetaDataParser extends AbstractEjbJarMetaDataParser
       processAttributes(ejbJarMetaData, reader);
 
       // parse and create metadata out of the elements under the root ejb-jar element
-      processElements(ejbJarMetaData, reader);
+      processElements(ejbJarMetaData, reader, propertyReplacer);
 
       return ejbJarMetaData;
    }

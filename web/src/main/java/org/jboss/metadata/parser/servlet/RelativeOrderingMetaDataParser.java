@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.NameMetaData;
 import org.jboss.metadata.web.spec.OrderingElementMetaData;
 import org.jboss.metadata.web.spec.OthersMetaData;
@@ -39,7 +40,7 @@ import org.jboss.metadata.web.spec.RelativeOrderingMetaData;
  */
 public class RelativeOrderingMetaDataParser extends MetaDataElementParser {
 
-    public static RelativeOrderingMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static RelativeOrderingMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         RelativeOrderingMetaData ordering = new RelativeOrderingMetaData();
 
         // Handle elements
@@ -53,7 +54,7 @@ public class RelativeOrderingMetaDataParser extends MetaDataElementParser {
                         ordering.setOrdering(order);
                     }
                     NameMetaData name = new NameMetaData();
-                    name.setName(getElementText(reader));
+                    name.setName(getElementText(reader, propertyReplacer));
                     order.add(name);
                     break;
                 case OTHERS:

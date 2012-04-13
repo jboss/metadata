@@ -45,7 +45,7 @@ public class DistinctNameTestCase extends AbstractJavaEEMetaDataTest {
     @Test
     public void testSimpleDistinctName() throws Exception {
         final MetaDataElementParser.DTDInfo resolver = new MetaDataElementParser.DTDInfo();
-        final JBossWebMetaData jBossWebMetaData = JBossWebMetaDataParser.parse(getReader("simple-distinct-name-jboss-web.xml", resolver));
+        final JBossWebMetaData jBossWebMetaData = JBossWebMetaDataParser.parse(getReader("simple-distinct-name-jboss-web.xml", resolver), propertyReplacer);
         Assert.assertEquals("Unexpected distinct name", "simple-foo-bar", jBossWebMetaData.getDistinctName());
     }
 
@@ -60,7 +60,7 @@ public class DistinctNameTestCase extends AbstractJavaEEMetaDataTest {
         // set the system property first
         System.setProperty("org.jboss.test.metadata.web.sysprop.foo", "bar");
         final MetaDataElementParser.DTDInfo resolver = new MetaDataElementParser.DTDInfo();
-        final JBossWebMetaData jBossWebMetaData = JBossWebMetaDataParser.parse(getReader("expression-distinct-name-jboss-web.xml", resolver));
+        final JBossWebMetaData jBossWebMetaData = JBossWebMetaDataParser.parse(getReader("expression-distinct-name-jboss-web.xml", resolver), propertyReplacer);
         Assert.assertEquals("Unexpected distinct name", "bar-distinct-name", jBossWebMetaData.getDistinctName());
     }
 
@@ -72,7 +72,7 @@ public class DistinctNameTestCase extends AbstractJavaEEMetaDataTest {
     @Test
     public void testDistinctNameAbsence() throws Exception {
         final MetaDataElementParser.DTDInfo resolver = new MetaDataElementParser.DTDInfo();
-        final JBossWebMetaData jBossWebMetaData = JBossWebMetaDataParser.parse(getReader("no-distinct-name-jboss-web.xml", resolver));
+        final JBossWebMetaData jBossWebMetaData = JBossWebMetaDataParser.parse(getReader("no-distinct-name-jboss-web.xml", resolver), propertyReplacer);
         Assert.assertNull("Distinct name was expected to be null", jBossWebMetaData.getDistinctName());
     }
 }

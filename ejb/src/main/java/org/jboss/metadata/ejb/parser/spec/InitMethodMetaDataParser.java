@@ -30,6 +30,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses and creates metadata out of &lt;create-method&gt; element in ejb-jar.xml
@@ -49,11 +50,11 @@ public class InitMethodMetaDataParser extends AbstractMetaDataParser<InitMethodM
     * @throws XMLStreamException
     */
    @Override
-   public InitMethodMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public InitMethodMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       InitMethodMetaData initMethod = new InitMethodMetaData();
       processAttributes(initMethod, reader, ATTRIBUTE_PROCESSOR);
-      this.processElements(initMethod, reader);
+      this.processElements(initMethod, reader, propertyReplacer);
       return initMethod;
    }
 
@@ -65,18 +66,18 @@ public class InitMethodMetaDataParser extends AbstractMetaDataParser<InitMethodM
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(InitMethodMetaData initMethodMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(InitMethodMetaData initMethodMetaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch(ejbJarElement)
       {
          case CREATE_METHOD:
-            NamedMethodMetaData createMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader);
+            NamedMethodMetaData createMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             initMethodMetaData.setCreateMethod(createMethod);
             return;
 
          case BEAN_METHOD:
-            NamedMethodMetaData beanMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader);
+            NamedMethodMetaData beanMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             initMethodMetaData.setBeanMethod(beanMethod);
             return;
 

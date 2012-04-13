@@ -34,6 +34,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 import static org.junit.Assert.fail;
 
 /**
@@ -42,23 +44,38 @@ import static org.junit.Assert.fail;
 public class UnmarshallingHelper
 {
    // TODO: merge with AbstractEJBEverythingTest#merge
-   public static <T> T unmarshal(Class<T> expected, String resource) throws Exception
+    public static <T> T unmarshal(Class<T> expected, String resource) throws Exception
    {
-      return unmarshal(expected, resource, new HashMap<String, AbstractMetaDataParser<?>>());
+      return unmarshal(expected, resource, PropertyReplacers.noop());
    }
-   public static <T> T unmarshalJboss(Class<T> expected, String resource) throws Exception
+   public static <T> T unmarshal(Class<T> expected, String resource, PropertyReplacer propertyReplacer) throws Exception
    {
-      return unmarshalJboss(expected, resource, new HashMap<String, AbstractMetaDataParser<?>>());
+      return unmarshal(expected, resource, new HashMap<String, AbstractMetaDataParser<?>>(), propertyReplacer);
    }
-   public static <T> T unmarshal(Class<T> expected, String resource, Map<String, AbstractMetaDataParser<?>> parsers) throws Exception
+   public static <T> T unmarshalJboss(Class<T> expected, String resource) throws Exception {
+       return unmarshalJboss(expected, resource, PropertyReplacers.noop());
+   }
+
+   public static <T> T unmarshalJboss(Class<T> expected, String resource, PropertyReplacer propertyReplacer) throws Exception
+   {
+      return unmarshalJboss(expected, resource, new HashMap<String, AbstractMetaDataParser<?>>(), propertyReplacer);
+   }
+   public static <T> T unmarshal(Class<T> expected, String resource, Map<String, AbstractMetaDataParser<?>> parsers, PropertyReplacer propertyReplacer) throws Exception
    {
       final InputStream in = expected.getResourceAsStream(resource);
       if (in == null)
          throw new IllegalArgumentException("Can't find resource " + resource + " relative to " + expected);
-      return unmarshal(expected, in, parsers);
+      return unmarshal(expected, in, parsers, propertyReplacer);
    }
 
    public static <T> T unmarshal(Class<T> expected, InputStream in, Map<String, AbstractMetaDataParser<?>> parsers) throws XMLStreamException
+   {
+    return unmarshal(expected, in, parsers, PropertyReplacers.noop());
+   }
+
+
+
+   public static <T> T unmarshal(Class<T> expected, InputStream in, Map<String, AbstractMetaDataParser<?>> parsers, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
       final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
@@ -66,7 +83,7 @@ public class UnmarshallingHelper
       XMLStreamReader reader = inputFactory.createXMLStreamReader(in);
       if (EjbJarMetaData.class.isAssignableFrom(expected))
       {
-         return expected.cast(EjbJarMetaDataParser.parse(reader, info));
+         return expected.cast(EjbJarMetaDataParser.parse(reader, info, propertyReplacer));
       } else
          fail("NYI: parsing for " + expected);
       return null;
@@ -74,13 +91,22 @@ public class UnmarshallingHelper
 
    public static <T> T unmarshalJboss(Class<T> expected, String resource, Map<String, AbstractMetaDataParser<?>> parsers) throws Exception
    {
+       return unmarshalJboss(expected, resource, parsers, PropertyReplacers.noop());
+   }
+
+   public static <T> T unmarshalJboss(Class<T> expected, String resource, Map<String, AbstractMetaDataParser<?>> parsers, PropertyReplacer propertyReplacer) throws Exception
+   {
       final InputStream in = expected.getResourceAsStream(resource);
       if (in == null)
          throw new IllegalArgumentException("Can't find resource " + resource + " relative to " + expected);
-      return unmarshalJboss(expected, in, parsers);
+      return unmarshalJboss(expected, in, parsers, propertyReplacer);
    }
 
-   public static <T> T unmarshalJboss(Class<T> expected, InputStream in, Map<String, AbstractMetaDataParser<?>> parsers) throws XMLStreamException
+   public static <T> T unmarshalJboss(Class<T> expected, InputStream in, Map<String, AbstractMetaDataParser<?>> parsers) throws XMLStreamException {
+       return unmarshalJboss(expected, in, parsers, PropertyReplacers.noop());
+   }
+
+   public static <T> T unmarshalJboss(Class<T> expected, InputStream in, Map<String, AbstractMetaDataParser<?>> parsers, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
       final XMLInputFactory inputFactory = XMLInputFactory.newInstance();
@@ -88,7 +114,7 @@ public class UnmarshallingHelper
       XMLStreamReader reader = inputFactory.createXMLStreamReader(in);
       if (EjbJarMetaData.class.isAssignableFrom(expected))
       {
-         return expected.cast(new JBossEjb3MetaDataParser(parsers).parse(reader, info));
+         return expected.cast(new JBossEjb3MetaDataParser(parsers).parse(reader, info, propertyReplacer));
       } else
          fail("NYI: parsing for " + expected);
       return null;

@@ -29,6 +29,7 @@ import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import javax.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -36,13 +37,13 @@ import javax.xml.stream.XMLStreamReader;
 public abstract class AbstractMessageDrivenBeanParser<MD extends AbstractGenericBeanMetaData> extends AbstractEnterpriseBeanMetaDataParser<MD>
 {
    @Override
-   protected void processElement(MD bean, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(MD bean, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case ACTIVATION_CONFIG:
-            bean.setActivationConfig(ActivationConfigMetaDataParser.INSTANCE.parse(reader));
+            bean.setActivationConfig(ActivationConfigMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             break;
 
          case AROUND_INVOKE:
@@ -52,29 +53,29 @@ public abstract class AbstractMessageDrivenBeanParser<MD extends AbstractGeneric
                aroundInvokes = new AroundInvokesMetaData();
                bean.setAroundInvokes(aroundInvokes);
             }
-            AroundInvokeMetaData aroundInvoke = AroundInvokeMetaDataParser.INSTANCE.parse(reader);
+            AroundInvokeMetaData aroundInvoke = AroundInvokeMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             aroundInvokes.add(aroundInvoke);
             break;
 
          case MESSAGE_DESTINATION_LINK:
-            bean.setMessageDestinationLink(getElementText(reader));
+            bean.setMessageDestinationLink(getElementText(reader, propertyReplacer));
             break;
 
          case MESSAGE_DESTINATION_TYPE:
-            bean.setMessageDestinationType(getElementText(reader));
+            bean.setMessageDestinationType(getElementText(reader, propertyReplacer));
             break;
 
          case MESSAGING_TYPE:
-            bean.setMessagingType(getElementText(reader));
+            bean.setMessagingType(getElementText(reader, propertyReplacer));
             break;
 
          case TIMEOUT_METHOD:
-            NamedMethodMetaData timeoutMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader);
+            NamedMethodMetaData timeoutMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             bean.setTimeoutMethod(timeoutMethod);
             break;
 
          case TRANSACTION_TYPE:
-            String txType = getElementText(reader);
+            String txType = getElementText(reader, propertyReplacer);
             if (txType.equals("Bean"))
             {
                bean.setTransactionType(TransactionManagementType.BEAN);
@@ -90,7 +91,7 @@ public abstract class AbstractMessageDrivenBeanParser<MD extends AbstractGeneric
             break;
 
          default:
-            super.processElement(bean, reader);
+            super.processElement(bean, reader, propertyReplacer);
             break;
       }
    }

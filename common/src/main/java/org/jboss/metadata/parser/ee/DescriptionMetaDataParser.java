@@ -27,6 +27,8 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionImpl;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 
 /**
@@ -34,7 +36,7 @@ import org.jboss.metadata.javaee.spec.DescriptionImpl;
  */
 public class DescriptionMetaDataParser extends MetaDataElementParser {
 
-    public static DescriptionImpl parse(XMLStreamReader reader) throws XMLStreamException {
+    public static DescriptionImpl parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         DescriptionImpl description = new DescriptionImpl();
         // Handle attributes
         final int count = reader.getAttributeCount();
@@ -56,7 +58,7 @@ public class DescriptionMetaDataParser extends MetaDataElementParser {
                 default: throw unexpectedAttribute(reader, i);
             }
         }
-        description.setDescription(getElementText(reader));
+        description.setDescription(getElementText(reader, propertyReplacer));
         return description;
     }
 

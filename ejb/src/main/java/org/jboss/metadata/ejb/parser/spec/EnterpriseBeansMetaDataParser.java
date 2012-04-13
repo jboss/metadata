@@ -27,6 +27,8 @@ import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses the enterprise-beans elements in a ejb-jar.xml and creates metadata
@@ -60,42 +62,41 @@ public class EnterpriseBeansMetaDataParser<MD extends EnterpriseBeansMetaData> e
     * @deprecated use AbstractMetaDataParser setup
     */
    @Deprecated
-   public static EnterpriseBeansMetaData parse(XMLStreamReader reader, EjbJarVersion ejbJarVersion) throws XMLStreamException
+   public static EnterpriseBeansMetaData parse(XMLStreamReader reader, EjbJarVersion ejbJarVersion, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       EnterpriseBeansMetaDataParser<EnterpriseBeansMetaData> parser = new EnterpriseBeansMetaDataParser<EnterpriseBeansMetaData>(ejbJarVersion);
-      return parser.parse(reader);
+      return parser.parse(reader, propertyReplacer);
    }
 
    @Override
-   public MD parse(XMLStreamReader reader) throws XMLStreamException
-   {
+    public MD parse(final XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
       MD enterpriseBeans = (MD) new EnterpriseBeansMetaData();
       processAttributes(enterpriseBeans, reader);
-      processElements(enterpriseBeans, reader);
+      processElements(enterpriseBeans, reader, propertyReplacer);
       return enterpriseBeans;
-   }
+    }
 
-   protected void processAttributes(final MD enterpriseBeans, final XMLStreamReader reader) throws XMLStreamException
+    protected void processAttributes(final MD enterpriseBeans, final XMLStreamReader reader) throws XMLStreamException
    {
       // TODO: this does not allow for inheritance overrides
       AttributeProcessorHelper.processAttributes(enterpriseBeans, reader, ATTRIBUTE_PROCESSOR);
    }
 
    @Override
-   protected void processElement(MD enterpriseBeans, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(MD enterpriseBeans, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case SESSION:
             // add the session bean metadata to the enterprise beans
-            enterpriseBeans.add(sessionBeanParser.parse(reader));
+            enterpriseBeans.add(sessionBeanParser.parse(reader, propertyReplacer));
             break;
          case ENTITY:
-            enterpriseBeans.add(entityBeanMetaDataParser.parse(reader));
+            enterpriseBeans.add(entityBeanMetaDataParser.parse(reader, propertyReplacer));
             break;
          case MESSAGE_DRIVEN:
-            enterpriseBeans.add(MESSAGE_DRIVEN_BEAN_PARSER.parse(reader));
+            enterpriseBeans.add(MESSAGE_DRIVEN_BEAN_PARSER.parse(reader, propertyReplacer));
             break;
 
          default:

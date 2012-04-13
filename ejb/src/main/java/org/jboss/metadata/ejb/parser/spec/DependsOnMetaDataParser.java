@@ -28,6 +28,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of &lt;depends-on&gt; element from ejb-jar.xml
@@ -40,7 +42,7 @@ public class DependsOnMetaDataParser extends AbstractMetaDataParser<DependsOnMet
    
    public static final DependsOnMetaDataParser INSTANCE = new DependsOnMetaDataParser();
 
-   /**
+    /**
     * Creates and returns {@link DependsOnMetaData}
     *
     * @param reader 
@@ -48,10 +50,10 @@ public class DependsOnMetaDataParser extends AbstractMetaDataParser<DependsOnMet
     * @throws XMLStreamException
     */
    @Override
-   public DependsOnMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public DependsOnMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       DependsOnMetaData dependsOn = new DependsOnMetaData();
-      this.processElements(dependsOn, reader);
+      this.processElements(dependsOn, reader, propertyReplacer);
       return dependsOn;
    }
 
@@ -64,7 +66,7 @@ public class DependsOnMetaDataParser extends AbstractMetaDataParser<DependsOnMet
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(DependsOnMetaData dependsOn, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(DependsOnMetaData dependsOn, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
@@ -77,7 +79,7 @@ public class DependsOnMetaDataParser extends AbstractMetaDataParser<DependsOnMet
                ejbNames = new ArrayList<String>();
                dependsOn.setEjbNames(ejbNames);
             }
-            ejbNames.add(getElementText(reader));
+            ejbNames.add(getElementText(reader, propertyReplacer));
             return;
 
          default:

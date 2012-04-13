@@ -7,6 +7,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * @author John Bailey
@@ -25,28 +27,28 @@ public class RelationRoleCmrFieldMetaDataParser extends AbstractWithDescriptions
      *
      */
     @Override
-    public CMRFieldMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public CMRFieldMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         CMRFieldMetaData data = new CMRFieldMetaData();
         processAttributes(data, reader, ATTRIBUTE_PROCESSOR);
-        this.processElements(data, reader);
+        this.processElements(data, reader, propertyReplacer);
         return data;
     }
 
     @Override
-    protected void processElement(CMRFieldMetaData field, XMLStreamReader reader) throws XMLStreamException {
+    protected void processElement(CMRFieldMetaData field, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
         switch (ejbJarElement) {
             case CMR_FIELD_NAME: {
-                field.setCmrFieldName(getElementText(reader));
+                field.setCmrFieldName(getElementText(reader, propertyReplacer));
                 return;
             }
             case CMR_FIELD_TYPE: {
-                field.setCmrFieldType(getElementText(reader));
+                field.setCmrFieldType(getElementText(reader, propertyReplacer));
                 return;
             }
             default:
-                super.processElement(field, reader);
+                super.processElement(field, reader, propertyReplacer);
                 break;
         }
     }

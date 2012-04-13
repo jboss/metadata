@@ -26,6 +26,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.MimeMappingMetaData;
 
 /**
@@ -33,7 +34,7 @@ import org.jboss.metadata.web.spec.MimeMappingMetaData;
  */
 public class MimeMappingMetaDataParser extends MetaDataElementParser {
 
-    public static MimeMappingMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static MimeMappingMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         MimeMappingMetaData mimeMapping = new MimeMappingMetaData();
 
         // Handle attributes
@@ -58,10 +59,10 @@ public class MimeMappingMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case EXTENSION:
-                    mimeMapping.setExtension(getElementText(reader));
+                    mimeMapping.setExtension(getElementText(reader, propertyReplacer));
                     break;
                 case MIME_TYPE:
-                    mimeMapping.setMimeType(getElementText(reader));
+                    mimeMapping.setMimeType(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

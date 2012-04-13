@@ -10,6 +10,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses the &lt;security-identity&gt; element in a ejb-jar.xml
@@ -22,16 +24,16 @@ public class SecurityIdentityParser extends AbstractWithDescriptionsParser<Secur
    public static final SecurityIdentityParser INSTANCE = new SecurityIdentityParser();
 
    @Override
-   public SecurityIdentityMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public SecurityIdentityMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final SecurityIdentityMetaData securityIdentity = new SecurityIdentityMetaData();
       processAttributes(securityIdentity, reader, ATTRIBUTE_PROCESSOR);
-      this.processElements(securityIdentity, reader);
+      this.processElements(securityIdentity, reader, propertyReplacer);
       return securityIdentity;
    }
 
    @Override
-   protected void processElement(final SecurityIdentityMetaData metaData, final XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(final SecurityIdentityMetaData metaData, final XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -43,12 +45,12 @@ public class SecurityIdentityParser extends AbstractWithDescriptionsParser<Secur
             return;
 
          case RUN_AS:
-            final RunAsMetaData runAs = RunAsMetaDataParser.parse(reader);
+            final RunAsMetaData runAs = RunAsMetaDataParser.parse(reader, propertyReplacer);
             metaData.setRunAs(runAs);
             return;
          
          default:
-            super.processElement(metaData, reader);
+            super.processElement(metaData, reader, propertyReplacer);
 
       }
    }

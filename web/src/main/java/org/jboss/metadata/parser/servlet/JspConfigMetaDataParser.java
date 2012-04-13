@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.JspConfigMetaData;
 import org.jboss.metadata.web.spec.JspPropertyGroupMetaData;
 import org.jboss.metadata.web.spec.TaglibMetaData;
@@ -38,7 +39,7 @@ import org.jboss.metadata.web.spec.TaglibMetaData;
  */
 public class JspConfigMetaDataParser extends MetaDataElementParser {
 
-    public static JspConfigMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static JspConfigMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         JspConfigMetaData jspConfig = new JspConfigMetaData();
 
         // Handle attributes
@@ -68,7 +69,7 @@ public class JspConfigMetaDataParser extends MetaDataElementParser {
                         taglibs = new ArrayList<TaglibMetaData>();
                         jspConfig.setTaglibs(taglibs);
                     }
-                    taglibs.add(TaglibMetaDataParser.parse(reader));
+                    taglibs.add(TaglibMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case JSP_PROPERTY_GROUP:
                     List<JspPropertyGroupMetaData> propertyGroups = jspConfig.getPropertyGroups();
@@ -76,7 +77,7 @@ public class JspConfigMetaDataParser extends MetaDataElementParser {
                         propertyGroups = new ArrayList<JspPropertyGroupMetaData>();
                         jspConfig.setPropertyGroups(propertyGroups);
                     }
-                    propertyGroups.add(JspPropertyGroupMetaDataParser.parse(reader));
+                    propertyGroups.add(JspPropertyGroupMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

@@ -22,6 +22,8 @@
 package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.web.jboss.PassivationConfig;
 import org.jboss.metadata.web.jboss.ReplicationConfig;
@@ -39,7 +41,7 @@ public class JBossWeb60UnitTestCase extends AbstractJavaEEEverythingTest
    public void testClustering() throws Exception
    {
 //      System.out.println("JBossWeb60UnitTestCase.java skipped");
-      JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader());
+      JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
       ReplicationConfig replConfig = jbossWeb.getReplicationConfig();
       assertNotNull(replConfig);
       assertEquals("testCache", replConfig.getCacheName());

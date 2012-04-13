@@ -30,13 +30,14 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Richard Opalka
  */
 public final class ServiceReferenceHandlerChainsMetaDataParser extends MetaDataElementParser {
 
-    public static List<ServiceReferenceHandlerChainMetaData> parse(final XMLStreamReader reader) throws XMLStreamException {
+    public static List<ServiceReferenceHandlerChainMetaData> parse(final XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         final List<ServiceReferenceHandlerChainMetaData> handlerChain = new LinkedList<ServiceReferenceHandlerChainMetaData>();
 
         // Handle elements
@@ -44,7 +45,7 @@ public final class ServiceReferenceHandlerChainsMetaDataParser extends MetaDataE
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case HANDLER_CHAIN:
-                    handlerChain.add(ServiceReferenceHandlerChainMetaDataParser.parse(reader));
+                    handlerChain.add(ServiceReferenceHandlerChainMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

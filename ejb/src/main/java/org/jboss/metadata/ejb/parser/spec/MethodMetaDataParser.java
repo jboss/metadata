@@ -31,6 +31,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of &lt;method&gt; element belonging to the &lt;container-transaction&gt;
@@ -47,38 +49,38 @@ public class MethodMetaDataParser extends AbstractWithDescriptionsParser<MethodM
     */
    public static final MethodMetaDataParser INSTANCE = new MethodMetaDataParser();
 
-   @Override
-   public MethodMetaData parse(XMLStreamReader reader) throws XMLStreamException
+    @Override
+   public MethodMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       MethodMetaData methodMetaData = new MethodMetaData();
       processAttributes(methodMetaData, reader, ATTRIBUTE_PROCESSOR);
-      this.processElements(methodMetaData, reader);
+      this.processElements(methodMetaData, reader, propertyReplacer);
       return methodMetaData;
    }
 
    @Override
-   protected void processElement(MethodMetaData methodMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(MethodMetaData methodMetaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case EJB_NAME:
-            String ejbName = getElementText(reader);
+            String ejbName = getElementText(reader, propertyReplacer);
             methodMetaData.setEjbName(ejbName);
             return;
 
          case METHOD_NAME:
-            String methodName = getElementText(reader);
+            String methodName = getElementText(reader, propertyReplacer);
             methodMetaData.setMethodName(methodName);
             return;
 
          case METHOD_PARAMS:
-            MethodParametersMetaData methodParams = MethodParametersMetaDataParser.INSTANCE.parse(reader);
+            MethodParametersMetaData methodParams = MethodParametersMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             methodMetaData.setMethodParams(methodParams);
             return;
 
          case METHOD_INTF:
-            String methodIntfValue = getElementText(reader);
+            String methodIntfValue = getElementText(reader, propertyReplacer);
             if (methodIntfValue == null || methodIntfValue.isEmpty())
             {
                throw unexpectedValue(reader, new Exception("Unexpected null or empty value for method-intf element"));
@@ -88,7 +90,7 @@ public class MethodMetaDataParser extends AbstractWithDescriptionsParser<MethodM
             return;
 
          default:
-            super.processElement(methodMetaData, reader);
+            super.processElement(methodMetaData, reader, propertyReplacer);
       }
    }
 }

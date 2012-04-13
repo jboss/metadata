@@ -9,6 +9,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Processes &lt;exclude-list&gt; element of ejb-jar.xml
@@ -21,16 +22,16 @@ public class ExcludeListMetaDataParser extends AbstractWithDescriptionsParser<Ex
    public static final ExcludeListMetaDataParser INSTANCE = new ExcludeListMetaDataParser();
 
    @Override
-   public ExcludeListMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public ExcludeListMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       ExcludeListMetaData excludeListMetaData = new ExcludeListMetaData();
       processAttributes(excludeListMetaData, reader, ATTRIBUTE_PROCESSOR);
-      this.processElements(excludeListMetaData, reader);
+      this.processElements(excludeListMetaData, reader, propertyReplacer);
       return excludeListMetaData;
    }
 
    @Override
-   protected void processElement(ExcludeListMetaData excludeList, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(ExcludeListMetaData excludeList, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -42,12 +43,12 @@ public class ExcludeListMetaDataParser extends AbstractWithDescriptionsParser<Ex
                methods = new MethodsMetaData();
                excludeList.setMethods(methods);
             }
-            MethodMetaData method = MethodMetaDataParser.INSTANCE.parse(reader);
+            MethodMetaData method = MethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             methods.add(method);
             return;
 
          default:
-            super.processElement(excludeList, reader);
+            super.processElement(excludeList, reader, propertyReplacer);
 
       }
    }

@@ -35,6 +35,8 @@ import javax.xml.stream.XMLStreamReader;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Calendar;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of &lt;timer&gt; element in ejb-jar.xml
@@ -46,7 +48,7 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
 {
    public static final TimerMetaDataParser INSTANCE = new TimerMetaDataParser();
 
-   /**
+    /**
     * Creates and returns {@link TimerMetaData}
     *
     * @param reader
@@ -54,10 +56,10 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
     * @throws XMLStreamException
     */
    @Override
-   public TimerMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public TimerMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       TimerMetaData timerMetaData = new TimerMetaData();
-      this.processElements(timerMetaData, reader);
+      this.processElements(timerMetaData, reader, propertyReplacer);
       return timerMetaData;
    }
 
@@ -69,7 +71,7 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(final TimerMetaData timer, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(final TimerMetaData timer, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       Accessor<DescriptionGroupMetaData> accessor = new Accessor<DescriptionGroupMetaData>()
       {
@@ -92,17 +94,17 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
       switch (ejbJarElement)
       {
          case TIMEZONE:
-            String timezone = getElementText(reader);
+            String timezone = getElementText(reader, propertyReplacer);
             timer.setTimezone(timezone);
             return;
 
          case INFO:
-            String info = getElementText(reader);
+            String info = getElementText(reader, propertyReplacer);
             timer.setInfo(info);
             return;
 
          case PERSISTENT:
-            String persistent = getElementText(reader);
+            String persistent = getElementText(reader, propertyReplacer);
             if (persistent == null || persistent.trim().isEmpty())
             {
                throw unexpectedValue(reader, new Exception("Unexpected null or empty value for <persistent> element"));
@@ -111,20 +113,20 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData>
             return;
 
          case TIMEOUT_METHOD:
-            NamedMethodMetaData timeoutMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader);
+            NamedMethodMetaData timeoutMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             timer.setTimeoutMethod(timeoutMethod);
             return;
 
          case START:
-            String start = getElementText(reader);
+            String start = getElementText(reader, propertyReplacer);
             timer.setStart(parseDateTime(start));
             return;
          case END:
-            String end = getElementText(reader);
+            String end = getElementText(reader, propertyReplacer);
             timer.setEnd(parseDateTime(end));
             return;
          case SCHEDULE:
-            ScheduleMetaData schedule = ScheduleMetaDataParser.INSTANCE.parse(reader);
+            ScheduleMetaData schedule = ScheduleMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             timer.setSchedule(schedule);
             return;
 

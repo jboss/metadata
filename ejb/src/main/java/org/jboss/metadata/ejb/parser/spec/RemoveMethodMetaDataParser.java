@@ -30,6 +30,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses and creates metadata out of &lt;remove-method&gt; element in ejb-jar.xml
@@ -50,11 +51,11 @@ public class RemoveMethodMetaDataParser extends AbstractMetaDataParser<RemoveMet
     * @throws XMLStreamException
     */
    @Override
-   public RemoveMethodMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public RemoveMethodMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       RemoveMethodMetaData removeMethod = new RemoveMethodMetaData();
       processAttributes(removeMethod, reader, ATTRIBUTE_PROCESSOR);
-      this.processElements(removeMethod, reader);
+      this.processElements(removeMethod, reader, propertyReplacer);
       return removeMethod;
    }
 
@@ -66,18 +67,18 @@ public class RemoveMethodMetaDataParser extends AbstractMetaDataParser<RemoveMet
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(RemoveMethodMetaData removeMethodMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(RemoveMethodMetaData removeMethodMetaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case BEAN_METHOD:
-            NamedMethodMetaData beanMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader);
+            NamedMethodMetaData beanMethod = NamedMethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             removeMethodMetaData.setBeanMethod(beanMethod);
             return;
 
          case RETAIN_IF_EXCEPTION:
-            String retainIfException = reader.getElementText();
+            String retainIfException = getElementText(reader, propertyReplacer);
             if (retainIfException == null || retainIfException.trim().isEmpty())
             {
                throw unexpectedValue(reader, new Exception("Unexpected null or empty value for retain-if-exception element"));

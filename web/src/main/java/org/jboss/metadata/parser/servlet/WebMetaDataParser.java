@@ -27,6 +27,7 @@ import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.JspConfigMetaData;
 import org.jboss.metadata.web.spec.TaglibMetaData;
 import org.jboss.metadata.web.spec.Web22MetaData;
@@ -50,11 +51,11 @@ import java.util.List;
  */
 public class WebMetaDataParser extends MetaDataElementParser {
 
-    public static WebMetaData parse(XMLStreamReader reader, DTDInfo info) throws XMLStreamException {
-        return parse(reader, info, false);
+    public static WebMetaData parse(XMLStreamReader reader, DTDInfo info, PropertyReplacer propertyReplacer) throws XMLStreamException {
+        return parse(reader, info, false, propertyReplacer);
     }
 
-    public static WebMetaData parse(XMLStreamReader reader, DTDInfo info, boolean validation) throws XMLStreamException {
+    public static WebMetaData parse(XMLStreamReader reader, DTDInfo info, boolean validation, PropertyReplacer propertyReplacer) throws XMLStreamException {
         if (reader == null)
             throw new IllegalArgumentException("Null reader");
         if (info == null)
@@ -171,7 +172,7 @@ public class WebMetaDataParser extends MetaDataElementParser {
         EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (WebCommonMetaDataParser.parse(reader, wmd)) {
+            if (WebCommonMetaDataParser.parse(reader, wmd, propertyReplacer)) {
                 continue;
             }
             if (EnvironmentRefsGroupMetaDataParser.parse(reader, env)) {
@@ -190,14 +191,14 @@ public class WebMetaDataParser extends MetaDataElementParser {
             switch (element) {
                 case ABSOLUTE_ORDERING:
                     if (wmd instanceof Web30MetaData) {
-                        ((Web30MetaData) wmd).setAbsoluteOrdering(AbsoluteOrderingMetaDataParser.parse(reader));
+                        ((Web30MetaData) wmd).setAbsoluteOrdering(AbsoluteOrderingMetaDataParser.parse(reader, propertyReplacer));
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case MODULE_NAME:
                     if (wmd instanceof Web30MetaData) {
-                        ((Web30MetaData) wmd).setModuleName(getElementText(reader));
+                        ((Web30MetaData) wmd).setModuleName(getElementText(reader, propertyReplacer));
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -214,7 +215,7 @@ public class WebMetaDataParser extends MetaDataElementParser {
                             taglibs = new ArrayList<TaglibMetaData>();
                             jspConfig.setTaglibs(taglibs);
                         }
-                        taglibs.add(TaglibMetaDataParser.parse(reader));
+                        taglibs.add(TaglibMetaDataParser.parse(reader, propertyReplacer));
                     } else {
                         throw unexpectedElement(reader);
                     }

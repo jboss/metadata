@@ -37,6 +37,7 @@ import org.jboss.metadata.javaee.spec.IconsImpl;
 import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
+import org.jboss.metadata.property.PropertyReplacer;
 
 
 /**
@@ -44,18 +45,18 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  */
 public class ResourceInjectionMetaDataParser extends MetaDataElementParser {
 
-    public static boolean parse(XMLStreamReader reader, ResourceInjectionMetaData resourceInjection) throws XMLStreamException {
+    public static boolean parse(XMLStreamReader reader, ResourceInjectionMetaData resourceInjection, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         // Only look at the current element, no iteration
         final Element element = Element.forName(reader.getLocalName());
         switch (element) {
             case LOOKUP_NAME:
-                resourceInjection.setLookupName(getElementText(reader));
+                resourceInjection.setLookupName(getElementText(reader, propertyReplacer));
                 break;
             case MAPPED_NAME:
-                resourceInjection.setMappedName(getElementText(reader));
+                resourceInjection.setMappedName(getElementText(reader, propertyReplacer));
                 break;
             case JNDI_NAME:
-                resourceInjection.setJndiName(getElementText(reader));
+                resourceInjection.setJndiName(getElementText(reader, propertyReplacer));
                 break;
             case IGNORE_DEPENDECY:
                 resourceInjection.setIgnoreDependency(new EmptyMetaData());
@@ -66,7 +67,7 @@ public class ResourceInjectionMetaDataParser extends MetaDataElementParser {
                     injectionTargets = new HashSet<ResourceInjectionTargetMetaData>();
                     resourceInjection.setInjectionTargets(injectionTargets);
                 }
-                injectionTargets.add(ResourceInjectionTargetMetaDataParser.parse(reader));
+                injectionTargets.add(ResourceInjectionTargetMetaDataParser.parse(reader, propertyReplacer));
                 break;
             default: return false;
         }

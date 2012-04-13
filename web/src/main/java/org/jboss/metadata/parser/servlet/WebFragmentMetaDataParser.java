@@ -30,6 +30,7 @@ import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.WebFragment30MetaData;
 import org.jboss.metadata.web.spec.WebFragmentMetaData;
 
@@ -39,7 +40,7 @@ import org.jboss.metadata.web.spec.WebFragmentMetaData;
  */
 public class WebFragmentMetaDataParser extends MetaDataElementParser {
 
-    public static WebFragmentMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static WebFragmentMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         reader.require(START_DOCUMENT, null, null);
         // Read until the first start element
@@ -80,7 +81,7 @@ public class WebFragmentMetaDataParser extends MetaDataElementParser {
         EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (WebCommonMetaDataParser.parse(reader, wmd)) {
+            if (WebCommonMetaDataParser.parse(reader, wmd, propertyReplacer)) {
                 continue;
             }
             if (EnvironmentRefsGroupMetaDataParser.parse(reader, env)) {
@@ -98,10 +99,10 @@ public class WebFragmentMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    wmd.setName(getElementText(reader));
+                    wmd.setName(getElementText(reader, propertyReplacer));
                     break;
                 case ORDERING:
-                    wmd.setOrdering(OrderingMetaDataParser.parse(reader));
+                    wmd.setOrdering(OrderingMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

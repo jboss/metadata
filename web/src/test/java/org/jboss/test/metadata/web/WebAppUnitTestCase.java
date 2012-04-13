@@ -48,7 +48,7 @@ abstract class WebAppUnitTestCase extends AbstractJavaEEEverythingTest {
     protected WebMetaData unmarshal(boolean validate) throws Exception {
         MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
         XMLStreamReader reader = getXMLStreamReader(info);
-        WebMetaData metaData = WebMetaDataParser.parse(reader, info);
+        WebMetaData metaData = WebMetaDataParser.parse(reader, info, propertyReplacer);
         String schemaLocation = metaData.getSchemaLocation();
         if (validate == true && schemaLocation != null) {
             XMLSchemaValidator validator = new XMLSchemaValidator(new XMLResourceResolver());

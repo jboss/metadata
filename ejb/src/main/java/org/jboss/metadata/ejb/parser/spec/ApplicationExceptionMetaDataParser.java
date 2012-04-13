@@ -27,6 +27,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * @author <a href="mailto:carlo@redhat.com">Carlo de Wolf</a>
@@ -43,10 +45,10 @@ public class ApplicationExceptionMetaDataParser extends AbstractIdMetaDataParser
      *
      */
     @Override
-    public ApplicationExceptionMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public ApplicationExceptionMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ApplicationExceptionMetaData metaData = new ApplicationExceptionMetaData();
         processAttributes(metaData, reader, this);
-        this.processElements(metaData, reader);
+        this.processElements(metaData, reader, propertyReplacer);
         return metaData;
     }
 
@@ -60,21 +62,21 @@ public class ApplicationExceptionMetaDataParser extends AbstractIdMetaDataParser
      *
      */
     @Override
-    protected void processElement(ApplicationExceptionMetaData applicationExceptionMetaData, XMLStreamReader reader) throws XMLStreamException {
+    protected void processElement(ApplicationExceptionMetaData applicationExceptionMetaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         // get the element to process
         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
         switch (ejbJarElement)
         {
            case EXCEPTION_CLASS:
-              applicationExceptionMetaData.setExceptionClass(super.getElementText(reader));
+              applicationExceptionMetaData.setExceptionClass(super.getElementText(reader, propertyReplacer));
               break;
 
            case INHERITED:
-              applicationExceptionMetaData.setInherited(Boolean.valueOf(super.getElementText(reader)));
+              applicationExceptionMetaData.setInherited(Boolean.valueOf(super.getElementText(reader, propertyReplacer)));
               break;
 
            case ROLLBACK:
-              applicationExceptionMetaData.setRollback(Boolean.valueOf(super.getElementText(reader)));
+              applicationExceptionMetaData.setRollback(Boolean.valueOf(super.getElementText(reader, propertyReplacer)));
               break;
 
            default:

@@ -25,6 +25,8 @@ import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractEJBBoundMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.util.property.Property;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -32,24 +34,24 @@ import javax.xml.stream.XMLStreamReader;
 public class CacheTestParser extends AbstractEJBBoundMetaDataParser<CacheTest>
 {
    @Override
-   public CacheTest parse(XMLStreamReader reader) throws XMLStreamException
+   public CacheTest parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       CacheTest cacheTest = new CacheTest();
-      processElements(cacheTest, reader);
+      processElements(cacheTest, reader, propertyReplacer);
       return cacheTest;
    }
 
    @Override
-   protected void processElement(CacheTest metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(CacheTest metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       if (reader.getNamespaceURI().equals("urn:cache-test"))
       {
          if (reader.getLocalName().equals("size"))
-            metaData.setSize(Integer.valueOf(reader.getElementText()));
+            metaData.setSize(Integer.valueOf(getElementText(reader, propertyReplacer)));
          else
             throw unexpectedElement(reader);
       }
       else
-         super.processElement(metaData, reader);
+         super.processElement(metaData, reader, propertyReplacer);
    }
 }

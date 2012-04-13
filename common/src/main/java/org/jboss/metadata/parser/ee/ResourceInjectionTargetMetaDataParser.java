@@ -27,13 +27,14 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Remy Maucherat
  */
 public class ResourceInjectionTargetMetaDataParser extends MetaDataElementParser {
 
-    public static ResourceInjectionTargetMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ResourceInjectionTargetMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ResourceInjectionTargetMetaData resourceInjectionTarget = new ResourceInjectionTargetMetaData();
 
         // Handle elements
@@ -41,10 +42,10 @@ public class ResourceInjectionTargetMetaDataParser extends MetaDataElementParser
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case INJECTION_TARGET_CLASS:
-                    resourceInjectionTarget.setInjectionTargetClass(getElementText(reader));
+                    resourceInjectionTarget.setInjectionTargetClass(getElementText(reader, propertyReplacer));
                     break;
                 case INJECTION_TARGET_NAME:
-                    resourceInjectionTarget.setInjectionTargetName(getElementText(reader));
+                    resourceInjectionTarget.setInjectionTargetName(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

@@ -28,6 +28,8 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * @author Remy Maucherat
@@ -35,6 +37,10 @@ import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 public class ParamValueMetaDataParser extends MetaDataElementParser {
 
     public static ParamValueMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+        return parse(reader, PropertyReplacers.noop());
+    }
+
+    public static ParamValueMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ParamValueMetaData paramValue = new ParamValueMetaData();
 
         // Handle attributes
@@ -57,7 +63,7 @@ public class ParamValueMetaDataParser extends MetaDataElementParser {
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (DescriptionsMetaDataParser.parse(reader, descriptions)) {
+            if (DescriptionsMetaDataParser.parse(reader, descriptions, propertyReplacer)) {
                 if (paramValue.getDescriptions() == null) {
                     paramValue.setDescriptions(descriptions);
                 }
@@ -66,10 +72,10 @@ public class ParamValueMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case PARAM_NAME:
-                    paramValue.setParamName(getElementText(reader));
+                    paramValue.setParamName(getElementText(reader, propertyReplacer));
                     break;
                 case PARAM_VALUE:
-                    paramValue.setParamValue(getElementText(reader));
+                    paramValue.setParamValue(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

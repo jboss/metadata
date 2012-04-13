@@ -32,6 +32,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of the &lt;entity&gt; element in the ejb-jar.xml
@@ -40,17 +42,17 @@ import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.proces
  */
 public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<AbstractGenericBeanMetaData>
 {
-
    /**
     * Creates and returns {@link org.jboss.metadata.ejb.spec.EntityBeanMetaData} after parsing the entity element.
     *
     * @param reader
+    * @param propertyReplacer
     * @return
     * @throws javax.xml.stream.XMLStreamException
     *
     */
    @Override
-   public AbstractGenericBeanMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public AbstractGenericBeanMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       GenericBeanMetaData bean = new GenericBeanMetaData(EjbType.ENTITY);
 
@@ -70,13 +72,13 @@ public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<AbstractG
       }
 
       processAttributes(bean, reader, this);
-      this.processElements(bean, reader);
+      this.processElements(bean, reader, propertyReplacer);
       // return the metadata created out of parsing
       return bean;
    }
 
    @Override
-   protected void processElement(AbstractGenericBeanMetaData beanMetaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AbstractGenericBeanMetaData beanMetaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
 
       // Handle the description group elements
@@ -118,35 +120,35 @@ public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<AbstractG
 
 
          case EJB_NAME:
-            beanMetaData.setEjbName(getElementText(reader));
+            beanMetaData.setEjbName(getElementText(reader, propertyReplacer));
             return;
 
          case MAPPED_NAME:
-            beanMetaData.setMappedName(getElementText(reader));
+            beanMetaData.setMappedName(getElementText(reader, propertyReplacer));
             return;
 
          case HOME:
-            beanMetaData.setHome(getElementText(reader));
+            beanMetaData.setHome(getElementText(reader, propertyReplacer));
             return;
 
          case REMOTE:
-            beanMetaData.setRemote(getElementText(reader));
+            beanMetaData.setRemote(getElementText(reader, propertyReplacer));
             return;
 
          case LOCAL_HOME:
-            beanMetaData.setLocalHome(getElementText(reader));
+            beanMetaData.setLocalHome(getElementText(reader, propertyReplacer));
             return;
 
          case LOCAL:
-            beanMetaData.setLocal(getElementText(reader));
+            beanMetaData.setLocal(getElementText(reader, propertyReplacer));
             return;
 
          case EJB_CLASS:
-            beanMetaData.setEjbClass(getElementText(reader));
+            beanMetaData.setEjbClass(getElementText(reader, propertyReplacer));
             return;
 
          case PERSISTENCE_TYPE:
-            PersistenceType persistenceType = this.processPersistenceType(getElementText(reader));
+            PersistenceType persistenceType = this.processPersistenceType(getElementText(reader, propertyReplacer));
             if (persistenceType == null)
             {
                throw unexpectedValue(reader, new Exception("Unexpected value: " + persistenceType + " for persistence-type"));
@@ -157,24 +159,24 @@ public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<AbstractG
             return;
 
          case PRIM_KEY_CLASS:
-            beanMetaData.setPrimKeyClass(getElementText(reader));
+            beanMetaData.setPrimKeyClass(getElementText(reader, propertyReplacer));
             return;
 
          case REENTRANT:
-            beanMetaData.setReentrant(Boolean.parseBoolean(getElementText(reader)));
+            beanMetaData.setReentrant(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
             return;
 
          case CMP_VERSION:
-            beanMetaData.setCmpVersion(getElementText(reader));
+            beanMetaData.setCmpVersion(getElementText(reader, propertyReplacer));
             return;
 
          case ABSTRACT_SCHEMA_NAME:
-            beanMetaData.setAbstractSchemaName(getElementText(reader));
+            beanMetaData.setAbstractSchemaName(getElementText(reader, propertyReplacer));
             return;
 
 
          case CMP_FIELD:
-            CMPFieldMetaData field = CmpFieldMetaDataParser.INSTANCE.parse(reader);
+            CMPFieldMetaData field = CmpFieldMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             CMPFieldsMetaData fields = beanMetaData.getCmpFields();
             if (fields == null)
             {
@@ -185,7 +187,7 @@ public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<AbstractG
 
 
          case PRIMKEY_FIELD:
-            beanMetaData.setPrimKeyField(getElementText(reader));
+            beanMetaData.setPrimKeyField(getElementText(reader, propertyReplacer));
             return;
 
          case SECURITY_ROLE_REF:
@@ -195,17 +197,17 @@ public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<AbstractG
                securityRoleRefs = new SecurityRoleRefsMetaData();
                beanMetaData.setSecurityRoleRefs(securityRoleRefs);
             }
-            SecurityRoleRefMetaData securityRoleRef = SecurityRoleRefMetaDataParser.parse(reader);
+            SecurityRoleRefMetaData securityRoleRef = SecurityRoleRefMetaDataParser.parse(reader, propertyReplacer);
             securityRoleRefs.add(securityRoleRef);
             return;
 
          case SECURITY_IDENTITY:
-            final SecurityIdentityMetaData securityIdentity = SecurityIdentityParser.INSTANCE.parse(reader);
+            final SecurityIdentityMetaData securityIdentity = SecurityIdentityParser.INSTANCE.parse(reader, propertyReplacer);
             beanMetaData.setSecurityIdentity(securityIdentity);
             return;
 
          case QUERY:
-            QueryMetaData query = QueryMetaDataParser.INSTANCE.parse(reader);
+            QueryMetaData query = QueryMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             QueriesMetaData queries = beanMetaData.getQueries();
             if (queries == null)
             {

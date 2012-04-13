@@ -30,6 +30,8 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 
 /**
@@ -37,7 +39,11 @@ import javax.xml.stream.XMLStreamReader;
  */
 public class DescriptionGroupMetaDataParser extends MetaDataElementParser {
 
-   public static boolean parse(XMLStreamReader reader, Accessor<DescriptionGroupMetaData> accessor) throws XMLStreamException
+   public static boolean parse(XMLStreamReader reader, Accessor<DescriptionGroupMetaData> accessor) throws XMLStreamException {
+       return parse(reader, accessor, PropertyReplacers.noop());
+   }
+
+   public static boolean parse(XMLStreamReader reader, Accessor<DescriptionGroupMetaData> accessor, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // Only look at the current element, no iteration
       final Element element = Element.forName(reader.getLocalName());
@@ -52,7 +58,7 @@ public class DescriptionGroupMetaDataParser extends MetaDataElementParser {
                descriptions = new DescriptionsImpl();
                descriptionGroup.setDescriptions(descriptions);
             }
-            descriptions.add(DescriptionMetaDataParser.parse(reader));
+            descriptions.add(DescriptionMetaDataParser.parse(reader, propertyReplacer));
             break;
          }
          case ICON:
@@ -64,7 +70,7 @@ public class DescriptionGroupMetaDataParser extends MetaDataElementParser {
                icons = new IconsImpl();
                descriptionGroup.setIcons(icons);
             }
-            icons.add(IconMetaDataParser.parse(reader));
+            icons.add(IconMetaDataParser.parse(reader, propertyReplacer));
             break;
          }
          case DISPLAY_NAME:
@@ -76,7 +82,7 @@ public class DescriptionGroupMetaDataParser extends MetaDataElementParser {
                displayNames = new DisplayNamesImpl();
                descriptionGroup.setDisplayNames(displayNames);
             }
-            displayNames.add(DisplayNameMetaDataParser.parse(reader));
+            displayNames.add(DisplayNameMetaDataParser.parse(reader, propertyReplacer));
             break;
          }
          default:
@@ -85,7 +91,11 @@ public class DescriptionGroupMetaDataParser extends MetaDataElementParser {
       return true;
    }
 
-   public static boolean parse(XMLStreamReader reader, final DescriptionGroupMetaData descriptionGroup) throws XMLStreamException
+   public static boolean parse(XMLStreamReader reader, final DescriptionGroupMetaData descriptionGroup) throws XMLStreamException {
+       return parse(reader, descriptionGroup, PropertyReplacers.noop());
+   }
+
+   public static boolean parse(XMLStreamReader reader, final DescriptionGroupMetaData descriptionGroup, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       return parse(reader, new Accessor<DescriptionGroupMetaData>()
       {
@@ -94,6 +104,6 @@ public class DescriptionGroupMetaDataParser extends MetaDataElementParser {
          {
             return descriptionGroup;
          }
-      });
+      }, propertyReplacer);
    }
 }

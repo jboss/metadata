@@ -24,6 +24,8 @@ package org.jboss.metadata.ejb.test.distinctname;
 
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.test.common.UnmarshallingHelper;
+import org.jboss.metadata.property.PropertyReplacers;
+import org.jboss.metadata.property.SystemPropertyResolver;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -55,7 +57,7 @@ public class DistinctNameTestCase {
     public void testDistinctNameWithExpression() throws Exception {
         // set the system property first
         System.setProperty("org.jboss.metadata.ejb.test.distinctname.sysprop.foo", "bar");
-        final EjbJarMetaData ejbJarMetaData = UnmarshallingHelper.unmarshalJboss(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/distinctname/expression-distinct-name-jboss-ejb3.xml");
+        final EjbJarMetaData ejbJarMetaData = UnmarshallingHelper.unmarshalJboss(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/distinctname/expression-distinct-name-jboss-ejb3.xml", PropertyReplacers.resolvingReplacer(SystemPropertyResolver.INSTANCE));
         Assert.assertEquals("Unexpected distinct name", "bar-distinct-name", ejbJarMetaData.getDistinctName());
     }
 

@@ -28,6 +28,8 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.spec.VariableMetaData;
 import org.jboss.metadata.web.spec.VariableScopeType;
 
@@ -59,7 +61,7 @@ public class VariableMetaDataParser extends MetaDataElementParser {
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (DescriptionsMetaDataParser.parse(reader, descriptions)) {
+            if (DescriptionsMetaDataParser.parse(reader, descriptions, PropertyReplacers.noop())) {
                 if (variable.getDescriptions() == null) {
                     variable.setDescriptions(descriptions);
                 }

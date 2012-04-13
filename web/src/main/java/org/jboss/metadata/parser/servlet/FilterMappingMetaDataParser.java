@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.DispatcherType;
 import org.jboss.metadata.web.spec.FilterMappingMetaData;
 
@@ -37,7 +38,7 @@ import org.jboss.metadata.web.spec.FilterMappingMetaData;
  */
 public class FilterMappingMetaDataParser extends MetaDataElementParser {
 
-    public static FilterMappingMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static FilterMappingMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         FilterMappingMetaData filterMapping = new FilterMappingMetaData();
 
         // Handle attributes
@@ -62,7 +63,7 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case FILTER_NAME:
-                    filterMapping.setFilterName(getElementText(reader));
+                    filterMapping.setFilterName(getElementText(reader, propertyReplacer));
                     break;
                 case URL_PATTERN:
                     List<String> urlPatterns = filterMapping.getUrlPatterns();
@@ -70,7 +71,7 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
                         urlPatterns = new ArrayList<String>();
                         filterMapping.setUrlPatterns(urlPatterns);
                     }
-                    urlPatterns.add(getElementText(reader));
+                    urlPatterns.add(getElementText(reader, propertyReplacer));
                     break;
                 case SERVLET_NAME:
                     List<String> servletNames = filterMapping.getServletNames();
@@ -78,7 +79,7 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
                         servletNames = new ArrayList<String>();
                         filterMapping.setServletNames(servletNames);
                     }
-                    servletNames.add(getElementText(reader));
+                    servletNames.add(getElementText(reader, propertyReplacer));
                     break;
                 case DISPATCHER:
                     List<DispatcherType> dispatchers = filterMapping.getDispatchers();
@@ -87,7 +88,7 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
                         filterMapping.setDispatchers(dispatchers);
                     }
                     try {
-                        dispatchers.add(DispatcherType.valueOf(getElementText(reader)));
+                        dispatchers.add(DispatcherType.valueOf(getElementText(reader, propertyReplacer)));
                     } catch (IllegalArgumentException e) {
                         throw unexpectedValue(reader, e);
                     }

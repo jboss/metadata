@@ -30,6 +30,8 @@ import org.jboss.metadata.javaee.support.IdMetaData;
 import javax.ejb.TransactionAttributeType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of &lt;container-transaction&gt; element in the ejb-jar.xml
@@ -52,12 +54,12 @@ public class ContainerTransactionMetaDataParser extends AbstractWithDescriptions
       return new ContainerTransactionMetaData();
    }
 
-   @Override
-   public ContainerTransactionMetaData parse(XMLStreamReader reader) throws XMLStreamException
+    @Override
+   public ContainerTransactionMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       ContainerTransactionMetaData containerTransactionMetaData = new ContainerTransactionMetaData();
 //      processAttributes(containerTransactionMetaData, reader, ATTRIBUTE_PROCESSOR);
-      this.processElements(containerTransactionMetaData, reader);
+      this.processElements(containerTransactionMetaData, reader, propertyReplacer);
       return containerTransactionMetaData;
    }
 
@@ -68,13 +70,13 @@ public class ContainerTransactionMetaDataParser extends AbstractWithDescriptions
    }
 
    @Override
-   public void processElement(ContainerTransactionMetaData containerTransactionMetaData, XMLStreamReader reader) throws XMLStreamException
+   public void processElement(ContainerTransactionMetaData containerTransactionMetaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case TRANS_ATTRIBUTE:
-            String txAttributeValue = getElementText(reader);
+            String txAttributeValue = getElementText(reader, propertyReplacer);
             if (txAttributeValue == null || txAttributeValue.isEmpty())
             {
                throw unexpectedValue(reader, new Exception("Unexpected null or empty value for trans-attribute"));
@@ -91,12 +93,12 @@ public class ContainerTransactionMetaDataParser extends AbstractWithDescriptions
                methods = new MethodsMetaData();
                containerTransactionMetaData.setMethods(methods);
             }
-            MethodMetaData method = MethodMetaDataParser.INSTANCE.parse(reader);
+            MethodMetaData method = MethodMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             methods.add(method);
             return;
 
          default:
-            super.processElement(containerTransactionMetaData, reader);
+            super.processElement(containerTransactionMetaData, reader, propertyReplacer);
       }
    }
 

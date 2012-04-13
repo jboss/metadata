@@ -28,6 +28,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.ListenerMetaData;
 
 /**
@@ -35,7 +36,7 @@ import org.jboss.metadata.web.spec.ListenerMetaData;
  */
 public class ListenerMetaDataParser extends MetaDataElementParser {
 
-    public static ListenerMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ListenerMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         ListenerMetaData listener = new ListenerMetaData();
 
         // Handle attributes
@@ -67,7 +68,7 @@ public class ListenerMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case LISTENER_CLASS:
-                    listener.setListenerClass(getElementText(reader));
+                    listener.setListenerClass(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

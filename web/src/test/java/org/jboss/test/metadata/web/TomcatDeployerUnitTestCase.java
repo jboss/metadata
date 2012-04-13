@@ -33,6 +33,8 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.merge.web.jboss.JBossWebMetaDataMerger;
 import org.jboss.metadata.parser.servlet.WebMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.jboss.JBoss50WebMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.web.spec.Web23MetaData;
@@ -107,7 +109,7 @@ public class TomcatDeployerUnitTestCase extends TestCase
       InputStream  is = webXml.openStream();
       inputFactory.setXMLResolver(info);
       XMLStreamReader reader = inputFactory.createXMLStreamReader(is);
-      WebMetaData confWebMD = WebMetaDataParser.parse(reader, info);
+      WebMetaData confWebMD = WebMetaDataParser.parse(reader, info, PropertyReplacers.noop());
       JBoss50WebMetaData sharedMetaData = new JBoss50WebMetaData();
       JBossWebMetaDataMerger.merge(sharedMetaData, null, confWebMD);
 

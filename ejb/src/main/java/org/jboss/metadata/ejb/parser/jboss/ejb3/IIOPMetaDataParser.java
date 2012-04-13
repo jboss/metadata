@@ -34,6 +34,8 @@ import org.jboss.metadata.ejb.jboss.IORASContextMetaData;
 import org.jboss.metadata.ejb.jboss.IORSASContextMetaData;
 import org.jboss.metadata.ejb.jboss.IORSecurityConfigMetaData;
 import org.jboss.metadata.ejb.jboss.IORTransportConfigMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * <p>
@@ -45,14 +47,14 @@ import org.jboss.metadata.ejb.jboss.IORTransportConfigMetaData;
 public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaData> {
 
     @Override
-    public IIOPMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public IIOPMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         IIOPMetaData metaData = new IIOPMetaData();
-        super.processElements(metaData, reader);
+        super.processElements(metaData, reader, propertyReplacer);
         return metaData;
     }
 
     @Override
-    protected void processElement(IIOPMetaData metaData, XMLStreamReader reader) throws XMLStreamException {
+    protected void processElement(IIOPMetaData metaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
         switch(namespace) {
@@ -60,11 +62,11 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
                 Element element = Element.forName(reader.getLocalName());
                 switch (element) {
                     case BINDING_NAME: {
-                        metaData.setBindingName(getElementText(reader));
+                        metaData.setBindingName(getElementText(reader, propertyReplacer));
                         break;
                     }
                     case IOR_SECURITY_CONFIG: {
-                        IORSecurityConfigMetaData iorSecurityMetaData = this.processIORSecurityConfig(reader);
+                        IORSecurityConfigMetaData iorSecurityMetaData = this.processIORSecurityConfig(reader, propertyReplacer);
                         metaData.setIorSecurityConfigMetaData(iorSecurityMetaData);
                         break;
                     }
@@ -72,27 +74,27 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
                 return;
             }
         }
-        super.processElement(metaData, reader);
+        super.processElement(metaData, reader, propertyReplacer);
     }
 
-    protected IORSecurityConfigMetaData processIORSecurityConfig(XMLStreamReader reader) throws XMLStreamException {
+    protected IORSecurityConfigMetaData processIORSecurityConfig(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         IORSecurityConfigMetaData iorSecurityMetaData = new IORSecurityConfigMetaData();
 
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
             Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case TRANSPORT_CONFIG: {
-                    IORTransportConfigMetaData transportConfig = this.processTransportConfig(reader);
+                    IORTransportConfigMetaData transportConfig = this.processTransportConfig(reader, propertyReplacer);
                     iorSecurityMetaData.setTransportConfig(transportConfig);
                     break;
                 }
                 case AS_CONTEXT: {
-                    IORASContextMetaData asContext = this.processASContext(reader);
+                    IORASContextMetaData asContext = this.processASContext(reader, propertyReplacer);
                     iorSecurityMetaData.setAsContext(asContext);
                     break;
                 }
                 case SAS_CONTEXT: {
-                    IORSASContextMetaData sasContext = this.processSASContext(reader);
+                    IORSASContextMetaData sasContext = this.processSASContext(reader, propertyReplacer);
                     iorSecurityMetaData.setSasContext(sasContext);
                     break;
                 }
@@ -104,7 +106,7 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
         return iorSecurityMetaData;
     }
 
-    protected IORTransportConfigMetaData processTransportConfig(XMLStreamReader reader) throws XMLStreamException {
+    protected IORTransportConfigMetaData processTransportConfig(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         // the transport-config element doesn't have attributes.
         requireNoAttributes(reader);
@@ -122,32 +124,32 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
             switch (element) {
                 case INTEGRITY: {
                     requireNoAttributes(reader);
-                    transportConfig.setIntegrity(getElementText(reader));
+                    transportConfig.setIntegrity(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case CONFIDENTIALITY: {
                     requireNoAttributes(reader);
-                    transportConfig.setConfidentiality(getElementText(reader));
+                    transportConfig.setConfidentiality(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case DETECT_MISORDERING: {
                     requireNoAttributes(reader);
-                    transportConfig.setDetectMisordering(getElementText(reader));
+                    transportConfig.setDetectMisordering(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case DETECT_REPLAY: {
                     requireNoAttributes(reader);
-                    transportConfig.setDetectReplay(getElementText(reader));
+                    transportConfig.setDetectReplay(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case ESTABLISH_TRUST_IN_CLIENT: {
                     requireNoAttributes(reader);
-                    transportConfig.setEstablishTrustInClient(getElementText(reader));
+                    transportConfig.setEstablishTrustInClient(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case ESTABLISH_TRUST_IN_TARGET: {
                     requireNoAttributes(reader);
-                    transportConfig.setEstablishTrustInTarget(getElementText(reader));
+                    transportConfig.setEstablishTrustInTarget(getElementText(reader, propertyReplacer));
                     break;
                 }
                 default: {
@@ -166,7 +168,7 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
         return transportConfig;
     }
 
-    protected IORASContextMetaData processASContext(XMLStreamReader reader) throws XMLStreamException {
+    protected IORASContextMetaData processASContext(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         // the as-context element doesn't have attributes.
         requireNoAttributes(reader);
@@ -183,17 +185,17 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
             switch (element) {
                 case AUTH_METHOD: {
                     requireNoAttributes(reader);
-                    asContext.setAuthMethod(getElementText(reader));
+                    asContext.setAuthMethod(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case REALM: {
                     requireNoAttributes(reader);
-                    asContext.setRealm(getElementText(reader));
+                    asContext.setRealm(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case REQUIRED: {
                     requireNoAttributes(reader);
-                    asContext.setRequired(Boolean.valueOf(getElementText(reader)));
+                    asContext.setRequired(Boolean.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 default: {
@@ -213,7 +215,7 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
 
     }
 
-    protected IORSASContextMetaData processSASContext(XMLStreamReader reader) throws XMLStreamException {
+    protected IORSASContextMetaData processSASContext(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         // the sas-context element doesn't have attributes.
         requireNoAttributes(reader);
@@ -230,7 +232,7 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
             switch (element) {
                 case CALLER_PROPAGATION: {
                     requireNoAttributes(reader);
-                    sasContext.setCallerPropagation(getElementText(reader));
+                    sasContext.setCallerPropagation(getElementText(reader, propertyReplacer));
                     break;
                 }
                 default: {

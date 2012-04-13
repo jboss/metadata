@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -36,16 +37,16 @@ import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.proces
 public class MessageDrivenBean31Parser extends AbstractMessageDrivenBeanParser<AbstractGenericBeanMetaData>
 {
    @Override
-   public AbstractGenericBeanMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public AbstractGenericBeanMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       AbstractGenericBeanMetaData bean = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       processAttributes(bean, reader, this);
-      processElements(bean, reader);
+      processElements(bean, reader, propertyReplacer);
       return bean;
    }
 
    @Override
-   protected void processElement(AbstractGenericBeanMetaData bean, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AbstractGenericBeanMetaData bean, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -57,7 +58,7 @@ public class MessageDrivenBean31Parser extends AbstractMessageDrivenBeanParser<A
                aroundTimeouts = new AroundTimeoutsMetaData();
                bean.setAroundTimeouts(aroundTimeouts);
             }
-            AroundTimeoutMetaData aroundInvoke = AroundTimeoutMetaDataParser.INSTANCE.parse(reader);
+            AroundTimeoutMetaData aroundInvoke = AroundTimeoutMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             aroundTimeouts.add(aroundInvoke);
             break;
 
@@ -68,12 +69,12 @@ public class MessageDrivenBean31Parser extends AbstractMessageDrivenBeanParser<A
                timers = new ArrayList<TimerMetaData>();
                bean.setTimers(timers);
             }
-            TimerMetaData timerMetaData = TimerMetaDataParser.INSTANCE.parse(reader);
+            TimerMetaData timerMetaData = TimerMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             timers.add(timerMetaData);
             return;
 
          default:
-            super.processElement(bean, reader);
+            super.processElement(bean, reader, propertyReplacer);
             break;
       }
    }

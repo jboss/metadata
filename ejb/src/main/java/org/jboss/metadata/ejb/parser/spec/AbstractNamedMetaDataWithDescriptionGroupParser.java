@@ -29,6 +29,7 @@ import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -45,7 +46,7 @@ public abstract class AbstractNamedMetaDataWithDescriptionGroupParser<MD extends
    }
 
    @Override
-   protected void processElement(final MD metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(final MD metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       Accessor<DescriptionGroupMetaData> accessor = new Accessor<DescriptionGroupMetaData>()
       {
@@ -63,6 +64,6 @@ public abstract class AbstractNamedMetaDataWithDescriptionGroupParser<MD extends
       };
       if (DescriptionGroupMetaDataParser.parse(reader, accessor))
          return;
-      super.processElement(metaData, reader);
+      super.processElement(metaData, reader, propertyReplacer);
    }
 }

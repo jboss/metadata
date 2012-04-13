@@ -27,6 +27,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -36,28 +37,28 @@ public class NamedMethodMetaDataParser extends AbstractIdMetaDataParser<NamedMet
    public static final NamedMethodMetaDataParser INSTANCE = new NamedMethodMetaDataParser();
    
    @Override
-   public NamedMethodMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public NamedMethodMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       NamedMethodMetaData namedMethodMetaData = new NamedMethodMetaData();
       processAttributes(namedMethodMetaData, reader, this);
-      processElements(namedMethodMetaData, reader);
+      processElements(namedMethodMetaData, reader, propertyReplacer);
       return namedMethodMetaData;
    }
 
    @Override
-   protected void processElement(NamedMethodMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(NamedMethodMetaData metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch(ejbJarElement)
       {
          case METHOD_NAME:
-            metaData.setMethodName(reader.getElementText());
+            metaData.setMethodName(getElementText(reader, propertyReplacer));
             return;
 
          case METHOD_PARAMS:
-            metaData.setMethodParams(MethodParametersMetaDataParser.INSTANCE.parse(reader));
+            metaData.setMethodParams(MethodParametersMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             return;
       }
-      super.processElement(metaData, reader);
+      super.processElement(metaData, reader, propertyReplacer);
    }
 }

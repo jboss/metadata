@@ -26,6 +26,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.jboss.ReplicationConfig;
 import org.jboss.metadata.web.jboss.ReplicationGranularity;
 import org.jboss.metadata.web.jboss.ReplicationMode;
@@ -36,50 +37,50 @@ import org.jboss.metadata.web.jboss.SnapshotMode;
  * @author Paul Ferraro
  */
 public class ReplicationConfigParser extends MetaDataElementParser {
-    public static ReplicationConfig parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ReplicationConfig parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         ReplicationConfig config = new ReplicationConfig();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case CACHE_NAME: {
-                    config.setCacheName(getElementText(reader));
+                    config.setCacheName(getElementText(reader, propertyReplacer));
                     break;
                 }
                 case REPLICATION_TRIGGER: {
-                    config.setReplicationTrigger(ReplicationTrigger.valueOf(getElementText(reader)));
+                    config.setReplicationTrigger(ReplicationTrigger.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case REPLICATION_GRANULARITY: {
-                    config.setReplicationGranularity(ReplicationGranularity.valueOf(getElementText(reader)));
+                    config.setReplicationGranularity(ReplicationGranularity.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case REPLICATION_MODE: {
-                    config.setReplicationMode(ReplicationMode.valueOf(getElementText(reader)));
+                    config.setReplicationMode(ReplicationMode.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case BACKUPS: {
-                    config.setBackups(Integer.valueOf(getElementText(reader)));
+                    config.setBackups(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case USE_JK: {
-                    config.setUseJK(Boolean.valueOf(getElementText(reader)));
+                    config.setUseJK(Boolean.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case MAX_UNREPLICATED_INTERVAL: {
-                    config.setMaxUnreplicatedInterval(Integer.valueOf(getElementText(reader)));
+                    config.setMaxUnreplicatedInterval(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case SNAPSHOT_MODE: {
-                    config.setSnapshotMode(SnapshotMode.valueOf(getElementText(reader)));
+                    config.setSnapshotMode(SnapshotMode.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case SNAPSHOT_INTERVAL: {
-                    config.setSnapshotInterval(Integer.valueOf(getElementText(reader)));
+                    config.setSnapshotInterval(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 }
                 case SESSION_NOTIFICATION_POLICY: {
-                    config.setSessionNotificationPolicy(getElementText(reader));
+                    config.setSessionNotificationPolicy(getElementText(reader, propertyReplacer));
                     break;
                 }
                 default: {

@@ -34,6 +34,7 @@ import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -44,11 +45,11 @@ public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<Ass
    private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
 
    @Override
-   public AssemblyDescriptorMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public AssemblyDescriptorMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       AssemblyDescriptorMetaData assemblyDescriptorMetaData = new AssemblyDescriptorMetaData();
       processAttributes(assemblyDescriptorMetaData, reader);
-      this.processElements(assemblyDescriptorMetaData, reader);
+      this.processElements(assemblyDescriptorMetaData, reader, propertyReplacer);
       return assemblyDescriptorMetaData;
 
    }
@@ -65,7 +66,7 @@ public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<Ass
    }
 
    @Override
-   protected void processElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AssemblyDescriptorMetaData assemblyDescriptor, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -77,7 +78,7 @@ public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<Ass
                containerTransactions = new ContainerTransactionsMetaData();
                assemblyDescriptor.setContainerTransactions(containerTransactions);
             }
-            ContainerTransactionMetaData containerTransaction = ContainerTransactionMetaDataParser.INSTANCE.parse(reader);
+            ContainerTransactionMetaData containerTransaction = ContainerTransactionMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             containerTransactions.add(containerTransaction);
             return;
 
@@ -88,12 +89,12 @@ public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<Ass
                securityRoles = new SecurityRolesMetaData();
                assemblyDescriptor.setSecurityRoles(securityRoles);
             }
-            SecurityRoleMetaData securityRole = SecurityRoleMetaDataParser.parse(reader);
+            SecurityRoleMetaData securityRole = SecurityRoleMetaDataParser.parse(reader, propertyReplacer);
             securityRoles.add(securityRole);
             return;
 
          case EXCLUDE_LIST:
-            ExcludeListMetaData excludeList = ExcludeListMetaDataParser.INSTANCE.parse(reader);
+            ExcludeListMetaData excludeList = ExcludeListMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             assemblyDescriptor.setExcludeList(excludeList);
             return;
 
@@ -104,12 +105,12 @@ public class AssemblyDescriptorMetaDataParser extends AbstractMetaDataParser<Ass
                methodPermissions = new MethodPermissionsMetaData();
                assemblyDescriptor.setMethodPermissions(methodPermissions);
             }
-            MethodPermissionMetaData methodPermission = MethodPermissionMetaDataParser.INSTANCE.parse(reader);
+            MethodPermissionMetaData methodPermission = MethodPermissionMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             methodPermissions.add(methodPermission);
             return;
          
          default:
-            super.processElement(assemblyDescriptor, reader);
+            super.processElement(assemblyDescriptor, reader, propertyReplacer);
       }
    }
 }

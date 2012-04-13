@@ -27,6 +27,7 @@ import org.jboss.metadata.parser.ee.DescriptionMetaDataParser;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -34,7 +35,7 @@ import javax.xml.stream.XMLStreamReader;
 public abstract class AbstractWithDescriptionsParser<MD extends WithDescriptions> extends AbstractMetaDataParser<MD>
 {
    @Override
-   protected void processElement(MD metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(MD metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
@@ -46,11 +47,11 @@ public abstract class AbstractWithDescriptionsParser<MD extends WithDescriptions
                descriptions = new DescriptionsImpl();
                metaData.setDescriptions(descriptions);
             }
-            descriptions.add(DescriptionMetaDataParser.parse(reader));
+            descriptions.add(DescriptionMetaDataParser.parse(reader, propertyReplacer));
             break;
 
          default:
-            super.processElement(metaData, reader);
+            super.processElement(metaData, reader, propertyReplacer);
       }
    }
 }

@@ -21,6 +21,7 @@
  */
 package org.jboss.test.metadata.web;
 
+import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
@@ -35,7 +36,7 @@ public class JBossWebUnitTestCase extends AbstractJavaEEEverythingTest
  
    public void testValve() throws Exception
    {
-      JBossWebMetaData metadata = JBossWebMetaDataParser.parse(getReader());
+      JBossWebMetaData metadata = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
    }
 
 }

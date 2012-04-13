@@ -31,6 +31,8 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of the &lt;ejb-relation-role&gt; element in the ejb-jar.xml
@@ -42,9 +44,8 @@ public class RelationRoleMetaDataParser extends AbstractWithDescriptionsParser<R
     private static final AttributeProcessor<IdMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<IdMetaData>(UnexpectedAttributeProcessor.instance());
    public static final RelationRoleMetaDataParser INSTANCE = new RelationRoleMetaDataParser();
 
-
-   @Override
-   public RelationRoleMetaData parse(XMLStreamReader reader) throws XMLStreamException
+    @Override
+   public RelationRoleMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       RelationRoleMetaData data = new RelationRoleMetaData();
 
@@ -63,13 +64,13 @@ public class RelationRoleMetaDataParser extends AbstractWithDescriptionsParser<R
          }
       }
 
-      this.processElements(data, reader);
+      this.processElements(data, reader, propertyReplacer);
       // return the metadata created out of parsing
       return data;
    }
 
    @Override
-   protected void processElement(RelationRoleMetaData relation, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(RelationRoleMetaData relation, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
@@ -77,18 +78,18 @@ public class RelationRoleMetaDataParser extends AbstractWithDescriptionsParser<R
       {
 
          case EJB_RELATIONSHIP_ROLE_NAME:
-            relation.setEjbRelationshipRoleName(getElementText(reader));
+            relation.setEjbRelationshipRoleName(getElementText(reader, propertyReplacer));
             return;
 
          case MULTIPLICITY:
-            final  String text = getElementText(reader);
+            final  String text = getElementText(reader, propertyReplacer);
             relation.setMultiplicity(MultiplicityType.valueOf(text));
             return;
          case RELATIONSHIP_ROLE_SOURCE:
-            relation.setRoleSource(RelationRoleSourceMetaDataParser.INSTANCE.parse(reader));
+            relation.setRoleSource(RelationRoleSourceMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             return;
          case CMR_FIELD:
-            relation.setCmrField(RelationRoleCmrFieldMetaDataParser.INSTANCE.parse(reader));
+            relation.setCmrField(RelationRoleCmrFieldMetaDataParser.INSTANCE.parse(reader, propertyReplacer));
             return;
         case CASCADE_DELETE:
             final EmptyMetaData cascade = new EmptyMetaData();
@@ -97,7 +98,7 @@ public class RelationRoleMetaDataParser extends AbstractWithDescriptionsParser<R
             reader.getElementText();
             return;
          default:
-            super.processElement(relation, reader);
+            super.processElement(relation, reader, propertyReplacer);
             break;
       }
    }

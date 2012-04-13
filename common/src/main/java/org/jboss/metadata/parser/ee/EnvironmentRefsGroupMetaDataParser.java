@@ -38,6 +38,8 @@ import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 
 /**
@@ -46,6 +48,10 @@ import javax.xml.stream.XMLStreamReader;
 public class EnvironmentRefsGroupMetaDataParser {
 
     public static boolean parse(XMLStreamReader reader, EnvironmentRefsGroupMetaData env) throws XMLStreamException {
+        return parse(reader, env, PropertyReplacers.noop());
+    }
+
+    public static boolean parse(XMLStreamReader reader, EnvironmentRefsGroupMetaData env, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         // Only look at the current element, no iteration
         final Element element = Element.forName(reader.getLocalName());
         switch (element) {
@@ -55,7 +61,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     ejbLocalReferences = new EJBLocalReferencesMetaData();
                     env.setEjbLocalReferences(ejbLocalReferences);
                 }
-                ejbLocalReferences.add(EJBLocalReferenceMetaDataParser.parse(reader));
+                ejbLocalReferences.add(EJBLocalReferenceMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case PERSISTENCE_CONTEXT_REF:
                 PersistenceContextReferencesMetaData pcReferences = env.getPersistenceContextRefs();
@@ -63,15 +69,19 @@ public class EnvironmentRefsGroupMetaDataParser {
                     pcReferences = new PersistenceContextReferencesMetaData();
                     env.setPersistenceContextRefs(pcReferences);
                 }
-                pcReferences.add(PersistenceContextReferenceMetaDataParser.parse(reader));
+                pcReferences.add(PersistenceContextReferenceMetaDataParser.parse(reader, propertyReplacer));
                 break;
             default:
-                return parseRemote(reader, env);
+                return parseRemote(reader, env, propertyReplacer);
         }
         return true;
     }
 
     public static boolean parseRemote(XMLStreamReader reader, RemoteEnvironmentRefsGroupMetaData env) throws XMLStreamException {
+        return parseRemote(reader, env, PropertyReplacers.noop());
+    }
+
+    public static boolean parseRemote(XMLStreamReader reader, RemoteEnvironmentRefsGroupMetaData env, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         // Only look at the current element, no iteration
         final Element element = Element.forName(reader.getLocalName());
         switch (element) {
@@ -81,7 +91,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     envEntries = new EnvironmentEntriesMetaData();
                     env.setEnvironmentEntries(envEntries);
                 }
-                envEntries.add(EnvironmentEntryMetaDataParser.parse(reader));
+                envEntries.add(EnvironmentEntryMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case EJB_REF:
                 EJBReferencesMetaData ejbReferences = env.getEjbReferences();
@@ -89,7 +99,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     ejbReferences = new EJBReferencesMetaData();
                     env.setEjbReferences(ejbReferences);
                 }
-                ejbReferences.add(EJBReferenceMetaDataParser.parse(reader));
+                ejbReferences.add(EJBReferenceMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case SERVICE_REF:
                 ServiceReferencesMetaData serviceReferences = env.getServiceReferences();
@@ -97,7 +107,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     serviceReferences = new ServiceReferencesMetaData();
                     env.setServiceReferences(serviceReferences);
                 }
-                serviceReferences.add(ServiceReferenceMetaDataParser.parse(reader));
+                serviceReferences.add(ServiceReferenceMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case RESOURCE_REF:
                 ResourceReferencesMetaData resourceReferences = env.getResourceReferences();
@@ -105,7 +115,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     resourceReferences = new ResourceReferencesMetaData();
                     env.setResourceReferences(resourceReferences);
                 }
-                resourceReferences.add(ResourceReferenceMetaDataParser.parse(reader));
+                resourceReferences.add(ResourceReferenceMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case RESOURCE_ENV_REF:
                 ResourceEnvironmentReferencesMetaData resourceEnvReferences = env.getResourceEnvironmentReferences();
@@ -113,7 +123,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     resourceEnvReferences = new ResourceEnvironmentReferencesMetaData();
                     env.setResourceEnvironmentReferences(resourceEnvReferences);
                 }
-                resourceEnvReferences.add(ResourceEnvironmentReferenceMetaDataParser.parse(reader));
+                resourceEnvReferences.add(ResourceEnvironmentReferenceMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case MESSAGE_DESTINATION_REF:
                 MessageDestinationReferencesMetaData mdReferences = env.getMessageDestinationReferences();
@@ -121,7 +131,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     mdReferences = new MessageDestinationReferencesMetaData();
                     env.setMessageDestinationReferences(mdReferences);
                 }
-                mdReferences.add(MessageDestinationReferenceMetaDataParser.parse(reader));
+                mdReferences.add(MessageDestinationReferenceMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case PERSISTENCE_UNIT_REF:
                 PersistenceUnitReferencesMetaData puReferences = env.getPersistenceUnitRefs();
@@ -129,7 +139,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     puReferences = new PersistenceUnitReferencesMetaData();
                     env.setPersistenceUnitRefs(puReferences);
                 }
-                puReferences.add(PersistenceUnitReferenceMetaDataParser.parse(reader));
+                puReferences.add(PersistenceUnitReferenceMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case POST_CONSTRUCT:
                 LifecycleCallbacksMetaData postConstructs = env.getPostConstructs();
@@ -137,7 +147,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     postConstructs = new LifecycleCallbacksMetaData();
                     env.setPostConstructs(postConstructs);
                 }
-                postConstructs.add(LifecycleCallbackMetaDataParser.parse(reader));
+                postConstructs.add(LifecycleCallbackMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case PRE_DESTROY:
                 LifecycleCallbacksMetaData preDestroys = env.getPreDestroys();
@@ -145,7 +155,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     preDestroys = new LifecycleCallbacksMetaData();
                     env.setPreDestroys(preDestroys);
                 }
-                preDestroys.add(LifecycleCallbackMetaDataParser.parse(reader));
+                preDestroys.add(LifecycleCallbackMetaDataParser.parse(reader, propertyReplacer));
                 break;
             case DATA_SOURCE:
                 DataSourcesMetaData dataSources = env.getDataSources();
@@ -153,7 +163,7 @@ public class EnvironmentRefsGroupMetaDataParser {
                     dataSources = new DataSourcesMetaData();
                     env.setDataSources(dataSources);
                 }
-                dataSources.add(DataSourceMetaDataParser.parse(reader));
+                dataSources.add(DataSourceMetaDataParser.parse(reader, propertyReplacer));
                 break;
             default:
                 return false;

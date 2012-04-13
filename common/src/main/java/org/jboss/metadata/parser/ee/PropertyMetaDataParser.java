@@ -27,13 +27,15 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.PropertyMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * @author Remy Maucherat
  */
 public class PropertyMetaDataParser extends MetaDataElementParser {
 
-    public static PropertyMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static PropertyMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         PropertyMetaData property = new PropertyMetaData();
 
         // Handle attributes
@@ -58,10 +60,10 @@ public class PropertyMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    property.setName(getElementText(reader));
+                    property.setName(getElementText(reader, propertyReplacer));
                     break;
                 case VALUE:
-                    property.setValue(getElementText(reader));
+                    property.setValue(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

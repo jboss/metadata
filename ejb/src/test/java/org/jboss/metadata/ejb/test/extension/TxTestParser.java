@@ -26,6 +26,7 @@ import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractMethodsBoundMetaDataPars
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.concurrent.TimeUnit;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -33,27 +34,27 @@ import java.util.concurrent.TimeUnit;
 public class TxTestParser extends AbstractMethodsBoundMetaDataParser<TxTest>
 {
    @Override
-   public TxTest parse(XMLStreamReader reader) throws XMLStreamException
+   public TxTest parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final TxTest metaData = new TxTest();
-      processElements(metaData, reader);
+      processElements(metaData, reader, propertyReplacer);
       return metaData;
    }
 
    @Override
-   protected void processElement(TxTest metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(TxTest metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       if (reader.getNamespaceURI().equals("urn:tx-timeout-test"))
       {
          final String localName = reader.getLocalName();
          if (localName.equals("timeout"))
-            metaData.setTimeout(Long.valueOf(reader.getElementText()));
+            metaData.setTimeout(Long.valueOf(getElementText(reader, propertyReplacer)));
          else if (localName.equals("unit"))
-            metaData.setUnit(TimeUnit.valueOf(reader.getElementText().toUpperCase()));
+            metaData.setUnit(TimeUnit.valueOf(getElementText(reader, propertyReplacer).toUpperCase()));
          else
             throw unexpectedElement(reader);
       }
       else
-         super.processElement(metaData, reader);
+         super.processElement(metaData, reader, propertyReplacer);
    }
 }

@@ -29,13 +29,14 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationUsageType;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Remy Maucherat
  */
 public class MessageDestinationReferenceMetaDataParser extends MetaDataElementParser {
 
-    public static MessageDestinationReferenceMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static MessageDestinationReferenceMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         MessageDestinationReferenceMetaData mdReference = new MessageDestinationReferenceMetaData();
 
         // Handle attributes
@@ -58,28 +59,28 @@ public class MessageDestinationReferenceMetaDataParser extends MetaDataElementPa
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (DescriptionsMetaDataParser.parse(reader, descriptions)) {
+            if (DescriptionsMetaDataParser.parse(reader, descriptions, propertyReplacer)) {
                 if (mdReference.getDescriptions() == null) {
                     mdReference.setDescriptions(descriptions);
                 }
                 continue;
             }
-            if (ResourceInjectionMetaDataParser.parse(reader, mdReference)) {
+            if (ResourceInjectionMetaDataParser.parse(reader, mdReference, propertyReplacer)) {
                 continue;
             }
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case MESSAGE_DESTINATION_REF_NAME:
-                    mdReference.setMessageDestinationRefName(getElementText(reader));
+                    mdReference.setMessageDestinationRefName(getElementText(reader, propertyReplacer));
                     break;
                 case MESSAGE_DESTINATION_TYPE:
-                    mdReference.setType(getElementText(reader));
+                    mdReference.setType(getElementText(reader, propertyReplacer));
                     break;
                 case MESSAGE_DESTINATION_USAGE:
-                    mdReference.setMessageDestinationUsage(MessageDestinationUsageType.valueOf(getElementText(reader)));
+                    mdReference.setMessageDestinationUsage(MessageDestinationUsageType.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case MESSAGE_DESTINATION_LINK:
-                    mdReference.setLink(getElementText(reader));
+                    mdReference.setLink(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

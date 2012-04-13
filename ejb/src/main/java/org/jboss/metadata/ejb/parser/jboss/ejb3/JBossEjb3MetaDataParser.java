@@ -28,11 +28,12 @@ import org.jboss.metadata.ejb.parser.spec.EjbJarNamespaceMapping;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
-import org.jboss.metadata.parser.util.PropertiesValueResolver;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.Map;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -47,12 +48,16 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser
    }
 
    @Override
-   public EjbJarMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public EjbJarMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       throw new UnsupportedOperationException("org.jboss.metadata.ejb.parser.jboss.ejb3.JBossEjb3MetaDataParser.parse");
    }
 
-   public EjbJarMetaData parse(final XMLStreamReader reader, final DTDInfo info) throws XMLStreamException
+   public EjbJarMetaData parse(final XMLStreamReader reader, final DTDInfo info) throws XMLStreamException {
+       return parse(reader, info, PropertyReplacers.noop());
+   }
+
+   public EjbJarMetaData parse(final XMLStreamReader reader, final DTDInfo info, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       reader.require(START_DOCUMENT, null, null);
       // Read until the first start element
@@ -105,13 +110,13 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser
 
       final EjbJarMetaData metaData = new EjbJarMetaData(ejbJarVersion);
       processAttributes(metaData, reader);
-      processElements(metaData, reader);
+      processElements(metaData, reader, propertyReplacer);
       return metaData;
    }
 
-   private AssemblyDescriptorMetaData parseAssemblyDescriptor(XMLStreamReader reader) throws XMLStreamException
+   private AssemblyDescriptorMetaData parseAssemblyDescriptor(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
-      return new JBossAssemblyDescriptorMetaDataParser(parsers).parse(reader);
+      return new JBossAssemblyDescriptorMetaDataParser(parsers).parse(reader, propertyReplacer);
    }
 
    @Override
@@ -134,7 +139,7 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser
    }
 
    @Override
-   protected void processElement(EjbJarMetaData metaData, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(EjbJarMetaData metaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
       final Element element = Element.forName(reader.getLocalName());
@@ -144,24 +149,24 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser
             switch (element)
             {
                case ENTERPRISE_BEANS:
-                  metaData.setEnterpriseBeans(parseEnterpriseBeans(reader, metaData.getEjbJarVersion()));
+                  metaData.setEnterpriseBeans(parseEnterpriseBeans(reader, metaData.getEjbJarVersion(), propertyReplacer));
                   break;
                case DISTINCT_NAME:
-                    final String val = reader.getElementText();
-                    metaData.setDistinctName(PropertiesValueResolver.replaceProperties(val));
+                    final String val = getElementText(reader, propertyReplacer);
+                    metaData.setDistinctName(val);
                     break;
                default:
-                  super.processElement(metaData, reader);
+                  super.processElement(metaData, reader, propertyReplacer);
             }
             break;
          case SPEC:
             switch (element)
             {
                case ASSEMBLY_DESCRIPTOR:
-                  metaData.setAssemblyDescriptor(parseAssemblyDescriptor(reader));
+                  metaData.setAssemblyDescriptor(parseAssemblyDescriptor(reader, propertyReplacer));
                   break;
                default:
-                  super.processElement(metaData, reader);
+                  super.processElement(metaData, reader, propertyReplacer);
             }
             break;
          default:
@@ -169,8 +174,8 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser
       }
    }
 
-   private JBossEnterpriseBeansMetaData parseEnterpriseBeans(final XMLStreamReader reader, final EjbJarVersion ejbJarVersion) throws XMLStreamException
+   private JBossEnterpriseBeansMetaData parseEnterpriseBeans(final XMLStreamReader reader, final EjbJarVersion ejbJarVersion, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
-      return new JBossEnterpriseBeansMetaDataParser(ejbJarVersion).parse(reader);
+      return new JBossEnterpriseBeansMetaDataParser(ejbJarVersion).parse(reader, propertyReplacer);
    }
 }

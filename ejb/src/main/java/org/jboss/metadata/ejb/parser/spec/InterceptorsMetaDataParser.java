@@ -30,6 +30,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses the &lt;interceptors&gt; element in a ejb-jar.xml and creates metadata out of it.
@@ -50,11 +51,11 @@ public class InterceptorsMetaDataParser extends AbstractWithDescriptionsParser<I
     * @throws XMLStreamException
     */
    @Override
-   public InterceptorsMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public InterceptorsMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       InterceptorsMetaData interceptors = new InterceptorsMetaData();
       processAttributes(interceptors, reader, ATTRIBUTE_PROCESSOR);
-      this.processElements(interceptors, reader);
+      this.processElements(interceptors, reader, propertyReplacer);
       return interceptors;
    }
 
@@ -67,19 +68,19 @@ public class InterceptorsMetaDataParser extends AbstractWithDescriptionsParser<I
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(InterceptorsMetaData interceptors, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(InterceptorsMetaData interceptors, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case INTERCEPTOR:
-            InterceptorMetaData interceptor = InterceptorMetaDataParser.INSTANCE.parse(reader);
+            InterceptorMetaData interceptor = InterceptorMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
             interceptors.add(interceptor);
             return;
 
          default:
-            super.processElement(interceptors, reader);
+            super.processElement(interceptors, reader, propertyReplacer);
 
       }
    }

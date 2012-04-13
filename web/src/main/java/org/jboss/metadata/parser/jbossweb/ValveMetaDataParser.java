@@ -31,6 +31,7 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.parser.ee.ParamValueMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.jboss.ValveMetaData;
 
 /**
@@ -38,7 +39,7 @@ import org.jboss.metadata.web.jboss.ValveMetaData;
  */
 public class ValveMetaDataParser extends MetaDataElementParser {
 
-    public static ValveMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static ValveMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
     	ValveMetaData valve = new ValveMetaData();
 
         // Handle elements
@@ -46,10 +47,10 @@ public class ValveMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case CLASS_NAME:
-                	valve.setValveClass(getElementText(reader));
+                	valve.setValveClass(getElementText(reader, propertyReplacer));
                     break;
                 case MODULE:
-                	valve.setModule(getElementText(reader));
+                	valve.setModule(getElementText(reader, propertyReplacer));
                     break;
                 case PARAM:
                     List<ParamValueMetaData> params = valve.getParams();
@@ -57,7 +58,7 @@ public class ValveMetaDataParser extends MetaDataElementParser {
                     	params = new ArrayList<ParamValueMetaData>();
                     	valve.setParams(params);
                     }
-                    params.add(ParamValueMetaDataParser.parse(reader));
+                    params.add(ParamValueMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

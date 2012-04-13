@@ -22,6 +22,7 @@
 package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.parser.jsp.TldMetaDataParser;
+import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.spec.TldMetaData;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 

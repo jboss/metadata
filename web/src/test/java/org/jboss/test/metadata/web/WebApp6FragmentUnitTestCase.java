@@ -31,6 +31,7 @@ import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.parser.servlet.WebFragmentMetaDataParser;
+import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.spec.AuthConstraintMetaData;
 import org.jboss.metadata.web.spec.DispatcherType;
 import org.jboss.metadata.web.spec.FilterMappingMetaData;
@@ -72,7 +73,7 @@ public class WebApp6FragmentUnitTestCase extends AbstractJavaEEEverythingTest
    
    protected WebFragmentMetaData unmarshal() throws Exception
    {
-      return WebFragmentMetaDataParser.parse(getReader());
+      return WebFragmentMetaDataParser.parse(getReader(), PropertyReplacers.noop());
    }
 
    protected void assertEverything(WebCommonMetaData webApp, Mode mode)

@@ -28,13 +28,17 @@ import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
+import org.jboss.metadata.property.PropertyResolver;
+import org.jboss.metadata.property.SystemPropertyResolver;
 
 /**
  * @author Remy Maucherat
  */
 public class MessageDestinationMetaDataParser extends MetaDataElementParser {
 
-    public static MessageDestinationMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static MessageDestinationMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         MessageDestinationMetaData messageDestination = new MessageDestinationMetaData();
 
         // Handle attributes
@@ -66,16 +70,16 @@ public class MessageDestinationMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case MESSAGE_DESTINATION_NAME:
-                    messageDestination.setMessageDestinationName(getElementText(reader));
+                    messageDestination.setMessageDestinationName(getElementText(reader, propertyReplacer));
                     break;
                 case JNDI_NAME:
-                    messageDestination.setJndiName(getElementText(reader));
+                    messageDestination.setJndiName(getElementText(reader, propertyReplacer));
                     break;
                 case MAPPED_NAME:
-                    messageDestination.setMappedName(getElementText(reader));
+                    messageDestination.setMappedName(getElementText(reader, propertyReplacer));
                     break;
                 case LOOKUP_NAME:
-                    messageDestination.setLookupName(getElementText(reader));
+                    messageDestination.setLookupName(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

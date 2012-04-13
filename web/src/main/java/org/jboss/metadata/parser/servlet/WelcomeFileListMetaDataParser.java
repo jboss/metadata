@@ -29,6 +29,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.WelcomeFileListMetaData;
 
 /**
@@ -36,7 +37,7 @@ import org.jboss.metadata.web.spec.WelcomeFileListMetaData;
  */
 public class WelcomeFileListMetaDataParser extends MetaDataElementParser {
 
-    public static WelcomeFileListMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static WelcomeFileListMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         WelcomeFileListMetaData welcomeFileList = new WelcomeFileListMetaData();
 
         // Handle attributes
@@ -66,7 +67,7 @@ public class WelcomeFileListMetaDataParser extends MetaDataElementParser {
                         welcomeFiles = new ArrayList<String>();
                         welcomeFileList.setWelcomeFiles(welcomeFiles);
                     }
-                    welcomeFiles.add(getElementText(reader));
+                    welcomeFiles.add(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

@@ -27,6 +27,8 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.IconImpl;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 
 /**
@@ -35,6 +37,10 @@ import org.jboss.metadata.javaee.spec.IconImpl;
 public class IconMetaDataParser extends MetaDataElementParser {
 
     public static IconImpl parse(XMLStreamReader reader) throws XMLStreamException {
+        return parse(reader, PropertyReplacers.noop());
+    }
+
+    public static IconImpl parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         IconImpl icon = new IconImpl();
         // Handle attributes
         final int count = reader.getAttributeCount();
@@ -61,10 +67,10 @@ public class IconMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case SMALL_ICON:
-                    icon.setSmallIcon(getElementText(reader));
+                    icon.setSmallIcon(getElementText(reader, propertyReplacer));
                     break;
                 case LARGE_ICON:
-                    icon.setLargeIcon(getElementText(reader));
+                    icon.setLargeIcon(getElementText(reader, propertyReplacer));
                     break;
                 default: throw unexpectedElement(reader);
             }

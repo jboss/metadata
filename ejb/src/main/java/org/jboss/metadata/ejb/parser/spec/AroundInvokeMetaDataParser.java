@@ -22,10 +22,13 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import com.sun.xml.internal.bind.v2.runtime.property.Property;
 import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of &lt;around-invoke&gt; element in ejb-jar.xml
@@ -38,7 +41,7 @@ public class AroundInvokeMetaDataParser extends AbstractMetaDataParser<AroundInv
 
    public static final AroundInvokeMetaDataParser INSTANCE = new AroundInvokeMetaDataParser();
 
-   /**
+    /**
     * Parses and creates AroundInvokeMetaData out of the around-invoke element
     * 
     * @param reader
@@ -46,10 +49,10 @@ public class AroundInvokeMetaDataParser extends AbstractMetaDataParser<AroundInv
     * @throws XMLStreamException
     */
    @Override
-   public AroundInvokeMetaData parse(XMLStreamReader reader) throws XMLStreamException
+   public AroundInvokeMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       AroundInvokeMetaData aroundInvoke = new AroundInvokeMetaData();
-      this.processElements(aroundInvoke, reader);
+      this.processElements(aroundInvoke, reader, propertyReplacer);
       return aroundInvoke;
    }
 
@@ -62,19 +65,19 @@ public class AroundInvokeMetaDataParser extends AbstractMetaDataParser<AroundInv
     * @throws XMLStreamException
     */
    @Override
-   protected void processElement(AroundInvokeMetaData aroundInvoke, XMLStreamReader reader) throws XMLStreamException
+   protected void processElement(AroundInvokeMetaData aroundInvoke, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
    {
       // get the element to process
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
       switch (ejbJarElement)
       {
          case CLASS:
-            String klass = getElementText(reader);
+            String klass = getElementText(reader, propertyReplacer);
             aroundInvoke.setClassName(klass);
             return;
 
          case METHOD_NAME:
-            String methodName = getElementText(reader);
+            String methodName = getElementText(reader, propertyReplacer);
             aroundInvoke.setMethodName(methodName);
             return;
 

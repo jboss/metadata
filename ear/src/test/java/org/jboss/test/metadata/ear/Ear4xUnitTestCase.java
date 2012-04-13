@@ -58,7 +58,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 public class Ear4xUnitTestCase extends AbstractJavaEEMetaDataTest {
 
     protected EarMetaData unmarshal() throws Exception {
-        return EarMetaDataParser.INSTANCE.parse(getReader());
+        return EarMetaDataParser.INSTANCE.parse(getReader(), propertyReplacer);
     }
 
     public void testNoDtd() throws Exception {

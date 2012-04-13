@@ -30,13 +30,14 @@ import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.IsolationLevelType;
 import org.jboss.metadata.javaee.spec.PropertiesMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Remy Maucherat
  */
 public class DataSourceMetaDataParser extends MetaDataElementParser {
 
-    public static DataSourceMetaData parse(XMLStreamReader reader) throws XMLStreamException {
+    public static DataSourceMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         DataSourceMetaData dataSource = new DataSourceMetaData();
 
         // Handle attributes
@@ -59,7 +60,7 @@ public class DataSourceMetaDataParser extends MetaDataElementParser {
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (DescriptionsMetaDataParser.parse(reader, descriptions)) {
+            if (DescriptionsMetaDataParser.parse(reader, descriptions, propertyReplacer)) {
                 if (dataSource.getDescriptions() == null) {
                     dataSource.setDescriptions(descriptions);
                 }
@@ -68,28 +69,28 @@ public class DataSourceMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case NAME:
-                    dataSource.setName(getElementText(reader));
+                    dataSource.setName(getElementText(reader, propertyReplacer));
                     break;
                 case CLASS_NAME:
-                    dataSource.setClassName(getElementText(reader));
+                    dataSource.setClassName(getElementText(reader, propertyReplacer));
                     break;
                 case SERVER_NAME:
-                    dataSource.setServerName(getElementText(reader));
+                    dataSource.setServerName(getElementText(reader, propertyReplacer));
                     break;
                 case PORT_NUMBER:
-                    dataSource.setPortNumber(Integer.valueOf(getElementText(reader)));
+                    dataSource.setPortNumber(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case DATABASE_NAME:
-                    dataSource.setDatabaseName(getElementText(reader));
+                    dataSource.setDatabaseName(getElementText(reader, propertyReplacer));
                     break;
                 case URL:
-                    dataSource.setUrl(getElementText(reader));
+                    dataSource.setUrl(getElementText(reader, propertyReplacer));
                     break;
                 case USER:
-                    dataSource.setUser(getElementText(reader));
+                    dataSource.setUser(getElementText(reader, propertyReplacer));
                     break;
                 case PASSWORD:
-                    dataSource.setPassword(getElementText(reader));
+                    dataSource.setPassword(getElementText(reader, propertyReplacer));
                     break;
                 case PROPERTY:
                     PropertiesMetaData properties = dataSource.getProperties();
@@ -97,31 +98,31 @@ public class DataSourceMetaDataParser extends MetaDataElementParser {
                         properties = new PropertiesMetaData();
                         dataSource.setProperties(properties);
                     }
-                    properties.add(PropertyMetaDataParser.parse(reader));
+                    properties.add(PropertyMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case LOGIN_TIMEOUT:
-                    dataSource.setLoginTimeout(Integer.valueOf(getElementText(reader)));
+                    dataSource.setLoginTimeout(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case TRANSACTIONAL:
-                    dataSource.setTransactional(Boolean.valueOf(getElementText(reader)));
+                    dataSource.setTransactional(Boolean.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case ISOLATION_LEVEL:
-                    dataSource.setIsolationLevel(IsolationLevelType.valueOf(getElementText(reader)));
+                    dataSource.setIsolationLevel(IsolationLevelType.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case INITAL_POOL_SIZE:
-                    dataSource.setInitialPoolSize(Integer.valueOf(getElementText(reader)));
+                    dataSource.setInitialPoolSize(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case MAX_POOL_SIZE:
-                    dataSource.setMaxPoolSize(Integer.valueOf(getElementText(reader)));
+                    dataSource.setMaxPoolSize(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case MIN_POOL_SIZE:
-                    dataSource.setMinPoolSize(Integer.valueOf(getElementText(reader)));
+                    dataSource.setMinPoolSize(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case MAX_IDLE_TIME:
-                    dataSource.setMaxIdleTime(Integer.valueOf(getElementText(reader)));
+                    dataSource.setMaxIdleTime(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case MAX_STATEMENTS:
-                    dataSource.setMaxStatements(Integer.valueOf(getElementText(reader)));
+                    dataSource.setMaxStatements(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 default: throw unexpectedElement(reader);
             }
