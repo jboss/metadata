@@ -41,7 +41,7 @@ import junit.framework.TestCase;
 
 /**
  * A JBossAssemblyDescriptorOverrideUnitTestCase.
- *
+ * 
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -55,7 +55,7 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
       original.setAssemblyDescriptor(assembly);
       ApplicationExceptionsMetaData exceptions = new ApplicationExceptionsMetaData();
       assembly.setApplicationExceptions(exceptions);
-
+      
       ApplicationExceptionMetaData exc = new ApplicationExceptionMetaData();
       exc.setExceptionClass("original.only.Exception");
       exc.setRollback(true);
@@ -71,7 +71,7 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
       override.setAssemblyDescriptor(assembly);
       exceptions = new ApplicationExceptionsMetaData();
       assembly.setApplicationExceptions(exceptions);
-
+      
       exc = new ApplicationExceptionMetaData();
       exc.setExceptionClass("override.only.Exception");
       exc.setRollback(false);
@@ -80,26 +80,26 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
       exc.setExceptionClass("overriden.Exception");
       exc.setRollback(true);
       exceptions.add(exc);
-
+      
       // merge
       JBoss50MetaData merged = new JBoss50MetaData();
-      merged.merge(override, original);
+      merged.merge(override, original);      
       assembly = merged.getAssemblyDescriptor();
       assertNotNull(assembly);
       exceptions = assembly.getApplicationExceptions();
       assertNotNull(exceptions);
       assertEquals(3, exceptions.size());
-
+      
       exc = exceptions.get("original.only.Exception");
       assertNotNull(exc);
       assertEquals("original.only.Exception", exc.getExceptionClass());
       assertTrue(exc.isRollback());
-
+      
       exc = exceptions.get("override.only.Exception");
       assertNotNull(exc);
       assertEquals("override.only.Exception", exc.getExceptionClass());
       assertFalse(exc.isRollback());
-
+      
       exc = exceptions.get("overriden.Exception");
       assertNotNull(exc);
       assertEquals("overriden.Exception", exc.getExceptionClass());
@@ -114,7 +114,7 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
       original.setAssemblyDescriptor(assembly);
       SecurityRolesMetaData roles = new SecurityRolesMetaData();
       assembly.setSecurityRoles(roles);
-
+      
       SecurityRoleMetaData role = new SecurityRoleMetaData();
       role.setRoleName("original.only.Role");
       role.setPrincipals(java.util.Collections.singleton("original"));
@@ -126,14 +126,14 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
       principals.add("original2");
       role.setPrincipals(principals);
       roles.add(role);
-
+      
       // override
       JBoss50MetaData override = new JBoss50MetaData();
       assembly = new JBossAssemblyDescriptorMetaData();
       override.setAssemblyDescriptor(assembly);
       roles = new SecurityRolesMetaData();
       assembly.setSecurityRoles(roles);
-
+      
       role = new SecurityRoleMetaData();
       role.setRoleName("override.only.Role");
       role.setPrincipals(java.util.Collections.singleton("override"));
@@ -146,30 +146,30 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
       principals.add("override2");
       role.setPrincipals(principals);
       roles.add(role);
-
+      
       // merge
       JBoss50MetaData merged = new JBoss50MetaData();
-      merged.merge(override, original);
+      merged.merge(override, original);      
       assembly = merged.getAssemblyDescriptor();
       assertNotNull(assembly);
       roles = assembly.getSecurityRoles();
       assertNotNull(roles);
       assertEquals(3, roles.size());
-
+      
       role = roles.get("original.only.Role");
       assertNotNull(role);
       assertEquals("original.only.Role", role.getRoleName());
       assertNotNull(role.getPrincipals());
       assertEquals(1, role.getPrincipals().size());
       assertTrue(role.getPrincipals().contains("original"));
-
+      
       role = roles.get("override.only.Role");
       assertNotNull(role);
       assertEquals("override.only.Role", role.getRoleName());
       assertNotNull(role.getPrincipals());
       assertEquals(1, role.getPrincipals().size());
       assertTrue(role.getPrincipals().contains("override"));
-
+      
       role = roles.get("overriden.Role");
       assertNotNull(role);
       assertEquals("overriden.Role", role.getRoleName());
@@ -181,7 +181,7 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
       assertTrue(role.getPrincipals().contains("override1"));
       assertTrue(role.getPrincipals().contains("override2"));
    }
-
+   
    public void testAssemblyMethodPermissionsOverride()
    {
       // original
@@ -202,7 +202,7 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
       permission.setMethods(methods);
       permission.setRoles(java.util.Collections.singleton("original"));
       permissions.add(permission);
-
+      
       // mixed original part
       methods = new MethodsMetaData();
       method = new MethodMetaData();
@@ -237,7 +237,7 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
       override.setAssemblyDescriptor(assembly);
       permissions = new MethodPermissionsMetaData();
       assembly.setMethodPermissions(permissions);
-
+      
       // override only
       methods = new MethodsMetaData();
       method = new MethodMetaData();
@@ -280,12 +280,12 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
 
       // merge
       JBoss50MetaData merged = new JBoss50MetaData();
-      merged.merge(override, original);
+      merged.merge(override, original);      
       assembly = merged.getAssemblyDescriptor();
       assertNotNull(assembly);
       permissions = assembly.getMethodPermissions();
       assertNotNull(permissions);
-      assertEquals(3, permissions.size());
+      assertEquals(6, permissions.size());
 
       for(MethodPermissionMetaData perm : permissions)
       {
@@ -297,7 +297,7 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
          assertEquals("execute", method.getMethodName());
          roles = perm.getRoles();
          assertNotNull(roles);
-
+         
          String ejbName = method.getEjbName();
          if("Original".equals(ejbName))
          {
@@ -315,7 +315,7 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
             if(MethodInterfaceType.Local == methodIntf)
             {
                assertEquals(1, roles.size());
-               assertTrue(roles.contains("original"));
+               assertTrue(roles.contains("original"));               
             }
             else if(MethodInterfaceType.LocalHome == methodIntf)
             {
@@ -342,5 +342,5 @@ public class JBossAssemblyDescriptorOverrideUnitTestCase extends TestCase
             fail("Unexpected ejb-name: " + ejbName);
          }
       }
-   }
+   }   
 }

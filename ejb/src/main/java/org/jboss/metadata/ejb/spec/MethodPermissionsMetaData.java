@@ -21,15 +21,14 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaData;
-
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
+import org.jboss.metadata.javaee.support.IdMetaData;
+import org.jboss.metadata.merge.MergeUtil;
 
 /**
  * MethodPermissionsMetaData.
- *
+ * 
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -40,10 +39,10 @@ public class MethodPermissionsMetaData extends ArrayList<MethodPermissionMetaDat
 
    /** The id */
    private String id;
-
+   
    /**
     * Get the id.
-    *
+    * 
     * @return the id.
     */
    public String getId()
@@ -53,7 +52,7 @@ public class MethodPermissionsMetaData extends ArrayList<MethodPermissionMetaDat
 
    /**
     * Set the id.
-    *
+    * 
     * @param id the id.
     */
    public void setId(String id)
@@ -63,7 +62,7 @@ public class MethodPermissionsMetaData extends ArrayList<MethodPermissionMetaDat
 
    /**
     * Get the methods permissions for an ejb
-    *
+    * 
     * @param ejbName the ejb name
     * @return the method permissions or null for no result
     * @throws IllegalArgumentException for a null ejb name
@@ -75,7 +74,7 @@ public class MethodPermissionsMetaData extends ArrayList<MethodPermissionMetaDat
 
       if (isEmpty())
          return null;
-
+      
       MethodPermissionsMetaData result = null;
       for (MethodPermissionMetaData permission : this)
       {
@@ -89,42 +88,9 @@ public class MethodPermissionsMetaData extends ArrayList<MethodPermissionMetaDat
       }
       return result;
    }
-
+   
    public void merge(MethodPermissionsMetaData override, MethodPermissionsMetaData original)
    {
-
-      if(override == null && original == null) {
-          return;
-      } else if(override == null) {
-          this.addAll(original);
-      } else if(original == null) {
-          this.addAll(override);
-      } else {
-          final Set<MethodMetaData> overridenMethods = new HashSet<MethodMetaData>();
-          for(MethodPermissionMetaData permission : override) {
-              add(permission);
-              if(permission.getMethods() != null) {
-                for(MethodMetaData method : permission.getMethods()) {
-                    overridenMethods.add(method);
-                }
-              }
-          }
-          for(MethodPermissionMetaData permission : original) {
-              MethodPermissionMetaData newPermission = new MethodPermissionMetaData();
-              newPermission.setMethods(new MethodsMetaData());
-              newPermission.setRoles(permission.getRoles());
-              if(permission.getMethods() != null) {
-                  for(MethodMetaData method : permission.getMethods()) {
-                      if(!overridenMethods.contains(method)) {
-                          newPermission.getMethods().add(method);
-                      }
-                  }
-              }
-              if(!newPermission.getMethods().isEmpty()) {
-                  add(newPermission);
-              }
-          }
-
-      }
+      MergeUtil.merge(this, override, original);
    }
 }
