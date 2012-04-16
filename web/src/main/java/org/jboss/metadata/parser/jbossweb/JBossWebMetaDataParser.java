@@ -40,11 +40,11 @@ import org.jboss.metadata.web.jboss.JBoss4xDTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50DTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50WebMetaData;
 import org.jboss.metadata.web.jboss.JBoss60WebMetaData;
+import org.jboss.metadata.web.jboss.JBoss70WebMetaData;
 import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
 import org.jboss.metadata.web.jboss.JBossServletsMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.web.jboss.ValveMetaData;
-
 
 /**
  * @author Remy Maucherat
@@ -85,6 +85,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             case JBOSS_WEB_5_0: wmd = new JBoss50DTDWebMetaData(); break;
             case JBOSS_WEB_5_1: wmd = new JBoss50WebMetaData(); break;
             case JBOSS_WEB_6_0: wmd = new JBoss60WebMetaData(); break;
+            case JBOSS_WEB_7_0: wmd = new JBoss70WebMetaData(); break;
         }
 
         // Handle attributes
