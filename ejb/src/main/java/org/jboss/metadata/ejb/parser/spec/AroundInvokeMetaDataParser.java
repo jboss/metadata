@@ -22,7 +22,6 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import com.sun.xml.internal.bind.v2.runtime.property.Property;
 import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
 
 import javax.xml.stream.XMLStreamException;

@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import com.sun.xml.internal.bind.v2.runtime.property.Property;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.AssemblyDescriptor30MetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.ContainerTransactionMetaDataParser;
