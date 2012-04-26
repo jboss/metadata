@@ -134,7 +134,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
     /** The web app virtual host list */
     private List<String> virtualHosts;
     private boolean flushOnSessionInvalidation;
-    private boolean useSessionCookies;
     private ReplicationConfig replicationConfig;
     private PassivationConfig passivationConfig;
     private WebserviceDescriptionsMetaData webserviceDescriptions = new WebserviceDescriptionsMetaData();
@@ -666,14 +665,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setReplicationConfig(ReplicationConfig replicationConfig) {
         this.replicationConfig = replicationConfig;
-    }
-
-    public boolean isUseSessionCookies() {
-        return useSessionCookies;
-    }
-
-    public void setUseSessionCookies(boolean useSessionCookies) {
-        this.useSessionCookies = useSessionCookies;
     }
 
     public int getSessionCookies() {

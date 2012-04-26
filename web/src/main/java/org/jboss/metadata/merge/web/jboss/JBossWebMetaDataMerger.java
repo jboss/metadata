@@ -223,9 +223,6 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         if (override != null && override.isFlushOnSessionInvalidation())
             dest.setFlushOnSessionInvalidation(override.isFlushOnSessionInvalidation());
 
-        if (override != null && override.isUseSessionCookies())
-            dest.setUseSessionCookies(override.isUseSessionCookies());
-
         if (override != null && override.getReplicationConfig() != null)
             dest.setReplicationConfig(override.getReplicationConfig());
 
