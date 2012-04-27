@@ -93,7 +93,6 @@
          <xsd:element name="jacc-star-role-allow" type="jboss:jacc-star-role-allowType" minOccurs="0"/>
          <xsd:element name="context-root" type="jboss:context-rootType" minOccurs="0"/>
          <xsd:element name="virtual-host" type="jboss:virtual-hostType" minOccurs="0" maxOccurs="unbounded"/>
-         <xsd:element name="use-session-cookies" type="jboss:use-session-cookiesType" minOccurs="0"/>
          <xsd:element name="replication-config" type="jboss:replication-configType" minOccurs="0"/>
          <xsd:group ref="jboss:jndiEnvironmentRefsGroup"/>
          <xsd:element name="security-role" type="jboss:security-roleType" minOccurs="0" maxOccurs="unbounded"/>
@@ -187,24 +186,6 @@
       </xsd:annotation>
       <xsd:simpleContent>
          <xsd:restriction base="javaee:string"/>
-      </xsd:simpleContent>
-   </xsd:complexType>
-
-   <xsd:complexType name="use-session-cookiesType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            The use-session-cookies element controls whether this context uses session cookies or not.
-
-            Example:
-               <use-session-cookies>true</use-session-cookies>
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:simpleContent>
-         <xsd:restriction base="javaee:generic-booleanType"/>
       </xsd:simpleContent>
    </xsd:complexType>
 
