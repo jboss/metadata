@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.test.metadata.ear;
+package org.jboss.test.metadata.common;
 
 import static org.junit.runners.Parameterized.Parameters;
 
@@ -63,8 +63,7 @@ public class SchemaValidationTestCase extends AbstractXSDValidationTestCase {
 
     @Parameters
     public static List<Object[]> parameters() {
-    	
-        return Arrays.asList(new Object[][] { { "schema/application_1_4.xsd" },{ "schema/application_5.xsd" },{ "schema/application_6.xsd" },{ "schema/jboss-app_6_0.xsd" }, { "schema/jboss-app_7_0.xsd" } });
+        return Arrays.asList(new Object[][] { { "schema/j2ee_1_4.xsd" },{ "schema/j2ee_jaxrpc_mapping_1_1.xsd" },{ "schema/j2ee_web_services_1_1.xsd" },{ "schema/j2ee_web_services_client_1_1.xsd" }, { "schema/javaee_5.xsd" }, { "schema/javaee_6.xsd" }, { "schema/javaee_web_services_1_2.xsd" }, { "schema/javaee_web_services_1_3.xsd" }, { "schema/javaee_web_services_client_1_2.xsd" }, { "schema/javaee_web_services_client_1_3.xsd" },{ "schema/java-properties_1_0.xsd" },{ "schema/jboss-common_5_1.xsd" },{ "schema/jboss-common_6_0.xsd" },{ "schema/jbxb_1_0.xsd" },{ "schema/jndi-binding-service_1_0.xsd" },{ "schema/user-roles_1_0.xsd" },{ "schema/xml.xsd" } });
     }
 
     public SchemaValidationTestCase(final String xsd) {

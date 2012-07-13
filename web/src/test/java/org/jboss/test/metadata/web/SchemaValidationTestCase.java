@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.test.metadata.ear;
+package org.jboss.test.metadata.web;
 
 import static org.junit.runners.Parameterized.Parameters;
 
@@ -63,8 +63,7 @@ public class SchemaValidationTestCase extends AbstractXSDValidationTestCase {
 
     @Parameters
     public static List<Object[]> parameters() {
-    	
-        return Arrays.asList(new Object[][] { { "schema/application_1_4.xsd" },{ "schema/application_5.xsd" },{ "schema/application_6.xsd" },{ "schema/jboss-app_6_0.xsd" }, { "schema/jboss-app_7_0.xsd" } });
+        return Arrays.asList(new Object[][] { { "schema/jboss-web_7_0.xsd" },{ "schema/jsp_2_0.xsd" },{ "schema/jsp_2_1.xsd" },{ "schema/jsp_2_2.xsd" }, { "schema/web-app_2_4.xsd" }, { "schema/web-app_2_5.xsd" }, { "schema/web-app_3_0.xsd" }, { "schema/web-common_3_0.xsd" }, { "schema/web-facesconfig_1_2.xsd" }, { "schema/web-fragment_3_0.xsd" }, { "schema/web-jsptaglibrary_2_0.xsd" }, { "schema/web-jsptaglibrary_2_1.xsd" } });
     }
 
     public SchemaValidationTestCase(final String xsd) {

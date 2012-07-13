@@ -48,11 +48,12 @@
     <xsd:element name="jboss-app" type="jboss-appType"/>
 
     <xsd:complexType name="jboss-appType" >
-        <xsd:any>
-            <xsd:element name="security-domain" type="xsd:string" />
-            <xsd:element name="unauthenticated-principal" type="xsd:string"/>
-            <xsd:element name="library-directory" type="xsd:string"/>
-        </xsd:any>    
+	<xsd:sequence>		
+	    <xsd:element name="security-domain" type="xsd:string" />
+	    <xsd:element name="unauthenticated-principal" type="xsd:string"/>
+	    <xsd:element name="library-directory" type="xsd:string"/>
+	    <xsd:any minOccurs="0"/>	
+	</xsd:sequence>    
     </xsd:complexType>
 
 </xsd:schema>
