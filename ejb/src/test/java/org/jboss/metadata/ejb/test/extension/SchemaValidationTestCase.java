@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.test.metadata.web;
+package org.jboss.metadata.ejb.test.extension;
 
 import static org.junit.runners.Parameterized.Parameters;
 

@@ -24,6 +24,7 @@ package org.jboss.test.metadata.appclient;
 
 import static org.junit.runners.Parameterized.Parameters;
 
+import org.apache.tools.ant.taskdefs.Classloader;
 import org.jboss.metadata.parser.util.XMLResourceResolver;
 import org.junit.Assert;
 import org.junit.Test;
@@ -48,7 +49,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -63,8 +66,29 @@ public class SchemaValidationTestCase extends AbstractXSDValidationTestCase {
 
     @Parameters
     public static List<Object[]> parameters() {
-    	
-        return Arrays.asList(new Object[][] { { "schema/application-client_6.xsd" }, { "schema/jboss-client_6_0.xsd" } });
+    	List<Object[]> xsdList = new ArrayList<Object[]>();
+        try {
+			String path = new java.io.File(".").getCanonicalPath();
+			String subPath = System.getProperty("file.separator").concat("target").concat(System.getProperty("file.separator")).concat("classes").concat(System.getProperty("file.separator")).concat("schema");
+			String files;
+			File folder = new File(path.concat(subPath));
+			File[] listOfFiles = folder.listFiles();
+			for(int i=0;i<listOfFiles.length;i++){
+				if(listOfFiles[i].isFile()){
+					files=listOfFiles[i].getName();
+					if (files.endsWith(".xsd") || files.endsWith(".XSD"))
+				       {
+						Object[] obj = new Object[1];
+						obj[0] = "schema".concat(System.getProperty("file.separator")).concat(files);
+						xsdList.add(obj);
+				       }
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return xsdList;
     }
 
     public SchemaValidationTestCase(final String xsd) {
