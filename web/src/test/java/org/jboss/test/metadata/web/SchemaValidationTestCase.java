@@ -64,29 +64,35 @@ public class SchemaValidationTestCase extends AbstractXSDValidationTestCase {
 
     @Parameters
     public static List<Object[]> parameters() {
-    	List<Object[]> xsdList = new ArrayList<Object[]>();
-        try {
-			String path = new java.io.File(".").getCanonicalPath();
-			String subPath = System.getProperty("file.separator").concat("target").concat(System.getProperty("file.separator")).concat("classes").concat(System.getProperty("file.separator")).concat("schema");
-			String files;
-			File folder = new File(path.concat(subPath));
-			File[] listOfFiles = folder.listFiles();
-			for(int i=0;i<listOfFiles.length;i++){
-				if(listOfFiles[i].isFile()){
-					files=listOfFiles[i].getName();
-					if (files.endsWith(".xsd") || files.endsWith(".XSD"))
-				       {
+		List<Object[]> xsdList = new ArrayList<Object[]>();
+		// Each module, define one xsd file as getResource() parameter
+		String xsdFile = "schema/web-app_3_0.xsd";
+		URL url = SchemaValidationTestCase.class.getClassLoader().getResource(xsdFile);
+
+		try {
+			File filePath = new File(url.getPath());
+			String parentPath = filePath.getParent();
+			File directory = new File(parentPath);
+			File[] files = directory.listFiles();
+			String file;
+			for (int i = 0; i < files.length; i++) {
+				if (files[i].isFile()) {
+					file = files[i].getName();
+					if (file.endsWith(".xsd") || file.endsWith(".XSD")) {
 						Object[] obj = new Object[1];
-						obj[0] = "schema".concat(System.getProperty("file.separator")).concat(files);
+						obj[0] = "schema".concat(System.getProperty("file.separator")).concat(file);
 						xsdList.add(obj);
-				       }
+					}
 				}
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (NullPointerException e) {
+			throw new RuntimeException("Can't load xsd file : " + xsdFile
+					+ " in schema directory", e);
+		} catch (Exception ex) {
+			throw new RuntimeException(ex);
 		}
-    	return xsdList;
+
+		return xsdList;
     }
 
     public SchemaValidationTestCase(final String xsd) {
