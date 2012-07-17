@@ -30,26 +30,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -61,38 +52,38 @@ import java.util.List;
 @RunWith(Parameterized.class)
 public class SchemaValidationTestCase extends AbstractXSDValidationTestCase {
     private final String xsd;
+    
+    protected static List<Object[]> getXSDFiles(String xsdFile){
+    	List<Object[]> xsdList = new ArrayList<Object[]>();
+		URL url = SchemaValidationTestCase.class.getClassLoader().getResource(xsdFile);
+		if (url==null)
+			throw new RuntimeException("Can't load xsd file : " + xsdFile
+					+ " in schema directory");
+
+		File filePath = new File(url.getPath());
+		String parentPath = filePath.getParent();
+		File directory = new File(parentPath);
+		File[] files = directory.listFiles();
+		String file;
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].isFile()) {
+				file = files[i].getName();
+				if (file.endsWith(".xsd") || file.endsWith(".XSD")) {
+					Object[] obj = new Object[1];
+					obj[0] = "schema".concat(System.getProperty("file.separator")).concat(file);
+					xsdList.add(obj);
+				}
+			}
+		}
+		return xsdList;
+    	
+    }
 
     @Parameters
 	public static List<Object[]> parameters() {
-		List<Object[]> xsdList = new ArrayList<Object[]>();
 		// Each module, define one xsd file as getResource() parameter
 		String xsdFile = "schema/jboss-common_6_0.xsd";
-		URL url = SchemaValidationTestCase.class.getClassLoader().getResource(xsdFile);
-
-		try {
-			File filePath = new File(url.getPath());
-			String parentPath = filePath.getParent();
-			File directory = new File(parentPath);
-			File[] files = directory.listFiles();
-			String file;
-			for (int i = 0; i < files.length; i++) {
-				if (files[i].isFile()) {
-					file = files[i].getName();
-					if (file.endsWith(".xsd") || file.endsWith(".XSD")) {
-						Object[] obj = new Object[1];
-						obj[0] = "schema".concat(System.getProperty("file.separator")).concat(file);
-						xsdList.add(obj);
-					}
-				}
-			}
-		} catch (NullPointerException e) {
-			throw new RuntimeException("Can't load xsd file : " + xsdFile
-					+ " in schema directory", e);
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
-		}
-
-		return xsdList;
+		return getXSDFiles(xsdFile);
 	}
 
     public SchemaValidationTestCase(final String xsd) {
