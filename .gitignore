@@ -18,3 +18,5 @@ transaction.log
 *.swp
 # gitk
 /.gitk-tmp.*
+# Gedit backups
+*~
