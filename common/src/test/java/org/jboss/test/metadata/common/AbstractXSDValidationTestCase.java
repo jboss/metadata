@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.test.metadata.ear;
+package org.jboss.test.metadata.common;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
