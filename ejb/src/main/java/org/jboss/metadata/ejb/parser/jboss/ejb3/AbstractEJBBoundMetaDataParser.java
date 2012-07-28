@@ -21,6 +21,9 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
 
@@ -56,4 +59,16 @@ public abstract class AbstractEJBBoundMetaDataParser<MD extends AbstractEJBBound
       }
       super.processElement(metaData, reader, propertyReplacer);
    }
+
+    @Override
+    protected void processElements(MD metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer)
+            throws XMLStreamException {
+        super.processElements(metaData, reader, propertyReplacer);
+        if (metaData.getEjbName() == null) {
+            Set<EjbJarElement> required = new HashSet<EjbJarElement>();
+            required.add(EjbJarElement.EJB_NAME);
+            throw missingRequiredElement(reader, required);
+        }
+    }
+
 }
