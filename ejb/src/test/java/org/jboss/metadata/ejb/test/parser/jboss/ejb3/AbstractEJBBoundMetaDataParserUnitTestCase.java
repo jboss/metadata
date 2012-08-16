@@ -50,7 +50,7 @@ public class AbstractEJBBoundMetaDataParserUnitTestCase extends AbstractEJBEvery
         Map<String, AbstractMetaDataParser<?>> parsers = new HashMap<String, AbstractMetaDataParser<?>>();
         parsers.put("urn:iiop", parser);
         try {
-            UnmarshallingHelper.unmarshalJboss(EjbJarMetaData.class, "../test/parser/jboss/ejb3/invalid-jboss-ejb3.xml",
+            UnmarshallingHelper.unmarshalJboss(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/parser/jboss/ejb3/invalid-jboss-ejb3.xml",
                     parsers);
             fail("The unmarshalling of the XML did not throw the expected expection");
         } catch (XMLStreamException e) {
@@ -63,7 +63,7 @@ public class AbstractEJBBoundMetaDataParserUnitTestCase extends AbstractEJBEvery
         Map<String, AbstractMetaDataParser<?>> parsers = new HashMap<String, AbstractMetaDataParser<?>>();
         parsers.put("urn:iiop", parser);
         try {
-            UnmarshallingHelper.unmarshalJboss(EjbJarMetaData.class, "../test/parser/jboss/ejb3/valid-jboss-ejb3.xml", parsers);
+            UnmarshallingHelper.unmarshalJboss(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/parser/jboss/ejb3/valid-jboss-ejb3.xml", parsers);
         } catch (Throwable e) {
             e.printStackTrace();
             fail("The unmarshalling of the XML thrown an unexpected exception");
