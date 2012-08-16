@@ -47,17 +47,14 @@ public class WebApp24ValidationUnitTestCase extends WebAppUnitTestCase {
 
     private static Schema jaxpSchema;
 
-    public void testJAXPSchema() throws Exception {
+    public void testJAXPValidation() throws Exception {
         URL schemaURL = new URL("http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd");
         XMLResourceResolver resolver = new XMLResourceResolver();
         InputSource source = resolver.resolveEntity(schemaURL.toExternalForm(), null);
         SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         factory.setResourceResolver(resolver);
         jaxpSchema = factory.newSchema(new StreamSource(source.getByteStream(), schemaURL.toExternalForm()));
-    }
-
-    public void testJAXPValidation() throws Exception {
-
+        
         DocumentBuilderFactory domBuilderFactory = DocumentBuilderFactory.newInstance();
         domBuilderFactory.setNamespaceAware(true);
         DocumentBuilder builder = domBuilderFactory.newDocumentBuilder();
