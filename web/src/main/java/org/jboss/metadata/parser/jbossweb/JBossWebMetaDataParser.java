@@ -22,12 +22,6 @@
 
 package org.jboss.metadata.parser.jbossweb;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
@@ -35,16 +29,12 @@ import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.servlet.SessionConfigMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.web.jboss.ContainerListenerMetaData;
-import org.jboss.metadata.web.jboss.JBoss4xDTDWebMetaData;
-import org.jboss.metadata.web.jboss.JBoss50DTDWebMetaData;
-import org.jboss.metadata.web.jboss.JBoss50WebMetaData;
-import org.jboss.metadata.web.jboss.JBoss60WebMetaData;
-import org.jboss.metadata.web.jboss.JBoss70WebMetaData;
-import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
-import org.jboss.metadata.web.jboss.JBossServletsMetaData;
-import org.jboss.metadata.web.jboss.JBossWebMetaData;
-import org.jboss.metadata.web.jboss.ValveMetaData;
+import org.jboss.metadata.web.jboss.*;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Remy Maucherat
@@ -108,7 +98,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
         EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (EnvironmentRefsGroupMetaDataParser.parse(reader, env)) {
+            if (EnvironmentRefsGroupMetaDataParser.parse(reader, env, propertyReplacer)) {
                 if (wmd.getJndiEnvironmentRefsGroup() == null) {
                     wmd.setJndiEnvironmentRefsGroup(env);
                 }

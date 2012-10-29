@@ -27,10 +27,10 @@ import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -64,7 +64,7 @@ public abstract class EnterpriseBeanMetaDataParser<MD extends AbstractEnterprise
       if (jndiEnvRefGroup instanceof EnvironmentRefsGroupMetaData)
       {
          // parse any jndi ref group elements
-         if (EnvironmentRefsGroupMetaDataParser.parse(reader, (EnvironmentRefsGroupMetaData) jndiEnvRefGroup))
+         if (EnvironmentRefsGroupMetaDataParser.parse(reader, (EnvironmentRefsGroupMetaData) jndiEnvRefGroup, propertyReplacer))
          {
             // it was jndi ref group element which was parsed successfully, so nothing more to do
             // than just return

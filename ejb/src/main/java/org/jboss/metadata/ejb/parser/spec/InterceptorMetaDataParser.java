@@ -29,13 +29,12 @@ import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.LifecycleCallbackMetaDataParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
-import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses the &lt;interceptor&gt; element in a ejb-jar.xml and creates metadata out of it.
@@ -87,7 +86,7 @@ public class InterceptorMetaDataParser extends AbstractWithDescriptionsParser<In
          interceptor.setJndiEnvironmentRefsGroup(jndiEnvRefGroup);
       }
       // parse any jndi ref group elements
-      if (EnvironmentRefsGroupMetaDataParser.parse(reader, jndiEnvRefGroup))
+      if (EnvironmentRefsGroupMetaDataParser.parse(reader, jndiEnvRefGroup, propertyReplacer))
       {
          // it was jndi ref group element which was parsed successfully, so nothing more to do
          // than just return

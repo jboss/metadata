@@ -22,12 +22,10 @@
 
 package org.jboss.metadata.parser.spec;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import org.jboss.metadata.ear.spec.EarEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.ear.spec.EarMetaData;
-import org.jboss.metadata.ear.spec.ModulesMetaData;
 import org.jboss.metadata.ear.spec.EarVersion;
+import org.jboss.metadata.ear.spec.ModulesMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
@@ -38,6 +36,9 @@ import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author John Bailey
@@ -139,7 +140,7 @@ public class EarMetaDataParser extends MetaDataElementParser {
         if (DescriptionGroupMetaDataParser.parse(reader, earMetaData.getDescriptionGroup())) {
             return;
         }
-        if (EnvironmentRefsGroupMetaDataParser.parse(reader, earMetaData.getEarEnvironmentRefsGroup())) {
+        if (EnvironmentRefsGroupMetaDataParser.parse(reader, earMetaData.getEarEnvironmentRefsGroup(), propertyReplacer)) {
             return;
         }
         final Element element = Element.forName(reader.getLocalName());

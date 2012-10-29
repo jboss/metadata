@@ -28,10 +28,10 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.SecurityRoleRefMetaDataParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -47,7 +47,7 @@ public abstract class AbstractEnterpriseBeanMetaDataParser<MD extends AbstractEn
          jndiEnvRefGroup = new EnvironmentRefsGroupMetaData();
          bean.setEnvironmentRefsGroup(jndiEnvRefGroup);
       }
-      if (EnvironmentRefsGroupMetaDataParser.parse(reader, jndiEnvRefGroup))
+      if (EnvironmentRefsGroupMetaDataParser.parse(reader, jndiEnvRefGroup, propertyReplacer))
          return;
 
       final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());

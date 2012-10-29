@@ -175,7 +175,7 @@ public class WebMetaDataParser extends MetaDataElementParser {
             if (WebCommonMetaDataParser.parse(reader, wmd, propertyReplacer)) {
                 continue;
             }
-            if (EnvironmentRefsGroupMetaDataParser.parse(reader, env)) {
+            if (EnvironmentRefsGroupMetaDataParser.parse(reader, env, propertyReplacer)) {
                 if (wmd.getJndiEnvironmentRefsGroup() == null) {
                     wmd.setJndiEnvironmentRefsGroup(env);
                 }

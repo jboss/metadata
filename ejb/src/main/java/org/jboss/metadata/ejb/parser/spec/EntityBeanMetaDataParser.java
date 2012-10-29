@@ -27,13 +27,12 @@ import org.jboss.metadata.javaee.spec.*;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.SecurityRoleRefMetaDataParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
-import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * Parses and creates metadata out of the &lt;entity&gt; element in the ejb-jar.xml
@@ -105,7 +104,7 @@ public class EntityBeanMetaDataParser extends AbstractIdMetaDataParser<AbstractG
       if (jndiEnvRefGroup instanceof EnvironmentRefsGroupMetaData)
       {
          // parse any jndi ref group elements
-         if (EnvironmentRefsGroupMetaDataParser.parse(reader, (EnvironmentRefsGroupMetaData) jndiEnvRefGroup))
+         if (EnvironmentRefsGroupMetaDataParser.parse(reader, (EnvironmentRefsGroupMetaData) jndiEnvRefGroup, propertyReplacer))
          {
             // it was jndi ref group element which was parsed successfully, so nothing more to do
             // than just return
