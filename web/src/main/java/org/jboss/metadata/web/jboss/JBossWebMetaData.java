@@ -141,6 +141,8 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private JBossAnnotationsMetaData annotations;
     private boolean useJBossAuthorization = false;
     private boolean disableAudit = true;
+    /** Whether or not symbolic linking is enabled */
+    private boolean symlinking = false;
 
     private List<ContainerListenerMetaData> containerListeners;
     private List<ValveMetaData> valves;
@@ -950,5 +952,13 @@ public class JBossWebMetaData extends NamedModuleImpl {
     
     public String getDistinctName() {
         return this.distinctName;
+    }
+
+    public void setSymbolicLinking(Boolean symlinking) {
+        this.symlinking = symlinking;
+    }
+
+    public boolean getSymbolicLinking() {
+        return this.symlinking;
     }
 }

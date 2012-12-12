@@ -199,6 +199,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     final String val = getElementText(reader, propertyReplacer);
                     wmd.setDistinctName(val);
                     break;
+                case SYMBOLIC_ENABLED:
+                    wmd.setSymbolicLinking(Boolean.parseBoolean(getElementText(reader)));
+                    break;
                 default: throw unexpectedElement(reader);
             }
         }

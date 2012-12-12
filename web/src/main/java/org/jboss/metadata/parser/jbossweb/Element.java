@@ -93,6 +93,7 @@ public enum Element {
     SESSION_NOTIFICATION_POLICY("session-notification-policy"),
     SNAPSHOT_INTERVAL("snapshot-interval"),
     SNAPSHOT_MODE("snapshot-mode"),
+    SYMBOLIC_ENABLED("symbolic-linking-enabled"),
 
     TRANSPORT_GUARANTEE("transport-guarantee"),
 
