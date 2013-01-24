@@ -141,8 +141,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private JBossAnnotationsMetaData annotations;
     private boolean useJBossAuthorization = false;
     private boolean disableAudit = true;
-    /** Whether or not symbolic linking is enabled */
-    private boolean symlinking = false;
+    private boolean symbolicLinkingEnabled = false;
 
     private List<ContainerListenerMetaData> containerListeners;
     private List<ValveMetaData> valves;
@@ -628,11 +627,11 @@ public class JBossWebMetaData extends NamedModuleImpl {
     public void setUseJBossAuthorization(boolean useJBossAuthorization) {
         this.useJBossAuthorization = useJBossAuthorization;
     }
-    
+
     public boolean isDisableAudit() {
     	return disableAudit;
     }
-    
+
     public void setDisableAudit(boolean disableAudit) {
     	this.disableAudit = disableAudit;
     }
@@ -949,16 +948,16 @@ public class JBossWebMetaData extends NamedModuleImpl {
     public void setDistinctName(final String distinctName) {
         this.distinctName = distinctName;
     }
-    
+
     public String getDistinctName() {
         return this.distinctName;
     }
 
-    public void setSymbolicLinking(Boolean symlinking) {
-        this.symlinking = symlinking;
-    }
+   public boolean isSymbolicLinkingEnabled() {
+      return symbolicLinkingEnabled;
+   }
 
-    public boolean getSymbolicLinking() {
-        return this.symlinking;
-    }
+   public void setSymbolicLinkingEnabled(boolean symbolicLinkingEnabled) {
+      this.symbolicLinkingEnabled = symbolicLinkingEnabled;
+   }
 }

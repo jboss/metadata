@@ -21,11 +21,14 @@
  */
 package org.jboss.test.metadata.web;
 
+import org.jboss.metadata.merge.web.jboss.JBossWebMetaDataMerger;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
+import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
+import org.junit.Assert;
 
 /**
  * Tests of 1.1 taglib elements
@@ -35,7 +38,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
  */
 public class JBossWebUnitTestCase extends AbstractJavaEEEverythingTest
 {
- 
+
    public void testValve() throws Exception
    {
       JBossWebMetaData metadata = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
@@ -47,7 +50,10 @@ public class JBossWebUnitTestCase extends AbstractJavaEEEverythingTest
    {
       final MetaDataElementParser.DTDInfo resolver = new MetaDataElementParser.DTDInfo();
       final JBossWebMetaData metaData = JBossWebMetaDataParser.parse(getReader("symbolic-linking-web.xml", resolver), propertyReplacer);
-      assert metaData.getSymbolicLinking();
+      final JBossWebMetaData mergedMetaData = new JBossWebMetaData();
+      JBossWebMetaDataMerger.merge(mergedMetaData, metaData, new WebMetaData());
+      Assert.assertTrue(metaData.isSymbolicLinkingEnabled());
+      Assert.assertTrue(mergedMetaData.isSymbolicLinkingEnabled());
    }
 
 }

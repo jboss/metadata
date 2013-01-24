@@ -76,6 +76,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             case JBOSS_WEB_5_1: wmd = new JBoss50WebMetaData(); break;
             case JBOSS_WEB_6_0: wmd = new JBoss60WebMetaData(); break;
             case JBOSS_WEB_7_0: wmd = new JBoss70WebMetaData(); break;
+            case JBOSS_WEB_7_1: wmd = new JBoss70WebMetaData(); break;
         }
 
         // Handle attributes
@@ -200,7 +201,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     wmd.setDistinctName(val);
                     break;
                 case SYMBOLIC_ENABLED:
-                    wmd.setSymbolicLinking(Boolean.parseBoolean(getElementText(reader)));
+                    wmd.setSymbolicLinkingEnabled(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
                     break;
                 default: throw unexpectedElement(reader);
             }
