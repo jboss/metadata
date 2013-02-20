@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.web.spec;
 
-import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
-
 /**
  * taglib/tag metadata
  *

@@ -34,13 +34,19 @@ import java.io.Serializable;
 
 public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMetaData implements Serializable, Environment,
         MutableEnvironment {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1337095770028220349L;
 
-    /** The ejb local references */
+    /**
+     * The ejb local references
+     */
     private EJBLocalReferencesMetaData ejbLocalReferences;
 
-    /** The persistence context reference */
+    /**
+     * The persistence context reference
+     */
     private PersistenceContextReferencesMetaData persistenceContextRefs;
 
 

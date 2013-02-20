@@ -26,12 +26,14 @@ import java.util.HashMap;
 
 public class Location {
     private static final HashMap<String, Version> bindings = new HashMap<String, Version>();
+
     static {
         bindings.put("http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd", Version.TLD_1_1);
         bindings.put("http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd", Version.TLD_1_2);
         bindings.put("http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd", Version.TLD_2_0);
         bindings.put("http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd", Version.TLD_2_1);
     }
+
     public static Version getVersion(String location) {
         return bindings.get(location);
     }

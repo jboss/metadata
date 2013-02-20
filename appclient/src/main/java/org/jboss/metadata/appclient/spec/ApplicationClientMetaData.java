@@ -40,7 +40,7 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
 
     private String version;
 
-   private String moduleName;
+    private String moduleName;
 
 
     public void merge(final ApplicationClientMetaData override, final ApplicationClientMetaData original) {
@@ -50,12 +50,12 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
         if (override != null && override.isMetadataComplete()) {
             this.metadataComplete = override.isMetadataComplete();
         }
-        if(original != null && original.isMetadataComplete()) {
-           this.metadataComplete = true;
+        if (original != null && original.isMetadataComplete()) {
+            this.metadataComplete = true;
         }
 
         if (override != null && override.getEnvironmentRefsGroupMetaData() != null) {
-	      this.environmentRefsGroupMetaData.merge(override.getEnvironmentRefsGroupMetaData(), original.getEnvironmentRefsGroupMetaData());
+            this.environmentRefsGroupMetaData.merge(override.getEnvironmentRefsGroupMetaData(), original.getEnvironmentRefsGroupMetaData());
         } else if (original != null && original.getEnvironmentRefsGroupMetaData() != null) {
             this.environmentRefsGroupMetaData = original.getEnvironmentRefsGroupMetaData();
         }
@@ -66,11 +66,11 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
             this.callbackHandler = original.getCallbackHandler();
         }
 
-       if (override != null && override.getModuleName() != null) {
-         this.moduleName = override.getModuleName();
-       } else if (original != null && original.getModuleName() != null) {
-         this.moduleName = original.getModuleName();
-       }
+        if (override != null && override.getModuleName() != null) {
+            this.moduleName = override.getModuleName();
+        } else if (original != null && original.getModuleName() != null) {
+            this.moduleName = original.getModuleName();
+        }
 
         if (override != null && override.getVersion() != null) {
             version = override.getVersion();
@@ -112,13 +112,11 @@ public class ApplicationClientMetaData extends IdMetaDataImplWithDescriptionGrou
         this.metadataComplete = metadataComplete;
     }
 
-   public String getModuleName()
-   {
-      return moduleName;
-   }
+    public String getModuleName() {
+        return moduleName;
+    }
 
-   public void setModuleName(String moduleName)
-   {
-      this.moduleName = moduleName;
-   }
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
+    }
 }

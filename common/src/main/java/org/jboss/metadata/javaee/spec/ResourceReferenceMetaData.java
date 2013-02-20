@@ -30,22 +30,34 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @version $Revision: 1.1 $
  */
 public class ResourceReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1900675456507941940L;
 
-    /** The type */
+    /**
+     * The type
+     */
     private String type;
 
-    /** The authority */
+    /**
+     * The authority
+     */
     private ResourceAuthorityType authority;
 
-    /** The sharing scope */
+    /**
+     * The sharing scope
+     */
     private ResourceSharingScopeType sharingScope;
 
-    /** The resource name */
+    /**
+     * The resource name
+     */
     private String resourceName;
 
-    /** The resource url */
+    /**
+     * The resource url
+     */
     private String resUrl;
 
     /**

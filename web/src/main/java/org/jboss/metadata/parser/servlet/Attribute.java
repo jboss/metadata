@@ -39,8 +39,7 @@ public enum Attribute {
 
     METADATA_COMPLETE("metadata-complete"),
 
-    VERSION("version"),
-    ;
+    VERSION("version"),;
 
     private final String name;
 

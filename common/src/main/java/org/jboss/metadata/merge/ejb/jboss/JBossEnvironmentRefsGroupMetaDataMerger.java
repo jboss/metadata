@@ -24,14 +24,7 @@ package org.jboss.metadata.merge.ejb.jboss;
 import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
-import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
-import org.jboss.metadata.javaee.spec.Environment;
-import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
-import org.jboss.metadata.merge.javaee.spec.DataSourcesMetaDataMerger;
+import org.jboss.metadata.javaee.spec.*;
 import org.jboss.metadata.merge.javaee.spec.EJBLocalReferencesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.PersistenceContextReferencesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.RemoteEnvironmentRefsGroupMetaDataMerger;
@@ -48,14 +41,14 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
      * Merge an environment
      *
      * @param jbossEnvironmentRefsGroup the override environment
-     * @param environmentRefsGroup the overriden environment
-     * @param overridenFile the overriden file name
-     * @param overrideFile the override file
+     * @param environmentRefsGroup      the overriden environment
+     * @param overridenFile             the overriden file name
+     * @param overrideFile              the override file
      * @return the merged environment
      */
     public static JBossEnvironmentRefsGroupMetaData mergeNew(JBossEnvironmentRefsGroupMetaData jbossEnvironmentRefsGroup,
-            EnvironmentRefsGroupMetaData environmentRefsGroup, ResourceManagersMetaData resourceMgrs, String overrideFile,
-            String overridenFile, boolean mustOverride) {
+                                                             EnvironmentRefsGroupMetaData environmentRefsGroup, ResourceManagersMetaData resourceMgrs, String overrideFile,
+                                                             String overridenFile, boolean mustOverride) {
         JBossEnvironmentRefsGroupMetaData merged = new JBossEnvironmentRefsGroupMetaData();
 
         JBossEnvironmentRefsGroupMetaDataMerger.merge(merged, jbossEnvironmentRefsGroup, environmentRefsGroup, resourceMgrs, overridenFile, overrideFile, mustOverride);
@@ -67,15 +60,15 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
     /**
      * Merge an environment
      *
-     * @param dest the destination
-     * @param jbossEnv the override environment
-     * @param specEnv the overriden environment
+     * @param dest          the destination
+     * @param jbossEnv      the override environment
+     * @param specEnv       the overriden environment
      * @param overridenFile the overriden file name
-     * @param overrideFile the override file
+     * @param overrideFile  the override file
      * @return the merged environment
      */
     public static void merge(JBossEnvironmentRefsGroupMetaData dest, JBossEnvironmentRefsGroupMetaData jbossEnv, Environment specEnv, ResourceManagersMetaData resourceMgrs,
-            String overrideFile, String overridenFile, boolean mustOverride) {
+                             String overrideFile, String overridenFile, boolean mustOverride) {
         if (jbossEnv == null && specEnv == null)
             return;
 
@@ -127,7 +120,7 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
     }
 
     public static void merge(JBossEnvironmentRefsGroupMetaData dest, JBossEnvironmentRefsGroupMetaData override, JBossEnvironmentRefsGroupMetaData original,
-            ResourceManagersMetaData resourceManagers) {
+                             ResourceManagersMetaData resourceManagers) {
         merge(dest, override, original, "deployment descriptors", "annotations", false);
 
         EJBLocalReferencesMetaData originalLocalRefs = null;

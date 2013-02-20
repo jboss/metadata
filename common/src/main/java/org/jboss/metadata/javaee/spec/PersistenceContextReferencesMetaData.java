@@ -30,7 +30,9 @@ import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
  * @version $Revision: 1.1 $
  */
 public class PersistenceContextReferencesMetaData extends AbstractMappedMetaData<PersistenceContextReferenceMetaData> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 75353633724235761L;
 
     /**

@@ -27,110 +27,109 @@ package org.jboss.metadata.ejb.spec;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public interface EntityBeanMetaData extends EnterpriseBeanMetaData
-{
-   /**
-    * Get the home.
-    *
-    * @return the home.
-    */
-   String getHome();
+public interface EntityBeanMetaData extends EnterpriseBeanMetaData {
+    /**
+     * Get the home.
+     *
+     * @return the home.
+     */
+    String getHome();
 
-   /**
-    * Get the remote.
-    *
-    * @return the remote.
-    */
-   String getRemote();
+    /**
+     * Get the remote.
+     *
+     * @return the remote.
+     */
+    String getRemote();
 
-   /**
-    * Get the localHome.
-    *
-    * @return the localHome.
-    */
-   String getLocalHome();
+    /**
+     * Get the localHome.
+     *
+     * @return the localHome.
+     */
+    String getLocalHome();
 
-   /**
-    * Get the local.
-    *
-    * @return the local.
-    */
-   String getLocal();
+    /**
+     * Get the local.
+     *
+     * @return the local.
+     */
+    String getLocal();
 
-   /**
-    * Is this container managed persistence
-    *
-    * @return true for cmp
-    */
-   boolean isCMP();
+    /**
+     * Is this container managed persistence
+     *
+     * @return true for cmp
+     */
+    boolean isCMP();
 
-   /**
-    * Is this bean managed persistence
-    *
-    * @return true for bmp
-    */
-   boolean isBMP();
+    /**
+     * Is this bean managed persistence
+     *
+     * @return true for bmp
+     */
+    boolean isBMP();
 
-   /**
-    * Get the persistenceType.
-    *
-    * @return the persistenceType.
-    */
-   PersistenceType getPersistenceType();
+    /**
+     * Get the persistenceType.
+     *
+     * @return the persistenceType.
+     */
+    PersistenceType getPersistenceType();
 
-   /**
-    * Get the primKeyClass.
-    *
-    * @return the primKeyClass.
-    */
-   String getPrimKeyClass();
+    /**
+     * Get the primKeyClass.
+     *
+     * @return the primKeyClass.
+     */
+    String getPrimKeyClass();
 
-   /**
-    * Get the reentrant.
-    *
-    * @return the reentrant.
-    */
-   boolean isReentrant();
+    /**
+     * Get the reentrant.
+     *
+     * @return the reentrant.
+     */
+    boolean isReentrant();
 
-   /**
-    * Whether it is CMP1x
-    *
-    * @return true for cmp1x
-    */
-   boolean isCMP1x();
+    /**
+     * Whether it is CMP1x
+     *
+     * @return true for cmp1x
+     */
+    boolean isCMP1x();
 
-   /**
-    * Get the cmpVersion.
-    *
-    * @return the cmpVersion.
-    */
-   String getCmpVersion();
+    /**
+     * Get the cmpVersion.
+     *
+     * @return the cmpVersion.
+     */
+    String getCmpVersion();
 
-   /**
-    * Get the abstractSchemaName.
-    *
-    * @return the abstractSchemaName.
-    */
-   String getAbstractSchemaName();
+    /**
+     * Get the abstractSchemaName.
+     *
+     * @return the abstractSchemaName.
+     */
+    String getAbstractSchemaName();
 
-   /**
-    * Get the primKeyField.
-    *
-    * @return the primKeyField.
-    */
-   String getPrimKeyField();
+    /**
+     * Get the primKeyField.
+     *
+     * @return the primKeyField.
+     */
+    String getPrimKeyField();
 
-   /**
-    * Get the cmpFields.
-    *
-    * @return the cmpFields.
-    */
-   CMPFieldsMetaData getCmpFields();
+    /**
+     * Get the cmpFields.
+     *
+     * @return the cmpFields.
+     */
+    CMPFieldsMetaData getCmpFields();
 
-   /**
-    * Get the queries.
-    *
-    * @return the queries.
-    */
-   QueriesMetaData getQueries();
+    /**
+     * Get the queries.
+     *
+     * @return the queries.
+     */
+    QueriesMetaData getQueries();
 }

@@ -23,6 +23,7 @@
 package org.jboss.metadata.ejb.parser.spec;
 
 import org.jboss.metadata.ejb.spec.StatefulTimeoutMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -30,7 +31,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses and creates metadata out of &lt;stateful-timeout&gt; element of ejb-jar.xml
@@ -95,7 +95,7 @@ public class StatefulTimeoutMetaDataParser extends AbstractMetaDataParser<Statef
 
     protected void processUnitElement(StatefulTimeoutMetaData metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         TimeUnit unit = TIME_UNITS.get(getElementText(reader, propertyReplacer));
-        if(unit != null) {
+        if (unit != null) {
             metaData.setUnit(unit);
         } else {
             throw new RuntimeException("Cannot parse unit in <stateful-timeout> " + reader.getElementText());

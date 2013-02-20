@@ -27,7 +27,6 @@ import javax.xml.stream.XMLStreamReader;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-interface AttributeProcessor<MD>
-{
-   void processAttribute(MD metaData, XMLStreamReader reader, int i) throws XMLStreamException;
+interface AttributeProcessor<MD> {
+    void processAttribute(MD metaData, XMLStreamReader reader, int i) throws XMLStreamException;
 }

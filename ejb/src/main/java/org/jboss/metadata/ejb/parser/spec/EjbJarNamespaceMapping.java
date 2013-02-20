@@ -29,24 +29,21 @@ import java.util.Map;
 
 /**
  * Maps a dtd/xsd namespace with a specific version of EJB spec
- *
+ * <p/>
  * User: Jaikiran Pai
  */
-public class EjbJarNamespaceMapping
-{
-   private static final Map<String, EjbJarVersion> bindings = new HashMap<String, EjbJarVersion>();
+public class EjbJarNamespaceMapping {
+    private static final Map<String, EjbJarVersion> bindings = new HashMap<String, EjbJarVersion>();
 
-   static
-   {
-      bindings.put("http://java.sun.com/j2ee/dtds/ejb-jar_1_1.dtd", EjbJarVersion.EJB_1_1);
-      bindings.put("http://java.sun.com/dtd/ejb-jar_2_0.dtd", EjbJarVersion.EJB_2_0);
-      bindings.put("http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd", EjbJarVersion.EJB_2_1);
-      bindings.put("http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd", EjbJarVersion.EJB_3_0);
-      bindings.put("http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd", EjbJarVersion.EJB_3_1);
-   }
+    static {
+        bindings.put("http://java.sun.com/j2ee/dtds/ejb-jar_1_1.dtd", EjbJarVersion.EJB_1_1);
+        bindings.put("http://java.sun.com/dtd/ejb-jar_2_0.dtd", EjbJarVersion.EJB_2_0);
+        bindings.put("http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd", EjbJarVersion.EJB_2_1);
+        bindings.put("http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd", EjbJarVersion.EJB_3_0);
+        bindings.put("http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd", EjbJarVersion.EJB_3_1);
+    }
 
-   public static EjbJarVersion getEjbJarVersion(String namespace)
-   {
-      return bindings.get(namespace);
-   }
+    public static EjbJarVersion getEjbJarVersion(String namespace) {
+        return bindings.get(namespace);
+    }
 }

@@ -28,22 +28,18 @@ import org.jboss.metadata.common.ejb.IScheduleTarget;
  */
 // TODO: should not be public
 public class GenericBeanMetaData extends AbstractGenericBeanMetaData
-   implements IScheduleTarget, EntityBeanMetaData, MessageDrivenBean31MetaData, SessionBean31MetaData
-{
-   public GenericBeanMetaData()
-   {
-   }
+        implements IScheduleTarget, EntityBeanMetaData, MessageDrivenBean31MetaData, SessionBean31MetaData {
+    public GenericBeanMetaData() {
+    }
 
-   public GenericBeanMetaData(final EjbType ejbType)
-   {
-      setEjbType(ejbType);
-   }
+    public GenericBeanMetaData(final EjbType ejbType) {
+        setEjbType(ejbType);
+    }
 
-   @Override
-   protected AbstractEnterpriseBeanMetaData createMerged(AbstractEnterpriseBeanMetaData original)
-   {
-      final GenericBeanMetaData merged = new GenericBeanMetaData();
-      merged.merge(this, original);
-      return merged;
-   }
+    @Override
+    protected AbstractEnterpriseBeanMetaData createMerged(AbstractEnterpriseBeanMetaData original) {
+        final GenericBeanMetaData merged = new GenericBeanMetaData();
+        merged.merge(this, original);
+        return merged;
+    }
 }

@@ -30,16 +30,24 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @version $Revision: 1.1 $
  */
 public class MessageDestinationReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 2129990191983873784L;
 
-    /** The type */
+    /**
+     * The type
+     */
     private String type;
 
-    /** The usage */
+    /**
+     * The usage
+     */
     private MessageDestinationUsageType usage;
 
-    /** The link */
+    /**
+     * The link
+     */
     private String link;
 
     /**

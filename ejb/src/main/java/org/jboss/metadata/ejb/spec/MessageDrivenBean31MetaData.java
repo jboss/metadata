@@ -29,12 +29,11 @@ import java.util.List;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public interface MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData
-{
-   /**
-    * Returns the {@link TimerMetaData} associated with this bean
-    */
-   List<TimerMetaData> getTimers();
+public interface MessageDrivenBean31MetaData extends MessageDrivenBeanMetaData {
+    /**
+     * Returns the {@link TimerMetaData} associated with this bean
+     */
+    List<TimerMetaData> getTimers();
 
-   AroundTimeoutsMetaData getAroundTimeouts();
+    AroundTimeoutsMetaData getAroundTimeouts();
 }

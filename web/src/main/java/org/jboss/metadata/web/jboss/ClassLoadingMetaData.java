@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.web.jboss;
 
-import java.io.Serializable;
-
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
+
+import java.io.Serializable;
 
 /**
  * A ClassLoadingMetaData.

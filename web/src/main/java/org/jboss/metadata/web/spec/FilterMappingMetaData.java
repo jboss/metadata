@@ -21,10 +21,9 @@
  */
 package org.jboss.metadata.web.spec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+
+import java.util.List;
 
 /**
  * web-app/filter-mapping metadata
@@ -66,7 +65,7 @@ public class FilterMappingMetaData extends IdMetaDataImpl {
         return urlPatterns;
     }
 
-     public void setUrlPatterns(List<String> urlPatterns) {
+    public void setUrlPatterns(List<String> urlPatterns) {
         this.urlPatterns = urlPatterns;
     }
 

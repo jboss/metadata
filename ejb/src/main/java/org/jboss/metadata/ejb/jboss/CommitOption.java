@@ -23,26 +23,33 @@ package org.jboss.metadata.ejb.jboss;
 
 /**
  * CommitOption.<p>
- * 
+ * <p/>
  * The descriptions come from Marc Fleury
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public enum CommitOption
-{
-   /** Dumb */
-   A,
-   
-   /** Dumber */
-   B,
-   
-   /** Dumbest */
-   C,
-   
-   /** Dumb with a period flush */
-   D,
+public enum CommitOption {
+    /**
+     * Dumb
+     */
+    A,
 
-   /* An undefined commit option */
-   Undefined
+    /**
+     * Dumber
+     */
+    B,
+
+    /**
+     * Dumbest
+     */
+    C,
+
+    /**
+     * Dumb with a period flush
+     */
+    D,
+
+    /* An undefined commit option */
+    Undefined
 }

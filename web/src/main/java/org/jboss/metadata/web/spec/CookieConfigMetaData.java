@@ -109,6 +109,6 @@ public class CookieConfigMetaData extends IdMetaDataImpl {
     }
 
     public boolean getMaxAgeSet() {
-         return maxAgeSet;
+        return maxAgeSet;
     }
 }

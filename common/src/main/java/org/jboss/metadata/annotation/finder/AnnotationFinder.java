@@ -30,13 +30,12 @@ import java.lang.reflect.AnnotatedElement;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 65638 $
  */
-public interface AnnotationFinder<E extends AnnotatedElement>
-{
-   <T extends Annotation> T getAnnotation(E element, Class<T> annotationType);
-   
-   Annotation[] getAnnotations(E element);
-   
-   Annotation[] getDeclaredAnnotations(E element);
-   
-   boolean isAnnotationPresent(E element, Class<? extends Annotation> annotationType);
+public interface AnnotationFinder<E extends AnnotatedElement> {
+    <T extends Annotation> T getAnnotation(E element, Class<T> annotationType);
+
+    Annotation[] getAnnotations(E element);
+
+    Annotation[] getDeclaredAnnotations(E element);
+
+    boolean isAnnotationPresent(E element, Class<? extends Annotation> annotationType);
 }

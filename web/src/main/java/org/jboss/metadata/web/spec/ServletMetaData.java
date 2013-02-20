@@ -21,11 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
-import java.util.List;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
+
+import java.util.List;
 
 /**
  * web-app/servlet metadata
@@ -42,13 +43,17 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
 
     private String servletClass;
     private String jspFile;
-    /** The servlet init-params */
+    /**
+     * The servlet init-params
+     */
     private List<ParamValueMetaData> initParam;
     private String loadOnStartup = null;
     private int loadOnStartupInt = loadOnStartupDefault;
     private boolean loadOnStartupSet = false;
     private RunAsMetaData runAs;
-    /** The security role ref */
+    /**
+     * The security role ref
+     */
     private SecurityRoleRefsMetaData securityRoleRefs;
     private boolean asyncSupported = asyncSupportedDefault;
     private boolean asyncSupportedSet = false;
@@ -96,6 +101,7 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
         this.loadOnStartupInt = loadOnStartup;
         loadOnStartupSet = true;
     }
+
     public boolean getLoadOnStartupSet() {
         return loadOnStartupSet;
     }
@@ -109,9 +115,10 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
         try {
             setLoadOnStartupInt(Integer.parseInt(loadOnStartup));
         } catch (NumberFormatException e) {
-            setLoadOnStartupInt(0); 
+            setLoadOnStartupInt(0);
         }
     }
+
     public int getLoadOnStartupDefault() {
         return loadOnStartupDefault;
     }
@@ -135,6 +142,7 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
     public boolean isAsyncSupported() {
         return asyncSupported;
     }
+
     public boolean getAsyncSupportedDefault() {
         return asyncSupportedDefault;
     }
@@ -143,6 +151,7 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
         this.asyncSupported = asyncSupported;
         asyncSupportedSet = true;
     }
+
     public boolean getAsyncSupportedSet() {
         return asyncSupportedSet;
     }

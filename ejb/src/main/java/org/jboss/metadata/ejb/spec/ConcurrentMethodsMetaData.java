@@ -29,65 +29,54 @@ import java.util.ArrayList;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class ConcurrentMethodsMetaData extends ArrayList<ConcurrentMethodMetaData> implements IdMetaData
-{
-   private static final long serialVersionUID = 1L;
-   
-   private String id;
+public class ConcurrentMethodsMetaData extends ArrayList<ConcurrentMethodMetaData> implements IdMetaData {
+    private static final long serialVersionUID = 1L;
 
-   public ConcurrentMethodMetaData bestMatch(String methodName, String params[])
-   {
-      ConcurrentMethodMetaData bestMatch = null;
-      for (ConcurrentMethodMetaData method : this)
-      {
-         if (method.matches(methodName, params))
-         {
-            // No previous best match
-            if (bestMatch == null)
-               bestMatch = method;
-            // better match because the previous was a wildcard
-            else if ("*".equals(bestMatch.getMethod().getMethodName()))
-               bestMatch = method;
-            // better because it specifies parameters
-            else if (method.getMethod().getMethodParams() != null)
-               bestMatch = method;
-         }
-      }
-      return bestMatch;
-   }
+    private String id;
 
-   public ConcurrentMethodMetaData find(NamedMethodMetaData equivalent)
-   {
-      for (ConcurrentMethodMetaData method : this)
-      {
-         if (method.getMethod().equals(equivalent))
-         {
-            return method;
-         }
-      }
-      return null;
-   }
+    public ConcurrentMethodMetaData bestMatch(String methodName, String params[]) {
+        ConcurrentMethodMetaData bestMatch = null;
+        for (ConcurrentMethodMetaData method : this) {
+            if (method.matches(methodName, params)) {
+                // No previous best match
+                if (bestMatch == null)
+                    bestMatch = method;
+                    // better match because the previous was a wildcard
+                else if ("*".equals(bestMatch.getMethod().getMethodName()))
+                    bestMatch = method;
+                    // better because it specifies parameters
+                else if (method.getMethod().getMethodParams() != null)
+                    bestMatch = method;
+            }
+        }
+        return bestMatch;
+    }
 
-   @Deprecated
-   public ConcurrentMethodMetaData get(NamedMethodMetaData key)
-   {
-      return find(key);
-   }
+    public ConcurrentMethodMetaData find(NamedMethodMetaData equivalent) {
+        for (ConcurrentMethodMetaData method : this) {
+            if (method.getMethod().equals(equivalent)) {
+                return method;
+            }
+        }
+        return null;
+    }
 
-   @Override
-   public String getId()
-   {
-      return id;
-   }
+    @Deprecated
+    public ConcurrentMethodMetaData get(NamedMethodMetaData key) {
+        return find(key);
+    }
 
-   @Override
-   public void setId(String id)
-   {
-      this.id = id;
-   }
+    @Override
+    public String getId() {
+        return id;
+    }
 
-   public void merge(ConcurrentMethodsMetaData override, ConcurrentMethodsMetaData original)
-   {
-      MergeUtil.merge(this, override, original);
-   }
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void merge(ConcurrentMethodsMetaData override, ConcurrentMethodsMetaData original) {
+        MergeUtil.merge(this, override, original);
+    }
 }

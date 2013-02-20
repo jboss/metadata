@@ -22,12 +22,12 @@
 
 package org.jboss.metadata.parser.servlet;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.OrderingMetaData;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author Remy Maucherat
@@ -47,7 +47,8 @@ public class OrderingMetaDataParser extends MetaDataElementParser {
                 case AFTER:
                     ordering.setAfter(RelativeOrderingMetaDataParser.parse(reader, propertyReplacer));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

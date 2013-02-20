@@ -32,7 +32,7 @@ import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
  */
 public class PersistenceContextReferencesMetaDataMerger {
     public static PersistenceContextReferencesMetaData merge(PersistenceContextReferencesMetaData override,
-            PersistenceContextReferencesMetaData overriden, String overridenFile, String overrideFile) {
+                                                             PersistenceContextReferencesMetaData overriden, String overridenFile, String overrideFile) {
         if (override == null && overriden == null)
             return null;
 
@@ -47,8 +47,8 @@ public class PersistenceContextReferencesMetaDataMerger {
      * From avaEEMetaDataUtil.java
      */
     private static PersistenceContextReferencesMetaData merge(PersistenceContextReferencesMetaData merged,
-            PersistenceContextReferencesMetaData overriden, PersistenceContextReferencesMetaData mapped, String context,
-            String overridenFile, String overrideFile, boolean mustOverride) {
+                                                              PersistenceContextReferencesMetaData overriden, PersistenceContextReferencesMetaData mapped, String context,
+                                                              String overridenFile, String overrideFile, boolean mustOverride) {
         if (merged == null)
             throw new IllegalArgumentException("Null merged");
 
@@ -100,7 +100,7 @@ public class PersistenceContextReferencesMetaDataMerger {
     }
 
     public static void augment(PersistenceContextReferencesMetaData dest, PersistenceContextReferencesMetaData augment,
-            PersistenceContextReferencesMetaData main, boolean resolveConflicts) {
+                               PersistenceContextReferencesMetaData main, boolean resolveConflicts) {
         for (PersistenceContextReferenceMetaData persistenceContextReference : augment) {
             if (dest.containsKey(persistenceContextReference.getKey())) {
                 if (!resolveConflicts && (main == null || !main.containsKey(persistenceContextReference.getKey()))) {

@@ -30,10 +30,14 @@ import org.jboss.annotation.javaee.Descriptions;
  * @version $Revision: 1.1 $
  */
 public abstract class IdMetaDataImplWithDescriptions extends IdMetaDataImpl implements WithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 8444982686386775186L;
 
-    /** The descriptions */
+    /**
+     * The descriptions
+     */
     private Descriptions descriptions;
 
     /**

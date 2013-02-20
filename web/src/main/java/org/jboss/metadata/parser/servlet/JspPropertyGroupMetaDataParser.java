@@ -22,17 +22,16 @@
 
 package org.jboss.metadata.parser.servlet;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.web.spec.JspPropertyGroupMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.web.spec.JspPropertyGroupMetaData;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Remy Maucherat
@@ -44,7 +43,7 @@ public class JspPropertyGroupMetaDataParser extends MetaDataElementParser {
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -55,7 +54,8 @@ public class JspPropertyGroupMetaDataParser extends MetaDataElementParser {
                     jspPropertyGroup.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -121,7 +121,8 @@ public class JspPropertyGroupMetaDataParser extends MetaDataElementParser {
                 case ERROR_ON_UNDECLARED_NAMESPACE:
                     jspPropertyGroup.setErrorOnUndeclaredNamespace(getElementText(reader, propertyReplacer));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

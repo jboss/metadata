@@ -27,42 +27,35 @@ import java.util.Map;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public enum Namespace
-{
-   // must be first
-   UNKNOWN(null),
-   JBOSS("http://www.jboss.com/xml/ns/javaee"),
-   SPEC("http://java.sun.com/xml/ns/javaee"),
-   ;
+public enum Namespace {
+    // must be first
+    UNKNOWN(null),
+    JBOSS("http://www.jboss.com/xml/ns/javaee"),
+    SPEC("http://java.sun.com/xml/ns/javaee"),;
 
-   private final String uri;
+    private final String uri;
 
-   Namespace(String uri)
-   {
-      this.uri = uri;
-   }
+    Namespace(String uri) {
+        this.uri = uri;
+    }
 
-   public String getUriString()
-   {
-      return uri;
-   }
+    public String getUriString() {
+        return uri;
+    }
 
-   private static final Map<String, Namespace> MAP;
+    private static final Map<String, Namespace> MAP;
 
-   static
-   {
-      final Map<String, Namespace> map = new HashMap<String, Namespace>();
-      for (Namespace namespace : values())
-      {
-         final String name = namespace.getUriString();
-         if(name != null) map.put(name, namespace);
-      }
-      MAP = map;
-   }
+    static {
+        final Map<String, Namespace> map = new HashMap<String, Namespace>();
+        for (Namespace namespace : values()) {
+            final String name = namespace.getUriString();
+            if (name != null) map.put(name, namespace);
+        }
+        MAP = map;
+    }
 
-   public static Namespace forUri(String uri)
-   {
-      final Namespace element = MAP.get(uri);
-      return element == null ? UNKNOWN : element;
-   }
+    public static Namespace forUri(String uri) {
+        final Namespace element = MAP.get(uri);
+        return element == null ? UNKNOWN : element;
+    }
 }

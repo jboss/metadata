@@ -30,7 +30,9 @@ import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
  * @version $Revision: 1.1 $
  */
 public class ResourceEnvironmentReferencesMetaData extends AbstractMappedMetaData<ResourceEnvironmentReferenceMetaData> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -1586023682859221620L;
 
     /**

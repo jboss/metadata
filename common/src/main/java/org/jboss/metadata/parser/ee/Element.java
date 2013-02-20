@@ -165,8 +165,7 @@ public enum Element {
     VALUE("value"),
 
     WSDL_FILE("wsdl-file"),
-    WSDL_OVERRIDE("wsdl-override"),
-    ;
+    WSDL_OVERRIDE("wsdl-override"),;
 
     private final String name;
 

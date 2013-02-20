@@ -28,7 +28,6 @@ import org.jboss.metadata.ejb.spec.MethodsMetaData;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version <tt>$Revision: 80371 $</tt>
  */
-public class CurrentMessageMetaData extends MethodsMetaData
-{
-   private static final long serialVersionUID = 1L;
+public class CurrentMessageMetaData extends MethodsMetaData {
+    private static final long serialVersionUID = 1L;
 }

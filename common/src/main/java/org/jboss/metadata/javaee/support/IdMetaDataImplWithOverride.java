@@ -29,10 +29,14 @@ package org.jboss.metadata.javaee.support;
  * @version $Revision: 1.1 $
  */
 public class IdMetaDataImplWithOverride<T> extends IdMetaDataImpl implements OverrideMetaData<T> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1178687564812348455L;
 
-    /** The overriden metadata */
+    /**
+     * The overriden metadata
+     */
     private T data;
 
     @Override

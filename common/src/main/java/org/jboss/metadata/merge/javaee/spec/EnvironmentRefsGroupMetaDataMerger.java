@@ -62,7 +62,7 @@ public class EnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRefsGro
     }
 
     public static void augment(EnvironmentRefsGroupMetaData dest, RemoteEnvironmentRefsGroupMetaData augment, RemoteEnvironmentRefsGroupMetaData main,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
         RemoteEnvironmentRefsGroupMetaDataMerger.augment(dest, augment, main, resolveConflicts);
         EnvironmentRefsGroupMetaData augmentE = (EnvironmentRefsGroupMetaData) augment;
         EnvironmentRefsGroupMetaData mainE = (EnvironmentRefsGroupMetaData) main;

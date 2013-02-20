@@ -21,11 +21,7 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * MappedMetaData.
@@ -35,21 +31,27 @@ import java.util.Set;
  * @version $Revision: 1.1 $
  */
 public abstract class AbstractMappedMetaData<T extends MappableMetaData> extends IdMetaDataImpl implements MappedMetaData<T> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 5696461894017065337L;
 
-    /** The key name */
+    /**
+     * The key name
+     */
     private String keyName;
 
-    /** The metaDatas */
+    /**
+     * The metaDatas
+     */
     private Map<String, T> map;
 
     /**
      * Get By Name
      *
-     * @param <T> the type
+     * @param <T>  the type
      * @param name the name
-     * @param map the map
+     * @param map  the map
      * @return the result
      */
     public static <T extends MappableMetaData> T getByName(String name, MappedMetaData<T> map) {

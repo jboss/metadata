@@ -22,17 +22,16 @@
 
 package org.jboss.metadata.parser.jsp;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.web.spec.FunctionMetaData;
+import org.jboss.metadata.web.spec.TldExtensionMetaData;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.web.spec.FunctionMetaData;
-import org.jboss.metadata.web.spec.TldExtensionMetaData;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Remy Maucherat
@@ -44,7 +43,7 @@ public class FunctionMetaDataParser extends MetaDataElementParser {
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -55,7 +54,8 @@ public class FunctionMetaDataParser extends MetaDataElementParser {
                     function.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -95,7 +95,8 @@ public class FunctionMetaDataParser extends MetaDataElementParser {
                     }
                     extensions.add(TldExtensionMetaDataParser.parse(reader));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

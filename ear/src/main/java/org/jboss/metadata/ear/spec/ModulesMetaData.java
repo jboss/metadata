@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.ear.spec;
 
-import java.util.Iterator;
-
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+
+import java.util.Iterator;
 
 /**
  * @author Scott.Stark@jboss.org

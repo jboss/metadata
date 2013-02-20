@@ -30,13 +30,19 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @version $Revision: 1.1 $
  */
 public class LoaderRepositoryConfigMetaData extends IdMetaDataImpl {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 8691106200687695652L;
 
-    /** The config parser class */
+    /**
+     * The config parser class
+     */
     private String configParserClass;
 
-    /** The config */
+    /**
+     * The config
+     */
     private String config; // TODO DOM!
 
     /**

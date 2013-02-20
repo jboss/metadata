@@ -26,7 +26,7 @@ import java.io.File;
 
 /**
  * Replace properties of the form:
-     * <code>${<i>&lt;[env.]name&gt;[</i>,<i>&lt;[env.]name2&gt;[</i>,<i>&lt;[env.]name3&gt;...]][</i>:<i>&lt;default&gt;]</i>}</code>
+ * <code>${<i>&lt;[env.]name&gt;[</i>,<i>&lt;[env.]name2&gt;[</i>,<i>&lt;[env.]name3&gt;...]][</i>:<i>&lt;default&gt;]</i>}</code>
  *
  * @author Jaikiran Pai (copied from JBoss DMR project)
  * @author <a href="mailto:david.lloyd@redhat.com">David M. Lloyd</a>
@@ -107,7 +107,7 @@ class DefaultPropertyReplacer implements PropertyReplacer {
                                 state = ch == '}' ? INITIAL : RESOLVED;
                                 continue;
                             }
-                           final String val = resolver.resolve(name);
+                            final String val = resolver.resolve(name);
 
                             if (val != null) {
                                 builder.append(val);

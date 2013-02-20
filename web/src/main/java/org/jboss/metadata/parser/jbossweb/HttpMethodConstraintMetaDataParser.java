@@ -22,17 +22,16 @@
 
 package org.jboss.metadata.parser.jbossweb;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.EmptyRoleSemanticType;
 import org.jboss.metadata.web.spec.HttpMethodConstraintMetaData;
 import org.jboss.metadata.web.spec.TransportGuaranteeType;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Remy Maucherat
@@ -63,7 +62,8 @@ public class HttpMethodConstraintMetaDataParser extends MetaDataElementParser {
                     }
                     rolesAllowed.add(getElementText(reader, propertyReplacer));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

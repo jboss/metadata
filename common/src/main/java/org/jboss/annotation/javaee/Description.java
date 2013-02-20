@@ -34,12 +34,18 @@ import java.lang.annotation.RetentionPolicy;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Description {
-    /** The default language */
+    /**
+     * The default language
+     */
     String DEFAULT_LANGUAGE = "en";
 
-    /** The descriptions */
+    /**
+     * The descriptions
+     */
     String value() default "";
 
-    /** The language */
+    /**
+     * The language
+     */
     String language() default DEFAULT_LANGUAGE;
 }

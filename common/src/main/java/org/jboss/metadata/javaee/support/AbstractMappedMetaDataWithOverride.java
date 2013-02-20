@@ -32,10 +32,14 @@ package org.jboss.metadata.javaee.support;
  */
 public abstract class AbstractMappedMetaDataWithOverride<C extends MappableMetaData, T extends MappableMetaDataWithOverride<C>, O extends MappedMetaData<C>>
         extends AbstractMappedMetaData<T> implements MappedMetaDataWithOverride<C, T, O> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1646142944205417776L;
 
-    /** The overriden metadata */
+    /**
+     * The overriden metadata
+     */
     private O data;
 
     /**

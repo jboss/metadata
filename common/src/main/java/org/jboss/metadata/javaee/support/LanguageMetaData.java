@@ -21,11 +21,11 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import java.io.Serializable;
-import java.lang.annotation.Annotation;
-
 import org.jboss.annotation.javaee.Description;
 import org.jboss.metadata.annotation.AbstractAnnotationImpl;
+
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
 
 /**
  * LanguageMetaData.
@@ -34,13 +34,19 @@ import org.jboss.metadata.annotation.AbstractAnnotationImpl;
  * @version $Revision: 1.1 $
  */
 public abstract class LanguageMetaData extends AbstractAnnotationImpl implements Serializable, MappableMetaData, IdMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 64867085990650156L;
 
-    /** The id */
+    /**
+     * The id
+     */
     private String id;
 
-    /** The language */
+    /**
+     * The language
+     */
     private String language = Description.DEFAULT_LANGUAGE;
 
     /**

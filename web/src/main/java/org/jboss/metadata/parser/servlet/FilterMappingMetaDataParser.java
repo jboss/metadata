@@ -22,16 +22,15 @@
 
 package org.jboss.metadata.parser.servlet;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.DispatcherType;
 import org.jboss.metadata.web.spec.FilterMappingMetaData;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Remy Maucherat
@@ -54,7 +53,8 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
                     filterMapping.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -93,7 +93,8 @@ public class FilterMappingMetaDataParser extends MetaDataElementParser {
                         throw unexpectedValue(reader, e);
                     }
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

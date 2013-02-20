@@ -28,82 +28,71 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses an application-client.xml file and creates metadata out of it
  * <p/>
+ *
  * @author Stuart Douglas
  */
-public class ApplicationClientMetaDataParser extends MetaDataElementParser
-{
+public class ApplicationClientMetaDataParser extends MetaDataElementParser {
 
-   public static final ApplicationClientMetaDataParser INSTANCE = new ApplicationClientMetaDataParser();
+    public static final ApplicationClientMetaDataParser INSTANCE = new ApplicationClientMetaDataParser();
 
-   public ApplicationClientMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
-   {
-      reader.require(START_DOCUMENT, null, null);
-      // Read until the first start element
-      while (reader.hasNext() && reader.next() != START_ELEMENT)
-      {
+    public ApplicationClientMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
+        reader.require(START_DOCUMENT, null, null);
+        // Read until the first start element
+        while (reader.hasNext() && reader.next() != START_ELEMENT) {
 
-      }
+        }
 
-      ApplicationClientMetaData appClientMetadata = new ApplicationClientMetaData();
+        ApplicationClientMetaData appClientMetadata = new ApplicationClientMetaData();
 
-      processAttributes(appClientMetadata, reader);
+        processAttributes(appClientMetadata, reader);
 
-      // parse and create metadata out of the elements under the root ejb-jar element
-      processElements(appClientMetadata, reader, propertyReplacer);
+        // parse and create metadata out of the elements under the root ejb-jar element
+        processElements(appClientMetadata, reader, propertyReplacer);
 
-      return appClientMetadata;
-   }
+        return appClientMetadata;
+    }
 
-   protected void processAttribute(ApplicationClientMetaData metaData, XMLStreamReader reader, int i) throws XMLStreamException
-   {
-      final String value = reader.getAttributeValue(i);
-      if (attributeHasNamespace(reader, i))
-      {
-         return;
-      }
-      final ApplicationClientAttribute ejbJarAttribute = ApplicationClientAttribute.forName(reader.getAttributeLocalName(i));
-      switch (ejbJarAttribute)
-      {
-         case ID:
-         {
-            metaData.setId(value);
-            break;
-         }
-         case VERSION:
-         {
-             metaData.setVersion(value);
-             break;
-         }
-         case METADATA_COMPLETE:
-         {
-            metaData.setMetadataComplete(Boolean.parseBoolean(value));
-            break;
-         }
-         default:
-            throw unexpectedAttribute(reader, i);
-      }
-   }
+    protected void processAttribute(ApplicationClientMetaData metaData, XMLStreamReader reader, int i) throws XMLStreamException {
+        final String value = reader.getAttributeValue(i);
+        if (attributeHasNamespace(reader, i)) {
+            return;
+        }
+        final ApplicationClientAttribute ejbJarAttribute = ApplicationClientAttribute.forName(reader.getAttributeLocalName(i));
+        switch (ejbJarAttribute) {
+            case ID: {
+                metaData.setId(value);
+                break;
+            }
+            case VERSION: {
+                metaData.setVersion(value);
+                break;
+            }
+            case METADATA_COMPLETE: {
+                metaData.setMetadataComplete(Boolean.parseBoolean(value));
+                break;
+            }
+            default:
+                throw unexpectedAttribute(reader, i);
+        }
+    }
 
-   protected void processAttributes(final ApplicationClientMetaData applicationClientMetaData, XMLStreamReader reader) throws XMLStreamException
-   {
-      // Handle attributes and set them in the EjbJarMetaData
-      final int count = reader.getAttributeCount();
-      for (int i = 0; i < count; i++)
-      {
-         processAttribute(applicationClientMetaData, reader, i);
-      }
-   }
+    protected void processAttributes(final ApplicationClientMetaData applicationClientMetaData, XMLStreamReader reader) throws XMLStreamException {
+        // Handle attributes and set them in the EjbJarMetaData
+        final int count = reader.getAttributeCount();
+        for (int i = 0; i < count; i++) {
+            processAttribute(applicationClientMetaData, reader, i);
+        }
+    }
 
-   protected void processElements(final ApplicationClientMetaData applicationClientMetaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException
-   {
+    protected void processElements(final ApplicationClientMetaData applicationClientMetaData, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         final DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
         final AppClientEnvironmentRefsGroupMetaData environmentRefsGroupMetaData = new AppClientEnvironmentRefsGroupMetaData();
@@ -120,7 +109,8 @@ public class ApplicationClientMetaDataParser extends MetaDataElementParser
                 case CALLBACK_HANDLER: {
                     applicationClientMetaData.setCallbackHandler(getElementText(reader, propertyReplacer));
                     break;
-                } case MODULE_NAME: {
+                }
+                case MODULE_NAME: {
                     applicationClientMetaData.setModuleName(getElementText(reader, propertyReplacer));
                     break;
                 }
@@ -131,5 +121,5 @@ public class ApplicationClientMetaDataParser extends MetaDataElementParser
         applicationClientMetaData.setDescriptionGroup(descriptionGroup);
         applicationClientMetaData.setEnvironmentRefsGroupMetaData(environmentRefsGroupMetaData);
 
-   }
+    }
 }

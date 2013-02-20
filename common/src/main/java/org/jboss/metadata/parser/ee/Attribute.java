@@ -37,9 +37,7 @@ public enum Attribute {
     // javaee 6 attributes in alpha order
     ID("id"),
 
-    LANG("lang"),
-
-    ;
+    LANG("lang"),;
 
     private final String name;
 

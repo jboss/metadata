@@ -22,13 +22,13 @@
 package org.jboss.annotation.ear;
 
 /**
- * 
  * @author Scott.Stark@jboss.org
  * @version $Revision: 66759 $
  */
-public @interface Ear
-{
-   String description() default "";
-   Module[] modules();
-   String libraryDirectory() default "";
+public @interface Ear {
+    String description() default "";
+
+    Module[] modules();
+
+    String libraryDirectory() default "";
 }

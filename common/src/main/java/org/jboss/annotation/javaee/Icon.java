@@ -34,12 +34,18 @@ import java.lang.annotation.RetentionPolicy;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Icon {
-    /** The small icon */
+    /**
+     * The small icon
+     */
     String smallIcon() default "";
 
-    /** The large icon */
+    /**
+     * The large icon
+     */
     String largeIcon() default "";
 
-    /** The language */
+    /**
+     * The language
+     */
     String language() default Description.DEFAULT_LANGUAGE;
 }

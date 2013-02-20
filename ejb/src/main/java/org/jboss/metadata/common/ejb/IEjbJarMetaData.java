@@ -29,24 +29,38 @@ import org.jboss.metadata.ejb.spec.RelationsMetaData;
  * @version $Revision: 66487 $
  */
 public interface IEjbJarMetaData<A extends IAssemblyDescriptorMetaData,
-   C extends IEnterpriseBeansMetaData<A, C, E, J>,
-   E extends IEnterpriseBeanMetaData<A, C, E, J>,
-   J extends IEjbJarMetaData<A, C, E, J>>
-{
-   public String getVersion();
-   public void setVersion(String version);
-   public boolean isEJB1x();
-   public boolean isEJB2x();
-   public boolean isEJB21();
-   public boolean isEJB3x();
-   public String getEjbClientJar();
-   public void setEjbClientJar(String ejbClientJar);
-   public C getEnterpriseBeans();
-   public E getEnterpriseBean(String name);
-   public void setEnterpriseBeans(C enterpriseBeans);
-   public RelationsMetaData getRelationships();
-   public void setRelationships(RelationsMetaData relationships);
-   public A getAssemblyDescriptor();
-   public void setAssemblyDescriptor(A assemblyDescriptor);
-   InterceptorsMetaData getInterceptors();
+        C extends IEnterpriseBeansMetaData<A, C, E, J>,
+        E extends IEnterpriseBeanMetaData<A, C, E, J>,
+        J extends IEjbJarMetaData<A, C, E, J>> {
+    public String getVersion();
+
+    public void setVersion(String version);
+
+    public boolean isEJB1x();
+
+    public boolean isEJB2x();
+
+    public boolean isEJB21();
+
+    public boolean isEJB3x();
+
+    public String getEjbClientJar();
+
+    public void setEjbClientJar(String ejbClientJar);
+
+    public C getEnterpriseBeans();
+
+    public E getEnterpriseBean(String name);
+
+    public void setEnterpriseBeans(C enterpriseBeans);
+
+    public RelationsMetaData getRelationships();
+
+    public void setRelationships(RelationsMetaData relationships);
+
+    public A getAssemblyDescriptor();
+
+    public void setAssemblyDescriptor(A assemblyDescriptor);
+
+    InterceptorsMetaData getInterceptors();
 }

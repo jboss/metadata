@@ -31,16 +31,24 @@ import org.jboss.metadata.javaee.support.NamedMetaData;
  */
 
 public class WebserviceDescriptionMetaData extends NamedMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -3783036458417091083L;
 
-    /** The context name */
+    /**
+     * The context name
+     */
     private String configName;
 
-    /** The context file */
+    /**
+     * The context file
+     */
     private String configFile;
 
-    /** The wsdl publish location */
+    /**
+     * The wsdl publish location
+     */
     private String wsdlPublishLocation;
 
     @Override

@@ -22,16 +22,16 @@
 
 package org.jboss.metadata.parser.ee;
 
-import javax.persistence.PersistenceContextType;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PropertiesMetaData;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
+
+import javax.persistence.PersistenceContextType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author Remy Maucherat
@@ -42,12 +42,12 @@ public class PersistenceContextReferenceMetaDataParser extends MetaDataElementPa
         return parse(reader, PropertyReplacers.noop());
     }
 
-    public static PersistenceContextReferenceMetaData parse(XMLStreamReader reader,final PropertyReplacer propertyReplacer) throws XMLStreamException {
+    public static PersistenceContextReferenceMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         PersistenceContextReferenceMetaData pcReference = new PersistenceContextReferenceMetaData();
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -58,7 +58,8 @@ public class PersistenceContextReferenceMetaDataParser extends MetaDataElementPa
                     pcReference.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -93,7 +94,8 @@ public class PersistenceContextReferenceMetaDataParser extends MetaDataElementPa
                     }
                     properties.add(PropertyMetaDataParser.parse(reader, propertyReplacer));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

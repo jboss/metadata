@@ -37,6 +37,7 @@ public class ResourceReferenceMetaDataMerger {
         merge(merged, dest, original);
         return merged;
     }
+
     /**
      * Merge the contents of override with original into this.
      *

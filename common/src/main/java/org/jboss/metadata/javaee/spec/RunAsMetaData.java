@@ -30,10 +30,14 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @version $Revision: 1.1 $
  */
 public class RunAsMetaData extends IdMetaDataImplWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 6132381662482264933L;
 
-    /** The role name */
+    /**
+     * The role name
+     */
     private String roleName;
 
     /**
@@ -58,7 +62,7 @@ public class RunAsMetaData extends IdMetaDataImplWithDescriptions {
      * @param roleName the roleName.
      * @throws IllegalArgumentException for a null roleName
      */
-     public void setRoleName(String roleName) {
+    public void setRoleName(String roleName) {
         if (roleName == null)
             throw new IllegalArgumentException("Null roleName");
         this.roleName = roleName;

@@ -14,15 +14,14 @@ import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.spec.EarMetaDataParser;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.property.PropertyReplacers;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.HashSet;
 import java.util.Set;
-import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.property.PropertyReplacers;
-import org.jboss.metadata.property.PropertyResolver;
 
 /**
  * @author John Bailey
@@ -95,52 +94,52 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
             final Element element = Element.forName(reader.getLocalName());
             Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
-            if(namespace == Namespace.SPEC) {
-               super.handleElement(reader, appMetaData, propertyReplacer);
+            if (namespace == Namespace.SPEC) {
+                super.handleElement(reader, appMetaData, propertyReplacer);
             } else {
-               switch (element) {
-                   case DISTINCT_NAME: {
-                       final String val = getElementText(reader, propertyReplacer);
-                       appMetaData.setDistinctName(val);
-                       break;
-                   }
-                   case MODULE_ORDER: {
-                       logger.warn("module-order element in jboss-app.xml is deprecated and has been ignored");
-                       //depricated
-                       break;
-                   }
-                   case SECURITY_DOMAIN: {
-                       appMetaData.setSecurityDomain(getElementText(reader, propertyReplacer));
-                       break;
-                   }
-                   case UNAUTHENTICATED_PRINCIPAL: {
-                       appMetaData.setUnauthenticatedPrincipal(getElementText(reader, propertyReplacer));
-                       break;
-                   }
-                   case JMX_NAME: {
-                       logger.warn("jmx-name element in jboss-app.xml is deprecated and has been ignored");
-                       break;
-                   }
-                   case LIBRARY_DIRECTORY: {
-                       appMetaData.setLibraryDirectory(getElementText(reader, propertyReplacer));
-                       break;
-                   }
-                   case LOADER_REPOSITORY: {
-                       parseLoaderRepository(reader, propertyReplacer);
-                       logger.warn("loader-repository element in jboss-app.xml is deprecated and has been ignored");
-                       break;
-                   }
-                   case MODULE: {
-                       appMetaData.getModules().add(parseModule(reader, propertyReplacer));
-                       break;
-                   }
-                   case SECURITY_ROLE: {
-                       appMetaData.getSecurityRoles().add(SecurityRoleMetaDataParser.parse(reader, propertyReplacer));
-                       break;
-                   }
-                   default:
-                      throw unexpectedElement(reader);
-               }
+                switch (element) {
+                    case DISTINCT_NAME: {
+                        final String val = getElementText(reader, propertyReplacer);
+                        appMetaData.setDistinctName(val);
+                        break;
+                    }
+                    case MODULE_ORDER: {
+                        logger.warn("module-order element in jboss-app.xml is deprecated and has been ignored");
+                        //depricated
+                        break;
+                    }
+                    case SECURITY_DOMAIN: {
+                        appMetaData.setSecurityDomain(getElementText(reader, propertyReplacer));
+                        break;
+                    }
+                    case UNAUTHENTICATED_PRINCIPAL: {
+                        appMetaData.setUnauthenticatedPrincipal(getElementText(reader, propertyReplacer));
+                        break;
+                    }
+                    case JMX_NAME: {
+                        logger.warn("jmx-name element in jboss-app.xml is deprecated and has been ignored");
+                        break;
+                    }
+                    case LIBRARY_DIRECTORY: {
+                        appMetaData.setLibraryDirectory(getElementText(reader, propertyReplacer));
+                        break;
+                    }
+                    case LOADER_REPOSITORY: {
+                        parseLoaderRepository(reader, propertyReplacer);
+                        logger.warn("loader-repository element in jboss-app.xml is deprecated and has been ignored");
+                        break;
+                    }
+                    case MODULE: {
+                        appMetaData.getModules().add(parseModule(reader, propertyReplacer));
+                        break;
+                    }
+                    case SECURITY_ROLE: {
+                        appMetaData.getSecurityRoles().add(SecurityRoleMetaDataParser.parse(reader, propertyReplacer));
+                        break;
+                    }
+                    default:
+                        throw unexpectedElement(reader);
+                }
             }
         }
 
@@ -174,26 +173,26 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                 final StringBuilder builder = new StringBuilder();
                 int event = reader.getEventType();
                 // while (event != END_ELEMENT) {
-                    if (event == XMLStreamConstants.CHARACTERS
-                            || event == XMLStreamConstants.CDATA
-                            || event == XMLStreamConstants.SPACE
-                            || event == XMLStreamConstants.ENTITY_REFERENCE) {
-                        builder.append(reader.getText());
-                    } else if (event == XMLStreamConstants.PROCESSING_INSTRUCTION || event == XMLStreamConstants.COMMENT) {
-                        // Skips (not kept).
-                    } else if (event == XMLStreamConstants.END_DOCUMENT) {
-                        throw new XMLStreamException(
-                                "Unexpected end of document when reading element text content",
-                                reader.getLocation());
-                    } else if (event == XMLStreamConstants.START_ELEMENT) {
-                        throw new XMLStreamException(
-                                "Element text content may not contain START_ELEMENT",
-                                reader.getLocation());
-                    } else {
-                        throw new XMLStreamException("Unexpected event type "
-                                + event, reader.getLocation());
-                    }
-                    repositoryMetaData.setName(builder.toString());
+                if (event == XMLStreamConstants.CHARACTERS
+                        || event == XMLStreamConstants.CDATA
+                        || event == XMLStreamConstants.SPACE
+                        || event == XMLStreamConstants.ENTITY_REFERENCE) {
+                    builder.append(reader.getText());
+                } else if (event == XMLStreamConstants.PROCESSING_INSTRUCTION || event == XMLStreamConstants.COMMENT) {
+                    // Skips (not kept).
+                } else if (event == XMLStreamConstants.END_DOCUMENT) {
+                    throw new XMLStreamException(
+                            "Unexpected end of document when reading element text content",
+                            reader.getLocation());
+                } else if (event == XMLStreamConstants.START_ELEMENT) {
+                    throw new XMLStreamException(
+                            "Element text content may not contain START_ELEMENT",
+                            reader.getLocation());
+                } else {
+                    throw new XMLStreamException("Unexpected event type "
+                            + event, reader.getLocation());
+                }
+                repositoryMetaData.setName(builder.toString());
                 // }
             } else if (reader.isStartElement()) {
                 final Set<LoaderRepositoryConfigMetaData> loaderConfigs = new HashSet<LoaderRepositoryConfigMetaData>();

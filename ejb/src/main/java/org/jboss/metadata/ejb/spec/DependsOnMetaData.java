@@ -31,75 +31,68 @@ import java.util.List;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class DependsOnMetaData implements Serializable
-{
+public class DependsOnMetaData implements Serializable {
 
-   /**
-    * 
-    */
-   private static final long serialVersionUID = 1L;
-   
-   /**
-    * Dependency ejb names
-    */
-   private List<String> ejbNames;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-   /**
-    * Default constructor
-    */
-   public DependsOnMetaData()
-   {
+    /**
+     * Dependency ejb names
+     */
+    private List<String> ejbNames;
 
-   }
+    /**
+     * Default constructor
+     */
+    public DependsOnMetaData() {
 
-   /**
-    * Creates a {@link DependsOnMetaData} with the passed ejbNames as the dependencies
-    * 
-    * @param ejbNames The dependency ejb-names. Each dependent bean is expressed using ejb-link syntax.
-    * @throws IllegalArgumentException If the passed ejbNames is null
-    */
-   public DependsOnMetaData(String[] ejbNames)
-   {
-      if (ejbNames == null)
-      {
-         throw new IllegalArgumentException("ejb-names cannot be null while creating " + this.getClass().getName());
-      }
-      // set the ejb-names
-      this.setEjbNames(Arrays.asList(ejbNames));
-   }
+    }
 
-   /**
-    * Creates a {@link DependsOnMetaData} with the passed ejbNames as the dependencies
-    * 
-    * @param ejbNames The dependency ejb-names. Each dependent bean is expressed using ejb-link syntax.
-    * @throws IllegalArgumentException If the passed ejbNames is null
-    */
-   public DependsOnMetaData(List<String> ejbNames)
-   {
-      if (ejbNames == null)
-      {
-         throw new IllegalArgumentException("ejb-names cannot be null while creating " + this.getClass().getName());
-      }
-      // set the ejb-names
-      this.setEjbNames(ejbNames);
-   }
+    /**
+     * Creates a {@link DependsOnMetaData} with the passed ejbNames as the dependencies
+     *
+     * @param ejbNames The dependency ejb-names. Each dependent bean is expressed using ejb-link syntax.
+     * @throws IllegalArgumentException If the passed ejbNames is null
+     */
+    public DependsOnMetaData(String[] ejbNames) {
+        if (ejbNames == null) {
+            throw new IllegalArgumentException("ejb-names cannot be null while creating " + this.getClass().getName());
+        }
+        // set the ejb-names
+        this.setEjbNames(Arrays.asList(ejbNames));
+    }
 
-   /**
-    * Sets the names of one or more dependency beans. Each dependent bean is expressed using ejb-link syntax.
-    * 
-    * @param ejbNames The dependency bean names
-    */
-   public void setEjbNames(List<String> ejbNames)
-   {
-      this.ejbNames = ejbNames;
-   }
+    /**
+     * Creates a {@link DependsOnMetaData} with the passed ejbNames as the dependencies
+     *
+     * @param ejbNames The dependency ejb-names. Each dependent bean is expressed using ejb-link syntax.
+     * @throws IllegalArgumentException If the passed ejbNames is null
+     */
+    public DependsOnMetaData(List<String> ejbNames) {
+        if (ejbNames == null) {
+            throw new IllegalArgumentException("ejb-names cannot be null while creating " + this.getClass().getName());
+        }
+        // set the ejb-names
+        this.setEjbNames(ejbNames);
+    }
 
-   /**
-    * Returns the dependency bean names
-    * @return
-    */
-   public List<String> getEjbNames()
-   {
-      return this.ejbNames;
-   }
+    /**
+     * Sets the names of one or more dependency beans. Each dependent bean is expressed using ejb-link syntax.
+     *
+     * @param ejbNames The dependency bean names
+     */
+    public void setEjbNames(List<String> ejbNames) {
+        this.ejbNames = ejbNames;
+    }
+
+    /**
+     * Returns the dependency bean names
+     *
+     * @return
+     */
+    public List<String> getEjbNames() {
+        return this.ejbNames;
+    }
 }

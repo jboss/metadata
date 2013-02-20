@@ -30,13 +30,19 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @version $Revision: 1.1 $
  */
 public class EnvironmentEntryMetaData extends ResourceInjectionMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -4919146521508624575L;
 
-    /** The type */
+    /**
+     * The type
+     */
     private String type;
 
-    /** The value */
+    /**
+     * The value
+     */
     private String value;
 
     /**

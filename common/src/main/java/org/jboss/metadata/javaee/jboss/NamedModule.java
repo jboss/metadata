@@ -26,7 +26,6 @@ package org.jboss.metadata.javaee.jboss;
  * Information about an EE module's name as discussed in EE 6 Section EE.8.1.1.
  *
  * @author Brian Stansberry
- *
  * @version $Revision$
  */
 public interface NamedModule {
@@ -40,7 +39,7 @@ public interface NamedModule {
 
     /**
      * Sets the name of the module as configured in its deployment descriptor.
-     *
+     * <p/>
      * param moduleName the name as configured in the deployment descriptor
      */
     void setModuleName(String moduleName);

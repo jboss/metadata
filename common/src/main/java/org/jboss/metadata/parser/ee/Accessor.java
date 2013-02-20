@@ -24,7 +24,6 @@ package org.jboss.metadata.parser.ee;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public interface Accessor<T>
-{
-   T get();
+public interface Accessor<T> {
+    T get();
 }

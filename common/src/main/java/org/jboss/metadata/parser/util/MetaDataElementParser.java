@@ -22,20 +22,15 @@
 
 package org.jboss.metadata.parser.util;
 
+import org.jboss.metadata.property.PropertyReplacer;
+
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.ByteArrayInputStream;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.NavigableMap;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.*;
 
 /**
  * @author Emanuel Muckenhuber
@@ -49,7 +44,9 @@ public class MetaDataElementParser implements XMLStreamConstants {
         private String baseURI;
         private String namespace;
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace) throws XMLStreamException {
             this.publicID = publicID;
             this.systemID = systemID;
@@ -75,7 +72,9 @@ public class MetaDataElementParser implements XMLStreamConstants {
             return namespace;
         }
 
-        /** {@inheritDoc} */
+        /**
+         * {@inheritDoc}
+         */
         public String toString() {
             final StringBuilder builder = new StringBuilder(getClass().getSimpleName());
             builder.append("{");
@@ -113,7 +112,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
      * Get an exception reporting an unexpected XML attribute.
      *
      * @param reader the stream reader
-     * @param index the element index
+     * @param index  the element index
      * @return the exception
      */
     public static XMLStreamException unexpectedAttribute(final XMLStreamReader reader, final int index) {
@@ -123,7 +122,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
     /**
      * Get an exception reporting a missing, required XML attribute.
      *
-     * @param reader the stream reader
+     * @param reader   the stream reader
      * @param required a set of enums whose toString method returns the attribute name
      * @return the exception
      */
@@ -143,7 +142,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
     /**
      * Get an exception reporting a missing, required XML child element.
      *
-     * @param reader the stream reader
+     * @param reader   the stream reader
      * @param required a set of enums whose toString method returns the attribute name
      * @return the exception
      */
@@ -178,18 +177,18 @@ public class MetaDataElementParser implements XMLStreamConstants {
      *
      * @param reader the reader
      * @throws XMLStreamException if an error occurs
-    */
+     */
     protected static String getElementText(final XMLStreamReader reader) throws XMLStreamException {
-    	return getElementText(reader, true);
+        return getElementText(reader, true);
     }
 
     /**
      * Read the element text, with trimming and replace in properties.
      *
-     * @param reader the reader
+     * @param reader           the reader
      * @param propertyReplacer propertyReplacer
      * @throws XMLStreamException if an error occurs
-    */
+     */
     protected static String getElementText(final XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         return propertyReplacer.replaceProperties(getElementText(reader));
     }
@@ -197,31 +196,29 @@ public class MetaDataElementParser implements XMLStreamConstants {
     /**
      * Read the element text, with trimming and replace in properties.
      *
-     * @param reader the reader
+     * @param reader           the reader
      * @param propertyReplacer propertyReplacer
-     * @param trim True if the text has to be trimmed before returning. False otherwise
+     * @param trim             True if the text has to be trimmed before returning. False otherwise
      * @throws XMLStreamException if an error occurs
-    */
-    protected static String getElementText(final XMLStreamReader reader, boolean trim,  final PropertyReplacer propertyReplacer) throws XMLStreamException {
+     */
+    protected static String getElementText(final XMLStreamReader reader, boolean trim, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         return propertyReplacer.replaceProperties(getElementText(reader, trim));
     }
 
-   /**
-    * Read and return the element text.
-    * If the passed <code>trim</code> value is true, then the text is {@link String#trim() trimmed} before returning.
-    *  
-    * @param reader
-    * @param trim True if the text has to be trimmed before returning. False otherwise
-    * @return
-    * @throws XMLStreamException
-    */
-    protected static String getElementText(final XMLStreamReader reader, boolean trim) throws XMLStreamException
-    {
-       if (trim)
-       {
-          return reader.getElementText().trim();
-       }
-       return reader.getElementText();
+    /**
+     * Read and return the element text.
+     * If the passed <code>trim</code> value is true, then the text is {@link String#trim() trimmed} before returning.
+     *
+     * @param reader
+     * @param trim   True if the text has to be trimmed before returning. False otherwise
+     * @return
+     * @throws XMLStreamException
+     */
+    protected static String getElementText(final XMLStreamReader reader, boolean trim) throws XMLStreamException {
+        if (trim) {
+            return reader.getElementText().trim();
+        }
+        return reader.getElementText();
     }
 
     /**
@@ -241,7 +238,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
      * Get an exception reporting that an element of a given type and name has already been declared in this scope.
      *
      * @param reader the stream reader
-     * @param name the name that was redeclared
+     * @param name   the name that was redeclared
      * @return the exception
      */
     protected static XMLStreamException duplicateNamedElement(final XMLStreamReader reader, final String name) {
@@ -251,12 +248,12 @@ public class MetaDataElementParser implements XMLStreamConstants {
     /**
      * Read an element which contains only a single boolean attribute.
      *
-     * @param reader the reader
+     * @param reader        the reader
      * @param attributeName the attribute name, usually "value"
      * @return the boolean value
      * @throws XMLStreamException if an error occurs or if the element does not
-     *            contain the specified attribute, contains other attributes,
-     *            or contains child elements.
+     *                            contain the specified attribute, contains other attributes,
+     *                            or contains child elements.
      */
     protected static boolean readBooleanAttributeElement(final XMLStreamReader reader, final String attributeName) throws XMLStreamException {
         requireSingleAttribute(reader, attributeName);
@@ -268,12 +265,12 @@ public class MetaDataElementParser implements XMLStreamConstants {
     /**
      * Read an element which contains only a single string attribute.
      *
-     * @param reader the reader
+     * @param reader        the reader
      * @param attributeName the attribute name, usually "value" or "name"
      * @return the string value
      * @throws XMLStreamException if an error occurs or if the element does not
-     *            contain the specified attribute, contains other attributes,
-     *            or contains child elements.
+     *                            contain the specified attribute, contains other attributes,
+     *                            or contains child elements.
      */
     protected static String readStringAttributeElement(final XMLStreamReader reader, final String attributeName) throws XMLStreamException {
         requireSingleAttribute(reader, attributeName);
@@ -285,7 +282,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
     /**
      * Require that the current element have only a single attribute with the given name.
      *
-     * @param reader the reader
+     * @param reader        the reader
      * @param attributeName the attribute name
      * @throws XMLStreamException if an error occurs
      */
@@ -294,7 +291,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
         if (count == 0) {
             throw missingRequired(reader, Collections.singleton(attributeName));
         }
-        if (attributeHasNamespace(reader, 0) || ! attributeName.equals(reader.getAttributeLocalName(0))) {
+        if (attributeHasNamespace(reader, 0) || !attributeName.equals(reader.getAttributeLocalName(0))) {
             throw unexpectedAttribute(reader, 0);
         }
         if (count > 1) {
@@ -361,12 +358,12 @@ public class MetaDataElementParser implements XMLStreamConstants {
             String local = qname.substring(end + 1);
             return new QName(reader.getNamespaceURI(ns), local);
         } else {
-        	return QName.valueOf(qname);
+            return QName.valueOf(qname);
         }
     }
 
     protected static boolean attributeHasNamespace(final XMLStreamReader reader, final int i) {
-    	return !(reader.getAttributeNamespace(i) == null || "".equals(reader.getAttributeNamespace(i)));
+        return !(reader.getAttributeNamespace(i) == null || "".equals(reader.getAttributeNamespace(i)));
     }
 
     /**
@@ -374,8 +371,8 @@ public class MetaDataElementParser implements XMLStreamConstants {
      * Thread safety note: <code>toCopy</code>'s monitor is held while the TreeMap
      * is being constructed.
      *
-     * @param <K> the type of <code>toCopy</code>'s keys
-     * @param <V> the type of <code>toCopy</code>'s values
+     * @param <K>    the type of <code>toCopy</code>'s keys
+     * @param <V>    the type of <code>toCopy</code>'s values
      * @param toCopy the map to copy. Cannot be <code>null</code>
      * @return the copy
      */

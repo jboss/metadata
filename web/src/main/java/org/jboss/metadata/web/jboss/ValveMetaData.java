@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.web.jboss;
 
-import java.util.List;
-
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
+
+import java.util.List;
 
 /**
  * @author Scott.Stark@jboss.org
@@ -37,31 +37,31 @@ public class ValveMetaData extends IdMetaDataImplWithDescriptionGroup {
     private String module;
     private List<ParamValueMetaData> params;
 
-	public String getValveClass() {
-		return valveClass;
-	}
+    public String getValveClass() {
+        return valveClass;
+    }
 
-	public void setValveClass(String valveClass) {
-		this.valveClass = valveClass;
-	}
+    public void setValveClass(String valveClass) {
+        this.valveClass = valveClass;
+    }
 
-	public String getModule() {
-		return module;
-	}
+    public String getModule() {
+        return module;
+    }
 
-	public void setModule(String module) {
-		this.module = module;
-	}
+    public void setModule(String module) {
+        this.module = module;
+    }
 
-	public List<ParamValueMetaData> getParams() {
-		return params;
-	}
+    public List<ParamValueMetaData> getParams() {
+        return params;
+    }
 
-	public void setParams(List<ParamValueMetaData> params) {
-		this.params = params;
-	}
+    public void setParams(List<ParamValueMetaData> params) {
+        this.params = params;
+    }
 
-	public String toString() {
+    public String toString() {
         StringBuilder tmp = new StringBuilder("ValveMetaData(id=");
         tmp.append(getId());
         tmp.append(",valveClass=");

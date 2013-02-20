@@ -37,7 +37,7 @@ public abstract class NamedMetaDataMerger extends IdMetaDataImplMerger {
      * @param override data which overrides original
      * @param original the original data
      * @throws IllegalArgumentException for a null merged or original
-     * @throws IllegalStateException if neither have a name
+     * @throws IllegalStateException    if neither have a name
      */
     public static void merge(NamedMetaData dest, NamedMetaData override, NamedMetaData original) {
         IdMetaDataImplMerger.merge(dest, override, original);

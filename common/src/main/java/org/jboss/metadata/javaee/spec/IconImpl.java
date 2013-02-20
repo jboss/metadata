@@ -31,13 +31,19 @@ import org.jboss.metadata.javaee.support.LanguageMetaData;
  * @version $Revision: 1.1 $
  */
 public class IconImpl extends LanguageMetaData implements Icon {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -8544489136833248714L;
 
-    /** The small icon */
+    /**
+     * The small icon
+     */
     private String smallIcon = "";
 
-    /** The large icon */
+    /**
+     * The large icon
+     */
     private String largeIcon = "";
 
     /**

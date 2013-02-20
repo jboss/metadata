@@ -30,6 +30,8 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @version $Revision: 1.1 $
  */
 public class EmptyMetaData extends IdMetaDataImpl {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 3489739218069240805L;
 }

@@ -141,8 +141,7 @@ public enum Element {
     WEB_RESOURCE_COLLECTION("web-resource-collection"),
     WEB_RESOURCE_NAME("web-resource-name"),
     WELCOME_FILE("welcome-file"),
-    WELCOME_FILE_LIST("welcome-file-list"),
-    ;
+    WELCOME_FILE_LIST("welcome-file-list"),;
 
     private final String name;
 

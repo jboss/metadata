@@ -32,7 +32,9 @@ import org.jboss.metadata.javaee.support.MappedAnnotationMetaData;
  * @version $Revision: 1.1 $
  */
 public class IconsImpl extends MappedAnnotationMetaData<IconImpl> implements Icons {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -8468719625804849630L;
 
     /**

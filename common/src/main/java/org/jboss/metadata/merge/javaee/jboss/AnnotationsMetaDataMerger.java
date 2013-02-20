@@ -31,7 +31,7 @@ import org.jboss.metadata.merge.javaee.support.NamedMetaDataMerger;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class AnnotationsMetaDataMerger  {
+public class AnnotationsMetaDataMerger {
 
     public static void merge(AnnotationsMetaData dest, AnnotationsMetaData override, AnnotationsMetaData original) {
         NamedMetaDataMerger.merge(dest, override, original);

@@ -31,7 +31,9 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @version <tt>$Revision: 83549 $</tt>
  */
 public class PassivationConfig extends IdMetaDataImpl {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1;
 
     private Boolean useSessionPassivation;

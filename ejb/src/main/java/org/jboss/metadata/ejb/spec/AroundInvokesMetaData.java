@@ -21,31 +21,30 @@
 */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.ArrayList;
-
 import org.jboss.metadata.merge.MergeUtil;
+
+import java.util.ArrayList;
 
 /**
  * AroundInvokesMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class AroundInvokesMetaData extends ArrayList<AroundInvokeMetaData>
-{
-   /** The serialVersionUID */
-   private static final long serialVersionUID = 3091116374471499482L;
+public class AroundInvokesMetaData extends ArrayList<AroundInvokeMetaData> {
+    /**
+     * The serialVersionUID
+     */
+    private static final long serialVersionUID = 3091116374471499482L;
 
-   /**
-    * Create a new AroundInvokesMetaData.
-    */
-   public AroundInvokesMetaData()
-   {
-      // For serialization
-   }
-   
-   public void merge(AroundInvokesMetaData override, AroundInvokesMetaData original)
-   {
-      MergeUtil.merge(this, override, original);
-   }
+    /**
+     * Create a new AroundInvokesMetaData.
+     */
+    public AroundInvokesMetaData() {
+        // For serialization
+    }
+
+    public void merge(AroundInvokesMetaData override, AroundInvokesMetaData original) {
+        MergeUtil.merge(this, override, original);
+    }
 }

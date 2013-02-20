@@ -21,13 +21,13 @@
  */
 package org.jboss.metadata.javaee.support;
 
+import org.jboss.metadata.annotation.AbstractAnnotationImpl;
+
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-
-import org.jboss.metadata.annotation.AbstractAnnotationImpl;
 
 /**
  * MappedAnnotationMetaData.
@@ -38,10 +38,14 @@ import org.jboss.metadata.annotation.AbstractAnnotationImpl;
  */
 public abstract class MappedAnnotationMetaData<T extends MappableMetaData> extends AbstractAnnotationImpl implements
         Collection<T>, Serializable {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -3359670727781266839L;
 
-    /** The metaDatas */
+    /**
+     * The metaDatas
+     */
     private Map<String, T> map = new NonNullLinkedHashMap<String, T>();
 
     /**

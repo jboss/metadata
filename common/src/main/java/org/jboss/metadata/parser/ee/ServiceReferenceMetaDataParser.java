@@ -22,21 +22,16 @@
 
 package org.jboss.metadata.parser.ee;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
+import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.*;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
-import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainsMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferenceHandlersMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Remy Maucherat
@@ -48,7 +43,7 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -59,7 +54,8 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                     serviceReference.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -84,7 +80,7 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                     serviceReference.setServiceInterface(getElementText(reader, propertyReplacer));
                     break;
                 case SERVICE_IMPL_CLASS:
-                   serviceReference.setServiceClass(getElementText(reader, propertyReplacer));
+                    serviceReference.setServiceClass(getElementText(reader, propertyReplacer));
                     break;
                 case SERVICE_REF_TYPE:
                     serviceReference.setServiceRefType(getElementText(reader, propertyReplacer));
@@ -133,15 +129,16 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
                     handlerChains.getHandlers().addAll(ServiceReferenceHandlerChainsMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case CONFIG_NAME:
-                   serviceReference.setConfigName(getElementText(reader, propertyReplacer));
-                   break;
+                    serviceReference.setConfigName(getElementText(reader, propertyReplacer));
+                    break;
                 case CONFIG_FILE:
-                   serviceReference.setConfigFile(getElementText(reader, propertyReplacer));
-                   break;
+                    serviceReference.setConfigFile(getElementText(reader, propertyReplacer));
+                    break;
                 case WSDL_OVERRIDE:
                     serviceReference.setWsdlOverride(getElementText(reader, propertyReplacer));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

@@ -28,9 +28,13 @@ package org.jboss.metadata.javaee.spec;
  * @version $Revision: 1.1 $
  */
 public enum EJBReferenceType {
-    /** Session */
+    /**
+     * Session
+     */
     Session,
 
-    /** Entity */
+    /**
+     * Entity
+     */
     Entity,
 }

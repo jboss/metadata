@@ -30,8 +30,7 @@ import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractEJBBoundMetaData;
  *
  * @author <a href="mailto:sguilhen@redhat.com">Stefan Guilhen</a>
  */
-public class IIOPMetaData extends AbstractEJBBoundMetaData
-{
+public class IIOPMetaData extends AbstractEJBBoundMetaData {
     public static final String WILDCARD_BEAN_NAME = "*";
 
     private String bindingName;
@@ -45,8 +44,7 @@ public class IIOPMetaData extends AbstractEJBBoundMetaData
      *
      * @return a {@code String} representing the name of the bean in the COSNaming service.
      */
-    public String getBindingName()
-    {
+    public String getBindingName() {
         return this.bindingName;
     }
 
@@ -57,8 +55,7 @@ public class IIOPMetaData extends AbstractEJBBoundMetaData
      *
      * @param bindingName a {@code String} representing the name of the bean in the COSNaming service.
      */
-    public void setBindingName(String bindingName)
-    {
+    public void setBindingName(String bindingName) {
         this.bindingName = bindingName;
     }
 
@@ -68,10 +65,9 @@ public class IIOPMetaData extends AbstractEJBBoundMetaData
      * </p>
      *
      * @return a reference to the {@code IORSecurityConfigMetaData} that contains the IOR security settings, or
-     * {@code null} if no such settings exist for the bean(s).
+     *         {@code null} if no such settings exist for the bean(s).
      */
-    public IORSecurityConfigMetaData getIorSecurityConfigMetaData()
-    {
+    public IORSecurityConfigMetaData getIorSecurityConfigMetaData() {
         return this.iorSecurityConfigMetaData;
     }
 
@@ -81,10 +77,9 @@ public class IIOPMetaData extends AbstractEJBBoundMetaData
      * </p>
      *
      * @param metaData a {@code IORSecurityConfigMetaData} instance containing the IOR security settings, or {@code null}
-     * if no IOR settings are to be applied to the bean(s).
+     *                 if no IOR settings are to be applied to the bean(s).
      */
-    public void setIorSecurityConfigMetaData(IORSecurityConfigMetaData metaData)
-    {
+    public void setIorSecurityConfigMetaData(IORSecurityConfigMetaData metaData) {
         this.iorSecurityConfigMetaData = metaData;
     }
 }

@@ -26,10 +26,9 @@ import org.jboss.metadata.javaee.spec.AnnotatedEJBReferenceMetaData;
 /**
  * Metadata for an @EJB reference
  *
- * @EJB.name = ejbRefName
- *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 72960 $
+ * @EJB.name = ejbRefName
  */
 public class AnnotatedEJBReferenceMetaDataMerger extends AbstractEJBReferenceMetaDataMerger {
 

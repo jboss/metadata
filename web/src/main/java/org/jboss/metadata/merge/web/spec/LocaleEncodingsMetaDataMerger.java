@@ -21,12 +21,12 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 import org.jboss.metadata.web.spec.LocaleEncodingMetaData;
 import org.jboss.metadata.web.spec.LocaleEncodingsMetaData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Scott.Stark@jboss.org
@@ -34,7 +34,7 @@ import org.jboss.metadata.web.spec.LocaleEncodingsMetaData;
  */
 public class LocaleEncodingsMetaDataMerger extends IdMetaDataImplMerger {
     public static void augment(LocaleEncodingsMetaData dest, LocaleEncodingsMetaData webFragmentMetaData, LocaleEncodingsMetaData webMetaData,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
         if (dest.getMappings() == null) {
             dest.setMappings(webFragmentMetaData.getMappings());
         } else if (webFragmentMetaData.getMappings() != null) {

@@ -30,12 +30,18 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @version $Revision: 1.1 $
  */
 public class MessageDestinationMetaData extends NamedMetaDataWithDescriptionGroup {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 2129990191983873784L;
 
-    /** The mapped name */
+    /**
+     * The mapped name
+     */
     private String mappedName;
-    /** The lookup name */
+    /**
+     * The lookup name
+     */
     private String lookupName;
 
     /**

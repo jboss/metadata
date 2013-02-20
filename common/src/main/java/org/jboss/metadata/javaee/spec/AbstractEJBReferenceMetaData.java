@@ -30,13 +30,19 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @version $Revision: 1.1 $
  */
 public abstract class AbstractEJBReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 6067128692691909155L;
 
-    /** The type */
+    /**
+     * The type
+     */
     private EJBReferenceType type;
 
-    /** The link */
+    /**
+     * The link
+     */
     private String link;
 
     /**
@@ -80,7 +86,7 @@ public abstract class AbstractEJBReferenceMetaData extends ResourceInjectionMeta
      * @param type the type.
      * @throws IllegalArgumentException for a null type
      */
-     public void setEjbRefType(EJBReferenceType type) {
+    public void setEjbRefType(EJBReferenceType type) {
         if (type == null)
             throw new IllegalArgumentException("Null type");
         this.type = type;
@@ -91,7 +97,7 @@ public abstract class AbstractEJBReferenceMetaData extends ResourceInjectionMeta
      *
      * @return the type.
      */
-     public String getType() {
+    public String getType() {
         if (type == null)
             throw new IllegalStateException("Type has not been set: " + this);
         return type.name();

@@ -33,392 +33,349 @@ import org.jboss.metadata.merge.javaee.support.NamedMetaDataMerger;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class InterceptorMetaData extends NamedMetaDataWithDescriptions implements Environment
-{
-   /** The serialVersionUID */
-   private static final long serialVersionUID = 334047485589422650L;
+public class InterceptorMetaData extends NamedMetaDataWithDescriptions implements Environment {
+    /**
+     * The serialVersionUID
+     */
+    private static final long serialVersionUID = 334047485589422650L;
 
-   /** The around invokes */
-   private AroundInvokesMetaData aroundInvokes;
+    /**
+     * The around invokes
+     */
+    private AroundInvokesMetaData aroundInvokes;
 
-   private AroundTimeoutsMetaData aroundTimeouts;
+    private AroundTimeoutsMetaData aroundTimeouts;
 
-   /** The environment */
-   private EnvironmentRefsGroupMetaData environment;
+    /**
+     * The environment
+     */
+    private EnvironmentRefsGroupMetaData environment;
 
-   /** The post activate method */
-   private LifecycleCallbacksMetaData postActivates;
+    /**
+     * The post activate method
+     */
+    private LifecycleCallbacksMetaData postActivates;
 
-   /** The pre passivate method */
-   private LifecycleCallbacksMetaData prePassivates;
+    /**
+     * The pre passivate method
+     */
+    private LifecycleCallbacksMetaData prePassivates;
 
-   /**
-    * Create a new InterceptorMetaData.
-    */
-   public InterceptorMetaData()
-   {
-      // For serialization
-   }
+    /**
+     * Create a new InterceptorMetaData.
+     */
+    public InterceptorMetaData() {
+        // For serialization
+    }
 
-   /**
-    * Get the environment.
-    *
-    * @return the environment.
-    */
-   public EnvironmentRefsGroupMetaData getJndiEnvironmentRefsGroup()
-   {
-      return environment;
-   }
+    /**
+     * Get the environment.
+     *
+     * @return the environment.
+     */
+    public EnvironmentRefsGroupMetaData getJndiEnvironmentRefsGroup() {
+        return environment;
+    }
 
-   /**
-    * Set the environment.
-    *
-    * @param environment the environment.
-    * @throws IllegalArgumentException for a null environment
-    */
-   public void setJndiEnvironmentRefsGroup(EnvironmentRefsGroupMetaData environment)
-   {
-      if (environment == null)
-         throw new IllegalArgumentException("Null environment");
-      this.environment = environment;
-   }
+    /**
+     * Set the environment.
+     *
+     * @param environment the environment.
+     * @throws IllegalArgumentException for a null environment
+     */
+    public void setJndiEnvironmentRefsGroup(EnvironmentRefsGroupMetaData environment) {
+        if (environment == null)
+            throw new IllegalArgumentException("Null environment");
+        this.environment = environment;
+    }
 
-   /**
-    * Get the interceptorClass.
-    *
-    * @return the interceptorClass.
-    */
-   public String getInterceptorClass()
-   {
-      return getName();
-   }
+    /**
+     * Get the interceptorClass.
+     *
+     * @return the interceptorClass.
+     */
+    public String getInterceptorClass() {
+        return getName();
+    }
 
-   /**
-    * Set the interceptorClass.
-    *
-    * @param interceptorClass the interceptorClass.
-    * @throws IllegalArgumentException for a null interceptorClass
-    */
-   public void setInterceptorClass(String interceptorClass)
-   {
-      setName(interceptorClass);
-   }
+    /**
+     * Set the interceptorClass.
+     *
+     * @param interceptorClass the interceptorClass.
+     * @throws IllegalArgumentException for a null interceptorClass
+     */
+    public void setInterceptorClass(String interceptorClass) {
+        setName(interceptorClass);
+    }
 
-   /**
-    * Get the aroundInvokes.
-    *
-    * @return the aroundInvokes.
-    */
-   public AroundInvokesMetaData getAroundInvokes()
-   {
-      return aroundInvokes;
-   }
+    /**
+     * Get the aroundInvokes.
+     *
+     * @return the aroundInvokes.
+     */
+    public AroundInvokesMetaData getAroundInvokes() {
+        return aroundInvokes;
+    }
 
-   /**
-    * Set the aroundInvokes.
-    *
-    * @param aroundInvokes the aroundInvokes.
-    * @throws IllegalArgumentException for a null aroundInvokes
-    */
-   public void setAroundInvokes(AroundInvokesMetaData aroundInvokes)
-   {
-      if (aroundInvokes == null)
-         throw new IllegalArgumentException("Null aroundInvokes");
-      this.aroundInvokes = aroundInvokes;
-   }
+    /**
+     * Set the aroundInvokes.
+     *
+     * @param aroundInvokes the aroundInvokes.
+     * @throws IllegalArgumentException for a null aroundInvokes
+     */
+    public void setAroundInvokes(AroundInvokesMetaData aroundInvokes) {
+        if (aroundInvokes == null)
+            throw new IllegalArgumentException("Null aroundInvokes");
+        this.aroundInvokes = aroundInvokes;
+    }
 
-   /**
-    * Get the postActivates.
-    *
-    * @return the postActivates.
-    */
-   public LifecycleCallbacksMetaData getPostActivates()
-   {
-      return postActivates;
-   }
+    /**
+     * Get the postActivates.
+     *
+     * @return the postActivates.
+     */
+    public LifecycleCallbacksMetaData getPostActivates() {
+        return postActivates;
+    }
 
-   /**
-    * Set the postActivates.
-    *
-    * @param postActivates the postActivates.
-    * @throws IllegalArgumentException for a null postActivates
-    */
-   public void setPostActivates(LifecycleCallbacksMetaData postActivates)
-   {
-      if (postActivates == null)
-         throw new IllegalArgumentException("Null postActivates");
-      this.postActivates = postActivates;
-   }
+    /**
+     * Set the postActivates.
+     *
+     * @param postActivates the postActivates.
+     * @throws IllegalArgumentException for a null postActivates
+     */
+    public void setPostActivates(LifecycleCallbacksMetaData postActivates) {
+        if (postActivates == null)
+            throw new IllegalArgumentException("Null postActivates");
+        this.postActivates = postActivates;
+    }
 
-   /**
-    * Get the prePassivates.
-    *
-    * @return the prePassivates.
-    */
-   public LifecycleCallbacksMetaData getPrePassivates()
-   {
-      return prePassivates;
-   }
+    /**
+     * Get the prePassivates.
+     *
+     * @return the prePassivates.
+     */
+    public LifecycleCallbacksMetaData getPrePassivates() {
+        return prePassivates;
+    }
 
-   /**
-    * Set the prePassivates.
-    *
-    * @param prePassivates the prePassivates.
-    * @throws IllegalArgumentException for a null prePassivates
-    */
-   public void setPrePassivates(LifecycleCallbacksMetaData prePassivates)
-   {
-      if (prePassivates == null)
-         throw new IllegalArgumentException("Null prePassivates");
-      this.prePassivates = prePassivates;
-   }
+    /**
+     * Set the prePassivates.
+     *
+     * @param prePassivates the prePassivates.
+     * @throws IllegalArgumentException for a null prePassivates
+     */
+    public void setPrePassivates(LifecycleCallbacksMetaData prePassivates) {
+        if (prePassivates == null)
+            throw new IllegalArgumentException("Null prePassivates");
+        this.prePassivates = prePassivates;
+    }
 
-   public EJBLocalReferenceMetaData getEjbLocalReferenceByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getEjbLocalReferences());
-   }
+    public EJBLocalReferenceMetaData getEjbLocalReferenceByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getEjbLocalReferences());
+    }
 
-   public EJBLocalReferencesMetaData getEjbLocalReferences()
-   {
-      if (environment != null)
-         return environment.getEjbLocalReferences();
-      return null;
-   }
+    public EJBLocalReferencesMetaData getEjbLocalReferences() {
+        if (environment != null)
+            return environment.getEjbLocalReferences();
+        return null;
+    }
 
-   public EJBReferenceMetaData getEjbReferenceByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getEjbReferences());
-   }
+    public EJBReferenceMetaData getEjbReferenceByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getEjbReferences());
+    }
 
-   public EJBReferencesMetaData getEjbReferences()
-   {
-      if (environment != null)
-         return environment.getEjbReferences();
-      return null;
-   }
-   // TODO?
-   public AnnotatedEJBReferencesMetaData getAnnotatedEjbReferences()
-   {
-      AnnotatedEJBReferencesMetaData refs = null;
-      if(environment != null)
-         refs = environment.getAnnotatedEjbReferences();
-      return refs;
-   }
+    public EJBReferencesMetaData getEjbReferences() {
+        if (environment != null)
+            return environment.getEjbReferences();
+        return null;
+    }
 
-   public EnvironmentEntriesMetaData getEnvironmentEntries()
-   {
-      if (environment != null)
-         return environment.getEnvironmentEntries();
-      return null;
-   }
+    // TODO?
+    public AnnotatedEJBReferencesMetaData getAnnotatedEjbReferences() {
+        AnnotatedEJBReferencesMetaData refs = null;
+        if (environment != null)
+            refs = environment.getAnnotatedEjbReferences();
+        return refs;
+    }
 
-   public EnvironmentEntryMetaData getEnvironmentEntryByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getEnvironmentEntries());
-   }
+    public EnvironmentEntriesMetaData getEnvironmentEntries() {
+        if (environment != null)
+            return environment.getEnvironmentEntries();
+        return null;
+    }
 
-   public MessageDestinationReferenceMetaData getMessageDestinationReferenceByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getMessageDestinationReferences());
-   }
+    public EnvironmentEntryMetaData getEnvironmentEntryByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getEnvironmentEntries());
+    }
 
-   public MessageDestinationReferencesMetaData getMessageDestinationReferences()
-   {
-      if (environment != null)
-         return environment.getMessageDestinationReferences();
-      return null;
-   }
+    public MessageDestinationReferenceMetaData getMessageDestinationReferenceByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getMessageDestinationReferences());
+    }
 
-   public PersistenceContextReferenceMetaData getPersistenceContextReferenceByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getPersistenceContextRefs());
-   }
+    public MessageDestinationReferencesMetaData getMessageDestinationReferences() {
+        if (environment != null)
+            return environment.getMessageDestinationReferences();
+        return null;
+    }
 
-   public PersistenceContextReferencesMetaData getPersistenceContextRefs()
-   {
-      if (environment != null)
-         return environment.getPersistenceContextRefs();
-      return null;
-   }
+    public PersistenceContextReferenceMetaData getPersistenceContextReferenceByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getPersistenceContextRefs());
+    }
 
-   public PersistenceUnitReferenceMetaData getPersistenceUnitReferenceByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getPersistenceUnitRefs());
-   }
+    public PersistenceContextReferencesMetaData getPersistenceContextRefs() {
+        if (environment != null)
+            return environment.getPersistenceContextRefs();
+        return null;
+    }
 
-   public PersistenceUnitReferencesMetaData getPersistenceUnitRefs()
-   {
-      if (environment != null)
-         return environment.getPersistenceUnitRefs();
-      return null;
-   }
+    public PersistenceUnitReferenceMetaData getPersistenceUnitReferenceByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getPersistenceUnitRefs());
+    }
 
-   public LifecycleCallbacksMetaData getPostConstructs()
-   {
-      if (environment != null)
-         return environment.getPostConstructs();
-      return null;
-   }
+    public PersistenceUnitReferencesMetaData getPersistenceUnitRefs() {
+        if (environment != null)
+            return environment.getPersistenceUnitRefs();
+        return null;
+    }
 
-   public LifecycleCallbacksMetaData getPreDestroys()
-   {
-      if (environment != null)
-         return environment.getPreDestroys();
-      return null;
-   }
+    public LifecycleCallbacksMetaData getPostConstructs() {
+        if (environment != null)
+            return environment.getPostConstructs();
+        return null;
+    }
 
-   public ResourceEnvironmentReferenceMetaData getResourceEnvironmentReferenceByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getResourceEnvironmentReferences());
-   }
+    public LifecycleCallbacksMetaData getPreDestroys() {
+        if (environment != null)
+            return environment.getPreDestroys();
+        return null;
+    }
 
-   public ResourceEnvironmentReferencesMetaData getResourceEnvironmentReferences()
-   {
-      if (environment != null)
-         return environment.getResourceEnvironmentReferences();
-      return null;
-   }
+    public ResourceEnvironmentReferenceMetaData getResourceEnvironmentReferenceByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getResourceEnvironmentReferences());
+    }
 
-   public ResourceReferenceMetaData getResourceReferenceByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getResourceReferences());
-   }
+    public ResourceEnvironmentReferencesMetaData getResourceEnvironmentReferences() {
+        if (environment != null)
+            return environment.getResourceEnvironmentReferences();
+        return null;
+    }
 
-   public ResourceReferencesMetaData getResourceReferences()
-   {
-      if (environment != null)
-         return environment.getResourceReferences();
-      return null;
-   }
+    public ResourceReferenceMetaData getResourceReferenceByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getResourceReferences());
+    }
 
-   public ServiceReferenceMetaData getServiceReferenceByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getServiceReferences());
-   }
+    public ResourceReferencesMetaData getResourceReferences() {
+        if (environment != null)
+            return environment.getResourceReferences();
+        return null;
+    }
 
-   public ServiceReferencesMetaData getServiceReferences()
-   {
-      if (environment != null)
-         return environment.getServiceReferences();
-      return null;
-   }
+    public ServiceReferenceMetaData getServiceReferenceByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getServiceReferences());
+    }
 
-   public AroundTimeoutsMetaData getAroundTimeouts()
-   {
-      return aroundTimeouts;
-   }
+    public ServiceReferencesMetaData getServiceReferences() {
+        if (environment != null)
+            return environment.getServiceReferences();
+        return null;
+    }
 
-   public void setAroundTimeouts(AroundTimeoutsMetaData aroundTimeouts)
-   {
-      this.aroundTimeouts = aroundTimeouts;
-   }
+    public AroundTimeoutsMetaData getAroundTimeouts() {
+        return aroundTimeouts;
+    }
 
-   /**
-    * @see org.jboss.metadata.javaee.spec.Environment#getDataSourceByName(java.lang.String)
-    */
-   @Override
-   public DataSourceMetaData getDataSourceByName(String name)
-   {
-      return AbstractMappedMetaData.getByName(name, getDataSources());
-   }
+    public void setAroundTimeouts(AroundTimeoutsMetaData aroundTimeouts) {
+        this.aroundTimeouts = aroundTimeouts;
+    }
 
-   /**
-    * @see org.jboss.metadata.javaee.spec.Environment#getDataSources()
-    */
-   @Override
-   public DataSourcesMetaData getDataSources()
-   {
-      if (environment != null)
-         return environment.getDataSources();
-      return null;
-   }
+    /**
+     * @see org.jboss.metadata.javaee.spec.Environment#getDataSourceByName(java.lang.String)
+     */
+    @Override
+    public DataSourceMetaData getDataSourceByName(String name) {
+        return AbstractMappedMetaData.getByName(name, getDataSources());
+    }
 
-   /**
-    * Merge two instances of {@link InterceptorMetaData}
-    *
-    * @param override The override interceptor metadata (usually the metadata created out of xml deployment descriptor)
-    * @param original The original interceptor metadata (usually the metadata created out of annotation scanning)
-    */
-   public void merge(InterceptorMetaData override, InterceptorMetaData original)
-   {
-      NamedMetaDataMerger.merge(this, override, original);
+    /**
+     * @see org.jboss.metadata.javaee.spec.Environment#getDataSources()
+     */
+    @Override
+    public DataSourcesMetaData getDataSources() {
+        if (environment != null)
+            return environment.getDataSources();
+        return null;
+    }
 
-      // merge interceptor class name
-      if (original != null && original.getInterceptorClass() != null)
-      {
-         this.setInterceptorClass(original.getInterceptorClass());
-      }
-      if (override != null && override.getInterceptorClass() != null)
-      {
-         this.setInterceptorClass(override.getInterceptorClass());
-      }
+    /**
+     * Merge two instances of {@link InterceptorMetaData}
+     *
+     * @param override The override interceptor metadata (usually the metadata created out of xml deployment descriptor)
+     * @param original The original interceptor metadata (usually the metadata created out of annotation scanning)
+     */
+    public void merge(InterceptorMetaData override, InterceptorMetaData original) {
+        NamedMetaDataMerger.merge(this, override, original);
 
-      // merge environment
-      if(this.environment == null)
-         this.environment = new EnvironmentRefsGroupMetaData();
-      Environment overriddenEnv = override != null ? override.getJndiEnvironmentRefsGroup() : null;
-      Environment originalEnv = original != null ? original.getJndiEnvironmentRefsGroup() : null;
-      EnvironmentRefsGroupMetaDataMerger.merge(environment, overriddenEnv, originalEnv, "", "", false);
+        // merge interceptor class name
+        if (original != null && original.getInterceptorClass() != null) {
+            this.setInterceptorClass(original.getInterceptorClass());
+        }
+        if (override != null && override.getInterceptorClass() != null) {
+            this.setInterceptorClass(override.getInterceptorClass());
+        }
 
-      // merge around-invokes
-      if(aroundInvokes == null)
-         aroundInvokes = new AroundInvokesMetaData();
-      if (original != null && override != null)
-      {
-         this.aroundInvokes.merge(override.getAroundInvokes(), original.getAroundInvokes());
-      }
-      else if (original != null)
-      {
-         if (original.getAroundInvokes() != null)
-         {
-            this.aroundInvokes.addAll(original.getAroundInvokes());
-         }
+        // merge environment
+        if (this.environment == null)
+            this.environment = new EnvironmentRefsGroupMetaData();
+        Environment overriddenEnv = override != null ? override.getJndiEnvironmentRefsGroup() : null;
+        Environment originalEnv = original != null ? original.getJndiEnvironmentRefsGroup() : null;
+        EnvironmentRefsGroupMetaDataMerger.merge(environment, overriddenEnv, originalEnv, "", "", false);
 
-      }
-      else if (override != null)
-      {
-         if (override.getAroundInvokes() != null)
-         {
-            this.aroundInvokes.addAll(override.getAroundInvokes());
-         }
-      }
+        // merge around-invokes
+        if (aroundInvokes == null)
+            aroundInvokes = new AroundInvokesMetaData();
+        if (original != null && override != null) {
+            this.aroundInvokes.merge(override.getAroundInvokes(), original.getAroundInvokes());
+        } else if (original != null) {
+            if (original.getAroundInvokes() != null) {
+                this.aroundInvokes.addAll(original.getAroundInvokes());
+            }
 
-      if(aroundTimeouts == null)
-         aroundTimeouts = new AroundTimeoutsMetaData();
-      if (original != null && override != null)
-      {
-         this.aroundTimeouts.merge(override.getAroundTimeouts(), original.getAroundTimeouts());
-      }
-      else if (original != null)
-      {
-         if (original.getAroundTimeouts() != null)
-         {
-            this.aroundTimeouts.addAll(original.getAroundTimeouts());
-         }
+        } else if (override != null) {
+            if (override.getAroundInvokes() != null) {
+                this.aroundInvokes.addAll(override.getAroundInvokes());
+            }
+        }
 
-      }
-      else if (override != null)
-      {
-         if (override.getAroundTimeouts() != null)
-         {
-            this.aroundTimeouts.addAll(override.getAroundTimeouts());
-         }
-      }
+        if (aroundTimeouts == null)
+            aroundTimeouts = new AroundTimeoutsMetaData();
+        if (original != null && override != null) {
+            this.aroundTimeouts.merge(override.getAroundTimeouts(), original.getAroundTimeouts());
+        } else if (original != null) {
+            if (original.getAroundTimeouts() != null) {
+                this.aroundTimeouts.addAll(original.getAroundTimeouts());
+            }
 
-      // merge post-activate(s)
-      if(this.postActivates == null)
-         this.postActivates = new LifecycleCallbacksMetaData();
-      if(override != null && override.postActivates != null)
-         postActivates.addAll(override.postActivates);
-      if(original != null && original.postActivates != null)
-         postActivates.addAll(original.postActivates);
+        } else if (override != null) {
+            if (override.getAroundTimeouts() != null) {
+                this.aroundTimeouts.addAll(override.getAroundTimeouts());
+            }
+        }
 
-      // merge pre-passivate(s)
-      if(prePassivates == null)
-         prePassivates = new LifecycleCallbacksMetaData();
-      if(override != null && override.prePassivates != null)
-         prePassivates.addAll(override.prePassivates);
-      if(original != null && original.prePassivates != null)
-         prePassivates.addAll(original.prePassivates);
-   }
+        // merge post-activate(s)
+        if (this.postActivates == null)
+            this.postActivates = new LifecycleCallbacksMetaData();
+        if (override != null && override.postActivates != null)
+            postActivates.addAll(override.postActivates);
+        if (original != null && original.postActivates != null)
+            postActivates.addAll(original.postActivates);
+
+        // merge pre-passivate(s)
+        if (prePassivates == null)
+            prePassivates = new LifecycleCallbacksMetaData();
+        if (override != null && override.prePassivates != null)
+            prePassivates.addAll(override.prePassivates);
+        if (original != null && original.prePassivates != null)
+            prePassivates.addAll(original.prePassivates);
+    }
 }

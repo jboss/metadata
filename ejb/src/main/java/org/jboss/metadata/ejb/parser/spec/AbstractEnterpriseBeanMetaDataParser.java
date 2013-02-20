@@ -36,54 +36,49 @@ import javax.xml.stream.XMLStreamReader;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public abstract class AbstractEnterpriseBeanMetaDataParser<MD extends AbstractEnterpriseBeanMetaData> extends AbstractNamedMetaDataWithDescriptionGroupParser<MD>
-{
-   @Override
-   protected void processElement(MD bean, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
-   {
-      EnvironmentRefsGroupMetaData jndiEnvRefGroup = (EnvironmentRefsGroupMetaData) bean.getJndiEnvironmentRefsGroup();
-      if (jndiEnvRefGroup == null)
-      {
-         jndiEnvRefGroup = new EnvironmentRefsGroupMetaData();
-         bean.setEnvironmentRefsGroup(jndiEnvRefGroup);
-      }
-      if (EnvironmentRefsGroupMetaDataParser.parse(reader, jndiEnvRefGroup, propertyReplacer))
-         return;
+public abstract class AbstractEnterpriseBeanMetaDataParser<MD extends AbstractEnterpriseBeanMetaData> extends AbstractNamedMetaDataWithDescriptionGroupParser<MD> {
+    @Override
+    protected void processElement(MD bean, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
+        EnvironmentRefsGroupMetaData jndiEnvRefGroup = (EnvironmentRefsGroupMetaData) bean.getJndiEnvironmentRefsGroup();
+        if (jndiEnvRefGroup == null) {
+            jndiEnvRefGroup = new EnvironmentRefsGroupMetaData();
+            bean.setEnvironmentRefsGroup(jndiEnvRefGroup);
+        }
+        if (EnvironmentRefsGroupMetaDataParser.parse(reader, jndiEnvRefGroup, propertyReplacer))
+            return;
 
-      final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
-      switch (ejbJarElement)
-      {
-         case EJB_CLASS:
-            bean.setEjbClass(getElementText(reader, propertyReplacer));
-            break;
+        final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
+        switch (ejbJarElement) {
+            case EJB_CLASS:
+                bean.setEjbClass(getElementText(reader, propertyReplacer));
+                break;
 
-         case EJB_NAME:
-            bean.setEjbName(getElementText(reader, propertyReplacer));
-            break;
+            case EJB_NAME:
+                bean.setEjbName(getElementText(reader, propertyReplacer));
+                break;
 
-         case MAPPED_NAME:
-            bean.setMappedName(getElementText(reader, propertyReplacer));
-            break;
+            case MAPPED_NAME:
+                bean.setMappedName(getElementText(reader, propertyReplacer));
+                break;
 
-         case SECURITY_IDENTITY:
-            final SecurityIdentityMetaData securityIdentity = SecurityIdentityParser.INSTANCE.parse(reader, propertyReplacer);
-            bean.setSecurityIdentity(securityIdentity);
-            break;
+            case SECURITY_IDENTITY:
+                final SecurityIdentityMetaData securityIdentity = SecurityIdentityParser.INSTANCE.parse(reader, propertyReplacer);
+                bean.setSecurityIdentity(securityIdentity);
+                break;
 
-         case SECURITY_ROLE_REF:
-            SecurityRoleRefsMetaData securityRoleRefs = bean.getSecurityRoleRefs();
-            if (securityRoleRefs == null)
-            {
-               securityRoleRefs = new SecurityRoleRefsMetaData();
-               bean.setSecurityRoleRefs(securityRoleRefs);
-            }
-            SecurityRoleRefMetaData securityRoleRef = SecurityRoleRefMetaDataParser.parse(reader, propertyReplacer);
-            securityRoleRefs.add(securityRoleRef);
-            break;
+            case SECURITY_ROLE_REF:
+                SecurityRoleRefsMetaData securityRoleRefs = bean.getSecurityRoleRefs();
+                if (securityRoleRefs == null) {
+                    securityRoleRefs = new SecurityRoleRefsMetaData();
+                    bean.setSecurityRoleRefs(securityRoleRefs);
+                }
+                SecurityRoleRefMetaData securityRoleRef = SecurityRoleRefMetaDataParser.parse(reader, propertyReplacer);
+                securityRoleRefs.add(securityRoleRef);
+                break;
 
-         default:
-            super.processElement(bean, reader, propertyReplacer);
-            break;
-      }
-   }
+            default:
+                super.processElement(bean, reader, propertyReplacer);
+                break;
+        }
+    }
 }

@@ -21,12 +21,13 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
 import org.jboss.metadata.merge.javaee.support.NamedMetaDataWithDescriptionGroupMerger;
 import org.jboss.metadata.web.spec.ServletMetaData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * web-app/servlet metadata
@@ -83,7 +84,7 @@ public class ServletMetaDataMerger {
     }
 
     public static void augment(ServletMetaData dest, ServletMetaData webFragmentMetaData, ServletMetaData webMetaData,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
         // Servlet class
         if (dest.getServletClass() == null) {
             dest.setServletClass(webFragmentMetaData.getServletClass());

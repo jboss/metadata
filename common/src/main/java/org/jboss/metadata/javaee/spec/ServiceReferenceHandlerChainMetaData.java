@@ -21,11 +21,10 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import java.util.List;
+import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 import javax.xml.namespace.QName;
-
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import java.util.List;
 
 /**
  * ServiceReferenceHandlerChainMetaData.
@@ -35,7 +34,9 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @version $Revision: 1.1 $
  */
 public class ServiceReferenceHandlerChainMetaData extends IdMetaDataImpl {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1;
 
     private QName serviceNamePattern;
@@ -44,7 +45,9 @@ public class ServiceReferenceHandlerChainMetaData extends IdMetaDataImpl {
 
     private String protocolBindings;
 
-    /** The handlers */
+    /**
+     * The handlers
+     */
     private List<ServiceReferenceHandlerMetaData> handlers;
 
     /**

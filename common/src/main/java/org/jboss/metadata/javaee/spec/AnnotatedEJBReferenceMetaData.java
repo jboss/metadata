@@ -24,10 +24,9 @@ package org.jboss.metadata.javaee.spec;
 /**
  * Metadata for an @EJB reference
  *
- * @EJB.name = ejbRefName
- *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 72960 $
+ * @EJB.name = ejbRefName
  */
 public class AnnotatedEJBReferenceMetaData extends AbstractEJBReferenceMetaData {
     private static final long serialVersionUID = 1;

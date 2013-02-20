@@ -30,10 +30,14 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @version $Revision: 1.1 $
  */
 public class PersistenceUnitReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1900675456507941940L;
 
-    /** The persistence unit name */
+    /**
+     * The persistence unit name
+     */
     private String persistenceUnitName;
 
     /**

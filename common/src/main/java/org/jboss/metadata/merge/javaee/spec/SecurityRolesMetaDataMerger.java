@@ -21,12 +21,8 @@
  */
 package org.jboss.metadata.merge.javaee.spec;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * SecurityRolesMetaData.
@@ -37,8 +33,8 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 public class SecurityRolesMetaDataMerger {
 
     /**
-    *
-    */
+     *
+     */
     public static void merge(SecurityRolesMetaData dest, SecurityRolesMetaData override, SecurityRolesMetaData original) {
         SecurityRolesMetaData roles1 = override;
         SecurityRolesMetaData roles0 = original;

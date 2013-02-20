@@ -43,8 +43,7 @@ public enum Element {
     MODULE("module"),
     SECURITY_ROLE("security-role"),
     WEB("web"),
-    WEB_URI("web-uri")
-    ;
+    WEB_URI("web-uri");
 
     private final String name;
 

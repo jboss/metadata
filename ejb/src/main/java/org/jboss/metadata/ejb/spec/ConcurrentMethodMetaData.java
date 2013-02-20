@@ -31,71 +31,61 @@ import java.io.Serializable;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class ConcurrentMethodMetaData implements Serializable
-{
+public class ConcurrentMethodMetaData implements Serializable {
 
-   private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-   private NamedMethodMetaData method;
+    private NamedMethodMetaData method;
 
-   private LockType lockType;
+    private LockType lockType;
 
-   private AccessTimeoutMetaData accessTimeout;
+    private AccessTimeoutMetaData accessTimeout;
 
-   public void setMethod(NamedMethodMetaData namedMethod)
-   {
-      this.method = namedMethod;
-   }
+    public void setMethod(NamedMethodMetaData namedMethod) {
+        this.method = namedMethod;
+    }
 
-   public NamedMethodMetaData getMethod()
-   {
-      return this.method;
-   }
+    public NamedMethodMetaData getMethod() {
+        return this.method;
+    }
 
-   public void setLockType(LockType lockType)
-   {
-      this.lockType = lockType;
-   }
+    public void setLockType(LockType lockType) {
+        this.lockType = lockType;
+    }
 
-   public LockType getLockType()
-   {
-      return this.lockType;
-   }
+    public LockType getLockType() {
+        return this.lockType;
+    }
 
-   public void setAccessTimeout(AccessTimeoutMetaData accessTimeout)
-   {
-      this.accessTimeout = accessTimeout;
-   }
+    public void setAccessTimeout(AccessTimeoutMetaData accessTimeout) {
+        this.accessTimeout = accessTimeout;
+    }
 
-   public AccessTimeoutMetaData getAccessTimeout()
-   {
-      return this.accessTimeout;
-   }
-   
-   /**
-    * A {@link ConcurrentMethodMetaData} is equal to another {@link ConcurrentMethodMetaData} if
-    * the {@link ConcurrentMethodMetaData#method} of both the {@link ConcurrentMethodMetaData} is equal
-    * 
-    * @see java.lang.Object#equals(java.lang.Object)
-    */
-   @Override
-   public boolean equals(Object obj)
-   {
-      if(this == obj)
-         return true;
-      if(!(obj instanceof ConcurrentMethodMetaData))
-         return false;
-      
-      ConcurrentMethodMetaData anotherConcurrentMethod = (ConcurrentMethodMetaData) obj;
-      if (this.method == null)
-      {
-         return false;
-      }
-      return this.method.equals(anotherConcurrentMethod.method);
-   }
+    public AccessTimeoutMetaData getAccessTimeout() {
+        return this.accessTimeout;
+    }
 
-   public boolean matches(String methodName, String params[])
-   {
-      return getMethod().matches(methodName, params);
-   }
+    /**
+     * A {@link ConcurrentMethodMetaData} is equal to another {@link ConcurrentMethodMetaData} if
+     * the {@link ConcurrentMethodMetaData#method} of both the {@link ConcurrentMethodMetaData} is equal
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!(obj instanceof ConcurrentMethodMetaData))
+            return false;
+
+        ConcurrentMethodMetaData anotherConcurrentMethod = (ConcurrentMethodMetaData) obj;
+        if (this.method == null) {
+            return false;
+        }
+        return this.method.equals(anotherConcurrentMethod.method);
+    }
+
+    public boolean matches(String methodName, String params[]) {
+        return getMethod().matches(methodName, params);
+    }
 }

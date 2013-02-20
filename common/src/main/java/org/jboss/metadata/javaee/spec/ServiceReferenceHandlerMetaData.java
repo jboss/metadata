@@ -21,11 +21,10 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import java.util.List;
+import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 
 import javax.xml.namespace.QName;
-
-import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
+import java.util.List;
 
 /**
  * ServiceReferenceHandlerMetaData.
@@ -34,10 +33,14 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
  * @version $Revision: 1.1 $
  */
 public class ServiceReferenceHandlerMetaData extends NamedMetaDataWithDescriptionGroup {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 5693673588576610322L;
 
-    /** The handler class */
+    /**
+     * The handler class
+     */
     private String handlerClass;
 
     private List<ParamValueMetaData> initParam;

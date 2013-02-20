@@ -24,13 +24,14 @@ package org.jboss.metadata.javaee.spec;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 
 /**
- * @EJB references metadata.
- *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 76290 $
+ * @EJB references metadata.
  */
 public class AnnotatedEJBReferencesMetaData extends AbstractMappedMetaData<AnnotatedEJBReferenceMetaData> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1;
 
     /**

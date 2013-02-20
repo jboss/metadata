@@ -29,48 +29,41 @@ import java.util.Map;
  * An enumeration of possible version independent XML attributes in the app client schema, by name.
  * <p/>
  */
-public enum JBossClientAttribute
-{
+public enum JBossClientAttribute {
 
-   // always first
-   UNKNOWN(null),
+    // always first
+    UNKNOWN(null),
 
-   ID("id"),
+    ID("id"),
 
-   VERSION("version"),;
+    VERSION("version"),;
 
-   private String attributeName;
+    private String attributeName;
 
-   private static final Map<String, JBossClientAttribute> ATTRIBUTE_MAP;
+    private static final Map<String, JBossClientAttribute> ATTRIBUTE_MAP;
 
-   static
-   {
-      final Map<String, JBossClientAttribute> map = new HashMap<String, JBossClientAttribute>();
-      for (JBossClientAttribute element : values())
-      {
-         final String name = element.getAttributeName();
-         if (name != null)
-         {
-            map.put(name, element);
-         }
-      }
-      ATTRIBUTE_MAP = map;
-   }
+    static {
+        final Map<String, JBossClientAttribute> map = new HashMap<String, JBossClientAttribute>();
+        for (JBossClientAttribute element : values()) {
+            final String name = element.getAttributeName();
+            if (name != null) {
+                map.put(name, element);
+            }
+        }
+        ATTRIBUTE_MAP = map;
+    }
 
-   JBossClientAttribute(String name)
-   {
-      this.attributeName = name;
-   }
+    JBossClientAttribute(String name) {
+        this.attributeName = name;
+    }
 
-   public static JBossClientAttribute forName(String localName)
-   {
-      final JBossClientAttribute element = ATTRIBUTE_MAP.get(localName);
-      return element == null ? UNKNOWN : element;
-   }
+    public static JBossClientAttribute forName(String localName) {
+        final JBossClientAttribute element = ATTRIBUTE_MAP.get(localName);
+        return element == null ? UNKNOWN : element;
+    }
 
-   public String getAttributeName()
-   {
-      return this.attributeName;
-   }
+    public String getAttributeName() {
+        return this.attributeName;
+    }
 
 }

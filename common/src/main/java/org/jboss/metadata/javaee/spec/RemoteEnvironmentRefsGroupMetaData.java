@@ -33,40 +33,64 @@ import java.io.Serializable;
  * @version $Revision: 76290 $
  */
 public class RemoteEnvironmentRefsGroupMetaData implements Serializable, RemoteEnvironment, MutableRemoteEnvironment {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 2L;
 
-    /** The environment entries */
+    /**
+     * The environment entries
+     */
     private EnvironmentEntriesMetaData environmentEntries;
 
-    /** @EJB references */
+    /**
+     * @EJB references
+     */
     private AnnotatedEJBReferencesMetaData annotatedEjbReferences;
 
-    /** The ejb references */
+    /**
+     * The ejb references
+     */
     private EJBReferencesMetaData ejbReferences;
 
-    /** The service references */
+    /**
+     * The service references
+     */
     private ServiceReferencesMetaData serviceReferences;
 
-    /** The resource references */
+    /**
+     * The resource references
+     */
     private ResourceReferencesMetaData resourceReferences;
 
-    /** The resource environment references */
+    /**
+     * The resource environment references
+     */
     private ResourceEnvironmentReferencesMetaData resourceEnvironmentReferences;
 
-    /** The message destination references */
+    /**
+     * The message destination references
+     */
     private MessageDestinationReferencesMetaData messageDestinationReferences;
 
-    /** The persistence unit reference */
+    /**
+     * The persistence unit reference
+     */
     private PersistenceUnitReferencesMetaData persistenceUnitRefs;
 
-    /** The post construct methods */
+    /**
+     * The post construct methods
+     */
     private LifecycleCallbacksMetaData postConstructs;
 
-    /** The pre destroy methods */
+    /**
+     * The pre destroy methods
+     */
     private LifecycleCallbacksMetaData preDestroys;
 
-    /** The data sources */
+    /**
+     * The data sources
+     */
     private DataSourcesMetaData dataSources;
 
     /**

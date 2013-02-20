@@ -40,89 +40,78 @@ import java.util.List;
  * @version $Revision: $
  */
 @Deprecated
-public class JBossMessageDrivenBean31MetaData extends JBossMessageDrivenBeanMetaData implements ITimeoutTarget, IScheduleTarget
-{
+public class JBossMessageDrivenBean31MetaData extends JBossMessageDrivenBeanMetaData implements ITimeoutTarget, IScheduleTarget {
 
-   /**
-    * Represents metadata for {@link Schedule}
-    */
-   private List<TimerMetaData> timers = new ArrayList<TimerMetaData>();
-   
-   /**
-    * Returns the {@link TimerMetaData} associated with this bean
-    */
-   @Override
-   public List<TimerMetaData> getTimers()
-   {
-      return this.timers;
-   }
+    /**
+     * Represents metadata for {@link Schedule}
+     */
+    private List<TimerMetaData> timers = new ArrayList<TimerMetaData>();
 
-   /**
-    * Sets the {@link TimerMetaData} for this bean
-    */
-   @Override
-   public void setTimers(List<TimerMetaData> timers)
-   {
-      this.timers = timers;
-   }
-   
-   @Override
-   public void addTimer(TimerMetaData timer)
-   {
-      if (this.timers == null)
-      {
-         this.timers = new ArrayList<TimerMetaData>();
-      }
-      this.timers.add(timer);
-   }
-   
-   /**
-    * {@inheritDoc}
-    */
-   @Override
-   public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original, String overridenFile, String overrideFile, boolean mustOverride)
-   {
-      super.merge(override, original, overridenFile, overrideFile, mustOverride);
-      
-      JBossMessageDrivenBean31MetaData joverride = (JBossMessageDrivenBean31MetaData) override;
-      MessageDrivenBean31MetaData soriginal = (MessageDrivenBean31MetaData) original;
-      
-      // merge the (auto)timer metadata
-      Collection<TimerMetaData> originalTimers = soriginal == null ? null : soriginal.getTimers();
-      Collection<TimerMetaData> overrideTimers = joverride == null ? null : joverride.timers;
-      if(originalTimers != null || overrideTimers != null)
-      {
-         if (this.timers == null)
-         {
+    /**
+     * Returns the {@link TimerMetaData} associated with this bean
+     */
+    @Override
+    public List<TimerMetaData> getTimers() {
+        return this.timers;
+    }
+
+    /**
+     * Sets the {@link TimerMetaData} for this bean
+     */
+    @Override
+    public void setTimers(List<TimerMetaData> timers) {
+        this.timers = timers;
+    }
+
+    @Override
+    public void addTimer(TimerMetaData timer) {
+        if (this.timers == null) {
             this.timers = new ArrayList<TimerMetaData>();
-         }
-         MergeUtil.merge(this.timers, overrideTimers, originalTimers);
-      }
+        }
+        this.timers.add(timer);
+    }
 
-   }
-   
-   /**
-    * {@inheritDoc}
-    */
-   public void merge(JBossEnterpriseBeanMetaData overrideEjb, JBossEnterpriseBeanMetaData originalEjb)
-   {
-      super.merge(overrideEjb, originalEjb);
-      
-      JBossMessageDrivenBean31MetaData override = overrideEjb instanceof JBossGenericBeanMetaData ? null: (JBossMessageDrivenBean31MetaData) overrideEjb;
-      JBossMessageDrivenBean31MetaData original = originalEjb instanceof JBossGenericBeanMetaData ? null: (JBossMessageDrivenBean31MetaData) originalEjb;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void merge(JBossEnterpriseBeanMetaData override, EnterpriseBeanMetaData original, String overridenFile, String overrideFile, boolean mustOverride) {
+        super.merge(override, original, overridenFile, overrideFile, mustOverride);
 
-      // merge the (auto)timer metadata
-      Collection<TimerMetaData> originalTimers = original == null ? null : original.timers;
-      Collection<TimerMetaData> overrideTimers = override == null ? null : override.timers;
-      if(originalTimers != null || overrideTimers != null)
-      {
-         if (this.timers == null)
-         {
-            this.timers = new ArrayList<TimerMetaData>();
-         }
-         MergeUtil.merge(this.timers, overrideTimers, originalTimers);
-      }
-      
-   }
- 
+        JBossMessageDrivenBean31MetaData joverride = (JBossMessageDrivenBean31MetaData) override;
+        MessageDrivenBean31MetaData soriginal = (MessageDrivenBean31MetaData) original;
+
+        // merge the (auto)timer metadata
+        Collection<TimerMetaData> originalTimers = soriginal == null ? null : soriginal.getTimers();
+        Collection<TimerMetaData> overrideTimers = joverride == null ? null : joverride.timers;
+        if (originalTimers != null || overrideTimers != null) {
+            if (this.timers == null) {
+                this.timers = new ArrayList<TimerMetaData>();
+            }
+            MergeUtil.merge(this.timers, overrideTimers, originalTimers);
+        }
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void merge(JBossEnterpriseBeanMetaData overrideEjb, JBossEnterpriseBeanMetaData originalEjb) {
+        super.merge(overrideEjb, originalEjb);
+
+        JBossMessageDrivenBean31MetaData override = overrideEjb instanceof JBossGenericBeanMetaData ? null : (JBossMessageDrivenBean31MetaData) overrideEjb;
+        JBossMessageDrivenBean31MetaData original = originalEjb instanceof JBossGenericBeanMetaData ? null : (JBossMessageDrivenBean31MetaData) originalEjb;
+
+        // merge the (auto)timer metadata
+        Collection<TimerMetaData> originalTimers = original == null ? null : original.timers;
+        Collection<TimerMetaData> overrideTimers = override == null ? null : override.timers;
+        if (originalTimers != null || overrideTimers != null) {
+            if (this.timers == null) {
+                this.timers = new ArrayList<TimerMetaData>();
+            }
+            MergeUtil.merge(this.timers, overrideTimers, originalTimers);
+        }
+
+    }
+
 }

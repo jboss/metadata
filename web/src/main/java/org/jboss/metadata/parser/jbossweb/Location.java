@@ -26,6 +26,7 @@ import java.util.HashMap;
 
 public class Location {
     private static final HashMap<String, Version> bindings = new HashMap<String, Version>();
+
     static {
         bindings.put("http://www.jboss.org/j2ee/dtd/jboss-web_3_0.dtd", Version.JBOSS_WEB_3_0);
         bindings.put("http://www.jboss.org/j2ee/dtd/jboss-web_3_2.dtd", Version.JBOSS_WEB_3_2);
@@ -35,8 +36,9 @@ public class Location {
         bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_5_1.xsd", Version.JBOSS_WEB_5_1);
         bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_6_0.xsd", Version.JBOSS_WEB_6_0);
         bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_7_0.xsd", Version.JBOSS_WEB_7_0);
-       bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_7_1.xsd", Version.JBOSS_WEB_7_1);
+        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_7_1.xsd", Version.JBOSS_WEB_7_1);
     }
+
     public static Version getVersion(String location) {
         return bindings.get(location);
     }

@@ -30,7 +30,6 @@ import org.jboss.metadata.javaee.support.NamedModuleImpl;
  * description group.
  *
  * @author Brian Stansberry
- *
  * @version $Revision$
  */
 public abstract class NamedModuleImplMerger extends IdMetaDataImplWithDescriptionGroupMerger {

@@ -23,9 +23,13 @@
 package org.jboss.metadata.web.jboss;
 
 public enum SnapshotMode {
-    /** Merely accessing the session marks the session as dirty */
+    /**
+     * Merely accessing the session marks the session as dirty
+     */
     INSTANT,
-    /** Calling setAttribute() or getAttribute() marks the session as dirty */
+    /**
+     * Calling setAttribute() or getAttribute() marks the session as dirty
+     */
     INTERVAL;
 
     public static SnapshotMode fromString(String mode) {

@@ -23,6 +23,7 @@ package org.jboss.metadata.web.jboss;
 
 /**
  * Listener type.
+ *
  * @version $Revision: 65928 $
  */
 public enum ContainerListenerType {

@@ -22,15 +22,15 @@
 
 package org.jboss.metadata.parser.ee;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.IsolationLevelType;
 import org.jboss.metadata.javaee.spec.PropertiesMetaData;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author Remy Maucherat
@@ -42,7 +42,7 @@ public class DataSourceMetaDataParser extends MetaDataElementParser {
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -53,7 +53,8 @@ public class DataSourceMetaDataParser extends MetaDataElementParser {
                     dataSource.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -124,7 +125,8 @@ public class DataSourceMetaDataParser extends MetaDataElementParser {
                 case MAX_STATEMENTS:
                     dataSource.setMaxStatements(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

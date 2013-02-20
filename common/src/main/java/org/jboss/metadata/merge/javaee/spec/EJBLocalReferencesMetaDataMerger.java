@@ -21,8 +21,8 @@
  */
 package org.jboss.metadata.merge.javaee.spec;
 
-import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 
 /**
  * EJBLocalReferencesMetaData.
@@ -35,14 +35,14 @@ public class EJBLocalReferencesMetaDataMerger {
     /**
      * Merge ejb local references
      *
-     * @param override the override references
-     * @param overriden the overriden references
+     * @param override      the override references
+     * @param overriden     the overriden references
      * @param overridenFile the overriden file name
-     * @param overrideFile the override file
+     * @param overrideFile  the override file
      * @return the merged referencees
      */
     public static EJBLocalReferencesMetaData merge(EJBLocalReferencesMetaData override, EJBLocalReferencesMetaData overriden,
-            String overridenFile, String overrideFile) {
+                                                   String overridenFile, String overrideFile) {
         if (override == null && overriden == null)
             return null;
 
@@ -57,7 +57,7 @@ public class EJBLocalReferencesMetaDataMerger {
      * From avaEEMetaDataUtil.java
      */
     private static EJBLocalReferencesMetaData merge(EJBLocalReferencesMetaData merged, EJBLocalReferencesMetaData overriden,
-            EJBLocalReferencesMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
+                                                    EJBLocalReferencesMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
         if (merged == null)
             throw new IllegalArgumentException("Null merged");
 
@@ -109,7 +109,7 @@ public class EJBLocalReferencesMetaDataMerger {
     }
 
     public static void augment(EJBLocalReferencesMetaData dest, EJBLocalReferencesMetaData augment,
-            EJBLocalReferencesMetaData main, boolean resolveConflicts) {
+                               EJBLocalReferencesMetaData main, boolean resolveConflicts) {
         for (EJBLocalReferenceMetaData ejbLocalReference : augment) {
             if (dest.containsKey(ejbLocalReference.getKey())) {
                 if (!resolveConflicts && (main == null || !main.containsKey(ejbLocalReference.getKey()))) {

@@ -30,10 +30,14 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
  * @version $Revision: 1.1 $
  */
 public abstract class NamedMetaDataWithDescriptionGroup extends NamedMetaData implements MappableMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -1282107210311451130L;
 
-    /** The description */
+    /**
+     * The description
+     */
     private DescriptionGroupMetaData descriptionGroup;
 
     /**

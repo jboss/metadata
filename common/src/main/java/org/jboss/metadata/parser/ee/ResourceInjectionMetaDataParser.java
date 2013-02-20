@@ -22,22 +22,16 @@
 
 package org.jboss.metadata.parser.ee;
 
-import java.util.HashSet;
-import java.util.Set;
+import org.jboss.metadata.javaee.spec.EmptyMetaData;
+import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;
+import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.javaee.spec.DescriptionsImpl;
-import org.jboss.metadata.javaee.spec.DisplayNamesImpl;
-import org.jboss.metadata.javaee.spec.EmptyMetaData;
-import org.jboss.metadata.javaee.spec.IconsImpl;
-import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;
-import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
-import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -69,7 +63,8 @@ public class ResourceInjectionMetaDataParser extends MetaDataElementParser {
                 }
                 injectionTargets.add(ResourceInjectionTargetMetaDataParser.parse(reader, propertyReplacer));
                 break;
-            default: return false;
+            default:
+                return false;
         }
         return true;
     }

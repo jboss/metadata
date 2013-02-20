@@ -22,23 +22,15 @@
 
 package org.jboss.metadata.parser.jsp;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.web.spec.*;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.web.spec.AttributeMetaData;
-import org.jboss.metadata.web.spec.BodyContentType;
-import org.jboss.metadata.web.spec.Tag11MetaData;
-import org.jboss.metadata.web.spec.Tag12MetaData;
-import org.jboss.metadata.web.spec.TagMetaData;
-import org.jboss.metadata.web.spec.TldExtensionMetaData;
-import org.jboss.metadata.web.spec.VariableMetaData;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Remy Maucherat
@@ -54,12 +46,13 @@ public class TagMetaDataParser extends MetaDataElementParser {
             case TLD_1_2:
                 tag = new Tag12MetaData();
                 break;
-            default: tag = new TagMetaData();
+            default:
+                tag = new TagMetaData();
         }
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -70,7 +63,8 @@ public class TagMetaDataParser extends MetaDataElementParser {
                     tag.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -95,8 +89,8 @@ public class TagMetaDataParser extends MetaDataElementParser {
                     if (version == Version.TLD_1_1) {
                         tag.setTagClass(getElementText(reader));
                     } else if (version == Version.TLD_1_2) {
-                    	// Allow invalid legacy element
-                    	tag.setTagClass(getElementText(reader));
+                        // Allow invalid legacy element
+                        tag.setTagClass(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -108,8 +102,8 @@ public class TagMetaDataParser extends MetaDataElementParser {
                     if (version == Version.TLD_1_1) {
                         tag.setTeiClass(getElementText(reader));
                     } else if (version == Version.TLD_1_2) {
-                    	// Allow invalid legacy element
-                    	tag.setTeiClass(getElementText(reader));
+                        // Allow invalid legacy element
+                        tag.setTeiClass(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -129,7 +123,7 @@ public class TagMetaDataParser extends MetaDataElementParser {
                             throw unexpectedValue(reader, e);
                         }
                     } else if (version == Version.TLD_1_2) {
-                    	// Allow invalid legacy element
+                        // Allow invalid legacy element
                         try {
                             tag.setBodyContent(BodyContentType.valueOf(getElementText(reader)));
                         } catch (IllegalArgumentException e) {
@@ -143,8 +137,8 @@ public class TagMetaDataParser extends MetaDataElementParser {
                     if (version == Version.TLD_1_1) {
                         ((Tag11MetaData) tag).setInfo(getElementText(reader));
                     } else if (version == Version.TLD_1_2) {
-                    	// Ignore invalid legacy element
-                    	getElementText(reader);
+                        // Ignore invalid legacy element
+                        getElementText(reader);
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -198,7 +192,8 @@ public class TagMetaDataParser extends MetaDataElementParser {
                     }
                     extensions.add(TldExtensionMetaDataParser.parse(reader));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

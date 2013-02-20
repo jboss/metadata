@@ -26,8 +26,8 @@ import java.util.LinkedHashSet;
 
 /**
  * NonNullLinkedHashSet
- * <p>
- *
+ * <p/>
+ * <p/>
  * Overrides LinkedHashSet to disallow null values
  *
  * @param <E> the element type
@@ -35,7 +35,9 @@ import java.util.LinkedHashSet;
  * @version $Revision: 1.1 $
  */
 public class NonNullLinkedHashSet<E> extends LinkedHashSet<E> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 8065024688096621632L;
 
     /**

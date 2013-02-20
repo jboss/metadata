@@ -28,14 +28,20 @@ package org.jboss.metadata.javaee.spec;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-    public class EJBLocalReferenceMetaData extends AbstractEJBReferenceMetaData {
-    /** The serialVersionUID */
+public class EJBLocalReferenceMetaData extends AbstractEJBReferenceMetaData {
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 5810710557505041609L;
 
-    /** The home type */
+    /**
+     * The home type
+     */
     private String localHome;
 
-    /** The remote type */
+    /**
+     * The remote type
+     */
     private String local;
 
     /**

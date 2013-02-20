@@ -34,14 +34,14 @@ public class ResourceReferencesMetaDataMerger {
     /**
      * Merge resource references
      *
-     * @param override the override references
-     * @param overriden the overriden references
+     * @param override      the override references
+     * @param overriden     the overriden references
      * @param overridenFile the overriden file name
-     * @param overrideFile the override file
+     * @param overrideFile  the override file
      * @return the merged referencees
      */
     public static ResourceReferencesMetaData merge(ResourceReferencesMetaData override, ResourceReferencesMetaData overriden,
-            String overridenFile, String overrideFile, boolean mustOverride) {
+                                                   String overridenFile, String overrideFile, boolean mustOverride) {
         if (override == null && overriden == null)
             return null;
 
@@ -56,7 +56,7 @@ public class ResourceReferencesMetaDataMerger {
      * From JavaEEMetaDataUtil.java
      */
     private static ResourceReferencesMetaData merge(ResourceReferencesMetaData merged, ResourceReferencesMetaData overriden,
-            ResourceReferencesMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
+                                                    ResourceReferencesMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
         if (merged == null)
             throw new IllegalArgumentException("Null merged");
 
@@ -108,7 +108,7 @@ public class ResourceReferencesMetaDataMerger {
     }
 
     public static void augment(ResourceReferencesMetaData dest, ResourceReferencesMetaData augment,
-            ResourceReferencesMetaData main, boolean resolveConflicts) {
+                               ResourceReferencesMetaData main, boolean resolveConflicts) {
         for (ResourceReferenceMetaData resourceRef : augment) {
             if (dest.containsKey(resourceRef.getKey())) {
                 if (!resolveConflicts && (main == null || !main.containsKey(resourceRef.getKey()))) {

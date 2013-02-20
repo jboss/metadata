@@ -37,8 +37,7 @@ public enum Attribute {
     // TLD 2.1 attributes in alpha order
     ID("id"),
 
-    VERSION("version"),
-    ;
+    VERSION("version"),;
 
     private final String name;
 

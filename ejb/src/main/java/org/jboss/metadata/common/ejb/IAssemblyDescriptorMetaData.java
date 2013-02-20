@@ -21,11 +21,7 @@
  */
 package org.jboss.metadata.common.ejb;
 
-import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
-import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
-import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
-import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
-import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
+import org.jboss.metadata.ejb.spec.*;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
@@ -33,147 +29,150 @@ import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 
 /**
  * interface for ejb assembly-descriptor contents
- * 
+ *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 75470 $
  */
-public interface IAssemblyDescriptorMetaData
-{
-   public SecurityRoleMetaData getSecurityRole(String roleName);
-   /**
-    * Get the securityRoles.
-    * 
-    * @return the securityRoles.
-    */
-   public SecurityRolesMetaData getSecurityRoles();
-   /**
-    * Set the securityRoles.
-    * 
-    * @param securityRoles the securityRoles.
-    * @throws IllegalArgumentException for a null securityRoles
-    */
-   public void setSecurityRoles(SecurityRolesMetaData securityRoles);
+public interface IAssemblyDescriptorMetaData {
+    public SecurityRoleMetaData getSecurityRole(String roleName);
 
-   /**
-    * Get the methodPermissions.
-    * 
-    * @return the methodPermissions.
-    */
-   public MethodPermissionsMetaData getMethodPermissions();
+    /**
+     * Get the securityRoles.
+     *
+     * @return the securityRoles.
+     */
+    public SecurityRolesMetaData getSecurityRoles();
 
-   /**
-    * Set the methodPermissions.
-    * 
-    * @param methodPermissions the methodPermissions.
-    * @throws IllegalArgumentException for a null methodPermissions
-    */
-   public void setMethodPermissions(MethodPermissionsMetaData methodPermissions);
+    /**
+     * Set the securityRoles.
+     *
+     * @param securityRoles the securityRoles.
+     * @throws IllegalArgumentException for a null securityRoles
+     */
+    public void setSecurityRoles(SecurityRolesMetaData securityRoles);
 
-   /**
-    * Get the methods permissions for an ejb
-    * 
-    * @param ejbName the ejb name
-    * @return the method permissions or null for no result
-    * @throws IllegalArgumentException for a null ejb name
-    */
-   public MethodPermissionsMetaData getMethodPermissionsByEjbName(String ejbName);
-   /**
-    * Get the containerTransactions.
-    * 
-    * @return the containerTransactions.
-    */
-   public ContainerTransactionsMetaData getContainerTransactions();
+    /**
+     * Get the methodPermissions.
+     *
+     * @return the methodPermissions.
+     */
+    public MethodPermissionsMetaData getMethodPermissions();
 
-   /**
-    * Set the containerTransactions.
-    * 
-    * @param containerTransactions the containerTransactions.
-    * @throws IllegalArgumentException for a null containerTransactions
-    */
-   public void setContainerTransactions(ContainerTransactionsMetaData containerTransactions);
+    /**
+     * Set the methodPermissions.
+     *
+     * @param methodPermissions the methodPermissions.
+     * @throws IllegalArgumentException for a null methodPermissions
+     */
+    public void setMethodPermissions(MethodPermissionsMetaData methodPermissions);
 
-   /**
-    * Get the container transactions for an ejb
-    * 
-    * @param ejbName the ejb name
-    * @return the container transactions or null for no result
-    * @throws IllegalArgumentException for a null ejb name
-    */
-   public ContainerTransactionsMetaData getContainerTransactionsByEjbName(String ejbName);
+    /**
+     * Get the methods permissions for an ejb
+     *
+     * @param ejbName the ejb name
+     * @return the method permissions or null for no result
+     * @throws IllegalArgumentException for a null ejb name
+     */
+    public MethodPermissionsMetaData getMethodPermissionsByEjbName(String ejbName);
 
-   /**
-    * Get the interceptorBindings.
-    * 
-    * @return the interceptorBindings.
-    */
-   public InterceptorBindingsMetaData getInterceptorBindings();
+    /**
+     * Get the containerTransactions.
+     *
+     * @return the containerTransactions.
+     */
+    public ContainerTransactionsMetaData getContainerTransactions();
 
-   /**
-    * Set the interceptorBindings.
-    * 
-    * @param interceptorBindings the interceptorBindings.
-    * @throws IllegalArgumentException for a null interceptorBindings
-    */
-   public void setInterceptorBindings(InterceptorBindingsMetaData interceptorBindings);
+    /**
+     * Set the containerTransactions.
+     *
+     * @param containerTransactions the containerTransactions.
+     * @throws IllegalArgumentException for a null containerTransactions
+     */
+    public void setContainerTransactions(ContainerTransactionsMetaData containerTransactions);
 
-   /**
-    * Get the messageDestinations.
-    * 
-    * @return the messageDestinations.
-    */
-   public MessageDestinationsMetaData getMessageDestinations();
+    /**
+     * Get the container transactions for an ejb
+     *
+     * @param ejbName the ejb name
+     * @return the container transactions or null for no result
+     * @throws IllegalArgumentException for a null ejb name
+     */
+    public ContainerTransactionsMetaData getContainerTransactionsByEjbName(String ejbName);
 
-   /**
-    * Set the messageDestinations.
-    * 
-    * @param messageDestinations the messageDestinations.
-    * @throws IllegalArgumentException for a null messageDestinations
-    */
-   public void setMessageDestinations(MessageDestinationsMetaData messageDestinations);
+    /**
+     * Get the interceptorBindings.
+     *
+     * @return the interceptorBindings.
+     */
+    public InterceptorBindingsMetaData getInterceptorBindings();
 
-   /**
-    * Get a message destination
-    * 
-    * @param name the name of the destination
-    * @return the destination or null if not found
-    */
-   public MessageDestinationMetaData getMessageDestination(String name);
-   
-   /**
-    * Get the excludeList.
-    * 
-    * @return the excludeList.
-    */
-   public ExcludeListMetaData getExcludeList();
+    /**
+     * Set the interceptorBindings.
+     *
+     * @param interceptorBindings the interceptorBindings.
+     * @throws IllegalArgumentException for a null interceptorBindings
+     */
+    public void setInterceptorBindings(InterceptorBindingsMetaData interceptorBindings);
 
-   /**
-    * Set the excludeList.
-    * 
-    * @param excludeList the excludeList.
-    * @throws IllegalArgumentException for a null excludeList
-    */
-   public void setExcludeList(ExcludeListMetaData excludeList);
+    /**
+     * Get the messageDestinations.
+     *
+     * @return the messageDestinations.
+     */
+    public MessageDestinationsMetaData getMessageDestinations();
 
-   /**
-    * Get the exclude list for an ejb
-    * 
-    * @param ejbName the ejb name
-    * @return the exclude list or null for no result
-    * @throws IllegalArgumentException for a null ejb name
-    */
-   public ExcludeListMetaData getExcludeListByEjbName(String ejbName);
+    /**
+     * Set the messageDestinations.
+     *
+     * @param messageDestinations the messageDestinations.
+     * @throws IllegalArgumentException for a null messageDestinations
+     */
+    public void setMessageDestinations(MessageDestinationsMetaData messageDestinations);
 
-   /**
-    * Get the applicationExceptions.
-    * 
-    * @return the applicationExceptions.
-    */
-   public ApplicationExceptionsMetaData getApplicationExceptions();
-   /**
-    * Set the applicationExceptions.
-    * 
-    * @param applicationExceptions the applicationExceptions.
-    * @throws IllegalArgumentException for a null applicationExceptions
-    */
-   public void setApplicationExceptions(ApplicationExceptionsMetaData applicationExceptions);
+    /**
+     * Get a message destination
+     *
+     * @param name the name of the destination
+     * @return the destination or null if not found
+     */
+    public MessageDestinationMetaData getMessageDestination(String name);
+
+    /**
+     * Get the excludeList.
+     *
+     * @return the excludeList.
+     */
+    public ExcludeListMetaData getExcludeList();
+
+    /**
+     * Set the excludeList.
+     *
+     * @param excludeList the excludeList.
+     * @throws IllegalArgumentException for a null excludeList
+     */
+    public void setExcludeList(ExcludeListMetaData excludeList);
+
+    /**
+     * Get the exclude list for an ejb
+     *
+     * @param ejbName the ejb name
+     * @return the exclude list or null for no result
+     * @throws IllegalArgumentException for a null ejb name
+     */
+    public ExcludeListMetaData getExcludeListByEjbName(String ejbName);
+
+    /**
+     * Get the applicationExceptions.
+     *
+     * @return the applicationExceptions.
+     */
+    public ApplicationExceptionsMetaData getApplicationExceptions();
+
+    /**
+     * Set the applicationExceptions.
+     *
+     * @param applicationExceptions the applicationExceptions.
+     * @throws IllegalArgumentException for a null applicationExceptions
+     */
+    public void setApplicationExceptions(ApplicationExceptionsMetaData applicationExceptions);
 }

@@ -31,9 +31,13 @@ import org.jboss.metadata.javaee.support.NamedMetaData;
  */
 public class PropertyMetaData extends NamedMetaData {
 
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -5215106879053864009L;
-    /** The value */
+    /**
+     * The value
+     */
     private String value;
 
     /**

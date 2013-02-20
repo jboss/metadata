@@ -21,11 +21,10 @@
  */
 package org.jboss.metadata.javaee.jboss;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.metadata.javaee.spec.PortComponentRef;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
+
+import java.util.List;
 
 /**
  * <xsd:sequence> <xsd:element name="service-ref-name" type="xsd:string"/>
@@ -45,23 +44,35 @@ import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
  */
 
 public class JBossServiceReferenceMetaData extends ServiceReferenceMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 5693673588576610322L;
 
-    /** The service-impl-class */
+    /**
+     * The service-impl-class
+     */
     private String serviceClass;
 
-    /** The config-name */
+    /**
+     * The config-name
+     */
     private String configName;
-    /** The config-file */
+    /**
+     * The config-file
+     */
     private String configFile;
 
-    /** The handler-chain */
+    /**
+     * The handler-chain
+     */
     private String handlerChain;
 
     private List<JBossPortComponentRef> jbossPortComponentRef;
 
-    /** The wsdl file override */
+    /**
+     * The wsdl file override
+     */
     private String wsdlOverride;
 
     /**
@@ -120,7 +131,7 @@ public class JBossServiceReferenceMetaData extends ServiceReferenceMetaData {
         return serviceClass;
     }
 
-     public void setServiceClass(String serviceClass) {
+    public void setServiceClass(String serviceClass) {
         this.serviceClass = serviceClass;
     }
 

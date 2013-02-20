@@ -30,10 +30,14 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
  * @version $Revision: 1.1 $
  */
 public abstract class IdMetaDataImplWithDescriptionGroup extends IdMetaDataImpl {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 3906255525185441267L;
 
-    /** The description group */
+    /**
+     * The description group
+     */
     private DescriptionGroupMetaData descriptionGroup;
 
     /**

@@ -22,15 +22,14 @@
 
 package org.jboss.metadata.parser.ee;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Richard Opalka
@@ -47,7 +46,8 @@ public final class ServiceReferenceHandlerChainsMetaDataParser extends MetaDataE
                 case HANDLER_CHAIN:
                     handlerChain.add(ServiceReferenceHandlerChainMetaDataParser.parse(reader, propertyReplacer));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

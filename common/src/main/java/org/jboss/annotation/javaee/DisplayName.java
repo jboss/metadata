@@ -34,9 +34,13 @@ import java.lang.annotation.RetentionPolicy;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DisplayName {
-    /** The display name */
+    /**
+     * The display name
+     */
     String value() default "";
 
-    /** The language */
+    /**
+     * The language
+     */
     String language() default Description.DEFAULT_LANGUAGE;
 }

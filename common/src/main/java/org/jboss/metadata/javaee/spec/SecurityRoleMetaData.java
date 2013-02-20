@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import java.util.Set;
-
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
+
+import java.util.Set;
 
 /**
  * SecurityRoleMetaData.
@@ -33,10 +33,14 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @version $Revision: 1.1 $
  */
 public class SecurityRoleMetaData extends NamedMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -4349954695900237831L;
 
-    /** The prinicpal names that have this role */
+    /**
+     * The prinicpal names that have this role
+     */
     private Set<String> principals;
 
     /**
@@ -80,7 +84,7 @@ public class SecurityRoleMetaData extends NamedMetaDataWithDescriptions {
      * @param principals the principals.
      * @throws IllegalArgumentException for a null principals
      */
-     public void setPrincipals(Set<String> principals) {
+    public void setPrincipals(Set<String> principals) {
         if (principals == null)
             throw new IllegalArgumentException("Null principals");
         this.principals = principals;

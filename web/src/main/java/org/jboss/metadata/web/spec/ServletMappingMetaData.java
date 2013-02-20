@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.web.spec;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+
+import java.util.List;
 
 /**
  * web-app/servlet-mapping metadata

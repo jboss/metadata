@@ -526,7 +526,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
     /**
      * Look for the resource on the class loader that loaded this resolver.
      * If not found try the thread context class loader.
-     *
+     * <p/>
      * This first simply tries the resource name as is, and if not found, the resource
      * is prepended with either "dtd/" or "schema/" depending on whether the
      * resource ends in ".dtd" or ".xsd".
@@ -547,7 +547,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
 
     /**
      * Look for the resource on the given class loader.
-     *
+     * <p/>
      * This first simply tries the resource name as is, and if not found, the resource
      * is prepended with either "dtd/" or "schema/" depending on whether the
      * resource ends in ".dtd" or ".xsd".

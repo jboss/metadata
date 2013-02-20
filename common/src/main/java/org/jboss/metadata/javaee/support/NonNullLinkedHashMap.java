@@ -35,7 +35,9 @@ import java.util.Map.Entry;
  * @version $Revision: 1.1 $
  */
 public class NonNullLinkedHashMap<K, V> extends LinkedHashMap<K, V> implements Serializable {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -5239003812587497285L;
 
     /**

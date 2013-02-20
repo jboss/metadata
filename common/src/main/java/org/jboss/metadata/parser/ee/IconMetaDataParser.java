@@ -22,13 +22,13 @@
 
 package org.jboss.metadata.parser.ee;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.javaee.spec.IconImpl;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 
 /**
@@ -44,11 +44,11 @@ public class IconMetaDataParser extends MetaDataElementParser {
         IconImpl icon = new IconImpl();
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
-            if ("http://www.w3.org/XML/1998/namespace".equals(reader.getAttributeNamespace(i)) 
-            		&& Attribute.forName(reader.getAttributeLocalName(i)) == Attribute.LANG) {
-            	icon.setLanguage(value);
+            if ("http://www.w3.org/XML/1998/namespace".equals(reader.getAttributeNamespace(i))
+                    && Attribute.forName(reader.getAttributeLocalName(i)) == Attribute.LANG) {
+                icon.setLanguage(value);
             }
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -59,7 +59,8 @@ public class IconMetaDataParser extends MetaDataElementParser {
                     icon.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
         // Handle elements
@@ -72,7 +73,8 @@ public class IconMetaDataParser extends MetaDataElementParser {
                 case LARGE_ICON:
                     icon.setLargeIcon(getElementText(reader, propertyReplacer));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
         return icon;

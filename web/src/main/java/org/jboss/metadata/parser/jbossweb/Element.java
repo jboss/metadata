@@ -106,8 +106,7 @@ public enum Element {
 
     WEBSERVICE_DESCRIPTION("webservice-description"),
     WEBSERVICE_DESCRIPTION_NAME("webservice-description-name"),
-    WSDL_PUBLISH_LOCATION("wsdl-publish-location"),
-    ;
+    WSDL_PUBLISH_LOCATION("wsdl-publish-location"),;
 
     private final String name;
 

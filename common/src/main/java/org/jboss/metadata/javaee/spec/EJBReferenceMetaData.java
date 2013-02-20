@@ -32,16 +32,24 @@ import java.util.Map;
  */
 // unordered for the jboss client 5_0.xsd
 public class EJBReferenceMetaData extends AbstractEJBReferenceMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -3828756360112709340L;
 
-    /** The home type */
+    /**
+     * The home type
+     */
     private String home;
 
-    /** The remote type */
+    /**
+     * The remote type
+     */
     private String remote;
 
-    /** The invoker bindings */
+    /**
+     * The invoker bindings
+     */
     private Map<String, String> invokerBindings;
 
     /**
@@ -111,7 +119,7 @@ public class EJBReferenceMetaData extends AbstractEJBReferenceMetaData {
      * Add an invoker binding
      *
      * @param invokerProxyBindingName the invoker proxy binding name
-     * @param jndiName the jndi name
+     * @param jndiName                the jndi name
      */
     @Deprecated
     // This is in the wrong place

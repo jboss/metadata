@@ -28,7 +28,6 @@ package org.jboss.metadata.ejb.jboss;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 84989 $
  */
-public class JBoss51GenericBeanMetaData extends JBossGenericBeanMetaData
-{
-   private static final long serialVersionUID = 1L;
+public class JBoss51GenericBeanMetaData extends JBossGenericBeanMetaData {
+    private static final long serialVersionUID = 1L;
 }

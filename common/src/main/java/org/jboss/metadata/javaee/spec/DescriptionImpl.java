@@ -31,10 +31,14 @@ import org.jboss.metadata.javaee.support.LanguageMetaData;
  * @version $Revision: 1.1 $
  */
 public class DescriptionImpl extends LanguageMetaData implements Description {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 7060589158592181267L;
 
-    /** The description */
+    /**
+     * The description
+     */
     private String description = "";
 
     /**

@@ -47,8 +47,7 @@ public enum Element {
     SERVICE("service"),
     UNAUTHENTICATED_PRINCIPAL("unauthenticated-principal"),
     WEB("web"),
-    WEB_URI("web-uri")
-    ;
+    WEB_URI("web-uri");
 
     private final String name;
 

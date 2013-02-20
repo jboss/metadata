@@ -30,7 +30,9 @@ import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
  * @version $Revision: 1.1 $
  */
 public class JndiRefsMetaData extends AbstractMappedMetaData<JndiRefMetaData> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 7447964711034672079L;
 
     /**

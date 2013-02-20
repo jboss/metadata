@@ -21,12 +21,11 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import java.lang.reflect.AnnotatedElement;
-import java.util.List;
+import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptionGroup;
 
 import javax.xml.namespace.QName;
-
-import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptionGroup;
+import java.lang.reflect.AnnotatedElement;
+import java.util.List;
 
 /**
  * ServiceReferenceMetaData.
@@ -36,31 +35,49 @@ import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptio
  * @version $Revision: 81860 $
  */
 public class ServiceReferenceMetaData extends ResourceInjectionMetaDataWithDescriptionGroup {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 5693673588576610322L;
 
-    /** The service interface */
+    /**
+     * The service interface
+     */
     private String serviceInterface;
 
-    /** The service reference type */
+    /**
+     * The service reference type
+     */
     private String serviceRefType;
 
-    /** The wsdl file */
+    /**
+     * The wsdl file
+     */
     private String wsdlFile;
 
-    /** The jaxrpc mapping file */
+    /**
+     * The jaxrpc mapping file
+     */
     private String jaxrpcMappingFile;
 
-    /** The service qname */
+    /**
+     * The service qname
+     */
     private QName serviceQname;
 
-    /** The port-component-ref */
+    /**
+     * The port-component-ref
+     */
     private List<PortComponentRef> portComponentRef;
 
-    /** The handlers */
+    /**
+     * The handlers
+     */
     private ServiceReferenceHandlersMetaData handlers;
 
-    /** The handler chains */
+    /**
+     * The handler chains
+     */
     private ServiceReferenceHandlerChainsMetaData handlerChains;
 
     // The JAXWS annotated element.

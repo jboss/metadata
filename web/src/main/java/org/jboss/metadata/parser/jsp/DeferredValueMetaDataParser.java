@@ -22,12 +22,11 @@
 
 package org.jboss.metadata.parser.jsp;
 
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.web.spec.DeferredValueMetaData;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.web.spec.DeferredValueMetaData;
 
 /**
  * @author Remy Maucherat
@@ -39,7 +38,7 @@ public class DeferredValueMetaDataParser extends MetaDataElementParser {
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -50,7 +49,8 @@ public class DeferredValueMetaDataParser extends MetaDataElementParser {
                     deferredValue.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -61,7 +61,8 @@ public class DeferredValueMetaDataParser extends MetaDataElementParser {
                 case TYPE:
                     deferredValue.setType(getElementText(reader));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

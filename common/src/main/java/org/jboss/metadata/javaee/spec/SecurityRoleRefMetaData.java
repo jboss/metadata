@@ -30,10 +30,14 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @version $Revision: 1.1 $
  */
 public class SecurityRoleRefMetaData extends NamedMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -8092072767419265555L;
 
-    /** The role link */
+    /**
+     * The role link
+     */
     private String roleLink;
 
     /**

@@ -156,8 +156,7 @@ public enum Element {
 
     VALUE("value"),
 
-    WSDL_FILE("wsdl-file"),
-    ;
+    WSDL_FILE("wsdl-file"),;
 
     private final String name;
 

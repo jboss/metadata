@@ -28,12 +28,18 @@ package org.jboss.metadata.javaee.spec;
  * @version $Revision: 1.1 $
  */
 public enum ResourceAuthorityType {
-    /** Application */
+    /**
+     * Application
+     */
     Application,
 
-    /** Servlet */
+    /**
+     * Servlet
+     */
     SERVLET,
 
-    /** Container */
+    /**
+     * Container
+     */
     Container,
 }

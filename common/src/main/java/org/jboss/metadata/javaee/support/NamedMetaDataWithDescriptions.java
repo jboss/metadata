@@ -30,10 +30,14 @@ import org.jboss.annotation.javaee.Descriptions;
  * @version $Revision: 1.1 $
  */
 public abstract class NamedMetaDataWithDescriptions extends NamedMetaData implements MappableMetaData, WithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -8129636357927225616L;
 
-    /** The descriptions */
+    /**
+     * The descriptions
+     */
     private Descriptions descriptions;
 
     /**

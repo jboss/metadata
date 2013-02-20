@@ -22,18 +22,17 @@
 
 package org.jboss.metadata.parser.servlet;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.NameMetaData;
 import org.jboss.metadata.web.spec.OrderingElementMetaData;
 import org.jboss.metadata.web.spec.OthersMetaData;
 import org.jboss.metadata.web.spec.RelativeOrderingMetaData;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Remy Maucherat
@@ -67,7 +66,8 @@ public class RelativeOrderingMetaDataParser extends MetaDataElementParser {
                     order2.add(others);
                     requireNoContent(reader);
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

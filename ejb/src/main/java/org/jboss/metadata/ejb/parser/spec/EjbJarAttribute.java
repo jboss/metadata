@@ -30,50 +30,43 @@ import java.util.Map;
  * <p/>
  * User: Jaikiran Pai
  */
-public enum EjbJarAttribute
-{
+public enum EjbJarAttribute {
 
-   // always first
-   UNKNOWN(null),
+    // always first
+    UNKNOWN(null),
 
-   ID("id"),
+    ID("id"),
 
-   METADATA_COMPLETE("metadata-complete"),
+    METADATA_COMPLETE("metadata-complete"),
 
-   VERSION("version"),;
+    VERSION("version"),;
 
-   private String attributeName;
+    private String attributeName;
 
-   private static final Map<String, EjbJarAttribute> ATTRIBUTE_MAP;
+    private static final Map<String, EjbJarAttribute> ATTRIBUTE_MAP;
 
-   static
-   {
-      final Map<String, EjbJarAttribute> map = new HashMap<String, EjbJarAttribute>();
-      for (EjbJarAttribute element : values())
-      {
-         final String name = element.getAttributeName();
-         if (name != null)
-         {
-            map.put(name, element);
-         }
-      }
-      ATTRIBUTE_MAP = map;
-   }
+    static {
+        final Map<String, EjbJarAttribute> map = new HashMap<String, EjbJarAttribute>();
+        for (EjbJarAttribute element : values()) {
+            final String name = element.getAttributeName();
+            if (name != null) {
+                map.put(name, element);
+            }
+        }
+        ATTRIBUTE_MAP = map;
+    }
 
-   EjbJarAttribute(String name)
-   {
-      this.attributeName = name;
-   }
+    EjbJarAttribute(String name) {
+        this.attributeName = name;
+    }
 
-   public static EjbJarAttribute forName(String localName)
-   {
-      final EjbJarAttribute element = ATTRIBUTE_MAP.get(localName);
-      return element == null ? UNKNOWN : element;
-   }
+    public static EjbJarAttribute forName(String localName) {
+        final EjbJarAttribute element = ATTRIBUTE_MAP.get(localName);
+        return element == null ? UNKNOWN : element;
+    }
 
-   public String getAttributeName()
-   {
-      return this.attributeName;
-   }
+    public String getAttributeName() {
+        return this.attributeName;
+    }
 
 }

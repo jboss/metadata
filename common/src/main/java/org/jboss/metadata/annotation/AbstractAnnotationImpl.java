@@ -30,13 +30,15 @@ import java.lang.annotation.Annotation;
  * @version $Revision$
  */
 public class AbstractAnnotationImpl implements Annotation {
-    /** The annotation type */
+    /**
+     * The annotation type
+     */
     private Class<? extends Annotation> annotationType;
 
     /**
      * Create a new AbstractAnnotationImpl.
-     *
-     * <p>
+     * <p/>
+     * <p/>
      * This constructor guesses the annotationType.
      */
     @SuppressWarnings("unchecked")

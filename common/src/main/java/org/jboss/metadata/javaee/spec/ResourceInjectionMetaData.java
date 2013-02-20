@@ -32,17 +32,25 @@ import java.util.Set;
  * @version $Revision: 1.1 $
  */
 public abstract class ResourceInjectionMetaData extends NamedMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 6333738851813890701L;
 
-    /** The mapped name */
+    /**
+     * The mapped name
+     */
     private String mappedName;
     private String resolvedJndiName;
 
-    /** The injection targets */
+    /**
+     * The injection targets
+     */
     private Set<ResourceInjectionTargetMetaData> injectionTargets;
 
-    /** The ignore dependency */
+    /**
+     * The ignore dependency
+     */
     private EmptyMetaData ignoreDependency;
 
     /**
@@ -169,7 +177,7 @@ public abstract class ResourceInjectionMetaData extends NamedMetaData {
      *
      * @return true when the dependency is ignored
      */
-     public boolean isDependencyIgnored() {
+    public boolean isDependencyIgnored() {
         return ignoreDependency != null;
     }
 }

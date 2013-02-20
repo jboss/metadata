@@ -26,9 +26,8 @@ import org.jboss.annotation.javaee.Descriptions;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public interface WithDescriptions
-{
-   Descriptions getDescriptions();
+public interface WithDescriptions {
+    Descriptions getDescriptions();
 
-   void setDescriptions(Descriptions descriptions);
+    void setDescriptions(Descriptions descriptions);
 }

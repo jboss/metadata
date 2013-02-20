@@ -43,8 +43,7 @@ public enum Attribute {
 
     LOADER_REPOSITORY_CLASS("loaderRepositoryClass"),
 
-    VERSION("version"),
-    ;
+    VERSION("version"),;
 
     private final String name;
 

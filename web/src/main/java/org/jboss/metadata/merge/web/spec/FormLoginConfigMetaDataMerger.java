@@ -30,7 +30,7 @@ import org.jboss.metadata.web.spec.FormLoginConfigMetaData;
  */
 public class FormLoginConfigMetaDataMerger extends IdMetaDataImplMerger {
     public static void augment(FormLoginConfigMetaData dest, FormLoginConfigMetaData webFragmentMetaData, FormLoginConfigMetaData webMetaData,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
         if (dest.getLoginPage() == null) {
             dest.setLoginPage(webFragmentMetaData.getLoginPage());
         } else if (webFragmentMetaData.getLoginPage() != null) {

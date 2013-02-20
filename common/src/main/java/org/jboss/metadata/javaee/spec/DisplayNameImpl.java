@@ -31,10 +31,14 @@ import org.jboss.metadata.javaee.support.LanguageMetaData;
  * @version $Revision: 1.1 $
  */
 public class DisplayNameImpl extends LanguageMetaData implements DisplayName {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 8863089892578047773L;
 
-    /** The display name */
+    /**
+     * The display name
+     */
     private String displayName = "";
 
     /**

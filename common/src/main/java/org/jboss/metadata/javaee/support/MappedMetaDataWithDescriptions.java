@@ -35,13 +35,19 @@ import java.util.Set;
  */
 public abstract class MappedMetaDataWithDescriptions<T extends MappableMetaData> extends IdMetaDataImplWithDescriptions
         implements MappedMetaData<T> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 5696461894017065337L;
 
-    /** The key name */
+    /**
+     * The key name
+     */
     private String keyName;
 
-    /** The metaDatas */
+    /**
+     * The metaDatas
+     */
     private Map<String, T> map = new NonNullLinkedHashMap<String, T>();
 
     /**

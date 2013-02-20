@@ -27,25 +27,24 @@ import java.util.ArrayList;
 
 /**
  * AroundInvokesMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class AroundTimeoutsMetaData extends ArrayList<AroundTimeoutMetaData>
-{
-   /** The serialVersionUID */
-   private static final long serialVersionUID = 3091116374471499482L;
+public class AroundTimeoutsMetaData extends ArrayList<AroundTimeoutMetaData> {
+    /**
+     * The serialVersionUID
+     */
+    private static final long serialVersionUID = 3091116374471499482L;
 
-   /**
-    * Create a new AroundInvokesMetaData.
-    */
-   public AroundTimeoutsMetaData()
-   {
-      // For serialization
-   }
-   
-   public void merge(AroundTimeoutsMetaData override, AroundTimeoutsMetaData original)
-   {
-      MergeUtil.merge(this, override, original);
-   }
+    /**
+     * Create a new AroundInvokesMetaData.
+     */
+    public AroundTimeoutsMetaData() {
+        // For serialization
+    }
+
+    public void merge(AroundTimeoutsMetaData override, AroundTimeoutsMetaData original) {
+        MergeUtil.merge(this, override, original);
+    }
 }

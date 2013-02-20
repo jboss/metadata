@@ -22,16 +22,15 @@
 
 package org.jboss.metadata.parser.ee;
 
-import java.util.LinkedList;
-import java.util.List;
+import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
+import org.jboss.metadata.javaee.jboss.StubPropertyMetaData;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
-import org.jboss.metadata.javaee.jboss.StubPropertyMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author Remy Maucherat
@@ -43,7 +42,7 @@ public class PortComponentRefParser extends MetaDataElementParser {
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -54,7 +53,8 @@ public class PortComponentRefParser extends MetaDataElementParser {
                     portComponentRef.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -93,7 +93,8 @@ public class PortComponentRefParser extends MetaDataElementParser {
                 case STUB_PROPERTY:
                     stubProperties.add(StubPropertyParser.parse(reader, propertyReplacer));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
         if (stubProperties.size() > 0) {

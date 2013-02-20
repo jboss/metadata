@@ -23,30 +23,43 @@ package org.jboss.metadata.ejb.spec;
 
 /**
  * MethodInterfaceType.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public enum MethodInterfaceType
-{
-   /** Home */
-   Home,
-   
-   /** Remote */
-   Remote,
-   
-   /** LocalHome */
-   LocalHome,
-   
-   /** Local */
-   Local,
-   
-   /** ServiceEndpoint */
-   ServiceEndpoint,
+public enum MethodInterfaceType {
+    /**
+     * Home
+     */
+    Home,
 
-   /** Timer */
-   Timer,
+    /**
+     * Remote
+     */
+    Remote,
 
-   /** MessageEndpoint */
-   MessageEndpoint
+    /**
+     * LocalHome
+     */
+    LocalHome,
+
+    /**
+     * Local
+     */
+    Local,
+
+    /**
+     * ServiceEndpoint
+     */
+    ServiceEndpoint,
+
+    /**
+     * Timer
+     */
+    Timer,
+
+    /**
+     * MessageEndpoint
+     */
+    MessageEndpoint
 }

@@ -22,12 +22,12 @@
 
 package org.jboss.metadata.parser.ee;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 
 /**
@@ -46,7 +46,8 @@ public class DescriptionsMetaDataParser {
             case DESCRIPTION:
                 descriptions.add(DescriptionMetaDataParser.parse(reader, propertyReplacer));
                 break;
-            default: return false;
+            default:
+                return false;
         }
         return true;
     }

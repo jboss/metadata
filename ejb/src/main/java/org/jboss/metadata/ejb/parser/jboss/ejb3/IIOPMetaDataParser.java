@@ -22,20 +22,14 @@
 
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
+import org.jboss.metadata.ejb.jboss.*;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.ejb.jboss.IIOPMetaData;
-import org.jboss.metadata.ejb.jboss.IORASContextMetaData;
-import org.jboss.metadata.ejb.jboss.IORSASContextMetaData;
-import org.jboss.metadata.ejb.jboss.IORSecurityConfigMetaData;
-import org.jboss.metadata.ejb.jboss.IORTransportConfigMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.property.PropertyReplacers;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -57,7 +51,7 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
     protected void processElement(IIOPMetaData metaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
 
         Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
-        switch(namespace) {
+        switch (namespace) {
             case EJB3_IIOP: {
                 Element element = Element.forName(reader.getLocalName());
                 switch (element) {
@@ -318,12 +312,12 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
     }
 
     /**
-      * <p>
-      * Enumeration of the EJB3/IIOP configuration elements.
-      * </p>
-      *
-      * @author <a href="mailto:sguilhen@redhat.com">Stefan Guilhen</a>
-      */
+     * <p>
+     * Enumeration of the EJB3/IIOP configuration elements.
+     * </p>
+     *
+     * @author <a href="mailto:sguilhen@redhat.com">Stefan Guilhen</a>
+     */
     enum Element {
 
         UNKNOWN(null),
@@ -349,55 +343,55 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
 
         private final String name;
 
-         /**
-          * <p>
-          * {@code Element} constructor. Sets the element name.
-          * </p>
-          *
-          * @param name a {@code String} representing the local name of the element.
-          */
-         Element(final String name) {
-             this.name = name;
-         }
+        /**
+         * <p>
+         * {@code Element} constructor. Sets the element name.
+         * </p>
+         *
+         * @param name a {@code String} representing the local name of the element.
+         */
+        Element(final String name) {
+            this.name = name;
+        }
 
-         /**
-          * <p>
-          * Obtains the local name of this element.
-          * </p>
-          *
-          * @return a {@code String} representing the element's local name.
-          */
-         public String getLocalName() {
-             return name;
-         }
+        /**
+         * <p>
+         * Obtains the local name of this element.
+         * </p>
+         *
+         * @return a {@code String} representing the element's local name.
+         */
+        public String getLocalName() {
+            return name;
+        }
 
-         // a map that caches all available elements by name.
-         private static final Map<String, Element> MAP;
+        // a map that caches all available elements by name.
+        private static final Map<String, Element> MAP;
 
-         static {
-             final Map<String, Element> map = new HashMap<String, Element>();
-             for (Element element : values()) {
-                 final String name = element.getLocalName();
-                 if (name != null)
-                     map.put(name, element);
-             }
-             MAP = map;
-         }
+        static {
+            final Map<String, Element> map = new HashMap<String, Element>();
+            for (Element element : values()) {
+                final String name = element.getLocalName();
+                if (name != null)
+                    map.put(name, element);
+            }
+            MAP = map;
+        }
 
 
-         /**
-          * <p>
-          * Gets the {@code Element} identified by the specified name.
-          * </p>
-          *
-          * @param localName a {@code String} representing the local name of the element.
-          * @return the {@code Element} identified by the name. If no attribute can be found, the {@code Element.UNKNOWN}
-          * type is returned.
-          */
-         public static Element forName(String localName) {
-             final Element element = MAP.get(localName);
-             return element == null ? UNKNOWN : element;
-         }
+        /**
+         * <p>
+         * Gets the {@code Element} identified by the specified name.
+         * </p>
+         *
+         * @param localName a {@code String} representing the local name of the element.
+         * @return the {@code Element} identified by the name. If no attribute can be found, the {@code Element.UNKNOWN}
+         *         type is returned.
+         */
+        public static Element forName(String localName) {
+            final Element element = MAP.get(localName);
+            return element == null ? UNKNOWN : element;
+        }
 
-     }
+    }
 }

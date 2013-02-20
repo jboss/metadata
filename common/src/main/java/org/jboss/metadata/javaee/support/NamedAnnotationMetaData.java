@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.javaee.support;
 
+import org.jboss.metadata.annotation.AbstractAnnotationImpl;
+
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-
-import org.jboss.metadata.annotation.AbstractAnnotationImpl;
 
 /**
  * NamedAnnotationMetaData.
@@ -33,10 +33,14 @@ import org.jboss.metadata.annotation.AbstractAnnotationImpl;
  * @version $Revision: 1.1 $
  */
 public abstract class NamedAnnotationMetaData extends AbstractAnnotationImpl implements Serializable, MappableMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 2705312164569803721L;
 
-    /** The name */
+    /**
+     * The name
+     */
     private String name;
 
     /**

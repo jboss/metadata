@@ -21,11 +21,10 @@
  */
 package org.jboss.metadata.web.spec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
+
+import java.util.List;
 
 /**
  * @author Scott.Stark@jboss.org
@@ -34,9 +33,13 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 public class FilterMetaData extends NamedMetaDataWithDescriptionGroup {
     private static final long serialVersionUID = 1;
 
-    /** The filter class */
+    /**
+     * The filter class
+     */
     private String filterClass;
-    /** The filter init-params */
+    /**
+     * The filter init-params
+     */
     private List<ParamValueMetaData> initParam;
     private boolean asyncSupported = false;
     private boolean asyncSupportedSet = false;

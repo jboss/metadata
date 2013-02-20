@@ -34,7 +34,7 @@ import org.jboss.metadata.merge.javaee.jboss.JBossServiceReferencesMetaDataMerge
 public class RemoteEnvironmentRefsGroupMetaDataMerger {
 
     public static void merge(RemoteEnvironmentRefsGroupMetaData dest, RemoteEnvironment jbossEnv, RemoteEnvironment specEnv, String overrideFile, String overridenFile,
-            boolean mustOverride) {
+                             boolean mustOverride) {
         AnnotatedEJBReferencesMetaData annotatedEjbRefs = null;
         EJBReferencesMetaData ejbRefs = null;
         EJBReferencesMetaData jbossEjbRefs = null;
@@ -159,7 +159,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
 
         if (dataSourceMetaData != null || jbossDataSourceMetaData != null) {
             if (dest.getDataSources() == null)
-               dest.setDataSources(new DataSourcesMetaData());
+                dest.setDataSources(new DataSourcesMetaData());
             DataSourcesMetaData datasources = DataSourcesMetaDataMerger.merge(jbossDataSourceMetaData, dataSourceMetaData, "spec.xml", "jboss.xml");
             dest.setDataSources(datasources);
         }
@@ -172,7 +172,7 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
     }
 
     public static void augment(RemoteEnvironmentRefsGroupMetaData dest, RemoteEnvironmentRefsGroupMetaData augment, RemoteEnvironmentRefsGroupMetaData main,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
         // EJB references
         if (dest.getEjbReferences() == null) {
             if (augment.getEjbReferences() != null)

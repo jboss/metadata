@@ -23,8 +23,8 @@ package org.jboss.metadata.javaee.support;
 
 /**
  * NonNullLinkedHashSet
- * <p>
- *
+ * <p/>
+ * <p/>
  * Overrides LinkedHashSet to disallow null values
  *
  * @param <E> the element type
@@ -32,10 +32,14 @@ package org.jboss.metadata.javaee.support;
  * @version $Revision: 1.1 $
  */
 public class NonNullLinkedHashSetWithId<E> extends NonNullLinkedHashSet<E> implements IdMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 3210601531294204704L;
 
-    /** The id */
+    /**
+     * The id
+     */
     private String id;
 
     /**

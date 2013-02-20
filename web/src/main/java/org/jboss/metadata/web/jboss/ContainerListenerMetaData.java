@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.web.jboss;
 
-import java.util.List;
-
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
+
+import java.util.List;
 
 /**
  * @author Scott.Stark@jboss.org
@@ -47,30 +47,30 @@ public class ContainerListenerMetaData extends IdMetaDataImplWithDescriptionGrou
     }
 
     public String getModule() {
-		return module;
-	}
+        return module;
+    }
 
-	public void setModule(String module) {
-		this.module = module;
-	}
+    public void setModule(String module) {
+        this.module = module;
+    }
 
-	public ContainerListenerType getListenerType() {
-		return listenerType;
-	}
+    public ContainerListenerType getListenerType() {
+        return listenerType;
+    }
 
-	public void setListenerType(ContainerListenerType listenerType) {
-		this.listenerType = listenerType;
-	}
+    public void setListenerType(ContainerListenerType listenerType) {
+        this.listenerType = listenerType;
+    }
 
-	public List<ParamValueMetaData> getParams() {
-		return params;
-	}
+    public List<ParamValueMetaData> getParams() {
+        return params;
+    }
 
-	public void setParams(List<ParamValueMetaData> params) {
-		this.params = params;
-	}
+    public void setParams(List<ParamValueMetaData> params) {
+        this.params = params;
+    }
 
-	public String toString() {
+    public String toString() {
         StringBuilder tmp = new StringBuilder("ContainerListenerMetaData(id=");
         tmp.append(getId());
         tmp.append(",listenerClass=");

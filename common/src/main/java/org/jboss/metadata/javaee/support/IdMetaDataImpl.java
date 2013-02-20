@@ -30,10 +30,14 @@ package org.jboss.metadata.javaee.support;
  * @version $Revision: 1.1 $
  */
 public abstract class IdMetaDataImpl implements IdMetaData, Cloneable {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -2952233733011178332L;
 
-    /** The id */
+    /**
+     * The id
+     */
     String id;
 
     /**

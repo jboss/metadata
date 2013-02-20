@@ -29,7 +29,6 @@ import javax.ejb.AccessTimeout;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class AccessTimeoutMetaData extends AbstractTimeoutMetaData
-{
-   private static final long serialVersionUID = 1L;
+public class AccessTimeoutMetaData extends AbstractTimeoutMetaData {
+    private static final long serialVersionUID = 1L;
 }

@@ -21,23 +21,16 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
-import org.jboss.metadata.web.spec.ErrorPageMetaData;
-import org.jboss.metadata.web.spec.FilterMappingMetaData;
-import org.jboss.metadata.web.spec.ListenerMetaData;
-import org.jboss.metadata.web.spec.MimeMappingMetaData;
-import org.jboss.metadata.web.spec.SecurityConstraintMetaData;
-import org.jboss.metadata.web.spec.ServletMappingMetaData;
-import org.jboss.metadata.web.spec.WebCommonMetaData;
-import org.jboss.metadata.web.spec.WebResourceCollectionMetaData;
+import org.jboss.metadata.web.spec.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The web-app spec metadata, common between the fragments and the main web.xml
@@ -56,16 +49,16 @@ public class WebCommonMetaDataMerger {
      * the value of the resolve flag.
      *
      * @param webFragmentMetaData The web meta data which will be merged into
-     *        this one
-     * @param webMetaData The base web meta data, used for conflict error
-     *        checking
-     * @param resolveConflicts If true, any conflict will be skipped without an
-     *        error. Otherwise, an error will be thrown. If this is true, then
-     *        as all conflict will be resolved in favor of this object,
-     *        webMetaData will not be used and can be null
+     *                            this one
+     * @param webMetaData         The base web meta data, used for conflict error
+     *                            checking
+     * @param resolveConflicts    If true, any conflict will be skipped without an
+     *                            error. Otherwise, an error will be thrown. If this is true, then
+     *                            as all conflict will be resolved in favor of this object,
+     *                            webMetaData will not be used and can be null
      */
     public static void augment(WebCommonMetaData dest, WebCommonMetaData webFragmentMetaData, WebCommonMetaData webMetaData,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
 
         // Distributable
         if (!resolveConflicts && webFragmentMetaData.getDistributable() == null && webMetaData != null) {

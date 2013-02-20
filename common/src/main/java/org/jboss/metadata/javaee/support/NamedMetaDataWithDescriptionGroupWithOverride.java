@@ -30,10 +30,14 @@ package org.jboss.metadata.javaee.support;
  */
 public abstract class NamedMetaDataWithDescriptionGroupWithOverride<T extends MappableMetaData> extends
         NamedMetaDataWithDescriptionGroup implements MappableMetaDataWithOverride<T> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 281861015522919956L;
 
-    /** The overriden metadata */
+    /**
+     * The overriden metadata
+     */
     private T data;
 
     /**

@@ -31,10 +31,14 @@ import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;
  * @version $Revision: 1.1 $
  */
 public abstract class ResourceInjectionMetaDataWithDescriptions extends ResourceInjectionMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -3420035274417539783L;
 
-    /** The descriptions */
+    /**
+     * The descriptions
+     */
     private Descriptions descriptions;
 
     /**

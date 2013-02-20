@@ -21,20 +21,19 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 import org.jboss.metadata.web.spec.WelcomeFileListMetaData;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 75470 $
  */
 public class WelcomeFileListMetaDataMerger extends IdMetaDataImplMerger {
     public static void augment(WelcomeFileListMetaData dest, WelcomeFileListMetaData webFragmentMetaData, WelcomeFileListMetaData webMetaData,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
         // Note: as this is purely additive, webMetaData is useless
         if (dest.getWelcomeFiles() == null) {
             dest.setWelcomeFiles(webFragmentMetaData.getWelcomeFiles());

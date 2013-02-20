@@ -84,7 +84,7 @@ public class ClassHelper {
      * @param cls the class to scan
      * @return the default interface as defined above
      * @throws IllegalArgumentException if the class does not implement a
-     *         default interface
+     *                                  default interface
      */
     public static Class<?> getDefaultInterface(Class<?> cls) {
         Class<?> defaultInterface = findDefaultInterface(cls);

@@ -30,7 +30,9 @@ import org.jboss.metadata.javaee.support.MappedMetaDataWithDescriptions;
  * @version $Revision: 1.1 $
  */
 public class ResourceManagersMetaData extends MappedMetaDataWithDescriptions<ResourceManagerMetaData> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -4930331173512895612L;
 
     /**

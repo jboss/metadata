@@ -98,8 +98,7 @@ public enum Element {
     VALIDATOR("validator"),
     VALIDATOR_CLASS("validator-class"),
     VARIABLE("variable"),
-    VARIABLE_CLASS("variable-class"),
-    ;
+    VARIABLE_CLASS("variable-class"),;
 
     private final String name;
 

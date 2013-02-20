@@ -21,11 +21,7 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.annotation.javaee.Description;
-import org.jboss.annotation.javaee.Descriptions;
-import org.jboss.annotation.javaee.DisplayName;
-import org.jboss.annotation.javaee.DisplayNames;
-import org.jboss.annotation.javaee.Icons;
+import org.jboss.annotation.javaee.*;
 
 import java.io.Serializable;
 
@@ -36,16 +32,24 @@ import java.io.Serializable;
  * @version $Revision: 1.1 $
  */
 public class DescriptionGroupMetaData implements Serializable {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1337095770028220349L;
 
-    /** The descriptions */
+    /**
+     * The descriptions
+     */
     private Descriptions descriptions;
 
-    /** The display names */
+    /**
+     * The display names
+     */
     private DisplayNames displayNames;
 
-    /** The icons */
+    /**
+     * The icons
+     */
     private Icons icons;
 
     /**

@@ -27,28 +27,24 @@ import org.jboss.metadata.ejb.spec.EjbJarVersion;
 /**
  * User: jpai
  */
-class AssemblyDescriptorMetaDataParserFactory
-{
-   static AssemblyDescriptorMetaDataParser getParser(EjbJarVersion ejbJarVersion)
-   {
-      if (ejbJarVersion == null)
-      {
-         throw new IllegalArgumentException("ejb-jar version cannot be null");
-      }
-      switch (ejbJarVersion)
-      {
-         case EJB_1_1:
-         case EJB_2_0:
-         case EJB_2_1:
-            // TODO: Parser not yet implemented for EJB 1.x and EJB 2.x versions, fallback to generic
-            return new AssemblyDescriptorMetaDataParser();
+class AssemblyDescriptorMetaDataParserFactory {
+    static AssemblyDescriptorMetaDataParser getParser(EjbJarVersion ejbJarVersion) {
+        if (ejbJarVersion == null) {
+            throw new IllegalArgumentException("ejb-jar version cannot be null");
+        }
+        switch (ejbJarVersion) {
+            case EJB_1_1:
+            case EJB_2_0:
+            case EJB_2_1:
+                // TODO: Parser not yet implemented for EJB 1.x and EJB 2.x versions, fallback to generic
+                return new AssemblyDescriptorMetaDataParser();
 
-         case EJB_3_0:
-         case EJB_3_1:
-            return new AssemblyDescriptor30MetaDataParser();
+            case EJB_3_0:
+            case EJB_3_1:
+                return new AssemblyDescriptor30MetaDataParser();
 
-         default:
-            throw new IllegalArgumentException("No parser available for ejb-jar version: " + ejbJarVersion.name());
-      }
-   }
+            default:
+                throw new IllegalArgumentException("No parser available for ejb-jar version: " + ejbJarVersion.name());
+        }
+    }
 }

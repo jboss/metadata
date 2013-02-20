@@ -31,7 +31,9 @@ import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
  * @version $Revision: 1.1 $
  */
 public class JBossWeb4xEnvironmentRefsGroupMetaData extends JBossEnvironmentRefsGroupMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1L;
 
 }

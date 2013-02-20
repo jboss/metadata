@@ -21,44 +21,39 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * jboss-assembly-descriptor-bean-entryType
  *
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public abstract class AbstractEJBBoundMetaDataParser<MD extends AbstractEJBBoundMetaData> extends AbstractMetaDataParser<MD>
-{
-   @Override
-   protected void processElement(MD metaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException
-   {
-      final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
-      switch (namespace)
-      {
-         case SPEC:
-            final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
-            switch (ejbJarElement)
-            {
-               case DESCRIPTION:
-                  // TODO: implement
-                  reader.getElementText();
-                  return;
-               case EJB_NAME:
-                  metaData.setEjbName(getElementText(reader, propertyReplacer));
-                  return;
-            }
-      }
-      super.processElement(metaData, reader, propertyReplacer);
-   }
+public abstract class AbstractEJBBoundMetaDataParser<MD extends AbstractEJBBoundMetaData> extends AbstractMetaDataParser<MD> {
+    @Override
+    protected void processElement(MD metaData, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
+        final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
+        switch (namespace) {
+            case SPEC:
+                final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
+                switch (ejbJarElement) {
+                    case DESCRIPTION:
+                        // TODO: implement
+                        reader.getElementText();
+                        return;
+                    case EJB_NAME:
+                        metaData.setEjbName(getElementText(reader, propertyReplacer));
+                        return;
+                }
+        }
+        super.processElement(metaData, reader, propertyReplacer);
+    }
 
     @Override
     protected void processElements(MD metaData, XMLStreamReader reader, PropertyReplacer propertyReplacer)

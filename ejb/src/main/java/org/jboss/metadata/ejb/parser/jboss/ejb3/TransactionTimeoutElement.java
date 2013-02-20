@@ -31,8 +31,7 @@ public enum TransactionTimeoutElement {
     UNKNOWN(null),
 
     TIMEOUT("timeout"),
-    UNIT("unit"),
-    ;
+    UNIT("unit"),;
 
     /**
      * Name of the element

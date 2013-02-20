@@ -31,25 +31,20 @@ import java.lang.reflect.AnnotatedElement;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 65638 $
  */
-public class DefaultAnnotationFinder<E extends AnnotatedElement> implements AnnotationFinder<E>
-{
-   public <T extends Annotation> T getAnnotation(E element, Class<T> annotationType)
-   {
-      return element.getAnnotation(annotationType);
-   }
+public class DefaultAnnotationFinder<E extends AnnotatedElement> implements AnnotationFinder<E> {
+    public <T extends Annotation> T getAnnotation(E element, Class<T> annotationType) {
+        return element.getAnnotation(annotationType);
+    }
 
-   public Annotation[] getAnnotations(E element)
-   {
-      return element.getAnnotations();
-   }
+    public Annotation[] getAnnotations(E element) {
+        return element.getAnnotations();
+    }
 
-   public Annotation[] getDeclaredAnnotations(E element)
-   {
-      return element.getDeclaredAnnotations();
-   }
+    public Annotation[] getDeclaredAnnotations(E element) {
+        return element.getDeclaredAnnotations();
+    }
 
-   public boolean isAnnotationPresent(E element, Class<? extends Annotation> annotationType)
-   {
-      return element.isAnnotationPresent(annotationType);
-   }
+    public boolean isAnnotationPresent(E element, Class<? extends Annotation> annotationType) {
+        return element.isAnnotationPresent(annotationType);
+    }
 }

@@ -31,16 +31,24 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @version $Revision: 1.1 $
  */
 public class AnnotationMetaData extends NamedMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -8547813151720473321L;
 
-    /** The impl class */
+    /**
+     * The impl class
+     */
     private String annotationImplementationClass;
 
-    /** The resource injection target */
+    /**
+     * The resource injection target
+     */
     private ResourceInjectionTargetMetaData injectionTarget;
 
-    /** The annotation properties */
+    /**
+     * The annotation properties
+     */
     private AnnotationPropertiesMetaData properties;
 
     /**

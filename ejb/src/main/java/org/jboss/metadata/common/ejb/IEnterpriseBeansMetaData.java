@@ -21,34 +21,33 @@
  */
 package org.jboss.metadata.common.ejb;
 
-import java.util.Collection;
-
 import org.jboss.metadata.javaee.support.IdMetaData;
+
+import java.util.Collection;
 
 /**
  * @author Scott.Stark@jboss.org
  * @version $Revision: 66420 $
  */
-public interface IEnterpriseBeansMetaData<A extends IAssemblyDescriptorMetaData, 
-   C extends IEnterpriseBeansMetaData<A, C, E, J>, 
-   E extends IEnterpriseBeanMetaData<A, C, E, J>, 
-   J extends IEjbJarMetaData<A, C, E, J>>
-   extends IdMetaData, Collection<E>
-{
-   /**
-    * Get the ejbJarMetaData.
-    * 
-    * @return the ejbJarMetaData.
-    */
-   J getEjbJarMetaData();
-   
-   /**
-    * Set the ejbJarMetaData.
-    * 
-    * @param ejbJarMetaData the ejbJarMetaData.
-    * @throws IllegalArgumentException for a null ejbJarMetaData
-    */
-   void setEjbJarMetaData(J ejbJarMetaData);
+public interface IEnterpriseBeansMetaData<A extends IAssemblyDescriptorMetaData,
+        C extends IEnterpriseBeansMetaData<A, C, E, J>,
+        E extends IEnterpriseBeanMetaData<A, C, E, J>,
+        J extends IEjbJarMetaData<A, C, E, J>>
+        extends IdMetaData, Collection<E> {
+    /**
+     * Get the ejbJarMetaData.
+     *
+     * @return the ejbJarMetaData.
+     */
+    J getEjbJarMetaData();
 
-   public E get(String ejbName);
+    /**
+     * Set the ejbJarMetaData.
+     *
+     * @param ejbJarMetaData the ejbJarMetaData.
+     * @throws IllegalArgumentException for a null ejbJarMetaData
+     */
+    void setEjbJarMetaData(J ejbJarMetaData);
+
+    public E get(String ejbName);
 }

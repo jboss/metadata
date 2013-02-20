@@ -31,13 +31,19 @@ import java.io.Serializable;
  * @version $Revision: 1.1 $
  */
 public class LifecycleCallbackMetaData implements Serializable {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 6453746684927606565L;
 
-    /** The class */
+    /**
+     * The class
+     */
     private String className;
 
-    /** The method name */
+    /**
+     * The method name
+     */
     private String methodName;
 
     /**

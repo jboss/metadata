@@ -27,12 +27,19 @@ import org.jboss.metadata.ear.spec.ModuleMetaData.ModuleType;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 66759 $
  */
-public @interface Module
-{
-   /** The module archive file */
-   String fileName();
-   /** The optional module id */
-   String id() default "";
-   /** The type of module */
-   ModuleType type();
+public @interface Module {
+    /**
+     * The module archive file
+     */
+    String fileName();
+
+    /**
+     * The optional module id
+     */
+    String id() default "";
+
+    /**
+     * The type of module
+     */
+    ModuleType type();
 }

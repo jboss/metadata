@@ -23,16 +23,22 @@
 package org.jboss.metadata.web.jboss;
 
 public enum ReplicationTrigger {
-    /** Merely accessing the session marks the session as dirty */
+    /**
+     * Merely accessing the session marks the session as dirty
+     */
     ACCESS,
-    /** Calling setAttribute() or getAttribute() marks the session as dirty */
+    /**
+     * Calling setAttribute() or getAttribute() marks the session as dirty
+     */
     SET_AND_GET,
     /**
      * Calling setAttribute() marks the session as dirty, as does getAttribute()
      * if the returned type is not String or Number
      */
     SET_AND_NON_PRIMITIVE_GET,
-    /** Only calling setAttribute() marks the session as dirty */
+    /**
+     * Only calling setAttribute() marks the session as dirty
+     */
     SET;
 
     public static ReplicationTrigger fromString(String policy) {

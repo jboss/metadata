@@ -26,26 +26,23 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class AbstractEJBBoundMetaData extends NamedMetaDataWithDescriptions
-{
-   /**
-    * Get the ejbName.
-    *
-    * @return the ejbName.
-    */
-   public String getEjbName()
-   {
-      return getName();
-   }
+public class AbstractEJBBoundMetaData extends NamedMetaDataWithDescriptions {
+    /**
+     * Get the ejbName.
+     *
+     * @return the ejbName.
+     */
+    public String getEjbName() {
+        return getName();
+    }
 
-   /**
-    * Set the ejbName.
-    *
-    * @param ejbName the ejbName.
-    * @throws IllegalArgumentException for a null ejbName
-    */
-   public void setEjbName(String ejbName)
-   {
-      setName(ejbName);
-   }
+    /**
+     * Set the ejbName.
+     *
+     * @param ejbName the ejbName.
+     * @throws IllegalArgumentException for a null ejbName
+     */
+    public void setEjbName(String ejbName) {
+        setName(ejbName);
+    }
 }

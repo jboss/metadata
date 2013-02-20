@@ -35,14 +35,14 @@ public class DataSourcesMetaDataMerger {
     /**
      * Merge data sources
      *
-     * @param override the override references
-     * @param overriden the overriden references
+     * @param override      the override references
+     * @param overriden     the overriden references
      * @param overridenFile the overriden file name
-     * @param overrideFile the override file
+     * @param overrideFile  the override file
      * @return the merged referencees
      */
     public static DataSourcesMetaData merge(DataSourcesMetaData override, DataSourcesMetaData overriden, String overridenFile,
-            String overrideFile) {
+                                            String overrideFile) {
         if (override == null && overriden == null)
             return null;
 
@@ -57,7 +57,7 @@ public class DataSourcesMetaDataMerger {
      * From JavaEEMetaDataUtil
      */
     private static DataSourcesMetaData merge(DataSourcesMetaData merged, DataSourcesMetaData overriden,
-            DataSourcesMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
+                                             DataSourcesMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
         if (merged == null)
             throw new IllegalArgumentException("Null merged");
 
@@ -109,7 +109,7 @@ public class DataSourcesMetaDataMerger {
     }
 
     public static void augment(DataSourcesMetaData dest, DataSourcesMetaData webFragmentMetaData,
-            DataSourcesMetaData webMetaData, boolean resolveConflicts) {
+                               DataSourcesMetaData webMetaData, boolean resolveConflicts) {
         for (DataSourceMetaData dataSourceMetaData : webFragmentMetaData) {
             if (dest.containsKey(dataSourceMetaData.getKey())) {
                 if (!resolveConflicts && (webMetaData == null || !webMetaData.containsKey(dataSourceMetaData.getKey()))) {

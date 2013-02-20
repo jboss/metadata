@@ -38,7 +38,7 @@ public class PersistenceUnitReferencesMetaDataMerger {
     }
 
     public static void augment(PersistenceUnitReferencesMetaData dest, PersistenceUnitReferencesMetaData augment, PersistenceUnitReferencesMetaData main,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
         for (PersistenceUnitReferenceMetaData persistenceUnitRef : augment) {
             if (dest.containsKey(persistenceUnitRef.getKey())) {
                 if (!resolveConflicts && (main == null || !main.containsKey(persistenceUnitRef.getKey()))) {

@@ -27,124 +27,123 @@ import javax.ejb.TransactionManagementType;
 
 /**
  * SessionBeanMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public interface SessionBeanMetaData extends EnterpriseBeanMetaData
-{
-   /**
-    * Get the home.
-    * 
-    * @return the home.
-    */
-   String getHome();
+public interface SessionBeanMetaData extends EnterpriseBeanMetaData {
+    /**
+     * Get the home.
+     *
+     * @return the home.
+     */
+    String getHome();
 
-   /**
-    * Get the remote.
-    * 
-    * @return the remote.
-    */
-   String getRemote();
+    /**
+     * Get the remote.
+     *
+     * @return the remote.
+     */
+    String getRemote();
 
-   /**
-    * Get the localHome.
-    * 
-    * @return the localHome.
-    */
-   String getLocalHome();
+    /**
+     * Get the localHome.
+     *
+     * @return the localHome.
+     */
+    String getLocalHome();
 
-   /**
-    * Get the local.
-    * 
-    * @return the local.
-    */
-   String getLocal();
+    /**
+     * Get the local.
+     *
+     * @return the local.
+     */
+    String getLocal();
 
-   /**
-    * Get the businessLocals.
-    * 
-    * @return the businessLocals.
-    */
-   BusinessLocalsMetaData getBusinessLocals();
+    /**
+     * Get the businessLocals.
+     *
+     * @return the businessLocals.
+     */
+    BusinessLocalsMetaData getBusinessLocals();
 
-   /**
-    * Get the businessRemotes.
-    * 
-    * @return the businessRemotes.
-    */
-   BusinessRemotesMetaData getBusinessRemotes();
+    /**
+     * Get the businessRemotes.
+     *
+     * @return the businessRemotes.
+     */
+    BusinessRemotesMetaData getBusinessRemotes();
 
-   /**
-    * Get the serviceEndpoint.
-    * 
-    * @return the serviceEndpoint.
-    */
-   public String getServiceEndpoint();
+    /**
+     * Get the serviceEndpoint.
+     *
+     * @return the serviceEndpoint.
+     */
+    public String getServiceEndpoint();
 
-   /**
-    * Get the sessionType.
-    * 
-    * @return the sessionType.
-    */
-   SessionType getSessionType();
+    /**
+     * Get the sessionType.
+     *
+     * @return the sessionType.
+     */
+    SessionType getSessionType();
 
-   /**
-    * Is this stateful
-    * 
-    * @return true for stateful
-    */
-   boolean isStateful();
+    /**
+     * Is this stateful
+     *
+     * @return true for stateful
+     */
+    boolean isStateful();
 
-   /**
-    * Is this stateless
-    * 
-    * @return true for stateless
-    */
-   boolean isStateless();
+    /**
+     * Is this stateless
+     *
+     * @return true for stateless
+     */
+    boolean isStateless();
 
-   /**
-    * Get the timeoutMethod.
-    * 
-    * @return the timeoutMethod.
-    */
-   NamedMethodMetaData getTimeoutMethod();
+    /**
+     * Get the timeoutMethod.
+     *
+     * @return the timeoutMethod.
+     */
+    NamedMethodMetaData getTimeoutMethod();
 
-   /**
-    * Get the initMethods.
-    * 
-    * @return the initMethods.
-    */
-   InitMethodsMetaData getInitMethods();
+    /**
+     * Get the initMethods.
+     *
+     * @return the initMethods.
+     */
+    InitMethodsMetaData getInitMethods();
 
-   /**
-    * Get the removeMethods.
-    * 
-    * @return the removeMethods.
-    */
-   RemoveMethodsMetaData getRemoveMethods();
+    /**
+     * Get the removeMethods.
+     *
+     * @return the removeMethods.
+     */
+    RemoveMethodsMetaData getRemoveMethods();
 
-   @Override
-   TransactionManagementType getTransactionType();
+    @Override
+    TransactionManagementType getTransactionType();
 
-   /**
-    * Get the aroundInvokes.
-    * 
-    * @return the aroundInvokes.
-    */
-   AroundInvokesMetaData getAroundInvokes();
+    /**
+     * Get the aroundInvokes.
+     *
+     * @return the aroundInvokes.
+     */
+    AroundInvokesMetaData getAroundInvokes();
 
-   /**
-    * Get the postActivates.
-    * 
-    * @return the postActivates.
-    */
-   LifecycleCallbacksMetaData getPostActivates();
+    /**
+     * Get the postActivates.
+     *
+     * @return the postActivates.
+     */
+    LifecycleCallbacksMetaData getPostActivates();
 
-   /**
-    * Get the prePassivates.
-    * 
-    * @return the prePassivates.
-    */
-   LifecycleCallbacksMetaData getPrePassivates();
+    /**
+     * Get the prePassivates.
+     *
+     * @return the prePassivates.
+     */
+    LifecycleCallbacksMetaData getPrePassivates();
 }

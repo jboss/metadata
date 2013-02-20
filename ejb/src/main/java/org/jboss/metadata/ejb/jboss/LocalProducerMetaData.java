@@ -27,10 +27,8 @@ package org.jboss.metadata.ejb.jboss;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 66431 $
  */
-public class LocalProducerMetaData extends ProducerMetaData
-{
-   public LocalProducerMetaData()
-   {
-      super(true);
-   }
+public class LocalProducerMetaData extends ProducerMetaData {
+    public LocalProducerMetaData() {
+        super(true);
+    }
 }

@@ -34,14 +34,14 @@ public class EJBReferencesMetaDataMerger {
     /**
      * Merge ejb references
      *
-     * @param override the override references
-     * @param overriden the overriden references
+     * @param override      the override references
+     * @param overriden     the overriden references
      * @param overridenFile the overriden file name
-     * @param overrideFile the override file
+     * @param overrideFile  the override file
      * @return the merged referencees
      */
     public static EJBReferencesMetaData merge(EJBReferencesMetaData override, EJBReferencesMetaData overriden,
-            String overridenFile, String overrideFile, boolean mustOverride) {
+                                              String overridenFile, String overrideFile, boolean mustOverride) {
         if (override == null && overriden == null)
             return null;
 
@@ -56,7 +56,7 @@ public class EJBReferencesMetaDataMerger {
      * From avaEEMetaDataUtil.java
      */
     private static EJBReferencesMetaData merge(EJBReferencesMetaData merged, EJBReferencesMetaData overriden,
-            EJBReferencesMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
+                                               EJBReferencesMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
         if (merged == null)
             throw new IllegalArgumentException("Null merged");
 
@@ -108,7 +108,7 @@ public class EJBReferencesMetaDataMerger {
     }
 
     public static void augment(EJBReferencesMetaData dest, EJBReferencesMetaData augment, EJBReferencesMetaData main,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
         for (EJBReferenceMetaData ejbReference : augment) {
             if (dest.containsKey(ejbReference.getKey())) {
                 if (!resolveConflicts && (main == null || !main.containsKey(ejbReference.getKey()))) {

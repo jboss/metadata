@@ -21,20 +21,18 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import java.util.ArrayList;
-
 import org.jboss.metadata.merge.MergeUtil;
+
+import java.util.ArrayList;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-public class AsyncMethodsMetaData extends ArrayList<AsyncMethodMetaData>
-{
-   private static final long serialVersionUID = 1L;
+public class AsyncMethodsMetaData extends ArrayList<AsyncMethodMetaData> {
+    private static final long serialVersionUID = 1L;
 
-   public void merge(AsyncMethodsMetaData override, AsyncMethodsMetaData original)
-   {
-      MergeUtil.merge(this, override, original);
-   }
+    public void merge(AsyncMethodsMetaData override, AsyncMethodsMetaData original) {
+        MergeUtil.merge(this, override, original);
+    }
 }

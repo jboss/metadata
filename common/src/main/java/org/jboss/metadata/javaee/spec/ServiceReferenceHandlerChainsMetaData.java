@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import java.util.List;
-
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+
+import java.util.List;
 
 /**
  * ServiceReferenceHandlerChainsMetaData.
@@ -35,7 +35,9 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 public class ServiceReferenceHandlerChainsMetaData
 // extends NonNullLinkedHashSet<ServiceReferenceHandlerChainMetaData>
         extends IdMetaDataImpl {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 1;
     private List<ServiceReferenceHandlerChainMetaData> handlers;
 

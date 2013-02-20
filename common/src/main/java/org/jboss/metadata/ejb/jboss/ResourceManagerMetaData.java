@@ -30,16 +30,24 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @version $Revision: 1.1 $
  */
 public class ResourceManagerMetaData extends NamedMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 244708249262277696L;
 
-    /** The resource class */
+    /**
+     * The resource class
+     */
     private String resClass;
 
-    /** The resource jndi name */
+    /**
+     * The resource jndi name
+     */
     private String resJndiName;
 
-    /** The resource url */
+    /**
+     * The resource url
+     */
     private String resUrl;
 
     @Override

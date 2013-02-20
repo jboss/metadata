@@ -21,13 +21,9 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+
+import java.util.*;
 
 /**
  * SecurityRolesMetaData.
@@ -36,7 +32,9 @@ import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
  * @version $Revision: 1.1 $
  */
 public class SecurityRolesMetaData extends AbstractMappedMetaData<SecurityRoleMetaData> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 4551308976124434096L;
 
     private Map<String, Set<String>> principalVersusRolesMap = new HashMap<String, Set<String>>();

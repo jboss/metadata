@@ -29,6 +29,8 @@ package org.jboss.metadata.web.jboss;
  * @author Brian Stansberry
  */
 public class ReplicationConfig60 extends ReplicationConfig {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -4550670443463444120L;
 }

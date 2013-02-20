@@ -22,10 +22,10 @@
 
 package org.jboss.metadata.parser.ee;
 
+import org.jboss.metadata.javaee.spec.DisplayNamesImpl;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.javaee.spec.DisplayNamesImpl;
 
 
 /**
@@ -40,7 +40,8 @@ public class DisplayNamesMetaDataParser {
             case DISPLAY_NAME:
                 displayNames.add(DisplayNameMetaDataParser.parse(reader));
                 break;
-            default: return false;
+            default:
+                return false;
         }
         return true;
     }

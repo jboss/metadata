@@ -34,11 +34,17 @@ import java.util.Set;
 public class RunAsIdentityMetaData implements Serializable {
     private static final long serialVersionUID = 1;
 
-    /** The name of the run-as principal */
+    /**
+     * The name of the run-as principal
+     */
     private String principalName;
-    /** The run-as role name */
+    /**
+     * The run-as role name
+     */
     private String roleName;
-    /** The extra run-as role names */
+    /**
+     * The extra run-as role names
+     */
     private HashSet<String> runAsRoles = new HashSet<String>();
 
     private static final String ANOYMOUS_PRINCIPAL = "anonymous";

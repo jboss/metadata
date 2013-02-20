@@ -21,66 +21,16 @@
  */
 package org.jboss.metadata.web.jboss;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.jboss.metadata.common.jboss.WebserviceDescriptionsMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
-import org.jboss.metadata.javaee.spec.EmptyMetaData;
-import org.jboss.metadata.javaee.spec.Environment;
-import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
-import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
-import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
-import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
-import org.jboss.metadata.javaee.spec.ParamValueMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceUnitReferenceMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
-import org.jboss.metadata.javaee.spec.RunAsMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.*;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedModuleImpl;
-import org.jboss.metadata.web.spec.AnnotationMetaData;
-import org.jboss.metadata.web.spec.ErrorPageMetaData;
-import org.jboss.metadata.web.spec.FilterMappingMetaData;
-import org.jboss.metadata.web.spec.FiltersMetaData;
-import org.jboss.metadata.web.spec.HttpMethodConstraintMetaData;
-import org.jboss.metadata.web.spec.JspConfigMetaData;
-import org.jboss.metadata.web.spec.ListenerMetaData;
-import org.jboss.metadata.web.spec.LocaleEncodingsMetaData;
-import org.jboss.metadata.web.spec.LoginConfigMetaData;
-import org.jboss.metadata.web.spec.MimeMappingMetaData;
-import org.jboss.metadata.web.spec.MultipartConfigMetaData;
-import org.jboss.metadata.web.spec.SecurityConstraintMetaData;
-import org.jboss.metadata.web.spec.ServletMappingMetaData;
-import org.jboss.metadata.web.spec.ServletMetaData;
-import org.jboss.metadata.web.spec.ServletSecurityMetaData;
-import org.jboss.metadata.web.spec.SessionConfigMetaData;
-import org.jboss.metadata.web.spec.WelcomeFileListMetaData;
+import org.jboss.metadata.web.spec.*;
+
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * The combined web.xml/jboss-web.xml metadata
@@ -118,20 +68,32 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private String alternativeDD;
     private String securityDomain;
     private String jaccContextID;
-    /** The loader repository */
+    /**
+     * The loader repository
+     */
     private ClassLoadingMetaData classLoading;
-    /** A list of extra dependencies to wait on */
+    /**
+     * A list of extra dependencies to wait on
+     */
     private List<String> depends;
     /** */
     private Map<String, RunAsIdentityMetaData> runAsIdentity = new ConcurrentHashMap<String, RunAsIdentityMetaData>();
     private SecurityRolesMetaData securityRoles = new SecurityRolesMetaData();
-    /** The servlets */
+    /**
+     * The servlets
+     */
     private JBossServletsMetaData servlets = new JBossServletsMetaData();
-    /** The message destinations */
+    /**
+     * The message destinations
+     */
     private MessageDestinationsMetaData messageDestinations = new MessageDestinationsMetaData();
-    /** The environment */
+    /**
+     * The environment
+     */
     private EnvironmentRefsGroupMetaData jndiEnvironmentRefsGroup;
-    /** The web app virtual host list */
+    /**
+     * The web app virtual host list
+     */
     private List<String> virtualHosts;
     private boolean flushOnSessionInvalidation;
     private ReplicationConfig replicationConfig;
@@ -152,10 +114,14 @@ public class JBossWebMetaData extends NamedModuleImpl {
      */
     private String distinctName;
 
-    /** The web context class loader used to create the java:comp context */
+    /**
+     * The web context class loader used to create the java:comp context
+     */
     @Deprecated
     private transient ClassLoader encLoader;
-    /** The web context class loader, used to create the ws4ee service endpoint */
+    /**
+     * The web context class loader, used to create the ws4ee service endpoint
+     */
     @Deprecated
     private transient ClassLoader cxtLoader;
     /**
@@ -170,7 +136,9 @@ public class JBossWebMetaData extends NamedModuleImpl {
      */
     private Integer maxActiveSessions = null;
 
-    /** Should the context use session cookies or use default */
+    /**
+     * Should the context use session cookies or use default
+     */
     private int sessionCookies = SESSION_COOKIES_DEFAULT;
 
     public static final int SESSION_COOKIES_DEFAULT = 0;
@@ -220,6 +188,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     public String getDtdPublicId() {
         return dtdPublicId;
     }
+
     public void setDtdPublicId(String dtdPublicId) {
         this.dtdPublicId = dtdPublicId;
     }
@@ -232,6 +201,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     public String getDtdSystemId() {
         return dtdSystemId;
     }
+
     public void setDtdSystemId(String dtdSystemId) {
         this.dtdSystemId = dtdSystemId;
     }
@@ -629,11 +599,11 @@ public class JBossWebMetaData extends NamedModuleImpl {
     }
 
     public boolean isDisableAudit() {
-    	return disableAudit;
+        return disableAudit;
     }
 
     public void setDisableAudit(boolean disableAudit) {
-    	this.disableAudit = disableAudit;
+        this.disableAudit = disableAudit;
     }
 
     public boolean isFlushOnSessionInvalidation() {
@@ -693,31 +663,31 @@ public class JBossWebMetaData extends NamedModuleImpl {
     }
 
     public List<ContainerListenerMetaData> getContainerListeners() {
-		return containerListeners;
-	}
+        return containerListeners;
+    }
 
-	public void setContainerListeners(
-			List<ContainerListenerMetaData> containerListeners) {
-		this.containerListeners = containerListeners;
-	}
+    public void setContainerListeners(
+            List<ContainerListenerMetaData> containerListeners) {
+        this.containerListeners = containerListeners;
+    }
 
-	public List<ValveMetaData> getValves() {
-		return valves;
-	}
+    public List<ValveMetaData> getValves() {
+        return valves;
+    }
 
-	public void setValves(List<ValveMetaData> valves) {
-		this.valves = valves;
-	}
+    public void setValves(List<ValveMetaData> valves) {
+        this.valves = valves;
+    }
 
-	public List<String> getOverlays() {
-		return overlays;
-	}
+    public List<String> getOverlays() {
+        return overlays;
+    }
 
-	public void setOverlays(List<String> overlays) {
-		this.overlays = overlays;
-	}
+    public void setOverlays(List<String> overlays) {
+        this.overlays = overlays;
+    }
 
-	/**
+    /**
      * Get the security-role names from the web.xml descriptor
      *
      * @return Set<String> of the security-role names from the web.xml
@@ -793,6 +763,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     public Boolean getJaccAllStoreRole() {
         return jaccAllStoreRole;
     }
+
     public boolean isJaccAllStoreRole() {
         if (jaccAllStoreRole == null)
             return Boolean.FALSE;
@@ -834,7 +805,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
     }
 
     /**
-     *
      * @return servlet/run-as <String servlet-name, RunAsIdentityMetaData>
      */
     public Map<String, RunAsIdentityMetaData> getRunAsIdentity() {
@@ -870,9 +840,9 @@ public class JBossWebMetaData extends NamedModuleImpl {
                         if (annotation.getMultipartConfig() != null && servlet.getMultipartConfig() == null) {
                             MultipartConfigMetaData multipartConfig = new MultipartConfigMetaData();
                             MultipartConfigMetaData webFragmentMetaData = annotation.getMultipartConfig();
-                             multipartConfig.setLocation(webFragmentMetaData.getLocation());
+                            multipartConfig.setLocation(webFragmentMetaData.getLocation());
                             if (webFragmentMetaData.getMaxFileSizeSet()) {
-                                 multipartConfig.setMaxFileSize(webFragmentMetaData.getMaxFileSize());
+                                multipartConfig.setMaxFileSize(webFragmentMetaData.getMaxFileSize());
                             }
                             if (webFragmentMetaData.getMaxRequestSizeSet()) {
                                 multipartConfig.setMaxRequestSize(webFragmentMetaData.getMaxRequestSize());
@@ -953,11 +923,11 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return this.distinctName;
     }
 
-   public boolean isSymbolicLinkingEnabled() {
-      return symbolicLinkingEnabled;
-   }
+    public boolean isSymbolicLinkingEnabled() {
+        return symbolicLinkingEnabled;
+    }
 
-   public void setSymbolicLinkingEnabled(boolean symbolicLinkingEnabled) {
-      this.symbolicLinkingEnabled = symbolicLinkingEnabled;
-   }
+    public void setSymbolicLinkingEnabled(boolean symbolicLinkingEnabled) {
+        this.symbolicLinkingEnabled = symbolicLinkingEnabled;
+    }
 }

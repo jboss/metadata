@@ -23,15 +23,18 @@ package org.jboss.metadata.ejb.spec;
 
 /**
  * MultiplicityType.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public enum MultiplicityType
-{
-   /** One */
-   One,
-   
-   /** Many */
-   Many,
+public enum MultiplicityType {
+    /**
+     * One
+     */
+    One,
+
+    /**
+     * Many
+     */
+    Many,
 }

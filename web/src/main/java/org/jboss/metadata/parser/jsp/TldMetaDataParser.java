@@ -22,25 +22,15 @@
 
 package org.jboss.metadata.parser.jsp;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.web.spec.*;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.web.spec.FunctionMetaData;
-import org.jboss.metadata.web.spec.ListenerMetaData;
-import org.jboss.metadata.web.spec.TagFileMetaData;
-import org.jboss.metadata.web.spec.TagMetaData;
-import org.jboss.metadata.web.spec.Tld11MetaData;
-import org.jboss.metadata.web.spec.Tld12MetaData;
-import org.jboss.metadata.web.spec.Tld20MetaData;
-import org.jboss.metadata.web.spec.Tld21MetaData;
-import org.jboss.metadata.web.spec.TldExtensionMetaData;
-import org.jboss.metadata.web.spec.TldMetaData;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -74,7 +64,7 @@ public class TldMetaDataParser extends MetaDataElementParser {
             // Look at the version attribute
             String versionString = null;
             final int count = reader.getAttributeCount();
-            for (int i = 0; i < count; i ++) {
+            for (int i = 0; i < count; i++) {
                 if (attributeHasNamespace(reader, i)) {
                     continue;
                 }
@@ -95,15 +85,23 @@ public class TldMetaDataParser extends MetaDataElementParser {
         }
         TldMetaData tld = null;
         switch (version) {
-            case TLD_1_1: tld = new Tld11MetaData(); break;
-            case TLD_1_2: tld = new Tld12MetaData(); break;
-            case TLD_2_0: tld = new Tld20MetaData(); break;
-            case TLD_2_1: tld = new Tld21MetaData(); break;
+            case TLD_1_1:
+                tld = new Tld11MetaData();
+                break;
+            case TLD_1_2:
+                tld = new Tld12MetaData();
+                break;
+            case TLD_2_0:
+                tld = new Tld20MetaData();
+                break;
+            case TLD_2_1:
+                tld = new Tld21MetaData();
+                break;
         }
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -118,7 +116,8 @@ public class TldMetaDataParser extends MetaDataElementParser {
                     tld.setVersion(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -140,7 +139,7 @@ public class TldMetaDataParser extends MetaDataElementParser {
                     if (version == Version.TLD_1_1) {
                         tld.setTlibVersion(getElementText(reader));
                     } else if (version == Version.TLD_1_2) {
-                    	// Allow invalid legacy element
+                        // Allow invalid legacy element
                         tld.setTlibVersion(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
@@ -153,8 +152,8 @@ public class TldMetaDataParser extends MetaDataElementParser {
                     if (version == Version.TLD_1_1) {
                         tld.setShortName(getElementText(reader));
                     } else if (version == Version.TLD_1_2) {
-                    	// Allow invalid legacy element
-                    	tld.setShortName(getElementText(reader));
+                        // Allow invalid legacy element
+                        tld.setShortName(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -163,8 +162,8 @@ public class TldMetaDataParser extends MetaDataElementParser {
                     if (version == Version.TLD_1_1) {
                         tld.setJspVersion(getElementText(reader));
                     } else if (version == Version.TLD_1_2) {
-                    	// Allow invalid legacy element
-                    	tld.setJspVersion(getElementText(reader));
+                        // Allow invalid legacy element
+                        tld.setJspVersion(getElementText(reader));
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -183,8 +182,8 @@ public class TldMetaDataParser extends MetaDataElementParser {
                     if (version == Version.TLD_1_1) {
                         ((Tld11MetaData) tld).setInfo(getElementText(reader));
                     } else if (version == Version.TLD_1_2) {
-                    	// Ignore invalid legacy element
-                    	getElementText(reader);
+                        // Ignore invalid legacy element
+                        getElementText(reader);
                     } else {
                         throw unexpectedElement(reader);
                     }
@@ -249,7 +248,8 @@ public class TldMetaDataParser extends MetaDataElementParser {
                     }
                     extensions.add(TldExtensionMetaDataParser.parse(reader));
                     break;
-               default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

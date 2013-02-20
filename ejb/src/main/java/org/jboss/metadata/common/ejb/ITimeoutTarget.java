@@ -25,12 +25,12 @@ import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 
 /**
  * A bean that can be a target of an ejb timer
- * 
+ *
  * @author Scott.Stark@jboss.org
  * @version $Revision: 67275 $
  */
-public interface ITimeoutTarget
-{
-   public NamedMethodMetaData getTimeoutMethod();
-   public void setTimeoutMethod(NamedMethodMetaData timeoutMethod);
+public interface ITimeoutTarget {
+    public NamedMethodMetaData getTimeoutMethod();
+
+    public void setTimeoutMethod(NamedMethodMetaData timeoutMethod);
 }

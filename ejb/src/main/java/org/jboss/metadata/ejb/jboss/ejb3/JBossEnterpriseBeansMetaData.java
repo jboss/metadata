@@ -26,6 +26,5 @@ import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class JBossEnterpriseBeansMetaData extends EnterpriseBeansMetaData
-{
+public class JBossEnterpriseBeansMetaData extends EnterpriseBeansMetaData {
 }

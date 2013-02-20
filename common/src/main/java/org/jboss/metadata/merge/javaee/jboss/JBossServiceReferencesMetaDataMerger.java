@@ -23,9 +23,6 @@ package org.jboss.metadata.merge.javaee.jboss;
 
 // $Id: JBossServiceReferencesMetaData.java 84989 2009-03-02 11:40:52Z alex.loubyansky@jboss.com $
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
@@ -34,6 +31,9 @@ import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.merge.javaee.spec.ServiceReferenceMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.ServiceReferencesMetaDataMerger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * JBoss service-ref metadata
@@ -45,14 +45,14 @@ public class JBossServiceReferencesMetaDataMerger extends ServiceReferencesMetaD
     /**
      * Merge resource references
      *
-     * @param override the override references
-     * @param overriden the overriden references
+     * @param override      the override references
+     * @param overriden     the overriden references
      * @param overridenFile the overriden file name
-     * @param overrideFile the override file
+     * @param overrideFile  the override file
      * @return the merged referencees
      */
     public static JBossServiceReferencesMetaData merge(ServiceReferencesMetaData override, ServiceReferencesMetaData overriden,
-            String overridenFile, String overrideFile) {
+                                                       String overridenFile, String overrideFile) {
         if (override == null && overriden == null)
             return null;
 
@@ -66,7 +66,7 @@ public class JBossServiceReferencesMetaDataMerger extends ServiceReferencesMetaD
                     jbossServiceRef = override.get(serviceRef.getServiceRefName());
                 if (jbossServiceRef == null)
                     jbossServiceRef = new JBossServiceReferenceMetaData();
-                jbossServiceRef = merge((JBossServiceReferenceMetaData)jbossServiceRef, serviceRef);
+                jbossServiceRef = merge((JBossServiceReferenceMetaData) jbossServiceRef, serviceRef);
                 merged.add(jbossServiceRef);
             }
         }
@@ -92,7 +92,7 @@ public class JBossServiceReferencesMetaDataMerger extends ServiceReferencesMetaD
 
     /**
      * Merge the contents of override with original into this.
-     * 
+     *
      * @param override data which overrides original
      * @param original the original data
      */
@@ -113,19 +113,19 @@ public class JBossServiceReferencesMetaDataMerger extends ServiceReferencesMetaD
             for (JBossPortComponentRef ref : override.getJBossPortComponentRef()) {
                 JBossPortComponentRef jref = null;
                 boolean shouldAdd = true;
-                //  TODO: there is no unique key so 
-                for(JBossPortComponentRef ref2 : jbossPortComponentRef) {
+                //  TODO: there is no unique key so
+                for (JBossPortComponentRef ref2 : jbossPortComponentRef) {
                     String sei = ref2.getServiceEndpointInterface();
-                    if(sei != null && sei.equals(ref.getServiceEndpointInterface())) {
+                    if (sei != null && sei.equals(ref.getServiceEndpointInterface())) {
                         jref = ref2;
                         shouldAdd = false;
                         break;
                     }
                 }
-                if(jref == null)
+                if (jref == null)
                     jref = new JBossPortComponentRef();
                 JBossPortComponentRefMerger.merge(jref, null, ref);
-                if(shouldAdd)
+                if (shouldAdd)
                     jbossPortComponentRef.add(jref);
             }
         }

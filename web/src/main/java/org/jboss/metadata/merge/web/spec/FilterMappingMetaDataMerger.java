@@ -21,12 +21,12 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 import org.jboss.metadata.web.spec.DispatcherType;
 import org.jboss.metadata.web.spec.FilterMappingMetaData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * web-app/filter-mapping metadata

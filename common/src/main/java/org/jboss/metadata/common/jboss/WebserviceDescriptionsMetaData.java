@@ -30,7 +30,9 @@ import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
  * @version $Revision: 1.1 $
  */
 public class WebserviceDescriptionsMetaData extends AbstractMappedMetaData<WebserviceDescriptionMetaData> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -1286417060419536332L;
 
     /**

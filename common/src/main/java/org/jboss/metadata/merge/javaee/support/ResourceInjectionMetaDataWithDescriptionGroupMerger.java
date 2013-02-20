@@ -32,9 +32,13 @@ import org.jboss.metadata.merge.javaee.spec.ResourceInjectionMetaDataMerger;
  * @version $Revision: 1.1 $
  */
 public abstract class ResourceInjectionMetaDataWithDescriptionGroupMerger extends ResourceInjectionMetaDataMerger {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 5085818160192282098L;
-    /** The description group */
+    /**
+     * The description group
+     */
     private DescriptionGroupMetaData descriptionGroup;
 
     /**
@@ -59,7 +63,7 @@ public abstract class ResourceInjectionMetaDataWithDescriptionGroupMerger extend
     }
 
     public static void merge(ResourceInjectionMetaDataWithDescriptionGroup dest, ResourceInjectionMetaDataWithDescriptionGroup override,
-            ResourceInjectionMetaDataWithDescriptionGroup original) {
+                             ResourceInjectionMetaDataWithDescriptionGroup original) {
         ResourceInjectionMetaDataMerger.merge(dest, override, original);
         if (override != null && override.getDescriptionGroup() != null)
             dest.setDescriptionGroup(override.getDescriptionGroup());

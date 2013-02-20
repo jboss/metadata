@@ -21,10 +21,11 @@
  */
 package org.jboss.metadata.merge.javaee.jboss;
 
-import java.util.HashSet;
 import org.jboss.metadata.javaee.jboss.IgnoreDependencyMetaData;
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMerger;
+
+import java.util.HashSet;
 
 /**
  * IgnoreDependencyMetaData.

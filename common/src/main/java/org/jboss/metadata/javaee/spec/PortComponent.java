@@ -85,7 +85,7 @@ public class PortComponent extends IdMetaDataImpl {
         return secureWSDLAccess;
     }
 
-     public void setSecureWSDLAccess(boolean secureWSDLAccess) {
+    public void setSecureWSDLAccess(boolean secureWSDLAccess) {
         this.secureWSDLAccess = secureWSDLAccess;
     }
 }

@@ -32,7 +32,7 @@ import org.jboss.metadata.ear.spec.AbstractModule;
 public class ServiceModuleMetaData extends AbstractModule {
     private static final long serialVersionUID = 1;
 
-    public  String getSar() {
+    public String getSar() {
         return getFileName();
     }
 

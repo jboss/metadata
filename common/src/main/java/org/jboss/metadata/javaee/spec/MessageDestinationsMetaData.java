@@ -30,7 +30,9 @@ import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
  * @version $Revision: 67878 $
  */
 public class MessageDestinationsMetaData extends AbstractMappedMetaData<MessageDestinationMetaData> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -6198704374773701253L;
 
     /**

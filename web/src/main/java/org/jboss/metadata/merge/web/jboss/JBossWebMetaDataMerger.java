@@ -48,7 +48,7 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
     }
 
     public static void merge(JBossWebMetaData dest, JBossWebMetaData override, WebMetaData original, String overrideFile, String overridenFile,
-            boolean mustOverride) {
+                             boolean mustOverride) {
         NamedModuleImplMerger.merge(dest, override, original);
 
         if (override != null && override.getServletVersion() != null)
@@ -67,7 +67,7 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
             //if either original or override is MD complete the result is MD complete
             Web25MetaData web25MD = (Web25MetaData) original;
             dest.setMetadataComplete(web25MD.isMetadataComplete());
-        }else if (original instanceof Web30MetaData) {
+        } else if (original instanceof Web30MetaData) {
             //if either original or override is MD complete the result is MD complete
             Web30MetaData web30MetaData = (Web30MetaData) original;
             dest.setMetadataComplete(web30MetaData.isMetadataComplete());
@@ -259,12 +259,12 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
             dest.setOverlays(override.getOverlays());
 
         if (override != null && override.isUseJBossAuthorization())
-        	dest.setUseJBossAuthorization(override.isUseJBossAuthorization());
+            dest.setUseJBossAuthorization(override.isUseJBossAuthorization());
 
         if (override != null && !override.isDisableAudit())
-        	dest.setDisableAudit(override.isDisableAudit());
+            dest.setDisableAudit(override.isDisableAudit());
 
-       if (override != null && override.isSymbolicLinkingEnabled())
-           dest.setSymbolicLinkingEnabled(override.isSymbolicLinkingEnabled());
+        if (override != null && override.isSymbolicLinkingEnabled())
+            dest.setSymbolicLinkingEnabled(override.isSymbolicLinkingEnabled());
     }
 }

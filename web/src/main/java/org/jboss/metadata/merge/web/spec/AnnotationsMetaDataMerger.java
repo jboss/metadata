@@ -31,7 +31,7 @@ import org.jboss.metadata.web.spec.AnnotationsMetaData;
 public class AnnotationsMetaDataMerger {
 
     public static void augment(AnnotationsMetaData dest, AnnotationsMetaData webFragmentMetaData,
-            AnnotationsMetaData webMetaData, boolean resolveConflicts) {
+                               AnnotationsMetaData webMetaData, boolean resolveConflicts) {
         for (AnnotationMetaData annotationMetaData : webFragmentMetaData) {
             if (dest.containsKey(annotationMetaData.getKey())) {
                 continue;

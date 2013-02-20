@@ -46,7 +46,7 @@ import java.util.Map;
 
 /**
  * Utility class to validate a given XML input stream agains a schema.
- *
+ * <p/>
  * Schema object creation is expensive. Therefore they are cached by this class.
  *
  * @author Thomas.Diesler@jboss.com

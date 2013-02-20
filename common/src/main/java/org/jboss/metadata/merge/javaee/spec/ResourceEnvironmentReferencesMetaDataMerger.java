@@ -34,14 +34,14 @@ public class ResourceEnvironmentReferencesMetaDataMerger {
     /**
      * Merge resource environment references
      *
-     * @param override the override references
-     * @param overriden the overriden references
+     * @param override      the override references
+     * @param overriden     the overriden references
      * @param overridenFile the overriden file name
-     * @param overrideFile the override file
+     * @param overrideFile  the override file
      * @return the merged referencees
      */
     public static ResourceEnvironmentReferencesMetaData merge(ResourceEnvironmentReferencesMetaData override,
-            ResourceEnvironmentReferencesMetaData overriden, String overridenFile, String overrideFile) {
+                                                              ResourceEnvironmentReferencesMetaData overriden, String overridenFile, String overrideFile) {
         if (override == null && overriden == null)
             return null;
 
@@ -56,8 +56,8 @@ public class ResourceEnvironmentReferencesMetaDataMerger {
      * From avaEEMetaDataUtil.java
      */
     private static ResourceEnvironmentReferencesMetaData merge(ResourceEnvironmentReferencesMetaData merged,
-            ResourceEnvironmentReferencesMetaData overriden, ResourceEnvironmentReferencesMetaData mapped, String context,
-            String overridenFile, String overrideFile, boolean mustOverride) {
+                                                               ResourceEnvironmentReferencesMetaData overriden, ResourceEnvironmentReferencesMetaData mapped, String context,
+                                                               String overridenFile, String overrideFile, boolean mustOverride) {
         if (merged == null)
             throw new IllegalArgumentException("Null merged");
 
@@ -110,7 +110,7 @@ public class ResourceEnvironmentReferencesMetaDataMerger {
     }
 
     public static void augment(ResourceEnvironmentReferencesMetaData dest, ResourceEnvironmentReferencesMetaData augment,
-            ResourceEnvironmentReferencesMetaData main, boolean resolveConflicts) {
+                               ResourceEnvironmentReferencesMetaData main, boolean resolveConflicts) {
         for (ResourceEnvironmentReferenceMetaData resourceEnvRef : augment) {
             if (dest.containsKey(resourceEnvRef.getKey())) {
                 if (!resolveConflicts && (main == null || !main.containsKey(resourceEnvRef.getKey()))) {

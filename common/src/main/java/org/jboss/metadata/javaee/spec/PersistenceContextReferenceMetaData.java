@@ -32,16 +32,24 @@ import javax.persistence.PersistenceContextType;
  * @version $Revision: 1.1 $
  */
 public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 994249685587171979L;
 
-    /** The persistence unit name */
+    /**
+     * The persistence unit name
+     */
     private String persistenceUnitName;
 
-    /** The persistence context type */
+    /**
+     * The persistence context type
+     */
     private PersistenceContextType persistenceContextType;
 
-    /** The properties */
+    /**
+     * The properties
+     */
     private PropertiesMetaData properties;
 
     /**

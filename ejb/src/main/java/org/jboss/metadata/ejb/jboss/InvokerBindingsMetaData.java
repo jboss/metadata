@@ -26,35 +26,32 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionsMer
 
 /**
  * InvokerBindingsMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class InvokerBindingsMetaData extends MappedMetaDataWithDescriptions<InvokerBindingMetaData>
-{
-   /** The serialVersionUID */
-   private static final long serialVersionUID = 7637011120262076039L;
+public class InvokerBindingsMetaData extends MappedMetaDataWithDescriptions<InvokerBindingMetaData> {
+    /**
+     * The serialVersionUID
+     */
+    private static final long serialVersionUID = 7637011120262076039L;
 
-   /**
-    * Create a new InvokerBindingsMetaData.
-    */
-   public InvokerBindingsMetaData()
-   {
-      super("invoker-proxy-binding-name for invoker");
-   }
+    /**
+     * Create a new InvokerBindingsMetaData.
+     */
+    public InvokerBindingsMetaData() {
+        super("invoker-proxy-binding-name for invoker");
+    }
 
-   public void merge(InvokerBindingsMetaData override, InvokerBindingsMetaData original)
-   {
-      IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);
-      if (original != null)
-      {
-         for (InvokerBindingMetaData property : original)
-            add(property);
-      }
-      if (override != null)
-      {
-         for (InvokerBindingMetaData property : override)
-            add(property);
-      }
-   }
+    public void merge(InvokerBindingsMetaData override, InvokerBindingsMetaData original) {
+        IdMetaDataImplWithDescriptionsMerger.merge(this, override, original);
+        if (original != null) {
+            for (InvokerBindingMetaData property : original)
+                add(property);
+        }
+        if (override != null) {
+            for (InvokerBindingMetaData property : override)
+                add(property);
+        }
+    }
 }

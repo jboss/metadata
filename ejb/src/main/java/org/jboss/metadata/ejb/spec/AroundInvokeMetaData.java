@@ -25,72 +25,72 @@ import java.io.Serializable;
 
 /**
  * AroundInvokeMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class AroundInvokeMetaData implements Serializable
-{
-   /** The serialVersionUID */
-   private static final long serialVersionUID = -4782968110296545024L;
+public class AroundInvokeMetaData implements Serializable {
+    /**
+     * The serialVersionUID
+     */
+    private static final long serialVersionUID = -4782968110296545024L;
 
-   /** The class */
-   private String className;
-   
-   /** The method name */
-   private String methodName;
-   
-   /**
-    * Create a new AroundInvokeMetaData.
-    */
-   public AroundInvokeMetaData()
-   {
-      // For serialization
-   }
+    /**
+     * The class
+     */
+    private String className;
 
-   /**
-    * Get the className.
-    * 
-    * @return the className.
-    */
-   public String getClassName()
-   {
-      return className;
-   }
+    /**
+     * The method name
+     */
+    private String methodName;
 
-   /**
-    * Set the className.
-    * 
-    * @param className the className.
-    * @throws IllegalArgumentException for a null className
-    */
-   public void setClassName(String className)
-   {
-      if (className == null)
-         throw new IllegalArgumentException("Null className");
-      this.className = className;
-   }
+    /**
+     * Create a new AroundInvokeMetaData.
+     */
+    public AroundInvokeMetaData() {
+        // For serialization
+    }
 
-   /**
-    * Get the methodName.
-    * 
-    * @return the methodName.
-    */
-   public String getMethodName()
-   {
-      return methodName;
-   }
+    /**
+     * Get the className.
+     *
+     * @return the className.
+     */
+    public String getClassName() {
+        return className;
+    }
 
-   /**
-    * Set the methodName.
-    * 
-    * @param methodName the methodName.
-    * @throws IllegalArgumentException for a null methodName
-    */
-   public void setMethodName(String methodName)
-   {
-      if (methodName == null)
-         throw new IllegalArgumentException("Null methodName");
-      this.methodName = methodName;
-   }
+    /**
+     * Set the className.
+     *
+     * @param className the className.
+     * @throws IllegalArgumentException for a null className
+     */
+    public void setClassName(String className) {
+        if (className == null)
+            throw new IllegalArgumentException("Null className");
+        this.className = className;
+    }
+
+    /**
+     * Get the methodName.
+     *
+     * @return the methodName.
+     */
+    public String getMethodName() {
+        return methodName;
+    }
+
+    /**
+     * Set the methodName.
+     *
+     * @param methodName the methodName.
+     * @throws IllegalArgumentException for a null methodName
+     */
+    public void setMethodName(String methodName) {
+        if (methodName == null)
+            throw new IllegalArgumentException("Null methodName");
+        this.methodName = methodName;
+    }
 }

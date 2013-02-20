@@ -23,21 +23,20 @@ package org.jboss.metadata.common.spi;
 
 /**
  * ErrorCodes
- * 
+ * <p/>
  * Contains contracted error codes used in error messages
  *
  * @author <a href="mailto:andrew.rubinger@jboss.org">ALR</a>
  * @version $Revision: $
  */
-public interface ErrorCodes
-{
+public interface ErrorCodes {
    /*
     * Error Code Definitions
     */
 
-   String ERROR_CODE_JBMETA117 = "JBMETA-117";
-   
-   String ERROR_CODE_JBMETA130 = "JBMETA-130";
-   
-   String ERROR_CODE_JBMETA201 = "JBMETA-201";
+    String ERROR_CODE_JBMETA117 = "JBMETA-117";
+
+    String ERROR_CODE_JBMETA130 = "JBMETA-130";
+
+    String ERROR_CODE_JBMETA201 = "JBMETA-201";
 }

@@ -28,5 +28,6 @@ import java.util.List;
  */
 public interface ExtendableMetaData {
     void addAny(Object a);
+
     <T> List<T> getAny(Class<T> type);
 }

@@ -39,9 +39,7 @@ public enum Attribute {
 
     LANG("lang"),
 
-    VERSION("version")
-
-    ;
+    VERSION("version");
 
     private final String name;
 

@@ -22,12 +22,7 @@
 package org.jboss.metadata.javaee.spec;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * LifecycleCallbacksMetaData.
@@ -36,7 +31,9 @@ import java.util.Set;
  * @version $Revision: 1.1 $
  */
 public class LifecycleCallbacksMetaData extends ArrayList<LifecycleCallbackMetaData> {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -3843612778667898679L;
 
     /**

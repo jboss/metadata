@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.common.ejb;
 
-import java.util.List;
-
 import org.jboss.metadata.ejb.spec.TimerMetaData;
+
+import java.util.List;
 
 /**
  * IScheduleTarget
@@ -31,12 +31,11 @@ import org.jboss.metadata.ejb.spec.TimerMetaData;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public interface IScheduleTarget extends ITimeoutTarget
-{
+public interface IScheduleTarget extends ITimeoutTarget {
 
-   List<TimerMetaData> getTimers();
-   
-   void setTimers(List<TimerMetaData> timers);
-   
-   void addTimer(TimerMetaData timer);
+    List<TimerMetaData> getTimers();
+
+    void setTimers(List<TimerMetaData> timers);
+
+    void addTimer(TimerMetaData timer);
 }

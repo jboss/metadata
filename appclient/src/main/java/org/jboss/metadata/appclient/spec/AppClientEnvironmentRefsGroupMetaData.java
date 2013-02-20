@@ -17,9 +17,9 @@ public class AppClientEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefs
     private static final long serialVersionUID = 8714123546582134095L;
 
     private MessageDestinationsMetaData messageDestinations;
-    
+
     public void merge(final AppClientEnvironmentRefsGroupMetaData override, final AppClientEnvironmentRefsGroupMetaData original) {
-    	RemoteEnvironmentRefsGroupMetaDataMerger.merge(this, override, original, null, null, false);
+        RemoteEnvironmentRefsGroupMetaDataMerger.merge(this, override, original, null, null, false);
         if (override != null && override.getMessageDestinations() != null) {
             this.messageDestinations = override.messageDestinations;
         }

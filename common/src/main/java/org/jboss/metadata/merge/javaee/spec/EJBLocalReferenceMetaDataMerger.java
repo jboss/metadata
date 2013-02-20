@@ -30,7 +30,7 @@ import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-    public class EJBLocalReferenceMetaDataMerger extends AbstractEJBReferenceMetaDataMerger {
+public class EJBLocalReferenceMetaDataMerger extends AbstractEJBReferenceMetaDataMerger {
 
     public static EJBLocalReferenceMetaData merge(EJBLocalReferenceMetaData dest, EJBLocalReferenceMetaData original) {
         EJBLocalReferenceMetaData merged = new EJBLocalReferenceMetaData();

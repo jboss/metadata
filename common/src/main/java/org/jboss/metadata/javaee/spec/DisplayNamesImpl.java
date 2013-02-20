@@ -32,7 +32,9 @@ import org.jboss.metadata.javaee.support.MappedAnnotationMetaData;
  * @version $Revision: 1.1 $
  */
 public class DisplayNamesImpl extends MappedAnnotationMetaData<DisplayNameImpl> implements DisplayNames {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -9034955836162270653L;
 
     /**

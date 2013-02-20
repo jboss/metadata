@@ -32,7 +32,7 @@ import org.jboss.metadata.web.spec.MultipartConfigMetaData;
  */
 public class MultipartConfigMetaDataMerger extends IdMetaDataImplMerger {
     public static void augment(MultipartConfigMetaData dest, MultipartConfigMetaData webFragmentMetaData, MultipartConfigMetaData webMetaData,
-            boolean resolveConflicts) {
+                               boolean resolveConflicts) {
         // Location
         if (dest.getLocation() == null) {
             dest.setLocation(webFragmentMetaData.getLocation());

@@ -28,12 +28,18 @@ package org.jboss.metadata.javaee.spec;
  * @version $Revision: 1.1 $
  */
 public enum MessageDestinationUsageType {
-    /** Consumes */
+    /**
+     * Consumes
+     */
     Consumes,
 
-    /** Produces */
+    /**
+     * Produces
+     */
     Produces,
 
-    /** Consumes and Produces */
+    /**
+     * Consumes and Produces
+     */
     ConsumesProduces,
 }

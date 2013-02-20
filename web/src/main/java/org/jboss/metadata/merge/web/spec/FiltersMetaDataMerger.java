@@ -29,20 +29,15 @@ import org.jboss.metadata.web.spec.FiltersMetaData;
  * @version $Revision: 65928 $
  */
 public class FiltersMetaDataMerger {
-   public static void augment(FiltersMetaData dest, FiltersMetaData webFragmentMetaData, FiltersMetaData webMetaData, boolean resolveConflicts)
-   {
-      for (FilterMetaData filterMetaData : webFragmentMetaData)
-      {
-         if (dest.containsKey(filterMetaData.getKey()))
-         {
-            FilterMetaDataMerger.augment(dest.get(filterMetaData.getKey()), filterMetaData, 
-                  (webMetaData != null) ? webMetaData.get(filterMetaData.getKey()) : null, resolveConflicts);
-         }
-         else
-         {
-            dest.add(filterMetaData);
-         }
-      }
-   }
-   
+    public static void augment(FiltersMetaData dest, FiltersMetaData webFragmentMetaData, FiltersMetaData webMetaData, boolean resolveConflicts) {
+        for (FilterMetaData filterMetaData : webFragmentMetaData) {
+            if (dest.containsKey(filterMetaData.getKey())) {
+                FilterMetaDataMerger.augment(dest.get(filterMetaData.getKey()), filterMetaData,
+                        (webMetaData != null) ? webMetaData.get(filterMetaData.getKey()) : null, resolveConflicts);
+            } else {
+                dest.add(filterMetaData);
+            }
+        }
+    }
+
 }

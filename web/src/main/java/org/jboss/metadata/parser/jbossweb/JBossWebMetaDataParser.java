@@ -68,20 +68,38 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
         }
         JBossWebMetaData wmd = null;
         switch (version) {
-            case JBOSS_WEB_3_0: wmd = new JBoss4xDTDWebMetaData(); break;
-            case JBOSS_WEB_3_2: wmd = new JBoss4xDTDWebMetaData(); break;
-            case JBOSS_WEB_4_0: wmd = new JBoss4xDTDWebMetaData(); break;
-            case JBOSS_WEB_4_2: wmd = new JBoss4xDTDWebMetaData(); break;
-            case JBOSS_WEB_5_0: wmd = new JBoss50DTDWebMetaData(); break;
-            case JBOSS_WEB_5_1: wmd = new JBoss50WebMetaData(); break;
-            case JBOSS_WEB_6_0: wmd = new JBoss60WebMetaData(); break;
-            case JBOSS_WEB_7_0: wmd = new JBoss70WebMetaData(); break;
-            case JBOSS_WEB_7_1: wmd = new JBoss70WebMetaData(); break;
+            case JBOSS_WEB_3_0:
+                wmd = new JBoss4xDTDWebMetaData();
+                break;
+            case JBOSS_WEB_3_2:
+                wmd = new JBoss4xDTDWebMetaData();
+                break;
+            case JBOSS_WEB_4_0:
+                wmd = new JBoss4xDTDWebMetaData();
+                break;
+            case JBOSS_WEB_4_2:
+                wmd = new JBoss4xDTDWebMetaData();
+                break;
+            case JBOSS_WEB_5_0:
+                wmd = new JBoss50DTDWebMetaData();
+                break;
+            case JBOSS_WEB_5_1:
+                wmd = new JBoss50WebMetaData();
+                break;
+            case JBOSS_WEB_6_0:
+                wmd = new JBoss60WebMetaData();
+                break;
+            case JBOSS_WEB_7_0:
+                wmd = new JBoss70WebMetaData();
+                break;
+            case JBOSS_WEB_7_1:
+                wmd = new JBoss70WebMetaData();
+                break;
         }
 
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -92,7 +110,8 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     wmd.setVersion(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
 
@@ -130,35 +149,35 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     annotations.add(JBossAnnotationMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case LISTENER:
-                	List<ContainerListenerMetaData> listeners = wmd.getContainerListeners();
-                	if (listeners == null) {
-                		listeners = new ArrayList<ContainerListenerMetaData>();
-                		wmd.setContainerListeners(listeners);
-                	}
-                	listeners.add(ContainerListenerMetaDataParser.parse(reader, propertyReplacer));
-                	break;
+                    List<ContainerListenerMetaData> listeners = wmd.getContainerListeners();
+                    if (listeners == null) {
+                        listeners = new ArrayList<ContainerListenerMetaData>();
+                        wmd.setContainerListeners(listeners);
+                    }
+                    listeners.add(ContainerListenerMetaDataParser.parse(reader, propertyReplacer));
+                    break;
                 case SESSION_CONFIG:
-                	wmd.setSessionConfig(SessionConfigMetaDataParser.parse(reader, propertyReplacer));
-                	break;
+                    wmd.setSessionConfig(SessionConfigMetaDataParser.parse(reader, propertyReplacer));
+                    break;
                 case VALVE:
-                	List<ValveMetaData> valves = wmd.getValves();
-                	if (valves == null) {
-                		valves = new ArrayList<ValveMetaData>();
-                		wmd.setValves(valves);
-                	}
-                	valves.add(ValveMetaDataParser.parse(reader, propertyReplacer));
-                	break;
+                    List<ValveMetaData> valves = wmd.getValves();
+                    if (valves == null) {
+                        valves = new ArrayList<ValveMetaData>();
+                        wmd.setValves(valves);
+                    }
+                    valves.add(ValveMetaDataParser.parse(reader, propertyReplacer));
+                    break;
                 case OVERLAY:
-                	List<String> overlays = wmd.getOverlays();
-                	if (overlays == null) {
-                		overlays = new ArrayList<String>();
-                		wmd.setOverlays(overlays);
-                	}
-                	overlays.add(getElementText(reader, propertyReplacer));
-                	break;
+                    List<String> overlays = wmd.getOverlays();
+                    if (overlays == null) {
+                        overlays = new ArrayList<String>();
+                        wmd.setOverlays(overlays);
+                    }
+                    overlays.add(getElementText(reader, propertyReplacer));
+                    break;
                 case SECURITY_DOMAIN:
-                	wmd.setSecurityDomain(getElementText(reader, propertyReplacer));
-                	break;
+                    wmd.setSecurityDomain(getElementText(reader, propertyReplacer));
+                    break;
                 case SECURITY_ROLE:
                     SecurityRolesMetaData securityRoles = wmd.getSecurityRoles();
                     if (securityRoles == null) {
@@ -168,25 +187,25 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     securityRoles.add(SecurityRoleMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case JACC_STAR_ROLE_ALLOW:
-                	wmd.setJaccAllStoreRole(Boolean.valueOf(getElementText(reader, propertyReplacer)));
-                	break;
+                    wmd.setJaccAllStoreRole(Boolean.valueOf(getElementText(reader, propertyReplacer)));
+                    break;
                 case DISABLE_CROSS_CONTEXT:
-                	wmd.setDisableCrossContext(Boolean.valueOf(getElementText(reader, propertyReplacer)));
-                	break;
+                    wmd.setDisableCrossContext(Boolean.valueOf(getElementText(reader, propertyReplacer)));
+                    break;
                 case USE_JBOSS_AUTHORIZATION:
-                	wmd.setUseJBossAuthorization(Boolean.valueOf(getElementText(reader, propertyReplacer)));
-                	break;
+                    wmd.setUseJBossAuthorization(Boolean.valueOf(getElementText(reader, propertyReplacer)));
+                    break;
                 case DISABLE_AUDIT:
-                	wmd.setDisableAudit(Boolean.valueOf(getElementText(reader, propertyReplacer)));
-                	break;
+                    wmd.setDisableAudit(Boolean.valueOf(getElementText(reader, propertyReplacer)));
+                    break;
                 case SERVLET:
                     JBossServletsMetaData servlets = wmd.getServlets();
                     if (servlets == null) {
-                    	servlets = new JBossServletsMetaData();
+                        servlets = new JBossServletsMetaData();
                         wmd.setServlets(servlets);
                     }
                     servlets.add(JBossServletMetaDataParser.parse(reader, propertyReplacer));
-                	break;
+                    break;
                 case MAX_ACTIVE_SESSIONS:
                     wmd.setMaxActiveSessions(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
@@ -203,7 +222,8 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case SYMBOLIC_ENABLED:
                     wmd.setSymbolicLinkingEnabled(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
                     break;
-                default: throw unexpectedElement(reader);
+                default:
+                    throw unexpectedElement(reader);
             }
         }
 

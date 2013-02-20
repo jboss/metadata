@@ -32,7 +32,9 @@ import org.jboss.metadata.javaee.support.MappedAnnotationMetaData;
  * @version $Revision: 1.1 $
  */
 public class DescriptionsImpl extends MappedAnnotationMetaData<DescriptionImpl> implements Descriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 6123936359846681661L;
 
     /**

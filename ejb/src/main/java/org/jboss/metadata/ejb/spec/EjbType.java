@@ -30,9 +30,8 @@ package org.jboss.metadata.ejb.spec;
  *
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public enum EjbType
-{
-   ENTITY,
-   MESSAGE_DRIVEN,
-   SESSION,
+public enum EjbType {
+    ENTITY,
+    MESSAGE_DRIVEN,
+    SESSION,
 }

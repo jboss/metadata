@@ -28,14 +28,7 @@ import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.web.spec.JspConfigMetaData;
-import org.jboss.metadata.web.spec.TaglibMetaData;
-import org.jboss.metadata.web.spec.Web22MetaData;
-import org.jboss.metadata.web.spec.Web23MetaData;
-import org.jboss.metadata.web.spec.Web24MetaData;
-import org.jboss.metadata.web.spec.Web25MetaData;
-import org.jboss.metadata.web.spec.Web30MetaData;
-import org.jboss.metadata.web.spec.WebMetaData;
+import org.jboss.metadata.web.spec.*;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
@@ -101,8 +94,8 @@ public class WebMetaDataParser extends MetaDataElementParser {
         }
 
         if (version == null)
-        	version = Version.SERVLET_3_0;
-            // throw new IllegalStateException("Cannot obtain servlet version");
+            version = Version.SERVLET_3_0;
+        // throw new IllegalStateException("Cannot obtain servlet version");
 
         WebMetaData wmd = null;
         switch (version) {

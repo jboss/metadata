@@ -22,13 +22,12 @@
 
 package org.jboss.metadata.parser.ee;
 
+import org.jboss.metadata.javaee.spec.DescriptionImpl;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.javaee.spec.DescriptionImpl;
-import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.property.PropertyReplacers;
 
 
 /**
@@ -40,11 +39,11 @@ public class DescriptionMetaDataParser extends MetaDataElementParser {
         DescriptionImpl description = new DescriptionImpl();
         // Handle attributes
         final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
-            if ("http://www.w3.org/XML/1998/namespace".equals(reader.getAttributeNamespace(i)) 
-            		&& Attribute.forName(reader.getAttributeLocalName(i)) == Attribute.LANG) {
-            	description.setLanguage(value);
+            if ("http://www.w3.org/XML/1998/namespace".equals(reader.getAttributeNamespace(i))
+                    && Attribute.forName(reader.getAttributeLocalName(i)) == Attribute.LANG) {
+                description.setLanguage(value);
             }
             if (attributeHasNamespace(reader, i)) {
                 continue;
@@ -55,7 +54,8 @@ public class DescriptionMetaDataParser extends MetaDataElementParser {
                     description.setId(value);
                     break;
                 }
-                default: throw unexpectedAttribute(reader, i);
+                default:
+                    throw unexpectedAttribute(reader, i);
             }
         }
         description.setDescription(getElementText(reader, propertyReplacer));

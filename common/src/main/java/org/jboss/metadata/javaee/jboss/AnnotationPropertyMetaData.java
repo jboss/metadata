@@ -30,10 +30,14 @@ import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
  * @version $Revision: 1.1 $
  */
 public class AnnotationPropertyMetaData extends NamedMetaDataWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -8547813151720473321L;
 
-    /** The property value */
+    /**
+     * The property value
+     */
     private String propertyValue;
 
     /**

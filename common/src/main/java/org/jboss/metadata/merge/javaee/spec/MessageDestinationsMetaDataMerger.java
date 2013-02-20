@@ -36,15 +36,15 @@ public class MessageDestinationsMetaDataMerger {
      * /** Merge the contents of override with original into a new
      * MessageDestinationsMetaData.
      *
-     * @param override - metadata augmenting overriden
-     * @param overriden - the base metadata
+     * @param override      - metadata augmenting overriden
+     * @param overriden     - the base metadata
      * @param overridenFile - the source of the override destinations
-     * @param overrideFile - the source of the overriden destinations
+     * @param overrideFile  - the source of the overriden destinations
      * @return a new merged MessageDestinationsMetaData if either override and
      *         overriden is not null, null otherwise.
      */
     public static MessageDestinationsMetaData merge(MessageDestinationsMetaData override,
-            MessageDestinationsMetaData overriden, String overridenFile, String overrideFile) {
+                                                    MessageDestinationsMetaData overriden, String overridenFile, String overrideFile) {
         if (override == null && overriden == null)
             return null;
 
@@ -61,7 +61,7 @@ public class MessageDestinationsMetaDataMerger {
      * From JavaEEMetaDataUtil.java
      */
     private static MessageDestinationsMetaData merge(MessageDestinationsMetaData merged, MessageDestinationsMetaData overriden,
-            MessageDestinationsMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
+                                                     MessageDestinationsMetaData mapped, String context, String overridenFile, String overrideFile, boolean mustOverride) {
         if (merged == null)
             throw new IllegalArgumentException("Null merged");
 
@@ -113,12 +113,12 @@ public class MessageDestinationsMetaDataMerger {
     }
 
     public static void merge(MessageDestinationsMetaData dest, MessageDestinationsMetaData override,
-            MessageDestinationsMetaData original) {
+                             MessageDestinationsMetaData original) {
         MergeUtil.merge(dest, override, original);
     }
 
     public static void augment(MessageDestinationsMetaData dest, MessageDestinationsMetaData augment,
-            MessageDestinationsMetaData main, boolean resolveConflicts) {
+                               MessageDestinationsMetaData main, boolean resolveConflicts) {
         for (MessageDestinationMetaData messageDestinationMetaData : augment) {
             if (dest.containsKey(messageDestinationMetaData.getKey())) {
                 MessageDestinationMetaDataMerger.augment(dest.get(messageDestinationMetaData.getKey()),

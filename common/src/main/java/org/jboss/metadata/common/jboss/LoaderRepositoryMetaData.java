@@ -33,16 +33,24 @@ import java.util.Set;
  * @version $Revision: 81860 $
  */
 public class LoaderRepositoryMetaData extends IdMetaDataImpl {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -8560208691041447012L;
 
-    /** The repository class */
+    /**
+     * The repository class
+     */
     private String loaderRepositoryClass;
 
-    /** The name */
+    /**
+     * The name
+     */
     private String name;
 
-    /** The config */
+    /**
+     * The config
+     */
     private Set<LoaderRepositoryConfigMetaData> loaderRepositoryConfig;
 
     /**

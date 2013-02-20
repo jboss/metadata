@@ -22,10 +22,9 @@
 
 package org.jboss.metadata.parser.util;
 
-import java.io.ByteArrayInputStream;
-
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamException;
+import java.io.ByteArrayInputStream;
 
 /**
  * @author Emanuel Muckenhuber
@@ -34,7 +33,9 @@ public class NoopXMLResolver implements XMLResolver {
 
     private static final XMLResolver INSTANCE = new NoopXMLResolver();
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Object resolveEntity(String publicID, String systemID, String baseURI, String namespace) throws XMLStreamException {
         return new ByteArrayInputStream(new byte[0]);
     }

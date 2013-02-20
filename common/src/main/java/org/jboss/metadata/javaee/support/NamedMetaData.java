@@ -28,10 +28,14 @@ package org.jboss.metadata.javaee.support;
  * @version $Revision: 1.1 $
  */
 public abstract class NamedMetaData extends IdMetaDataImpl implements MappableMetaData {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -2918254376676527511L;
 
-    /** The name */
+    /**
+     * The name
+     */
     private String name;
 
     @Override

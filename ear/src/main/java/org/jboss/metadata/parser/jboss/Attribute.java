@@ -36,8 +36,7 @@ public enum Attribute {
     CONFIG_PARSER_CLASS("configParserClass"),
     ID("id"),
     LOADER_REPOSITORY_CLASS("loaderRepositoryClass"),
-    VERSION("version")
-    ;
+    VERSION("version");
 
     private final String name;
 

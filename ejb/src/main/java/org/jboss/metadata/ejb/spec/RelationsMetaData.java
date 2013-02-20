@@ -30,68 +30,67 @@ import static org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData.overrid
 
 /**
  * RelationsMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
 public class RelationsMetaData extends ArrayList<RelationMetaData>
-   implements IdMetaData, MergeableMetaData<RelationsMetaData>
-{
-   /** The serialVersionUID */
-   private static final long serialVersionUID = -3080564843998267217L;
-   
-   /** The descriptions */
-   private Descriptions descriptions;
-   /** The id */
-   String id;
+        implements IdMetaData, MergeableMetaData<RelationsMetaData> {
+    /**
+     * The serialVersionUID
+     */
+    private static final long serialVersionUID = -3080564843998267217L;
 
-   /**
-    * Create a new RelationsMetaData.
-    */
-   public RelationsMetaData()
-   {
-   }
+    /**
+     * The descriptions
+     */
+    private Descriptions descriptions;
+    /**
+     * The id
+     */
+    String id;
 
-   public String getId()
-   {
-      return id;
-   }
+    /**
+     * Create a new RelationsMetaData.
+     */
+    public RelationsMetaData() {
+    }
 
-   public void setId(String id)
-   {
-      if (id == null)
-         throw new IllegalArgumentException("Null id");
-      this.id = id;
-   }
+    public String getId() {
+        return id;
+    }
 
-   /**
-    * Get the descriptions.
-    * 
-    * @return the descriptions.
-    */
-   public Descriptions getDescriptions()
-   {
-      return descriptions;
-   }
+    public void setId(String id) {
+        if (id == null)
+            throw new IllegalArgumentException("Null id");
+        this.id = id;
+    }
 
-   /**
-    * Set the descriptions.
-    * 
-    * @param descriptions the descriptions.
-    * @throws IllegalArgumentException for a null descriptions
-    */
-   public void setDescriptions(Descriptions descriptions)
-   {
-      if (descriptions == null)
-         throw new IllegalArgumentException("Null descriptions");
-      this.descriptions = descriptions;
-   }
+    /**
+     * Get the descriptions.
+     *
+     * @return the descriptions.
+     */
+    public Descriptions getDescriptions() {
+        return descriptions;
+    }
 
-   @Override
-   public void merge(RelationsMetaData override, RelationsMetaData original)
-   {
-      this.id = override(override != null ? override.id : null, original != null ? original.id : null);
-      this.descriptions = override(override != null ? override.descriptions : null, original != null ? original.descriptions : null);
-   }
+    /**
+     * Set the descriptions.
+     *
+     * @param descriptions the descriptions.
+     * @throws IllegalArgumentException for a null descriptions
+     */
+    public void setDescriptions(Descriptions descriptions) {
+        if (descriptions == null)
+            throw new IllegalArgumentException("Null descriptions");
+        this.descriptions = descriptions;
+    }
+
+    @Override
+    public void merge(RelationsMetaData override, RelationsMetaData original) {
+        this.id = override(override != null ? override.id : null, original != null ? original.id : null);
+        this.descriptions = override(override != null ? override.descriptions : null, original != null ? original.descriptions : null);
+    }
 }

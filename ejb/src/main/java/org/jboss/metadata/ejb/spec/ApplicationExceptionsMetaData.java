@@ -27,26 +27,25 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
 /**
  * ApplicationExceptionsMetaData.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class ApplicationExceptionsMetaData extends AbstractMappedMetaData<ApplicationExceptionMetaData>
-{
-   /** The serialVersionUID */
-   private static final long serialVersionUID = -5880146271705804091L;
+public class ApplicationExceptionsMetaData extends AbstractMappedMetaData<ApplicationExceptionMetaData> {
+    /**
+     * The serialVersionUID
+     */
+    private static final long serialVersionUID = -5880146271705804091L;
 
-   /**
-    * Create a new ApplicationExceptionsMetaData.
-    */
-   public ApplicationExceptionsMetaData()
-   {
-      super("application exception class");
-   }
-   
-   public void merge(ApplicationExceptionsMetaData override, ApplicationExceptionsMetaData original)
-   {
-      IdMetaDataImplMerger.merge(this, override, original);
-      MergeUtil.merge(this, override, original);
-   }
+    /**
+     * Create a new ApplicationExceptionsMetaData.
+     */
+    public ApplicationExceptionsMetaData() {
+        super("application exception class");
+    }
+
+    public void merge(ApplicationExceptionsMetaData override, ApplicationExceptionsMetaData original) {
+        IdMetaDataImplMerger.merge(this, override, original);
+        MergeUtil.merge(this, override, original);
+    }
 }

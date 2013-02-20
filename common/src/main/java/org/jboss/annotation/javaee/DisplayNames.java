@@ -34,6 +34,8 @@ import java.lang.annotation.RetentionPolicy;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DisplayNames {
-    /** Display names */
+    /**
+     * Display names
+     */
     DisplayName[] value();
 }

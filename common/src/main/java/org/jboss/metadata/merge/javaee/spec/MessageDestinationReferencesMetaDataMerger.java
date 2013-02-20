@@ -34,14 +34,14 @@ public class MessageDestinationReferencesMetaDataMerger {
     /**
      * Merge message destination references
      *
-     * @param override the override references
-     * @param overriden the overriden references
+     * @param override      the override references
+     * @param overriden     the overriden references
      * @param overridenFile the overriden file name
-     * @param overrideFile the override file
+     * @param overrideFile  the override file
      * @return the merged referencees
      */
     public static MessageDestinationReferencesMetaData merge(MessageDestinationReferencesMetaData override,
-            MessageDestinationReferencesMetaData overriden, String overridenFile, String overrideFile, boolean mustOverride) {
+                                                             MessageDestinationReferencesMetaData overriden, String overridenFile, String overrideFile, boolean mustOverride) {
         if (override == null && overriden == null)
             return null;
 
@@ -56,8 +56,8 @@ public class MessageDestinationReferencesMetaDataMerger {
      * From avaEEMetaDataUtil.java
      */
     private static MessageDestinationReferencesMetaData merge(MessageDestinationReferencesMetaData merged,
-            MessageDestinationReferencesMetaData overriden, MessageDestinationReferencesMetaData mapped, String context,
-            String overridenFile, String overrideFile, boolean mustOverride) {
+                                                              MessageDestinationReferencesMetaData overriden, MessageDestinationReferencesMetaData mapped, String context,
+                                                              String overridenFile, String overrideFile, boolean mustOverride) {
         if (merged == null)
             throw new IllegalArgumentException("Null merged");
 
@@ -109,7 +109,7 @@ public class MessageDestinationReferencesMetaDataMerger {
     }
 
     public static void augment(MessageDestinationReferencesMetaData dest, MessageDestinationReferencesMetaData augment,
-            MessageDestinationReferencesMetaData main, boolean resolveConflicts) {
+                               MessageDestinationReferencesMetaData main, boolean resolveConflicts) {
         for (MessageDestinationReferenceMetaData messageDestinationRef : augment) {
             if (dest.containsKey(messageDestinationRef.getKey())) {
                 if (!resolveConflicts && (main == null || !main.containsKey(messageDestinationRef.getKey()))) {

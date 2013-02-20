@@ -22,13 +22,7 @@
 package org.jboss.metadata.ejb.jboss;
 
 import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
-import org.jboss.metadata.javaee.spec.Environment;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
-import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.*;
 
 import java.io.Serializable;
 
@@ -39,16 +33,24 @@ import java.io.Serializable;
  * @version $Revision: 1.1 $
  */
 public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMetaData implements Serializable, Environment {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 4642263968653845579L;
 
-    /** The ejb local references */
+    /**
+     * The ejb local references
+     */
     private EJBLocalReferencesMetaData ejbLocalReferences;
 
-    /** The service references */
+    /**
+     * The service references
+     */
     private JBossServiceReferencesMetaData serviceReferences;
 
-    /** The persistence context reference */
+    /**
+     * The persistence context reference
+     */
     private PersistenceContextReferencesMetaData persistenceContextRefs;
 
     @Override

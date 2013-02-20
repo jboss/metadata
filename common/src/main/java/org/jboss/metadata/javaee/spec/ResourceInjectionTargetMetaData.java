@@ -30,13 +30,19 @@ import java.io.Serializable;
  * @version $Revision: 1.1 $
  */
 public class ResourceInjectionTargetMetaData implements Serializable {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = -8675008295610478284L;
 
-    /** The injection target class */
+    /**
+     * The injection target class
+     */
     private String injectionTargetClass;
 
-    /** The injection target name */
+    /**
+     * The injection target name
+     */
     private String injectionTargetName;
 
     /**

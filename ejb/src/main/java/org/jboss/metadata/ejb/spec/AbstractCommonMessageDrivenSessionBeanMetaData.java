@@ -31,202 +31,186 @@ import java.util.List;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEnterpriseBeanMetaData
-{
-   private static final long serialVersionUID = 1L;
+abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEnterpriseBeanMetaData {
+    private static final long serialVersionUID = 1L;
 
-   /** The timeout method */
-   private NamedMethodMetaData timeoutMethod;
+    /**
+     * The timeout method
+     */
+    private NamedMethodMetaData timeoutMethod;
 
-   /** The transaction type */
-   private TransactionManagementType transactionType;
+    /**
+     * The transaction type
+     */
+    private TransactionManagementType transactionType;
 
-   /** The around invokes */
-   private AroundInvokesMetaData aroundInvokes;
+    /**
+     * The around invokes
+     */
+    private AroundInvokesMetaData aroundInvokes;
 
-   // EJB 3.1
+    // EJB 3.1
 
-   /**
-    * Represents metadata for {@link javax.ejb.Schedule}
-    */
-   private List<TimerMetaData> timers;
+    /**
+     * Represents metadata for {@link javax.ejb.Schedule}
+     */
+    private List<TimerMetaData> timers;
 
-   private AroundTimeoutsMetaData aroundTimeouts;
+    private AroundTimeoutsMetaData aroundTimeouts;
 
-   private void assertUnknownOrMessageDrivenOrSessionBean()
-   {
-      final EjbType ejbType = getEjbType();
-      if (ejbType != null)
-      {
-         switch (ejbType)
-         {
-            case MESSAGE_DRIVEN:
-            case SESSION:
-               break;
-            default:
-               throw new IllegalStateException("Bean " + this + " is not an unknown, message-driven or session bean, but " + getEjbType());
-         }
-      }
-   }
+    private void assertUnknownOrMessageDrivenOrSessionBean() {
+        final EjbType ejbType = getEjbType();
+        if (ejbType != null) {
+            switch (ejbType) {
+                case MESSAGE_DRIVEN:
+                case SESSION:
+                    break;
+                default:
+                    throw new IllegalStateException("Bean " + this + " is not an unknown, message-driven or session bean, but " + getEjbType());
+            }
+        }
+    }
 
-   private void assertUnknownOrMessageDriven31OrSessionBean31()
-   {
-      final EjbType type = getEjbType();
-      if (type != null && type != EjbType.MESSAGE_DRIVEN && type != EjbType.SESSION)
-         throw new IllegalStateException("Bean " + this + " is not an unknown, message driven or session bean, but " + getEjbType());
-      final EjbJarMetaData ejbJarMetaData = getEjbJarMetaData();
-      // the bean might not have been added yet
-      if(ejbJarMetaData != null && ejbJarMetaData.getEjbJarVersion() != EjbJarVersion.EJB_3_1)
-         throw new IllegalStateException("Bean " + this + " is not an 3.1 EJB, but " + ejbJarMetaData.getEjbJarVersion());
-   }
+    private void assertUnknownOrMessageDriven31OrSessionBean31() {
+        final EjbType type = getEjbType();
+        if (type != null && type != EjbType.MESSAGE_DRIVEN && type != EjbType.SESSION)
+            throw new IllegalStateException("Bean " + this + " is not an unknown, message driven or session bean, but " + getEjbType());
+        final EjbJarMetaData ejbJarMetaData = getEjbJarMetaData();
+        // the bean might not have been added yet
+        if (ejbJarMetaData != null && ejbJarMetaData.getEjbJarVersion() != EjbJarVersion.EJB_3_1)
+            throw new IllegalStateException("Bean " + this + " is not an 3.1 EJB, but " + ejbJarMetaData.getEjbJarVersion());
+    }
 
-   @Override
-   public void merge(AbstractEnterpriseBeanMetaData override, AbstractEnterpriseBeanMetaData original)
-   {
-      super.merge(override, original);
-      mergeCommon((AbstractCommonMessageDrivenSessionBeanMetaData) override, (AbstractCommonMessageDrivenSessionBeanMetaData) original);
-   }
+    @Override
+    public void merge(AbstractEnterpriseBeanMetaData override, AbstractEnterpriseBeanMetaData original) {
+        super.merge(override, original);
+        mergeCommon((AbstractCommonMessageDrivenSessionBeanMetaData) override, (AbstractCommonMessageDrivenSessionBeanMetaData) original);
+    }
 
-   private void mergeCommon(AbstractCommonMessageDrivenSessionBeanMetaData override, AbstractCommonMessageDrivenSessionBeanMetaData original)
-   {
-      if(override != null && override.timeoutMethod != null)
-         setTimeoutMethod(override.timeoutMethod);
-      else if(original != null && original.timeoutMethod != null)
-         setTimeoutMethod(original.timeoutMethod);
-      if(override != null && override.transactionType != null)
-         setTransactionType(override.transactionType);
-      else if(original != null && original.transactionType != null)
-         setTransactionType(original.transactionType);
-      aroundInvokes = augment(new AroundInvokesMetaData(), override != null ? override.aroundInvokes : null, original != null ? original.aroundInvokes : null);
-      // merge timers
-      mergeTimers(override, original);
-   }
+    private void mergeCommon(AbstractCommonMessageDrivenSessionBeanMetaData override, AbstractCommonMessageDrivenSessionBeanMetaData original) {
+        if (override != null && override.timeoutMethod != null)
+            setTimeoutMethod(override.timeoutMethod);
+        else if (original != null && original.timeoutMethod != null)
+            setTimeoutMethod(original.timeoutMethod);
+        if (override != null && override.transactionType != null)
+            setTransactionType(override.transactionType);
+        else if (original != null && original.transactionType != null)
+            setTransactionType(original.transactionType);
+        aroundInvokes = augment(new AroundInvokesMetaData(), override != null ? override.aroundInvokes : null, original != null ? original.aroundInvokes : null);
+        // merge timers
+        mergeTimers(override, original);
+    }
 
-   private void mergeTimers(AbstractCommonMessageDrivenSessionBeanMetaData override, AbstractCommonMessageDrivenSessionBeanMetaData original)
-   {
-      // merge the (auto)timer metadata
-      Collection<TimerMetaData> originalTimers = original == null ? null : original.timers;
-      Collection<TimerMetaData> overrideTimers = override == null ? null : override.timers;
-      if(originalTimers != null || overrideTimers != null)
-      {
-         if (this.timers == null)
-         {
+    private void mergeTimers(AbstractCommonMessageDrivenSessionBeanMetaData override, AbstractCommonMessageDrivenSessionBeanMetaData original) {
+        // merge the (auto)timer metadata
+        Collection<TimerMetaData> originalTimers = original == null ? null : original.timers;
+        Collection<TimerMetaData> overrideTimers = override == null ? null : override.timers;
+        if (originalTimers != null || overrideTimers != null) {
+            if (this.timers == null) {
+                this.timers = new ArrayList<TimerMetaData>();
+            }
+            MergeUtil.merge(this.timers, overrideTimers, originalTimers);
+        }
+    }
+
+    /**
+     * Get the aroundInvokes.
+     *
+     * @return the aroundInvokes.
+     */
+    public AroundInvokesMetaData getAroundInvokes() {
+        assertUnknownOrMessageDrivenOrSessionBean();
+        return aroundInvokes;
+    }
+
+    /**
+     * Set the aroundInvokes.
+     *
+     * @param aroundInvokes the aroundInvokes.
+     * @throws IllegalArgumentException for a null aroundInvokes
+     */
+    public void setAroundInvokes(AroundInvokesMetaData aroundInvokes) {
+        assertUnknownOrMessageDrivenOrSessionBean();
+        if (aroundInvokes == null)
+            throw new IllegalArgumentException("Null aroundInvokes");
+        this.aroundInvokes = aroundInvokes;
+    }
+
+    /**
+     * Get the timeoutMethod.
+     *
+     * @return the timeoutMethod.
+     */
+    public NamedMethodMetaData getTimeoutMethod() {
+        assertUnknownOrMessageDrivenOrSessionBean();
+        return timeoutMethod;
+    }
+
+    /**
+     * Set the timeoutMethod.
+     *
+     * @param timeoutMethod the timeoutMethod.
+     * @throws IllegalArgumentException for a null timeoutMethod
+     */
+    public void setTimeoutMethod(NamedMethodMetaData timeoutMethod) {
+        assertUnknownOrMessageDrivenOrSessionBean();
+        if (timeoutMethod == null)
+            throw new IllegalArgumentException("Null timeoutMethod");
+        this.timeoutMethod = timeoutMethod;
+    }
+
+    @Override
+    public TransactionManagementType getTransactionType() {
+        assertUnknownOrMessageDrivenOrSessionBean();
+        return transactionType;
+    }
+
+    /**
+     * Set the transactionType.
+     *
+     * @param transactionType the transactionType.
+     * @throws IllegalArgumentException for a null transactionType
+     */
+    public void setTransactionType(TransactionManagementType transactionType) {
+        assertUnknownOrMessageDrivenOrSessionBean();
+        if (transactionType == null)
+            throw new IllegalArgumentException("Null transactionType");
+        this.transactionType = transactionType;
+    }
+
+    // EJB 3.1
+
+    public AroundTimeoutsMetaData getAroundTimeouts() {
+        assertUnknownOrMessageDrivenOrSessionBean();
+        return aroundTimeouts;
+    }
+
+    public void setAroundTimeouts(AroundTimeoutsMetaData aroundTimeouts) {
+        assertUnknownOrMessageDriven31OrSessionBean31();
+        this.aroundTimeouts = aroundTimeouts;
+    }
+
+    /**
+     * Returns the {@link TimerMetaData} associated with this bean
+     */
+    public List<TimerMetaData> getTimers() {
+        assertUnknownOrMessageDrivenOrSessionBean();
+        return this.timers;
+    }
+
+    /**
+     * Sets the {@link TimerMetaData} for this bean
+     */
+    public void setTimers(List<TimerMetaData> timers) {
+        assertUnknownOrMessageDriven31OrSessionBean31();
+        this.timers = timers;
+    }
+
+    public void addTimer(TimerMetaData timer) {
+        assertUnknownOrMessageDriven31OrSessionBean31();
+        if (this.timers == null) {
             this.timers = new ArrayList<TimerMetaData>();
-         }
-         MergeUtil.merge(this.timers, overrideTimers, originalTimers);
-      }
-   }
-
-   /**
-    * Get the aroundInvokes.
-    *
-    * @return the aroundInvokes.
-    */
-   public AroundInvokesMetaData getAroundInvokes()
-   {
-      assertUnknownOrMessageDrivenOrSessionBean();
-      return aroundInvokes;
-   }
-
-   /**
-    * Set the aroundInvokes.
-    *
-    * @param aroundInvokes the aroundInvokes.
-    * @throws IllegalArgumentException for a null aroundInvokes
-    */
-   public void setAroundInvokes(AroundInvokesMetaData aroundInvokes)
-   {
-      assertUnknownOrMessageDrivenOrSessionBean();
-      if (aroundInvokes == null)
-         throw new IllegalArgumentException("Null aroundInvokes");
-      this.aroundInvokes = aroundInvokes;
-   }
-
-   /**
-    * Get the timeoutMethod.
-    *
-    * @return the timeoutMethod.
-    */
-   public NamedMethodMetaData getTimeoutMethod()
-   {
-      assertUnknownOrMessageDrivenOrSessionBean();
-      return timeoutMethod;
-   }
-
-   /**
-    * Set the timeoutMethod.
-    *
-    * @param timeoutMethod the timeoutMethod.
-    * @throws IllegalArgumentException for a null timeoutMethod
-    */
-   public void setTimeoutMethod(NamedMethodMetaData timeoutMethod)
-   {
-      assertUnknownOrMessageDrivenOrSessionBean();
-      if (timeoutMethod == null)
-         throw new IllegalArgumentException("Null timeoutMethod");
-      this.timeoutMethod = timeoutMethod;
-   }
-
-   @Override
-   public TransactionManagementType getTransactionType()
-   {
-      assertUnknownOrMessageDrivenOrSessionBean();
-      return transactionType;
-   }
-
-   /**
-    * Set the transactionType.
-    *
-    * @param transactionType the transactionType.
-    * @throws IllegalArgumentException for a null transactionType
-    */
-   public void setTransactionType(TransactionManagementType transactionType)
-   {
-      assertUnknownOrMessageDrivenOrSessionBean();
-      if (transactionType == null)
-         throw new IllegalArgumentException("Null transactionType");
-      this.transactionType = transactionType;
-   }
-
-   // EJB 3.1
-
-   public AroundTimeoutsMetaData getAroundTimeouts()
-   {
-      assertUnknownOrMessageDrivenOrSessionBean();
-      return aroundTimeouts;
-   }
-
-   public void setAroundTimeouts(AroundTimeoutsMetaData aroundTimeouts)
-   {
-      assertUnknownOrMessageDriven31OrSessionBean31();
-      this.aroundTimeouts = aroundTimeouts;
-   }
-
-   /**
-    * Returns the {@link TimerMetaData} associated with this bean
-    */
-   public List<TimerMetaData> getTimers()
-   {
-      assertUnknownOrMessageDrivenOrSessionBean();
-      return this.timers;
-   }
-
-   /**
-    * Sets the {@link TimerMetaData} for this bean
-    */
-   public void setTimers(List<TimerMetaData> timers)
-   {
-      assertUnknownOrMessageDriven31OrSessionBean31();
-      this.timers = timers;
-   }
-
-   public void addTimer(TimerMetaData timer)
-   {
-      assertUnknownOrMessageDriven31OrSessionBean31();
-      if (this.timers == null)
-      {
-         this.timers = new ArrayList<TimerMetaData>();
-      }
-      this.timers.add(timer);
-   }
+        }
+        this.timers.add(timer);
+    }
 }

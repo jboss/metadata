@@ -21,11 +21,10 @@
  */
 package org.jboss.metadata.javaee.jboss;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
+
+import java.util.Set;
 
 /**
  * IgnoreDependencyMetaData.
@@ -34,10 +33,14 @@ import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
  * @version $Revision: 1.1 $
  */
 public class IgnoreDependencyMetaData extends IdMetaDataImplWithDescriptions {
-    /** The serialVersionUID */
+    /**
+     * The serialVersionUID
+     */
     private static final long serialVersionUID = 68493962316154817L;
 
-    /** The injection targets */
+    /**
+     * The injection targets
+     */
     private Set<ResourceInjectionTargetMetaData> injectionTargets;
 
     /**
