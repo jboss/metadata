@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2007, Red Hat Middleware LLC, and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -35,7 +35,7 @@ public class ClassHelper
 {
    /**
     * Find that one method.
-    * 
+    *
     * @param cls            the class to scan
     * @param methodName     the method to find
     * @return               the method
@@ -55,7 +55,7 @@ public class ClassHelper
    /**
     * Find all methods with a specific name on a class regardless
     * of parameter signature.
-    * 
+    *
     * @param cls            the class to scan
     * @param methodName     the name of the methods to find
     * @return               a list of methods found, or empty

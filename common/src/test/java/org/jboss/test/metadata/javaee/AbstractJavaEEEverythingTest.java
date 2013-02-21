@@ -1,24 +1,24 @@
 /*
-* JBoss, Home of Professional Open Source
-* Copyright 2006, JBoss Inc., and individual contributors as indicated
-* by the @authors tag. See the copyright.txt in the distribution for a
-* full listing of individual contributors.
-*
-* This is free software; you can redistribute it and/or modify it
-* under the terms of the GNU Lesser General Public License as
-* published by the Free Software Foundation; either version 2.1 of
-* the License, or (at your option) any later version.
-*
-* This software is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-* Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public
-* License along with this software; if not, write to the Free
-* Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-* 02110-1301 USA, or see the FSF site: http://www.fsf.org.
-*/
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package org.jboss.test.metadata.javaee;
 
 import org.jboss.annotation.javaee.Description;
@@ -79,7 +79,7 @@ import java.util.Set;
 
 /**
  * AbstractJavaEEEverythingTest.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -91,7 +91,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
     * - JBOSS_DTD: we're testing jboss_5_0.dtd view
     * - SPEC: we're testing a spec view
     */
-   public enum Mode 
+   public enum Mode
    {
       JBOSS,
       JBOSS_DTD,
@@ -107,7 +107,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
    {
       super(name);
    }
-   
+
    protected void assertId(String prefix, Object object)
    {
       assertNotNull(object);
@@ -115,7 +115,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
       IdMetaData idMetaData = (IdMetaData) object;
       assertEquals(prefix + "-id", idMetaData.getId());
    }
-   
+
    protected void assertDescriptionGroup(String suffix, DescriptionGroupMetaData group)
    {
       assertNotNull("no description group meta data is set", group);
@@ -123,7 +123,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
       assertDisplayNames(suffix, group.getDisplayNames());
       assertIcons(suffix, group.getIcons());
    }
-   
+
    protected void assertDescriptions(String suffix, Descriptions descriptions)
    {
       assertNotNull("no descriptions are set", descriptions);
@@ -134,14 +134,14 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
       assertDescription("fr", suffix, impl);
       assertDescription("de", suffix, impl);
    }
-   
+
    protected void assertDescription(String lang, String suffix, DescriptionsImpl impl)
    {
       Description description = impl.get(lang);
       assertNotNull(description);
       assertEquals(lang + "-" + suffix + "-desc", description.value());
    }
-   
+
    protected void assertDisplayNames(String suffix, DisplayNames displayNames)
    {
       assertNotNull(displayNames);
@@ -152,14 +152,14 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
       assertDisplayName("fr", suffix, impl);
       assertDisplayName("de", suffix, impl);
    }
-   
+
    protected void assertDisplayName(String lang, String suffix, DisplayNamesImpl impl)
    {
       DisplayName displayName = impl.get(lang);
       assertNotNull(displayName);
       assertEquals(lang + "-" + suffix + "-disp", displayName.value());
    }
-   
+
    protected void assertIcons(String suffix, Icons icons)
    {
       assertNotNull("no icons are set", icons);
@@ -170,7 +170,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
       assertIcon("fr", suffix, impl);
       assertIcon("de", suffix, impl);
    }
-   
+
    protected void assertIcon(String lang, String suffix, IconsImpl impl)
    {
       Icon icon = impl.get(lang);
@@ -184,7 +184,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
    {
       assertEquals(prefix + type, className);
    }
-   
+
    protected void assertEmpty(String prefix, String type, EmptyMetaData emptyMetaData)
    {
       assertNotNull(emptyMetaData);
@@ -215,7 +215,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
    }
 
    /**
-    * 
+    *
     * @param prefix
     * @param size
     * @param principals
@@ -302,7 +302,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
    {
       assertRemoteEnvironment(prefix, environment, full, mode);
       assertEjbLocalRefs(prefix, 2, environment.getEjbLocalReferences(), full, mode);
-      // TODO service-refGroup 
+      // TODO service-refGroup
       if (full)
       {
          assertPersistenceContextRefs(prefix, 2, environment.getPersistenceContextRefs(), mode);
@@ -605,7 +605,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
       assertEquals(prefix + "Class", target.getInjectionTargetClass());
       assertEquals(prefix + "Name", target.getInjectionTargetName());
    }
-   
+
    protected void assertJndiName(String prefix, boolean full, String jndiName, Mode mode)
    {
       assertNotNull(jndiName);

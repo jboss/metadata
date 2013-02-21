@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2009, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -48,7 +48,7 @@ public class ApplicationExceptionTestCase
    /**
     * Test that the "inherited" attribute of the application-exception element in
     * ejb-jar.xml is processed correctly during metadata creation.
-    * 
+    *
     * @throws Exception
     */
    @Test
@@ -60,11 +60,11 @@ public class ApplicationExceptionTestCase
 
       ApplicationExceptionsMetaData appExceptions = jarMetaData.getAssemblyDescriptor().getApplicationExceptions();
       Assert.assertNotNull("No application exceptions found in metadata", appExceptions);
-      
+
       ApplicationExceptionMetaData appExceptionOne = appExceptions.get(AppExceptionOne.class.getName());
       Assert.assertNotNull("inherited attribute was *not* expected to be null on Application exception " + AppExceptionOne.class.getName(), appExceptionOne.isInherited());
       Assert.assertTrue("Application exception " + AppExceptionOne.class.getName() + " was expected to be inherited", appExceptionOne.isInherited());
-      
+
       ApplicationExceptionMetaData appExceptionTwo = appExceptions.get(AppExceptionTwo.class.getName());
       Assert.assertNotNull("inherited attribute was *not* expected to be null on Application exception " + AppExceptionTwo.class.getName(), appExceptionTwo.isInherited());
       Assert.assertFalse("Application exception " + AppExceptionTwo.class.getName() + " was *not* expected to be inherited", appExceptionTwo.isInherited());

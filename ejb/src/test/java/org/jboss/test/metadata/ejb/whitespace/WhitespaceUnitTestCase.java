@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2007, Red Hat Middleware LLC, and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -106,58 +106,58 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
        assertLocal(xml);
    }
-   
+
    public void testEjbJar30SessionRemote() throws Exception
    {
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
        assertRemote(xml);
    }
-   
+
    public void testEjbJar30EntityLocal() throws Exception
    {
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
        assertLocal(xml);
        assertEntity(xml);
    }
-   
+
    public void testEjbJar30EntityRemote() throws Exception
    {
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
        assertRemote(xml);
        assertEntity(xml);
    }
-   
+
    public void testEjbJar30AssemblyDescriptorInterceptor() throws Exception
    {
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
        assertADInterceptor(xml);
    }
-   
+
    public void testEjbJar30AroundInvokeInterceptor() throws Exception
    {
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
        assertAroundInvokeInterceptor(xml);
    }
-   
+
    public void testEjbJar30ActivateInterceptor() throws Exception
    {
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
        assertActivateInterceptor(xml);
    }
-   
+
    public void testEjbJar30ConstructInterceptor() throws Exception
    {
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
        assertConstructInterceptor(xml);
    }
-   
+
    public void testEjbJar30DestroyInterceptor() throws Exception
    {
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
        assertDestroyInterceptor(xml);
    }
 
-   
+
    public void testEjbJar30AssemblyDescriptorAppException() throws Exception
    {
        EjbJarMetaData xml = unmarshal(EjbJarMetaData.class);
@@ -186,7 +186,7 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
       assertEquals("java.lang.String", envEntry.getType());
       assertEquals(" ", envEntry.getValue());
    }
-   
+
    private void assertLocal(EjbJarMetaData xml) {
        assertEquals("Whitespace", xml.getDescriptionGroup().getDisplayNames().value()[0].value());
        EnterpriseBeansMetaData ebsmd = xml.getEnterpriseBeans();
@@ -197,11 +197,11 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
        GenericBeanMetaData gbmd = (GenericBeanMetaData) aebmd;
        assertEquals("Whitespace", gbmd.getName());
        assertEquals("Home", gbmd.getLocalHome());
-       assertEquals("Local", gbmd.getLocal());      
+       assertEquals("Local", gbmd.getLocal());
        assertEquals("Ejb", gbmd.getEjbClass());
-       
+
    }
-   
+
    private void assertRemote(EjbJarMetaData xml) {
        assertEquals("Whitespace", xml.getDescriptionGroup().getDisplayNames().value()[0].value());
        EnterpriseBeansMetaData ebsmd = xml.getEnterpriseBeans();
@@ -212,22 +212,22 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
        GenericBeanMetaData gbmd = (GenericBeanMetaData) aebmd;
        assertEquals("Whitespace", gbmd.getName());
        assertEquals("Home", gbmd.getHome());
-       assertEquals("Remote", gbmd.getRemote());      
+       assertEquals("Remote", gbmd.getRemote());
        assertEquals("Ejb", gbmd.getEjbClass());
-       
+
    }
-   
+
    private void assertEntity(EjbJarMetaData xml) {
-      
+
        EnterpriseBeansMetaData ebsmd = xml.getEnterpriseBeans();
        AbstractEnterpriseBeanMetaData aebmd = ebsmd.iterator().next();
        GenericBeanMetaData gbmd = (GenericBeanMetaData) aebmd;
        assertEquals(PersistenceType.Bean, gbmd.getPersistenceType());
        assertEquals("java.lang.Integer", gbmd.getPrimKeyClass());
        assertEquals(true, gbmd.isReentrant());
-       
+
    }
-   
+
    private void assertADAppException(EjbJarMetaData xml) {
        assertEquals("Whitespace", xml.getDescriptionGroup().getDisplayNames().value()[0].value());
        AssemblyDescriptorMetaData ad = xml.getAssemblyDescriptor();
@@ -240,9 +240,9 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
        ApplicationExceptionMetaData aemd = aesmd.get(key);
        assertNotNull(aemd);
        assertEquals("ExceptionClass", aemd.getExceptionClass());
-       
+
    }
-   
+
    private void assertADInterceptor(EjbJarMetaData xml) {
        assertEquals("Whitespace", xml.getDescriptionGroup().getDisplayNames().value()[0].value());
        AssemblyDescriptorMetaData ad = xml.getAssemblyDescriptor();
@@ -274,9 +274,9 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
         assertNotNull(aimd);
         assertEquals("interceptMethodCall", aimd.getMethodName());
         assertEquals("Class", aimd.getClassName());
-        
+
     }
-    
+
     private void assertActivateInterceptor(EjbJarMetaData xml) {
         assertEquals("Whitespace", xml.getDescriptionGroup().getDisplayNames().value()[0].value());
         InterceptorsMetaData ismd = xml.getInterceptors();
@@ -286,9 +286,9 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
         assertNotNull(imd);
         assertEquals("InterceptorClass", imd.getInterceptorClass());
         assertLifecycleCallbacksMetaData(imd.getPostActivates());
-        
+
     }
-    
+
     private void assertConstructInterceptor(EjbJarMetaData xml) {
         assertEquals("Whitespace", xml.getDescriptionGroup().getDisplayNames().value()[0].value());
         InterceptorsMetaData ismd = xml.getInterceptors();
@@ -298,9 +298,9 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
         assertNotNull(imd);
         assertEquals("InterceptorClass", imd.getInterceptorClass());
         assertLifecycleCallbacksMetaData(imd.getPostConstructs());
-       
+
     }
-    
+
     private void assertDestroyInterceptor(EjbJarMetaData xml) {
         assertEquals("Whitespace", xml.getDescriptionGroup().getDisplayNames().value()[0].value());
         InterceptorsMetaData ismd = xml.getInterceptors();
@@ -310,9 +310,9 @@ public class WhitespaceUnitTestCase extends AbstractEJBEverythingTest
         assertNotNull(imd);
         assertEquals("InterceptorClass", imd.getInterceptorClass());
         assertLifecycleCallbacksMetaData(imd.getPreDestroys());
-       
+
     }
-    
+
     private void assertLifecycleCallbacksMetaData(LifecycleCallbacksMetaData lcsmd)
     {
         assertNotNull(lcsmd);

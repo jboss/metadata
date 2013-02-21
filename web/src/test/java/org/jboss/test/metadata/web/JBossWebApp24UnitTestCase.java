@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2006, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -56,7 +56,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 /**
  * A JBossWebApp24UnitTestCase.
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -354,7 +354,7 @@ public class JBossWebApp24UnitTestCase extends AbstractJavaEEEverythingTest
          desc = descriptions.value()[0].value();
       return desc;
    }
-   
+
    protected Set<String> set(String...strings)
    {
       HashSet<String> set = new HashSet<String>();

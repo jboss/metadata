@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2006, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -35,7 +35,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 /**
  * Miscellaneous tests with a JBoss 5 jboss-web.xml.
- * 
+ *
  * @author Brian Stansberry
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88255 $
@@ -50,7 +50,7 @@ public class JBossWeb50UnitTestCase extends AbstractJavaEEEverythingTest
 /*
       //enableTrace("org.jboss.xb.builder");
       JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader());
-      
+
       ReplicationConfig replConfig = jbossWeb.getReplicationConfig();
       assertNotNull(replConfig);
       assertEquals("testCache", replConfig.getCacheName());
@@ -68,10 +68,10 @@ public class JBossWeb50UnitTestCase extends AbstractJavaEEEverythingTest
       assertEquals("org.jboss.test.TestNotificationPolicy", replConfig.getSessionNotificationPolicy());
       assertNull(replConfig.getReplicationMode());
       assertNull(replConfig.getBackups());
-      
+
       assertNotNull(jbossWeb.getMaxActiveSessions());
       assertEquals(20, jbossWeb.getMaxActiveSessions().intValue());
-      
+
       PassivationConfig passConfig = jbossWeb.getPassivationConfig();
       assertNotNull(passConfig);
       assertNotNull(passConfig.getUseSessionPassivation());
@@ -80,7 +80,7 @@ public class JBossWeb50UnitTestCase extends AbstractJavaEEEverythingTest
       assertEquals(2, passConfig.getPassivationMinIdleTime().intValue());
       assertNotNull(passConfig.getPassivationMaxIdleTime());
       assertEquals(5, passConfig.getPassivationMaxIdleTime().intValue());
-      
+
    }
 
    public void testClassLoading()
@@ -92,7 +92,7 @@ public class JBossWeb50UnitTestCase extends AbstractJavaEEEverythingTest
       assertEquals(true, classLoading.isJava2ClassLoadingCompliance());
       assertEquals(true, classLoading.wasJava2ClassLoadingComplianceSet());
    }
-   
+
    public void testClassLoading42()
       throws Exception
    {
@@ -104,15 +104,15 @@ public class JBossWeb50UnitTestCase extends AbstractJavaEEEverythingTest
       LoaderRepositoryMetaData lrmd = classLoading.getLoaderRepository();
       assertNull(lrmd.getName());
    }
-   
+
    public void testIsJaacAllStoreRole() throws Exception
    {
-      
+
       JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader());
-      
+
       assertNotNull(jbossWeb);
       assertTrue(jbossWeb.isJaccAllStoreRole());
-      
+
    }
  */
 }

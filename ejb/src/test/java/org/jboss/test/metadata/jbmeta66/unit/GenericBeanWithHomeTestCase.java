@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2008, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -42,15 +42,15 @@ public class GenericBeanWithHomeTestCase extends AbstractEJBEverythingTest
    {
       EjbJarMetaData specMetaData = unmarshal("ejb-jar.xml", EjbJarMetaData.class);
       JBossMetaData metaData = unmarshal("jboss.xml", JBossMetaData.class);
-      
+
       JBossMetaData mergedMetaData = new JBossMetaData();
       mergedMetaData.merge(metaData, specMetaData);
-      
+
       JBossSessionBeanMetaData bean = (JBossSessionBeanMetaData) mergedMetaData.getEnterpriseBean("TestBean");
       assertEquals("TestBeanHomeJndiName", bean.getHomeJndiName());
       assertEquals("TestBeanLocalHomeJndiName", bean.getLocalHomeJndiName());
    }
-   
+
    public void testParse() throws Exception
    {
       JBossMetaData jboss = unmarshal("jboss.xml", JBossMetaData.class);

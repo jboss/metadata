@@ -1,24 +1,24 @@
 /*
-* JBoss, Home of Professional Open Source
-* Copyright 2006, JBoss Inc., and individual contributors as indicated
-* by the @authors tag. See the copyright.txt in the distribution for a
-* full listing of individual contributors.
-*
-* This is free software; you can redistribute it and/or modify it
-* under the terms of the GNU Lesser General Public License as
-* published by the Free Software Foundation; either version 2.1 of
-* the License, or (at your option) any later version.
-*
-* This software is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-* Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public
-* License along with this software; if not, write to the Free
-* Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-* 02110-1301 USA, or see the FSF site: http://www.fsf.org.
-*/
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package org.jboss.test.metadata.ejb;
 
 import java.util.Collection;
@@ -68,7 +68,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * JBoss5xEverythingUnitTestCase.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -81,14 +81,14 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
    {
       return suite(JBoss5xEverythingUnitTestCase.class);
    }
-      
+
    static Element getElement(String name, Element parent)
    {
       NodeList elements = parent.getElementsByTagName(name);
       Element element = (Element) elements.item(0);
       return element;
    }
-   
+
    static String getElementText(String name, Element parent)
    {
       Element element = getElement(name, parent);
@@ -137,7 +137,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       hasStandardJBoss = false;
       assertEverything(jbossMetaData, Mode.JBOSS_DTD);
    }
-   
+
    public void testStandard() throws Exception
    {
       //enableTrace("org.jboss.xb");
@@ -150,7 +150,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
    }
 
    /**
-    * 
+    *
     * @throws Exception
     */
    public void testOverride() throws Exception
@@ -233,27 +233,27 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       expectedInvokerNames.add("containerConfiguration1InvokerProxyBindingName2-override");
       assertEquals(expectedInvokerNames, invokerNames);
    }
-   
+
    public void testClusterConfigOverride() throws Exception
    {
       JBoss50DTDMetaData overrideData = unmarshal();
       JBoss50DTDMetaData baseData = unmarshal("JBoss5xEverything_testClusterConfigBase.xml", JBoss50DTDMetaData.class, null);
       // Override JBoss5xEverything_testBaseData.xml with JBoss5xEverything_testOverride.xml
       JBossMetaDataWrapper jbossMetaData = new JBossMetaDataWrapper(overrideData, baseData);
-      
+
       JBossEnterpriseBeansMetaData enterpriseBeansMetaData = jbossMetaData.getEnterpriseBeans();
       assertNotNull(enterpriseBeansMetaData);
       assertEquals(4, enterpriseBeansMetaData.size());
-      
+
       String beanId = "bean1";
       JBossSessionBeanMetaData session = assertJBossSessionBean(beanId, jbossMetaData);
       ClusterConfigMetaData config = session.determineClusterConfig();
-      
+
       assertPartitionName(config, "bean");
       assertHomeLoadBalancePolicy(config, "container");
       assertBeanLoadBalancePolicy(config, "standard");
       assertSessionStateManagerJndiName(config, null);
-      
+
       beanId = "bean2";
       session = assertJBossSessionBean(beanId, jbossMetaData);
       config = session.determineClusterConfig();
@@ -261,7 +261,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertHomeLoadBalancePolicy(config, "standard");
       assertBeanLoadBalancePolicy(config, null);
       assertSessionStateManagerJndiName(config, "bean");
-      
+
       beanId = "bean3";
       session = assertJBossSessionBean(beanId, jbossMetaData);
       config = session.determineClusterConfig();
@@ -269,7 +269,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertHomeLoadBalancePolicy(config, null);
       assertBeanLoadBalancePolicy(config, "bean");
       assertSessionStateManagerJndiName(config, "container");
-      
+
       beanId = "bean4";
       session = assertJBossSessionBean(beanId, jbossMetaData);
       config = session.determineClusterConfig();
@@ -278,7 +278,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertBeanLoadBalancePolicy(config, "container");
       assertSessionStateManagerJndiName(config, "standard");
    }
-   
+
    public void testCreateDestination() throws Exception
    {
       JBossMetaData metaData = unmarshal(JBoss50MetaData.class);
@@ -296,7 +296,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertEquals(prefix + "CacheName", cacheConfig.getName());
       assertEquals(prefix + "PersistenceManager", cacheConfig.getPersistenceManager());
    }
-   
+
    public void assertEverything(JBossMetaData jbossMetaData, Mode mode)
    {
       assertVersion(jbossMetaData);
@@ -331,7 +331,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
    {
       assertEquals("5.0", jbossMetaData.getVersion());
    }
-   
+
    private void assertLoaderRepository(LoaderRepositoryMetaData loaderRepositoryMetaData, Mode mode)
    {
       assertNotNull(loaderRepositoryMetaData);
@@ -341,7 +341,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertEquals("loaderRepositoryName", trim(loaderRepositoryMetaData.getName()));
       assertLoaderRepositoryConfig(2, loaderRepositoryMetaData, mode);
    }
-   
+
    private void assertLoaderRepositoryConfig(int size, LoaderRepositoryMetaData loaderRepositoryMetaData, Mode mode)
    {
       Set<LoaderRepositoryConfigMetaData> configs = loaderRepositoryMetaData.getLoaderRepositoryConfig();
@@ -360,7 +360,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
 //         assertEquals("loaderRepositoryConfig" + count, trim(config.getConfig()));
       }
    }
-   
+
    public void assertWebservices(WebservicesMetaData webservices, Mode mode)
    {
       assertNotNull(webservices);
@@ -381,7 +381,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          ++count;
       }
    }
-   
+
 /*   private void assertWebservices(ApplicationMetaData application)
    {
       assertEquals("webservicesContextRoot", application.getWebServiceContextRoot());
@@ -395,13 +395,13 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertEquals("webserviceDescription1WsdlPublishLocation", application.getWsdlPublishLocationByName("webserviceDescription1Name"));
       assertEquals("webserviceDescription2WsdlPublishLocation", application.getWsdlPublishLocationByName("webserviceDescription2Name"));
    }
-*/   
+*/
    private String trim(String string)
    {
       assertNotNull(string);
       return string.trim();
    }
-   
+
    private void assertJBossEnterpriseBeans(JBossMetaData jbossMetaData, Mode mode)
    {
       JBossEnterpriseBeansMetaData enterpriseBeansMetaData = jbossMetaData.getEnterpriseBeans();
@@ -420,12 +420,12 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertFullEntityBean("entity1", jbossMetaData, true, mode);
          assertFullEntityBean("entity2", jbossMetaData, false, mode);
       }
-      
+
       assertNullMessageDrivenBean("mdb0", jbossMetaData);
       assertFullMessageDrivenBean("mdb1", jbossMetaData, true, mode);
       assertFullMessageDrivenBean("mdb2", jbossMetaData, false, mode);
    }
-   
+
    private <T extends JBossEnterpriseBeanMetaData> T assertJBossEnterpriseBean(String prefix, JBossMetaData jBossMetaData, Class<T> expected)
    {
       JBossEnterpriseBeanMetaData ejb = jBossMetaData.getEnterpriseBean(prefix + "EjbName");
@@ -434,7 +434,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertTrue(expected.isInstance(ejb));
       return expected.cast(ejb);
    }
-   
+
 /*   private <T extends BeanMetaData> T assertBeanMetaData(String prefix, ApplicationMetaData application, Class<T> expected)
    {
       BeanMetaData ejb = application.getBeanByEjbName(prefix + "EjbName");
@@ -443,7 +443,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertTrue(expected.isInstance(ejb));
       return expected.cast(ejb);
    }
-*/   
+*/
    private JBossSessionBeanMetaData assertJBossSessionBean(String prefix, JBossMetaData jbossMetaData)
    {
       JBossSessionBeanMetaData ejb = assertJBossEnterpriseBean(prefix, jbossMetaData, JBossSessionBeanMetaData.class);
@@ -452,7 +452,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertFalse(ejb.isMessageDriven());
       return ejb;
    }
-   
+
 /*   private SessionMetaData assertJBossSessionBean(String prefix, ApplicationMetaData application)
    {
       SessionMetaData ejb = assertBeanMetaData(prefix, application, SessionMetaData.class);
@@ -461,7 +461,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertFalse(ejb.isMessageDriven());
       return ejb;
    }
-*/   
+*/
    private void assertFullSessionBean(String prefix, JBossMetaData jbossMetaData, boolean first, Mode mode, int num)
    {
       JBossSessionBeanMetaData session = assertJBossSessionBean(prefix, jbossMetaData);
@@ -479,13 +479,13 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertCacheConfig(prefix, num, session.getCacheConfig());
          assertPoolConfig(prefix, session.getPoolConfig());
          assertJndiRefs(prefix, 2, session.getJndiRefs(), mode);
-         
+
          if (first)
             assertTrue(session.isConcurrent());
          else
             assertFalse(session.isConcurrent());
       }
-      
+
       assertEquals(prefix + "JndiName", session.getJndiName());
       assertEquals(prefix + "HomeJndiName", session.getHomeJndiName());
       assertEquals(prefix + "LocalJndiName", session.getLocalJndiName());
@@ -506,7 +506,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertFalse(session.isTimerPersistence());
          assertFalse(session.isClustered());
       }
-      
+
       assertInvokerBindings(prefix, session.getInvokerBindings(), mode);
 
       assertEnvironment(prefix, session.getJndiEnvironmentRefsGroup(), false, mode);
@@ -519,23 +519,23 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       else
          clusterConfig = session.determineClusterConfig();
       assertClusterConfig(prefix, clusterConfig, true, mode);
-      
+
       assertMethodAttributes(prefix, session.getMethodAttributes(), mode);
 
       assertDepends(prefix, 2, session.getDepends());
-      
+
       assertIORSecurityConfig(prefix, session.getIorSecurityConfig(), mode);
-      
+
       assertPortComponent(prefix, session.getPortComponent(), mode);
 
       assertSecurityIdentity(prefix, "EjbTimeoutIdentity", session.getEjbTimeoutIdentity(), false, mode);
-            
+
       if (this.hasStandardJBoss)
       {
          ContainerConfigurationMetaData ccmd = session.determineContainerConfiguration();
          this.assertContainerPoolConf(prefix, ccmd.getContainerPoolConf(), mode);
       }
-      
+
       //Ensure that we can see the principal versus role map
       Map<String, Set<String>> principalVsRolesMap = session.getSecurityRolesPrincipalVersusRolesMap();
       assertTrue("Keys size > 0", principalVsRolesMap.keySet().size() > 0);
@@ -548,7 +548,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertNull(session.getDescriptionGroup());
 
       assertNull(session.getRemoteBindings());
-      
+
       assertNull(session.getJndiName());
       assertNull(session.getHomeJndiName());
       assertNull(session.getLocalJndiName());
@@ -567,12 +567,12 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertNullEnvironment(session.getJndiEnvironmentRefsGroup());
 
       assertNull(session.getMethodAttributes());
-      
+
       assertNull(session.getSecurityIdentity());
       assertNull(session.getEjbTimeoutIdentity());
-      
+
       assertNull(session.getClusterConfig());
-      
+
       assertNull(session.getDepends());
 
       assertNull(session.getIorSecurityConfig());
@@ -583,7 +583,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertNull(session.isConcurrent());
       assertNull(session.getJndiRefs());
    }
-   
+
    private JBossEntityBeanMetaData assertJBossEntityBean(String prefix, JBossMetaData jbossMetaData)
    {
       JBossEntityBeanMetaData ejb = assertJBossEnterpriseBean(prefix, jbossMetaData, JBossEntityBeanMetaData.class);
@@ -592,7 +592,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertFalse(ejb.isMessageDriven());
       return ejb;
    }
-   
+
 /*   private EntityMetaData assertJBossEntityBean(String prefix, ApplicationMetaData application)
    {
       EntityMetaData ejb = assertBeanMetaData(prefix, application, EntityMetaData.class);
@@ -606,7 +606,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
    {
       JBossEntityBeanMetaData entity = assertJBossEntityBean(prefix, jbossMetaData);
       assertId(prefix, entity);
-      
+
       assertEquals(prefix + "JndiName", entity.getJndiName());
       assertEquals(prefix + "LocalJndiName", entity.getLocalJndiName());
       assertEquals(prefix + "ConfigurationName", entity.getConfigurationName());
@@ -631,7 +631,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertFalse(entity.isClustered());
          assertFalse(entity.isCacheInvalidation());
       }
-      
+
       assertInvokerBindings(prefix, entity.getInvokerBindings(), mode);
 
       assertEnvironment(prefix, entity.getJndiEnvironmentRefsGroup(), false, mode);
@@ -639,26 +639,26 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertSecurityIdentity(prefix, "SecurityIdentity", entity.getSecurityIdentity(), false, mode);
 
       assertClusterConfig(prefix, entity.getClusterConfig(), false, mode);
-      
+
       assertMethodAttributes(prefix, entity.getMethodAttributes(), mode);
 
       assertDepends(prefix, 2, entity.getDepends());
-      
+
       assertIORSecurityConfig(prefix, entity.getIorSecurityConfig(), mode);
-      
+
       assertCacheInvalidationConfig(prefix, entity.getCacheInvalidationConfig(), mode);
 
       // TODO DOM cache-config
-      
+
       // TODO DOM pool-config
    }
-   
+
    private void assertNullEntityBean(String prefix, JBossMetaData jbossMetaData)
    {
       JBossEntityBeanMetaData entity = assertJBossEntityBean(prefix, jbossMetaData);
       assertNull(entity.getId());
       assertNull(entity.getDescriptionGroup());
-      
+
       assertNull(entity.getJndiName());
       assertNull(entity.getLocalJndiName());
       assertNull(entity.getConfigurationName());
@@ -671,15 +671,15 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertTrue(entity.isTimerPersistence());
       assertFalse(entity.isClustered());
       assertFalse(entity.isCacheInvalidation());
-      
+
       assertNull(entity.getInvokerBindings());
 
       assertNullEnvironment(entity.getJndiEnvironmentRefsGroup());
 
       assertNull(entity.getMethodAttributes());
-      
+
       assertNull(entity.getSecurityIdentity());
-      
+
       assertNull(entity.getClusterConfig());
 
       assertNull(entity.getCacheInvalidationConfig());
@@ -693,7 +693,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertNull(entity.getAopDomainName());
       assertNull(entity.getJndiRefs());
    }
-   
+
 /*   private void assertFullEntityBean(String prefix, ApplicationMetaData application, boolean first)
    {
       EntityMetaData entity = assertJBossEntityBean(prefix, application);
@@ -725,22 +725,22 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertEnvironment(prefix, entity, false);
 
       assertSecurityIdentity(prefix, "SecurityIdentity", entity.getSecurityIdentityMetaData(), false);
-      
+
       assertClusterConfig(prefix, entity.getClusterConfigMetaData(), false);
-      
+
       assertMethodAttributes(prefix, entity);
 
       assertCacheInvalidationConfig(prefix, entity.getDistributedCacheInvalidationConfig());
 
       assertDepends(prefix, 2, entity.getDepends());
-      
+
       assertIORSecurityConfig(prefix, entity.getIorSecurityConfigMetaData());
    }
-*/   
+*/
 /*   private void assertNullEntityBean(String prefix, ApplicationMetaData application)
    {
       EntityMetaData entity = assertJBossEntityBean(prefix, application);
-      
+
       String ejbName = entity.getEjbName();
       assertEquals(entity.getEjbName(), entity.getJndiName());
       String localName = "local/" + ejbName + '@' + System.identityHashCode(ejbName);
@@ -754,20 +754,20 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertTrue(entity.getTimerPersistence());
       assertFalse(entity.isClustered());
       assertFalse(entity.doDistributedCacheInvalidations());
-      
+
       assertDefaultInvoker(InvokerBindingMetaData.CMP_2x, entity);
-      
+
       assertNullEnvironment(entity);
 
       assertNull(entity.getSecurityIdentityMetaData());
 
       assertNull(entity.getDistributedCacheInvalidationConfig());
-     
+
       assertEmpty(entity.getDepends());
 
       assertNull(entity.getIorSecurityConfigMetaData());
    }
-*/   
+*/
    private JBossMessageDrivenBeanMetaData assertJBossMessageDrivenBean(String prefix, JBossMetaData jbossMetaData)
    {
       JBossMessageDrivenBeanMetaData ejb = assertJBossEnterpriseBean(prefix, jbossMetaData, JBossMessageDrivenBeanMetaData.class);
@@ -776,7 +776,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertTrue(ejb.isMessageDriven());
       return ejb;
    }
-   
+
 /*   private MessageDrivenMetaData assertJBossMessageDrivenBean(String prefix, ApplicationMetaData application)
    {
       MessageDrivenMetaData ejb = assertBeanMetaData(prefix, application, MessageDrivenMetaData.class);
@@ -790,7 +790,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
    {
       JBossMessageDrivenBeanMetaData mdb = assertJBossMessageDrivenBean(prefix, jbossMetaData);
       assertId(prefix, mdb);
-      
+
       if(mode != Mode.JBOSS_DTD)
       {
          assertDescriptionGroup(prefix, mdb.getDescriptionGroup());
@@ -800,7 +800,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertJndiRefs(prefix, 2, mdb.getJndiRefs(), mode);
          assertMethodAttributes(prefix, mdb.getMethodAttributes(), mode);
       }
-      
+
       assertEquals(prefix + "DestinationJndiName", mdb.getDestinationJndiName());
       assertEquals(prefix + "LocalJndiName", mdb.getLocalJndiName());
       assertEquals(prefix + "User", mdb.getMdbUser());
@@ -821,7 +821,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertFalse(mdb.isExceptionOnRollback());
          assertFalse(mdb.isTimerPersistence());
       }
-      
+
       assertInvokerBindings(prefix, mdb.getInvokerBindings(), mode);
 
       assertEnvironment(prefix, mdb.getJndiEnvironmentRefsGroup(), false, mode);
@@ -829,22 +829,22 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertSecurityIdentity(prefix, "SecurityIdentity", mdb.getSecurityIdentity(), false, mode);
 
       assertDepends(prefix, 2, mdb.getDepends());
-      
+
       assertIORSecurityConfig(prefix, mdb.getIorSecurityConfig(), mode);
-      
+
       assertSecurityIdentity(prefix, "EjbTimeoutIdentity", mdb.getEjbTimeoutIdentity(), false, mode);
-           
+
       // TODO DOM pool-config
-      
+
       assertActivationConfig(prefix, mdb.getActivationConfig(), mode);
    }
-   
+
    private void assertNullMessageDrivenBean(String prefix, JBossMetaData jbossMetaData)
    {
       JBossMessageDrivenBeanMetaData mdb = assertJBossMessageDrivenBean(prefix, jbossMetaData);
       assertNull(mdb.getId());
       assertNull(mdb.getDescriptionGroup());
-      
+
       assertNull(mdb.getDestinationJndiName());
       assertNull(mdb.getLocalJndiName());
       assertNull(mdb.getMdbUser());
@@ -891,7 +891,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       configuration = assertContainerConfiguration("containerConfiguration4", jbossMetaData);
       assertEquals(CommitOption.C, configuration.getCommitOption());
    }
-   
+
    private ContainerConfigurationMetaData assertContainerConfiguration(String prefix, JBossMetaData jBossMetaData)
    {
       ContainerConfigurationMetaData configuration = jBossMetaData.getContainerConfiguration(prefix + "Name");
@@ -904,7 +904,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertEquals(prefix+"LockingPolicy", policy);
       return configuration;
    }
-   
+
    private void assertFullContainerConfiguration(String prefix, JBossMetaData jBossMetaData, boolean first, Mode mode)
    {
       ContainerConfigurationMetaData configuration = assertContainerConfiguration(prefix, jBossMetaData);
@@ -936,7 +936,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertFalse(configuration.isEjbStoreOnClean());
          assertFalse(configuration.isStoreNotFlushed());
       }
-      
+
       assertInvokerProxyBindingNames(prefix, 2, configuration.getInvokerProxyBindingNames());
       Element interceptors = configuration.getContainerInterceptors();
       assertContainerInterceptors(prefix, interceptors);
@@ -949,7 +949,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertClusterConfig(prefix, configuration.getClusterConfig(), true, mode);
       assertDepends(prefix, 2, configuration.getDepends());
    }
-   
+
    private void assertNullContainerConfiguration(String prefix, JBossMetaData jBossMetaData)
    {
       ContainerConfigurationMetaData configuration = assertContainerConfiguration(prefix, jBossMetaData);
@@ -985,7 +985,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertNull(configuration.getClusterConfig());
       if(this.hasStandardJBoss)
          assertTrue(configuration.getDepends().isEmpty());
-      else      
+      else
          assertNull(configuration.getDepends());
    }
 
@@ -1061,7 +1061,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertTrue(names.contains(prefix + "InvokerProxyBindingName" + count));
       }
    }
-      
+
    private void assertDepends(String prefix, int size, Collection<String> depends)
    {
       assertNotNull(depends);
@@ -1071,7 +1071,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertTrue(depends.contains(prefix + "Depends" + count));
       }
    }
-   
+
    private void assertInvokerProxyBindings(InvokerProxyBindingsMetaData bindings, Mode mode)
    {
       assertNotNull(bindings);
@@ -1088,7 +1088,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          ++count;
       }
    }
-   
+
    private void assertInvokerProxyBinding(String prefix, int count, InvokerProxyBindingMetaData binding, Mode mode)
    {
       assertNotNull(binding);
@@ -1162,7 +1162,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          ++count;
       }
    }
-   
+
    private void assertInvokerBinding(String ejbPrefix, int count, InvokerBindingMetaData binding, Mode mode)
    {
       String invokerPrefix = ejbPrefix + "Invoker" + count;
@@ -1187,7 +1187,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          ++i;
       }
    }
-   
+
    private void assertResourceManagers(ResourceManagersMetaData resources, Mode mode)
    {
       assertNotNull(resources);
@@ -1204,7 +1204,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          ++count;
       }
    }
-   
+
    private void assertResourceManager(String prefix, boolean jndi, ResourceManagerMetaData resource, Mode mode)
    {
       assertNotNull(resource);
@@ -1227,7 +1227,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
          assertEquals(prefix + "URL", resource.getResource());
       }
    }
-   
+
    protected void assertAssemblyDescriptor(JBossMetaData jbossMetaData, Mode mode)
    {
       JBossAssemblyDescriptorMetaData assemblyDescriptorMetaData = (JBossAssemblyDescriptorMetaData) jbossMetaData.getAssemblyDescriptor();
@@ -1246,17 +1246,17 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       //Check the values
       assertTrue(prmap.get("securityRole1Principal1").size() == 1);
       assertTrue(prmap.get("securityRole1Principal1").contains("securityRoleRef1RoleLink"));
-      
+
       assertTrue(prmap.get("securityRole1Principal2").size() == 1);
       assertTrue(prmap.get("securityRole1Principal2").contains("securityRoleRef1RoleLink"));
-      
+
       assertTrue(prmap.get("securityRole2Principal1").size() == 1);
       assertTrue(prmap.get("securityRole2Principal1").contains("securityRoleRef2RoleLink"));
-      
+
       assertTrue(prmap.get("securityRole2Principal2").size() == 1);
       assertTrue(prmap.get("securityRole2Principal2").contains("securityRoleRef2RoleLink"));
    }
-   
+
    @Override
    protected void assertSecurityRole(String prefix, int count, SecurityRoleMetaData securityRoleMetaData, Mode mode)
    {
@@ -1284,31 +1284,31 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       assertEquals(10, (int) poolConfig.getMaxSize());
       assertEquals(11, (int) poolConfig.getTimeout());
    }
-   
+
    private void assertPartitionName(ClusterConfigMetaData config, String expectedSource)
    {
-      String value= config.getPartitionName();      
+      String value= config.getPartitionName();
       assertExpectedSource(value, expectedSource, "PartitionName");
    }
-   
+
    private void assertHomeLoadBalancePolicy(ClusterConfigMetaData config, String expectedSource)
    {
-      String value = config.getHomeLoadBalancePolicy();      
+      String value = config.getHomeLoadBalancePolicy();
       assertExpectedSource(value, expectedSource, "HomeLoadBalancePolicy");
    }
-   
+
    private void assertBeanLoadBalancePolicy(ClusterConfigMetaData config, String expectedSource)
    {
-      String value = config.getBeanLoadBalancePolicy();      
+      String value = config.getBeanLoadBalancePolicy();
       assertExpectedSource(value, expectedSource, "BeanLoadBalancePolicy");
    }
-   
+
    private void assertSessionStateManagerJndiName(ClusterConfigMetaData config, String expectedSource)
    {
-      String value = config.getSessionStateManagerJndiName();     
+      String value = config.getSessionStateManagerJndiName();
       assertExpectedSource(value, expectedSource, "SessionStateManagerJndiName");
    }
-   
+
    private void assertExpectedSource(String value, String expectedPrefix, String suffix)
    {
       if (expectedPrefix == null)
@@ -1316,7 +1316,7 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       else
          assertEquals(expectedPrefix + "Configuration" + suffix, value);
    }
-   
+
    @Override
    protected void assertResourceGroup(String prefix, ResourceInjectionMetaData resourceInjectionMetaData, boolean full, boolean first, Mode mode)
    {
@@ -1330,14 +1330,14 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest
       }
       assertEquals(prefix + "JndiName", resourceInjectionMetaData.getMappedName());
    }
-      
+
    @Override
    protected void assertSecurityIdentity(String ejbName, String type, SecurityIdentityMetaData securityIdentity, boolean full, Mode mode)
    {
       super.assertSecurityIdentity(ejbName, type, securityIdentity, full, mode);
       assertEquals(ejbName + type + "RunAsPrincipal", securityIdentity.getRunAsPrincipal());
    }
-   
+
 /*   @Override
    protected void assertSecurityIdentity(String ejbName, String type, org.jboss.metadata.SecurityIdentityMetaData securityIdentity, boolean full)
    {

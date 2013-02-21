@@ -1,24 +1,24 @@
 /*
-* JBoss, Home of Professional Open Source
-* Copyright 2006, JBoss Inc., and individual contributors as indicated
-* by the @authors tag. See the copyright.txt in the distribution for a
-* full listing of individual contributors.
-*
-* This is free software; you can redistribute it and/or modify it
-* under the terms of the GNU Lesser General Public License as
-* published by the Free Software Foundation; either version 2.1 of
-* the License, or (at your option) any later version.
-*
-* This software is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-* Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public
-* License along with this software; if not, write to the Free
-* Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-* 02110-1301 USA, or see the FSF site: http://www.fsf.org.
-*/
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package org.jboss.test.metadata.ejb;
 
 import org.jboss.metadata.common.jboss.LoaderRepositoryConfigMetaData;
@@ -50,7 +50,7 @@ import java.util.Set;
 
 /**
  * JBoss51EverythingUnitTestCase.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
@@ -83,7 +83,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertEquals(prefix + "CacheName", cacheConfig.getName());
       assertEquals(prefix + "PersistenceManager", cacheConfig.getPersistenceManager());
    }
-   
+
    public void assertEverything(JBossMetaData jbossMetaData, Mode mode)
    {
       assertVersion(jbossMetaData);
@@ -107,7 +107,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
    {
       assertEquals("5.1", jbossMetaData.getVersion());
    }
-   
+
    private void assertLoaderRepository(LoaderRepositoryMetaData loaderRepositoryMetaData, Mode mode)
    {
       assertNotNull(loaderRepositoryMetaData);
@@ -116,7 +116,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertEquals("loaderRepositoryName", trim(loaderRepositoryMetaData.getName()));
       assertLoaderRepositoryConfig(2, loaderRepositoryMetaData, mode);
    }
-   
+
    private void assertLoaderRepositoryConfig(int size, LoaderRepositoryMetaData loaderRepositoryMetaData, Mode mode)
    {
       Set<LoaderRepositoryConfigMetaData> configs = loaderRepositoryMetaData.getLoaderRepositoryConfig();
@@ -131,7 +131,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
          assertTrue(configs + " contains " + config, configs.contains(config));
       }
    }
-   
+
    public void assertWebservices(WebservicesMetaData webservices, Mode mode)
    {
       assertNotNull(webservices);
@@ -150,13 +150,13 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
          ++count;
       }
    }
-   
+
    private String trim(String string)
    {
       assertNotNull(string);
       return string.trim();
    }
-   
+
    private void assertJBossEnterpriseBeans(JBossMetaData jbossMetaData, Mode mode)
    {
       JBossEnterpriseBeansMetaData enterpriseBeansMetaData = jbossMetaData.getEnterpriseBeans();
@@ -173,7 +173,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertFullMessageDrivenBean("mdb1", jbossMetaData, true, mode);
       assertFullMessageDrivenBean("mdb2", jbossMetaData, false, mode);
    }
-   
+
    private <T extends JBossEnterpriseBeanMetaData> T assertJBossEnterpriseBean(String prefix, JBossMetaData jBossMetaData, Class<T> expected)
    {
       JBossEnterpriseBeanMetaData ejb = jBossMetaData.getEnterpriseBean(prefix + "EjbName");
@@ -182,7 +182,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertTrue(expected.isInstance(ejb));
       return expected.cast(ejb);
    }
-   
+
    private JBossSessionBeanMetaData assertJBossSessionBean(String prefix, JBossMetaData jbossMetaData)
    {
       JBossSessionBeanMetaData ejb = assertJBossEnterpriseBean(prefix, jbossMetaData, JBossSessionBeanMetaData.class);
@@ -191,7 +191,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertFalse(ejb.isMessageDriven());
       return ejb;
    }
-   
+
    private void assertFullSessionBean(String prefix, JBossMetaData jbossMetaData, boolean first, Mode mode, int num)
    {
       JBossSessionBeanMetaData session = assertJBossSessionBean(prefix, jbossMetaData);
@@ -207,16 +207,16 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertCacheConfig(prefix, num, session.getCacheConfig());
       assertPoolConfig(prefix, session.getPoolConfig());
       assertJndiRefs(prefix, 2, session.getJndiRefs(), mode);
-         
+
       if (first)
          assertTrue(session.isConcurrent());
       else
          assertFalse(session.isConcurrent());
-      
+
       assertEquals(prefix + "JndiName", session.getJndiName());
       assertEquals(prefix + "HomeJndiName", session.getHomeJndiName());
       assertEquals(prefix + "LocalJndiName", session.getLocalJndiName());
-      
+
       assertNull(session.getInvokerBindings());
 
       assertEnvironment(prefix, session.getJndiEnvironmentRefsGroup(), false, mode);
@@ -226,15 +226,15 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       ClusterConfigMetaData clusterConfig = null;
       clusterConfig = session.getClusterConfig();
       assertClusterConfig(prefix, clusterConfig, true, mode);
-      
+
       assertMethodAttributes(prefix, session.getMethodAttributes(), mode);
 
       assertDepends(prefix, 2, session.getDepends());
-      
+
       assertPortComponent(prefix, session.getPortComponent(), mode);
 
       assertSecurityIdentity(prefix, "EjbTimeoutIdentity", session.getEjbTimeoutIdentity(), false, mode);
-      
+
       //Ensure that we can see the principal versus role map
       Map<String, Set<String>> principalVsRolesMap = session.getSecurityRolesPrincipalVersusRolesMap();
       assertTrue("Keys size > 0", principalVsRolesMap.keySet().size() > 0);
@@ -247,7 +247,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertNull(session.getDescriptionGroup());
 
       assertNull(session.getRemoteBindings());
-      
+
       assertNull(session.getJndiName());
       assertNull(session.getHomeJndiName());
       assertNull(session.getLocalJndiName());
@@ -266,12 +266,12 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertNullEnvironment(session.getJndiEnvironmentRefsGroup());
 
       assertNull(session.getMethodAttributes());
-      
+
       assertNull(session.getSecurityIdentity());
       assertNull(session.getEjbTimeoutIdentity());
-      
+
       assertNull(session.getClusterConfig());
-      
+
       assertNull(session.getDepends());
 
       assertNull(session.getIorSecurityConfig());
@@ -282,7 +282,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertNull(session.isConcurrent());
       assertNull(session.getJndiRefs());
    }
-   
+
    private JBossMessageDrivenBeanMetaData assertJBossMessageDrivenBean(String prefix, JBossMetaData jbossMetaData)
    {
       JBossMessageDrivenBeanMetaData ejb = assertJBossEnterpriseBean(prefix, jbossMetaData, JBossMessageDrivenBeanMetaData.class);
@@ -291,26 +291,26 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertTrue(ejb.isMessageDriven());
       return ejb;
    }
-   
+
    private void assertFullMessageDrivenBean(String prefix, JBossMetaData jbossMetaData, boolean first, Mode mode)
    {
       JBossMessageDrivenBeanMetaData mdb = assertJBossMessageDrivenBean(prefix, jbossMetaData);
       assertId(prefix, mdb);
-      
+
       assertDescriptionGroup(prefix, mdb.getDescriptionGroup());
       assertAnnotations(prefix, 2, mdb.getAnnotations());
       assertIgnoreDependency(prefix, mdb.getIgnoreDependency());
       assertEquals(prefix + "AOPDomain", mdb.getAopDomainName());
       assertJndiRefs(prefix, 2, mdb.getJndiRefs(), mode);
       assertMethodAttributes(prefix, mdb.getMethodAttributes(), mode);
-      
+
       assertEquals(prefix + "DestinationJndiName", mdb.getDestinationJndiName());
       assertEquals(prefix + "User", mdb.getMdbUser());
       assertEquals(prefix + "Password", mdb.getMdbPassword());
       assertEquals(prefix + "ClientId", mdb.getMdbClientId());
       assertEquals(prefix + "SubscriptionId", mdb.getMdbSubscriptionId());
       assertEquals(prefix + "RAR", mdb.getResourceAdapterName());
-      
+
       assertNull(mdb.getInvokerBindings());
 
       assertEnvironment(prefix, mdb.getJndiEnvironmentRefsGroup(), false, mode);
@@ -318,20 +318,20 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertSecurityIdentity(prefix, "SecurityIdentity", mdb.getSecurityIdentity(), false, mode);
 
       assertDepends(prefix, 2, mdb.getDepends());
-            
+
       assertSecurityIdentity(prefix, "EjbTimeoutIdentity", mdb.getEjbTimeoutIdentity(), false, mode);
-           
+
       // TODO DOM pool-config
-      
+
       assertActivationConfig(prefix, mdb.getActivationConfig(), mode);
    }
-   
+
    private void assertNullMessageDrivenBean(String prefix, JBossMetaData jbossMetaData)
    {
       JBossMessageDrivenBeanMetaData mdb = assertJBossMessageDrivenBean(prefix, jbossMetaData);
       assertNull(mdb.getId());
       assertNull(mdb.getDescriptionGroup());
-      
+
       assertNull(mdb.getDestinationJndiName());
       assertNull(mdb.getLocalJndiName());
       assertNull(mdb.getMdbUser());
@@ -363,7 +363,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertNull(mdb.getAopDomainName());
       assertNull(mdb.getJndiRefs());
    }
-      
+
    private void assertDepends(String prefix, int size, Collection<String> depends)
    {
       assertNotNull(depends);
@@ -373,7 +373,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
          assertTrue(depends.contains(prefix + "Depends" + count));
       }
    }
-      
+
    private void assertResourceManagers(ResourceManagersMetaData resources, Mode mode)
    {
       assertNotNull(resources);
@@ -388,7 +388,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
          ++count;
       }
    }
-   
+
    private void assertResourceManager(String prefix, boolean jndi, ResourceManagerMetaData resource, Mode mode)
    {
       assertNotNull(resource);
@@ -409,7 +409,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
          assertEquals(prefix + "URL", resource.getResource());
       }
    }
-   
+
    protected void assertAssemblyDescriptor(JBossMetaData jbossMetaData, Mode mode)
    {
       JBossAssemblyDescriptorMetaData assemblyDescriptorMetaData = (JBossAssemblyDescriptorMetaData) jbossMetaData.getAssemblyDescriptor();
@@ -427,17 +427,17 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       //Check the values
       assertTrue(prmap.get("securityRole1Principal1").size() == 1);
       assertTrue(prmap.get("securityRole1Principal1").contains("securityRoleRef1RoleLink"));
-      
+
       assertTrue(prmap.get("securityRole1Principal2").size() == 1);
       assertTrue(prmap.get("securityRole1Principal2").contains("securityRoleRef1RoleLink"));
-      
+
       assertTrue(prmap.get("securityRole2Principal1").size() == 1);
       assertTrue(prmap.get("securityRole2Principal1").contains("securityRoleRef2RoleLink"));
-      
+
       assertTrue(prmap.get("securityRole2Principal2").size() == 1);
       assertTrue(prmap.get("securityRole2Principal2").contains("securityRoleRef2RoleLink"));
    }
-   
+
    @Override
    protected void assertSecurityRole(String prefix, int count, SecurityRoleMetaData securityRoleMetaData, Mode mode)
    {
@@ -458,7 +458,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
       assertEquals(10, (int) poolConfig.getMaxSize());
       assertEquals(11, (int) poolConfig.getTimeout());
    }
-      
+
    @Override
    protected void assertResourceGroup(String prefix, ResourceInjectionMetaData resourceInjectionMetaData, boolean full, boolean first, Mode mode)
    {
@@ -469,7 +469,7 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest
          assertFalse(resourceInjectionMetaData.isDependencyIgnored());
       assertEquals(prefix + "JndiName", resourceInjectionMetaData.getMappedName());
    }
-      
+
    @Override
    protected void assertSecurityIdentity(String ejbName, String type, SecurityIdentityMetaData securityIdentity, boolean full, Mode mode)
    {

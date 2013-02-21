@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2006, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -35,7 +35,7 @@ import org.jboss.metadata.ejb.jboss.ProducerMetaData;
 
 /**
  * A JBossConsumerBeanOverrideUnitTestCase.
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -46,12 +46,12 @@ public class JBossConsumerBeanOverrideUnitTestCase
    {
       simplePropertiesTest(JBossConsumerBeanMetaData.class, JBossEnterpriseBeanMetaData.class, null);
    }
-   
+
    public void testCurrentMessage() throws Exception
    {
       JBossConsumerBeanMetaData original = new JBossConsumerBeanMetaData();
       original.setEjbName("consumer");
-      
+
       MethodAttributesMetaData curMsg = new MethodAttributesMetaData();
       original.setCurrentMessage(curMsg);
       MethodAttributeMetaData mAttr = new MethodAttributeMetaData();
@@ -62,7 +62,7 @@ public class JBossConsumerBeanOverrideUnitTestCase
       mAttr.setMethodName("method2");
       mAttr.setTransactionTimeout(2000);
       curMsg.add(mAttr);
-      
+
       JBossConsumerBeanMetaData override = new JBossConsumerBeanMetaData();
       override.setEjbName("consumer");
       curMsg = new MethodAttributesMetaData();
@@ -75,7 +75,7 @@ public class JBossConsumerBeanOverrideUnitTestCase
       mAttr.setMethodName("method3");
       mAttr.setTransactionTimeout(3000);
       curMsg.add(mAttr);
-      
+
       JBossConsumerBeanMetaData merged = new JBossConsumerBeanMetaData();
       merged.merge(override, original);
       curMsg = merged.getCurrentMessage();
@@ -90,7 +90,7 @@ public class JBossConsumerBeanOverrideUnitTestCase
       assertNotNull(mAttr);
       assertEquals(3000, mAttr.getTransactionTimeout());
    }
-   
+
    public void testMessageProperties() throws Exception
    {
       JBossConsumerBeanMetaData original = new JBossConsumerBeanMetaData();
@@ -120,7 +120,7 @@ public class JBossConsumerBeanOverrideUnitTestCase
       method.setTransactionTimeout(1000);
       msgProps.add(msgProp);
       msgProp.setMethod(method);
-      
+
       JBossConsumerBeanMetaData override = new JBossConsumerBeanMetaData();
       override.setEjbName("consumer");
 
@@ -148,14 +148,14 @@ public class JBossConsumerBeanOverrideUnitTestCase
       method.setTransactionTimeout(3000);
       msgProp.setMethod(method);
       msgProps.add(msgProp);
-      
+
       JBossConsumerBeanMetaData merged = new JBossConsumerBeanMetaData();
       merged.merge(override, original);
       msgProps = merged.getMessageProperties();
       assertNotNull(msgProps);
       // shouldn't it be 3?
       assertEquals(4, msgProps.size());
-      
+
       msgProp = msgProps.get(0);
       assertNotNull(msgProp);
       assertEquals("class2", msgProp.getClassName());
@@ -204,7 +204,7 @@ public class JBossConsumerBeanOverrideUnitTestCase
       assertFalse(method.isIdempotent());
       assertFalse(method.isReadOnly());
    }
-   
+
    public void testProducers() throws Exception
    {
       JBossConsumerBeanMetaData original = new JBossConsumerBeanMetaData();
@@ -220,7 +220,7 @@ public class JBossConsumerBeanOverrideUnitTestCase
       producer.setClassName("class2");
       producer.setConnectionFactory("factory2");
       producers.add(producer);
-      
+
       JBossConsumerBeanMetaData override = new JBossConsumerBeanMetaData();
       override.setEjbName("consumer");
       producers = new ArrayList<ProducerMetaData>();
@@ -233,7 +233,7 @@ public class JBossConsumerBeanOverrideUnitTestCase
       producer.setClassName("class3");
       producer.setConnectionFactory("factory3");
       producers.add(producer);
-      
+
       JBossConsumerBeanMetaData merged = new JBossConsumerBeanMetaData();
       merged.merge(override, original);
       producers = merged.getProducers();
@@ -273,7 +273,7 @@ public class JBossConsumerBeanOverrideUnitTestCase
       producer.setClassName("class2");
       producer.setConnectionFactory("factory2");
       producers.add(producer);
-      
+
       JBossConsumerBeanMetaData override = new JBossConsumerBeanMetaData();
       override.setEjbName("consumer");
       producers = new ArrayList<LocalProducerMetaData>();
@@ -286,13 +286,13 @@ public class JBossConsumerBeanOverrideUnitTestCase
       producer.setClassName("class3");
       producer.setConnectionFactory("factory3");
       producers.add(producer);
-      
+
       JBossConsumerBeanMetaData merged = new JBossConsumerBeanMetaData();
       merged.merge(override, original);
       producers = merged.getLocalProducers();
       assertNotNull(producers);
       assertEquals(4, producers.size());
-      
+
       producer = producers.get(0);
       assertNotNull(producer);
       assertEquals("class2", producer.getClassName());

@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2006, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -71,7 +71,7 @@ import org.jboss.metadata.javaee.spec.RunAsMetaData;
 
 /**
  * A JBossEnterpriseBeanOverrideUnitTestCase.
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -81,7 +81,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
    {
       simplePropertiesTest(JBossEnterpriseBeanMetaData.class, null, JBossSessionBeanMetaData.class);
    }
-   
+
    public void testAnnotations() throws Exception
    {
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
@@ -97,7 +97,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       annotation.setAnnotationClass("annotation2");
       annotation.setAnnotationImplementationClass(annotation.getAnnotationClass() + "Original");
       annotations.add(annotation);
-      
+
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
       annotations = new AnnotationsMetaData();
@@ -110,7 +110,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       annotation.setAnnotationClass("annotation3");
       annotation.setAnnotationImplementationClass(annotation.getAnnotationClass() + "Override");
       annotations.add(annotation);
-      
+
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
       annotations = merged.getAnnotations();
@@ -126,7 +126,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       assertNotNull(annotation);
       assertEquals(annotation.getAnnotationClass() + "Override", annotation.getAnnotationImplementationClass());
    }
-   
+
    public void testInvokers() throws Exception
    {
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
@@ -142,7 +142,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       invoker.setJndiName(invoker.getInvokerProxyBindingName() + "Original");
       invokers.add(invoker);
       original.setInvokerBindings(invokers);
-      
+
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
 
@@ -179,7 +179,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setEjbName("session");
       original.setIorSecurityConfig(new IORSecurityConfigMetaData());
-      
+
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
       override.setIorSecurityConfig(new IORSecurityConfigMetaData());
@@ -188,7 +188,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       merged.merge(override, original);
       assertTrue(override.getIorSecurityConfig() == merged.getIorSecurityConfig());
    }
-   
+
    public void testEnvironmentRefsGroup() throws Exception
    {
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
@@ -197,7 +197,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       JBossEnvironmentRefsGroupMetaData originalEnv = new JBossEnvironmentRefsGroupMetaData();
       original.setJndiEnvironmentRefsGroup(originalEnv);
       originalEnv.setAnnotatedEjbReferences(new AnnotatedEJBReferencesMetaData());
-      
+
       EJBLocalReferencesMetaData localRefs = new EJBLocalReferencesMetaData();
       EJBLocalReferenceMetaData localRef = new EJBLocalReferenceMetaData();
       localRef.setEjbRefName("localRef1");
@@ -208,7 +208,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       localRef.setJndiName(localRef.getEjbRefName() + "Original");
       localRefs.add(localRef);
       originalEnv.setEjbLocalReferences(localRefs);
-      
+
       EJBReferencesMetaData ejbRefs = new EJBReferencesMetaData();
       EJBReferenceMetaData ejbRef = new EJBReferenceMetaData();
       ejbRef.setEjbRefName("ejbRef1");
@@ -219,7 +219,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       ejbRef.setJndiName(ejbRef.getEjbRefName() + "Original");
       ejbRefs.add(ejbRef);
       originalEnv.setEjbReferences(ejbRefs);
-      
+
       EnvironmentEntriesMetaData envEntries = new EnvironmentEntriesMetaData();
       EnvironmentEntryMetaData envEntry = new EnvironmentEntryMetaData();
       envEntry.setEnvEntryName("entry1");
@@ -230,7 +230,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       envEntry.setJndiName(envEntry.getEnvEntryName() + "Original");
       envEntries.add(envEntry);
       originalEnv.setEnvironmentEntries(envEntries);
-      
+
       MessageDestinationReferencesMetaData destRefs = new MessageDestinationReferencesMetaData();
       MessageDestinationReferenceMetaData destRef = new MessageDestinationReferenceMetaData();
       destRef.setMessageDestinationRefName("destRef1");
@@ -241,7 +241,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       destRef.setJndiName(destRef.getMessageDestinationRefName() + "Original");
       destRefs.add(destRef);
       originalEnv.setMessageDestinationReferences(destRefs);
-      
+
       PersistenceContextReferencesMetaData pctxRefs = new PersistenceContextReferencesMetaData();
       PersistenceContextReferenceMetaData pctxRef = new PersistenceContextReferenceMetaData();
       pctxRef.setPersistenceContextRefName("pctxRef1");
@@ -263,7 +263,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       pUnitRef.setJndiName(pUnitRef.getPersistenceUnitRefName() + "Original");
       pUnitRefs.add(pUnitRef);
       originalEnv.setPersistenceUnitRefs(pUnitRefs);
-      
+
       LifecycleCallbacksMetaData callbacks = new LifecycleCallbacksMetaData();
       LifecycleCallbackMetaData callback = new LifecycleCallbackMetaData();
       callback.setClassName("class1");
@@ -274,7 +274,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       callback.setMethodName("postCtor2Original");
       callbacks.add(callback);
       originalEnv.setPostConstructs(callbacks);
-      
+
       callbacks = new LifecycleCallbacksMetaData();
       callback = new LifecycleCallbackMetaData();
       callback.setClassName("class1");
@@ -285,7 +285,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       callback.setMethodName("preDestroy2Original");
       callbacks.add(callback);
       originalEnv.setPreDestroys(callbacks);
-      
+
       ResourceEnvironmentReferencesMetaData resEnvRefs = new ResourceEnvironmentReferencesMetaData();
       ResourceEnvironmentReferenceMetaData resEnvRef = new ResourceEnvironmentReferenceMetaData();
       resEnvRef.setResourceEnvRefName("resEnvRef1");
@@ -296,7 +296,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       resEnvRef.setJndiName(resEnvRef.getResourceEnvRefName() + "Original");
       resEnvRefs.add(resEnvRef);
       originalEnv.setResourceEnvironmentReferences(resEnvRefs);
-      
+
       ResourceReferencesMetaData resRefs = new ResourceReferencesMetaData();
       ResourceReferenceMetaData resRef = new ResourceReferenceMetaData();
       resRef.setResourceRefName("resRef1");
@@ -307,7 +307,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       resRef.setJndiName(resRef.getResourceRefName() + "Original");
       resRefs.add(resRef);
       originalEnv.setResourceReferences(resRefs);
-      
+
       JBossServiceReferencesMetaData serviceRefs = new JBossServiceReferencesMetaData();
       JBossServiceReferenceMetaData serviceRef = new JBossServiceReferenceMetaData();
       serviceRef.setServiceRefName("serviceRef1");
@@ -318,7 +318,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       serviceRef.setJndiName(serviceRef.getServiceRefName() + "Original");
       serviceRefs.add(serviceRef);
       originalEnv.setServiceReferences(serviceRefs);
-      
+
       // override
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
@@ -332,7 +332,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       localRef.setJndiName(localRef.getEjbRefName() + "Override");
       localRefs.add(localRef);
       overrideEnv.setEjbLocalReferences(localRefs);
-      
+
       ejbRefs = new EJBReferencesMetaData();
       ejbRef = new EJBReferenceMetaData();
       ejbRef.setEjbRefName("ejbRef2");
@@ -357,7 +357,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       destRef.setJndiName(destRef.getMessageDestinationRefName() + "Override");
       destRefs.add(destRef);
       overrideEnv.setMessageDestinationReferences(destRefs);
-      
+
       pctxRefs = new PersistenceContextReferencesMetaData();
       pctxRef = new PersistenceContextReferenceMetaData();
       pctxRef.setPersistenceContextRefName("pctxRef2");
@@ -368,7 +368,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       pctxRef.setJndiName(pctxRef.getPersistenceContextRefName() + "Override");
       pctxRefs.add(pctxRef);
       overrideEnv.setPersistenceContextRefs(pctxRefs);
-      
+
       pUnitRefs = new PersistenceUnitReferencesMetaData();
       pUnitRef = new PersistenceUnitReferenceMetaData();
       pUnitRef.setPersistenceUnitRefName("pUnitRef2");
@@ -379,7 +379,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       pUnitRef.setJndiName(pUnitRef.getPersistenceUnitRefName() + "Override");
       pUnitRefs.add(pUnitRef);
       overrideEnv.setPersistenceUnitRefs(pUnitRefs);
-      
+
       callbacks = new LifecycleCallbacksMetaData();
       callback = new LifecycleCallbackMetaData();
       callback.setClassName("class2");
@@ -412,7 +412,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       resEnvRef.setJndiName(resEnvRef.getResourceEnvRefName() + "Override");
       resEnvRefs.add(resEnvRef);
       overrideEnv.setResourceEnvironmentReferences(resEnvRefs);
-      
+
       resRefs = new ResourceReferencesMetaData();
       resRef = new ResourceReferenceMetaData();
       resRef.setResourceRefName("resRef2");
@@ -430,7 +430,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       serviceRef.setJndiName(serviceRef.getServiceRefName() + "Override");
       serviceRefs.add(serviceRef);
       overrideEnv.setServiceReferences(serviceRefs);
-      
+
       // merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       JBossEnterpriseBeansMetaData mergedBeans = new JBossEnterpriseBeansMetaData();
@@ -439,10 +439,10 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       merged.merge(override, original);
       JBossEnvironmentRefsGroupMetaData mergedEnv = (JBossEnvironmentRefsGroupMetaData) merged.getJndiEnvironmentRefsGroup();
       assertNotNull(mergedEnv);
-      
+
       // Simple in here
       assertNotNull(merged.getAnnotatedEjbReferences());
-      
+
 
       // local refs
       localRefs = mergedEnv.getEjbLocalReferences();
@@ -454,7 +454,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       localRef = localRefs.get("localRef2");
       assertNotNull(localRef);
       assertEquals(localRef.getEjbRefName() + "Override", localRef.getJndiName());
-      
+
       ejbRefs = mergedEnv.getEjbReferences();
       assertNotNull(ejbRefs);
       assertEquals(2, ejbRefs.size());
@@ -464,7 +464,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       ejbRef = ejbRefs.get("ejbRef2");
       assertNotNull(ejbRef);
       assertEquals(ejbRef.getEjbRefName() + "Override", ejbRef.getJndiName());
-      
+
       envEntries = mergedEnv.getEnvironmentEntries();
       assertNotNull(envEntries);
       assertEquals(3, envEntries.size());
@@ -477,7 +477,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       envEntry = envEntries.get("entry3");
       assertNotNull(envEntry);
       assertEquals(envEntry.getEnvEntryName() + "Override", envEntry.getJndiName());
-      
+
       destRefs = mergedEnv.getMessageDestinationReferences();
       assertNotNull(destRefs);
       assertEquals(2, destRefs.size());
@@ -487,7 +487,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       destRef = destRefs.get("destRef2");
       assertNotNull(destRef);
       assertEquals(destRef.getMessageDestinationRefName() + "Override", destRef.getJndiName());
-      
+
       pctxRefs = mergedEnv.getPersistenceContextRefs();
       assertNotNull(pctxRefs);
       assertEquals(3, pctxRefs.size());
@@ -500,7 +500,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       pctxRef = pctxRefs.get("pctxRef3");
       assertNotNull(pctxRef);
       assertEquals(pctxRef.getPersistenceContextRefName() + "Override", pctxRef.getJndiName());
-      
+
       pUnitRefs = mergedEnv.getPersistenceUnitRefs();
       assertNotNull(pUnitRefs);
       assertEquals(3, pUnitRefs.size());
@@ -513,7 +513,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       pUnitRef = pUnitRefs.get("pUnitRef3");
       assertNotNull(pUnitRef);
       assertEquals(pUnitRef.getPersistenceUnitRefName() + "Override", pUnitRef.getJndiName());
-      
+
       callbacks = mergedEnv.getPostConstructs();
       assertNotNull(callbacks);
       assertEquals(4, callbacks.size());
@@ -534,7 +534,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       resEnvRef = resEnvRefs.get("resEnvRef3");
       assertNotNull(resEnvRef);
       assertEquals(resEnvRef.getResourceEnvRefName() + "Override", resEnvRef.getJndiName());
-      
+
       resRefs = mergedEnv.getResourceReferences();
       assertNotNull(resRefs);
       assertEquals(2, resRefs.size());
@@ -544,21 +544,21 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       resRef = resRefs.get("resRef2");
       assertNotNull(resRef);
       assertEquals(resRef.getResourceRefName() + "Override", resRef.getJndiName());
-      
+
       serviceRefs = (JBossServiceReferencesMetaData) mergedEnv.getServiceReferences();
       assertNotNull(serviceRefs);
       assertEquals(3, serviceRefs.size());
       serviceRef = (JBossServiceReferenceMetaData) serviceRefs.get("serviceRef1");
       assertNotNull(serviceRef);
-      assertEquals(serviceRef.getServiceRefName() + "Original", serviceRef.getJndiName());      
+      assertEquals(serviceRef.getServiceRefName() + "Original", serviceRef.getJndiName());
       serviceRef = (JBossServiceReferenceMetaData) serviceRefs.get("serviceRef2");
       assertNotNull(serviceRef);
-      assertEquals(serviceRef.getServiceRefName() + "Override", serviceRef.getJndiName());      
+      assertEquals(serviceRef.getServiceRefName() + "Override", serviceRef.getJndiName());
       serviceRef = (JBossServiceReferenceMetaData) serviceRefs.get("serviceRef3");
       assertNotNull(serviceRef);
-      assertEquals(serviceRef.getServiceRefName() + "Override", serviceRef.getJndiName());      
+      assertEquals(serviceRef.getServiceRefName() + "Override", serviceRef.getJndiName());
    }
-   
+
    public void testMethodAttributes() throws Exception
    {
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
@@ -574,7 +574,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       methodAttr.setTransactionTimeout(1000);
       methodAttrs.add(methodAttr);
       original.setMethodAttributes(methodAttrs);
-      
+
       // override
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
@@ -589,11 +589,11 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       methodAttr.setTransactionTimeout(2000);
       methodAttrs.add(methodAttr);
       override.setMethodAttributes(methodAttrs);
-      
+
       // merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
-      
+
       methodAttrs = merged.getMethodAttributes();
       assertNotNull(methodAttrs);
       assertEquals(3, methodAttrs.size());
@@ -607,7 +607,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       assertNotNull(methodAttr);
       assertEquals(2000, methodAttr.getTransactionTimeout());
    }
-   
+
    public void testIgnoreDependency() throws Exception
    {
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
@@ -625,7 +625,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       targets.add(target);
       ignoreDependency.setInjectionTargets(targets);
       original.setIgnoreDependency(ignoreDependency);
-      
+
       // override
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
@@ -642,7 +642,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       targets.add(target);
       ignoreDependency.setInjectionTargets(targets);
       override.setIgnoreDependency(ignoreDependency);
-      
+
       // merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -653,7 +653,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       assertNotNull(targets);
       assertEquals(4, targets.size());
    }
-   
+
    public void testPoolConfig() throws Exception
    {
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
@@ -664,7 +664,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       poolConfig.setTimeout(1000);
       poolConfig.setValue("Original");
       original.setPoolConfig(poolConfig);
-      
+
       // override
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
@@ -700,7 +700,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       jndiRef.setJndiName(jndiRef.getJndiRefName() + "Original");
       jndiRefs.add(jndiRef);
       original.setJndiRefs(jndiRefs);
-      
+
       // override
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
@@ -715,7 +715,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       jndiRef.setJndiName(jndiRef.getJndiRefName() + "Override");
       jndiRefs.add(jndiRef);
       override.setJndiRefs(jndiRefs);
-      
+
       // merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -746,7 +746,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       secId.setRunAsPrincipal("originalPrincipal");
       secId.setUseCallerIdentity(new EmptyMetaData());
       original.setSecurityIdentity(secId);
-      
+
       // override
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
@@ -756,7 +756,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       //secId.setRunAs(runAs);
       secId.setRunAsPrincipal("overridePrincipal");
       override.setSecurityIdentity(secId);
-      
+
       // merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -775,7 +775,7 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setEjbName("session");
       original.setTransactionType(TransactionManagementType.CONTAINER);
-      
+
       // override
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
@@ -798,15 +798,15 @@ public class JBossEnterpriseBeanOverrideUnitTestCase extends AbstractJBossEnterp
       depends.add("original1");
       depends.add("original2");
       original.setDepends(depends);
-      
+
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbName("session");
-      
+
       depends = new HashSet<String>();
       depends.add("override1");
       depends.add("override2");
       override.setDepends(depends);
-      
+
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
       depends = merged.getDepends();

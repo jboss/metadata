@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2006, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -36,7 +36,7 @@ import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 /**
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -52,15 +52,15 @@ public abstract class AbstractJBossEnterpriseBeanOverrideTest extends TestCase
       BeanInfo beanInfo = Introspector.getBeanInfo(JBossSessionBeanMetaData.class);
       PropertyDescriptor[] props = beanInfo.getPropertyDescriptors();
       Set<String> ignoreNames = Collections.singleton("name");
-   
+
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       processSimpleProperties(props, original, true, true, ignoreNames);
       processSimpleProperties(props, original, true, false, ignoreNames);
-   
+
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       processSimpleProperties(props, override, false, true, ignoreNames);
       processSimpleProperties(props, override, false, false, ignoreNames);
-      
+
       try
       {
          processSimpleProperties(props, override, true, false, ignoreNames);
@@ -76,7 +76,7 @@ public abstract class AbstractJBossEnterpriseBeanOverrideTest extends TestCase
    {
       simplePropertiesTest(type, stopType, typeImpl, Collections.singleton("name"));
    }
-   
+
    /**
     * Tests merge/override of properties (except those in the ignoreNames set)
     * of primitive, wrapper and java.lang.String types
@@ -84,7 +84,7 @@ public abstract class AbstractJBossEnterpriseBeanOverrideTest extends TestCase
     * Since 'type' maybe abstract, 'typeImpl' argument is the non-abstract
     * subclass of the 'type'. If 'type' is not abstract then 'typeImpl' should
     * be the same as 'type' or null.
-    * 
+    *
     * @param type  the type tested for property merges/overrides
     * @param stopType  the superclass of the type whose properties should be
     *  excluded from the test (can be null)
@@ -99,21 +99,21 @@ public abstract class AbstractJBossEnterpriseBeanOverrideTest extends TestCase
 
       if(typeImpl == null)
          typeImpl = type;
-      
+
       JBossEnterpriseBeanMetaData original = (JBossEnterpriseBeanMetaData) typeImpl.newInstance();
       original.setEjbName(getName() + "EjbName");
       processSimpleProperties(props, original, true, true, ignoreNames);
-   
+
       // merge only original
       JBossEnterpriseBeanMetaData merged = (JBossEnterpriseBeanMetaData) typeImpl.newInstance();
       merged.merge(null, original);
       assertEquals("missing super.merge(..)?", original.getEjbName(), merged.getEjbName());
       processSimpleProperties(props, merged, true, false, ignoreNames);
-   
+
       // merge with override
       JBossEnterpriseBeanMetaData override = (JBossEnterpriseBeanMetaData) typeImpl.newInstance();
       override.setEjbName(getName() + "EjbName");
-      processSimpleProperties(props, override, false, true, ignoreNames);      
+      processSimpleProperties(props, override, false, true, ignoreNames);
       merged = (JBossEnterpriseBeanMetaData) typeImpl.newInstance();
       merged.merge(override, original);
       processSimpleProperties(props, merged, false, false, ignoreNames);
@@ -132,7 +132,7 @@ public abstract class AbstractJBossEnterpriseBeanOverrideTest extends TestCase
       {
          if(ignoreNames.contains(prop.getName()))
             continue;
-         
+
          Class<?> propertyType = prop.getPropertyType();
          boolean isString = java.lang.String.class.equals(propertyType);
          boolean isPrimitive = propertyType.isPrimitive();
@@ -140,7 +140,7 @@ public abstract class AbstractJBossEnterpriseBeanOverrideTest extends TestCase
          if (writeMethod == null /*&& prop.getReadMethod() != null*/
                || !(isPrimitive || Classes.isPrimitiveWrapper(propertyType) || isString))
             continue;
-      
+
          Object propValue;
          if(isString)
          {
@@ -155,11 +155,11 @@ public abstract class AbstractJBossEnterpriseBeanOverrideTest extends TestCase
                propValue = original ? "false" : "true";
             else
                propValue = original ? "0" : "1";
-            
+
             Method method = wrapper.getMethod("valueOf", new Class[]{String.class});
             propValue = method.invoke(null, new Object[]{propValue});
          }
-   
+
          if(init)
          {
             writeMethod.invoke(o, new Object[]{propValue});

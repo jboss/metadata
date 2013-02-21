@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2007, Red Hat Middleware LLC, and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -28,9 +28,9 @@ import javax.ejb.Stateful;
 /**
  * MultiviewBean provides both an EJB 3 and an EJB 2.1
  * view. It is however a (EJB 3) POJO and not an EJB 2.1 bean.
- * 
+ *
  * EJB 3 4.6.2
- * 
+ *
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 73696 $
  */
@@ -41,9 +41,9 @@ public class MultiviewBean implements Multiview3Remote
    @Init
    public void create(String state)
    {
-      
+
    }
-   
+
    public String sayHi(String name)
    {
       return "Hi " + name;

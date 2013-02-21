@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2012, Red Hat, Inc., and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -34,7 +34,7 @@ import org.junit.runners.Parameterized.Parameters;
  * @author Chao Wang
  */
 public class AppclientSpecDescriptorTestCase extends SpecDescriptorTestCase {
-    
+
     @Parameters
     public static List<Object[]> parameters() {
         // The spec descriptor should be guarded in schema

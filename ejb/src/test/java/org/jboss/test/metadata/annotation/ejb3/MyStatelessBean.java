@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2007, Red Hat Middleware LLC, and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -81,11 +81,11 @@ public class MyStatelessBean implements MyStatelessLocal, MyStatelessRemote
 
    @EJB(name="overrideName")
    private MyStatelessLocal injectedFieldWithOverridenName;
-   
+
    @TransactionAttribute(TransactionAttributeType.MANDATORY)
    public void transactionAttributeMandatory()
    {
-      
+
    }
 
    public URL getHomePage()
@@ -121,7 +121,7 @@ public class MyStatelessBean implements MyStatelessLocal, MyStatelessRemote
    @PostConstruct
    public void setUp()
    {
-      
+
    }
    @PreDestroy
    public void tearDown()
@@ -130,12 +130,12 @@ public class MyStatelessBean implements MyStatelessLocal, MyStatelessRemote
 
    @DenyAll
    public void denyAll()
-   {      
+   {
    }
-   
+
    @DenyAll
    public void excluded()
-   {      
+   {
    }
 
    @PermitAll
@@ -163,10 +163,10 @@ public class MyStatelessBean implements MyStatelessLocal, MyStatelessRemote
       System.out.println("**** intercept2 ****" + ctx.getMethod().getName());
       return ctx.proceed();
    }
-   
+
    @Timeout
    public void timeout(Timer timer)
    {
-      
+
    }
 }

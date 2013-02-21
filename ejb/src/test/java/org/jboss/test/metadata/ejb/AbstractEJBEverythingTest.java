@@ -1,24 +1,24 @@
 /*
-* JBoss, Home of Professional Open Source
-* Copyright 2006, JBoss Inc., and individual contributors as indicated
-* by the @authors tag. See the copyright.txt in the distribution for a
-* full listing of individual contributors.
-*
-* This is free software; you can redistribute it and/or modify it
-* under the terms of the GNU Lesser General Public License as
-* published by the Free Software Foundation; either version 2.1 of
-* the License, or (at your option) any later version.
-*
-* This software is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-* Lesser General Public License for more details.
-*
-* You should have received a copy of the GNU Lesser General Public
-* License along with this software; if not, write to the Free
-* Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-* 02110-1301 USA, or see the FSF site: http://www.fsf.org.
-*/
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package org.jboss.test.metadata.ejb;
 
 import junit.framework.AssertionFailedError;
@@ -85,7 +85,7 @@ import java.util.Set;
 
 /**
  * AbstractEJBEverythingTest.
- * 
+ *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
@@ -116,7 +116,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       SecurityIdentityMetaData securityIdentityMetaData = session.getSecurityIdentity();
       assertNotNull(securityIdentityMetaData);
       assertTrue(securityIdentityMetaData.isUseCallerId());
-      
+
       assertNullEntity("entity0", enterpriseBeansMetaData);
       assertFullEntity("entity1", enterpriseBeansMetaData, mode);
       assertFullEntity("entity2", enterpriseBeansMetaData, mode);
@@ -127,7 +127,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       entity = assertEntity("entity5EjbName", enterpriseBeansMetaData);
       assertEquals("1.x", entity.getCmpVersion());
       assertTrue(entity.isCMP1x());
-      
+
       assertNullMDB("mdb0", enterpriseBeansMetaData, mode);
       assertFullMDB("mdb1", enterpriseBeansMetaData, mode);
       assertFullMDB("mdb2", enterpriseBeansMetaData, mode);
@@ -144,7 +144,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
          i.next();
          ++count;
       }
-      
+
       assertEquals(15, count);
 
       assertNullSession("session0", applicationMetaData);
@@ -160,7 +160,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       org.jboss.metadata.SecurityIdentityMetaData securityIdentityMetaData = session.getSecurityIdentityMetaData();
       assertNotNull(securityIdentityMetaData);
       assertTrue(securityIdentityMetaData.getUseCallerIdentity());
-      
+
       assertNullEntity("entity0", applicationMetaData);
       assertFullEntity("entity1", applicationMetaData, mode);
       assertFullEntity("entity2", applicationMetaData, mode);
@@ -171,13 +171,13 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       entity = assertEntity("entity5EjbName", applicationMetaData);
       assertTrue(entity.isCMP1x());
       assertTrue(entity.isCMP1x());
-      
+
       assertNullMDB("mdb0", applicationMetaData);
       assertFullMDB("mdb1", applicationMetaData, mode);
       assertFullMDB("mdb2", applicationMetaData, mode);
    }
    */
-   
+
    protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
    {
       throw new NotImplementedException();
@@ -185,7 +185,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    /**
     * Assert a minimal session bean. This requires an empty
     * security-identity/use-caller-identity element
-    * 
+    *
     * @param ejbName
     * @param enterpriseBeansMetaData
     * @return
@@ -234,7 +234,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertNull(session.getMethodPermissions());
       assertNull(session.getExcludeList());
       assertNull(session.getSecurityRoleRefs());
-      
+
       return session;
    }
 
@@ -266,14 +266,14 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertExcludedMethods(ejbName, session.getExcludedMethods());
       assertSecurityRoleRefs(ejbName, 2, session.getSecurityRoleReferences());
       assertSecurityIdentity(ejbName, "SecurityIdentity", session.getSecurityIdentityMetaData(), true);
-      
+
       return session;
    }
    */
 
    /**
     * Assert a minimal session.
-    * 
+    *
     * @param ejbName
     * @param applicationMetaData
     * @return
@@ -298,7 +298,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertEmptyIterator(session.getPermissionMethods());
       assertEmptyIterator(session.getExcludedMethods());
       assertEmptyIterator(session.getSecurityRoleReferences());
-      
+
       return session;
    }
    */
@@ -322,7 +322,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    private EntityBeanMetaData assertNullEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData)
    {
       EntityBeanMetaData entity = assertEntity(ejbName + "EjbName", enterpriseBeansMetaData);
-      assertNullEntity(ejbName, entity);      
+      assertNullEntity(ejbName, entity);
       return entity;
    }
 
@@ -353,7 +353,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertNotNull(entity.getSecurityIdentity());
       assertNull(entity.getQueries());
    }
-   
+
    protected EntityBeanMetaData assertEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData)
    {
       EntityBeanMetaData entity = assertEnterpriseBean(ejbName, enterpriseBeansMetaData, EntityBeanMetaData.class);
@@ -387,7 +387,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertSecurityRoleRefs(ejbName, 2, entity.getSecurityRoleReferences());
       assertSecurityIdentity(ejbName, "SecurityIdentity", entity.getSecurityIdentityMetaData(), true);
       assertQueries(ejbName, 3, entity.getQueries());
-      
+
       return entity;
    }
    */
@@ -420,7 +420,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertEmptyIterator(entity.getSecurityRoleReferences());
       assertNotNull(entity.getSecurityIdentityMetaData());
       assertEmptyIterator(entity.getQueries());
-      
+
       return entity;
    }
    */
@@ -531,7 +531,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
 
       return mdb;
    }
-   
+
    protected MessageDrivenBeanMetaData assertMDB(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData)
    {
       MessageDrivenBeanMetaData mdb = assertEnterpriseBean(ejbName, enterpriseBeansMetaData, MessageDrivenBeanMetaData.class);
@@ -557,7 +557,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertMethodPermissions(ejbName, 7, mdb);
       assertExcludedMethods(ejbName, mdb.getExcludedMethods());
       assertSecurityIdentity(ejbName, "SecurityIdentity", mdb.getSecurityIdentityMetaData(), true);
-      
+
       return mdb;
    }
    */
@@ -578,7 +578,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertDefaultMethodAttributes(ejbName, mdb);
       assertEmptyIterator(mdb.getPermissionMethods());
       assertEmptyIterator(mdb.getExcludedMethods());
-      
+
       return mdb;
    }
    */
@@ -652,7 +652,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       return expected.cast(beanMeta);
    }
    */
-   
+
    protected void assertRelationships(EjbJarMetaData ejbJarMetaData)
    {
       RelationsMetaData relationsMetaData = ejbJarMetaData.getRelationships();
@@ -664,7 +664,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       for (RelationMetaData relation : relationsMetaData)
          assertRelation("relation" + (count++), relation);
    }
-   
+
    private void assertRelation(String prefix, RelationMetaData relationMetaData)
    {
       assertId(prefix, relationMetaData);
@@ -677,7 +677,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertEquals(relationMetaData.getLeftRole(), relationMetaData.getRightRole().getRelatedRole());
       assertEquals(relationMetaData.getRightRole(), relationMetaData.getLeftRole().getRelatedRole());
    }
-   
+
    private void assertRelationRole(String prefix, MultiplicityType multiplicity, RelationRoleMetaData relationRoleMetaData)
    {
       assertNotNull(relationRoleMetaData);
@@ -700,7 +700,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertRelationRoleSource(prefix + "RoleSource", relationRoleMetaData.getRoleSource());
       assertCmrField(prefix + "CmrField", relationRoleMetaData.getCmrField());
    }
-   
+
    private void assertRelationRoleSource(String prefix, RelationRoleSourceMetaData relationRoleSourceMetaData)
    {
       assertNotNull(relationRoleSourceMetaData);
@@ -771,7 +771,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertEquals("java.util.Set", relationRoleMetaData.getCMRFieldType());
    }
    */
-   
+
    protected AssemblyDescriptorMetaData assertAssemblyDescriptor(EjbJarMetaData ejbJarMetaData)
    {
       return assertAssemblyDescriptor(ejbJarMetaData, Mode.SPEC);
@@ -876,7 +876,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
             assertFalse(methodMetaData.isLocalHomeMethod());
             assertFalse(methodMetaData.isLocalMethod());
             assertFalse(methodMetaData.isServiceEndpointMethod());
-            String prefix = permissionPrefix + "Method1"; 
+            String prefix = permissionPrefix + "Method1";
             assertEquals(prefix + "MethodName", methodMetaData.getMethodName());
             assertTrue(methodMetaData.isParamGiven());
             assertMethodParams(prefix, 2, methodMetaData.getMethodParams());
@@ -889,7 +889,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
             assertFalse(methodMetaData.isLocalHomeMethod());
             assertFalse(methodMetaData.isLocalMethod());
             assertFalse(methodMetaData.isServiceEndpointMethod());
-            String prefix = permissionPrefix + "Method2"; 
+            String prefix = permissionPrefix + "Method2";
             assertEquals(prefix + "MethodName", methodMetaData.getMethodName());
             assertFalse(methodMetaData.isParamGiven());
          }
@@ -901,7 +901,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
             assertTrue(methodMetaData.isLocalHomeMethod());
             assertFalse(methodMetaData.isLocalMethod());
             assertFalse(methodMetaData.isServiceEndpointMethod());
-            String prefix = permissionPrefix + "Method3"; 
+            String prefix = permissionPrefix + "Method3";
             assertEquals(prefix + "MethodName", methodMetaData.getMethodName());
             assertFalse(methodMetaData.isParamGiven());
          }
@@ -913,7 +913,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
             assertFalse(methodMetaData.isLocalHomeMethod());
             assertTrue(methodMetaData.isLocalMethod());
             assertFalse(methodMetaData.isServiceEndpointMethod());
-            String prefix = permissionPrefix + "Method4"; 
+            String prefix = permissionPrefix + "Method4";
             assertEquals(prefix + "MethodName", methodMetaData.getMethodName());
             assertFalse(methodMetaData.isParamGiven());
          }
@@ -925,7 +925,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
             assertFalse(methodMetaData.isLocalHomeMethod());
             assertFalse(methodMetaData.isLocalMethod());
             assertTrue(methodMetaData.isServiceEndpointMethod());
-            String prefix = permissionPrefix + "Method5"; 
+            String prefix = permissionPrefix + "Method5";
             assertEquals(prefix + "MethodName", methodMetaData.getMethodName());
             assertFalse(methodMetaData.isParamGiven());
          }
@@ -937,7 +937,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
             assertFalse(methodMetaData.isLocalHomeMethod());
             assertFalse(methodMetaData.isLocalMethod());
             assertFalse(methodMetaData.isServiceEndpointMethod());
-            String prefix = permissionPrefix + "Method1"; 
+            String prefix = permissionPrefix + "Method1";
             assertEquals(prefix + "MethodName", methodMetaData.getMethodName());
             assertMethodParams(prefix, 2, methodMetaData.getMethodParams());
          }
@@ -946,7 +946,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertEquals(beanMetaData.getEjbName(), size, count-1);
    }
    */
-   
+
    private void assertRolesNames(String prefix, int size, Set<String> roles)
    {
       assertNotNull(roles);
@@ -1141,7 +1141,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertEmptyIterator(bean.getMessageDestinationReferences());
    }
    */
-   
+
    protected void assertSecurityIdentity(String ejbName, String type, SecurityIdentityMetaData securityIdentity, boolean full, Mode mode)
    {
       assertNotNull(ejbName, securityIdentity);
@@ -1404,7 +1404,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
          assertRemoteBinding(ejbName, remoteBinding);
       }
    }
-   
+
    protected void assertMethodAttributes(String ejbName, MethodAttributesMetaData methodAttributes, Mode mode)
    {
       assertNotNull(ejbName, methodAttributes);
@@ -1446,7 +1446,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       assertEquals(0, bean.getTransactionTimeout("getSomething"));
    }
    */
-   
+
    private void assertEmptyIterator(Iterator i)
    {
       if (i != null && i.hasNext())

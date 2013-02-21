@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2007, Red Hat Middleware LLC, and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -57,20 +57,20 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 /**
  * Test all entries of javaee 6 web-fragment
- * 
+ *
  * @author Scott.Stark@jboss.org
  * @author Anil.Saldhana@jboss.com
  * @version $Revision $
  */
 public class WebApp6FragmentUnitTestCase extends AbstractJavaEEEverythingTest
 {
-  
+
    public void testEverything() throws Exception
    {
       WebFragmentMetaData webApp = unmarshal();
       assertEverything(webApp, Mode.SPEC);
    }
-   
+
    protected WebFragmentMetaData unmarshal() throws Exception
    {
       return WebFragmentMetaDataParser.parse(getReader(), PropertyReplacers.noop());
@@ -178,7 +178,7 @@ public class WebApp6FragmentUnitTestCase extends AbstractJavaEEEverythingTest
          count ++;
       }
    }
-   
+
    private void assertFilters(WebCommonMetaData webApp)
       throws Exception
    {
@@ -200,7 +200,7 @@ public class WebApp6FragmentUnitTestCase extends AbstractJavaEEEverythingTest
          count ++;
       }
    }
-   
+
    private void assertFilterMappings(WebCommonMetaData webApp)
       throws Exception
    {
@@ -218,14 +218,14 @@ public class WebApp6FragmentUnitTestCase extends AbstractJavaEEEverythingTest
       assertEquals(DispatcherType.FORWARD, dispatchers.get(0));
       assertEquals(DispatcherType.REQUEST, dispatchers.get(1));
    }
-   
+
    // Security Constraints
    private void assertSecurityConstraints(WebCommonMetaData webApp)
    {
       List<SecurityConstraintMetaData> scmdList = webApp.getSecurityConstraints();
       assertEquals(3, scmdList.size());
       for(SecurityConstraintMetaData scmd:scmdList)
-      { 
+      {
          String id = scmd.getId();
          if(id.equals("security-constraint0"))
             assertNormalSecurityConstraint(scmd);
@@ -234,12 +234,12 @@ public class WebApp6FragmentUnitTestCase extends AbstractJavaEEEverythingTest
                assertExcludedSecurityConstraint(scmd);
             else
                if(id.equals("security-constraint-unchecked"))
-                  assertUncheckedSecurityConstraint(scmd); 
+                  assertUncheckedSecurityConstraint(scmd);
       }
    }
-     
+
    private void assertNormalSecurityConstraint(SecurityConstraintMetaData scmd)
-   {   
+   {
       assertFalse(scmd.isExcluded());
       assertFalse(scmd.isUnchecked());
       assertEquals("security-constraint0-display-name",scmd.getDisplayName());
@@ -247,29 +247,29 @@ public class WebApp6FragmentUnitTestCase extends AbstractJavaEEEverythingTest
       assertEquals(2, wrcmd.size());
       int count = 0;
       for(WebResourceCollectionMetaData wrmd: wrcmd)
-      { 
+      {
          assertEquals(wrmd.getId(), "web-resource-collection" + count, wrmd.getId());
-         assertEquals(wrmd.getWebResourceName(), 
+         assertEquals(wrmd.getWebResourceName(),
                 "web-resource" + count + "-name", wrmd.getWebResourceName());
-         assertEquals("/resource" + count + "/*", 
-               "/resource" + count + "/*", wrmd.getUrlPatterns().get(0)); 
+         assertEquals("/resource" + count + "/*",
+               "/resource" + count + "/*", wrmd.getUrlPatterns().get(0));
          count++;
       }
-      AuthConstraintMetaData amd = scmd.getAuthConstraint(); 
+      AuthConstraintMetaData amd = scmd.getAuthConstraint();
       assertEquals("auth-constraint0", amd.getId());
       assertEquals("role0", amd.getRoleNames().get(0));
-      
-      UserDataConstraintMetaData udcmd = scmd.getUserDataConstraint(); 
+
+      UserDataConstraintMetaData udcmd = scmd.getUserDataConstraint();
       assertEquals(TransportGuaranteeType.NONE,udcmd.getTransportGuarantee());
    }
-   
+
    private void assertExcludedSecurityConstraint(SecurityConstraintMetaData scmd)
-   {   
-      assertTrue("Excluded Sec Constraint?", scmd.isExcluded()); 
+   {
+      assertTrue("Excluded Sec Constraint?", scmd.isExcluded());
    }
-   
+
    private void assertUncheckedSecurityConstraint(SecurityConstraintMetaData scmd)
-   {  
+   {
       assertTrue("Unchecked Sec Constraint?", scmd.isUnchecked());
       assertNull(scmd.getAuthConstraint());
    }

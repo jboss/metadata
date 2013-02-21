@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2008, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -39,23 +39,23 @@ public class EnvironmentRefsGroupMetaDataMergeTestCase extends TestCase
       PersistenceContextReferenceMetaData persistenceContextRef = new PersistenceContextReferenceMetaData();
       persistenceContextRef.setName("persistence/Test");
       persistenceContextRef.setPersistenceUnitName("EM");
-      
+
       PersistenceContextReferencesMetaData persistenceContextRefs = new PersistenceContextReferencesMetaData();
       persistenceContextRefs.add(persistenceContextRef);
-      
+
       EnvironmentRefsGroupMetaData specEnv = new EnvironmentRefsGroupMetaData();
       specEnv.setPersistenceContextRefs(persistenceContextRefs);
-      
+
       return specEnv;
    }
-   
+
    public void testMergeEnvironmentEnvironmentStringStringBoolean()
    {
       EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
       EnvironmentRefsGroupMetaData jbossEnv = new EnvironmentRefsGroupMetaData();
       EnvironmentRefsGroupMetaData specEnv = createSpecEnv();
       EnvironmentRefsGroupMetaDataMerger.merge(env, jbossEnv, specEnv, "jboss", "spec", false);
-      
+
       PersistenceContextReferencesMetaData persistenceContextRefs = env.getPersistenceContextRefs();
       assertNotNull("No persistence context references", persistenceContextRefs);
       assertEquals(1, persistenceContextRefs.size());

@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2009, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -421,7 +421,7 @@ public class ScheduleTestCase
       }
 
    }
-   
+
    /**
     * Test that {@link GenericBeanMetaData#merge(AbstractEnterpriseBeanMetaData, AbstractEnterpriseBeanMetaData)}
     * works as expected for timer metadata
@@ -431,28 +431,28 @@ public class ScheduleTestCase
    {
       TimerMetaData nonPersistentTimer = new TimerMetaData();
       nonPersistentTimer.setPersistent(false);
-      
+
       TimerMetaData persistentTimer = new TimerMetaData();
       persistentTimer.setPersistent(true);
-      
+
       GenericBeanMetaData original = new GenericBeanMetaData(EjbType.SESSION);
       original.setEjbName("DummyBean");
       original.addTimer(nonPersistentTimer);
-      
+
       GenericBeanMetaData overriden = new GenericBeanMetaData(EjbType.SESSION);
       overriden.setEjbName("DummyBean");
       overriden.addTimer(persistentTimer);
-      
+
       GenericBeanMetaData mergedBean = new GenericBeanMetaData(EjbType.SESSION);
       mergedBean.merge(overriden, original);
-      
+
       List<TimerMetaData> mergedTimers = mergedBean.getTimers();
       Assert.assertNotNull("Merged timers is null", mergedTimers);
       Assert.assertEquals("Unexpected number of timers in merged metadata", 2, mergedTimers.size());
-      
+
       boolean foundPersistentTimer = false;
       boolean foundNonPersistentTimer = false;
-      
+
       for (TimerMetaData timer : mergedTimers)
       {
          if (timer.isPersistent())
@@ -466,9 +466,9 @@ public class ScheduleTestCase
       }
       Assert.assertTrue("Persistent timer not found in merged metadata", foundPersistentTimer);
       Assert.assertTrue("Non-Persistent timer not found in merged metadata", foundNonPersistentTimer);
-      
+
    }
-   
+
    /**
     * Test that {@link GenericBeanMetaData#merge(AbstractEnterpriseBeanMetaData, AbstractEnterpriseBeanMetaData)} works as
     * expected for timer metadata
@@ -478,23 +478,23 @@ public class ScheduleTestCase
    {
       TimerMetaData persistentTimer = new TimerMetaData();
       persistentTimer.setPersistent(true);
-      
+
       GenericBeanMetaData original = new GenericBeanMetaData(EjbType.SESSION);
       original.setEjbName("DummyBean");
-      
+
       GenericBeanMetaData overriden = new GenericBeanMetaData(EjbType.SESSION);
       overriden.setEjbName("DummyBean");
       overriden.addTimer(persistentTimer);
-      
+
       GenericBeanMetaData mergedBean = new GenericBeanMetaData(EjbType.SESSION);
       mergedBean.merge(overriden, original);
-      
+
       List<TimerMetaData> mergedTimers = mergedBean.getTimers();
       Assert.assertNotNull("Merged timers is null", mergedTimers);
       Assert.assertEquals("Unexpected number of timers in merged metadata", 1, mergedTimers.size());
       Assert.assertTrue("Timer in merged metadata is not persistent", mergedTimers.get(0).isPersistent());
    }
-   
+
    /**
     * Test that {@link MessageDrivenBean31MetaData#merge(MessageDrivenBeanMetaData, MessageDrivenBeanMetaData)} works
     * as expected for timer metadata
@@ -504,28 +504,28 @@ public class ScheduleTestCase
    {
       TimerMetaData nonPersistentTimer = new TimerMetaData();
       nonPersistentTimer.setPersistent(false);
-      
+
       TimerMetaData persistentTimer = new TimerMetaData();
       persistentTimer.setPersistent(true);
-      
+
       GenericBeanMetaData original = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       original.setEjbName("DummyBean");
       original.addTimer(nonPersistentTimer);
-      
+
       JBossGenericBeanMetaData overriden = new JBossGenericBeanMetaData();
       overriden.setEjbName("DummyBean");
       overriden.addTimer(persistentTimer);
-      
+
       GenericBeanMetaData mergedBean = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       mergedBean.merge(overriden, original);
-      
+
       List<TimerMetaData> mergedTimers = mergedBean.getTimers();
       Assert.assertNotNull("Merged timers is null", mergedTimers);
       Assert.assertEquals("Unexpected number of timers in merged metadata", 2, mergedTimers.size());
-      
+
       boolean foundPersistentTimer = false;
       boolean foundNonPersistentTimer = false;
-      
+
       for (TimerMetaData timer : mergedTimers)
       {
          if (timer.isPersistent())
@@ -539,7 +539,7 @@ public class ScheduleTestCase
       }
       Assert.assertTrue("Persistent timer not found in merged metadata", foundPersistentTimer);
       Assert.assertTrue("Non-Persistent timer not found in merged metadata", foundNonPersistentTimer);
-      
+
    }
 
    /**
@@ -551,22 +551,22 @@ public class ScheduleTestCase
    {
       TimerMetaData persistentTimer = new TimerMetaData();
       persistentTimer.setPersistent(true);
-      
+
       GenericBeanMetaData original = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       original.setEjbName("DummyBean");
-      
+
       JBossGenericBeanMetaData overriden = new JBossGenericBeanMetaData();
       overriden.setEjbName("DummyBean");
       overriden.addTimer(persistentTimer);
-      
+
       GenericBeanMetaData mergedBean = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
       mergedBean.merge( overriden, original);
-      
+
       List<TimerMetaData> mergedTimers = mergedBean.getTimers();
       Assert.assertNotNull("Merged timers is null", mergedTimers);
       Assert.assertEquals("Unexpected number of timers in merged metadata", 1, mergedTimers.size());
       Assert.assertTrue("Timer in merged metadata is not persistent", mergedTimers.get(0).isPersistent());
-      
-      
+
+
    }
 }

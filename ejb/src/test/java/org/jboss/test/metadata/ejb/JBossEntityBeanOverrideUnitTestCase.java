@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2006, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -37,7 +37,7 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 
 /**
  * A JBossEntityBeanOverrideUnitTestCase.
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -48,7 +48,7 @@ public class JBossEntityBeanOverrideUnitTestCase
    {
       simplePropertiesTest(JBossEntityBeanMetaData.class, JBossEnterpriseBeanMetaData.class, null);
    }
-   
+
    public void testPersistenceType() throws Exception
    {
       JBossEntityBeanMetaData original = new JBossEntityBeanMetaData();
@@ -66,7 +66,7 @@ public class JBossEntityBeanOverrideUnitTestCase
       assertNotNull(persistenceType);
       assertEquals(PersistenceType.Bean, persistenceType);
    }
-   
+
    public void testCMPFields() throws Exception
    {
       JBossEntityBeanMetaData original = new JBossEntityBeanMetaData();
@@ -77,7 +77,7 @@ public class JBossEntityBeanOverrideUnitTestCase
       cmpField.setFieldName("field1");
       cmpFields.add(cmpField);
       original.setCmpFields(cmpFields);
-      
+
       JBossEntityBeanMetaData override = new JBossEntityBeanMetaData();
       override.setEjbName("entity");
 
@@ -86,16 +86,16 @@ public class JBossEntityBeanOverrideUnitTestCase
       cmpField.setFieldName("field2");
       cmpFields.add(cmpField);
       override.setCmpFields(cmpFields);
-      
+
       JBossEntityBeanMetaData merged = new JBossEntityBeanMetaData();
       merged.merge(override, original);
       cmpFields = merged.getCmpFields();
       assertNotNull(cmpFields);
-      
+
       // not sure it's right
       assertEquals(2, cmpFields.size());
    }
-   
+
    public void testSecurityRoleRefs() throws Exception
    {
       JBossEntityBeanMetaData original = new JBossEntityBeanMetaData();
@@ -111,10 +111,10 @@ public class JBossEntityBeanOverrideUnitTestCase
       roleRef.setRoleLink(roleRef.getRoleName() + "Original");
       roleRefs.add(roleRef);
       original.setSecurityRoleRefs(roleRefs);
-      
+
       JBossEntityBeanMetaData override = new JBossEntityBeanMetaData();
       override.setEjbName("entity");
-      
+
       roleRefs = new SecurityRoleRefsMetaData();
       roleRef = new SecurityRoleRefMetaData();
       roleRef.setRoleName("role2");
@@ -141,7 +141,7 @@ public class JBossEntityBeanOverrideUnitTestCase
       assertNotNull(roleRef);
       assertEquals(roleRef.getRoleName() + "Override", roleRef.getRoleLink());
    }
-   
+
    public void testClusterConfig() throws Exception
    {
       JBossEntityBeanMetaData original = new JBossEntityBeanMetaData();
@@ -154,7 +154,7 @@ public class JBossEntityBeanOverrideUnitTestCase
       clusterConfig.setPartitionName("partitionOriginal");
       clusterConfig.setSessionStateManagerJndiName("stateManagerOriginal");
       original.setClusterConfig(clusterConfig);
-      
+
       JBossEntityBeanMetaData override = new JBossEntityBeanMetaData();
       override.setEjbName("entity");
       clusterConfig = new ClusterConfigMetaData();
@@ -164,7 +164,7 @@ public class JBossEntityBeanOverrideUnitTestCase
       clusterConfig.setPartitionName("partitionOverride");
       clusterConfig.setSessionStateManagerJndiName("stateManagerOverride");
       override.setClusterConfig(clusterConfig);
-      
+
       JBossEntityBeanMetaData merged = new JBossEntityBeanMetaData();
       merged.merge(override, original);
       clusterConfig = merged.getClusterConfig();
@@ -175,7 +175,7 @@ public class JBossEntityBeanOverrideUnitTestCase
       assertEquals("partitionOverride", clusterConfig.getPartitionName());
       assertEquals("stateManagerOverride", clusterConfig.getSessionStateManagerJndiName());
    }
-   
+
    public void testCacheInvalidation() throws Exception
    {
       JBossEntityBeanMetaData original = new JBossEntityBeanMetaData();
@@ -185,15 +185,15 @@ public class JBossEntityBeanOverrideUnitTestCase
       cacheInv.setInvalidationGroupName("originalGroup");
       cacheInv.setInvalidationManagerName("originalManager");
       original.setCacheInvalidationConfig(cacheInv);
-      
+
       JBossEntityBeanMetaData override = new JBossEntityBeanMetaData();
       override.setEjbName("entity");
-      
+
       cacheInv = new CacheInvalidationConfigMetaData();
       //cacheInv.setInvalidationGroupName("overrideGroup");
       cacheInv.setInvalidationManagerName("overrideManager");
       override.setCacheInvalidationConfig(cacheInv);
-      
+
       JBossEntityBeanMetaData merged = new JBossEntityBeanMetaData();
       merged.merge(override, original);
       cacheInv = merged.getCacheInvalidationConfig();
@@ -212,7 +212,7 @@ public class JBossEntityBeanOverrideUnitTestCase
       QueryMetaData query = new QueryMetaData();
       query.setEjbQL("select from original");
       queries.add(query);
-      
+
       JBossEntityBeanMetaData override = new JBossEntityBeanMetaData();
       override.setEjbName("entity");
 
@@ -221,7 +221,7 @@ public class JBossEntityBeanOverrideUnitTestCase
       query = new QueryMetaData();
       query.setEjbQL("select from override");
       queries.add(query);
-      
+
       JBossEntityBeanMetaData merged = new JBossEntityBeanMetaData();
       merged.merge(override, original);
       queries = merged.getQueries();

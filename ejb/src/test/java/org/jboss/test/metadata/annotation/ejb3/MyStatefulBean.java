@@ -1,8 +1,8 @@
 /*
- * JBoss, Home of Professional Open Source
- * Copyright 2007, Red Hat Middleware LLC, and individual contributors as indicated
- * by the @authors tag. See the copyright.txt in the distribution for a
- * full listing of individual contributors.
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
@@ -62,20 +62,20 @@ import org.jboss.ejb3.annotation.Clustered;
 @Clustered()
 public class MyStatefulBean
 {
-   
+
    @Resource
    private SessionContext context;
-   
+
    @PersistenceContext
    private String string;
-   
+
    @WebServiceRef
    private MyStateful webserviceRef;
-   
+
    @PostConstruct
    public void setUp()
    {
-      
+
    }
    @PreDestroy
    public void tearDown()

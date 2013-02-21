@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2006, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -47,7 +47,7 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 
 /**
  * A JBossSessionBeanOverrideUnitTestCase.
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -58,7 +58,7 @@ public class JBossSessionBeanOverrideUnitTestCase
    {
       simplePropertiesTest(JBossSessionBeanMetaData.class, JBossEnterpriseBeanMetaData.class, null);
    }
-   
+
    public void testBusinessLocals()
    {
       // Override
@@ -69,7 +69,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setBusinessLocals(overrideBusinessLocal);
       override.setName("overrideName");
-      
+
       //Original
       BusinessLocalsMetaData originalBusinessLocal = new BusinessLocalsMetaData();
       originalBusinessLocal.add("original1");
@@ -77,8 +77,8 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalBusinessLocal.add("original3");
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setBusinessLocals(originalBusinessLocal);
-      
-      // Merged 
+
+      // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
       BusinessLocalsMetaData businessLocals = merged.getBusinessLocals();
@@ -88,7 +88,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       assertTrue(businessLocals.contains("override2"));
       assertTrue(businessLocals.contains("override3"));
    }
-   
+
    public void testBusinessRemotes()
    {
       // Override
@@ -99,7 +99,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setBusinessRemotes(overrideBusinessRemotes);
       override.setName("overrideName");
-      
+
       // Original
       BusinessRemotesMetaData originalBusinessRemotes = new BusinessRemotesMetaData();
       originalBusinessRemotes.add("original1");
@@ -107,7 +107,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalBusinessRemotes.add("original3");
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setBusinessRemotes(originalBusinessRemotes);
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -118,7 +118,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       assertTrue(businessRemotes.contains("override2"));
       assertTrue(businessRemotes.contains("override3"));
    }
-   
+
    public void testTimeoutMethod()
    {
       // Override
@@ -133,9 +133,9 @@ public class JBossSessionBeanOverrideUnitTestCase
       overrideTimeoutMethod.setName("override");
       override.setTimeoutMethod(overrideTimeoutMethod);
       override.setName("override");
-      
+
       // Original
-      JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();      
+      JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       NamedMethodMetaData originalTimeoutMethod = new NamedMethodMetaData();
       originalTimeoutMethod.setId("id");
       originalTimeoutMethod.setMethodName("methodName");
@@ -144,7 +144,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalTimeoutMethod.setMethodParams(parameter);
       originalTimeoutMethod.setName("name");
       original.setTimeoutMethod(originalTimeoutMethod);
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -158,7 +158,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       assertEquals("override", methodParameters.get(0));
       assertEquals("parameter", methodParameters.get(1));
    }
-   
+
    public void testInitMethods()
    {
       // Override
@@ -168,11 +168,11 @@ public class JBossSessionBeanOverrideUnitTestCase
       overrideNamedMethod.setMethodName("overrideMethodName");
       overrideInitMethod.setId("overrideId");
       overrideInitMethods.add(overrideInitMethod);
-      
+
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setInitMethods(overrideInitMethods);
       override.setName("name");
-      
+
       // Original
       InitMethodsMetaData originalInitMethods = new InitMethodsMetaData();
       InitMethodMetaData originalInitMethod = new InitMethodMetaData();
@@ -180,10 +180,10 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalNamedMethod.setMethodName("originalMethodName");
       originalInitMethod.setId("originalId");
       originalInitMethods.add(originalInitMethod);
-      
+
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setInitMethods(originalInitMethods);
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -193,7 +193,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       assertNotNull(initMethod);
       assertEquals("overrideId", initMethod.getId());
    }
-   
+
    public void testRemoveMethods()
    {
       // Override
@@ -219,10 +219,10 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalNamedMethod.setId("originalId");
       originalRemoveMethod.setBeanMethod(originalNamedMethod);
       originalRemoveMethods.add(originalRemoveMethod);
-      
+
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setRemoveMethods(originalRemoveMethods);
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -235,9 +235,9 @@ public class JBossSessionBeanOverrideUnitTestCase
       NamedMethodMetaData namedMethod = removeMethod.getBeanMethod();
       assertNotNull(namedMethod);
       assertEquals("overrideMethodName", namedMethod.getMethodName());
-      
+
    }
-   
+
    public void testRemoveMethodsRetainOverrideIsNull()
    {
       // Override
@@ -263,10 +263,10 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalNamedMethod.setId("originalId");
       originalRemoveMethod.setBeanMethod(originalNamedMethod);
       originalRemoveMethods.add(originalRemoveMethod);
-      
+
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setRemoveMethods(originalRemoveMethods);
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -279,9 +279,9 @@ public class JBossSessionBeanOverrideUnitTestCase
       NamedMethodMetaData namedMethod = removeMethod.getBeanMethod();
       assertNotNull(namedMethod);
       assertEquals("overrideMethodName", namedMethod.getMethodName());
-      
+
    }
-   
+
    public void testAroundInvokes()
    {
       // Override
@@ -293,7 +293,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setAroundInvokes(overrideInvokes);
       override.setName("sbmd");
-      
+
       // Original
       AroundInvokesMetaData originalInvokes = new AroundInvokesMetaData();
       AroundInvokeMetaData originalInvoke = new AroundInvokeMetaData();
@@ -302,7 +302,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalInvokes.add(originalInvoke);
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setAroundInvokes(originalInvokes);
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -319,7 +319,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       assertEquals("overrideMethodName", aroundInvoke.getMethodName());
 
    }
-   
+
    public void testSecurityRoleRefs()
    {
       // Override
@@ -333,7 +333,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       overrideSecurity.add(overrideSecurityRoleRef);
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setSecurityRoleRefs(overrideSecurity);
-      
+
       // Original
       SecurityRoleRefMetaData originalSecurityRoleRef = new SecurityRoleRefMetaData();
       originalSecurityRoleRef.setDescriptions(new DescriptionsImpl());
@@ -347,7 +347,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setSecurityRoleRefs(originalSecurityRoleRefsMetaData);
       original.setName("original");
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -361,7 +361,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       assertEquals("overrideLink", securityRoleRef.getRoleLink());
       assertEquals("overrideRoleName", securityRoleRef.getRoleName());
    }
-   
+
    public void testClusterConfig()
    {
       // Override
@@ -372,12 +372,12 @@ public class JBossSessionBeanOverrideUnitTestCase
       overrideClusterConfig.setId("overrideId");
       overrideClusterConfig.setPartitionName("overridePartitionName");
       overrideClusterConfig.setSessionStateManagerJndiName("overrideSessionStateManagerJndiName");
-      
+
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setClusterConfig(overrideClusterConfig);
       override.setClustered(false);
       override.setName("override");
-      
+
       // Original
       ClusterConfigMetaData originalClusterConfig = new ClusterConfigMetaData();
       originalClusterConfig.setBeanLoadBalancePolicy("originalBeanLoadBalancePolicy");
@@ -386,11 +386,11 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalClusterConfig.setId("originalId");
       originalClusterConfig.setPartitionName("originalPartitionName");
       originalClusterConfig.setSessionStateManagerJndiName("originalSessionStateManagerJndiName");
-      
+
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setClusterConfig(originalClusterConfig);
       original.setClustered(true);
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -402,9 +402,9 @@ public class JBossSessionBeanOverrideUnitTestCase
       assertEquals("overridePartitionName", clusterConfig.getPartitionName());
       assertEquals("overrideSessionStateManagerJndiName", clusterConfig.getSessionStateManagerJndiName());
       assertEquals("overrideId", clusterConfig.getId());
-      
+
    }
-   
+
    public void testPortComponent()
    {
       // Override
@@ -415,11 +415,11 @@ public class JBossSessionBeanOverrideUnitTestCase
       overridePortComponent.setPortComponentURI("overridePortComponentURI");
       overridePortComponent.setSecureWSDLAccess(true);
       overridePortComponent.setTransportGuarantee("overrideTransportGuarantee");
-      
+
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setPortComponent(overridePortComponent);
       override.setName("overrideName");
-      
+
       // Original
       PortComponent originalPortComponent = new PortComponent();
       originalPortComponent.setAuthMethod("originalAuthMethod");
@@ -427,10 +427,10 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalPortComponent.setPortComponentURI("originalPortComponentURI");
       originalPortComponent.setSecureWSDLAccess(false);
       originalPortComponent.setTransportGuarantee("originalTransportGuarantee");
-      
+
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setPortComponent(originalPortComponent);
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -440,48 +440,48 @@ public class JBossSessionBeanOverrideUnitTestCase
       assertEquals("overridePortComponentURI", portComponent.getPortComponentURI());
       assertEquals("overrideTransportGuarantee", portComponent.getTransportGuarantee());
       assertEquals(true, portComponent.getSecureWSDLAccess());
-      
+
    }
-   
+
    public void testEjbTimeout()
    {
       // Override
       SecurityIdentityMetaData overrideEjbTimeout = new SecurityIdentityMetaData();
       overrideEjbTimeout.setDescriptions(new DescriptionsImpl());
       overrideEjbTimeout.setRunAsPrincipal("overrideRunAsPrincipal");
-      
+
       RunAsMetaData overrideRunAs = new RunAsMetaData();
       overrideRunAs.setDescriptions(new DescriptionsImpl());
       overrideRunAs.setRoleName("overrideRoleName");
       overrideRunAs.setId("overrideId");
-      
+
       EmptyMetaData overrideEmpty = new EmptyMetaData();
       overrideEmpty.setId("overrideId");
-      
+
       overrideEjbTimeout.setRunAs(overrideRunAs);
       overrideEjbTimeout.setUseCallerIdentity(overrideEmpty);
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setEjbTimeoutIdentity(overrideEjbTimeout);
       override.setName("overrideName");
-      
+
       // Original
       SecurityIdentityMetaData originalEjbTimeout = new SecurityIdentityMetaData();
       originalEjbTimeout.setRunAsPrincipal("originalRunAsPrincipal");
-      
+
       RunAsMetaData originalRunAs = new RunAsMetaData();
       originalRunAs.setDescriptions(new DescriptionsImpl());
       originalRunAs.setRoleName("originalRoleName");
       originalRunAs.setId("originalId");
-      
+
       EmptyMetaData originalEmpty = new EmptyMetaData();
       originalEmpty.setId("originalId");
-      
+
       originalEjbTimeout.setRunAs(originalRunAs);
       originalEjbTimeout.setUseCallerIdentity(originalEmpty);
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setEjbTimeoutIdentity(originalEjbTimeout);
       original.setName("originalName");
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);
@@ -493,7 +493,7 @@ public class JBossSessionBeanOverrideUnitTestCase
       assertEquals("overrideId", ejbTimeout.getRunAs().getId());
       assertEquals("overrideId", ejbTimeout.getUseCallerIdentity().getId());
    }
-   
+
    public void todotestCacheConfig()
    {
       // Override
@@ -505,11 +505,11 @@ public class JBossSessionBeanOverrideUnitTestCase
       overrideCacheConfig.setPersistenceManager("overridePersistenceManager");
       overrideCacheConfig.setReplicationIsPassivation("overrideReplicationIsPassivation");
       overrideCacheConfig.setValue("overrideValue");
-      
+
       JBossSessionBeanMetaData override = new JBossSessionBeanMetaData();
       override.setCacheConfig(overrideCacheConfig);
       override.setName("overrideName");
-    
+
       // Original
       CacheConfigMetaData originalCacheConfig = new CacheConfigMetaData();
       originalCacheConfig.setIdleTimeoutSeconds(Integer.valueOf(6));
@@ -519,10 +519,10 @@ public class JBossSessionBeanOverrideUnitTestCase
       originalCacheConfig.setPersistenceManager("originalPersistenceManager");
       originalCacheConfig.setReplicationIsPassivation("originalReplicationIsPassivation");
       originalCacheConfig.setValue("originalValue");
-      
+
       JBossSessionBeanMetaData original = new JBossSessionBeanMetaData();
       original.setCacheConfig(originalCacheConfig);
-      
+
       // Merged
       JBossSessionBeanMetaData merged = new JBossSessionBeanMetaData();
       merged.merge(override, original);

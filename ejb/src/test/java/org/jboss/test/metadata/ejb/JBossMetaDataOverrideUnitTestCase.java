@@ -1,24 +1,24 @@
 /*
-  * JBoss, Home of Professional Open Source
-  * Copyright 2005, JBoss Inc., and individual contributors as indicated
-  * by the @authors tag. See the copyright.txt in the distribution for a
-  * full listing of individual contributors.
-  *
-  * This is free software; you can redistribute it and/or modify it
-  * under the terms of the GNU Lesser General Public License as
-  * published by the Free Software Foundation; either version 2.1 of
-  * the License, or (at your option) any later version.
-  *
-  * This software is distributed in the hope that it will be useful,
-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-  * Lesser General Public License for more details.
-  *
-  * You should have received a copy of the GNU Lesser General Public
-  * License along with this software; if not, write to the Free
-  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
-  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
-  */
+ * JBoss, Home of Professional Open Source.
+ * Copyright 2013, Red Hat, Inc., and individual contributors
+ * as indicated by the @author tags. See the copyright.txt file in the
+ * distribution for a full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
 package org.jboss.test.metadata.ejb;
 
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationMetaData;
@@ -31,7 +31,7 @@ import junit.framework.TestCase;
 
 /**
  * A JBossMetaDataOverrideUnitTestCase.
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -50,7 +50,7 @@ public class JBossMetaDataOverrideUnitTestCase extends TestCase
       cc.setContainerName("override1");
       cc.setSecurityDomain("originalDomain2");
       ccs.add(cc);
-      
+
       JBoss50MetaData override = new JBoss50MetaData();
       ccs = new ContainerConfigurationsMetaData();
       override.setContainerConfigurations(ccs);
@@ -62,7 +62,7 @@ public class JBossMetaDataOverrideUnitTestCase extends TestCase
       cc.setContainerName("override2");
       cc.setSecurityDomain("overrideDomain2");
       ccs.add(cc);
-      
+
       JBoss50MetaData merged = new JBoss50MetaData();
       merged.merge(override, original);
       ccs = merged.getContainerConfigurations();
@@ -90,7 +90,7 @@ public class JBossMetaDataOverrideUnitTestCase extends TestCase
       rm = new ResourceManagerMetaData();
       rm.setResName("original2");
       rms.add(rm);
-      
+
       JBoss50MetaData override = new JBoss50MetaData();
       rms = new ResourceManagersMetaData();
       override.setResourceManagers(rms);
@@ -100,7 +100,7 @@ public class JBossMetaDataOverrideUnitTestCase extends TestCase
       rm = new ResourceManagerMetaData();
       rm.setResName("override2");
       rms.add(rm);
-      
+
       JBoss50MetaData merged = new JBoss50MetaData();
       merged.merge(override, original);
       rms = merged.getResourceManagers();

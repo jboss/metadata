@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2006, Red Hat Middleware LLC, and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -38,7 +38,7 @@ import org.jboss.metadata.javaee.spec.RunAsMetaData;
 
 /**
  * A JBossMessageDrivenBeanOverrideUnitTestCase.
- * 
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
@@ -49,7 +49,7 @@ public class JBossMessageDrivenBeanOverrideUnitTestCase
    {
       simplePropertiesTest(JBossMessageDrivenBeanMetaData.class, JBossEnterpriseBeanMetaData.class, null);
    }
-   
+
    public void testTimeoutMethod()
    {
       JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
@@ -58,7 +58,7 @@ public class JBossMessageDrivenBeanOverrideUnitTestCase
       NamedMethodMetaData method = new NamedMethodMetaData();
       method.setMethodName("timeoutOriginal");
       original.setTimeoutMethod(method);
-      
+
       JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
       override.setEjbName("mdb");
 
@@ -71,19 +71,19 @@ public class JBossMessageDrivenBeanOverrideUnitTestCase
       method = merged.getTimeoutMethod();
       assertNotNull(method);
       assertTrue(original.getTimeoutMethod() == method);
-      
+
       merged = new JBossMessageDrivenBeanMetaData();
       merged.merge(override, original);
       method = merged.getTimeoutMethod();
       assertNotNull(method);
       assertTrue(override.getTimeoutMethod() == method);
    }
-   
+
    public void testActivationConfig()
    {
       JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
       original.setEjbName("mdb");
-      
+
       ActivationConfigPropertiesMetaData props = new ActivationConfigPropertiesMetaData();
       ActivationConfigPropertyMetaData prop = new ActivationConfigPropertyMetaData();
       prop.setName("prop1");
@@ -96,7 +96,7 @@ public class JBossMessageDrivenBeanOverrideUnitTestCase
       ActivationConfigMetaData aconfig = new ActivationConfigMetaData();
       aconfig.setActivationConfigProperties(props);
       original.setActivationConfig(aconfig);
-      
+
       JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
       override.setEjbName("mdb");
 
@@ -112,7 +112,7 @@ public class JBossMessageDrivenBeanOverrideUnitTestCase
       aconfig = new ActivationConfigMetaData();
       aconfig.setActivationConfigProperties(props);
       override.setActivationConfig(aconfig);
-      
+
       JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
       merged.merge(override, original);
       aconfig = merged.getActivationConfig();
@@ -130,7 +130,7 @@ public class JBossMessageDrivenBeanOverrideUnitTestCase
       assertNotNull(prop);
       assertEquals(prop.getName() + "Override", prop.getValue());
    }
-   
+
    public void testAroundInvokes()
    {
       JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
@@ -146,7 +146,7 @@ public class JBossMessageDrivenBeanOverrideUnitTestCase
       invoke.setMethodName("method1");
       invokes.add(invoke);
       original.setAroundInvokes(invokes);
-      
+
       JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
       override.setEjbName("mdb");
 
@@ -196,7 +196,7 @@ public class JBossMessageDrivenBeanOverrideUnitTestCase
       sid.setRunAs(runAs);
       sid.setRunAsPrincipal("principal1");
       original.setEjbTimeoutIdentity(sid);
-      
+
       JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
       override.setEjbName("mdb");
 
@@ -206,7 +206,7 @@ public class JBossMessageDrivenBeanOverrideUnitTestCase
       sid.setRunAs(runAs);
       sid.setUseCallerIdentity(new EmptyMetaData());
       override.setEjbTimeoutIdentity(sid);
-      
+
       JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
       merged.merge(override, original);
       sid = merged.getEjbTimeoutIdentity();
