@@ -22,16 +22,21 @@
 
 package org.jboss.metadata.parser.ee;
 
-import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
-import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.*;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
+import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceHandlerChainsMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceHandlersMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Remy Maucherat

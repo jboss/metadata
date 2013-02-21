@@ -37,8 +37,9 @@ import org.jboss.metadata.javaee.spec.DescriptionImpl;
 import org.jboss.metadata.javaee.spec.DisplayNameImpl;
 import org.jboss.metadata.javaee.spec.IconImpl;
 import org.jboss.metadata.parser.spec.EarMetaDataParser;
-import static org.jboss.test.metadata.ear.Util.assertEqualsIgnoreOrder;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
+
+import static org.jboss.test.metadata.ear.Util.assertEqualsIgnoreOrder;
 
 /**
  * Ear5x tests

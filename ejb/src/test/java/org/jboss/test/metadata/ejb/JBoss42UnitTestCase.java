@@ -21,6 +21,10 @@
  */
 package org.jboss.test.metadata.ejb;
 
+import java.util.List;
+
+import javax.xml.namespace.QName;
+
 import junit.framework.Test;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
@@ -33,9 +37,6 @@ import org.jboss.metadata.javaee.jboss.StubPropertyMetaData;
 import org.jboss.metadata.javaee.spec.PortComponentRef;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
-
-import javax.xml.namespace.QName;
-import java.util.List;
 
 /**
  * Tests of jboss_4_2.dtd conforming documents

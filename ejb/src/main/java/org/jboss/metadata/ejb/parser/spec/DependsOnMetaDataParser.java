@@ -22,13 +22,14 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.DependsOnMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.jboss.metadata.ejb.spec.DependsOnMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses and creates metadata out of &lt;depends-on&gt; element from ejb-jar.xml

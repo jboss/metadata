@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 public class MethodAttributesMetaData extends AbstractMappedMetaData<MethodAttributeMetaData> {
     /**

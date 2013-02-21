@@ -21,6 +21,12 @@
  */
 package org.jboss.test.metadata.web;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.parser.servlet.WebMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser.DTDInfo;
@@ -28,11 +34,6 @@ import org.jboss.metadata.parser.util.XMLResourceResolver;
 import org.jboss.metadata.parser.util.XMLSchemaValidator;
 import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
-
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamReader;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Helper class for the unmarshal logic.

@@ -21,7 +21,11 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.CMPFieldsMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
+import org.jboss.metadata.ejb.spec.PersistenceType;
+import org.jboss.metadata.ejb.spec.QueriesMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.merge.javaee.spec.SecurityRoleRefsMetaDataMerger;
 

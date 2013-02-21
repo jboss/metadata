@@ -22,10 +22,10 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.EjbJarVersion;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
 
 /**
  * Maps a dtd/xsd namespace with a specific version of EJB spec

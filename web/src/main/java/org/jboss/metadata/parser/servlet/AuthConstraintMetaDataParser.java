@@ -22,16 +22,17 @@
 
 package org.jboss.metadata.parser.servlet;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.AuthConstraintMetaData;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Remy Maucherat

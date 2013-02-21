@@ -22,11 +22,11 @@
 
 package org.jboss.metadata.parser.jsp;
 
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.web.spec.DeferredMethodMetaData;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.web.spec.DeferredMethodMetaData;
 
 /**
  * @author Remy Maucherat

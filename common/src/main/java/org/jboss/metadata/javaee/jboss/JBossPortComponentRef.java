@@ -21,10 +21,11 @@
  */
 package org.jboss.metadata.javaee.jboss;
 
-import org.jboss.metadata.javaee.spec.PortComponentRef;
+import java.util.List;
 
 import javax.xml.namespace.QName;
-import java.util.List;
+
+import org.jboss.metadata.javaee.spec.PortComponentRef;
 
 /**
  * jboss port-component-ref-type

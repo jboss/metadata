@@ -22,12 +22,16 @@
 
 package org.jboss.metadata.parser.jbossweb;
 
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.web.jboss.*;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.web.jboss.ReplicationConfig;
+import org.jboss.metadata.web.jboss.ReplicationGranularity;
+import org.jboss.metadata.web.jboss.ReplicationMode;
+import org.jboss.metadata.web.jboss.ReplicationTrigger;
+import org.jboss.metadata.web.jboss.SnapshotMode;
 
 /**
  * @author Paul Ferraro

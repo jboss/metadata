@@ -21,12 +21,13 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.merge.MergeUtil;
-
-import javax.ejb.TransactionManagementType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.ejb.TransactionManagementType;
+
+import org.jboss.metadata.merge.MergeUtil;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

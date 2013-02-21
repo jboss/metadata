@@ -21,12 +21,12 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.merge.javaee.support.NamedMetaDataWithDescriptionGroupMerger;
 import org.jboss.metadata.web.spec.FilterMetaData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Scott.Stark@jboss.org

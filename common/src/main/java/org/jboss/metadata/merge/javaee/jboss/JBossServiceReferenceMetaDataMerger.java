@@ -21,13 +21,13 @@
  */
 package org.jboss.metadata.merge.javaee.jboss;
 
+import java.util.ArrayList;
+
 import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PortComponentRef;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.merge.javaee.spec.ServiceReferenceMetaDataMerger;
-
-import java.util.ArrayList;
 
 /**
  * <xsd:sequence> <xsd:element name="service-ref-name" type="xsd:string"/>

@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.NamedMetaData;
-
 import java.util.Set;
+
+import org.jboss.metadata.javaee.support.NamedMetaData;
 
 /**
  * ResourceInjectionMetaData.

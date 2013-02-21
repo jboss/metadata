@@ -22,6 +22,13 @@
 
 package org.jboss.metadata.parser.jboss;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.logging.Logger;
 import org.jboss.metadata.common.jboss.LoaderRepositoryConfigMetaData;
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
@@ -38,12 +45,6 @@ import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.parser.spec.EarMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
-
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author John Bailey

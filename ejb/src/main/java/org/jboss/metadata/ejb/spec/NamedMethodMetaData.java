@@ -123,7 +123,7 @@ public class NamedMethodMetaData extends NamedMetaData {
         return false;
     }
 
-    public boolean matches(String methodName, String params[]) {
+    public boolean matches(String methodName, String[] params) {
         // the wildcard matches everything
         if (getMethodName().equals("*"))
             return true;

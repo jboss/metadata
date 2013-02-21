@@ -21,8 +21,8 @@
  */
 package org.jboss.test.metadata.annotation.ejb3;
 
-import javax.annotation.security.RolesAllowed;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.javaee.jboss;
 
+import java.util.Set;
+
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
-
-import java.util.Set;
 
 /**
  * IgnoreDependencyMetaData.

@@ -21,11 +21,12 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
-
-import javax.ejb.ScheduleExpression;
 import java.io.Serializable;
 import java.util.Calendar;
+
+import javax.ejb.ScheduleExpression;
+
+import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
 
 /**
  * Represents metadata for &lt;timer&gt; element in ejb-jar.xml

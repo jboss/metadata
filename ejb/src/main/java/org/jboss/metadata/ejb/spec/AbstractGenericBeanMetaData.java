@@ -21,13 +21,14 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.spec.EmptyMetaData;
-import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.LockType;
-import java.util.Collection;
-import java.util.List;
+
+import org.jboss.metadata.javaee.spec.EmptyMetaData;
+import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -231,27 +232,27 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
         // For serialization
     }
 
-    private final void assertUnknownEntityOrSessionBean() {
+    private void assertUnknownEntityOrSessionBean() {
         if (getEjbType() != null && getEjbType() != EjbType.ENTITY && getEjbType() != EjbType.SESSION)
             throw new IllegalStateException("Bean " + this + " is not an unknown, entity or session bean, but " + getEjbType());
     }
 
-    private final void assertUnknownOrEntityBean() {
+    private void assertUnknownOrEntityBean() {
         if (getEjbType() != null && getEjbType() != EjbType.ENTITY)
             throw new IllegalStateException("Bean " + this + " is not an unknown or entity bean, but " + getEjbType());
     }
 
-    private final void assertUnknownOrMessageDrivenBean() {
+    private void assertUnknownOrMessageDrivenBean() {
         if (getEjbType() != null && getEjbType() != EjbType.MESSAGE_DRIVEN)
             throw new IllegalStateException("Bean " + this + " is not an unknown or message driven bean, but " + getEjbType());
     }
 
-    private final void assertUnknownOrSessionBean() {
+    private void assertUnknownOrSessionBean() {
         if (getEjbType() != null && getEjbType() != EjbType.SESSION)
             throw new IllegalStateException("Bean " + this + " is not an unknown or session bean, but " + getEjbType());
     }
 
-    private final void assertUnknownOrSessionBean31() {
+    private void assertUnknownOrSessionBean31() {
         assertUnknownOrSessionBean();
         final EjbJarMetaData ejbJarMetaData = getEjbJarMetaData();
         // the bean might not have been added yet

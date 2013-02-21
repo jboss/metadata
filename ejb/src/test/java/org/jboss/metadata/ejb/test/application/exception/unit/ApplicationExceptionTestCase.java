@@ -21,6 +21,8 @@
  */
 package org.jboss.metadata.ejb.test.application.exception.unit;
 
+import javax.ejb.ApplicationException;
+
 import junit.framework.Assert;
 import org.jboss.metadata.ejb.spec.ApplicationExceptionMetaData;
 import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
@@ -29,8 +31,6 @@ import org.jboss.metadata.ejb.test.application.exception.AppExceptionOne;
 import org.jboss.metadata.ejb.test.application.exception.AppExceptionThree;
 import org.jboss.metadata.ejb.test.application.exception.AppExceptionTwo;
 import org.junit.Test;
-
-import javax.ejb.ApplicationException;
 
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertNotNull;

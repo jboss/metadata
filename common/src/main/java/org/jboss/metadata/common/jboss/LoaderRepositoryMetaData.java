@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.common.jboss;
 
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
-
 import java.util.Set;
+
+import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * LoaderRepositoryMetaData.

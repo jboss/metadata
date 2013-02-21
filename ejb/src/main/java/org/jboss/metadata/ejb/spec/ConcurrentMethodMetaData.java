@@ -21,9 +21,10 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import java.io.Serializable;
+
 import javax.ejb.Lock;
 import javax.ejb.LockType;
-import java.io.Serializable;
 
 /**
  * Metadata for methods which specify {@link Lock} for concurrency management
@@ -85,7 +86,7 @@ public class ConcurrentMethodMetaData implements Serializable {
         return this.method.equals(anotherConcurrentMethod.method);
     }
 
-    public boolean matches(String methodName, String params[]) {
+    public boolean matches(String methodName, String[] params) {
         return getMethod().matches(methodName, params);
     }
 }

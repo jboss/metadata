@@ -21,14 +21,14 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
 import org.jboss.metadata.ejb.parser.spec.ActivationConfigMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
 import org.jboss.metadata.ejb.parser.spec.EnterpriseBeanMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

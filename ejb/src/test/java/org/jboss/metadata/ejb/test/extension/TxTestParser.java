@@ -21,11 +21,12 @@
  */
 package org.jboss.metadata.ejb.test.extension;
 
-import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractMethodsBoundMetaDataParser;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.concurrent.TimeUnit;
+
+import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractMethodsBoundMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
 
 /**

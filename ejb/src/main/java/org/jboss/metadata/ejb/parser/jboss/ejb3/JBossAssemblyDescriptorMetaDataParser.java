@@ -21,15 +21,20 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import org.jboss.metadata.ejb.parser.spec.*;
+import java.util.Map;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.AssemblyDescriptor30MetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.ContainerTransactionMetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
+import org.jboss.metadata.ejb.parser.spec.ExtendingMetaDataParser;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

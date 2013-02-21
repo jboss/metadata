@@ -30,7 +30,7 @@ import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
  * @version $Revision: 67275 $
  */
 public interface ITimeoutTarget {
-    public NamedMethodMetaData getTimeoutMethod();
+    NamedMethodMetaData getTimeoutMethod();
 
-    public void setTimeoutMethod(NamedMethodMetaData timeoutMethod);
+    void setTimeoutMethod(NamedMethodMetaData timeoutMethod);
 }

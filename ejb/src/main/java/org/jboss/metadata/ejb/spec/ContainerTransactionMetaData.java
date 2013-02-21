@@ -21,10 +21,11 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
+import java.util.List;
 
 import javax.ejb.TransactionAttributeType;
-import java.util.List;
+
+import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 
 /**
  * ContainerTransactionMetaData.

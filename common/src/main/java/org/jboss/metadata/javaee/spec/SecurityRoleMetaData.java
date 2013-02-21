@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
-
 import java.util.Set;
+
+import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
 /**
  * SecurityRoleMetaData.

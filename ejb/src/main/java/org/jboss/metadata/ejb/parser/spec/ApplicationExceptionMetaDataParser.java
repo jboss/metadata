@@ -21,11 +21,11 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.ApplicationExceptionMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.spec.ApplicationExceptionMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 

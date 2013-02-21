@@ -21,11 +21,11 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
-import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
-import org.jboss.metadata.web.spec.WelcomeFileListMetaData;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
+import org.jboss.metadata.web.spec.WelcomeFileListMetaData;
 
 /**
  * @author Scott.Stark@jboss.org

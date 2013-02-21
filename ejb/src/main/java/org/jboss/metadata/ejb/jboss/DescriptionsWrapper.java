@@ -21,11 +21,11 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.annotation.javaee.Description;
-import org.jboss.annotation.javaee.Descriptions;
-
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+
+import org.jboss.annotation.javaee.Description;
+import org.jboss.annotation.javaee.Descriptions;
 
 /**
  * @author Scott.Stark@jboss.org

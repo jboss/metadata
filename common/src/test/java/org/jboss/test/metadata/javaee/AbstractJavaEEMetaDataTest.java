@@ -21,16 +21,17 @@
  */
 package org.jboss.test.metadata.javaee;
 
-import junit.framework.TestCase;
-import org.jboss.metadata.parser.util.NoopXMLResolver;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
+
+import junit.framework.TestCase;
+import org.jboss.metadata.parser.util.NoopXMLResolver;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.property.SystemPropertyResolver;

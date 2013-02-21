@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.ejb.test.extension;
 
-import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractMethodsBoundMetaData;
-
 import java.util.concurrent.TimeUnit;
+
+import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractMethodsBoundMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

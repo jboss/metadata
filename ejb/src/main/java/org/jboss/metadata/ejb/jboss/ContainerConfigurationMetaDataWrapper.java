@@ -21,11 +21,11 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.annotation.javaee.Descriptions;
-import org.w3c.dom.Element;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import org.jboss.annotation.javaee.Descriptions;
+import org.w3c.dom.Element;
 
 /**
  * @author Scott.Stark@jboss.org

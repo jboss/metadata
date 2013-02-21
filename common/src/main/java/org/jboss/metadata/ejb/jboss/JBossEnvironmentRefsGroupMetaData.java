@@ -21,10 +21,16 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
-import org.jboss.metadata.javaee.spec.*;
-
 import java.io.Serializable;
+
+import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
+import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
+import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 
 /**
  * JBossEnvironmentRefsGroupMetaData.

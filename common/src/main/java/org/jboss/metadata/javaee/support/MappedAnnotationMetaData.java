@@ -21,13 +21,13 @@
  */
 package org.jboss.metadata.javaee.support;
 
-import org.jboss.metadata.annotation.AbstractAnnotationImpl;
-
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.jboss.metadata.annotation.AbstractAnnotationImpl;
 
 /**
  * MappedAnnotationMetaData.

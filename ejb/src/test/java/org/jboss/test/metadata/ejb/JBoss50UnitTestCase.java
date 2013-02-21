@@ -21,6 +21,11 @@
  */
 package org.jboss.test.metadata.ejb;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.jboss.metadata.ejb.jboss.CacheInvalidationConfigMetaData;
 import org.jboss.metadata.ejb.jboss.ClusterConfigMetaData;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationMetaData;
@@ -46,7 +51,13 @@ import org.jboss.metadata.ejb.jboss.ProducerMetaData;
 import org.jboss.metadata.ejb.jboss.RemoteBindingMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
+import org.jboss.metadata.ejb.spec.EjbType;
+import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
+import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
+import org.jboss.metadata.ejb.spec.SubscriptionDurability;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferenceType;
@@ -60,11 +71,6 @@ import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.merge.EjbMergeUtil;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Miscellaneous tests with a JBoss 5 xml.

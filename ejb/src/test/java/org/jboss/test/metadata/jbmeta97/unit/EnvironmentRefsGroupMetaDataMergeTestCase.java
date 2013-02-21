@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.jbmeta97.unit;
 
 import junit.framework.TestCase;
-
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;

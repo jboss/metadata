@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.web;
 
 import junit.framework.TestCase;
-
 import org.jboss.metadata.merge.web.jboss.JBossWebMetaDataMerger;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.web.spec.Web30MetaData;

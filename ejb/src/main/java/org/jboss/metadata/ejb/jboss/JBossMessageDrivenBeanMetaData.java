@@ -22,7 +22,14 @@
 package org.jboss.metadata.ejb.jboss;
 
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
+import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
+import org.jboss.metadata.ejb.spec.MessageDrivenDestinationMetaData;
+import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
+import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
+import org.jboss.metadata.ejb.spec.SubscriptionDurability;
 
 /**
  * MessageDrivenBeanMetaData.

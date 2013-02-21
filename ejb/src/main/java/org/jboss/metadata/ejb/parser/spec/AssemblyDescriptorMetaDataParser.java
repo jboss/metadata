@@ -21,15 +21,20 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.*;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
+import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
+import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
+import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
+import org.jboss.metadata.ejb.spec.MethodPermissionMetaData;
+import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

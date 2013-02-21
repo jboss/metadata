@@ -21,10 +21,11 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import java.util.List;
 
 import javax.xml.namespace.QName;
-import java.util.List;
+
+import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * ServiceReferenceHandlerChainMetaData.

@@ -21,6 +21,14 @@
  */
 package org.jboss.test.metadata.ejb;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import javax.ejb.TransactionAttributeType;
+import javax.ejb.TransactionManagementType;
+import javax.xml.stream.XMLStreamReader;
+
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -75,13 +83,6 @@ import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.test.AbstractTestSetup;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 import org.jboss.util.NotImplementedException;
-
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
-import javax.xml.stream.XMLStreamReader;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 /**
  * AbstractEJBEverythingTest.

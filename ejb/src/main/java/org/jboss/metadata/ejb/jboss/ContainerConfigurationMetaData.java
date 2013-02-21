@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.Set;
+
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 import org.w3c.dom.Element;
-
-import java.util.Set;
 
 /**
  * ConfigurationMetaData.

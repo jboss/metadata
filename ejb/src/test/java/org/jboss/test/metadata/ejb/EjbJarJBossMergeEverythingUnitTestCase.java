@@ -21,15 +21,6 @@
  */
 package org.jboss.test.metadata.ejb;
 
-import junit.framework.Test;
-import org.jboss.metadata.ejb.jboss.*;
-import org.jboss.metadata.ejb.spec.EjbJarMetaData;
-import org.jboss.metadata.ejb.spec.EjbJarVersion;
-import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
-import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
-import org.jboss.metadata.javaee.spec.*;
-import org.jboss.metadata.merge.javaee.spec.EJBLocalReferenceMetaDataMerger;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.net.URISyntaxException;
@@ -37,6 +28,26 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
+import junit.framework.Test;
+import org.jboss.metadata.ejb.jboss.InvokerProxyBindingsMetaData;
+import org.jboss.metadata.ejb.jboss.JBoss50DTDMetaData;
+import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
+import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
+import org.jboss.metadata.ejb.jboss.JBossMetaData;
+import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
+import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.merge.javaee.spec.EJBLocalReferenceMetaDataMerger;
 
 /**
  * Tests the merge of ejb-jar.xml and jboss.xml

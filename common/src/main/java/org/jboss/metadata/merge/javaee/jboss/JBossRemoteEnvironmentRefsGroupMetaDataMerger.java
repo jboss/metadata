@@ -22,8 +22,21 @@
 package org.jboss.metadata.merge.javaee.jboss;
 
 import org.jboss.metadata.javaee.jboss.JBossRemoteEnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.*;
-import org.jboss.metadata.merge.javaee.spec.*;
+import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
+import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
+import org.jboss.metadata.javaee.spec.RemoteEnvironment;
+import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.merge.javaee.spec.EJBReferencesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.MessageDestinationReferencesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.RemoteEnvironmentRefsGroupMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.ResourceEnvironmentReferencesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.ResourceReferencesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.ServiceReferencesMetaDataMerger;
 
 /**
  * JBoss specifics for remote references.

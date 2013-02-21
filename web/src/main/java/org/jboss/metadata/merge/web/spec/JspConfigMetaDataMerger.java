@@ -21,13 +21,13 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 import org.jboss.metadata.web.spec.JspConfigMetaData;
 import org.jboss.metadata.web.spec.JspPropertyGroupMetaData;
 import org.jboss.metadata.web.spec.TaglibMetaData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Scott.Stark@jboss.org

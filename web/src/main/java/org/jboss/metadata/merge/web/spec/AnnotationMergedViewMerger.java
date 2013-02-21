@@ -21,6 +21,9 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
@@ -28,10 +31,16 @@ import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
-import org.jboss.metadata.web.spec.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.metadata.web.spec.DispatcherType;
+import org.jboss.metadata.web.spec.FilterMappingMetaData;
+import org.jboss.metadata.web.spec.FilterMetaData;
+import org.jboss.metadata.web.spec.FiltersMetaData;
+import org.jboss.metadata.web.spec.ListenerMetaData;
+import org.jboss.metadata.web.spec.ServletMappingMetaData;
+import org.jboss.metadata.web.spec.ServletMetaData;
+import org.jboss.metadata.web.spec.ServletsMetaData;
+import org.jboss.metadata.web.spec.WebCommonMetaData;
+import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
  * Create a merged WebMetaData view from an xml + annotation views

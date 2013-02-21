@@ -21,12 +21,11 @@
  */
 package org.jboss.metadata.ejb.test.extension;
 
-import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractEJBBoundMetaDataParser;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractEJBBoundMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.util.property.Property;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

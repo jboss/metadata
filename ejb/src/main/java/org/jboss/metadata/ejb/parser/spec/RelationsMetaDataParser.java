@@ -22,6 +22,9 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.ejb.spec.RelationMetaData;
 import org.jboss.metadata.ejb.spec.RelationsMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
@@ -30,9 +33,6 @@ import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 

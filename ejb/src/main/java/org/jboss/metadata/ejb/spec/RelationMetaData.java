@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
-
 import java.util.List;
+
+import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptions;
 
 /**
  * RelationMetaData.

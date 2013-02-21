@@ -21,16 +21,23 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
-import org.jboss.metadata.javaee.spec.ParamValueMetaData;
-import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
-import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
-import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
-import org.jboss.metadata.web.spec.*;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.jboss.metadata.javaee.spec.ParamValueMetaData;
+import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
+import org.jboss.metadata.web.spec.ErrorPageMetaData;
+import org.jboss.metadata.web.spec.FilterMappingMetaData;
+import org.jboss.metadata.web.spec.ListenerMetaData;
+import org.jboss.metadata.web.spec.MimeMappingMetaData;
+import org.jboss.metadata.web.spec.SecurityConstraintMetaData;
+import org.jboss.metadata.web.spec.ServletMappingMetaData;
+import org.jboss.metadata.web.spec.WebCommonMetaData;
+import org.jboss.metadata.web.spec.WebResourceCollectionMetaData;
 
 /**
  * The web-app spec metadata, common between the fragments and the main web.xml

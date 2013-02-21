@@ -21,7 +21,11 @@
  */
 package org.jboss.metadata.merge.javaee.spec;
 
-import org.jboss.metadata.javaee.spec.*;
+import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
+import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
+import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
 
 /**
  * EnvironmentRefsGroupMetaData.

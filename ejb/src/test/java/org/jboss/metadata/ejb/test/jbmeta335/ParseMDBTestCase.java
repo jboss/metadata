@@ -21,14 +21,15 @@
  */
 package org.jboss.metadata.ejb.test.jbmeta335;
 
+import java.io.InputStream;
+import java.util.Collections;
+
+import javax.xml.stream.XMLStreamException;
+
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.test.common.UnmarshallingHelper;
 import org.junit.Test;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.InputStream;
-import java.util.Collections;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

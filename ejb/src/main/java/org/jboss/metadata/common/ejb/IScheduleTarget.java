@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.common.ejb;
 
-import org.jboss.metadata.ejb.spec.TimerMetaData;
-
 import java.util.List;
+
+import org.jboss.metadata.ejb.spec.TimerMetaData;
 
 /**
  * IScheduleTarget

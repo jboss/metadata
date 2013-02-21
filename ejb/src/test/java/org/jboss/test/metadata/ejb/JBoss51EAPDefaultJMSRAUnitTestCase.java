@@ -25,7 +25,6 @@ import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 /**
  * A JBoss51EAPDefaultJMSRAUnitTestCase.

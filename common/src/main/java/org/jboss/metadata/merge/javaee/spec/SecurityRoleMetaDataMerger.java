@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.merge.javaee.spec;
 
+import java.util.HashSet;
+
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
-
-import java.util.HashSet;
 
 /**
  * SecurityRoleMetaData.

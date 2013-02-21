@@ -22,6 +22,14 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.Calendar;
+
+import javax.xml.bind.DatatypeConverter;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.ScheduleMetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
@@ -29,13 +37,6 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.Accessor;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.bind.DatatypeConverter;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.Calendar;
 
 /**
  * Parses and creates metadata out of &lt;timer&gt; element in ejb-jar.xml

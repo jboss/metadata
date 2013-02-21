@@ -22,14 +22,14 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.ejb.spec.QueryMetaData;
 import org.jboss.metadata.ejb.spec.ResultTypeMapping;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * Parses and creates metadata out of &lt;query&gt; element for entity beans

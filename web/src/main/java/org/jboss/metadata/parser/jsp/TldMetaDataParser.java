@@ -22,15 +22,25 @@
 
 package org.jboss.metadata.parser.jsp;
 
-import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.web.spec.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.web.spec.FunctionMetaData;
+import org.jboss.metadata.web.spec.ListenerMetaData;
+import org.jboss.metadata.web.spec.TagFileMetaData;
+import org.jboss.metadata.web.spec.TagMetaData;
+import org.jboss.metadata.web.spec.Tld11MetaData;
+import org.jboss.metadata.web.spec.Tld12MetaData;
+import org.jboss.metadata.web.spec.Tld20MetaData;
+import org.jboss.metadata.web.spec.Tld21MetaData;
+import org.jboss.metadata.web.spec.TldExtensionMetaData;
+import org.jboss.metadata.web.spec.TldMetaData;
 
 
 /**

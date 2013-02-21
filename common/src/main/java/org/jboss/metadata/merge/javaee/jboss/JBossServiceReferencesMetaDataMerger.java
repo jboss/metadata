@@ -23,6 +23,9 @@ package org.jboss.metadata.merge.javaee.jboss;
 
 // $Id: JBossServiceReferencesMetaData.java 84989 2009-03-02 11:40:52Z alex.loubyansky@jboss.com $
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferenceMetaData;
 import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
@@ -31,9 +34,6 @@ import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.merge.javaee.spec.ServiceReferenceMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.ServiceReferencesMetaDataMerger;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * JBoss service-ref metadata

@@ -21,13 +21,14 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.parser.jboss.ejb3.Namespace;
-import org.jboss.metadata.ejb.spec.ExtendableMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.Map;
+
+import org.jboss.metadata.ejb.parser.jboss.ejb3.Namespace;
+import org.jboss.metadata.ejb.spec.ExtendableMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

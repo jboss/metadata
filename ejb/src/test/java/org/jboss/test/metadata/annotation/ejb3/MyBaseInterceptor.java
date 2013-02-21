@@ -21,8 +21,8 @@
  */
 package org.jboss.test.metadata.annotation.ejb3;
 
-import javax.ejb.EJB;
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 import javax.persistence.EntityManager;

@@ -21,6 +21,12 @@
  */
 package org.jboss.metadata.ejb.test.schedule.unit;
 
+import java.util.List;
+
+import javax.ejb.Schedule;
+import javax.ejb.Schedules;
+import javax.ejb.Timer;
+
 import junit.framework.Assert;
 import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
@@ -36,11 +42,6 @@ import org.jboss.metadata.ejb.spec.ScheduleMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
 import org.junit.Test;
-
-import javax.ejb.Schedule;
-import javax.ejb.Schedules;
-import javax.ejb.Timer;
-import java.util.List;
 
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertNotNull;

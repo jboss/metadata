@@ -74,13 +74,14 @@ import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceSharingScopeType;
-import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.parser.spec.EarMetaDataParser;
-import static org.jboss.test.metadata.ear.Util.assertEqualsIgnoreOrder;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
+
+import static org.jboss.test.metadata.ear.Util.assertEqualsIgnoreOrder;
 
 /**
  * Ear6x tests

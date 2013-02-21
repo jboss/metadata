@@ -22,13 +22,14 @@
 
 package org.jboss.metadata.parser.jsp;
 
-import org.jboss.metadata.parser.util.MetaDataElementParser;
-import org.jboss.metadata.web.spec.TldExtensionMetaData;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.web.spec.TldExtensionMetaData;
 
 /**
  * @author Remy Maucherat

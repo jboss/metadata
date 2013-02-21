@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.web.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
-
 import java.util.List;
+
+import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * web-app/filter-mapping metadata

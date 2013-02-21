@@ -21,15 +21,6 @@
  */
 package org.jboss.metadata.parser.util;
 
-import org.jboss.logging.Logger;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSResourceResolver;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import javax.xml.stream.XMLResolver;
-import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -42,6 +33,16 @@ import java.security.PrivilegedAction;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.xml.stream.XMLResolver;
+import javax.xml.stream.XMLStreamException;
+
+import org.jboss.logging.Logger;
+import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 /**
  * Local entity resolver to handle standard J2EE DTDs and Schemas as well as JBoss

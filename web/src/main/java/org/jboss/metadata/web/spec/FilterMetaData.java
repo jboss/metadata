@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.web.spec;
 
+import java.util.List;
+
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
-
-import java.util.List;
 
 /**
  * @author Scott.Stark@jboss.org

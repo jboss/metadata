@@ -21,12 +21,13 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.concurrent.TimeUnit;
+
+import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

@@ -22,6 +22,9 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.InterceptorBindingMetaData;
@@ -30,9 +33,6 @@ import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.parser.ee.MessageDestinationMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * Author: Jaikiran Pai

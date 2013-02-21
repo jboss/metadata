@@ -21,6 +21,11 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
+import java.util.Map;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.ejb.jboss.ejb3.JBossEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractEjbJarMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
@@ -30,10 +35,6 @@ import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

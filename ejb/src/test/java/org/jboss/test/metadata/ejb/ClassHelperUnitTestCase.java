@@ -21,13 +21,12 @@
  */
 package org.jboss.test.metadata.ejb;
 
+import junit.framework.TestCase;
 import org.jboss.metadata.lang.ClassHelper;
 import org.jboss.test.metadata.annotation.ejb3.defaultinterface.Child;
 import org.jboss.test.metadata.annotation.ejb3.defaultinterface.ChildInterface;
 import org.jboss.test.metadata.annotation.ejb3.defaultinterface.Parent;
 import org.jboss.test.metadata.annotation.ejb3.defaultinterface.ParentInterface;
-
-import junit.framework.TestCase;
 
 
 /**

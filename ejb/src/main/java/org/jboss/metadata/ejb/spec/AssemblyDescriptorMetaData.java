@@ -21,6 +21,8 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import java.util.List;
+
 import org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
@@ -30,8 +32,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
-
-import java.util.List;
 
 /**
  * AssemblyDescriptorMetaData.

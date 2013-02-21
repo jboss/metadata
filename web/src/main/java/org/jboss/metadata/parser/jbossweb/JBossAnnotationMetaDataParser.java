@@ -22,14 +22,14 @@
 
 package org.jboss.metadata.parser.jbossweb;
 
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.parser.ee.RunAsMetaDataParser;
 import org.jboss.metadata.parser.servlet.MultipartConfigMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.jboss.JBossAnnotationMetaData;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author Remy Maucherat

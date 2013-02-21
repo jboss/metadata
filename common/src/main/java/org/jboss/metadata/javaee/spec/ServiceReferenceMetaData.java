@@ -21,11 +21,12 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptionGroup;
-
-import javax.xml.namespace.QName;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
+
+import javax.xml.namespace.QName;
+
+import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptionGroup;
 
 /**
  * ServiceReferenceMetaData.

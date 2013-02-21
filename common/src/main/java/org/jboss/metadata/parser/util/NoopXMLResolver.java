@@ -22,9 +22,10 @@
 
 package org.jboss.metadata.parser.util;
 
+import java.io.ByteArrayInputStream;
+
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamException;
-import java.io.ByteArrayInputStream;
 
 /**
  * @author Emanuel Muckenhuber

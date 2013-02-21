@@ -22,15 +22,16 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.StatefulTimeoutMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.spec.StatefulTimeoutMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses and creates metadata out of &lt;stateful-timeout&gt; element of ejb-jar.xml

@@ -21,9 +21,13 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-import java.util.*;
+import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 
 /**
  * SecurityRolesMetaData.

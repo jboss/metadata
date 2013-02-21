@@ -22,11 +22,11 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses and creates metadata out of &lt;around-invoke&gt; element in ejb-jar.xml

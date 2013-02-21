@@ -21,9 +21,13 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.annotation.javaee.*;
-
 import java.io.Serializable;
+
+import org.jboss.annotation.javaee.Description;
+import org.jboss.annotation.javaee.Descriptions;
+import org.jboss.annotation.javaee.DisplayName;
+import org.jboss.annotation.javaee.DisplayNames;
+import org.jboss.annotation.javaee.Icons;
 
 /**
  * DescriptionGroupMetaData.

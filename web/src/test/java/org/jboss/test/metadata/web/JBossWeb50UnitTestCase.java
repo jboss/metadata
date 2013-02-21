@@ -21,15 +21,6 @@
  */
 package org.jboss.test.metadata.web;
 
-import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
-import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
-import org.jboss.metadata.web.jboss.ClassLoadingMetaData;
-import org.jboss.metadata.web.jboss.JBossWebMetaData;
-import org.jboss.metadata.web.jboss.PassivationConfig;
-import org.jboss.metadata.web.jboss.ReplicationConfig;
-import org.jboss.metadata.web.jboss.ReplicationGranularity;
-import org.jboss.metadata.web.jboss.ReplicationTrigger;
-import org.jboss.metadata.web.jboss.SnapshotMode;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 

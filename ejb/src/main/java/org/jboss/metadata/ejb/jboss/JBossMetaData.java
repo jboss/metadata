@@ -21,18 +21,33 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.interceptor.Interceptors;
+
 import org.jboss.logging.Logger;
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
+import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorBindingMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorClassesMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
+import org.jboss.metadata.ejb.spec.RelationsMetaData;
+import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.support.NamedModuleImpl;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionGroupMerger;
 import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
-
-import javax.interceptor.Interceptors;
-import java.util.*;
 
 /**
  * JBossMetaData.

@@ -21,6 +21,10 @@
  */
 package org.jboss.test.metadata.ejb;
 
+import java.util.Set;
+
+import javax.xml.namespace.QName;
+
 import junit.framework.Test;
 import org.jboss.annotation.javaee.Description;
 import org.jboss.annotation.javaee.Descriptions;
@@ -46,9 +50,6 @@ import org.jboss.metadata.javaee.spec.IconImpl;
 import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
-
-import javax.xml.namespace.QName;
-import java.util.Set;
 
 /**
  * EjbJar3xUnitTestCase.

@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import java.util.ArrayList;
+
 import org.jboss.annotation.javaee.Descriptions;
 import org.jboss.metadata.javaee.support.IdMetaData;
-
-import java.util.ArrayList;
 
 import static org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData.override;
 

@@ -21,11 +21,11 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.annotation.javaee.Descriptions;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
+
+import org.jboss.annotation.javaee.Descriptions;
 
 /**
  * Wrapper for jboss.xml/standardjboss.xml type of primary/defaults

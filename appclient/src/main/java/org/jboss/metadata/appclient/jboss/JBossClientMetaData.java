@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.appclient.jboss;
 
-import org.jboss.metadata.appclient.spec.ApplicationClientMetaData;
-
 import java.util.List;
+
+import org.jboss.metadata.appclient.spec.ApplicationClientMetaData;
 
 /**
  * Common javaee application metadata

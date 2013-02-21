@@ -23,14 +23,16 @@
 package org.jboss.test.metadata.property;
 
 import java.util.Properties;
+
 import org.jboss.metadata.property.PropertiesPropertyResolver;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
 import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * @author John Bailey

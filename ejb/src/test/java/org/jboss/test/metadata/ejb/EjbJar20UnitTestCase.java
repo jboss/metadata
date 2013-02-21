@@ -21,6 +21,8 @@
  */
 package org.jboss.test.metadata.ejb;
 
+import java.util.HashSet;
+
 import junit.framework.Test;
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
@@ -37,8 +39,6 @@ import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
 import org.jboss.metadata.javaee.spec.ResourceAuthorityType;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
-
-import java.util.HashSet;
 
 /**
  * 2.0 ejb-jar.xml tests.

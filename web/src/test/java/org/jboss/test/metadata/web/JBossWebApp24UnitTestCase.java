@@ -22,35 +22,9 @@
 package org.jboss.test.metadata.web;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.jboss.annotation.javaee.Descriptions;
-import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
-import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferenceType;
-import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationUsageType;
-import org.jboss.metadata.javaee.spec.ParamValueMetaData;
-import org.jboss.metadata.javaee.spec.ResourceAuthorityType;
-import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.RunAsMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
-import org.jboss.metadata.merge.web.jboss.JBossWebMetaDataMerger;
-import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
-import org.jboss.metadata.parser.servlet.WebMetaDataParser;
-import org.jboss.metadata.web.jboss.ClassLoadingMetaData;
-import org.jboss.metadata.web.jboss.JBossServletMetaData;
-import org.jboss.metadata.web.jboss.JBossWebMetaData;
-import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 

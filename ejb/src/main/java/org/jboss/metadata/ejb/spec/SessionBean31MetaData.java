@@ -21,19 +21,19 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.spec.EmptyMetaData;
+import java.util.List;
+import java.util.Map;
 
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.LockType;
-import java.util.List;
-import java.util.Map;
+
+import org.jboss.metadata.javaee.spec.EmptyMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-public interface SessionBean31MetaData extends SessionBeanMetaData //implements ITimeoutTarget, IScheduleTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
-{
+public interface SessionBean31MetaData extends SessionBeanMetaData {//implements ITimeoutTarget, IScheduleTarget // FIXME: AbstractProcessor.processClass doesn't take super interfaces into account
 
     /**
      * Returns the init-on-startup value of the session bean metadata.

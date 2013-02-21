@@ -22,18 +22,26 @@
 
 package org.jboss.metadata.parser.servlet;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.web.spec.*;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.metadata.web.spec.JspConfigMetaData;
+import org.jboss.metadata.web.spec.TaglibMetaData;
+import org.jboss.metadata.web.spec.Web22MetaData;
+import org.jboss.metadata.web.spec.Web23MetaData;
+import org.jboss.metadata.web.spec.Web24MetaData;
+import org.jboss.metadata.web.spec.Web25MetaData;
+import org.jboss.metadata.web.spec.Web30MetaData;
+import org.jboss.metadata.web.spec.WebMetaData;
 
 
 /**
@@ -57,7 +65,7 @@ public class WebMetaDataParser extends MetaDataElementParser {
         reader.require(START_DOCUMENT, null, null);
 
         // Read until the first start element
-        while (reader.hasNext() && reader.next() != START_ELEMENT) ;
+        while (reader.hasNext() && reader.next() != START_ELEMENT) {}
 
         String schemaLocation = readSchemaLocation(reader);
 

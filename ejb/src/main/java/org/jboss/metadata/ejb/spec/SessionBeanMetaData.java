@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
-
 import javax.ejb.TransactionManagementType;
+
+import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 
 /**
  * SessionBeanMetaData.
@@ -79,7 +79,7 @@ public interface SessionBeanMetaData extends EnterpriseBeanMetaData {
      *
      * @return the serviceEndpoint.
      */
-    public String getServiceEndpoint();
+    String getServiceEndpoint();
 
     /**
      * Get the sessionType.

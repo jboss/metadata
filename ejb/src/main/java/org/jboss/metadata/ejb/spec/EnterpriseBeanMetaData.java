@@ -21,12 +21,37 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.spec.*;
-import org.jboss.metadata.javaee.support.IdMetaData;
+import java.lang.reflect.Method;
 
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
-import java.lang.reflect.Method;
+
+import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.DataSourceMetaData;
+import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
+import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
+import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
+import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceUnitReferenceMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

@@ -21,11 +21,11 @@
  */
 package org.jboss.metadata.merge.javaee.jboss;
 
+import java.util.ArrayList;
+
 import org.jboss.metadata.javaee.jboss.JBossPortComponentRef;
 import org.jboss.metadata.javaee.jboss.StubPropertyMetaData;
 import org.jboss.metadata.merge.javaee.spec.PortComponentRefMerger;
-
-import java.util.ArrayList;
 
 /**
  * jboss port-component-ref-type

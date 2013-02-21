@@ -22,17 +22,27 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.*;
-import org.jboss.metadata.javaee.spec.*;
+import javax.ejb.TransactionManagementType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.spec.AbstractGenericBeanMetaData;
+import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
+import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
+import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
+import org.jboss.metadata.ejb.spec.SessionType;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.LifecycleCallbackMetaData;
+import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.LifecycleCallbackMetaDataParser;
 import org.jboss.metadata.parser.ee.SecurityRoleRefMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.ejb.TransactionManagementType;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 

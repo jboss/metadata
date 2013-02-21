@@ -21,14 +21,15 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
-import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.HashSet;
-import java.util.Set;
+
+import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * jboss-assembly-descriptor-bean-entryType

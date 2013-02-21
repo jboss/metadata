@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.web.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
-
 import java.util.List;
+
+import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
 
 /**
  * @author Scott.Stark@jboss.org

@@ -21,6 +21,10 @@
  */
 package org.jboss.test.metadata.javaee;
 
+import java.util.Set;
+
+import javax.persistence.PersistenceContextType;
+
 import org.jboss.annotation.javaee.Description;
 import org.jboss.annotation.javaee.Descriptions;
 import org.jboss.annotation.javaee.DisplayName;
@@ -73,9 +77,6 @@ import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.IdMetaData;
-
-import javax.persistence.PersistenceContextType;
-import java.util.Set;
 
 /**
  * AbstractJavaEEEverythingTest.

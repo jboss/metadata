@@ -21,16 +21,46 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.metadata.ejb.spec.*;
-import org.jboss.metadata.javaee.jboss.AnnotationsMetaData;
-import org.jboss.metadata.javaee.jboss.IgnoreDependencyMetaData;
-import org.jboss.metadata.javaee.jboss.JndiRefsMetaData;
-import org.jboss.metadata.javaee.spec.*;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
-import java.lang.reflect.Method;
-import java.util.Set;
+
+import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
+import org.jboss.metadata.ejb.spec.MethodInterfaceType;
+import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
+import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
+import org.jboss.metadata.javaee.jboss.AnnotationsMetaData;
+import org.jboss.metadata.javaee.jboss.IgnoreDependencyMetaData;
+import org.jboss.metadata.javaee.jboss.JndiRefsMetaData;
+import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
+import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
+import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
+import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceUnitReferenceMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PortComponent;
+import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 
 /**
  * Create a wrapper around a JBossGenericBeanMetaData for MDB meta data.

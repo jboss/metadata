@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import java.util.ArrayList;
+
 import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.merge.MergeUtil;
-
-import java.util.ArrayList;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -34,7 +34,7 @@ public class ConcurrentMethodsMetaData extends ArrayList<ConcurrentMethodMetaDat
 
     private String id;
 
-    public ConcurrentMethodMetaData bestMatch(String methodName, String params[]) {
+    public ConcurrentMethodMetaData bestMatch(String methodName, String[] params) {
         ConcurrentMethodMetaData bestMatch = null;
         for (ConcurrentMethodMetaData method : this) {
             if (method.matches(methodName, params)) {

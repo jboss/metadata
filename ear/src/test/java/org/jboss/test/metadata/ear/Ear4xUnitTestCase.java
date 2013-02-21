@@ -24,6 +24,7 @@ package org.jboss.test.metadata.ear;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.jboss.annotation.javaee.Description;
 import org.jboss.annotation.javaee.Descriptions;
 import org.jboss.annotation.javaee.DisplayName;
@@ -34,9 +35,9 @@ import org.jboss.metadata.ear.jboss.JBossAppMetaData;
 import org.jboss.metadata.ear.spec.EarMetaData;
 import org.jboss.metadata.ear.spec.EarVersion;
 import org.jboss.metadata.ear.spec.ModuleMetaData;
+import org.jboss.metadata.ear.spec.ModuleMetaData.ModuleType;
 import org.jboss.metadata.ear.spec.ModulesMetaData;
 import org.jboss.metadata.ear.spec.WebModuleMetaData;
-import org.jboss.metadata.ear.spec.ModuleMetaData.ModuleType;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionImpl;
 import org.jboss.metadata.javaee.spec.DisplayNameImpl;
@@ -46,8 +47,9 @@ import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.merge.JBossAppMetaDataMerger;
 import org.jboss.metadata.parser.jboss.JBossAppMetaDataParser;
 import org.jboss.metadata.parser.spec.EarMetaDataParser;
-import static org.jboss.test.metadata.ear.Util.assertEqualsIgnoreOrder;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
+
+import static org.jboss.test.metadata.ear.Util.assertEqualsIgnoreOrder;
 
 /**
  * Ear4x tests

@@ -22,10 +22,10 @@
 
 package org.jboss.metadata.parser.ee;
 
-import org.jboss.metadata.javaee.spec.DisplayNamesImpl;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.javaee.spec.DisplayNamesImpl;
 
 
 /**

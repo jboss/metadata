@@ -21,13 +21,14 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import java.util.Collection;
+import java.util.HashSet;
+
+import javax.interceptor.Interceptors;
+
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplWithDescriptionGroupMerger;
-
-import javax.interceptor.Interceptors;
-import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * EjbJarMetaData.

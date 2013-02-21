@@ -21,13 +21,13 @@
  */
 package org.jboss.metadata.ejb.test.jbmeta242.unit;
 
+import javax.xml.stream.XMLStreamException;
+
 import org.jboss.logging.Logger;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.junit.Test;
-
-import javax.xml.stream.XMLStreamException;
 
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertEquals;

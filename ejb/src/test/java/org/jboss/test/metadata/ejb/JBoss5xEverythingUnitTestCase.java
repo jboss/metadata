@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Set;
 
 import junit.framework.Test;
-
 import org.jboss.metadata.common.jboss.LoaderRepositoryConfigMetaData;
 import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
 import org.jboss.metadata.common.jboss.WebserviceDescriptionMetaData;
@@ -39,6 +38,7 @@ import org.jboss.metadata.ejb.jboss.CommitOption;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationMetaData;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationsMetaData;
 import org.jboss.metadata.ejb.jboss.InvokerBindingMetaData;
+import org.jboss.metadata.ejb.jboss.InvokerBindingMetaData.EjbRef;
 import org.jboss.metadata.ejb.jboss.InvokerBindingsMetaData;
 import org.jboss.metadata.ejb.jboss.InvokerProxyBindingMetaData;
 import org.jboss.metadata.ejb.jboss.InvokerProxyBindingsMetaData;
@@ -56,7 +56,6 @@ import org.jboss.metadata.ejb.jboss.PoolConfigMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
 import org.jboss.metadata.ejb.jboss.WebservicesMetaData;
-import org.jboss.metadata.ejb.jboss.InvokerBindingMetaData.EjbRef;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;

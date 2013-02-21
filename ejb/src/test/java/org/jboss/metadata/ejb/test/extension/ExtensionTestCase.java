@@ -21,18 +21,6 @@
  */
 package org.jboss.metadata.ejb.test.extension;
 
-import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
-import org.jboss.metadata.ejb.spec.EjbJarMetaData;
-import org.jboss.metadata.ejb.spec.MethodInterfaceType;
-import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
-import org.jboss.metadata.ejb.test.common.ValidationHelper;
-import org.junit.Test;
-import org.w3c.dom.Document;
-import org.xml.sax.*;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -40,8 +28,22 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.MethodInterfaceType;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
+import org.jboss.metadata.ejb.test.common.ValidationHelper;
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshalJboss;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

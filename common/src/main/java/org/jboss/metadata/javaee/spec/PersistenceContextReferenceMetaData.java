@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
-
 import javax.persistence.PersistenceContextType;
+
+import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
 /**
  * PersistenceContextReferenceMetaData.

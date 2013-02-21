@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.web;
 
 import junit.framework.TestCase;
-
 import org.jboss.metadata.merge.web.spec.WebCommonMetaDataMerger;
 import org.jboss.metadata.web.spec.CookieConfigMetaData;
 import org.jboss.metadata.web.spec.SessionConfigMetaData;

@@ -21,13 +21,31 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
+import javax.ejb.Schedule;
+import javax.ejb.Startup;
+
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
+import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
+import org.jboss.metadata.ejb.spec.ConcurrentMethodMetaData;
+import org.jboss.metadata.ejb.spec.ConcurrentMethodsMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
+import org.jboss.metadata.ejb.spec.SessionType;
+import org.jboss.metadata.ejb.spec.StatefulTimeoutMetaData;
+import org.jboss.metadata.ejb.spec.TimerMetaData;
 import org.jboss.metadata.merge.MergeUtil;
-
-import javax.ejb.*;
-import java.util.*;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

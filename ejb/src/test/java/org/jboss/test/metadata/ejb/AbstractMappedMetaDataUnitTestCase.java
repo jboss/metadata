@@ -21,9 +21,8 @@
  */
 package org.jboss.test.metadata.ejb;
 
-import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
-
 import junit.framework.TestCase;
+import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 
 
 /**

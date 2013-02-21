@@ -22,14 +22,19 @@
 
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import org.jboss.metadata.ejb.jboss.*;
-import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.jboss.IIOPMetaData;
+import org.jboss.metadata.ejb.jboss.IORASContextMetaData;
+import org.jboss.metadata.ejb.jboss.IORSASContextMetaData;
+import org.jboss.metadata.ejb.jboss.IORSecurityConfigMetaData;
+import org.jboss.metadata.ejb.jboss.IORTransportConfigMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * <p>

@@ -22,13 +22,17 @@
 
 package org.jboss.metadata.parser.spec;
 
-import org.jboss.metadata.ear.spec.*;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ear.spec.ConnectorModuleMetaData;
+import org.jboss.metadata.ear.spec.EjbModuleMetaData;
+import org.jboss.metadata.ear.spec.JavaModuleMetaData;
+import org.jboss.metadata.ear.spec.ModuleMetaData;
+import org.jboss.metadata.ear.spec.WebModuleMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author John Bailey

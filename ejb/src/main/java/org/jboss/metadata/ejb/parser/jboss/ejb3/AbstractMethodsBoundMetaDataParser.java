@@ -21,15 +21,15 @@
  */
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.parser.spec.EjbJarElement;
 import org.jboss.metadata.ejb.parser.spec.MethodMetaDataParser;
 import org.jboss.metadata.ejb.spec.MethodMetaData;
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * jboss-assembly-descriptor-method-entryType

@@ -22,12 +22,10 @@
 package org.jboss.test.metadata.javaee;
 
 import junit.framework.TestCase;
-
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DisplayNameImpl;
 import org.jboss.metadata.javaee.spec.DisplayNamesImpl;
 import org.jboss.metadata.javaee.support.NamedModuleImpl;
-
 import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
 
 /**

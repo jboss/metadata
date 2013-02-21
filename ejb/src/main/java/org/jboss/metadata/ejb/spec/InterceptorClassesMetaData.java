@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaData;
-
 import java.util.ArrayList;
+
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 /**
  * InterceptorClassesMetaData.

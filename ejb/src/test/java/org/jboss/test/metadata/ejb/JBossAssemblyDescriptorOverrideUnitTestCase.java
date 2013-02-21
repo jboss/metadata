@@ -24,6 +24,7 @@ package org.jboss.test.metadata.ejb;
 import java.util.HashSet;
 import java.util.Set;
 
+import junit.framework.TestCase;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossAssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.ApplicationExceptionMetaData;
@@ -35,8 +36,6 @@ import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
-
-import junit.framework.TestCase;
 
 
 /**

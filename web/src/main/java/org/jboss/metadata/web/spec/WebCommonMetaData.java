@@ -21,11 +21,39 @@
  */
 package org.jboss.metadata.web.spec;
 
-import org.jboss.metadata.javaee.spec.*;
+import java.util.List;
+
+import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.DataSourceMetaData;
+import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
+import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.EmptyMetaData;
+import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
+import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
+import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
+import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
+import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
+import org.jboss.metadata.javaee.spec.ParamValueMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceUnitReferenceMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
-
-import java.util.List;
 
 /**
  * The web-app spec metadata, common between the fragments and the main web.xml

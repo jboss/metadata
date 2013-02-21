@@ -21,11 +21,11 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaData;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 /**
  * MethodPermissionsMetaData.

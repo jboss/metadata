@@ -22,11 +22,11 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.ScheduleMetaData;
-import org.jboss.metadata.property.PropertyReplacer;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.spec.ScheduleMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * Parses and creates metadata out of &lt;schedule&gt; element of ejb-jar.xml

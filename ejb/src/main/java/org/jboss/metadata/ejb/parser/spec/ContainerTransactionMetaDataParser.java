@@ -22,15 +22,15 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
+import javax.ejb.TransactionAttributeType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
 import org.jboss.metadata.ejb.spec.MethodMetaData;
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
 import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.ejb.TransactionAttributeType;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * Parses and creates metadata out of &lt;container-transaction&gt; element in the ejb-jar.xml

@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.merge.MergeUtil;
-
 import java.util.ArrayList;
+
+import org.jboss.metadata.merge.MergeUtil;
 
 /**
  * MethodsMetaData.
@@ -142,7 +142,7 @@ public class MethodsMetaData extends ArrayList<MethodMetaData> {
         if (classes == null)
             return null;
 
-        String out[] = new String[classes.length];
+        String[] out = new String[classes.length];
         for (int i = 0; i < out.length; i++) {
             String brackets = "";
             Class cls = classes[i];

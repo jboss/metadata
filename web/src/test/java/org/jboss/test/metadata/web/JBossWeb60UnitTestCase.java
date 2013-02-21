@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
-import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.web.jboss.PassivationConfig;

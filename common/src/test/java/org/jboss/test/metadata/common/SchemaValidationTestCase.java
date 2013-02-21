@@ -22,14 +22,11 @@
 
 package org.jboss.test.metadata.common;
 
-import static org.junit.runners.Parameterized.Parameters;
-
-import org.jboss.metadata.parser.util.XMLResourceResolver;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.w3c.dom.Document;
+import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -39,11 +36,14 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
-import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import org.jboss.metadata.parser.util.XMLResourceResolver;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.w3c.dom.Document;
+
+import static org.junit.runners.Parameterized.Parameters;
 
 /**
  * Validates the jboss-app_7_0.xsd

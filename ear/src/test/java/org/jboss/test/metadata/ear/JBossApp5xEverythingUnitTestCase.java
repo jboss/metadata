@@ -26,7 +26,6 @@ import org.jboss.metadata.ear.jboss.JBossAppMetaData;
 import org.jboss.metadata.ear.jboss.ServiceModuleMetaData;
 import org.jboss.metadata.ear.spec.ConnectorModuleMetaData;
 import org.jboss.metadata.ear.spec.EarMetaData;
-import org.jboss.metadata.ear.spec.EarVersion;
 import org.jboss.metadata.ear.spec.EjbModuleMetaData;
 import org.jboss.metadata.ear.spec.JavaModuleMetaData;
 import org.jboss.metadata.ear.spec.ModuleMetaData;

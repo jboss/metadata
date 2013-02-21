@@ -21,7 +21,13 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeansMap;
+import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
+import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
+import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
 
 /**
@@ -125,8 +131,7 @@ public class JBossEnterpriseBeansMetaData
                     } else if (ejb.isMessageDriven()) {
                         mergedEJB = new JBossMessageDrivenBeanMetaData();
                         jejb = new JBossMessageDrivenBeanGenericWrapper(gejb);
-                    } else // must be entity
-                    {
+                    } else { // must be entity
                         mergedEJB = new JBossEntityBeanMetaData();
                         jejb = new JBossEntityGenericWrapper(gejb);
                     }

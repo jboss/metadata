@@ -24,7 +24,13 @@ package org.jboss.test.metadata.jbmeta56.unit;
 import org.jboss.metadata.ejb.jboss.JBoss50DTDMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
-import org.jboss.metadata.javaee.spec.*;
+import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
+import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
+import org.jboss.metadata.javaee.spec.EJBReferenceType;
+import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ResourceAuthorityType;
+import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
+import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 
 /**

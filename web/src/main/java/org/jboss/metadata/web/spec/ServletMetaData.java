@@ -21,12 +21,12 @@
  */
 package org.jboss.metadata.web.spec;
 
+import java.util.List;
+
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
-
-import java.util.List;
 
 /**
  * web-app/servlet metadata

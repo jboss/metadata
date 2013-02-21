@@ -22,7 +22,14 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.*;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
+import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
+import org.jboss.metadata.ejb.spec.AroundTimeoutMetaData;
+import org.jboss.metadata.ejb.spec.AroundTimeoutsMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbackMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
@@ -30,9 +37,6 @@ import org.jboss.metadata.javaee.support.IdMetaData;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.LifecycleCallbackMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 

@@ -21,15 +21,42 @@
  */
 package org.jboss.test.metadata.ejb;
 
+import java.util.LinkedHashSet;
+
+import javax.ejb.TransactionManagementType;
+
 import junit.framework.Test;
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.ApplicationExceptionMetaData;
+import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
+import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
+import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
+import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
+import org.jboss.metadata.ejb.spec.CMPFieldMetaData;
+import org.jboss.metadata.ejb.spec.CMPFieldsMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
+import org.jboss.metadata.ejb.spec.InitMethodMetaData;
+import org.jboss.metadata.ejb.spec.InitMethodsMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorBindingMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorClassesMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorOrderMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
+import org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData;
+import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
+import org.jboss.metadata.ejb.spec.PersistenceType;
+import org.jboss.metadata.ejb.spec.QueriesMetaData;
+import org.jboss.metadata.ejb.spec.QueryMetaData;
+import org.jboss.metadata.ejb.spec.RemoveMethodMetaData;
+import org.jboss.metadata.ejb.spec.RemoveMethodsMetaData;
+import org.jboss.metadata.ejb.spec.ResultTypeMapping;
+import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
+import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
-
-import javax.ejb.TransactionManagementType;
-import java.util.LinkedHashSet;
 
 /**
  * EjbJar3xUnitTestCase.

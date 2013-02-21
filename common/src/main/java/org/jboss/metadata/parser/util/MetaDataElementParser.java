@@ -22,15 +22,22 @@
 
 package org.jboss.metadata.parser.util;
 
-import org.jboss.metadata.property.PropertyReplacer;
+import java.io.ByteArrayInputStream;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.NavigableMap;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.io.ByteArrayInputStream;
-import java.util.*;
+
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * @author Emanuel Muckenhuber

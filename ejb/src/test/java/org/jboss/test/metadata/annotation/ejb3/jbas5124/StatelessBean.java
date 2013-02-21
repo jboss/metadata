@@ -23,7 +23,6 @@ package org.jboss.test.metadata.annotation.ejb3.jbas5124;
 
 import java.util.Properties;
 
-import javax.ejb.LocalHome;
 import javax.ejb.Remote;
 import javax.ejb.RemoteHome;
 import javax.ejb.Stateless;

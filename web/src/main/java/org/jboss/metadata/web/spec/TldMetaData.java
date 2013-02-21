@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.web.spec;
 
-import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
-
 import java.util.List;
+
+import org.jboss.metadata.javaee.support.NamedMetaDataWithDescriptionGroup;
 
 /**
  * The taglib spec metadata Locations that must be scanned for .tld files are: -

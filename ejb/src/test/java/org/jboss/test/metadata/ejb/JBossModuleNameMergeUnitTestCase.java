@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.ejb;
 
 import junit.framework.TestCase;
-
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 
 

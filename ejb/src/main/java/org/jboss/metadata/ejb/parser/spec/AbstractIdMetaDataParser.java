@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaData;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

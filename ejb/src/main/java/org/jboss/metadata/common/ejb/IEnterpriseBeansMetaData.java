@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.common.ejb;
 
-import org.jboss.metadata.javaee.support.IdMetaData;
-
 import java.util.Collection;
+
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 /**
  * @author Scott.Stark@jboss.org
@@ -49,5 +49,5 @@ public interface IEnterpriseBeansMetaData<A extends IAssemblyDescriptorMetaData,
      */
     void setEjbJarMetaData(J ejbJarMetaData);
 
-    public E get(String ejbName);
+    E get(String ejbName);
 }

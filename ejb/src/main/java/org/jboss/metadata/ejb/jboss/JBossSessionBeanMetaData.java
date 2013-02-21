@@ -21,13 +21,22 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.List;
+
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
+import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
+import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
+import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.InitMethodsMetaData;
+import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
+import org.jboss.metadata.ejb.spec.RemoveMethodsMetaData;
+import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
+import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
+import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.PortComponent;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
-
-import java.util.List;
 
 /**
  * SessionBeanMetaData.

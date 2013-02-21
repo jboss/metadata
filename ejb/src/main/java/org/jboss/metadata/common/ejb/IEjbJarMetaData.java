@@ -5,14 +5,14 @@
  * distribution for a full listing of individual contributors.
  *
  * This is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as
+ * under the terms of the GNU Lesser General License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
  *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * Lesser General Public License for more details.
+ * Lesser General License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
@@ -32,35 +32,35 @@ public interface IEjbJarMetaData<A extends IAssemblyDescriptorMetaData,
         C extends IEnterpriseBeansMetaData<A, C, E, J>,
         E extends IEnterpriseBeanMetaData<A, C, E, J>,
         J extends IEjbJarMetaData<A, C, E, J>> {
-    public String getVersion();
+    String getVersion();
 
-    public void setVersion(String version);
+    void setVersion(String version);
 
-    public boolean isEJB1x();
+    boolean isEJB1x();
 
-    public boolean isEJB2x();
+    boolean isEJB2x();
 
-    public boolean isEJB21();
+    boolean isEJB21();
 
-    public boolean isEJB3x();
+    boolean isEJB3x();
 
-    public String getEjbClientJar();
+    String getEjbClientJar();
 
-    public void setEjbClientJar(String ejbClientJar);
+    void setEjbClientJar(String ejbClientJar);
 
-    public C getEnterpriseBeans();
+    C getEnterpriseBeans();
 
-    public E getEnterpriseBean(String name);
+    E getEnterpriseBean(String name);
 
-    public void setEnterpriseBeans(C enterpriseBeans);
+    void setEnterpriseBeans(C enterpriseBeans);
 
-    public RelationsMetaData getRelationships();
+    RelationsMetaData getRelationships();
 
-    public void setRelationships(RelationsMetaData relationships);
+    void setRelationships(RelationsMetaData relationships);
 
-    public A getAssemblyDescriptor();
+    A getAssemblyDescriptor();
 
-    public void setAssemblyDescriptor(A assemblyDescriptor);
+    void setAssemblyDescriptor(A assemblyDescriptor);
 
     InterceptorsMetaData getInterceptors();
 }

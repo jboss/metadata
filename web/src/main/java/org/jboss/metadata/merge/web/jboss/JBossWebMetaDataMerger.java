@@ -33,7 +33,11 @@ import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
 import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
 import org.jboss.metadata.web.jboss.JBossServletsMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
-import org.jboss.metadata.web.spec.*;
+import org.jboss.metadata.web.spec.AnnotationsMetaData;
+import org.jboss.metadata.web.spec.ServletsMetaData;
+import org.jboss.metadata.web.spec.Web25MetaData;
+import org.jboss.metadata.web.spec.Web30MetaData;
+import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
  * The combined web.xml/jboss-web.xml metadata

@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.merge.MergeUtil;
-
 import java.util.ArrayList;
+
+import org.jboss.metadata.merge.MergeUtil;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

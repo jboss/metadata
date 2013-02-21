@@ -21,13 +21,12 @@
  */
 package org.jboss.test.metadata.ejb;
 
+import junit.framework.TestCase;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationMetaData;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationsMetaData;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
-
-import junit.framework.TestCase;
 
 /**
  * A JBossMetaDataOverrideUnitTestCase.

@@ -21,9 +21,9 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
-
 import java.io.Serializable;
+
+import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 
 /**
  * EnvironmentRefsGroupMetaData.

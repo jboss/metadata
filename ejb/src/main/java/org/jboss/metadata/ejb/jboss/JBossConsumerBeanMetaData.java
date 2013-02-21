@@ -21,11 +21,11 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.logging.Logger;
-import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jboss.logging.Logger;
+import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
 
 /**
  * An EJB 3 consumer bean.

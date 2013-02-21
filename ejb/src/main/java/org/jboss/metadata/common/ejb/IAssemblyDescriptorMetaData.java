@@ -21,7 +21,11 @@
  */
 package org.jboss.metadata.common.ejb;
 
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
+import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
+import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
+import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
@@ -34,14 +38,14 @@ import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
  * @version $Revision: 75470 $
  */
 public interface IAssemblyDescriptorMetaData {
-    public SecurityRoleMetaData getSecurityRole(String roleName);
+    SecurityRoleMetaData getSecurityRole(String roleName);
 
     /**
      * Get the securityRoles.
      *
      * @return the securityRoles.
      */
-    public SecurityRolesMetaData getSecurityRoles();
+    SecurityRolesMetaData getSecurityRoles();
 
     /**
      * Set the securityRoles.
@@ -49,14 +53,14 @@ public interface IAssemblyDescriptorMetaData {
      * @param securityRoles the securityRoles.
      * @throws IllegalArgumentException for a null securityRoles
      */
-    public void setSecurityRoles(SecurityRolesMetaData securityRoles);
+    void setSecurityRoles(SecurityRolesMetaData securityRoles);
 
     /**
      * Get the methodPermissions.
      *
      * @return the methodPermissions.
      */
-    public MethodPermissionsMetaData getMethodPermissions();
+    MethodPermissionsMetaData getMethodPermissions();
 
     /**
      * Set the methodPermissions.
@@ -64,7 +68,7 @@ public interface IAssemblyDescriptorMetaData {
      * @param methodPermissions the methodPermissions.
      * @throws IllegalArgumentException for a null methodPermissions
      */
-    public void setMethodPermissions(MethodPermissionsMetaData methodPermissions);
+    void setMethodPermissions(MethodPermissionsMetaData methodPermissions);
 
     /**
      * Get the methods permissions for an ejb
@@ -73,14 +77,14 @@ public interface IAssemblyDescriptorMetaData {
      * @return the method permissions or null for no result
      * @throws IllegalArgumentException for a null ejb name
      */
-    public MethodPermissionsMetaData getMethodPermissionsByEjbName(String ejbName);
+    MethodPermissionsMetaData getMethodPermissionsByEjbName(String ejbName);
 
     /**
      * Get the containerTransactions.
      *
      * @return the containerTransactions.
      */
-    public ContainerTransactionsMetaData getContainerTransactions();
+    ContainerTransactionsMetaData getContainerTransactions();
 
     /**
      * Set the containerTransactions.
@@ -88,7 +92,7 @@ public interface IAssemblyDescriptorMetaData {
      * @param containerTransactions the containerTransactions.
      * @throws IllegalArgumentException for a null containerTransactions
      */
-    public void setContainerTransactions(ContainerTransactionsMetaData containerTransactions);
+    void setContainerTransactions(ContainerTransactionsMetaData containerTransactions);
 
     /**
      * Get the container transactions for an ejb
@@ -97,14 +101,14 @@ public interface IAssemblyDescriptorMetaData {
      * @return the container transactions or null for no result
      * @throws IllegalArgumentException for a null ejb name
      */
-    public ContainerTransactionsMetaData getContainerTransactionsByEjbName(String ejbName);
+    ContainerTransactionsMetaData getContainerTransactionsByEjbName(String ejbName);
 
     /**
      * Get the interceptorBindings.
      *
      * @return the interceptorBindings.
      */
-    public InterceptorBindingsMetaData getInterceptorBindings();
+    InterceptorBindingsMetaData getInterceptorBindings();
 
     /**
      * Set the interceptorBindings.
@@ -112,14 +116,14 @@ public interface IAssemblyDescriptorMetaData {
      * @param interceptorBindings the interceptorBindings.
      * @throws IllegalArgumentException for a null interceptorBindings
      */
-    public void setInterceptorBindings(InterceptorBindingsMetaData interceptorBindings);
+    void setInterceptorBindings(InterceptorBindingsMetaData interceptorBindings);
 
     /**
      * Get the messageDestinations.
      *
      * @return the messageDestinations.
      */
-    public MessageDestinationsMetaData getMessageDestinations();
+    MessageDestinationsMetaData getMessageDestinations();
 
     /**
      * Set the messageDestinations.
@@ -127,7 +131,7 @@ public interface IAssemblyDescriptorMetaData {
      * @param messageDestinations the messageDestinations.
      * @throws IllegalArgumentException for a null messageDestinations
      */
-    public void setMessageDestinations(MessageDestinationsMetaData messageDestinations);
+    void setMessageDestinations(MessageDestinationsMetaData messageDestinations);
 
     /**
      * Get a message destination
@@ -135,14 +139,14 @@ public interface IAssemblyDescriptorMetaData {
      * @param name the name of the destination
      * @return the destination or null if not found
      */
-    public MessageDestinationMetaData getMessageDestination(String name);
+    MessageDestinationMetaData getMessageDestination(String name);
 
     /**
      * Get the excludeList.
      *
      * @return the excludeList.
      */
-    public ExcludeListMetaData getExcludeList();
+    ExcludeListMetaData getExcludeList();
 
     /**
      * Set the excludeList.
@@ -150,7 +154,7 @@ public interface IAssemblyDescriptorMetaData {
      * @param excludeList the excludeList.
      * @throws IllegalArgumentException for a null excludeList
      */
-    public void setExcludeList(ExcludeListMetaData excludeList);
+    void setExcludeList(ExcludeListMetaData excludeList);
 
     /**
      * Get the exclude list for an ejb
@@ -159,14 +163,14 @@ public interface IAssemblyDescriptorMetaData {
      * @return the exclude list or null for no result
      * @throws IllegalArgumentException for a null ejb name
      */
-    public ExcludeListMetaData getExcludeListByEjbName(String ejbName);
+    ExcludeListMetaData getExcludeListByEjbName(String ejbName);
 
     /**
      * Get the applicationExceptions.
      *
      * @return the applicationExceptions.
      */
-    public ApplicationExceptionsMetaData getApplicationExceptions();
+    ApplicationExceptionsMetaData getApplicationExceptions();
 
     /**
      * Set the applicationExceptions.
@@ -174,5 +178,5 @@ public interface IAssemblyDescriptorMetaData {
      * @param applicationExceptions the applicationExceptions.
      * @throws IllegalArgumentException for a null applicationExceptions
      */
-    public void setApplicationExceptions(ApplicationExceptionsMetaData applicationExceptions);
+    void setApplicationExceptions(ApplicationExceptionsMetaData applicationExceptions);
 }

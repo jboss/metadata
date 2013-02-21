@@ -21,13 +21,19 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.*;
-import org.jboss.metadata.property.PropertyReplacer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.jboss.metadata.ejb.spec.AbstractGenericBeanMetaData;
+import org.jboss.metadata.ejb.spec.AroundTimeoutMetaData;
+import org.jboss.metadata.ejb.spec.AroundTimeoutsMetaData;
+import org.jboss.metadata.ejb.spec.EjbType;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
+import org.jboss.metadata.ejb.spec.TimerMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
 

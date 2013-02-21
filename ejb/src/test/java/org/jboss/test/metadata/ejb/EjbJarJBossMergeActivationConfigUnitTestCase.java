@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.ejb;
 
 import junit.framework.Test;
-
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMessageDrivenBeanMetaData;

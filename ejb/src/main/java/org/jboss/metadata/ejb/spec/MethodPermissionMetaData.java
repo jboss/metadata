@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import java.util.Set;
+
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
-
-import java.util.Set;
 
 /**
  * MethodPermissionMetaData.

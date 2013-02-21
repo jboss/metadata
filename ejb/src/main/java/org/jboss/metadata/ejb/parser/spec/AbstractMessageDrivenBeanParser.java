@@ -21,15 +21,15 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
+import javax.ejb.TransactionManagementType;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
 import org.jboss.metadata.ejb.spec.AbstractGenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.property.PropertyReplacer;
-
-import javax.ejb.TransactionManagementType;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

@@ -2,13 +2,12 @@
 <!-- $Id: java-properties_1_0.xsd 33892 2005-07-25 02:47:23Z starksm $
 -->
 <xs:schema version="1.0"
-   targetNamespace="urn:jboss:java-properties"
-   xmlns:java="urn:jboss:custom-object-binding"
-   xmlns:xs="http://www.w3.org/2001/XMLSchema"
-   xmlns:jbxb="http://www.jboss.org/xml/ns/jbxb"
-   attributeFormDefault="unqualified"
-   elementFormDefault="qualified"
-   >
+           targetNamespace="urn:jboss:java-properties"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jbxb="http://www.jboss.org/xml/ns/jbxb"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+        >
    <xs:annotation>
       <xs:documentation>A JBossXB schema for specifying how a java.util.Properties
          object is unmarshalled.

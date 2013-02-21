@@ -21,8 +21,17 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.Set;
+
 import org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData;
-import org.jboss.metadata.ejb.spec.*;
+import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
+import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
+import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
+import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
+import org.jboss.metadata.ejb.spec.InterceptorBindingsMetaData;
+import org.jboss.metadata.ejb.spec.MethodPermissionsMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
@@ -31,10 +40,6 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
-
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * JBossAssemblyDescriptorMetaData.

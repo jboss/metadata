@@ -31,9 +31,9 @@ public interface SecurityRoleNames {
     /**
      * The principal name representing a principal that matches no one
      */
-    public static final String NOBODY_PRINCIPAL = "<NOBODY>";
+    String NOBODY_PRINCIPAL = "<NOBODY>";
     /**
      * The principal name representing a principal that matches anyone
      */
-    public static final String ANYBODY_PRINCIPAL = "<ANYBODY>";
+    String ANYBODY_PRINCIPAL = "<ANYBODY>";
 }

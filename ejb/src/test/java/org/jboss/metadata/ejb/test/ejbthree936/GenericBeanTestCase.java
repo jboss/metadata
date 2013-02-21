@@ -21,17 +21,28 @@
  */
 package org.jboss.metadata.ejb.test.ejbthree936;
 
-import org.jboss.metadata.ejb.spec.*;
+import java.io.InputStream;
+
+import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
+import org.jboss.metadata.ejb.spec.EjbType;
+import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
+import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
+import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.test.common.ValidationHelper;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
-import java.io.InputStream;
-
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshalJboss;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

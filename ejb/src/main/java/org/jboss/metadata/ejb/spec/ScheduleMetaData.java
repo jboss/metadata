@@ -21,10 +21,11 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.javaee.support.IdMetaDataImpl;
+import java.io.Serializable;
 
 import javax.ejb.Schedule;
-import java.io.Serializable;
+
+import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
  * Represents metadata for &lt;schedule&gt; element in the ejb-jar.xml

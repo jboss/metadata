@@ -21,10 +21,10 @@
  */
 package org.jboss.metadata.javaee.jboss;
 
+import java.util.List;
+
 import org.jboss.metadata.javaee.spec.PortComponentRef;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
-
-import java.util.List;
 
 /**
  * <xsd:sequence> <xsd:element name="service-ref-name" type="xsd:string"/>

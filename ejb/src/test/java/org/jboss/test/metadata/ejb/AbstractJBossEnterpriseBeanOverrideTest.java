@@ -28,12 +28,11 @@ import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Set;
 
+import junit.framework.AssertionFailedError;
+import junit.framework.TestCase;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.util.Classes;
-
-import junit.framework.AssertionFailedError;
-import junit.framework.TestCase;
 
 /**
  *

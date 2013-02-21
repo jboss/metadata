@@ -22,11 +22,22 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import org.jboss.metadata.ejb.spec.*;
-import org.jboss.metadata.property.PropertyReplacer;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jboss.metadata.ejb.spec.AbstractGenericBeanMetaData;
+import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
+import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
+import org.jboss.metadata.ejb.spec.BusinessLocalsMetaData;
+import org.jboss.metadata.ejb.spec.BusinessRemotesMetaData;
+import org.jboss.metadata.ejb.spec.EjbType;
+import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
+import org.jboss.metadata.ejb.spec.InitMethodMetaData;
+import org.jboss.metadata.ejb.spec.InitMethodsMetaData;
+import org.jboss.metadata.ejb.spec.RemoveMethodMetaData;
+import org.jboss.metadata.ejb.spec.RemoveMethodsMetaData;
+import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
+import org.jboss.metadata.property.PropertyReplacer;
 
 /**
  * EJB3.0 version specific ejb-jar.xml parser
