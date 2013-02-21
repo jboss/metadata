@@ -36,62 +36,60 @@ import org.jboss.metadata.merge.ejb.jboss.JBossEnvironmentRefsGroupMetaDataMerge
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-public class JBossEnvironmentRefsGroupOverrideUnitTestCase extends TestCase
-{
-   public void testJndiNameForResourceReferences()
-   {
-      JBossEnvironmentRefsGroupMetaData spec = new JBossEnvironmentRefsGroupMetaData();
-      ResourceReferencesMetaData refs = new ResourceReferencesMetaData();
-      spec.setResourceReferences(refs);
-      ResourceReferenceMetaData ref = new ResourceReferenceMetaData();
-      ref.setResourceRefName("jms/MyQueueConnection");
-      ref.setType("javax.jms.QueueConnectionFactory");
-      ref.setResAuth(ResourceAuthorityType.Container);
-      refs.add(ref);
-      ref = new ResourceReferenceMetaData();
-      ref.setResourceRefName("jms/QueueName");
-      ref.setType("javax.jms.Queue");
-      ref.setResAuth(ResourceAuthorityType.Container);
-      refs.add(ref);
+public class JBossEnvironmentRefsGroupOverrideUnitTestCase extends TestCase {
+    public void testJndiNameForResourceReferences() {
+        JBossEnvironmentRefsGroupMetaData spec = new JBossEnvironmentRefsGroupMetaData();
+        ResourceReferencesMetaData refs = new ResourceReferencesMetaData();
+        spec.setResourceReferences(refs);
+        ResourceReferenceMetaData ref = new ResourceReferenceMetaData();
+        ref.setResourceRefName("jms/MyQueueConnection");
+        ref.setType("javax.jms.QueueConnectionFactory");
+        ref.setResAuth(ResourceAuthorityType.Container);
+        refs.add(ref);
+        ref = new ResourceReferenceMetaData();
+        ref.setResourceRefName("jms/QueueName");
+        ref.setType("javax.jms.Queue");
+        ref.setResAuth(ResourceAuthorityType.Container);
+        refs.add(ref);
 
-      JBossEnvironmentRefsGroupMetaData jboss = new JBossEnvironmentRefsGroupMetaData();
-      refs = new ResourceReferencesMetaData();
-      jboss.setResourceReferences(refs);
-      ref = new ResourceReferenceMetaData();
-      ref.setResourceRefName("jms/MyQueueConnection");
-      ref.setResourceName("queuefactoryref");
-      refs.add(ref);
-      ref = new ResourceReferenceMetaData();
-      ref.setResourceRefName("jms/QueueName");
-      ref.setResourceName("queueref");
-      refs.add(ref);
+        JBossEnvironmentRefsGroupMetaData jboss = new JBossEnvironmentRefsGroupMetaData();
+        refs = new ResourceReferencesMetaData();
+        jboss.setResourceReferences(refs);
+        ref = new ResourceReferenceMetaData();
+        ref.setResourceRefName("jms/MyQueueConnection");
+        ref.setResourceName("queuefactoryref");
+        refs.add(ref);
+        ref = new ResourceReferenceMetaData();
+        ref.setResourceRefName("jms/QueueName");
+        ref.setResourceName("queueref");
+        refs.add(ref);
 
-      ResourceManagersMetaData rms = new ResourceManagersMetaData();
-      ResourceManagerMetaData rm = new ResourceManagerMetaData();
-      rm.setResName("queuefactoryref");
-      rm.setResJndiName("java:/JmsXA");
-      rms.add(rm);
-      rm = new ResourceManagerMetaData();
-      rm.setResName("queueref");
-      rm.setResJndiName("queue/testQueue");
-      rms.add(rm);
+        ResourceManagersMetaData rms = new ResourceManagersMetaData();
+        ResourceManagerMetaData rm = new ResourceManagerMetaData();
+        rm.setResName("queuefactoryref");
+        rm.setResJndiName("java:/JmsXA");
+        rms.add(rm);
+        rm = new ResourceManagerMetaData();
+        rm.setResName("queueref");
+        rm.setResJndiName("queue/testQueue");
+        rms.add(rm);
 
-      JBossEnvironmentRefsGroupMetaData merged = new JBossEnvironmentRefsGroupMetaData();
-      JBossEnvironmentRefsGroupMetaDataMerger.merge(merged, jboss, spec, rms);
-      refs = merged.getResourceReferences();
-      assertNotNull(refs);
-      assertEquals(2, refs.size());
-      ref = refs.get("jms/MyQueueConnection");
-      assertNotNull(ref);
-      assertEquals("javax.jms.QueueConnectionFactory", ref.getType());
-      assertEquals(ResourceAuthorityType.Container, ref.getResAuth());
-      assertEquals("queuefactoryref", ref.getResourceName());
-      assertEquals("java:/JmsXA", ref.getJndiName());
-      ref = refs.get("jms/QueueName");
-      assertNotNull(ref);
-      assertEquals("javax.jms.Queue", ref.getType());
-      assertEquals(ResourceAuthorityType.Container, ref.getResAuth());
-      assertEquals("queueref", ref.getResourceName());
-      assertEquals("queue/testQueue", ref.getJndiName());
-   }
+        JBossEnvironmentRefsGroupMetaData merged = new JBossEnvironmentRefsGroupMetaData();
+        JBossEnvironmentRefsGroupMetaDataMerger.merge(merged, jboss, spec, rms);
+        refs = merged.getResourceReferences();
+        assertNotNull(refs);
+        assertEquals(2, refs.size());
+        ref = refs.get("jms/MyQueueConnection");
+        assertNotNull(ref);
+        assertEquals("javax.jms.QueueConnectionFactory", ref.getType());
+        assertEquals(ResourceAuthorityType.Container, ref.getResAuth());
+        assertEquals("queuefactoryref", ref.getResourceName());
+        assertEquals("java:/JmsXA", ref.getJndiName());
+        ref = refs.get("jms/QueueName");
+        assertNotNull(ref);
+        assertEquals("javax.jms.Queue", ref.getType());
+        assertEquals(ResourceAuthorityType.Container, ref.getResAuth());
+        assertEquals("queueref", ref.getResourceName());
+        assertEquals("queue/testQueue", ref.getJndiName());
+    }
 }

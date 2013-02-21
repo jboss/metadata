@@ -30,7 +30,6 @@ import javax.ejb.Remote;
  * @version $Revision: $
  */
 @Remote
-public interface MyStatelessRemote
-{
+public interface MyStatelessRemote {
 
 }

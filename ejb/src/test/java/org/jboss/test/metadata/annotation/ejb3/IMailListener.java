@@ -27,7 +27,6 @@ package org.jboss.test.metadata.annotation.ejb3;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 67280 $
  */
-public interface IMailListener
-{
-   public void onMessage(IMailMsg msg);
+public interface IMailListener {
+    void onMessage(IMailMsg msg);
 }

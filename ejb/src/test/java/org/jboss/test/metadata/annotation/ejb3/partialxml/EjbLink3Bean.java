@@ -28,7 +28,6 @@ import javax.ejb.Stateless;
  * @author Scott.Stark@jboss.org
  * @version $Revision:$
  */
-public class EjbLink3Bean
-{
+public class EjbLink3Bean {
 
 }

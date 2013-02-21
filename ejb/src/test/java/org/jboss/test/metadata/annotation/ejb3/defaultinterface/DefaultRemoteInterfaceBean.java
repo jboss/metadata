@@ -33,7 +33,6 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @Remote
-public class DefaultRemoteInterfaceBean implements DefaultInterface
-{
+public class DefaultRemoteInterfaceBean implements DefaultInterface {
 
 }

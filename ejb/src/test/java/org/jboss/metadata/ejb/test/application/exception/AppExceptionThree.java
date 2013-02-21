@@ -27,7 +27,6 @@ package org.jboss.metadata.ejb.test.application.exception;
  * @author Jaikiran Pai
  * @version $Revision: $
  */
-public class AppExceptionThree extends NumberFormatException
-{
+public class AppExceptionThree extends NumberFormatException {
 
 }

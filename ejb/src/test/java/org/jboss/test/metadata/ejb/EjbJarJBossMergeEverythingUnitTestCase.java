@@ -51,378 +51,348 @@ import org.jboss.metadata.merge.javaee.spec.EJBLocalReferenceMetaDataMerger;
 
 /**
  * Tests the merge of ejb-jar.xml and jboss.xml
+ *
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @author Anil.Saldhana@jboss.com
  * @version $Revision: 1.1 $
  */
 public class EjbJarJBossMergeEverythingUnitTestCase
-   extends AbstractEJBEverythingTest
-{
-   public static Test suite()
-   {
-      return suite(EjbJarJBossMergeEverythingUnitTestCase.class);
-   }
+        extends AbstractEJBEverythingTest {
+    public static Test suite() {
+        return suite(EjbJarJBossMergeEverythingUnitTestCase.class);
+    }
 
-   public EjbJarJBossMergeEverythingUnitTestCase(String name)
-   {
-      super(name);
-   }
+    public EjbJarJBossMergeEverythingUnitTestCase(String name) {
+        super(name);
+    }
 
-   /**
-    * Very basic merge test
-    */
-   public void testEJB3xEverything() throws Exception
-   {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testEverything.xml", EjbJarMetaData.class, null);
-      EjbJar3xEverythingUnitTestCase ejbJar = new EjbJar3xEverythingUnitTestCase("ejb-jar");
-      ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
+    /**
+     * Very basic merge test
+     */
+    public void testEJB3xEverything() throws Exception {
+        EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testEverything.xml", EjbJarMetaData.class, null);
+        EjbJar3xEverythingUnitTestCase ejbJar = new EjbJar3xEverythingUnitTestCase("ejb-jar");
+        ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
 
-      JBoss50MetaData jbossMetaData = unmarshal("JBoss5xEverything_testEverything.xml", JBoss50MetaData.class, null);
-      JBoss5xEverythingUnitTestCase jboss = new JBoss5xEverythingUnitTestCase("jboss");
-      jboss.assertEverything(jbossMetaData, Mode.JBOSS);
+        JBoss50MetaData jbossMetaData = unmarshal("JBoss5xEverything_testEverything.xml", JBoss50MetaData.class, null);
+        JBoss5xEverythingUnitTestCase jboss = new JBoss5xEverythingUnitTestCase("jboss");
+        jboss.assertEverything(jbossMetaData, Mode.JBOSS);
 
-      // Create the merged view
-      jbossMetaData.merge(null, ejbJarMetaData);
+        // Create the merged view
+        jbossMetaData.merge(null, ejbJarMetaData);
 
-      assertTrue(jbossMetaData.isEJB3x());
+        assertTrue(jbossMetaData.isEJB3x());
 
-      ejbJar.assertInterceptors(jbossMetaData, Mode.JBOSS);
+        ejbJar.assertInterceptors(jbossMetaData, Mode.JBOSS);
 
-      JBossEnterpriseBeanMetaData ejb = jbossMetaData.getEnterpriseBean("session1EjbName");
-      assertNotNull(ejb);
-      JBossSessionBeanMetaData jejb = (JBossSessionBeanMetaData) ejb;
-      ejbJar.assertFullSessionBean("session1", jejb, Mode.JBOSS);
-      jboss.assertWebservices(jbossMetaData.getWebservices(), Mode.JBOSS);
+        JBossEnterpriseBeanMetaData ejb = jbossMetaData.getEnterpriseBean("session1EjbName");
+        assertNotNull(ejb);
+        JBossSessionBeanMetaData jejb = (JBossSessionBeanMetaData) ejb;
+        ejbJar.assertFullSessionBean("session1", jejb, Mode.JBOSS);
+        jboss.assertWebservices(jbossMetaData.getWebservices(), Mode.JBOSS);
 
-      {
-         JBossMessageDrivenBeanMetaData mdb = (JBossMessageDrivenBeanMetaData) jbossMetaData.getEnterpriseBean("mdb1EjbName");
-         ejbJar.assertActivationConfig("mdb1", mdb.getActivationConfig(), Mode.JBOSS);
-      }
+        {
+            JBossMessageDrivenBeanMetaData mdb = (JBossMessageDrivenBeanMetaData) jbossMetaData.getEnterpriseBean("mdb1EjbName");
+            ejbJar.assertActivationConfig("mdb1", mdb.getActivationConfig(), Mode.JBOSS);
+        }
 
-      ejbJar.assertInterceptorBindings(3, jbossMetaData.getAssemblyDescriptor().getInterceptorBindings());
+        ejbJar.assertInterceptorBindings(3, jbossMetaData.getAssemblyDescriptor().getInterceptorBindings());
 
-      // Basic check if EjbReferences.invokerBindings are merged
-      assertEjbReferenceInvokerBindings(ejb);
-      //this is ejb2 only? assertInvokerBindings(jbossMetaData.getInvokerProxyBindings());
-   }
+        // Basic check if EjbReferences.invokerBindings are merged
+        assertEjbReferenceInvokerBindings(ejb);
+        //this is ejb2 only? assertInvokerBindings(jbossMetaData.getInvokerProxyBindings());
+    }
 
-   /**
-    * merge jbossMetaData more times
-    */
-   public void testEJB3xEverythingDualMerge() throws Exception
-   {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testEverything.xml", EjbJarMetaData.class, null);
-      EjbJar3xEverythingUnitTestCase ejbJar = new EjbJar3xEverythingUnitTestCase("ejb-jar");
-      ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
+    /**
+     * merge jbossMetaData more times
+     */
+    public void testEJB3xEverythingDualMerge() throws Exception {
+        EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testEverything.xml", EjbJarMetaData.class, null);
+        EjbJar3xEverythingUnitTestCase ejbJar = new EjbJar3xEverythingUnitTestCase("ejb-jar");
+        ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
 
-      JBossMetaData specMetaData = new JBossMetaData();
-      specMetaData.merge(null, ejbJarMetaData);
+        JBossMetaData specMetaData = new JBossMetaData();
+        specMetaData.merge(null, ejbJarMetaData);
 
-      JBoss50MetaData jbossMetaData = unmarshal("JBoss5xEverything_testEverything.xml", JBoss50MetaData.class, null);
-      JBoss5xEverythingUnitTestCase jboss = new JBoss5xEverythingUnitTestCase("jboss");
-      jboss.assertEverything(jbossMetaData, Mode.JBOSS);
-      jboss.assertWebservices(jbossMetaData.getWebservices(), Mode.JBOSS);
+        JBoss50MetaData jbossMetaData = unmarshal("JBoss5xEverything_testEverything.xml", JBoss50MetaData.class, null);
+        JBoss5xEverythingUnitTestCase jboss = new JBoss5xEverythingUnitTestCase("jboss");
+        jboss.assertEverything(jbossMetaData, Mode.JBOSS);
+        jboss.assertWebservices(jbossMetaData.getWebservices(), Mode.JBOSS);
 
-      // Create the merged view
-      JBossMetaData mergedMetaData = new JBossMetaData();
-      mergedMetaData.merge(jbossMetaData, specMetaData);
+        // Create the merged view
+        JBossMetaData mergedMetaData = new JBossMetaData();
+        mergedMetaData.merge(jbossMetaData, specMetaData);
 
-      assertTrue(mergedMetaData.isEJB3x());
-      ejbJar.assertInterceptors(mergedMetaData, Mode.JBOSS);
+        assertTrue(mergedMetaData.isEJB3x());
+        ejbJar.assertInterceptors(mergedMetaData, Mode.JBOSS);
 
-      JBossEnterpriseBeanMetaData ejb = mergedMetaData.getEnterpriseBean("session1EjbName");
-      assertNotNull(ejb);
-      JBossSessionBeanMetaData jejb = (JBossSessionBeanMetaData) ejb;
-      ejbJar.assertFullSessionBean("session1", jejb, Mode.JBOSS);
-      jboss.assertWebservices(mergedMetaData.getWebservices(), Mode.JBOSS);
+        JBossEnterpriseBeanMetaData ejb = mergedMetaData.getEnterpriseBean("session1EjbName");
+        assertNotNull(ejb);
+        JBossSessionBeanMetaData jejb = (JBossSessionBeanMetaData) ejb;
+        ejbJar.assertFullSessionBean("session1", jejb, Mode.JBOSS);
+        jboss.assertWebservices(mergedMetaData.getWebservices(), Mode.JBOSS);
 
-      {
-         JBossMessageDrivenBeanMetaData mdb = (JBossMessageDrivenBeanMetaData) mergedMetaData.getEnterpriseBean("mdb1EjbName");
-         ejbJar.assertActivationConfig("mdb1", mdb.getActivationConfig(), Mode.JBOSS);
-      }
+        {
+            JBossMessageDrivenBeanMetaData mdb = (JBossMessageDrivenBeanMetaData) mergedMetaData.getEnterpriseBean("mdb1EjbName");
+            ejbJar.assertActivationConfig("mdb1", mdb.getActivationConfig(), Mode.JBOSS);
+        }
 
-      ejbJar.assertInterceptorBindings(3, mergedMetaData.getAssemblyDescriptor().getInterceptorBindings());
+        ejbJar.assertInterceptorBindings(3, mergedMetaData.getAssemblyDescriptor().getInterceptorBindings());
 
-      // Basic check if EjbReferences.invokerBindings are merged
-      assertEjbReferenceInvokerBindings(ejb);
-      // this is ejb2 only? assertInvokerBindings(mergedMetaData.getInvokerProxyBindings());
-   }
+        // Basic check if EjbReferences.invokerBindings are merged
+        assertEjbReferenceInvokerBindings(ejb);
+        // this is ejb2 only? assertInvokerBindings(mergedMetaData.getInvokerProxyBindings());
+    }
 
-   /**
-    * merge jbossMetaData more times
-    */
-   public void testEJB21EverythingDualMerge() throws Exception
-   {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJarMetaData.class, null);
-      EjbJar21EverythingUnitTestCase ejbJar = new EjbJar21EverythingUnitTestCase("ejb-jar");
-      ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
+    /**
+     * merge jbossMetaData more times
+     */
+    public void testEJB21EverythingDualMerge() throws Exception {
+        EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJarMetaData.class, null);
+        EjbJar21EverythingUnitTestCase ejbJar = new EjbJar21EverythingUnitTestCase("ejb-jar");
+        ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
 
-      JBossMetaData specMetaData = new JBossMetaData();
-      specMetaData.merge(null, ejbJarMetaData);
+        JBossMetaData specMetaData = new JBossMetaData();
+        specMetaData.merge(null, ejbJarMetaData);
 
-      JBoss50DTDMetaData jbossMetaData = unmarshal("JBoss5xEverything_testEverythingDTD.xml", JBoss50DTDMetaData.class, null);
-      JBoss5xEverythingUnitTestCase jboss = new JBoss5xEverythingUnitTestCase("jboss");
-      jboss.assertEverything(jbossMetaData, Mode.JBOSS_DTD);
-      jboss.assertWebservices(jbossMetaData.getWebservices(), Mode.JBOSS_DTD);
+        JBoss50DTDMetaData jbossMetaData = unmarshal("JBoss5xEverything_testEverythingDTD.xml", JBoss50DTDMetaData.class, null);
+        JBoss5xEverythingUnitTestCase jboss = new JBoss5xEverythingUnitTestCase("jboss");
+        jboss.assertEverything(jbossMetaData, Mode.JBOSS_DTD);
+        jboss.assertWebservices(jbossMetaData.getWebservices(), Mode.JBOSS_DTD);
 
-      //jbossMetaData.setOverridenMetaData(ejbJarMetaData);
-      // Create the merged view
-      JBossMetaData mergedMetaData = new JBossMetaData();
-      mergedMetaData.merge(jbossMetaData, specMetaData);
+        //jbossMetaData.setOverridenMetaData(ejbJarMetaData);
+        // Create the merged view
+        JBossMetaData mergedMetaData = new JBossMetaData();
+        mergedMetaData.merge(jbossMetaData, specMetaData);
 
-      assertTrue(mergedMetaData.isEJB2x());
+        assertTrue(mergedMetaData.isEJB2x());
 
-      JBossEnterpriseBeanMetaData ejb = mergedMetaData.getEnterpriseBean("session1EjbName");
-      assertNotNull(ejb);
-      JBossSessionBeanMetaData jejb = (JBossSessionBeanMetaData) ejb;
-      ejbJar.assertFullSessionBean("session1", jejb, Mode.JBOSS_DTD);
-      jboss.assertWebservices(mergedMetaData.getWebservices(), Mode.JBOSS_DTD);
-      // Basic check if EjbReferences.invokerBindings are merged
-      assertEjbReferenceInvokerBindings(ejb);
-      assertInvokerBindings(mergedMetaData.getInvokerProxyBindings());
-   }
+        JBossEnterpriseBeanMetaData ejb = mergedMetaData.getEnterpriseBean("session1EjbName");
+        assertNotNull(ejb);
+        JBossSessionBeanMetaData jejb = (JBossSessionBeanMetaData) ejb;
+        ejbJar.assertFullSessionBean("session1", jejb, Mode.JBOSS_DTD);
+        jboss.assertWebservices(mergedMetaData.getWebservices(), Mode.JBOSS_DTD);
+        // Basic check if EjbReferences.invokerBindings are merged
+        assertEjbReferenceInvokerBindings(ejb);
+        assertInvokerBindings(mergedMetaData.getInvokerProxyBindings());
+    }
 
 
-   /**
-    * Very basic merge test
-    */
-   public void testEJB21Everything() throws Exception
-   {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJarMetaData.class, null);
-      EjbJar21EverythingUnitTestCase ejbJar = new EjbJar21EverythingUnitTestCase("ejb-jar");
-      ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
+    /**
+     * Very basic merge test
+     */
+    public void testEJB21Everything() throws Exception {
+        EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar21Everything_testEverything.xml", EjbJarMetaData.class, null);
+        EjbJar21EverythingUnitTestCase ejbJar = new EjbJar21EverythingUnitTestCase("ejb-jar");
+        ejbJar.assertEverything(ejbJarMetaData, Mode.SPEC);
 
-      JBoss50DTDMetaData jbossMetaData = unmarshal("JBoss5xEverything_testEverythingDTD.xml", JBoss50DTDMetaData.class, null);
-      JBoss5xEverythingUnitTestCase jboss = new JBoss5xEverythingUnitTestCase("jboss");
-      jboss.assertEverything(jbossMetaData, Mode.JBOSS_DTD);
-      jboss.assertWebservices(jbossMetaData.getWebservices(), Mode.JBOSS_DTD);
+        JBoss50DTDMetaData jbossMetaData = unmarshal("JBoss5xEverything_testEverythingDTD.xml", JBoss50DTDMetaData.class, null);
+        JBoss5xEverythingUnitTestCase jboss = new JBoss5xEverythingUnitTestCase("jboss");
+        jboss.assertEverything(jbossMetaData, Mode.JBOSS_DTD);
+        jboss.assertWebservices(jbossMetaData.getWebservices(), Mode.JBOSS_DTD);
 
-      //jbossMetaData.setOverridenMetaData(ejbJarMetaData);
-      // Create the merged view
-      jbossMetaData.merge(null, ejbJarMetaData);
+        //jbossMetaData.setOverridenMetaData(ejbJarMetaData);
+        // Create the merged view
+        jbossMetaData.merge(null, ejbJarMetaData);
 
-      assertTrue(jbossMetaData.isEJB2x());
+        assertTrue(jbossMetaData.isEJB2x());
 
-      JBossEnterpriseBeanMetaData ejb = jbossMetaData.getEnterpriseBean("session1EjbName");
-      assertNotNull(ejb);
-      JBossSessionBeanMetaData jejb = (JBossSessionBeanMetaData) ejb;
-      ejbJar.assertFullSessionBean("session1", jejb, Mode.JBOSS_DTD);
-      // Basic check if EjbReferences.invokerBindings are merged
-      assertEjbReferenceInvokerBindings(ejb);
-      assertInvokerBindings(jbossMetaData.getInvokerProxyBindings());
-   }
+        JBossEnterpriseBeanMetaData ejb = jbossMetaData.getEnterpriseBean("session1EjbName");
+        assertNotNull(ejb);
+        JBossSessionBeanMetaData jejb = (JBossSessionBeanMetaData) ejb;
+        ejbJar.assertFullSessionBean("session1", jejb, Mode.JBOSS_DTD);
+        // Basic check if EjbReferences.invokerBindings are merged
+        assertEjbReferenceInvokerBindings(ejb);
+        assertInvokerBindings(jbossMetaData.getInvokerProxyBindings());
+    }
 
-   /**
-    * Tests that merge of ejb-jar.xml and jboss.xml preserves beans
-    * that only exist in jboss.xml.
-    *
-    * @throws Exception
-    */
-   public void testBeanOnlyInJBoss() throws Exception
-   {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testBeanOnlyInJBoss.xml", EjbJarMetaData.class, null);
-      JBossMetaData jbossMetaData = unmarshal("JBoss5xEverything_testBeanOnlyInJBoss.xml", JBoss50MetaData.class, null);
-      // Create a merged view
-      JBossMetaData mergedMetaData = new JBossMetaData();
-      mergedMetaData.merge(jbossMetaData, ejbJarMetaData);
+    /**
+     * Tests that merge of ejb-jar.xml and jboss.xml preserves beans
+     * that only exist in jboss.xml.
+     *
+     * @throws Exception
+     */
+    public void testBeanOnlyInJBoss() throws Exception {
+        EjbJarMetaData ejbJarMetaData = unmarshal("EjbJar3xEverything_testBeanOnlyInJBoss.xml", EjbJarMetaData.class, null);
+        JBossMetaData jbossMetaData = unmarshal("JBoss5xEverything_testBeanOnlyInJBoss.xml", JBoss50MetaData.class, null);
+        // Create a merged view
+        JBossMetaData mergedMetaData = new JBossMetaData();
+        mergedMetaData.merge(jbossMetaData, ejbJarMetaData);
 
-      JBossEnterpriseBeansMetaData beans = mergedMetaData.getEnterpriseBeans();
-      assertNotNull(beans);
-      assertEquals(3, beans.size());
+        JBossEnterpriseBeansMetaData beans = mergedMetaData.getEnterpriseBeans();
+        assertNotNull(beans);
+        assertEquals(3, beans.size());
 
-      JBossEnterpriseBeanMetaData bean = beans.get("session0EjbName");
-      assertNotNull(bean);
-      DescriptionGroupMetaData descGroup = bean.getDescriptionGroup();
-      assertNotNull(descGroup);
-      assertEquals("en-session0-desc", descGroup.getDescription());
+        JBossEnterpriseBeanMetaData bean = beans.get("session0EjbName");
+        assertNotNull(bean);
+        DescriptionGroupMetaData descGroup = bean.getDescriptionGroup();
+        assertNotNull(descGroup);
+        assertEquals("en-session0-desc", descGroup.getDescription());
 
-      bean = beans.get("session1EjbName");
-      assertNotNull(bean);
-      descGroup = bean.getDescriptionGroup();
-      assertNotNull(descGroup);
-      assertEquals("en-session1-desc", descGroup.getDescription());
+        bean = beans.get("session1EjbName");
+        assertNotNull(bean);
+        descGroup = bean.getDescriptionGroup();
+        assertNotNull(descGroup);
+        assertEquals("en-session1-desc", descGroup.getDescription());
 
-      bean = beans.get("session2EjbName");
-      assertNotNull(bean);
-      descGroup = bean.getDescriptionGroup();
-      assertNotNull(descGroup);
-      assertEquals("en-session2-override", descGroup.getDescription());
-   }
+        bean = beans.get("session2EjbName");
+        assertNotNull(bean);
+        descGroup = bean.getDescriptionGroup();
+        assertNotNull(descGroup);
+        assertEquals("en-session2-override", descGroup.getDescription());
+    }
 
-   /**
-    * There was a CCE during merge since every generic bean was assumed to be a session bean
-    */
-   public void testMdbGeneric() throws Exception
-   {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_MdbGeneric_ejb-jar.xml", EjbJarMetaData.class, null);
-      JBossMetaData jbossMetaData = unmarshal("EjbJarJBossMerge_generic_jboss.xml", JBoss50MetaData.class, null);
-      // Create a merged view
-      JBossMetaData mergedMetaData = new JBossMetaData();
-      mergedMetaData.merge(jbossMetaData, ejbJarMetaData);
+    /**
+     * There was a CCE during merge since every generic bean was assumed to be a session bean
+     */
+    public void testMdbGeneric() throws Exception {
+        EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_MdbGeneric_ejb-jar.xml", EjbJarMetaData.class, null);
+        JBossMetaData jbossMetaData = unmarshal("EjbJarJBossMerge_generic_jboss.xml", JBoss50MetaData.class, null);
+        // Create a merged view
+        JBossMetaData mergedMetaData = new JBossMetaData();
+        mergedMetaData.merge(jbossMetaData, ejbJarMetaData);
 
-      JBossEnterpriseBeansMetaData beans = mergedMetaData.getEnterpriseBeans();
-      assertNotNull(beans);
-      assertEquals(1, beans.size());
-      JBossEnterpriseBeanMetaData bean = beans.get("myEjbName");
-      assertNotNull(bean);
-      assertTrue(bean.isMessageDriven());
-   }
+        JBossEnterpriseBeansMetaData beans = mergedMetaData.getEnterpriseBeans();
+        assertNotNull(beans);
+        assertEquals(1, beans.size());
+        JBossEnterpriseBeanMetaData bean = beans.get("myEjbName");
+        assertNotNull(bean);
+        assertTrue(bean.isMessageDriven());
+    }
 
-   /**
-    * There was a CCE during merge since every generic bean was assumed to be a session bean
-    */
-   public void testSessionGeneric() throws Exception
-   {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_SessionGeneric_ejb-jar.xml", EjbJarMetaData.class, null);
-      JBossMetaData jbossMetaData = unmarshal("EjbJarJBossMerge_generic_jboss.xml", JBoss50MetaData.class, null);
-      // Create a merged view
-      JBossMetaData mergedMetaData = new JBossMetaData();
-      mergedMetaData.merge(jbossMetaData, ejbJarMetaData);
+    /**
+     * There was a CCE during merge since every generic bean was assumed to be a session bean
+     */
+    public void testSessionGeneric() throws Exception {
+        EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_SessionGeneric_ejb-jar.xml", EjbJarMetaData.class, null);
+        JBossMetaData jbossMetaData = unmarshal("EjbJarJBossMerge_generic_jboss.xml", JBoss50MetaData.class, null);
+        // Create a merged view
+        JBossMetaData mergedMetaData = new JBossMetaData();
+        mergedMetaData.merge(jbossMetaData, ejbJarMetaData);
 
-      JBossEnterpriseBeansMetaData beans = mergedMetaData.getEnterpriseBeans();
-      assertNotNull(beans);
-      assertEquals(1, beans.size());
-      JBossEnterpriseBeanMetaData bean = beans.get("myEjbName");
-      assertNotNull(bean);
-      assertTrue(bean.isSession());
-   }
+        JBossEnterpriseBeansMetaData beans = mergedMetaData.getEnterpriseBeans();
+        assertNotNull(beans);
+        assertEquals(1, beans.size());
+        JBossEnterpriseBeanMetaData bean = beans.get("myEjbName");
+        assertNotNull(bean);
+        assertTrue(bean.isSession());
+    }
 
-   /**
-    * There was a CCE during merge since every generic bean was assumed to be a session bean
-    */
-   public void testEntityGeneric() throws Exception
-   {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_EntityGeneric_ejb-jar.xml", EjbJarMetaData.class, null);
-      JBossMetaData jbossMetaData = unmarshal("EjbJarJBossMerge_generic_jboss.xml", JBoss50MetaData.class, null);
-      // Create a merged view
-      JBossMetaData mergedMetaData = new JBossMetaData();
-      mergedMetaData.merge(jbossMetaData, ejbJarMetaData);
+    /**
+     * There was a CCE during merge since every generic bean was assumed to be a session bean
+     */
+    public void testEntityGeneric() throws Exception {
+        EjbJarMetaData ejbJarMetaData = unmarshal("EjbJarJBossMerge_EntityGeneric_ejb-jar.xml", EjbJarMetaData.class, null);
+        JBossMetaData jbossMetaData = unmarshal("EjbJarJBossMerge_generic_jboss.xml", JBoss50MetaData.class, null);
+        // Create a merged view
+        JBossMetaData mergedMetaData = new JBossMetaData();
+        mergedMetaData.merge(jbossMetaData, ejbJarMetaData);
 
-      JBossEnterpriseBeansMetaData beans = mergedMetaData.getEnterpriseBeans();
-      assertNotNull(beans);
-      assertEquals(1, beans.size());
-      JBossEnterpriseBeanMetaData bean = beans.get("myEjbName");
-      assertNotNull(bean);
-      assertTrue(bean.isEntity());
-   }
+        JBossEnterpriseBeansMetaData beans = mergedMetaData.getEnterpriseBeans();
+        assertNotNull(beans);
+        assertEquals(1, beans.size());
+        JBossEnterpriseBeanMetaData bean = beans.get("myEjbName");
+        assertNotNull(bean);
+        assertTrue(bean.isEntity());
+    }
 
-   public void testEJBLocalReferenceMerge() throws Exception
-   {
-      EJBLocalReferenceMetaData original = new EJBLocalReferenceMetaData();
-      original.setEjbRefName("crucialEjb");
-      EJBLocalReferenceMetaData override = new EJBLocalReferenceMetaData();
-      override.setLocal("CrucialLocal");
+    public void testEJBLocalReferenceMerge() throws Exception {
+        EJBLocalReferenceMetaData original = new EJBLocalReferenceMetaData();
+        original.setEjbRefName("crucialEjb");
+        EJBLocalReferenceMetaData override = new EJBLocalReferenceMetaData();
+        override.setLocal("CrucialLocal");
 
-      EJBLocalReferenceMetaData merged = new EJBLocalReferenceMetaData();
-      EJBLocalReferenceMetaDataMerger.merge(merged, override, original);
-      assertEquals("crucialEjb", merged.getEjbRefName());
-      assertEquals("CrucialLocal", merged.getLocal());
-   }
+        EJBLocalReferenceMetaData merged = new EJBLocalReferenceMetaData();
+        EJBLocalReferenceMetaDataMerger.merge(merged, override, original);
+        assertEquals("crucialEjb", merged.getEjbRefName());
+        assertEquals("CrucialLocal", merged.getLocal());
+    }
 
-   public void testHomeJndiNameForEJB3() throws Exception
-   {
-      EjbJarMetaData spec = new EjbJarMetaData(EjbJarVersion.EJB_3_1);
-      EnterpriseBeansMetaData specBeans = new EnterpriseBeansMetaData();
-      spec.setEnterpriseBeans(specBeans);
-      GenericBeanMetaData specBean = new GenericBeanMetaData();
-      specBean.setEjbName("ejb3session");
-      specBeans.add(specBean);
+    public void testHomeJndiNameForEJB3() throws Exception {
+        EjbJarMetaData spec = new EjbJarMetaData(EjbJarVersion.EJB_3_1);
+        EnterpriseBeansMetaData specBeans = new EnterpriseBeansMetaData();
+        spec.setEnterpriseBeans(specBeans);
+        GenericBeanMetaData specBean = new GenericBeanMetaData();
+        specBean.setEjbName("ejb3session");
+        specBeans.add(specBean);
 
-      JBossMetaData jboss = new JBossMetaData();
-      JBossEnterpriseBeansMetaData jbossBeans = new JBossEnterpriseBeansMetaData();
-      jboss.setEnterpriseBeans(jbossBeans);
-      JBossSessionBeanMetaData jbossBean = new JBossSessionBeanMetaData();
-      jbossBean.setEjbName("ejb3session");
-      jbossBean.setHomeJndiName("home-jndi-name");
-      jbossBeans.add(jbossBean);
+        JBossMetaData jboss = new JBossMetaData();
+        JBossEnterpriseBeansMetaData jbossBeans = new JBossEnterpriseBeansMetaData();
+        jboss.setEnterpriseBeans(jbossBeans);
+        JBossSessionBeanMetaData jbossBean = new JBossSessionBeanMetaData();
+        jbossBean.setEjbName("ejb3session");
+        jbossBean.setHomeJndiName("home-jndi-name");
+        jbossBeans.add(jbossBean);
 
-      JBossMetaData merged = new JBossMetaData();
-      try
-      {
-         merged.merge(jboss, spec);
-         fail("ejb3 session bean can't have home-jndi-name");
-      }
-      catch(IllegalStateException e)
-      {
-         assertEquals("EJB3 bean ejb3session doesn't define home interface but defines home-jndi-name 'home-jndi-name' in jboss.xml", e.getMessage());
-      }
+        JBossMetaData merged = new JBossMetaData();
+        try {
+            merged.merge(jboss, spec);
+            fail("ejb3 session bean can't have home-jndi-name");
+        } catch (IllegalStateException e) {
+            assertEquals("EJB3 bean ejb3session doesn't define home interface but defines home-jndi-name 'home-jndi-name' in jboss.xml", e.getMessage());
+        }
 
-      jbossBean = new JBossSessionBeanMetaData();
-      jbossBean.setEjbName("ejb3session");
-      jbossBean.setLocalHomeJndiName("local-home-jndi-name");
-      jbossBeans.clear();
-      jbossBeans.add(jbossBean);
+        jbossBean = new JBossSessionBeanMetaData();
+        jbossBean.setEjbName("ejb3session");
+        jbossBean.setLocalHomeJndiName("local-home-jndi-name");
+        jbossBeans.clear();
+        jbossBeans.add(jbossBean);
 
-      merged = new JBossMetaData();
-      try
-      {
-         merged.merge(jboss, spec);
-         fail("ejb3 session bean can't have local-home-jndi-name");
-      }
-      catch(IllegalStateException e)
-      {
-         assertEquals("EJB3 bean ejb3session doesn't define local-home interface but defines local-home-jndi-name 'local-home-jndi-name' in jboss.xml", e.getMessage());
-      }
-   }
+        merged = new JBossMetaData();
+        try {
+            merged.merge(jboss, spec);
+            fail("ejb3 session bean can't have local-home-jndi-name");
+        } catch (IllegalStateException e) {
+            assertEquals("EJB3 bean ejb3session doesn't define local-home interface but defines local-home-jndi-name 'local-home-jndi-name' in jboss.xml", e.getMessage());
+        }
+    }
 
-   private Collection<Class<?>> loadClassesFromCurrentClassDir()
-   {
-      // In real life the deployer will pass probably pass a class scanner
-      Collection<Class<?>> classes = new ArrayList<Class<?>>();
-      URL currentClassDirURL = getClass().getResource(".");
-      File currentDir;
-      try
-      {
-         currentDir = new File(currentClassDirURL.toURI());
-      }
-      catch (URISyntaxException e)
-      {
-         throw new RuntimeException(e);
-      }
-      String classFileNames[] = currentDir.list(new FilenameFilter() {
-         public boolean accept(File dir, String name)
-         {
-            return name.endsWith(".class");
-         }
-      });
-      if(classFileNames == null)
-         throw new RuntimeException("list failed");
-
-      Arrays.sort(classFileNames);
-
-      for(String classFileName : classFileNames)
-      {
-         String className = getClass().getPackage().getName() + "." + classFileName.substring(0, classFileName.length() - 6);
-         try
-         {
-            classes.add(Class.forName(className));
-         }
-         catch (ClassNotFoundException e)
-         {
+    private Collection<Class<?>> loadClassesFromCurrentClassDir() {
+        // In real life the deployer will pass probably pass a class scanner
+        Collection<Class<?>> classes = new ArrayList<Class<?>>();
+        URL currentClassDirURL = getClass().getResource(".");
+        File currentDir;
+        try {
+            currentDir = new File(currentClassDirURL.toURI());
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
-         }
-      }
-      return classes;
-   }
+        }
+        String[] classFileNames = currentDir.list(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".class");
+            }
+        });
+        if (classFileNames == null) { throw new RuntimeException("list failed"); }
 
-   private void assertEjbReferenceInvokerBindings(JBossEnterpriseBeanMetaData bean)
-   {
-      Environment envRefs = bean.getJndiEnvironmentRefsGroup();
-      assertNotNull(envRefs);
-      EJBReferencesMetaData ejbReferences = envRefs.getEjbReferences();
-      assertNotNull(ejbReferences);
-      EJBReferenceMetaData ejbRef = ejbReferences.get("session1EjbRef1Name");
-      assertNotNull(ejbRef);
+        Arrays.sort(classFileNames);
 
-      assertEquals("session1Invoker1EjbName1", ejbRef.getInvokerBinding("invokerProxyBinding1Name"));
-      assertEquals("session1Invoker2EjbName1", ejbRef.getInvokerBinding("invokerProxyBinding2Name"));
-   }
+        for (String classFileName : classFileNames) {
+            String className = getClass().getPackage().getName() + "." + classFileName.substring(0, classFileName.length() - 6);
+            try {
+                classes.add(Class.forName(className));
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return classes;
+    }
 
-   private void assertInvokerBindings(InvokerProxyBindingsMetaData invokers)
-   {
-      assertNotNull(invokers);
-      assertTrue(invokers.size() > 0);
-      assertNotNull(invokers.get("invokerProxyBinding1Name"));
-      assertNotNull(invokers.get("invokerProxyBinding2Name"));
-   }
+    private void assertEjbReferenceInvokerBindings(JBossEnterpriseBeanMetaData bean) {
+        Environment envRefs = bean.getJndiEnvironmentRefsGroup();
+        assertNotNull(envRefs);
+        EJBReferencesMetaData ejbReferences = envRefs.getEjbReferences();
+        assertNotNull(ejbReferences);
+        EJBReferenceMetaData ejbRef = ejbReferences.get("session1EjbRef1Name");
+        assertNotNull(ejbRef);
+
+        assertEquals("session1Invoker1EjbName1", ejbRef.getInvokerBinding("invokerProxyBinding1Name"));
+        assertEquals("session1Invoker2EjbName1", ejbRef.getInvokerBinding("invokerProxyBinding2Name"));
+    }
+
+    private void assertInvokerBindings(InvokerProxyBindingsMetaData invokers) {
+        assertNotNull(invokers);
+        assertTrue(invokers.size() > 0);
+        assertNotNull(invokers.get("invokerProxyBinding1Name"));
+        assertNotNull(invokers.get("invokerProxyBinding2Name"));
+    }
 }

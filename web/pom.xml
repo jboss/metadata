@@ -99,7 +99,6 @@
         <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-            <version>1.0.0.Beta2</version>
         </dependency>
 
         <!-- Test Dependencies -->
@@ -110,20 +109,6 @@
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.4</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.test</groupId>
-            <artifactId>jboss-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
 </project>

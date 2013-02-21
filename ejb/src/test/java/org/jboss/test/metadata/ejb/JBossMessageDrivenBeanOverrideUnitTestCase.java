@@ -43,178 +43,171 @@ import org.jboss.metadata.javaee.spec.RunAsMetaData;
  * @version $Revision: 1.1 $
  */
 public class JBossMessageDrivenBeanOverrideUnitTestCase
-   extends AbstractJBossEnterpriseBeanOverrideTest
-{
-   public void testSimpleProperties() throws Exception
-   {
-      simplePropertiesTest(JBossMessageDrivenBeanMetaData.class, JBossEnterpriseBeanMetaData.class, null);
-   }
+        extends AbstractJBossEnterpriseBeanOverrideTest {
+    public void testSimpleProperties() throws Exception {
+        simplePropertiesTest(JBossMessageDrivenBeanMetaData.class, JBossEnterpriseBeanMetaData.class, null);
+    }
 
-   public void testTimeoutMethod()
-   {
-      JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
-      original.setEjbName("mdb");
+    public void testTimeoutMethod() {
+        JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
+        original.setEjbName("mdb");
 
-      NamedMethodMetaData method = new NamedMethodMetaData();
-      method.setMethodName("timeoutOriginal");
-      original.setTimeoutMethod(method);
+        NamedMethodMetaData method = new NamedMethodMetaData();
+        method.setMethodName("timeoutOriginal");
+        original.setTimeoutMethod(method);
 
-      JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
-      override.setEjbName("mdb");
+        JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
+        override.setEjbName("mdb");
 
-      method = new NamedMethodMetaData();
-      method.setMethodName("timeoutOverride");
-      override.setTimeoutMethod(method);
+        method = new NamedMethodMetaData();
+        method.setMethodName("timeoutOverride");
+        override.setTimeoutMethod(method);
 
-      JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
-      merged.merge(null, original);
-      method = merged.getTimeoutMethod();
-      assertNotNull(method);
-      assertTrue(original.getTimeoutMethod() == method);
+        JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
+        merged.merge(null, original);
+        method = merged.getTimeoutMethod();
+        assertNotNull(method);
+        assertTrue(original.getTimeoutMethod() == method);
 
-      merged = new JBossMessageDrivenBeanMetaData();
-      merged.merge(override, original);
-      method = merged.getTimeoutMethod();
-      assertNotNull(method);
-      assertTrue(override.getTimeoutMethod() == method);
-   }
+        merged = new JBossMessageDrivenBeanMetaData();
+        merged.merge(override, original);
+        method = merged.getTimeoutMethod();
+        assertNotNull(method);
+        assertTrue(override.getTimeoutMethod() == method);
+    }
 
-   public void testActivationConfig()
-   {
-      JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
-      original.setEjbName("mdb");
+    public void testActivationConfig() {
+        JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
+        original.setEjbName("mdb");
 
-      ActivationConfigPropertiesMetaData props = new ActivationConfigPropertiesMetaData();
-      ActivationConfigPropertyMetaData prop = new ActivationConfigPropertyMetaData();
-      prop.setName("prop1");
-      prop.setValue(prop.getName() + "Original");
-      props.add(prop);
-      prop = new ActivationConfigPropertyMetaData();
-      prop.setName("prop2");
-      prop.setValue(prop.getName() + "Original");
-      props.add(prop);
-      ActivationConfigMetaData aconfig = new ActivationConfigMetaData();
-      aconfig.setActivationConfigProperties(props);
-      original.setActivationConfig(aconfig);
+        ActivationConfigPropertiesMetaData props = new ActivationConfigPropertiesMetaData();
+        ActivationConfigPropertyMetaData prop = new ActivationConfigPropertyMetaData();
+        prop.setName("prop1");
+        prop.setValue(prop.getName() + "Original");
+        props.add(prop);
+        prop = new ActivationConfigPropertyMetaData();
+        prop.setName("prop2");
+        prop.setValue(prop.getName() + "Original");
+        props.add(prop);
+        ActivationConfigMetaData aconfig = new ActivationConfigMetaData();
+        aconfig.setActivationConfigProperties(props);
+        original.setActivationConfig(aconfig);
 
-      JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
-      override.setEjbName("mdb");
+        JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
+        override.setEjbName("mdb");
 
-      props = new ActivationConfigPropertiesMetaData();
-      prop = new ActivationConfigPropertyMetaData();
-      prop.setName("prop2");
-      prop.setValue(prop.getName() + "Override");
-      props.add(prop);
-      prop = new ActivationConfigPropertyMetaData();
-      prop.setName("prop3");
-      prop.setValue(prop.getName() + "Override");
-      props.add(prop);
-      aconfig = new ActivationConfigMetaData();
-      aconfig.setActivationConfigProperties(props);
-      override.setActivationConfig(aconfig);
+        props = new ActivationConfigPropertiesMetaData();
+        prop = new ActivationConfigPropertyMetaData();
+        prop.setName("prop2");
+        prop.setValue(prop.getName() + "Override");
+        props.add(prop);
+        prop = new ActivationConfigPropertyMetaData();
+        prop.setName("prop3");
+        prop.setValue(prop.getName() + "Override");
+        props.add(prop);
+        aconfig = new ActivationConfigMetaData();
+        aconfig.setActivationConfigProperties(props);
+        override.setActivationConfig(aconfig);
 
-      JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
-      merged.merge(override, original);
-      aconfig = merged.getActivationConfig();
-      assertNotNull(aconfig);
-      props = aconfig.getActivationConfigProperties();
-      assertNotNull(props);
-      assertEquals(3, props.size());
-      prop = props.get("prop1");
-      assertNotNull(prop);
-      assertEquals(prop.getName() + "Original", prop.getValue());
-      prop = props.get("prop2");
-      assertNotNull(prop);
-      assertEquals(prop.getName() + "Override", prop.getValue());
-      prop = props.get("prop3");
-      assertNotNull(prop);
-      assertEquals(prop.getName() + "Override", prop.getValue());
-   }
+        JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
+        merged.merge(override, original);
+        aconfig = merged.getActivationConfig();
+        assertNotNull(aconfig);
+        props = aconfig.getActivationConfigProperties();
+        assertNotNull(props);
+        assertEquals(3, props.size());
+        prop = props.get("prop1");
+        assertNotNull(prop);
+        assertEquals(prop.getName() + "Original", prop.getValue());
+        prop = props.get("prop2");
+        assertNotNull(prop);
+        assertEquals(prop.getName() + "Override", prop.getValue());
+        prop = props.get("prop3");
+        assertNotNull(prop);
+        assertEquals(prop.getName() + "Override", prop.getValue());
+    }
 
-   public void testAroundInvokes()
-   {
-      JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
-      original.setEjbName("mdb");
+    public void testAroundInvokes() {
+        JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
+        original.setEjbName("mdb");
 
-      AroundInvokesMetaData invokes = new AroundInvokesMetaData();
-      AroundInvokeMetaData invoke = new AroundInvokeMetaData();
-      invoke.setClassName("class1");
-      invoke.setMethodName("method1");
-      invokes.add(invoke);
-      invoke = new AroundInvokeMetaData();
-      invoke.setClassName("class2");
-      invoke.setMethodName("method1");
-      invokes.add(invoke);
-      original.setAroundInvokes(invokes);
+        AroundInvokesMetaData invokes = new AroundInvokesMetaData();
+        AroundInvokeMetaData invoke = new AroundInvokeMetaData();
+        invoke.setClassName("class1");
+        invoke.setMethodName("method1");
+        invokes.add(invoke);
+        invoke = new AroundInvokeMetaData();
+        invoke.setClassName("class2");
+        invoke.setMethodName("method1");
+        invokes.add(invoke);
+        original.setAroundInvokes(invokes);
 
-      JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
-      override.setEjbName("mdb");
+        JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
+        override.setEjbName("mdb");
 
-      invokes = new AroundInvokesMetaData();
-      invoke = new AroundInvokeMetaData();
-      invoke.setClassName("class2");
-      invoke.setMethodName("method2");
-      invokes.add(invoke);
-      invoke = new AroundInvokeMetaData();
-      invoke.setClassName("class3");
-      invoke.setMethodName("method2");
-      invokes.add(invoke);
-      override.setAroundInvokes(invokes);
+        invokes = new AroundInvokesMetaData();
+        invoke = new AroundInvokeMetaData();
+        invoke.setClassName("class2");
+        invoke.setMethodName("method2");
+        invokes.add(invoke);
+        invoke = new AroundInvokeMetaData();
+        invoke.setClassName("class3");
+        invoke.setMethodName("method2");
+        invokes.add(invoke);
+        override.setAroundInvokes(invokes);
 
-      JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
-      merged.merge(override, original);
-      invokes = merged.getAroundInvokes();
-      assertNotNull(invokes);
-      assertEquals(4, invokes.size());
-   }
+        JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
+        merged.merge(override, original);
+        invokes = merged.getAroundInvokes();
+        assertNotNull(invokes);
+        assertEquals(4, invokes.size());
+    }
 
-   public void testSubscriptionDurability()
-   {
-      JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
-      original.setEjbName("mdb");
-      original.setSubscriptionDurability(SubscriptionDurability.NonDurable);
+    public void testSubscriptionDurability() {
+        JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
+        original.setEjbName("mdb");
+        original.setSubscriptionDurability(SubscriptionDurability.NonDurable);
 
-      JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
-      override.setEjbName("mdb");
-      override.setSubscriptionDurability(SubscriptionDurability.Durable);
+        JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
+        override.setEjbName("mdb");
+        override.setSubscriptionDurability(SubscriptionDurability.Durable);
 
-      JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
-      merged.merge(override, original);
-      SubscriptionDurability sd = merged.getSubscriptionDurability();
-      assertNotNull(sd);
-      assertEquals(SubscriptionDurability.Durable, sd);
-   }
+        JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
+        merged.merge(override, original);
+        SubscriptionDurability sd = merged.getSubscriptionDurability();
+        assertNotNull(sd);
+        assertEquals(SubscriptionDurability.Durable, sd);
+    }
 
-   public void testEjbTimeoutIdentity()
-   {
-      JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
-      original.setEjbName("mdb");
+    public void testEjbTimeoutIdentity() {
+        JBossMessageDrivenBeanMetaData original = new JBossMessageDrivenBeanMetaData();
+        original.setEjbName("mdb");
 
-      SecurityIdentityMetaData sid = new SecurityIdentityMetaData();
-      RunAsMetaData runAs = new RunAsMetaData();
-      runAs.setRoleName("role1");
-      sid.setRunAs(runAs);
-      sid.setRunAsPrincipal("principal1");
-      original.setEjbTimeoutIdentity(sid);
+        SecurityIdentityMetaData sid = new SecurityIdentityMetaData();
+        RunAsMetaData runAs = new RunAsMetaData();
+        runAs.setRoleName("role1");
+        sid.setRunAs(runAs);
+        sid.setRunAsPrincipal("principal1");
+        original.setEjbTimeoutIdentity(sid);
 
-      JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
-      override.setEjbName("mdb");
+        JBossMessageDrivenBeanMetaData override = new JBossMessageDrivenBeanMetaData();
+        override.setEjbName("mdb");
 
-      sid = new SecurityIdentityMetaData();
-      runAs = new RunAsMetaData();
-      runAs.setRoleName("role2");
-      sid.setRunAs(runAs);
-      sid.setUseCallerIdentity(new EmptyMetaData());
-      override.setEjbTimeoutIdentity(sid);
+        sid = new SecurityIdentityMetaData();
+        runAs = new RunAsMetaData();
+        runAs.setRoleName("role2");
+        sid.setRunAs(runAs);
+        sid.setUseCallerIdentity(new EmptyMetaData());
+        override.setEjbTimeoutIdentity(sid);
 
-      JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
-      merged.merge(override, original);
-      sid = merged.getEjbTimeoutIdentity();
-      assertNotNull(sid);
-      runAs = sid.getRunAs();
-      assertNotNull(runAs);
-      assertEquals("role2", runAs.getRoleName());
-      assertEquals("principal1", sid.getRunAsPrincipal());
-      assertNotNull(sid.getUseCallerIdentity());
-   }
+        JBossMessageDrivenBeanMetaData merged = new JBossMessageDrivenBeanMetaData();
+        merged.merge(override, original);
+        sid = merged.getEjbTimeoutIdentity();
+        assertNotNull(sid);
+        runAs = sid.getRunAs();
+        assertNotNull(runAs);
+        assertEquals("role2", runAs.getRoleName());
+        assertEquals("principal1", sid.getRunAsPrincipal());
+        assertNotNull(sid.getUseCallerIdentity());
+    }
 }

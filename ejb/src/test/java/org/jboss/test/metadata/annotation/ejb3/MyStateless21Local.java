@@ -29,7 +29,6 @@ import javax.ejb.EJBLocalObject;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 67332 $
  */
-public interface MyStateless21Local extends EJBLocalObject
-{
+public interface MyStateless21Local extends EJBLocalObject {
 
 }

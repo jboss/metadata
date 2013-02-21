@@ -30,7 +30,6 @@ import javax.ejb.Local;
  * @version $Revision: 65638 $
  */
 @Local
-public interface MyStatelessLocal
-{
+public interface MyStatelessLocal {
 
 }

@@ -32,7 +32,6 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalHome(MyStateless21Home.class)
-public class MyStateless21Bean
-{
+public class MyStateless21Bean {
 
 }

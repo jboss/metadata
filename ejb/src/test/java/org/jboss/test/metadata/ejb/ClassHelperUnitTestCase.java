@@ -36,18 +36,15 @@ import org.jboss.test.metadata.annotation.ejb3.defaultinterface.ParentInterface;
  * @version $Revision: 1.1 $
  */
 public class ClassHelperUnitTestCase
-   extends TestCase
-{
-   public ClassHelperUnitTestCase(String arg0)
-   {
-      super(arg0);
-   }
+        extends TestCase {
+    public ClassHelperUnitTestCase(String arg0) {
+        super(arg0);
+    }
 
-   public void testDefaultInterface() throws Exception
-   {
-      Class<?> parentInterface = ClassHelper.getDefaultInterface(Parent.class);
-      assertEquals(ParentInterface.class, parentInterface);
-      Class<?> childInterface = ClassHelper.getDefaultInterface(Child.class);
-      assertEquals(ChildInterface.class, childInterface);
-   }
+    public void testDefaultInterface() throws Exception {
+        Class<?> parentInterface = ClassHelper.getDefaultInterface(Parent.class);
+        assertEquals(ParentInterface.class, parentInterface);
+        Class<?> childInterface = ClassHelper.getDefaultInterface(Child.class);
+        assertEquals(ChildInterface.class, childInterface);
+    }
 }

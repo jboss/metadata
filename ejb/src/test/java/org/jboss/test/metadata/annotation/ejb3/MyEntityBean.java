@@ -27,8 +27,7 @@ import javax.persistence.Entity;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 67280 $
  */
-@Entity(name="MyEntity")
-public class MyEntityBean
-{
+@Entity(name = "MyEntity")
+public class MyEntityBean {
 
 }

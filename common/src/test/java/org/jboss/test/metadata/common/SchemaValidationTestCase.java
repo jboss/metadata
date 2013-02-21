@@ -22,12 +22,13 @@
 
 package org.jboss.test.metadata.common;
 
+import static org.junit.runners.Parameterized.Parameters;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,8 +44,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.w3c.dom.Document;
 
-import static org.junit.runners.Parameterized.Parameters;
-
 /**
  * Validates the jboss-app_7_0.xsd
  *
@@ -58,9 +57,10 @@ public class SchemaValidationTestCase extends AbstractXSDValidationTestCase {
     protected static List<Object[]> getXSDFiles(String xsdFile) {
         List<Object[]> xsdList = new ArrayList<Object[]>();
         URL url = SchemaValidationTestCase.class.getClassLoader().getResource(xsdFile);
-        if (url == null)
+        if (url == null) {
             throw new RuntimeException("Can't load xsd file : " + xsdFile
                     + " in schema directory");
+        }
 
         File filePath = new File(url.getPath());
         String parentPath = filePath.getParent();

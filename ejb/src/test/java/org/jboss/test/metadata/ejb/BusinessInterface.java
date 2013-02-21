@@ -24,12 +24,12 @@ package org.jboss.test.metadata.ejb;
 //$Id$
 
 /**
- *  Some interface
- *  @author Anil.Saldhana@redhat.com
- *  @since  Nov 19, 2007
- *  @version $Revision$
+ * Some interface
+ *
+ * @author Anil.Saldhana@redhat.com
+ * @version $Revision$
+ * @since Nov 19, 2007
  */
-public interface BusinessInterface
-{
-   public void noop();
+public interface BusinessInterface {
+    void noop();
 }

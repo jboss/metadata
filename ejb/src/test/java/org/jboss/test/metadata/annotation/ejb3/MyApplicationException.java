@@ -29,9 +29,8 @@ import javax.ejb.ApplicationException;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 65657 $
  */
-@ApplicationException(rollback=true)
-public class MyApplicationException extends Exception
-{
-   private static final long serialVersionUID = 1L;
+@ApplicationException(rollback = true)
+public class MyApplicationException extends Exception {
+    private static final long serialVersionUID = 1L;
 
 }

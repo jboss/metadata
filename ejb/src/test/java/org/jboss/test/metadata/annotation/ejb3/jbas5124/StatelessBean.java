@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.annotation.ejb3.jbas5124;
 
 import java.util.Properties;
-
 import javax.ejb.Remote;
 import javax.ejb.RemoteHome;
 import javax.ejb.Stateless;
@@ -33,22 +32,20 @@ import javax.ejb.TransactionManagementType;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 75502 $
  */
-@Stateless(name="StatelessBean", mappedName="refs/StatelessBean")
+@Stateless(name = "StatelessBean", mappedName = "refs/StatelessBean")
 @Remote({StatelessIF.class})
 @RemoteHome(RemoteHomeInterface.class)
 @TransactionManagement(TransactionManagementType.CONTAINER)
-public class StatelessBean implements StatelessIF
-{
-   public void init(Properties prop) throws Exception
-   {
-   }
-   public void test1() throws Exception
-   {
+public class StatelessBean implements StatelessIF {
+    public void init(Properties prop) throws Exception {
+    }
 
-   }
-   public void test2() throws Exception
-   {
+    public void test1() throws Exception {
 
-   }
+    }
+
+    public void test2() throws Exception {
+
+    }
 }
 

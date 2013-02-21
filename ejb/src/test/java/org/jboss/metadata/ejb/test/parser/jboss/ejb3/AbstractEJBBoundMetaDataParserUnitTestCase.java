@@ -23,7 +23,6 @@ package org.jboss.metadata.ejb.test.parser.jboss.ejb3;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.xml.stream.XMLStreamException;
 
 import org.jboss.metadata.ejb.parser.jboss.ejb3.IIOPMetaDataParser;
@@ -34,7 +33,7 @@ import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 
 /**
  * Tests that AbstractEJBBoundMetaDataParser fails when ejb name is not set.
- *
+ * <p/>
  * More info at AS7-3570.
  *
  * @author Eduardo Martins

@@ -22,13 +22,14 @@
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>8</version>
+        <version>10</version>
     </parent>
 
     <groupId>org.jboss.metadata</groupId>
@@ -46,13 +47,23 @@
         <javax.persistence.version>1.0.1.Final</javax.persistence.version>
 
         <!-- Build configuration -->
-        <maven.compiler.source>1.6</maven.compiler.source>
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <maven.min.version>3.0.3</maven.min.version>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.min.version>3.0.4</maven.min.version>
 
         <!-- Dependency versions. Please keep alphabetical -->
-        <version.org.jboss.logging>3.1.0.GA</version.org.jboss.logging>
-        <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.0.Final</version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
+        <version.org.jboss.logging>3.1.2.GA</version.org.jboss.logging>
+        <version.junit>4.11</version.junit>
+
+        <linkXRef>false</linkXRef>
+        <version.org.jboss.spec.javax.annotation.jboss-annotations-api_1.1_spec>1.0.1.Final</version.org.jboss.spec.javax.annotation.jboss-annotations-api_1.1_spec>
+        <version.org.jboss.spec.javax.ejb.jboss-ejb-api_3.1_spec>1.0.2.Final</version.org.jboss.spec.javax.ejb.jboss-ejb-api_3.1_spec>
+        <version.org.jboss.spec.javax.interceptor.jboss-interceptors-api_1.1_spec>1.0.1.Final</version.org.jboss.spec.javax.interceptor.jboss-interceptors-api_1.1_spec>
+        <version.org.jboss.spec.javax.jms.jboss-jms-api_1.1_spec>1.0.1.Final</version.org.jboss.spec.javax.jms.jboss-jms-api_1.1_spec>
+        <version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>1.0.2.Final</version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec>
+        <version.org.jboss.spec.javax.transaction.jboss-transaction-api_1.1_spec>1.0.1.Final</version.org.jboss.spec.javax.transaction.jboss-transaction-api_1.1_spec>
+        <version.org.jboss.ejb3.ext-api>2.0.0</version.org.jboss.ejb3.ext-api>
+        <version.sun.jaxb>2.2.5.jboss-1</version.sun.jaxb>
     </properties>
 
     <modules>
@@ -70,12 +81,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>2.0</version>
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -83,32 +92,44 @@
         </plugins>
         <pluginManagement>
             <plugins>
-
-                <!-- Compiler plugin -->
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.6</source>
-                        <target>1.6</target>
-                        <showDeprecation>true</showDeprecation>
-                        <showWarnings>true</showWarnings>
-                    </configuration>
-                </plugin>
-
-                <!-- Attach sources -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${version.enforcer.plugin}</version>
                     <executions>
+                        <!--  Banned dependencies -->
                         <execution>
-                            <id>attach-sources</id>
-                            <phase>verify</phase>
+                            <id>enforce-banned-dependencies</id>
                             <goals>
-                                <goal>jar-no-fork</goal>
+                                <goal>enforce</goal>
                             </goals>
                         </execution>
                     </executions>
+                    <configuration>
+                        <rules>
+                            <bannedDependencies>
+                                <excludes>
+                                    <!-- JBMETA-262  Use org.jboss.spec.javax.ejb:jboss-ejb-api_3.1_spec -->
+                                    <exclude>org.jboss.ejb3:jboss-ejb3-api</exclude>
+                                    <exclude>org.jboss.javaee:jboss-ejb-api_3.1</exclude>
+                                </excludes>
+                            </bannedDependencies>
+                        </rules>
+                    </configuration>
+
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${version.surefire.plugin}</version>
+                    <configuration>
+                        <printSummary>true</printSummary>
+                        <disableXmlReport>false</disableXmlReport>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                        <testFailureIgnore>false</testFailureIgnore>
+                        <includes>
+                            <include>**/*TestCase.java</include>
+                        </includes>
+                    </configuration>
                 </plugin>
                 <!-- Checkstyle -->
                 <plugin>
@@ -116,9 +137,10 @@
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${version.checkstyle.plugin}</version>
                     <configuration>
-                        <configLocation>undertow-checkstyle/checkstyle.xml</configLocation>
+                        <configLocation>metadata-checkstyle/checkstyle.xml</configLocation>
                         <consoleOutput>true</consoleOutput>
                         <failsOnError>true</failsOnError>
+                        <includeTestSourceDirectory>true</includeTestSourceDirectory>
                         <useFile/>
                     </configuration>
                     <dependencies>
@@ -131,7 +153,7 @@
                     <executions>
                         <execution>
                             <id>check-style</id>
-                            <phase>compile</phase>
+                            <phase>test-compile</phase>
                             <goals>
                                 <goal>checkstyle</goal>
                             </goals>
@@ -142,6 +164,19 @@
         </pluginManagement>
 
     </build>
+    <dependencies>
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test</groupId>
+            <artifactId>jboss-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>
@@ -168,16 +203,77 @@
             </dependency>
 
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.8.2</version>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${version.sun.jaxb}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.xml.bind</groupId>
+                        <artifactId>jaxb-api</artifactId>
+                    </exclusion>
+                </exclusions>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.annotation</groupId>
+                <artifactId>jboss-annotations-api_1.1_spec</artifactId>
+                <version>${version.org.jboss.spec.javax.annotation.jboss-annotations-api_1.1_spec}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.spec.javax.servlet</groupId>
+                <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+                <version>${version.org.jboss.spec.javax.servlet.jboss-servlet-api_3.0_spec}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.spec.javax.ejb</groupId>
+                <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+                <version>${version.org.jboss.spec.javax.ejb.jboss-ejb-api_3.1_spec}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.spec.javax.interceptor</groupId>
+                <artifactId>jboss-interceptors-api_1.1_spec</artifactId>
+                <version>${version.org.jboss.spec.javax.interceptor.jboss-interceptors-api_1.1_spec}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.spec.javax.jms</groupId>
+                <artifactId>jboss-jms-api_1.1_spec</artifactId>
+                <version>${version.org.jboss.spec.javax.jms.jboss-jms-api_1.1_spec}</version>
                 <scope>test</scope>
             </dependency>
 
             <dependency>
-              <groupId>org.jboss.logging</groupId>
-              <artifactId>jboss-logging</artifactId>
-              <version>${version.org.jboss.logging}</version>
+                <groupId>org.jboss.spec.javax.transaction</groupId>
+                <artifactId>jboss-transaction-api_1.1_spec</artifactId>
+                <version>${version.org.jboss.spec.javax.transaction.jboss-transaction-api_1.1_spec}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.ejb3</groupId>
+                <artifactId>jboss-ejb3-ext-api</artifactId>
+                <version>${version.org.jboss.ejb3.ext-api}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${version.junit}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jboss.logging</groupId>
+                <artifactId>jboss-logging</artifactId>
+                <version>${version.org.jboss.logging}</version>
             </dependency>
 
             <dependency>

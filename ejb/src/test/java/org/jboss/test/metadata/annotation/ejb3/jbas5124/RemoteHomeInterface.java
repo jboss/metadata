@@ -27,8 +27,7 @@ import javax.ejb.EJBHome;
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision$
  */
-public interface RemoteHomeInterface extends EJBHome
-{
-   public RemoteInterface create();
+public interface RemoteHomeInterface extends EJBHome {
+    RemoteInterface create();
 }
 

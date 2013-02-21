@@ -31,37 +31,34 @@ import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-public class EnvironmentRefsGroupMetaDataMergeTestCase extends TestCase
-{
-   private static EnvironmentRefsGroupMetaData createSpecEnv()
-   {
-      PersistenceContextReferenceMetaData persistenceContextRef = new PersistenceContextReferenceMetaData();
-      persistenceContextRef.setName("persistence/Test");
-      persistenceContextRef.setPersistenceUnitName("EM");
+public class EnvironmentRefsGroupMetaDataMergeTestCase extends TestCase {
+    private static EnvironmentRefsGroupMetaData createSpecEnv() {
+        PersistenceContextReferenceMetaData persistenceContextRef = new PersistenceContextReferenceMetaData();
+        persistenceContextRef.setName("persistence/Test");
+        persistenceContextRef.setPersistenceUnitName("EM");
 
-      PersistenceContextReferencesMetaData persistenceContextRefs = new PersistenceContextReferencesMetaData();
-      persistenceContextRefs.add(persistenceContextRef);
+        PersistenceContextReferencesMetaData persistenceContextRefs = new PersistenceContextReferencesMetaData();
+        persistenceContextRefs.add(persistenceContextRef);
 
-      EnvironmentRefsGroupMetaData specEnv = new EnvironmentRefsGroupMetaData();
-      specEnv.setPersistenceContextRefs(persistenceContextRefs);
+        EnvironmentRefsGroupMetaData specEnv = new EnvironmentRefsGroupMetaData();
+        specEnv.setPersistenceContextRefs(persistenceContextRefs);
 
-      return specEnv;
-   }
+        return specEnv;
+    }
 
-   public void testMergeEnvironmentEnvironmentStringStringBoolean()
-   {
-      EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
-      EnvironmentRefsGroupMetaData jbossEnv = new EnvironmentRefsGroupMetaData();
-      EnvironmentRefsGroupMetaData specEnv = createSpecEnv();
-      EnvironmentRefsGroupMetaDataMerger.merge(env, jbossEnv, specEnv, "jboss", "spec", false);
+    public void testMergeEnvironmentEnvironmentStringStringBoolean() {
+        EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
+        EnvironmentRefsGroupMetaData jbossEnv = new EnvironmentRefsGroupMetaData();
+        EnvironmentRefsGroupMetaData specEnv = createSpecEnv();
+        EnvironmentRefsGroupMetaDataMerger.merge(env, jbossEnv, specEnv, "jboss", "spec", false);
 
-      PersistenceContextReferencesMetaData persistenceContextRefs = env.getPersistenceContextRefs();
-      assertNotNull("No persistence context references", persistenceContextRefs);
-      assertEquals(1, persistenceContextRefs.size());
-      PersistenceContextReferenceMetaData persistenceContextRef = persistenceContextRefs.iterator().next();
-      assertNotNull(persistenceContextRef);
-      assertEquals("persistence/Test", persistenceContextRef.getName());
-      assertEquals("EM", persistenceContextRef.getPersistenceUnitName());
-   }
+        PersistenceContextReferencesMetaData persistenceContextRefs = env.getPersistenceContextRefs();
+        assertNotNull("No persistence context references", persistenceContextRefs);
+        assertEquals(1, persistenceContextRefs.size());
+        PersistenceContextReferenceMetaData persistenceContextRef = persistenceContextRefs.iterator().next();
+        assertNotNull(persistenceContextRef);
+        assertEquals("persistence/Test", persistenceContextRef.getName());
+        assertEquals("EM", persistenceContextRef.getPersistenceUnitName());
+    }
 
 }

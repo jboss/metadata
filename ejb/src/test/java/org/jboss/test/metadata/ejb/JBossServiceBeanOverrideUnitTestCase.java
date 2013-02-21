@@ -32,10 +32,8 @@ import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
  * @version $Revision: 1.1 $
  */
 public class JBossServiceBeanOverrideUnitTestCase
-   extends AbstractJBossEnterpriseBeanOverrideTest
-{
-   public void testSimpleProperties() throws Exception
-   {
-      simplePropertiesTest(JBossServiceBeanMetaData.class, JBossSessionBeanMetaData.class, null);
-   }
+        extends AbstractJBossEnterpriseBeanOverrideTest {
+    public void testSimpleProperties() throws Exception {
+        simplePropertiesTest(JBossServiceBeanMetaData.class, JBossSessionBeanMetaData.class, null);
+    }
 }

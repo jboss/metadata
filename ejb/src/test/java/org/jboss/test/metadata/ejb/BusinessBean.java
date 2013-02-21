@@ -28,17 +28,16 @@ import javax.ejb.Stateless;
 //$Id$
 
 /**
- *  A basic ejb3 bean
- *  @author Anil.Saldhana@redhat.com
- *  @since  Nov 19, 2007
- *  @version $Revision$
+ * A basic ejb3 bean
+ *
+ * @author Anil.Saldhana@redhat.com
+ * @version $Revision$
+ * @since Nov 19, 2007
  */
 @Stateless
 @Remote
 @RunAs("Manager")
-public class BusinessBean implements BusinessInterface
-{
-   public void noop()
-   {
-   }
+public class BusinessBean implements BusinessInterface {
+    public void noop() {
+    }
 }

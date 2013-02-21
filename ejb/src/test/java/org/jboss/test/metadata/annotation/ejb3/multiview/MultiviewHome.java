@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.annotation.ejb3.multiview;
 
 import java.rmi.RemoteException;
-
 import javax.ejb.CreateException;
 import javax.ejb.EJBHome;
 
@@ -32,7 +31,6 @@ import javax.ejb.EJBHome;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 67290 $
  */
-public interface MultiviewHome extends EJBHome
-{
-   Multiview21Remote create(String state) throws CreateException, RemoteException;
+public interface MultiviewHome extends EJBHome {
+    Multiview21Remote create(String state) throws CreateException, RemoteException;
 }

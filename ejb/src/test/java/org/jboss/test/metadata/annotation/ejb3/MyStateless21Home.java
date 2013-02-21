@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.annotation.ejb3;
 
 import java.rmi.RemoteException;
-
 import javax.ejb.CreateException;
 import javax.ejb.EJBLocalHome;
 
@@ -32,7 +31,6 @@ import javax.ejb.EJBLocalHome;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 67332 $
  */
-public interface MyStateless21Home extends EJBLocalHome
-{
-   MyStateless21Local create() throws CreateException, RemoteException;
+public interface MyStateless21Home extends EJBLocalHome {
+    MyStateless21Local create() throws CreateException, RemoteException;
 }

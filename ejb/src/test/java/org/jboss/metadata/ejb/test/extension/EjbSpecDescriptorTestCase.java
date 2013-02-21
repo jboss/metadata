@@ -43,6 +43,6 @@ public class EjbSpecDescriptorTestCase extends SpecDescriptorTestCase {
     @Parameters
     public static List<Object[]> parameters() {
         // The spec descriptor should be guarded in schema
-        return Arrays.asList(new Object[][]{{"dtd/ejb-jar_1_1.dtd"},{"dtd/ejb-jar_2_0.dtd"},{"schema/ejb-jar_2_1.xsd"},{"schema/ejb-jar_3_0.xsd"},{"schema/ejb-jar_3_1.xsd"},{"schema/orm_1_0.xsd"},{"schema/persistence_1_0.xsd"},{"schema/persistence_2_0.xsd"}});
+        return Arrays.asList(new Object[][]{{"dtd/ejb-jar_1_1.dtd"}, {"dtd/ejb-jar_2_0.dtd"}, {"schema/ejb-jar_2_1.xsd"}, {"schema/ejb-jar_3_0.xsd"}, {"schema/ejb-jar_3_1.xsd"}, {"schema/orm_1_0.xsd"}, {"schema/persistence_1_0.xsd"}, {"schema/persistence_2_0.xsd"}});
     }
 }

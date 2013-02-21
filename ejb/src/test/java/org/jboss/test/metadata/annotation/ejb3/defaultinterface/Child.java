@@ -30,7 +30,6 @@ import java.io.Serializable;
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-public class Child extends Parent implements ChildInterface, Serializable
-{
+public class Child extends Parent implements ChildInterface, Serializable {
 
 }

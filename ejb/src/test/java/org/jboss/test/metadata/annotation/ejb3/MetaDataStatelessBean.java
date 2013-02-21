@@ -30,10 +30,8 @@ import javax.ejb.Stateless;
  * @version $Revision: $
  */
 @Stateless
-public class MetaDataStatelessBean
-{
-   public void postConstruct()
-   {
+public class MetaDataStatelessBean {
+    public void postConstruct() {
 
-   }
+    }
 }

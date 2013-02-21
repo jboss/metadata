@@ -28,28 +28,23 @@ import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractMethodsBoundMetaData;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class TxTest extends AbstractMethodsBoundMetaData
-{
-   private long timeout;
-   private TimeUnit unit = TimeUnit.SECONDS;
+public class TxTest extends AbstractMethodsBoundMetaData {
+    private long timeout;
+    private TimeUnit unit = TimeUnit.SECONDS;
 
-   public long getTimeout()
-   {
-      return timeout;
-   }
+    public long getTimeout() {
+        return timeout;
+    }
 
-   public void setTimeout(long timeout)
-   {
-      this.timeout = timeout;
-   }
+    public void setTimeout(long timeout) {
+        this.timeout = timeout;
+    }
 
-   public TimeUnit getUnit()
-   {
-      return unit;
-   }
+    public TimeUnit getUnit() {
+        return unit;
+    }
 
-   public void setUnit(TimeUnit unit)
-   {
-      this.unit = unit;
-   }
+    public void setUnit(TimeUnit unit) {
+        this.unit = unit;
+    }
 }

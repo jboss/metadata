@@ -22,6 +22,9 @@
 
 package org.jboss.test.metadata.property;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.util.Properties;
 
 import org.jboss.metadata.property.PropertiesPropertyResolver;
@@ -30,9 +33,6 @@ import org.jboss.metadata.property.PropertyReplacers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 /**
  * @author John Bailey
