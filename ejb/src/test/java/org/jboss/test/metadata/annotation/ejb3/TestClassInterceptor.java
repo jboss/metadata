@@ -29,19 +29,16 @@ import javax.interceptor.InvocationContext;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 67317 $
  */
-public class TestClassInterceptor
-{
-   @PostConstruct
-   public void postConstruct(InvocationContext ctx)
-   {
-      System.out.println("PostConstruct");
-   }
+public class TestClassInterceptor {
+    @PostConstruct
+    public void postConstruct(InvocationContext ctx) {
+        System.out.println("PostConstruct");
+    }
 
-   @AroundInvoke
-   public Object around(InvocationContext ctx) throws Exception
-   {
-      System.out.println("Around invoke");
-      return ctx.proceed();
-   }
+    @AroundInvoke
+    public Object around(InvocationContext ctx) throws Exception {
+        System.out.println("Around invoke");
+        return ctx.proceed();
+    }
 
 }

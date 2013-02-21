@@ -31,19 +31,14 @@ import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-public class AbstractMappedMetaDataUnitTestCase extends TestCase
-{
-   public void testEJBLocalReferencesNullKey() throws Exception
-   {
-      EJBLocalReferencesMetaData refs = new EJBLocalReferencesMetaData();
-      try
-      {
-         refs.get(null);
-         fail("Expected IllegalArgumentException");
-      }
-      catch(IllegalArgumentException e)
-      {
-         assertEquals("ejb local ref name (/key) is null", e.getMessage());
-      }
-   }
+public class AbstractMappedMetaDataUnitTestCase extends TestCase {
+    public void testEJBLocalReferencesNullKey() throws Exception {
+        EJBLocalReferencesMetaData refs = new EJBLocalReferencesMetaData();
+        try {
+            refs.get(null);
+            fail("Expected IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+            assertEquals("ejb local ref name (/key) is null", e.getMessage());
+        }
+    }
 }

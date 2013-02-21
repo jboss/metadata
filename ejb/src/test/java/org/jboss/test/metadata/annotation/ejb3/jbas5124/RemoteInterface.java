@@ -27,8 +27,7 @@ import javax.ejb.EJBObject;
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision$
  */
-public interface RemoteInterface extends EJBObject
-{
+public interface RemoteInterface extends EJBObject {
 
 }
 

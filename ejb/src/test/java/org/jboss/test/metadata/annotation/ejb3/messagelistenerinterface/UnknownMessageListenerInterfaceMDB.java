@@ -35,13 +35,12 @@ import javax.jms.QueueConnectionFactory;
  * @version $Revision: 68485 $
  */
 @MessageDriven(activationConfig =
-{@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-      @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")})
-public class UnknownMessageListenerInterfaceMDB
-{
-   @Resource(name="qFactory")
-   private QueueConnectionFactory qFactory;
+        {@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+                @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")})
+public class UnknownMessageListenerInterfaceMDB {
+    @Resource(name = "qFactory")
+    private QueueConnectionFactory qFactory;
 
-   @Resource(name="replyQueue")
-   private Queue replyQueue;
+    @Resource(name = "replyQueue")
+    private Queue replyQueue;
 }

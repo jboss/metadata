@@ -39,31 +39,26 @@ import org.jboss.metadata.property.PropertyReplacers;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 1.1 $
  */
-public class EjbJar21UnitTestCase extends AbstractEJBEverythingTest
-{
-   public static Test suite()
-   {
-      return suite(EjbJar21UnitTestCase.class);
-   }
+public class EjbJar21UnitTestCase extends AbstractEJBEverythingTest {
+    public static Test suite() {
+        return suite(EjbJar21UnitTestCase.class);
+    }
 
-   public EjbJar21UnitTestCase(String name)
-   {
-      super(name);
-   }
+    public EjbJar21UnitTestCase(String name) {
+        super(name);
+    }
 
-   protected EjbJarMetaData unmarshal() throws Exception
-   {
-      return unmarshal(EjbJarMetaData.class);
-   }
+    protected EjbJarMetaData unmarshal() throws Exception {
+        return unmarshal(EjbJarMetaData.class);
+    }
 
-   public void testVersion() throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      assertEquals("2.1", result.getVersion());
-      assertFalse(result.isEJB1x());
-      assertTrue(result.isEJB2x());
-      assertTrue(result.isEJB21());
-      assertFalse(result.isEJB3x());
+    public void testVersion() throws Exception {
+        EjbJarMetaData result = unmarshal();
+        assertEquals("2.1", result.getVersion());
+        assertFalse(result.isEJB1x());
+        assertTrue(result.isEJB2x());
+        assertTrue(result.isEJB21());
+        assertFalse(result.isEJB3x());
 
       /*
       ApplicationMetaData old = new ApplicationMetaData(result);
@@ -72,29 +67,29 @@ public class EjbJar21UnitTestCase extends AbstractEJBEverythingTest
       assertTrue(old.isEJB21());
       assertFalse(old.isEJB3x());
       */
-   }
-   public void testMethodPermissions()
-      throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      JBossMetaData jbossMetaData = new JBossMetaData();
-      jbossMetaData.merge(null, result);
-      //ApplicationMetaData appData = new ApplicationMetaData(jbossMetaData);
+    }
 
-      // Validate the assembly descriptor permissions
-      IAssemblyDescriptorMetaData admd = result.getAssemblyDescriptor();
-      MethodPermissionsMetaData allPerms = admd.getMethodPermissions();
-      assertEquals("ejb-jar has 4 method-permissions", 4, allPerms.size());
+    public void testMethodPermissions()
+            throws Exception {
+        EjbJarMetaData result = unmarshal();
+        JBossMetaData jbossMetaData = new JBossMetaData();
+        jbossMetaData.merge(null, result);
+        //ApplicationMetaData appData = new ApplicationMetaData(jbossMetaData);
 
-      // Validate StatelessSession bean permission count
-      IEnterpriseBeanMetaData ebmd = result.getEnterpriseBeans().get("StatelessSession");
-      MethodPermissionsMetaData beanPerms = ebmd.getMethodPermissions();
-      assertEquals("StatelessSession has 3 method-permissions", 3, beanPerms.size());
+        // Validate the assembly descriptor permissions
+        IAssemblyDescriptorMetaData admd = result.getAssemblyDescriptor();
+        MethodPermissionsMetaData allPerms = admd.getMethodPermissions();
+        assertEquals("ejb-jar has 4 method-permissions", 4, allPerms.size());
 
-      // Now validate the method matching logic
-      String echo = "Echo";
-      String echoLocal = "EchoLocal";
-      String internal = "InternalRole";
+        // Validate StatelessSession bean permission count
+        IEnterpriseBeanMetaData ebmd = result.getEnterpriseBeans().get("StatelessSession");
+        MethodPermissionsMetaData beanPerms = ebmd.getMethodPermissions();
+        assertEquals("StatelessSession has 3 method-permissions", 3, beanPerms.size());
+
+        // Now validate the method matching logic
+        String echo = "Echo";
+        String echoLocal = "EchoLocal";
+        String internal = "InternalRole";
 
       /*
       BeanMetaData ss = appData.getBeanByEjbName("StatelessSession");
@@ -109,21 +104,20 @@ public class EjbJar21UnitTestCase extends AbstractEJBEverythingTest
       assertTrue("Echo can invoke StatelessSessionLocalHome.create", perms.contains(echo));
       assertTrue("EchoLocal can invoke StatelessSessionLocalHome.create", perms.contains(echoLocal));
       */
-   }
+    }
 
-   public void testMultipleMerge()
-      throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      JBossMetaData jboss = unmarshal("JBoss40_testMultipleMerge.xml", JBossMetaData.class, PropertyReplacers.noop());
-      JBossEnterpriseBeansMetaData beans = jboss.getEnterpriseBeans();
-      assertEquals(4, beans.size());
-      JBossEnterpriseBeanMetaData entity = beans.get("EntityCallee");
-      assertTrue(entity instanceof JBossEntityBeanMetaData);
-      JBossMetaData jbossMetaData = new JBossMetaData();
-      jbossMetaData.merge(jboss, result);
-      entity = jbossMetaData.getEnterpriseBean("EntityCallee");
-      JBossEntityBeanMetaData jentity = (JBossEntityBeanMetaData) entity;
-      assertEquals("caller-info.EntityCallee", jentity.getJndiName());
-   }
+    public void testMultipleMerge()
+            throws Exception {
+        EjbJarMetaData result = unmarshal();
+        JBossMetaData jboss = unmarshal("JBoss40_testMultipleMerge.xml", JBossMetaData.class, PropertyReplacers.noop());
+        JBossEnterpriseBeansMetaData beans = jboss.getEnterpriseBeans();
+        assertEquals(4, beans.size());
+        JBossEnterpriseBeanMetaData entity = beans.get("EntityCallee");
+        assertTrue(entity instanceof JBossEntityBeanMetaData);
+        JBossMetaData jbossMetaData = new JBossMetaData();
+        jbossMetaData.merge(jboss, result);
+        entity = jbossMetaData.getEnterpriseBean("EntityCallee");
+        JBossEntityBeanMetaData jentity = (JBossEntityBeanMetaData) entity;
+        assertEquals("caller-info.EntityCallee", jentity.getJndiName());
+    }
 }

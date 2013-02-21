@@ -86,6 +86,14 @@ public class ConcurrentMethodMetaData implements Serializable {
         return this.method.equals(anotherConcurrentMethod.method);
     }
 
+    @Override
+    public int hashCode() {
+        int result = method != null ? method.hashCode() : 0;
+        result = 31 * result + (lockType != null ? lockType.hashCode() : 0);
+        result = 31 * result + (accessTimeout != null ? accessTimeout.hashCode() : 0);
+        return result;
+    }
+
     public boolean matches(String methodName, String[] params) {
         return getMethod().matches(methodName, params);
     }

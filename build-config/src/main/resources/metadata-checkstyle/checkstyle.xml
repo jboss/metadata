@@ -44,9 +44,9 @@
         <module name="AvoidStarImport"/>
         <module name="RedundantImport"/>
         <!-- Disabled until checkstyle can recognize imports which are used only by javadoc -->
-        <!--<module name="UnusedImports">
+        <module name="UnusedImports">
             <property name="processJavadoc" value="true"/>
-        </module>-->
+        </module>
 
         <!-- Modifier Checks                                    -->
         <module name="ModifierOrder"/>
@@ -59,7 +59,7 @@
         <!-- Disabled until http://sourceforge.net/tracker/?func=detail&aid=2843447&group_id=29721&atid=397078 is fixed-->
         <!--<module name="DoubleCheckedLocking"/>-->
         <module name="EmptyStatement"/>
-        <!--<module name="EqualsHashCode"/>-->
+        <module name="EqualsHashCode"/>
         <module name="IllegalInstantiation"/>
         <module name="RedundantThrows">
             <property name="allowUnchecked" value="true"/>

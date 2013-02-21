@@ -26,17 +26,14 @@ import org.jboss.metadata.ejb.parser.jboss.ejb3.AbstractEJBBoundMetaData;
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class CacheTest extends AbstractEJBBoundMetaData
-{
-   private int size;
+public class CacheTest extends AbstractEJBBoundMetaData {
+    private int size;
 
-   public int getSize()
-   {
-      return size;
-   }
+    public int getSize() {
+        return size;
+    }
 
-   public void setSize(int size)
-   {
-      this.size = size;
-   }
+    public void setSize(int size) {
+        this.size = size;
+    }
 }

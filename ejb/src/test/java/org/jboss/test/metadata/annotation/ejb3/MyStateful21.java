@@ -27,8 +27,7 @@ import javax.ejb.EJBObject;
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision$
  */
-public interface MyStateful21 extends EJBObject, MyStateful
-{
+public interface MyStateful21 extends EJBObject, MyStateful {
 
 }
 

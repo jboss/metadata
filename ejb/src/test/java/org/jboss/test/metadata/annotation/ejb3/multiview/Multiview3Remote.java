@@ -30,8 +30,8 @@ import javax.ejb.Remote;
  * @version $Revision: 67290 $
  */
 @Remote
-public interface Multiview3Remote
-{
-   void create(String state);
-   String sayHi(String name);
+public interface Multiview3Remote {
+    void create(String state);
+
+    String sayHi(String name);
 }

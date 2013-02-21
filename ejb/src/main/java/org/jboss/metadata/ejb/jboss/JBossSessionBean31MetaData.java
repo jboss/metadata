@@ -31,7 +31,6 @@ import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Schedule;
-import javax.ejb.Startup;
 
 import org.jboss.metadata.common.ejb.IScheduleTarget;
 import org.jboss.metadata.common.ejb.ITimeoutTarget;
@@ -157,7 +156,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     }
 
     /**
-     * @return Returns true if a singleton bean is marked for init-on-startup ({@link Startup})
+     * @return Returns true if a singleton bean is marked for init-on-startup ({@link javax.ejb.Startup})
      */
     public boolean isInitOnStartup() {
         return this.initOnStartup == null ? Boolean.FALSE : this.initOnStartup;
@@ -177,7 +176,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
      * Sets the concurrency management type of this bean
      *
      * @param concurrencyManagementType The concurrency management type
-     * @throws If the passed <code>concurrencyManagementType</code> is null
+     * @throws IllegalArgumentException If the passed <code>concurrencyManagementType</code> is null
      */
     public void setConcurrencyManagementType(ConcurrencyManagementType concurrencyManagementType) {
         if (concurrencyManagementType == null) {

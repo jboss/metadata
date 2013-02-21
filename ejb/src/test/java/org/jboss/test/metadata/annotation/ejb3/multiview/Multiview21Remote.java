@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.annotation.ejb3.multiview;
 
 import java.rmi.RemoteException;
-
 import javax.ejb.EJBObject;
 
 /**
@@ -31,7 +30,6 @@ import javax.ejb.EJBObject;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 67290 $
  */
-public interface Multiview21Remote extends EJBObject
-{
-   String sayHi(String name) throws RemoteException;
+public interface Multiview21Remote extends EJBObject {
+    String sayHi(String name) throws RemoteException;
 }

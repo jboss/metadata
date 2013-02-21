@@ -46,55 +46,53 @@ import org.jboss.ejb3.annotation.Clustered;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 81533 $
  */
-@Stateful(name="AnotherName")
+@Stateful(name = "AnotherName")
 @Remote(MyStateful.class)
 @RemoteHome(MyStatefulHome.class)
 @EJBs(
-      value={
-            @EJB(name="ejb/local1", beanInterface=MyStatelessLocal.class,
-                  beanName="MyLocalSession1", mappedName="java:/MyLocalSession1",
-                  description="A reference to MyLocalSession1"),
-            @EJB(name="ejb/local2", beanInterface=MyStatelessLocal.class,
-                  beanName="local.jar#MyLocalSession1", mappedName="java:/MyLocalSession2",
-                  description="A reference to MyLocalSession2")
-      }
+        value = {
+                @EJB(name = "ejb/local1", beanInterface = MyStatelessLocal.class,
+                        beanName = "MyLocalSession1", mappedName = "java:/MyLocalSession1",
+                        description = "A reference to MyLocalSession1"),
+                @EJB(name = "ejb/local2", beanInterface = MyStatelessLocal.class,
+                        beanName = "local.jar#MyLocalSession1", mappedName = "java:/MyLocalSession2",
+                        description = "A reference to MyLocalSession2")
+        }
 )
 @Clustered()
-public class MyStatefulBean
-{
+public class MyStatefulBean {
 
-   @Resource
-   private SessionContext context;
+    @Resource
+    private SessionContext context;
 
-   @PersistenceContext
-   private String string;
+    @PersistenceContext
+    private String string;
 
-   @WebServiceRef
-   private MyStateful webserviceRef;
+    @WebServiceRef
+    private MyStateful webserviceRef;
 
-   @PostConstruct
-   public void setUp()
-   {
+    @PostConstruct
+    public void setUp() {
 
-   }
-   @PreDestroy
-   public void tearDown()
-   {
-   }
-   @Init
-   public void init()
-   {
-   }
-   @PostActivate
-   public void activate()
-   {
-   }
-   @PrePassivate
-   public void passivate()
-   {
-   }
-   @Remove
-   public void remove()
-   {
-   }
+    }
+
+    @PreDestroy
+    public void tearDown() {
+    }
+
+    @Init
+    public void init() {
+    }
+
+    @PostActivate
+    public void activate() {
+    }
+
+    @PrePassivate
+    public void passivate() {
+    }
+
+    @Remove
+    public void remove() {
+    }
 }

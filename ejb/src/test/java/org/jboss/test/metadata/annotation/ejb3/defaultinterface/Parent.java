@@ -28,7 +28,6 @@ package org.jboss.test.metadata.annotation.ejb3.defaultinterface;
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-public abstract class Parent implements ParentInterface
-{
+public abstract class Parent implements ParentInterface {
 
 }

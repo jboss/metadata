@@ -25,7 +25,6 @@ package org.jboss.test.metadata.annotation.ejb3.jbas5124;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 68866 $
  */
-public interface StatefulIF
-{
+public interface StatefulIF {
 
 }

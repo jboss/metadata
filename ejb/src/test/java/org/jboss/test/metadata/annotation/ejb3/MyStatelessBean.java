@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.annotation.ejb3;
 
 import java.net.URL;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
@@ -58,115 +57,102 @@ import javax.sql.DataSource;
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NEVER)
 @Resources({
-   @Resource(description="url-resource-ref", name="googleHome", type=java.net.URL.class, mappedName="http://www.google.com"),
-   @Resource(description="DataSource-resource-ref", name="jdbc/ds", type=DataSource.class, mappedName="java:/DefaultDS")
+        @Resource(description = "url-resource-ref", name = "googleHome", type = java.net.URL.class, mappedName = "http://www.google.com"),
+        @Resource(description = "DataSource-resource-ref", name = "jdbc/ds", type = DataSource.class, mappedName = "java:/DefaultDS")
 })
-@DeclareRoles(value={"Role1","Role2"})
+@DeclareRoles(value = {"Role1", "Role2"})
 @RunAs("InternalUser")
 @Interceptors(TestClassInterceptor.class)
 @ExcludeDefaultInterceptors
-public class MyStatelessBean implements MyStatelessLocal, MyStatelessRemote
-{
-   @EJB(name = "injectedField")
-   private MyStatelessLocal injectedField;
-   @Resource(description="SessionContext-resource-env-ref")
-   private SessionContext context;
+public class MyStatelessBean implements MyStatelessLocal, MyStatelessRemote {
+    @EJB(name = "injectedField")
+    private MyStatelessLocal injectedField;
+    @Resource(description = "SessionContext-resource-env-ref")
+    private SessionContext context;
 
-   @Resource(description="string-env-entry")
-   private String sfield;
-   private URL homePage;
-   private URL googleHome;
-   private Queue mailQueue;
-   private double pi;
+    @Resource(description = "string-env-entry")
+    private String sfield;
+    private URL homePage;
+    private URL googleHome;
+    private Queue mailQueue;
+    private double pi;
 
-   @EJB(name="overrideName")
-   private MyStatelessLocal injectedFieldWithOverridenName;
+    @EJB(name = "overrideName")
+    private MyStatelessLocal injectedFieldWithOverridenName;
 
-   @TransactionAttribute(TransactionAttributeType.MANDATORY)
-   public void transactionAttributeMandatory()
-   {
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
+    public void transactionAttributeMandatory() {
 
-   }
+    }
 
-   public URL getHomePage()
-   {
-      return homePage;
-   }
-   @Resource(description="url-resource-ref2")
-   public void setHomePage(URL homePage)
-   {
-      this.homePage = homePage;
-   }
+    public URL getHomePage() {
+        return homePage;
+    }
 
-   public Queue getMailQueue()
-   {
-      return mailQueue;
-   }
-   @Resource(description="message-destination-ref")
-   public void setMailQueue(Queue mailQueue)
-   {
-      this.mailQueue = mailQueue;
-   }
+    @Resource(description = "url-resource-ref2")
+    public void setHomePage(URL homePage) {
+        this.homePage = homePage;
+    }
 
-   public double getPi()
-   {
-      return pi;
-   }
-   @Resource(description="pi-env-entry", mappedName="3.14159")
-   public void setPi(double pi)
-   {
-      this.pi = pi;
-   }
+    public Queue getMailQueue() {
+        return mailQueue;
+    }
 
-   @PostConstruct
-   public void setUp()
-   {
+    @Resource(description = "message-destination-ref")
+    public void setMailQueue(Queue mailQueue) {
+        this.mailQueue = mailQueue;
+    }
 
-   }
-   @PreDestroy
-   public void tearDown()
-   {
-   }
+    public double getPi() {
+        return pi;
+    }
 
-   @DenyAll
-   public void denyAll()
-   {
-   }
+    @Resource(description = "pi-env-entry", mappedName = "3.14159")
+    public void setPi(double pi) {
+        this.pi = pi;
+    }
 
-   @DenyAll
-   public void excluded()
-   {
-   }
+    @PostConstruct
+    public void setUp() {
 
-   @PermitAll
-   public void permitAll()
-   {
-   }
+    }
 
-   @RolesAllowed({"AccessRole1", "AccessRole2"})
-   public void rolesAllowed()
-   {
-   }
+    @PreDestroy
+    public void tearDown() {
+    }
 
-   @AroundInvoke
-   public Object intercept(InvocationContext ctx) throws Exception
-   {
-      System.out.println("**** intercept ****" + ctx.getMethod().getName());
-      return ctx.proceed();
-   }
+    @DenyAll
+    public void denyAll() {
+    }
 
-   @ExcludeClassInterceptors
-   @ExcludeDefaultInterceptors
-   @Interceptors(TestMethodInterceptor.class)
-   public Object intercept2(InvocationContext ctx) throws Exception
-   {
-      System.out.println("**** intercept2 ****" + ctx.getMethod().getName());
-      return ctx.proceed();
-   }
+    @DenyAll
+    public void excluded() {
+    }
 
-   @Timeout
-   public void timeout(Timer timer)
-   {
+    @PermitAll
+    public void permitAll() {
+    }
 
-   }
+    @RolesAllowed({"AccessRole1", "AccessRole2"})
+    public void rolesAllowed() {
+    }
+
+    @AroundInvoke
+    public Object intercept(InvocationContext ctx) throws Exception {
+        System.out.println("**** intercept ****" + ctx.getMethod().getName());
+        return ctx.proceed();
+    }
+
+    @ExcludeClassInterceptors
+    @ExcludeDefaultInterceptors
+    @Interceptors(TestMethodInterceptor.class)
+    public Object intercept2(InvocationContext ctx) throws Exception {
+        System.out.println("**** intercept2 ****" + ctx.getMethod().getName());
+        return ctx.proceed();
+    }
+
+    @Timeout
+    public void timeout(Timer timer) {
+
+    }
 }

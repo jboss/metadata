@@ -23,7 +23,6 @@ package org.jboss.test.metadata.web;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
 

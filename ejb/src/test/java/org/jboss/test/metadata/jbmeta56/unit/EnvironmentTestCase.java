@@ -37,75 +37,69 @@ import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>
  * @version $Revision$
  */
-public class EnvironmentTestCase extends AbstractEJBEverythingTest
-{
-   public EnvironmentTestCase(String name)
-   {
-      super(name);
-   }
+public class EnvironmentTestCase extends AbstractEJBEverythingTest {
+    public EnvironmentTestCase(String name) {
+        super(name);
+    }
 
-   protected EjbJarMetaData unmarshal() throws Exception
-   {
-      return unmarshal(EjbJarMetaData.class);
-   }
+    protected EjbJarMetaData unmarshal() throws Exception {
+        return unmarshal(EjbJarMetaData.class);
+    }
 
-   public void test() throws Exception
-   {
-      EjbJarMetaData ejbJarMetaData = unmarshal("EnvironmentTestCase_testEnv.xml", EjbJarMetaData.class, null);
-      assertNotNull(ejbJarMetaData);
+    public void test() throws Exception {
+        EjbJarMetaData ejbJarMetaData = unmarshal("EnvironmentTestCase_testEnv.xml", EjbJarMetaData.class, null);
+        assertNotNull(ejbJarMetaData);
 
-      JBoss50DTDMetaData jbossMetaData = unmarshal("jboss.xml", JBoss50DTDMetaData.class, null);
-      assertNotNull(jbossMetaData);
-      jbossMetaData.merge(null, ejbJarMetaData);
-      JBossMessageDrivenBeanMetaData runMdb = (JBossMessageDrivenBeanMetaData) jbossMetaData.getEnterpriseBean("RunAsMDB");
-      asserRunMdb(runMdb);
+        JBoss50DTDMetaData jbossMetaData = unmarshal("jboss.xml", JBoss50DTDMetaData.class, null);
+        assertNotNull(jbossMetaData);
+        jbossMetaData.merge(null, ejbJarMetaData);
+        JBossMessageDrivenBeanMetaData runMdb = (JBossMessageDrivenBeanMetaData) jbossMetaData.getEnterpriseBean("RunAsMDB");
+        asserRunMdb(runMdb);
 
-      JBossMessageDrivenBeanMetaData deepMdb = (JBossMessageDrivenBeanMetaData) jbossMetaData.getEnterpriseBean("DeepRunAsMDB");
-      assertDeepMdb(deepMdb);
-   }
+        JBossMessageDrivenBeanMetaData deepMdb = (JBossMessageDrivenBeanMetaData) jbossMetaData.getEnterpriseBean("DeepRunAsMDB");
+        assertDeepMdb(deepMdb);
+    }
 
-   private void asserRunMdb(JBossMessageDrivenBeanMetaData runMdb)
-   {
-      assertNotNull(runMdb);
-      assertNotNull(runMdb.getJndiEnvironmentRefsGroup());
+    private void asserRunMdb(JBossMessageDrivenBeanMetaData runMdb) {
+        assertNotNull(runMdb);
+        assertNotNull(runMdb.getJndiEnvironmentRefsGroup());
 
-      EJBLocalReferencesMetaData localReferences = runMdb.getJndiEnvironmentRefsGroup().getEjbLocalReferences();
-      assertNull(localReferences);
+        EJBLocalReferencesMetaData localReferences = runMdb.getJndiEnvironmentRefsGroup().getEjbLocalReferences();
+        assertNull(localReferences);
 
-      EJBReferencesMetaData references = runMdb.getJndiEnvironmentRefsGroup().getEjbReferences();
-      assertNotNull(references);
+        EJBReferencesMetaData references = runMdb.getJndiEnvironmentRefsGroup().getEjbReferences();
+        assertNotNull(references);
 
-      ResourceReferencesMetaData resources = runMdb.getJndiEnvironmentRefsGroup().getResourceReferences();
-      assertNotNull(resources);
-      assertEquals(1, resources.size());
-      ResourceReferenceMetaData resource = resources.get("jms/QueFactory");
-      assertNotNull(resource);
-      assertEquals("javax.jms.QueueConnectionFactory", resource.getType());
-      assertEquals(ResourceAuthorityType.Container, resource.getResAuth());
-   }
+        ResourceReferencesMetaData resources = runMdb.getJndiEnvironmentRefsGroup().getResourceReferences();
+        assertNotNull(resources);
+        assertEquals(1, resources.size());
+        ResourceReferenceMetaData resource = resources.get("jms/QueFactory");
+        assertNotNull(resource);
+        assertEquals("javax.jms.QueueConnectionFactory", resource.getType());
+        assertEquals(ResourceAuthorityType.Container, resource.getResAuth());
+    }
 
-   private void assertDeepMdb(JBossMessageDrivenBeanMetaData deepMdb)
-   {
-      assertNotNull(deepMdb);
-      assertNotNull(deepMdb.getJndiEnvironmentRefsGroup());
+    private void assertDeepMdb(JBossMessageDrivenBeanMetaData deepMdb) {
+        assertNotNull(deepMdb);
+        assertNotNull(deepMdb.getJndiEnvironmentRefsGroup());
 
-      EJBLocalReferencesMetaData localReferences = deepMdb.getJndiEnvironmentRefsGroup().getEjbLocalReferences();
-      assertNotNull(localReferences);
-      assertEquals(1, localReferences.size());
+        EJBLocalReferencesMetaData localReferences = deepMdb.getJndiEnvironmentRefsGroup().getEjbLocalReferences();
+        assertNotNull(localReferences);
+        assertEquals(1, localReferences.size());
 
-      EJBLocalReferenceMetaData localReference = localReferences.get("ejb/CalledSessionLocalHome");
-      assertNotNull(localReference);
-      assertEquals(EJBReferenceType.Entity, localReference.getEjbRefType());
-      assertEquals("org.jboss.test.security.interfaces.CalledSessionLocal", localReference.getLocal());
-      assertEquals("org.jboss.test.security.interfaces.CalledSessionLocalHome", localReference.getLocalHome());
-      assertEquals("Level1MDBCallerBean", localReference.getLink());
+        EJBLocalReferenceMetaData localReference = localReferences.get("ejb/CalledSessionLocalHome");
+        assertNotNull(localReference);
+        assertEquals(EJBReferenceType.Entity, localReference.getEjbRefType());
+        assertEquals("org.jboss.test.security.interfaces.CalledSessionLocal", localReference.getLocal());
+        assertEquals("org.jboss.test.security.interfaces.CalledSessionLocalHome", localReference.getLocalHome());
+        assertEquals("Level1MDBCallerBean", localReference.getLink());
 
-      ResourceReferencesMetaData resources = deepMdb.getJndiEnvironmentRefsGroup().getResourceReferences();
-      assertNotNull(resources);
-      assertEquals(1, resources.size());
-      ResourceReferenceMetaData resource = resources.get("jms/QueFactory");
-      assertNotNull(resource);
-      assertEquals("javax.jms.QueueConnectionFactory", resource.getType());
-      assertEquals(ResourceAuthorityType.Container, resource.getResAuth());
-   }
+        ResourceReferencesMetaData resources = deepMdb.getJndiEnvironmentRefsGroup().getResourceReferences();
+        assertNotNull(resources);
+        assertEquals(1, resources.size());
+        ResourceReferenceMetaData resource = resources.get("jms/QueFactory");
+        assertNotNull(resource);
+        assertEquals("javax.jms.QueueConnectionFactory", resource.getType());
+        assertEquals(ResourceAuthorityType.Container, resource.getResAuth());
+    }
 }

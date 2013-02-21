@@ -33,7 +33,6 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @Local
-public class DefaultLocalInterfaceBean implements DefaultInterface
-{
+public class DefaultLocalInterfaceBean implements DefaultInterface {
 
 }

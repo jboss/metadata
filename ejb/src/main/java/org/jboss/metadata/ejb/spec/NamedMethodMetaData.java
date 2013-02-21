@@ -123,6 +123,13 @@ public class NamedMethodMetaData extends NamedMetaData {
         return false;
     }
 
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (methodParams != null ? methodParams.hashCode() : 0);
+        return result;
+    }
+
     public boolean matches(String methodName, String[] params) {
         // the wildcard matches everything
         if (getMethodName().equals("*"))

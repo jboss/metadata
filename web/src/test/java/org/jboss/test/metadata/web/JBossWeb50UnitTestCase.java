@@ -31,13 +31,11 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88255 $
  */
-public class JBossWeb50UnitTestCase extends AbstractJavaEEEverythingTest
-{
+public class JBossWeb50UnitTestCase extends AbstractJavaEEEverythingTest {
 
-   public void testClustering() throws Exception
-   {
-      System.out.println("JBossWeb50UnitTestCase: testClustering skipped");
-   }
+    public void testClustering() throws Exception {
+        System.out.println("JBossWeb50UnitTestCase: testClustering skipped");
+    }
 /*
       //enableTrace("org.jboss.xb.builder");
       JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader());

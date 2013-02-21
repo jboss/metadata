@@ -22,11 +22,12 @@
 
 package org.jboss.test.metadata.common;
 
+import static org.junit.Assert.fail;
+
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import static junit.framework.Assert.fail;
 
 /**
  * @author Jaikiran Pai
@@ -52,10 +53,8 @@ public abstract class AbstractXSDValidationTestCase {
         private String formatMessage(SAXParseException e) {
             StringBuffer sb = new StringBuffer();
             sb.append(e.getLineNumber()).append(':').append(e.getColumnNumber());
-            if (e.getPublicId() != null)
-                sb.append(" publicId='").append(e.getPublicId()).append('\'');
-            if (e.getSystemId() != null)
-                sb.append(" systemId='").append(e.getSystemId()).append('\'');
+            if (e.getPublicId() != null) { sb.append(" publicId='").append(e.getPublicId()).append('\''); }
+            if (e.getSystemId() != null) { sb.append(" systemId='").append(e.getSystemId()).append('\''); }
             sb.append(' ').append(e.getLocalizedMessage());
             return sb.toString();
         }

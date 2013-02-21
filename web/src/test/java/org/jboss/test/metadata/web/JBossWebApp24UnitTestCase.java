@@ -34,14 +34,12 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-public class JBossWebApp24UnitTestCase extends AbstractJavaEEEverythingTest
-{
+public class JBossWebApp24UnitTestCase extends AbstractJavaEEEverythingTest {
 
-   /* We support only only context-root, vhost (one), annotation, listener (new), session-config (new), valve (new), overlay) */
-   public void testClassLoading() throws Exception
-   {
-      System.err.println("JBossWebApp24UnitTestCase.java skipped");
-   }
+    /* We support only only context-root, vhost (one), annotation, listener (new), session-config (new), valve (new), overlay) */
+    public void testClassLoading() throws Exception {
+        System.err.println("JBossWebApp24UnitTestCase.java skipped");
+    }
 /*
    {
       //enableTrace("org.jboss.xb.builder");
@@ -321,19 +319,15 @@ public class JBossWebApp24UnitTestCase extends AbstractJavaEEEverythingTest
    }
  */
 
-   protected String getDescription(Descriptions descriptions)
-   {
-      String desc = null;
-      if(descriptions != null)
-         desc = descriptions.value()[0].value();
-      return desc;
-   }
+    protected String getDescription(Descriptions descriptions) {
+        String desc = null;
+        if (descriptions != null) { desc = descriptions.value()[0].value(); }
+        return desc;
+    }
 
-   protected Set<String> set(String...strings)
-   {
-      HashSet<String> set = new HashSet<String>();
-      for(String s : strings)
-         set.add(s);
-      return set;
-   }
+    protected Set<String> set(String... strings) {
+        HashSet<String> set = new HashSet<String>();
+        for (String s : strings) { set.add(s); }
+        return set;
+    }
 }

@@ -31,31 +31,27 @@ import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  * @version $Revision: $
  */
-public class GenericBeanWithHomeTestCase extends AbstractEJBEverythingTest
-{
-   public GenericBeanWithHomeTestCase(String name)
-   {
-      super(name);
-   }
+public class GenericBeanWithHomeTestCase extends AbstractEJBEverythingTest {
+    public GenericBeanWithHomeTestCase(String name) {
+        super(name);
+    }
 
-   public void testMerge() throws Exception
-   {
-      EjbJarMetaData specMetaData = unmarshal("ejb-jar.xml", EjbJarMetaData.class);
-      JBossMetaData metaData = unmarshal("jboss.xml", JBossMetaData.class);
+    public void testMerge() throws Exception {
+        EjbJarMetaData specMetaData = unmarshal("ejb-jar.xml", EjbJarMetaData.class);
+        JBossMetaData metaData = unmarshal("jboss.xml", JBossMetaData.class);
 
-      JBossMetaData mergedMetaData = new JBossMetaData();
-      mergedMetaData.merge(metaData, specMetaData);
+        JBossMetaData mergedMetaData = new JBossMetaData();
+        mergedMetaData.merge(metaData, specMetaData);
 
-      JBossSessionBeanMetaData bean = (JBossSessionBeanMetaData) mergedMetaData.getEnterpriseBean("TestBean");
-      assertEquals("TestBeanHomeJndiName", bean.getHomeJndiName());
-      assertEquals("TestBeanLocalHomeJndiName", bean.getLocalHomeJndiName());
-   }
+        JBossSessionBeanMetaData bean = (JBossSessionBeanMetaData) mergedMetaData.getEnterpriseBean("TestBean");
+        assertEquals("TestBeanHomeJndiName", bean.getHomeJndiName());
+        assertEquals("TestBeanLocalHomeJndiName", bean.getLocalHomeJndiName());
+    }
 
-   public void testParse() throws Exception
-   {
-      JBossMetaData jboss = unmarshal("jboss.xml", JBossMetaData.class);
-      JBossGenericBeanMetaData bean = (JBossGenericBeanMetaData) jboss.getEnterpriseBean("TestBean");
-      assertEquals("TestBeanHomeJndiName", bean.getHomeJndiName());
-      assertEquals("TestBeanLocalHomeJndiName", bean.getLocalHomeJndiName());
-   }
+    public void testParse() throws Exception {
+        JBossMetaData jboss = unmarshal("jboss.xml", JBossMetaData.class);
+        JBossGenericBeanMetaData bean = (JBossGenericBeanMetaData) jboss.getEnterpriseBean("TestBean");
+        assertEquals("TestBeanHomeJndiName", bean.getHomeJndiName());
+        assertEquals("TestBeanLocalHomeJndiName", bean.getLocalHomeJndiName());
+    }
 }

@@ -27,7 +27,6 @@ package org.jboss.test.metadata.annotation.ejb3;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 65638 $
  */
-public interface MyStateful
-{
+public interface MyStateful {
 
 }

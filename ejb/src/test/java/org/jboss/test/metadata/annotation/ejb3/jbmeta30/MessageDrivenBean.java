@@ -30,9 +30,7 @@ import javax.jms.MessageListener;
  * @version $Revision: $
  */
 @MessageDriven
-public class MessageDrivenBean implements MessageListener
-{
-   public void onMessage(Message message)
-   {
-   }
+public class MessageDrivenBean implements MessageListener {
+    public void onMessage(Message message) {
+    }
 }

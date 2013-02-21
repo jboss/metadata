@@ -32,105 +32,98 @@ import org.jboss.metadata.web.spec.Web30MetaData;
  * @author Brian Stansberry
  * @version $Revision$
  */
-public class JBossWebModuleNameUnitTestCase extends TestCase
-{
+public class JBossWebModuleNameUnitTestCase extends TestCase {
 
-   public void testOverride()
-   {
-      JBossWebMetaData merged = new JBossWebMetaData();
-      JBossWebMetaData override = new JBossWebMetaData();
+    public void testOverride() {
+        JBossWebMetaData merged = new JBossWebMetaData();
+        JBossWebMetaData override = new JBossWebMetaData();
 
-      JBossWebMetaDataMerger.merge(merged, override, (JBossWebMetaData) null);
-      assertNull(merged.getModuleName());
+        JBossWebMetaDataMerger.merge(merged, override, (JBossWebMetaData) null);
+        assertNull(merged.getModuleName());
 
-      merged = new JBossWebMetaData();
-      override.setModuleName("over");
-      JBossWebMetaDataMerger.merge(merged, override, (JBossWebMetaData) null);
-      assertEquals("over", merged.getModuleName());
+        merged = new JBossWebMetaData();
+        override.setModuleName("over");
+        JBossWebMetaDataMerger.merge(merged, override, (JBossWebMetaData) null);
+        assertEquals("over", merged.getModuleName());
 
-      merged = new JBossWebMetaData();
-      JBossWebMetaData orig = new JBossWebMetaData();
-      orig.setModuleName("orig");
-      JBossWebMetaDataMerger.merge(merged, override, orig);
-      assertEquals("over", merged.getModuleName());
-   }
+        merged = new JBossWebMetaData();
+        JBossWebMetaData orig = new JBossWebMetaData();
+        orig.setModuleName("orig");
+        JBossWebMetaDataMerger.merge(merged, override, orig);
+        assertEquals("over", merged.getModuleName());
+    }
 
-   public void testOriginal()
-   {
-      JBossWebMetaData merged = new JBossWebMetaData();
-      JBossWebMetaData orig = new JBossWebMetaData();
+    public void testOriginal() {
+        JBossWebMetaData merged = new JBossWebMetaData();
+        JBossWebMetaData orig = new JBossWebMetaData();
 
-      JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, orig);
-      assertNull(merged.getModuleName());
+        JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, orig);
+        assertNull(merged.getModuleName());
 
-      orig.setModuleName("orig");
+        orig.setModuleName("orig");
 
-      JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, orig);
-      assertEquals("orig", merged.getModuleName());
+        JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, orig);
+        assertEquals("orig", merged.getModuleName());
 
-      merged = new JBossWebMetaData();
-      JBossWebMetaData override = new JBossWebMetaData();
-      override.setModuleName("over");
-      orig.setModuleName(null);
-      JBossWebMetaDataMerger.merge(merged, override, orig);
-      assertEquals("over", merged.getModuleName());
-   }
+        merged = new JBossWebMetaData();
+        JBossWebMetaData override = new JBossWebMetaData();
+        override.setModuleName("over");
+        orig.setModuleName(null);
+        JBossWebMetaDataMerger.merge(merged, override, orig);
+        assertEquals("over", merged.getModuleName());
+    }
 
-   public void testNull()
-   {
-      JBossWebMetaData merged = new JBossWebMetaData();
+    public void testNull() {
+        JBossWebMetaData merged = new JBossWebMetaData();
 
-      JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, (JBossWebMetaData) null);
-      assertNull(merged.getModuleName());
-   }
+        JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, (JBossWebMetaData) null);
+        assertNull(merged.getModuleName());
+    }
 
-   public void testOverrideOfSpec()
-   {
-      JBossWebMetaData merged = new JBossWebMetaData();
-      JBossWebMetaData override = new JBossWebMetaData();
+    public void testOverrideOfSpec() {
+        JBossWebMetaData merged = new JBossWebMetaData();
+        JBossWebMetaData override = new JBossWebMetaData();
 
-      JBossWebMetaDataMerger.merge(merged, override, (Web30MetaData) null);
-      assertNull(merged.getModuleName());
+        JBossWebMetaDataMerger.merge(merged, override, (Web30MetaData) null);
+        assertNull(merged.getModuleName());
 
-      merged = new JBossWebMetaData();
-      override.setModuleName("over");
-      JBossWebMetaDataMerger.merge(merged, override, (Web30MetaData) null);
-      assertEquals("over", merged.getModuleName());
+        merged = new JBossWebMetaData();
+        override.setModuleName("over");
+        JBossWebMetaDataMerger.merge(merged, override, (Web30MetaData) null);
+        assertEquals("over", merged.getModuleName());
 
-      merged = new JBossWebMetaData();
-      Web30MetaData spec = new Web30MetaData();
-      spec.setModuleName("spec");
-      JBossWebMetaDataMerger.merge(merged, override, spec);
-      assertEquals("over", merged.getModuleName());
-   }
+        merged = new JBossWebMetaData();
+        Web30MetaData spec = new Web30MetaData();
+        spec.setModuleName("spec");
+        JBossWebMetaDataMerger.merge(merged, override, spec);
+        assertEquals("over", merged.getModuleName());
+    }
 
-   public void testSpec()
-   {
-      JBossWebMetaData merged = new JBossWebMetaData();
-      Web30MetaData spec = new Web30MetaData();
+    public void testSpec() {
+        JBossWebMetaData merged = new JBossWebMetaData();
+        Web30MetaData spec = new Web30MetaData();
 
-      JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, spec);
-      assertNull(merged.getModuleName());
+        JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, spec);
+        assertNull(merged.getModuleName());
 
-      spec.setModuleName("spec");
+        spec.setModuleName("spec");
 
-      JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, spec);
-      assertEquals("spec", merged.getModuleName());
+        JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, spec);
+        assertEquals("spec", merged.getModuleName());
 
-      merged = new JBossWebMetaData();
-      JBossWebMetaData override = new JBossWebMetaData();
-      override.setModuleName("over");
-      spec.setModuleName(null);
-      JBossWebMetaDataMerger.merge(merged, override, spec);
-      assertEquals("over", merged.getModuleName());
-   }
+        merged = new JBossWebMetaData();
+        JBossWebMetaData override = new JBossWebMetaData();
+        override.setModuleName("over");
+        spec.setModuleName(null);
+        JBossWebMetaDataMerger.merge(merged, override, spec);
+        assertEquals("over", merged.getModuleName());
+    }
 
-   public void testNullSpec()
-   {
-      JBossWebMetaData merged = new JBossWebMetaData();
+    public void testNullSpec() {
+        JBossWebMetaData merged = new JBossWebMetaData();
 
-      JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, (Web30MetaData) null);
-      assertNull(merged.getModuleName());
-   }
+        JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, (Web30MetaData) null);
+        assertNull(merged.getModuleName());
+    }
 
 }

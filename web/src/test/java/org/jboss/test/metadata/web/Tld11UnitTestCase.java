@@ -31,12 +31,10 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
  * @author Scott.Stark@jboss.org
  * @version $Revision: 88255 $
  */
-public class Tld11UnitTestCase extends AbstractJavaEEEverythingTest
-{
+public class Tld11UnitTestCase extends AbstractJavaEEEverythingTest {
 
-   public void testEverything() throws Exception
-   {
-      TldMetaData taglib = TldMetaDataParser.parse(getReader());
-   }
+    public void testEverything() throws Exception {
+        TldMetaData taglib = TldMetaDataParser.parse(getReader());
+    }
 
 }

@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.annotation.ejb3.defaultinterface;
 
 import java.io.Serializable;
-
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
@@ -32,8 +31,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @Local
-public class SerializableBean extends Parent implements Serializable
-{
-   private static final long serialVersionUID = 1L;
+public class SerializableBean extends Parent implements Serializable {
+    private static final long serialVersionUID = 1L;
 
 }

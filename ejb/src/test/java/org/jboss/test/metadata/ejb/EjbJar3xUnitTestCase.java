@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.ejb;
 
 import java.util.Set;
-
 import javax.xml.namespace.QName;
 
 import junit.framework.Test;
@@ -57,56 +56,50 @@ import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @version $Revision: 1.1 $
  */
-public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
-{
-   public static Test suite()
-   {
-      return suite(EjbJar3xUnitTestCase.class);
-   }
+public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest {
+    public static Test suite() {
+        return suite(EjbJar3xUnitTestCase.class);
+    }
 
-   public EjbJar3xUnitTestCase(String name)
-   {
-      super(name);
-   }
+    public EjbJar3xUnitTestCase(String name) {
+        super(name);
+    }
 
-   protected EjbJarMetaData unmarshal() throws Exception
-   {
-      return unmarshal(EjbJarMetaData.class);
-   }
+    protected EjbJarMetaData unmarshal() throws Exception {
+        return unmarshal(EjbJarMetaData.class);
+    }
 
-   public void testId() throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      assertEquals("ejb-jar-test-id", result.getId());
-   }
+    public void testId() throws Exception {
+        EjbJarMetaData result = unmarshal();
+        assertEquals("ejb-jar-test-id", result.getId());
+    }
 
-   public void testVersion() throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      assertEquals("3.0", result.getVersion());
-      assertFalse(result.isEJB1x());
-      assertFalse(result.isEJB2x());
-      assertFalse(result.isEJB21());
-      assertTrue(result.isEJB3x());
+    public void testVersion() throws Exception {
+        EjbJarMetaData result = unmarshal();
+        assertEquals("3.0", result.getVersion());
+        assertFalse(result.isEJB1x());
+        assertFalse(result.isEJB2x());
+        assertFalse(result.isEJB21());
+        assertTrue(result.isEJB3x());
 
-      // Test merged view
-      JBossMetaData merged = new JBossMetaData();
-      merged.merge(null, result);
-      assertFalse(merged.isEJB1x());
-      assertFalse(merged.isEJB2x());
-      assertFalse(merged.isEJB21());
-      assertTrue(merged.isEJB3x());
+        // Test merged view
+        JBossMetaData merged = new JBossMetaData();
+        merged.merge(null, result);
+        assertFalse(merged.isEJB1x());
+        assertFalse(merged.isEJB2x());
+        assertFalse(merged.isEJB21());
+        assertTrue(merged.isEJB3x());
 
-      // Test wrapped view
-      JBossMetaData defaults = new JBossMetaData();
-      defaults.setContainerConfigurations(new ContainerConfigurationsMetaData());
-      JBossMetaData wrapped = new JBossMetaDataWrapper(merged, defaults);
-      assertFalse(wrapped.isEJB1x());
-      assertFalse(wrapped.isEJB2x());
-      assertFalse(wrapped.isEJB21());
-      assertTrue(wrapped.isEJB3x());
+        // Test wrapped view
+        JBossMetaData defaults = new JBossMetaData();
+        defaults.setContainerConfigurations(new ContainerConfigurationsMetaData());
+        JBossMetaData wrapped = new JBossMetaDataWrapper(merged, defaults);
+        assertFalse(wrapped.isEJB1x());
+        assertFalse(wrapped.isEJB2x());
+        assertFalse(wrapped.isEJB21());
+        assertTrue(wrapped.isEJB3x());
 
-      // Test legacy view
+        // Test legacy view
       /*
       ApplicationMetaData old = new ApplicationMetaData(result);
       assertFalse(old.isEJB1x());
@@ -114,66 +107,61 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
       assertFalse(old.isEJB21());
       assertTrue(old.isEJB3x());
       */
-   }
+    }
 
-   public void testDescriptionDefaultLanguage() throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      DescriptionGroupMetaData group = result.getDescriptionGroup();
-      assertNotNull(group);
-      Descriptions descriptions = group.getDescriptions();
-      assertNotNull(descriptions);
+    public void testDescriptionDefaultLanguage() throws Exception {
+        EjbJarMetaData result = unmarshal();
+        DescriptionGroupMetaData group = result.getDescriptionGroup();
+        assertNotNull(group);
+        Descriptions descriptions = group.getDescriptions();
+        assertNotNull(descriptions);
 
-      DescriptionImpl hello = new DescriptionImpl();
-      hello.setDescription("Hello");
-      assertEquals(new Description[]
-      {hello}, descriptions.value());
-   }
+        DescriptionImpl hello = new DescriptionImpl();
+        hello.setDescription("Hello");
+        assertEquals(new Description[]
+                {hello}, descriptions.value());
+    }
 
-   public void testDisplayNameDefaultLanguage() throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      DescriptionGroupMetaData group = result.getDescriptionGroup();
-      assertNotNull(group);
-      DisplayNames displayNames = group.getDisplayNames();
-      assertNotNull(displayNames);
+    public void testDisplayNameDefaultLanguage() throws Exception {
+        EjbJarMetaData result = unmarshal();
+        DescriptionGroupMetaData group = result.getDescriptionGroup();
+        assertNotNull(group);
+        DisplayNames displayNames = group.getDisplayNames();
+        assertNotNull(displayNames);
 
-      DisplayNameImpl hello = new DisplayNameImpl();
-      hello.setDisplayName("Hello");
-      assertEquals(new DisplayName[]
-      {hello}, displayNames.value());
-   }
+        DisplayNameImpl hello = new DisplayNameImpl();
+        hello.setDisplayName("Hello");
+        assertEquals(new DisplayName[]
+                {hello}, displayNames.value());
+    }
 
-   public void testIconDefaultLanguage() throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      DescriptionGroupMetaData group = result.getDescriptionGroup();
-      assertNotNull(group);
-      Icons icons = group.getIcons();
-      assertNotNull(icons);
+    public void testIconDefaultLanguage() throws Exception {
+        EjbJarMetaData result = unmarshal();
+        DescriptionGroupMetaData group = result.getDescriptionGroup();
+        assertNotNull(group);
+        Icons icons = group.getIcons();
+        assertNotNull(icons);
 
-      IconImpl icon = new IconImpl();
-      icon.setSmallIcon("small");
-      icon.setLargeIcon("large");
-      assertEquals(new Icon[]
-      {icon}, icons.value());
-   }
+        IconImpl icon = new IconImpl();
+        icon.setSmallIcon("small");
+        icon.setLargeIcon("large");
+        assertEquals(new Icon[]
+                {icon}, icons.value());
+    }
 
-   public void testEjbClientJar() throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      assertEquals("some/path/client.jar", result.getEjbClientJar());
-   }
+    public void testEjbClientJar() throws Exception {
+        EjbJarMetaData result = unmarshal();
+        assertEquals("some/path/client.jar", result.getEjbClientJar());
+    }
 
-   public void testEnterpriseBeans() throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      EnterpriseBeansMetaData beans = result.getEnterpriseBeans();
-      assertNotNull(beans);
+    public void testEnterpriseBeans() throws Exception {
+        EjbJarMetaData result = unmarshal();
+        EnterpriseBeansMetaData beans = result.getEnterpriseBeans();
+        assertNotNull(beans);
 
-      assertEquals(1, beans.size());
-      IEnterpriseBeanMetaData bean = beans.iterator().next();
-      assertEquals("TestBean", bean.getEjbName());
+        assertEquals(1, beans.size());
+        IEnterpriseBeanMetaData bean = beans.iterator().next();
+        assertEquals("TestBean", bean.getEjbName());
 
       /*
       ApplicationMetaData old = new ApplicationMetaData(result);
@@ -183,73 +171,72 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest
       assertEquals("TestBean", beanMetaData.getEjbName());
       assertFalse(iterator.hasNext());
       */
-   }
+    }
 
-   /**
-    * Simple session/env-entry test
-    * @throws Exception
-    */
-   public void testEnvEntry() throws Exception
-   {
-      EjbJarMetaData result = unmarshal();
-      IEnterpriseBeansMetaData beans = result.getEnterpriseBeans();
-      assertNotNull(beans);
-      IEnterpriseBeanMetaData bean = beans.get("StatelessSession1");
-      assertNotNull("StatelessSession1 bean", bean);
-      EnvironmentEntryMetaData entry = bean.getEnvironmentEntryByName("session1-entry1-name");
-      assertEquals("session1-entry1-id", entry.getId());
-      assertEquals("session1-entry1-value", entry.getValue());
-      assertEquals("java.lang.String", entry.getType());
-      assertEquals("session1-entry1-mapped-name", entry.getMappedName());
-      Set<ResourceInjectionTargetMetaData> targets = entry.getInjectionTargets();
-      assertEquals(1, targets.size());
-      ResourceInjectionTargetMetaData target = targets.iterator().next();
-      assertEquals("session1.entry1.target", target.getInjectionTargetClass());
-      assertEquals("session1_entry1_injection_target_name", target.getInjectionTargetName());
-   }
+    /**
+     * Simple session/env-entry test
+     *
+     * @throws Exception
+     */
+    public void testEnvEntry() throws Exception {
+        EjbJarMetaData result = unmarshal();
+        IEnterpriseBeansMetaData beans = result.getEnterpriseBeans();
+        assertNotNull(beans);
+        IEnterpriseBeanMetaData bean = beans.get("StatelessSession1");
+        assertNotNull("StatelessSession1 bean", bean);
+        EnvironmentEntryMetaData entry = bean.getEnvironmentEntryByName("session1-entry1-name");
+        assertEquals("session1-entry1-id", entry.getId());
+        assertEquals("session1-entry1-value", entry.getValue());
+        assertEquals("java.lang.String", entry.getType());
+        assertEquals("session1-entry1-mapped-name", entry.getMappedName());
+        Set<ResourceInjectionTargetMetaData> targets = entry.getInjectionTargets();
+        assertEquals(1, targets.size());
+        ResourceInjectionTargetMetaData target = targets.iterator().next();
+        assertEquals("session1.entry1.target", target.getInjectionTargetClass());
+        assertEquals("session1_entry1_injection_target_name", target.getInjectionTargetName());
+    }
 
-   /**
-    * Test session/service-ref
-    * @throws Exception
-    */
-   public void testServiceRefs() throws Exception
-   {
-      //enableTrace("org.jboss.xb");
-      EjbJarMetaData result = unmarshal();
-      IEnterpriseBeansMetaData beans = result.getEnterpriseBeans();
-      assertNotNull(beans);
-      IEnterpriseBeanMetaData bean = beans.get("StatelessSession1");
-      ServiceReferencesMetaData serviceRefs = bean.getServiceReferences();
-      assertNotNull(serviceRefs);
-      ServiceReferenceMetaData srmd = serviceRefs.get("session1/Hello");
-      assertNotNull(srmd);
-      assertEquals("session1-service-ref", srmd.getId());
-      assertEquals("session1/Hello", srmd.getServiceRefName());
-      assertEquals("org.jboss.test.security.interfaces.HelloWorldService", srmd.getServiceInterface());
-      assertEquals("session1-wsdl-file", srmd.getWsdlFile());
-      assertEquals("META-INF/jaxrpc-mapping.xml", srmd.getJaxrpcMappingFile());
-      QName sqname = new QName("http://www.jboss.org", "Session1Qname");
-      assertEquals(sqname, srmd.getServiceQname());
+    /**
+     * Test session/service-ref
+     *
+     * @throws Exception
+     */
+    public void testServiceRefs() throws Exception {
+        //enableTrace("org.jboss.xb");
+        EjbJarMetaData result = unmarshal();
+        IEnterpriseBeansMetaData beans = result.getEnterpriseBeans();
+        assertNotNull(beans);
+        IEnterpriseBeanMetaData bean = beans.get("StatelessSession1");
+        ServiceReferencesMetaData serviceRefs = bean.getServiceReferences();
+        assertNotNull(serviceRefs);
+        ServiceReferenceMetaData srmd = serviceRefs.get("session1/Hello");
+        assertNotNull(srmd);
+        assertEquals("session1-service-ref", srmd.getId());
+        assertEquals("session1/Hello", srmd.getServiceRefName());
+        assertEquals("org.jboss.test.security.interfaces.HelloWorldService", srmd.getServiceInterface());
+        assertEquals("session1-wsdl-file", srmd.getWsdlFile());
+        assertEquals("META-INF/jaxrpc-mapping.xml", srmd.getJaxrpcMappingFile());
+        QName sqname = new QName("http://www.jboss.org", "Session1Qname");
+        assertEquals(sqname, srmd.getServiceQname());
 
-   }
+    }
 
-   /**
-    * Tests parsing of multiple "enterprise-beans/session/business-remote" and
-    * "enterprise-beans/session/business-local" nodes
-    */
-   public void testMultipleBusinessInterfaces() throws Exception
-   {
-      // Obtain Metadata
-      EjbJarMetaData result = unmarshal();
+    /**
+     * Tests parsing of multiple "enterprise-beans/session/business-remote" and
+     * "enterprise-beans/session/business-local" nodes
+     */
+    public void testMultipleBusinessInterfaces() throws Exception {
+        // Obtain Metadata
+        EjbJarMetaData result = unmarshal();
 
-      // Get metadata for our bean
-      SessionBeanMetaData metaData = (SessionBeanMetaData) result.getEnterpriseBeans().get(
-            "MultipleBusinessInterfacesBean");
-      BusinessRemotesMetaData businessRemotesMetaData = metaData.getBusinessRemotes();
-      BusinessLocalsMetaData businessLocalsMetaData = metaData.getBusinessLocals();
+        // Get metadata for our bean
+        SessionBeanMetaData metaData = (SessionBeanMetaData) result.getEnterpriseBeans().get(
+                "MultipleBusinessInterfacesBean");
+        BusinessRemotesMetaData businessRemotesMetaData = metaData.getBusinessRemotes();
+        BusinessLocalsMetaData businessLocalsMetaData = metaData.getBusinessLocals();
 
-      // Ensure 2 business interfaces are defined for each local and remote
-      assertTrue(businessRemotesMetaData.size()==2);
-      assertTrue(businessLocalsMetaData.size()==2);
-   }
+        // Ensure 2 business interfaces are defined for each local and remote
+        assertTrue(businessRemotesMetaData.size() == 2);
+        assertTrue(businessLocalsMetaData.size() == 2);
+    }
 }

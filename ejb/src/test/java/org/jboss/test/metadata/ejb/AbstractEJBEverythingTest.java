@@ -24,7 +24,6 @@ package org.jboss.test.metadata.ejb;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamReader;
@@ -91,48 +90,45 @@ import org.jboss.util.NotImplementedException;
  * @version $Revision: 1.1 $
  */
 @SuppressWarnings("deprecation")
-public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverythingTest
-{
-   public AbstractEJBEverythingTest(String name)
-   {
-      super(name);
-   }
+public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverythingTest {
+    public AbstractEJBEverythingTest(String name) {
+        super(name);
+    }
 
-   protected void assertEnterpriseBeans(EjbJarMetaData ejbJarMetaData, Mode mode)
-   {
-      IEnterpriseBeansMetaData enterpriseBeansMetaData = ejbJarMetaData.getEnterpriseBeans();
-      assertNotNull(enterpriseBeansMetaData);
-      assertId(mode == Mode.SPEC ? "enterprise-beans" : "jboss-enterprise-beans", enterpriseBeansMetaData);
-      assertEquals(15, enterpriseBeansMetaData.size());
+    protected void assertEnterpriseBeans(EjbJarMetaData ejbJarMetaData, Mode mode) {
+        IEnterpriseBeansMetaData enterpriseBeansMetaData = ejbJarMetaData.getEnterpriseBeans();
+        assertNotNull(enterpriseBeansMetaData);
+        assertId(mode == Mode.SPEC ? "enterprise-beans" : "jboss-enterprise-beans", enterpriseBeansMetaData);
+        assertEquals(15, enterpriseBeansMetaData.size());
 
-      final String sessionPrefix = mode == Mode.SPEC ? "session" : "jbossSession";
-      assertNullSession(sessionPrefix + "0", enterpriseBeansMetaData, mode);
-      assertFullSession(sessionPrefix + "1", enterpriseBeansMetaData, mode);
-      assertFullSession(sessionPrefix + "2", enterpriseBeansMetaData, mode);
-      SessionBeanMetaData session = assertSession(sessionPrefix + "3EjbName", enterpriseBeansMetaData);
-      assertEquals(SessionType.Stateful, session.getSessionType());
-      session = assertSession(sessionPrefix + "4EjbName", enterpriseBeansMetaData);
-      assertEquals(TransactionManagementType.BEAN, session.getTransactionType());
-      session = assertSession(sessionPrefix + "5EjbName", enterpriseBeansMetaData);
-      SecurityIdentityMetaData securityIdentityMetaData = session.getSecurityIdentity();
-      assertNotNull(securityIdentityMetaData);
-      assertTrue(securityIdentityMetaData.isUseCallerId());
+        final String sessionPrefix = mode == Mode.SPEC ? "session" : "jbossSession";
+        assertNullSession(sessionPrefix + "0", enterpriseBeansMetaData, mode);
+        assertFullSession(sessionPrefix + "1", enterpriseBeansMetaData, mode);
+        assertFullSession(sessionPrefix + "2", enterpriseBeansMetaData, mode);
+        SessionBeanMetaData session = assertSession(sessionPrefix + "3EjbName", enterpriseBeansMetaData);
+        assertEquals(SessionType.Stateful, session.getSessionType());
+        session = assertSession(sessionPrefix + "4EjbName", enterpriseBeansMetaData);
+        assertEquals(TransactionManagementType.BEAN, session.getTransactionType());
+        session = assertSession(sessionPrefix + "5EjbName", enterpriseBeansMetaData);
+        SecurityIdentityMetaData securityIdentityMetaData = session.getSecurityIdentity();
+        assertNotNull(securityIdentityMetaData);
+        assertTrue(securityIdentityMetaData.isUseCallerId());
 
-      assertNullEntity("entity0", enterpriseBeansMetaData);
-      assertFullEntity("entity1", enterpriseBeansMetaData, mode);
-      assertFullEntity("entity2", enterpriseBeansMetaData, mode);
-      EntityBeanMetaData entity = assertEntity("entity3EjbName", enterpriseBeansMetaData);
-      assertEquals(PersistenceType.Bean, entity.getPersistenceType());
-      entity = assertEntity("entity4EjbName", enterpriseBeansMetaData);
-      assertFalse(entity.isReentrant());
-      entity = assertEntity("entity5EjbName", enterpriseBeansMetaData);
-      assertEquals("1.x", entity.getCmpVersion());
-      assertTrue(entity.isCMP1x());
+        assertNullEntity("entity0", enterpriseBeansMetaData);
+        assertFullEntity("entity1", enterpriseBeansMetaData, mode);
+        assertFullEntity("entity2", enterpriseBeansMetaData, mode);
+        EntityBeanMetaData entity = assertEntity("entity3EjbName", enterpriseBeansMetaData);
+        assertEquals(PersistenceType.Bean, entity.getPersistenceType());
+        entity = assertEntity("entity4EjbName", enterpriseBeansMetaData);
+        assertFalse(entity.isReentrant());
+        entity = assertEntity("entity5EjbName", enterpriseBeansMetaData);
+        assertEquals("1.x", entity.getCmpVersion());
+        assertTrue(entity.isCMP1x());
 
-      assertNullMDB("mdb0", enterpriseBeansMetaData, mode);
-      assertFullMDB("mdb1", enterpriseBeansMetaData, mode);
-      assertFullMDB("mdb2", enterpriseBeansMetaData, mode);
-   }
+        assertNullMDB("mdb0", enterpriseBeansMetaData, mode);
+        assertFullMDB("mdb1", enterpriseBeansMetaData, mode);
+        assertFullMDB("mdb2", enterpriseBeansMetaData, mode);
+    }
 
    /*
    protected void assertEnterpriseBeans(ApplicationMetaData applicationMetaData, Mode mode)
@@ -179,74 +175,68 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
-   {
-      throw new NotImplementedException();
-   }
-   /**
-    * Assert a minimal session bean. This requires an empty
-    * security-identity/use-caller-identity element
-    *
-    * @param ejbName
-    * @param enterpriseBeansMetaData
-    * @return
-    */
-   private SessionBeanMetaData assertNullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData)
-   {
-      return assertNullSession(ejbName, enterpriseBeansMetaData, Mode.SPEC);
-   }
+    protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
+        throw new NotImplementedException();
+    }
 
-   protected SessionBeanMetaData assertNullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
-   {
-      SessionBeanMetaData session = assertSession(ejbName + "EjbName", enterpriseBeansMetaData);
-      if (mode == Mode.SPEC)
-      {
-         assertEquals(ejbName+"EjbClass", session.getEjbClass());
-         assertEquals(SessionType.Stateless, session.getSessionType());
-         assertEquals(TransactionManagementType.CONTAINER, session.getTransactionType());
-         assertNotNull(session.getSecurityIdentity().getUseCallerIdentity());
-         assertTrue(session.getSecurityIdentity().isUseCallerId());
-      }
-      else
-      {
-         assertNull(session.getEjbClass());
-         assertNull(session.getSessionType());
-         assertNull(session.getTransactionType());
-         assertNull(session.getSecurityIdentity());
-      }
-      assertNull(session.getId());
-      assertNull(session.getMappedName());
-      assertNull(session.getHome());
-      assertNull(session.getRemote());
-      assertNull(session.getLocalHome());
-      assertNull(session.getLocal());
-      assertNull(session.getBusinessLocals());
-      assertNull(session.getBusinessRemotes());
-      assertNull(session.getServiceEndpoint());
-      assertNull(session.getTimeoutMethod());
-      assertNull(session.getInitMethods());
-      assertNull(session.getRemoveMethods());
-      assertNull(session.getAroundInvokes());
-      assertNull(session.getPostActivates());
-      assertNull(session.getPrePassivates());
-      // TODO: make sure JndiEnviromentRefsGroup is not needlessly created
+    /**
+     * Assert a minimal session bean. This requires an empty
+     * security-identity/use-caller-identity element
+     *
+     * @param ejbName
+     * @param enterpriseBeansMetaData
+     * @return
+     */
+    private SessionBeanMetaData assertNullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData) {
+        return assertNullSession(ejbName, enterpriseBeansMetaData, Mode.SPEC);
+    }
+
+    protected SessionBeanMetaData assertNullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
+        SessionBeanMetaData session = assertSession(ejbName + "EjbName", enterpriseBeansMetaData);
+        if (mode == Mode.SPEC) {
+            assertEquals(ejbName + "EjbClass", session.getEjbClass());
+            assertEquals(SessionType.Stateless, session.getSessionType());
+            assertEquals(TransactionManagementType.CONTAINER, session.getTransactionType());
+            assertNotNull(session.getSecurityIdentity().getUseCallerIdentity());
+            assertTrue(session.getSecurityIdentity().isUseCallerId());
+        } else {
+            assertNull(session.getEjbClass());
+            assertNull(session.getSessionType());
+            assertNull(session.getTransactionType());
+            assertNull(session.getSecurityIdentity());
+        }
+        assertNull(session.getId());
+        assertNull(session.getMappedName());
+        assertNull(session.getHome());
+        assertNull(session.getRemote());
+        assertNull(session.getLocalHome());
+        assertNull(session.getLocal());
+        assertNull(session.getBusinessLocals());
+        assertNull(session.getBusinessRemotes());
+        assertNull(session.getServiceEndpoint());
+        assertNull(session.getTimeoutMethod());
+        assertNull(session.getInitMethods());
+        assertNull(session.getRemoveMethods());
+        assertNull(session.getAroundInvokes());
+        assertNull(session.getPostActivates());
+        assertNull(session.getPrePassivates());
+        // TODO: make sure JndiEnviromentRefsGroup is not needlessly created
 //      assertNull(session.getJndiEnvironmentRefsGroup());
-      assertNull(session.getContainerTransactions());
-      assertNull(session.getMethodPermissions());
-      assertNull(session.getExcludeList());
-      assertNull(session.getSecurityRoleRefs());
+        assertNull(session.getContainerTransactions());
+        assertNull(session.getMethodPermissions());
+        assertNull(session.getExcludeList());
+        assertNull(session.getSecurityRoleRefs());
 
-      return session;
-   }
+        return session;
+    }
 
-   protected SessionBeanMetaData assertSession(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData)
-   {
-      SessionBeanMetaData session = assertEnterpriseBean(ejbName, enterpriseBeansMetaData, SessionBeanMetaData.class);
-      assertTrue(session.isSession());
-      assertFalse(session.isEntity());
-      assertFalse(session.isMessageDriven());
-      return session;
-   }
+    protected SessionBeanMetaData assertSession(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData) {
+        SessionBeanMetaData session = assertEnterpriseBean(ejbName, enterpriseBeansMetaData, SessionBeanMetaData.class);
+        assertTrue(session.isSession());
+        assertFalse(session.isEntity());
+        assertFalse(session.isMessageDriven());
+        return session;
+    }
 
    /*
    private SessionMetaData assertFullSession(String ejbName, ApplicationMetaData applicationMetaData, Mode mode)
@@ -272,13 +262,13 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   /**
-    * Assert a minimal session.
-    *
-    * @param ejbName
-    * @param applicationMetaData
-    * @return
-    */
+    /**
+     * Assert a minimal session.
+     *
+     * @param ejbName
+     * @param applicationMetaData
+     * @return
+     */
    /*
    private SessionMetaData assertNullSession(String ejbName, ApplicationMetaData applicationMetaData)
    {
@@ -314,55 +304,50 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
       return session;
    }
    */
+    protected EntityBeanMetaData assertFullEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
+        throw new NotImplementedException();
+    }
 
-   protected EntityBeanMetaData assertFullEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
-   {
-      throw new NotImplementedException();
-   }
+    private EntityBeanMetaData assertNullEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData) {
+        EntityBeanMetaData entity = assertEntity(ejbName + "EjbName", enterpriseBeansMetaData);
+        assertNullEntity(ejbName, entity);
+        return entity;
+    }
 
-   private EntityBeanMetaData assertNullEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData)
-   {
-      EntityBeanMetaData entity = assertEntity(ejbName + "EjbName", enterpriseBeansMetaData);
-      assertNullEntity(ejbName, entity);
-      return entity;
-   }
+    public void assertNullEntity(String ejbName, EntityBeanMetaData entity) {
+        assertEquals(ejbName + "EjbClass", entity.getEjbClass());
+        assertEquals(PersistenceType.Container, entity.getPersistenceType());
+        assertEquals(ejbName + "EjbKeyClass", entity.getPrimKeyClass());
 
-   public void assertNullEntity(String ejbName, EntityBeanMetaData entity)
-   {
-      assertEquals(ejbName+"EjbClass", entity.getEjbClass());
-      assertEquals(PersistenceType.Container, entity.getPersistenceType());
-      assertEquals(ejbName+"EjbKeyClass", entity.getPrimKeyClass());
-
-      assertNull(entity.getId());
-      assertNull(entity.getMappedName());
-      assertNull(entity.getHome());
-      assertNull(entity.getRemote());
-      assertNull(entity.getLocalHome());
-      assertNull(entity.getLocal());
-      assertFalse(entity.isReentrant());
-      assertNull(entity.getCmpVersion());
-      assertFalse(entity.isCMP1x());
-      assertNull(entity.getAbstractSchemaName());
-      assertNull(entity.getCmpFields());
-      assertNull(entity.getPrimKeyField());
-      // TODO: make sure JndiEnviromentRefsGroup is not needlessly created
+        assertNull(entity.getId());
+        assertNull(entity.getMappedName());
+        assertNull(entity.getHome());
+        assertNull(entity.getRemote());
+        assertNull(entity.getLocalHome());
+        assertNull(entity.getLocal());
+        assertFalse(entity.isReentrant());
+        assertNull(entity.getCmpVersion());
+        assertFalse(entity.isCMP1x());
+        assertNull(entity.getAbstractSchemaName());
+        assertNull(entity.getCmpFields());
+        assertNull(entity.getPrimKeyField());
+        // TODO: make sure JndiEnviromentRefsGroup is not needlessly created
 //      assertNull(entity.getJndiEnvironmentRefsGroup());
-      assertNull(entity.getContainerTransactions());
-      assertNull(entity.getMethodPermissions());
-      assertNull(entity.getExcludeList());
-      assertNull(entity.getSecurityRoleRefs());
-      assertNotNull(entity.getSecurityIdentity());
-      assertNull(entity.getQueries());
-   }
+        assertNull(entity.getContainerTransactions());
+        assertNull(entity.getMethodPermissions());
+        assertNull(entity.getExcludeList());
+        assertNull(entity.getSecurityRoleRefs());
+        assertNotNull(entity.getSecurityIdentity());
+        assertNull(entity.getQueries());
+    }
 
-   protected EntityBeanMetaData assertEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData)
-   {
-      EntityBeanMetaData entity = assertEnterpriseBean(ejbName, enterpriseBeansMetaData, EntityBeanMetaData.class);
-      assertFalse(entity.isSession());
-      assertTrue(entity.isEntity());
-      assertFalse(entity.isMessageDriven());
-      return entity;
-   }
+    protected EntityBeanMetaData assertEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData) {
+        EntityBeanMetaData entity = assertEnterpriseBean(ejbName, enterpriseBeansMetaData, EntityBeanMetaData.class);
+        assertFalse(entity.isSession());
+        assertTrue(entity.isEntity());
+        assertFalse(entity.isMessageDriven());
+        return entity;
+    }
 
    /*
    private EntityMetaData assertFullEntity(String ejbName, ApplicationMetaData applicationMetaData, Mode mode)
@@ -437,17 +422,15 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   private void assertCmpFields(String ejbName, int size, Iterator<String> cmpFieldsMetaData)
-   {
-      assertNotNull(cmpFieldsMetaData);
-      int count = 1;
-      while (cmpFieldsMetaData.hasNext())
-      {
-         assertEquals(ejbName + "CmpField" + count, cmpFieldsMetaData.next());
-         ++count;
-      }
-      assertEquals(size + 1, count);
-   }
+    private void assertCmpFields(String ejbName, int size, Iterator<String> cmpFieldsMetaData) {
+        assertNotNull(cmpFieldsMetaData);
+        int count = 1;
+        while (cmpFieldsMetaData.hasNext()) {
+            assertEquals(ejbName + "CmpField" + count, cmpFieldsMetaData.next());
+            ++count;
+        }
+        assertEquals(size + 1, count);
+    }
 
    /*
    private void assertQueries(String ejbName, int size, Iterator<org.jboss.metadata.QueryMetaData> queries)
@@ -471,76 +454,65 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   private void assertMethodParams(String prefix, int size, Iterator<String> params)
-   {
-      assertNotNull(params);
-      int count = 1;
-      while (params.hasNext())
-      {
-         assertEquals(prefix + "Param" + count, params.next());
-         ++count;
-      }
-      assertEquals(size + 1, count);
-   }
+    private void assertMethodParams(String prefix, int size, Iterator<String> params) {
+        assertNotNull(params);
+        int count = 1;
+        while (params.hasNext()) {
+            assertEquals(prefix + "Param" + count, params.next());
+            ++count;
+        }
+        assertEquals(size + 1, count);
+    }
 
-   private void assertMethodParams(String prefix, int size, String[] params)
-   {
-      assertNotNull(params);
-      assertEquals(size, params.length);
-      for (int count = 1; count <= params.length; ++count)
-         assertEquals(prefix + "Param" + count, params[count-1]);
-   }
+    private void assertMethodParams(String prefix, int size, String[] params) {
+        assertNotNull(params);
+        assertEquals(size, params.length);
+        for (int count = 1; count <= params.length; ++count) { assertEquals(prefix + "Param" + count, params[count - 1]); }
+    }
 
-   protected MessageDrivenBeanMetaData assertFullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
-   {
-      throw new NotImplementedException();
-   }
+    protected MessageDrivenBeanMetaData assertFullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
+        throw new NotImplementedException();
+    }
 
-   private MessageDrivenBeanMetaData assertNullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData)
-   {
-      return assertNullMDB(ejbName, enterpriseBeansMetaData, Mode.SPEC);
-   }
+    private MessageDrivenBeanMetaData assertNullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData) {
+        return assertNullMDB(ejbName, enterpriseBeansMetaData, Mode.SPEC);
+    }
 
-   private MessageDrivenBeanMetaData assertNullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode)
-   {
-      MessageDrivenBeanMetaData mdb = assertMDB(ejbName + "EjbName", enterpriseBeansMetaData);
-      if (mode == Mode.SPEC)
-      {
-         assertEquals(ejbName+"EjbClass", mdb.getEjbClass());
-         assertEquals(TransactionManagementType.CONTAINER, mdb.getTransactionType());
-         assertNotNull(mdb.getSecurityIdentity());
-      }
-      else
-      {
-         assertNull(mdb.getEjbClass());
-         assertNull(mdb.getTransactionType());
-         assertNull(mdb.getSecurityIdentity());
-      }
-      assertNull(mdb.getActivationConfig());
-      assertNull(mdb.getMessagingType());
-      assertNull(mdb.getId());
-      assertNull(mdb.getMappedName());
-      assertNull(mdb.getTimeoutMethod());
-      assertNull(mdb.getMessageDestinationType());
-      assertNull(mdb.getMessageDestinationLink());
-      assertNull(mdb.getAroundInvokes());
-      // TODO: make sure JndiEnviromentRefsGroup is not needlessly created
+    private MessageDrivenBeanMetaData assertNullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
+        MessageDrivenBeanMetaData mdb = assertMDB(ejbName + "EjbName", enterpriseBeansMetaData);
+        if (mode == Mode.SPEC) {
+            assertEquals(ejbName + "EjbClass", mdb.getEjbClass());
+            assertEquals(TransactionManagementType.CONTAINER, mdb.getTransactionType());
+            assertNotNull(mdb.getSecurityIdentity());
+        } else {
+            assertNull(mdb.getEjbClass());
+            assertNull(mdb.getTransactionType());
+            assertNull(mdb.getSecurityIdentity());
+        }
+        assertNull(mdb.getActivationConfig());
+        assertNull(mdb.getMessagingType());
+        assertNull(mdb.getId());
+        assertNull(mdb.getMappedName());
+        assertNull(mdb.getTimeoutMethod());
+        assertNull(mdb.getMessageDestinationType());
+        assertNull(mdb.getMessageDestinationLink());
+        assertNull(mdb.getAroundInvokes());
+        // TODO: make sure JndiEnviromentRefsGroup is not needlessly created
 //      assertNull(mdb.getJndiEnvironmentRefsGroup());
-      assertNull(mdb.getContainerTransactions());
-      assertNull(mdb.getMethodPermissions());
-      assertNull(mdb.getExcludeList());
+        assertNull(mdb.getContainerTransactions());
+        assertNull(mdb.getMethodPermissions());
+        assertNull(mdb.getExcludeList());
 
-      return mdb;
-   }
+        return mdb;
+    }
 
-   protected MessageDrivenBeanMetaData assertMDB(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData)
-   {
-      MessageDrivenBeanMetaData mdb = assertEnterpriseBean(ejbName, enterpriseBeansMetaData, MessageDrivenBeanMetaData.class);
-      assertFalse(mdb.isSession());
-      assertFalse(mdb.isEntity());
-      assertTrue(mdb.isMessageDriven());
-      return mdb;
-   }
+    protected MessageDrivenBeanMetaData assertMDB(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData) {
+        MessageDrivenBeanMetaData mdb = assertEnterpriseBean(ejbName, enterpriseBeansMetaData, MessageDrivenBeanMetaData.class);
+        assertFalse(mdb.isSession());
+        assertFalse(mdb.isEntity());
+        assertTrue(mdb.isMessageDriven());
+        return mdb;
+    }
 
    /*
    protected MessageDrivenMetaData assertFullMDB(String ejbName, ApplicationMetaData applicationMetaData, Mode mode)
@@ -584,28 +556,23 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertActivationConfig(String prefix, ActivationConfigMetaData activationConfigMetaData, Mode mode)
-   {
-      assertNotNull(activationConfigMetaData);
-      if(mode != Mode.JBOSS_DTD)
-         assertId(prefix + "ActivationConfig", activationConfigMetaData);
-      assertActivationConfigProperties(prefix, 2, activationConfigMetaData.getActivationConfigProperties(), mode);
-   }
+    protected void assertActivationConfig(String prefix, ActivationConfigMetaData activationConfigMetaData, Mode mode) {
+        assertNotNull(activationConfigMetaData);
+        if (mode != Mode.JBOSS_DTD) { assertId(prefix + "ActivationConfig", activationConfigMetaData); }
+        assertActivationConfigProperties(prefix, 2, activationConfigMetaData.getActivationConfigProperties(), mode);
+    }
 
-   private void assertActivationConfigProperties(String prefix, int size, ActivationConfigPropertiesMetaData activationConfigPropertiesMetaData, Mode mode)
-   {
-      assertNotNull(activationConfigPropertiesMetaData);
-      assertEquals(size, activationConfigPropertiesMetaData.size());
-      int count = 1;
-      for (ActivationConfigPropertyMetaData property : activationConfigPropertiesMetaData)
-      {
-         if(mode != Mode.JBOSS_DTD)
-            assertId(prefix + "ActivationConfigProperty" + count, property);
-         assertEquals(prefix + "ActivationConfigProperty" + count + "Name", property.getActivationConfigPropertyName());
-         assertEquals(prefix + "ActivationConfigProperty" + count + "Value", property.getValue());
-         ++count;
-      }
-   }
+    private void assertActivationConfigProperties(String prefix, int size, ActivationConfigPropertiesMetaData activationConfigPropertiesMetaData, Mode mode) {
+        assertNotNull(activationConfigPropertiesMetaData);
+        assertEquals(size, activationConfigPropertiesMetaData.size());
+        int count = 1;
+        for (ActivationConfigPropertyMetaData property : activationConfigPropertiesMetaData) {
+            if (mode != Mode.JBOSS_DTD) { assertId(prefix + "ActivationConfigProperty" + count, property); }
+            assertEquals(prefix + "ActivationConfigProperty" + count + "Name", property.getActivationConfigPropertyName());
+            assertEquals(prefix + "ActivationConfigProperty" + count + "Value", property.getValue());
+            ++count;
+        }
+    }
 
    /*
    private void assertActivationConfigProperties(String ejbName, int size, Map<String, org.jboss.metadata.ActivationConfigPropertyMetaData> activationConfigPropertiesMetaData)
@@ -635,14 +602,13 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected <T extends EnterpriseBeanMetaData> T assertEnterpriseBean(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData, Class<T> expected)
-   {
-      IEnterpriseBeanMetaData enterpriseBeanMeta = enterpriseBeansMetaData.get(ejbName);
-      assertNotNull("Can't find bean " + ejbName, enterpriseBeanMeta);
-      assertEquals(ejbName, enterpriseBeanMeta.getEjbName());
-      assertTrue("Bean " + ejbName + " is not a " + expected + ", but " + enterpriseBeanMeta.getClass(), expected.isAssignableFrom(enterpriseBeanMeta.getClass()));
-      return expected.cast(enterpriseBeanMeta);
-   }
+    protected <T extends EnterpriseBeanMetaData> T assertEnterpriseBean(String ejbName, IEnterpriseBeansMetaData enterpriseBeansMetaData, Class<T> expected) {
+        IEnterpriseBeanMetaData enterpriseBeanMeta = enterpriseBeansMetaData.get(ejbName);
+        assertNotNull("Can't find bean " + ejbName, enterpriseBeanMeta);
+        assertEquals(ejbName, enterpriseBeanMeta.getEjbName());
+        assertTrue("Bean " + ejbName + " is not a " + expected + ", but " + enterpriseBeanMeta.getClass(), expected.isAssignableFrom(enterpriseBeanMeta.getClass()));
+        return expected.cast(enterpriseBeanMeta);
+    }
 
    /*
    private <T extends BeanMetaData> T assertEnterpriseBean(String ejbName, ApplicationMetaData applicationMetaData, Class<T> expected)
@@ -654,72 +620,63 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertRelationships(EjbJarMetaData ejbJarMetaData)
-   {
-      RelationsMetaData relationsMetaData = ejbJarMetaData.getRelationships();
-      assertNotNull(relationsMetaData);
-      assertId("relationships", relationsMetaData);
-      assertDescriptions("relationships", relationsMetaData.getDescriptions());
-      assertEquals(2, relationsMetaData.size());
-      int count = 1;
-      for (RelationMetaData relation : relationsMetaData)
-         assertRelation("relation" + (count++), relation);
-   }
+    protected void assertRelationships(EjbJarMetaData ejbJarMetaData) {
+        RelationsMetaData relationsMetaData = ejbJarMetaData.getRelationships();
+        assertNotNull(relationsMetaData);
+        assertId("relationships", relationsMetaData);
+        assertDescriptions("relationships", relationsMetaData.getDescriptions());
+        assertEquals(2, relationsMetaData.size());
+        int count = 1;
+        for (RelationMetaData relation : relationsMetaData) { assertRelation("relation" + (count++), relation); }
+    }
 
-   private void assertRelation(String prefix, RelationMetaData relationMetaData)
-   {
-      assertId(prefix, relationMetaData);
-      assertDescriptions(prefix, relationMetaData.getDescriptions());
-      assertEquals(prefix + "Name", relationMetaData.getEjbRelationName());
-      assertRelationRole(prefix + "Role1", MultiplicityType.One, relationMetaData.getLeftRole());
-      assertRelationRole(prefix + "Role2", MultiplicityType.Many, relationMetaData.getRightRole());
-      assertEquals(relationMetaData.getLeftRole(), relationMetaData.getRelatedRole(relationMetaData.getRightRole()));
-      assertEquals(relationMetaData.getRightRole(), relationMetaData.getRelatedRole(relationMetaData.getLeftRole()));
-      assertEquals(relationMetaData.getLeftRole(), relationMetaData.getRightRole().getRelatedRole());
-      assertEquals(relationMetaData.getRightRole(), relationMetaData.getLeftRole().getRelatedRole());
-   }
+    private void assertRelation(String prefix, RelationMetaData relationMetaData) {
+        assertId(prefix, relationMetaData);
+        assertDescriptions(prefix, relationMetaData.getDescriptions());
+        assertEquals(prefix + "Name", relationMetaData.getEjbRelationName());
+        assertRelationRole(prefix + "Role1", MultiplicityType.One, relationMetaData.getLeftRole());
+        assertRelationRole(prefix + "Role2", MultiplicityType.Many, relationMetaData.getRightRole());
+        assertEquals(relationMetaData.getLeftRole(), relationMetaData.getRelatedRole(relationMetaData.getRightRole()));
+        assertEquals(relationMetaData.getRightRole(), relationMetaData.getRelatedRole(relationMetaData.getLeftRole()));
+        assertEquals(relationMetaData.getLeftRole(), relationMetaData.getRightRole().getRelatedRole());
+        assertEquals(relationMetaData.getRightRole(), relationMetaData.getLeftRole().getRelatedRole());
+    }
 
-   private void assertRelationRole(String prefix, MultiplicityType multiplicity, RelationRoleMetaData relationRoleMetaData)
-   {
-      assertNotNull(relationRoleMetaData);
-      assertId(prefix, relationRoleMetaData);
-      assertDescriptions(prefix, relationRoleMetaData.getDescriptions());
-      assertEquals(prefix + "Name", relationRoleMetaData.getEjbRelationshipRoleName());
-      assertEquals(multiplicity, relationRoleMetaData.getMultiplicity());
-      if (multiplicity == MultiplicityType.Many)
-      {
-         assertTrue(relationRoleMetaData.isMultiplicityMany());
-         assertFalse(relationRoleMetaData.isMultiplicityOne());
-      }
-      else
-      {
-         assertFalse(relationRoleMetaData.isMultiplicityMany());
-         assertTrue(relationRoleMetaData.isMultiplicityOne());
-      }
-      assertEmpty(prefix, "CascadeDelete", relationRoleMetaData.getCascadeDelete());
-      assertTrue(relationRoleMetaData.isCascadedDelete());
-      assertRelationRoleSource(prefix + "RoleSource", relationRoleMetaData.getRoleSource());
-      assertCmrField(prefix + "CmrField", relationRoleMetaData.getCmrField());
-   }
+    private void assertRelationRole(String prefix, MultiplicityType multiplicity, RelationRoleMetaData relationRoleMetaData) {
+        assertNotNull(relationRoleMetaData);
+        assertId(prefix, relationRoleMetaData);
+        assertDescriptions(prefix, relationRoleMetaData.getDescriptions());
+        assertEquals(prefix + "Name", relationRoleMetaData.getEjbRelationshipRoleName());
+        assertEquals(multiplicity, relationRoleMetaData.getMultiplicity());
+        if (multiplicity == MultiplicityType.Many) {
+            assertTrue(relationRoleMetaData.isMultiplicityMany());
+            assertFalse(relationRoleMetaData.isMultiplicityOne());
+        } else {
+            assertFalse(relationRoleMetaData.isMultiplicityMany());
+            assertTrue(relationRoleMetaData.isMultiplicityOne());
+        }
+        assertEmpty(prefix, "CascadeDelete", relationRoleMetaData.getCascadeDelete());
+        assertTrue(relationRoleMetaData.isCascadedDelete());
+        assertRelationRoleSource(prefix + "RoleSource", relationRoleMetaData.getRoleSource());
+        assertCmrField(prefix + "CmrField", relationRoleMetaData.getCmrField());
+    }
 
-   private void assertRelationRoleSource(String prefix, RelationRoleSourceMetaData relationRoleSourceMetaData)
-   {
-      assertNotNull(relationRoleSourceMetaData);
-      assertId(prefix, relationRoleSourceMetaData);
-      assertDescriptions(prefix, relationRoleSourceMetaData.getDescriptions());
-      // Hard-coded to the last entity ejb-name
-      assertEquals("entity5EjbName", relationRoleSourceMetaData.getEjbName());
-   }
+    private void assertRelationRoleSource(String prefix, RelationRoleSourceMetaData relationRoleSourceMetaData) {
+        assertNotNull(relationRoleSourceMetaData);
+        assertId(prefix, relationRoleSourceMetaData);
+        assertDescriptions(prefix, relationRoleSourceMetaData.getDescriptions());
+        // Hard-coded to the last entity ejb-name
+        assertEquals("entity5EjbName", relationRoleSourceMetaData.getEjbName());
+    }
 
-   private void assertCmrField(String prefix, CMRFieldMetaData cmrFieldMetaData)
-   {
-      assertNotNull(cmrFieldMetaData);
-      assertId(prefix, cmrFieldMetaData);
-      assertDescriptions(prefix, cmrFieldMetaData.getDescriptions());
-      assertEquals(prefix + "Name", cmrFieldMetaData.getCmrFieldName());
-      // All use java.util.Set
-      assertEquals("java.util.Set", cmrFieldMetaData.getCmrFieldType());
-   }
+    private void assertCmrField(String prefix, CMRFieldMetaData cmrFieldMetaData) {
+        assertNotNull(cmrFieldMetaData);
+        assertId(prefix, cmrFieldMetaData);
+        assertDescriptions(prefix, cmrFieldMetaData.getDescriptions());
+        assertEquals(prefix + "Name", cmrFieldMetaData.getCmrFieldName());
+        // All use java.util.Set
+        assertEquals("java.util.Set", cmrFieldMetaData.getCmrFieldType());
+    }
 
    /*
    protected void assertRelationships(ApplicationMetaData applicationMetaData)
@@ -773,32 +730,27 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected AssemblyDescriptorMetaData assertAssemblyDescriptor(EjbJarMetaData ejbJarMetaData)
-   {
-      return assertAssemblyDescriptor(ejbJarMetaData, Mode.SPEC);
-   }
+    protected AssemblyDescriptorMetaData assertAssemblyDescriptor(EjbJarMetaData ejbJarMetaData) {
+        return assertAssemblyDescriptor(ejbJarMetaData, Mode.SPEC);
+    }
 
-   protected AssemblyDescriptorMetaData assertAssemblyDescriptor(EjbJarMetaData ejbJarMetaData, Mode mode)
-   {
-      AssemblyDescriptorMetaData assemblyDescriptorMetaData = (AssemblyDescriptorMetaData) ejbJarMetaData.getAssemblyDescriptor();
-      assertNotNull(assemblyDescriptorMetaData);
-      assertId("assembly-descriptor", assemblyDescriptorMetaData);
-      assertSecurityRoles(2, assemblyDescriptorMetaData.getSecurityRoles(), mode);
-      if (mode == Mode.SPEC)
-      {
-         assertMethodPermissions(null, "methodPermission", 21, 3, assemblyDescriptorMetaData.getMethodPermissions());
-         assertContainerTransactions(null, 42, 6, assemblyDescriptorMetaData.getContainerTransactions());
-         assertExcludeList(null, 35, 5, assemblyDescriptorMetaData.getExcludeList());
-      }
-      else
-      {
-         assertNull(assemblyDescriptorMetaData.getMethodPermissions());
-         assertNull(assemblyDescriptorMetaData.getContainerTransactions());
-         assertNull(assemblyDescriptorMetaData.getExcludeList());
-      }
-      assertMessageDestinations(2, assemblyDescriptorMetaData.getMessageDestinations(), mode);
-      return assemblyDescriptorMetaData;
-   }
+    protected AssemblyDescriptorMetaData assertAssemblyDescriptor(EjbJarMetaData ejbJarMetaData, Mode mode) {
+        AssemblyDescriptorMetaData assemblyDescriptorMetaData = (AssemblyDescriptorMetaData) ejbJarMetaData.getAssemblyDescriptor();
+        assertNotNull(assemblyDescriptorMetaData);
+        assertId("assembly-descriptor", assemblyDescriptorMetaData);
+        assertSecurityRoles(2, assemblyDescriptorMetaData.getSecurityRoles(), mode);
+        if (mode == Mode.SPEC) {
+            assertMethodPermissions(null, "methodPermission", 21, 3, assemblyDescriptorMetaData.getMethodPermissions());
+            assertContainerTransactions(null, 42, 6, assemblyDescriptorMetaData.getContainerTransactions());
+            assertExcludeList(null, 35, 5, assemblyDescriptorMetaData.getExcludeList());
+        } else {
+            assertNull(assemblyDescriptorMetaData.getMethodPermissions());
+            assertNull(assemblyDescriptorMetaData.getContainerTransactions());
+            assertNull(assemblyDescriptorMetaData.getExcludeList());
+        }
+        assertMessageDestinations(2, assemblyDescriptorMetaData.getMessageDestinations(), mode);
+        return assemblyDescriptorMetaData;
+    }
 
    /*
    protected void assertAssemblyDescriptor(ApplicationMetaData applicationMetaData)
@@ -811,34 +763,27 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertMethodPermissions(String ejbName, String prefix, int size, int limit, MethodPermissionsMetaData methodPermissionsMetaData)
-   {
-      assertNotNull("method permissions is null", methodPermissionsMetaData);
-      assertEquals(size, methodPermissionsMetaData.size());
-      int count = 1;
-      for (MethodPermissionMetaData methodPermissionMetaData : methodPermissionsMetaData)
-      {
-         assertId(prefix + count, methodPermissionMetaData);
-         assertDescriptions(prefix + count, methodPermissionMetaData.getDescriptions());
-         if (count == 1)
-         {
-            assertEmpty(prefix + count, "Unchecked", methodPermissionMetaData.getUnchecked());
-            assertTrue(methodPermissionMetaData.isNotChecked());
-         }
-         else
-         {
-            assertRolesNames(prefix + count, 2, methodPermissionMetaData.getRoles());
-            assertFalse(methodPermissionMetaData.isNotChecked());
-         }
-         if (count == 1)
-            assertMethods(ejbName, prefix + count + "Method", 5, methodPermissionMetaData.getMethods());
-         else
-            assertMethods(ejbName, prefix + count + "Method", 1, methodPermissionMetaData.getMethods());
-         ++count;
-         if (count > limit)
-            break;
-      }
-   }
+    protected void assertMethodPermissions(String ejbName, String prefix, int size, int limit, MethodPermissionsMetaData methodPermissionsMetaData) {
+        assertNotNull("method permissions is null", methodPermissionsMetaData);
+        assertEquals(size, methodPermissionsMetaData.size());
+        int count = 1;
+        for (MethodPermissionMetaData methodPermissionMetaData : methodPermissionsMetaData) {
+            assertId(prefix + count, methodPermissionMetaData);
+            assertDescriptions(prefix + count, methodPermissionMetaData.getDescriptions());
+            if (count == 1) {
+                assertEmpty(prefix + count, "Unchecked", methodPermissionMetaData.getUnchecked());
+                assertTrue(methodPermissionMetaData.isNotChecked());
+            } else {
+                assertRolesNames(prefix + count, 2, methodPermissionMetaData.getRoles());
+                assertFalse(methodPermissionMetaData.isNotChecked());
+            }
+            if (count == 1) { assertMethods(ejbName, prefix + count + "Method", 5, methodPermissionMetaData.getMethods()); } else {
+                assertMethods(ejbName, prefix + count + "Method", 1, methodPermissionMetaData.getMethods());
+            }
+            ++count;
+            if (count > limit) { break; }
+        }
+    }
 
    /*
    private void assertMethodPermissions(String nameBase, int size, BeanMetaData beanMetaData)
@@ -948,53 +893,44 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   private void assertRolesNames(String prefix, int size, Set<String> roles)
-   {
-      assertNotNull(roles);
-      assertEquals(size, roles.size());
-      int count = 0;
-      while (++count <= roles.size())
-      {
-         assertTrue(roles.contains(prefix + "RoleName" + count));
-      }
-   }
+    private void assertRolesNames(String prefix, int size, Set<String> roles) {
+        assertNotNull(roles);
+        assertEquals(size, roles.size());
+        int count = 0;
+        while (++count <= roles.size()) {
+            assertTrue(roles.contains(prefix + "RoleName" + count));
+        }
+    }
 
-   private void assertMethods(String ejbName, String prefix, int size, MethodsMetaData methodsMetaData)
-   {
-      assertMethods(ejbName, prefix, size, size, methodsMetaData);
-   }
+    private void assertMethods(String ejbName, String prefix, int size, MethodsMetaData methodsMetaData) {
+        assertMethods(ejbName, prefix, size, size, methodsMetaData);
+    }
 
-   private void assertMethods(String ejbName, String prefix, int size, int limit, MethodsMetaData methodsMetaData)
-   {
-      assertNotNull(methodsMetaData);
-      assertEquals(size, methodsMetaData.size());
-      int count = 1;
-      for (MethodMetaData methodMetaData : methodsMetaData)
-      {
-         assertId(prefix + count, methodMetaData);
-         assertDescriptions(prefix + count, methodMetaData.getDescriptions());
-         if (ejbName == null)
-            assertEquals(prefix + count + "EjbName", methodMetaData.getEjbName());
-         else
-            assertEquals(ejbName + "EjbName", methodMetaData.getEjbName());
-         if (count == 1)
-            assertEquals(MethodInterfaceType.Home, methodMetaData.getMethodIntf());
-         else if (count == 2)
-            assertEquals(MethodInterfaceType.Remote, methodMetaData.getMethodIntf());
-         else if (count == 3)
-            assertEquals(MethodInterfaceType.LocalHome, methodMetaData.getMethodIntf());
-         else if (count == 4)
-            assertEquals(MethodInterfaceType.Local, methodMetaData.getMethodIntf());
-         else
-            assertEquals(MethodInterfaceType.ServiceEndpoint, methodMetaData.getMethodIntf());
-         assertEquals(prefix + count + "MethodName", methodMetaData.getMethodName());
-         if (count == 1)
-            assertMethodParams(prefix + count, 2, methodMetaData.getMethodParams());
-         ++count;
-         if (count > limit)
-            break;
-      }
-   }
+    private void assertMethods(String ejbName, String prefix, int size, int limit, MethodsMetaData methodsMetaData) {
+        assertNotNull(methodsMetaData);
+        assertEquals(size, methodsMetaData.size());
+        int count = 1;
+        for (MethodMetaData methodMetaData : methodsMetaData) {
+            assertId(prefix + count, methodMetaData);
+            assertDescriptions(prefix + count, methodMetaData.getDescriptions());
+            if (ejbName == null) { assertEquals(prefix + count + "EjbName", methodMetaData.getEjbName()); } else {
+                assertEquals(ejbName + "EjbName", methodMetaData.getEjbName());
+            }
+            if (count == 1) { assertEquals(MethodInterfaceType.Home, methodMetaData.getMethodIntf()); } else if (count == 2) {
+                assertEquals(MethodInterfaceType.Remote, methodMetaData.getMethodIntf());
+            } else if (count == 3) {
+                assertEquals(MethodInterfaceType.LocalHome, methodMetaData.getMethodIntf());
+            } else if (count == 4) {
+                assertEquals(MethodInterfaceType.Local, methodMetaData.getMethodIntf());
+            } else {
+                assertEquals(MethodInterfaceType.ServiceEndpoint, methodMetaData.getMethodIntf());
+            }
+            assertEquals(prefix + count + "MethodName", methodMetaData.getMethodName());
+            if (count == 1) { assertMethodParams(prefix + count, 2, methodMetaData.getMethodParams()); }
+            ++count;
+            if (count > limit) { break; }
+        }
+    }
 
    /*
    private void assertMethods(String ejbName, String prefix, int size, Iterator<org.jboss.metadata.MethodMetaData> methods)
@@ -1027,50 +963,40 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertMethodParams(String prefix, int size, MethodParametersMetaData methodParametersMetaData)
-   {
-      assertNotNull(methodParametersMetaData);
-      assertEquals(size, methodParametersMetaData.size());
-      int count = 1;
-      for (String parameter : methodParametersMetaData)
-         assertEquals(prefix + "Param" + (count++), parameter);
-   }
+    protected void assertMethodParams(String prefix, int size, MethodParametersMetaData methodParametersMetaData) {
+        assertNotNull(methodParametersMetaData);
+        assertEquals(size, methodParametersMetaData.size());
+        int count = 1;
+        for (String parameter : methodParametersMetaData) { assertEquals(prefix + "Param" + (count++), parameter); }
+    }
 
-   protected void assertContainerTransactions(String ejbName, int size, int limit, ContainerTransactionsMetaData containerTransactionsMetaData)
-   {
-      assertNotNull("container transactions is null", containerTransactionsMetaData);
-      assertEquals(size, containerTransactionsMetaData.size());
-      int count = 1;
-      String prefix;
-      if (ejbName == null)
-         prefix = "containerTransaction";
-      else
-         prefix = ejbName + "ContainerTransaction";
-      for (ContainerTransactionMetaData containerTransactionMetaData : containerTransactionsMetaData)
-      {
-         assertId(prefix + count, containerTransactionMetaData);
-         assertDescriptions(prefix + count, containerTransactionMetaData.getDescriptions());
-         if (count == 1)
-            assertMethods(ejbName, prefix + count + "Method", 5, containerTransactionMetaData.getMethods());
-         else
-            assertMethods(ejbName, prefix + count + "Method", 1, containerTransactionMetaData.getMethods());
-         if (count == 1)
-            assertEquals(TransactionAttributeType.NOT_SUPPORTED, containerTransactionMetaData.getTransAttribute());
-         else if (count == 2)
-            assertEquals(TransactionAttributeType.SUPPORTS, containerTransactionMetaData.getTransAttribute());
-         else if (count == 3)
-            assertEquals(TransactionAttributeType.REQUIRED, containerTransactionMetaData.getTransAttribute());
-         else if (count == 4)
-            assertEquals(TransactionAttributeType.REQUIRES_NEW, containerTransactionMetaData.getTransAttribute());
-         else if (count == 5)
-            assertEquals(TransactionAttributeType.MANDATORY, containerTransactionMetaData.getTransAttribute());
-         else
-            assertEquals(TransactionAttributeType.NEVER, containerTransactionMetaData.getTransAttribute());
-         ++count;
-         if (count > limit)
-            break;
-      }
-   }
+    protected void assertContainerTransactions(String ejbName, int size, int limit, ContainerTransactionsMetaData containerTransactionsMetaData) {
+        assertNotNull("container transactions is null", containerTransactionsMetaData);
+        assertEquals(size, containerTransactionsMetaData.size());
+        int count = 1;
+        String prefix;
+        if (ejbName == null) { prefix = "containerTransaction"; } else { prefix = ejbName + "ContainerTransaction"; }
+        for (ContainerTransactionMetaData containerTransactionMetaData : containerTransactionsMetaData) {
+            assertId(prefix + count, containerTransactionMetaData);
+            assertDescriptions(prefix + count, containerTransactionMetaData.getDescriptions());
+            if (count == 1) { assertMethods(ejbName, prefix + count + "Method", 5, containerTransactionMetaData.getMethods()); } else {
+                assertMethods(ejbName, prefix + count + "Method", 1, containerTransactionMetaData.getMethods());
+            }
+            if (count == 1) { assertEquals(TransactionAttributeType.NOT_SUPPORTED, containerTransactionMetaData.getTransAttribute()); } else if (count == 2) {
+                assertEquals(TransactionAttributeType.SUPPORTS, containerTransactionMetaData.getTransAttribute());
+            } else if (count == 3) {
+                assertEquals(TransactionAttributeType.REQUIRED, containerTransactionMetaData.getTransAttribute());
+            } else if (count == 4) {
+                assertEquals(TransactionAttributeType.REQUIRES_NEW, containerTransactionMetaData.getTransAttribute());
+            } else if (count == 5) {
+                assertEquals(TransactionAttributeType.MANDATORY, containerTransactionMetaData.getTransAttribute());
+            } else {
+                assertEquals(TransactionAttributeType.NEVER, containerTransactionMetaData.getTransAttribute());
+            }
+            ++count;
+            if (count > limit) { break; }
+        }
+    }
 
    /*
    private void assertContainerTransactions(Iterator<org.jboss.metadata.MethodMetaData> transactions)
@@ -1098,16 +1024,14 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertExcludeList(String ejbName, int size, int limit, ExcludeListMetaData excludeListMetaData)
-   {
-      assertNotNull("exclude list is null", excludeListMetaData);
-      assertId("excludeList", excludeListMetaData);
-      assertDescriptions("excludeList", excludeListMetaData.getDescriptions());
-      if (ejbName != null)
-         assertMethods(ejbName, ejbName + "ExcludeListMethod", size, limit, excludeListMetaData.getMethods());
-      else
-         assertMethods(null, "excludeListMethod", size, limit, excludeListMetaData.getMethods());
-   }
+    protected void assertExcludeList(String ejbName, int size, int limit, ExcludeListMetaData excludeListMetaData) {
+        assertNotNull("exclude list is null", excludeListMetaData);
+        assertId("excludeList", excludeListMetaData);
+        assertDescriptions("excludeList", excludeListMetaData.getDescriptions());
+        if (ejbName != null) { assertMethods(ejbName, ejbName + "ExcludeListMethod", size, limit, excludeListMetaData.getMethods()); } else {
+            assertMethods(null, "excludeListMethod", size, limit, excludeListMetaData.getMethods());
+        }
+    }
 
    /*
    private void assertExcludedMethods(String ejbName, Iterator<org.jboss.metadata.MethodMetaData> excluded)
@@ -1143,20 +1067,17 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertSecurityIdentity(String ejbName, String type, SecurityIdentityMetaData securityIdentity, boolean full, Mode mode)
-   {
-      assertNotNull(ejbName, securityIdentity);
-      String prefix = ejbName + type;
-      if(mode != Mode.JBOSS_DTD)
-      {
-         assertId(prefix, securityIdentity);
-         assertDescriptions(prefix, securityIdentity.getDescriptions());
-      }
-      if (full)
-      {
-         assertRunAs(ejbName, type, securityIdentity.getRunAs());
-      }
-   }
+    protected void assertSecurityIdentity(String ejbName, String type, SecurityIdentityMetaData securityIdentity, boolean full, Mode mode) {
+        assertNotNull(ejbName, securityIdentity);
+        String prefix = ejbName + type;
+        if (mode != Mode.JBOSS_DTD) {
+            assertId(prefix, securityIdentity);
+            assertDescriptions(prefix, securityIdentity.getDescriptions());
+        }
+        if (full) {
+            assertRunAs(ejbName, type, securityIdentity.getRunAs());
+        }
+    }
 
    /*
    protected void assertSecurityIdentity(String ejbName, String type, org.jboss.metadata.SecurityIdentityMetaData securityIdentity, boolean full)
@@ -1171,28 +1092,25 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertRunAs(String prefix, String type, RunAsMetaData runAsMetaData)
-   {
-      assertNotNull(runAsMetaData);
-      assertId(prefix + type + "RunAs", runAsMetaData);
-      assertDescriptions(prefix + type + "RunAs", runAsMetaData.getDescriptions());
-      assertEquals(prefix + type + "RunAsRoleName", runAsMetaData.getRoleName());
-   }
+    protected void assertRunAs(String prefix, String type, RunAsMetaData runAsMetaData) {
+        assertNotNull(runAsMetaData);
+        assertId(prefix + type + "RunAs", runAsMetaData);
+        assertDescriptions(prefix + type + "RunAs", runAsMetaData.getDescriptions());
+        assertEquals(prefix + type + "RunAsRoleName", runAsMetaData.getRoleName());
+    }
 
-   protected void assertSecurityRoleRefs(String ejbName, int size, SecurityRoleRefsMetaData securityRoleRefsMetaData)
-   {
-      assertNotNull(securityRoleRefsMetaData);
-      assertEquals(size, securityRoleRefsMetaData.size());
-      int count = 1;
-      for (SecurityRoleRefMetaData securityRoleRefMetaData : securityRoleRefsMetaData)
-      {
-         assertId(ejbName + "SecurityRoleRef" + count, securityRoleRefMetaData);
-         assertDescriptions(ejbName + "SecurityRoleRef" + count, securityRoleRefMetaData.getDescriptions());
-         assertEquals(ejbName + "SecurityRoleRef" + count + "RoleName", securityRoleRefMetaData.getRoleName());
-         assertEquals("securityRoleRef" + count + "RoleLink", securityRoleRefMetaData.getRoleLink());
-         ++count;
-      }
-   }
+    protected void assertSecurityRoleRefs(String ejbName, int size, SecurityRoleRefsMetaData securityRoleRefsMetaData) {
+        assertNotNull(securityRoleRefsMetaData);
+        assertEquals(size, securityRoleRefsMetaData.size());
+        int count = 1;
+        for (SecurityRoleRefMetaData securityRoleRefMetaData : securityRoleRefsMetaData) {
+            assertId(ejbName + "SecurityRoleRef" + count, securityRoleRefMetaData);
+            assertDescriptions(ejbName + "SecurityRoleRef" + count, securityRoleRefMetaData.getDescriptions());
+            assertEquals(ejbName + "SecurityRoleRef" + count + "RoleName", securityRoleRefMetaData.getRoleName());
+            assertEquals("securityRoleRef" + count + "RoleLink", securityRoleRefMetaData.getRoleLink());
+            ++count;
+        }
+    }
 
    /*
    protected void assertSecurityRoleRefs(String ejbName, int size, Iterator<org.jboss.metadata.SecurityRoleRefMetaData> securityRoleRefs)
@@ -1211,21 +1129,18 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertClusterConfig(String prefix, ClusterConfigMetaData clusterConfig, boolean isSession, Mode mode)
-   {
-      assertNotNull(clusterConfig);
-      prefix = prefix + "ClusterConfig";
-      if(mode != Mode.JBOSS_DTD)
-      {
-         assertId(prefix, clusterConfig);
-         assertDescriptions(prefix, clusterConfig.getDescriptions());
-      }
-      assertEquals(prefix + "PartitionName", clusterConfig.getPartitionName());
-      assertEquals(prefix + "HomeLoadBalancePolicy", clusterConfig.getHomeLoadBalancePolicy());
-      assertEquals(prefix + "BeanLoadBalancePolicy", clusterConfig.getBeanLoadBalancePolicy());
-      if (isSession)
-         assertEquals(prefix + "SessionStateManagerJndiName", clusterConfig.getSessionStateManagerJndiName());
-   }
+    protected void assertClusterConfig(String prefix, ClusterConfigMetaData clusterConfig, boolean isSession, Mode mode) {
+        assertNotNull(clusterConfig);
+        prefix = prefix + "ClusterConfig";
+        if (mode != Mode.JBOSS_DTD) {
+            assertId(prefix, clusterConfig);
+            assertDescriptions(prefix, clusterConfig.getDescriptions());
+        }
+        assertEquals(prefix + "PartitionName", clusterConfig.getPartitionName());
+        assertEquals(prefix + "HomeLoadBalancePolicy", clusterConfig.getHomeLoadBalancePolicy());
+        assertEquals(prefix + "BeanLoadBalancePolicy", clusterConfig.getBeanLoadBalancePolicy());
+        if (isSession) { assertEquals(prefix + "SessionStateManagerJndiName", clusterConfig.getSessionStateManagerJndiName()); }
+    }
 
    /*
    protected void assertClusterConfig(String prefix, org.jboss.metadata.ClusterConfigMetaData clusterConfig, boolean isSession)
@@ -1240,18 +1155,16 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertCacheInvalidationConfig(String prefix, CacheInvalidationConfigMetaData invalidationConfig, Mode mode)
-   {
-      assertNotNull(invalidationConfig);
-      prefix = prefix + "CacheInvalidationConfig";
-      if(mode != Mode.JBOSS_DTD)
-      {
-         assertId(prefix, invalidationConfig);
-         assertDescriptions(prefix, invalidationConfig.getDescriptions());
-      }
-      assertEquals(prefix + "InvalidationGroupName", invalidationConfig.getInvalidationGroupName());
-      assertEquals(prefix + "InvalidationManagerName", invalidationConfig.getInvalidationManagerName());
-   }
+    protected void assertCacheInvalidationConfig(String prefix, CacheInvalidationConfigMetaData invalidationConfig, Mode mode) {
+        assertNotNull(invalidationConfig);
+        prefix = prefix + "CacheInvalidationConfig";
+        if (mode != Mode.JBOSS_DTD) {
+            assertId(prefix, invalidationConfig);
+            assertDescriptions(prefix, invalidationConfig.getDescriptions());
+        }
+        assertEquals(prefix + "InvalidationGroupName", invalidationConfig.getInvalidationGroupName());
+        assertEquals(prefix + "InvalidationManagerName", invalidationConfig.getInvalidationManagerName());
+    }
 
    /*
    protected void assertCacheInvalidationConfig(String prefix, org.jboss.metadata.CacheInvalidationConfigMetaData invalidationConfig)
@@ -1263,32 +1176,29 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertIORSecurityConfig(String ejbName, IORSecurityConfigMetaData iorSecurityConfig, Mode mode)
-   {
-      assertNotNull(iorSecurityConfig);
-      String prefix = ejbName + "IorSecurityConfig";
-      if(mode != Mode.JBOSS_DTD)
-      {
-         assertId(prefix, iorSecurityConfig);
-         assertDescriptions(prefix, iorSecurityConfig.getDescriptions());
-      }
-      assertIORTransportConfig(ejbName, iorSecurityConfig.getTransportConfig(), mode);
-      assertIORASContext(ejbName, iorSecurityConfig.getAsContext(), mode);
-      assertIORSASContext(ejbName, iorSecurityConfig.getSasContext(), mode);
-   }
-   protected void assertPortComponent(String prefix, PortComponent portComponent, Mode mode)
-   {
-      assertNotNull(portComponent);
-      if(mode != Mode.JBOSS_DTD)
-      {
-         assertId(prefix+"PortComponent", portComponent);
-         assertEquals(true, portComponent.getSecureWSDLAccess());
-      }
-      assertEquals(prefix+"-PortComponent", portComponent.getPortComponentName());
-      assertEquals("/"+prefix+"/PortComponentURI", portComponent.getPortComponentURI());
-      assertEquals("BASIC", portComponent.getAuthMethod());
-      assertEquals("NONE", portComponent.getTransportGuarantee());
-   }
+    protected void assertIORSecurityConfig(String ejbName, IORSecurityConfigMetaData iorSecurityConfig, Mode mode) {
+        assertNotNull(iorSecurityConfig);
+        String prefix = ejbName + "IorSecurityConfig";
+        if (mode != Mode.JBOSS_DTD) {
+            assertId(prefix, iorSecurityConfig);
+            assertDescriptions(prefix, iorSecurityConfig.getDescriptions());
+        }
+        assertIORTransportConfig(ejbName, iorSecurityConfig.getTransportConfig(), mode);
+        assertIORASContext(ejbName, iorSecurityConfig.getAsContext(), mode);
+        assertIORSASContext(ejbName, iorSecurityConfig.getSasContext(), mode);
+    }
+
+    protected void assertPortComponent(String prefix, PortComponent portComponent, Mode mode) {
+        assertNotNull(portComponent);
+        if (mode != Mode.JBOSS_DTD) {
+            assertId(prefix + "PortComponent", portComponent);
+            assertEquals(true, portComponent.getSecureWSDLAccess());
+        }
+        assertEquals(prefix + "-PortComponent", portComponent.getPortComponentName());
+        assertEquals("/" + prefix + "/PortComponentURI", portComponent.getPortComponentURI());
+        assertEquals("BASIC", portComponent.getAuthMethod());
+        assertEquals("NONE", portComponent.getTransportGuarantee());
+    }
 
    /*
    protected void assertIORSecurityConfig(String ejbName, IorSecurityConfigMetaData iorSecurityConfig)
@@ -1300,22 +1210,20 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertIORTransportConfig(String ejbName, IORTransportConfigMetaData iorTransportConfig, Mode mode)
-   {
-      assertNotNull(iorTransportConfig);
-      String prefix = ejbName + "TransportConfig";
-      if(mode != Mode.JBOSS_DTD)
-      {
-         assertId(prefix, iorTransportConfig);
-         assertDescriptions(prefix, iorTransportConfig.getDescriptions());
-      }
-      assertEquals(IORTransportConfigMetaData.INTEGRITY_NONE, iorTransportConfig.getIntegrity());
-      assertEquals(IORTransportConfigMetaData.CONFIDENTIALITY_NONE, iorTransportConfig.getConfidentiality());
-      assertEquals(IORTransportConfigMetaData.ESTABLISH_TRUST_IN_TARGET_NONE, iorTransportConfig.getEstablishTrustInTarget());
-      assertEquals(IORTransportConfigMetaData.ESTABLISH_TRUST_IN_CLIENT_NONE, iorTransportConfig.getEstablishTrustInClient());
-      assertEquals(IORTransportConfigMetaData.DETECT_MISORDERING_NONE, iorTransportConfig.getDetectMisordering());
-      assertEquals(IORTransportConfigMetaData.DETECT_REPLAY_NONE, iorTransportConfig.getDetectReplay());
-   }
+    protected void assertIORTransportConfig(String ejbName, IORTransportConfigMetaData iorTransportConfig, Mode mode) {
+        assertNotNull(iorTransportConfig);
+        String prefix = ejbName + "TransportConfig";
+        if (mode != Mode.JBOSS_DTD) {
+            assertId(prefix, iorTransportConfig);
+            assertDescriptions(prefix, iorTransportConfig.getDescriptions());
+        }
+        assertEquals(IORTransportConfigMetaData.INTEGRITY_NONE, iorTransportConfig.getIntegrity());
+        assertEquals(IORTransportConfigMetaData.CONFIDENTIALITY_NONE, iorTransportConfig.getConfidentiality());
+        assertEquals(IORTransportConfigMetaData.ESTABLISH_TRUST_IN_TARGET_NONE, iorTransportConfig.getEstablishTrustInTarget());
+        assertEquals(IORTransportConfigMetaData.ESTABLISH_TRUST_IN_CLIENT_NONE, iorTransportConfig.getEstablishTrustInClient());
+        assertEquals(IORTransportConfigMetaData.DETECT_MISORDERING_NONE, iorTransportConfig.getDetectMisordering());
+        assertEquals(IORTransportConfigMetaData.DETECT_REPLAY_NONE, iorTransportConfig.getDetectReplay());
+    }
 
    /*
    protected void assertIORTransportConfig(String ejbName, IorSecurityConfigMetaData.TransportConfig iorTransportConfig)
@@ -1330,19 +1238,17 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertIORASContext(String ejbName, IORASContextMetaData asContext, Mode mode)
-   {
-      assertNotNull(asContext);
-      String prefix = ejbName + "ASContext";
-      if(mode != Mode.JBOSS_DTD)
-      {
-         assertId(prefix, asContext);
-         assertDescriptions(prefix, asContext.getDescriptions());
-      }
-      assertEquals(IORASContextMetaData.AUTH_METHOD_USERNAME_PASSWORD, asContext.getAuthMethod());
-      assertEquals(prefix + "Realm", asContext.getRealm());
-      assertFalse(asContext.isRequired());
-   }
+    protected void assertIORASContext(String ejbName, IORASContextMetaData asContext, Mode mode) {
+        assertNotNull(asContext);
+        String prefix = ejbName + "ASContext";
+        if (mode != Mode.JBOSS_DTD) {
+            assertId(prefix, asContext);
+            assertDescriptions(prefix, asContext.getDescriptions());
+        }
+        assertEquals(IORASContextMetaData.AUTH_METHOD_USERNAME_PASSWORD, asContext.getAuthMethod());
+        assertEquals(prefix + "Realm", asContext.getRealm());
+        assertFalse(asContext.isRequired());
+    }
 
    /*
    protected void assertIORASContext(String ejbName, IorSecurityConfigMetaData.AsContext asContext)
@@ -1355,17 +1261,15 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertIORSASContext(String ejbName, IORSASContextMetaData sasContext, Mode mode)
-   {
-      assertNotNull(sasContext);
-      String prefix = ejbName + "SASContext";
-      if(mode != Mode.JBOSS_DTD)
-      {
-         assertId(prefix, sasContext);
-         assertDescriptions(prefix, sasContext.getDescriptions());
-      }
-      assertEquals(IORSASContextMetaData.CALLER_PROPAGATION_NONE, sasContext.getCallerPropagation());
-   }
+    protected void assertIORSASContext(String ejbName, IORSASContextMetaData sasContext, Mode mode) {
+        assertNotNull(sasContext);
+        String prefix = ejbName + "SASContext";
+        if (mode != Mode.JBOSS_DTD) {
+            assertId(prefix, sasContext);
+            assertDescriptions(prefix, sasContext.getDescriptions());
+        }
+        assertEquals(IORSASContextMetaData.CALLER_PROPAGATION_NONE, sasContext.getCallerPropagation());
+    }
 
    /*
    protected void assertIORSASContext(String ejbName, IorSecurityConfigMetaData.SasContext sasContext)
@@ -1375,63 +1279,53 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   protected void assertIgnoreDependency(String ejbName, IgnoreDependencyMetaData ignoreDependency)
-   {
-      assertNotNull(ejbName, ignoreDependency);
-      String prefix = ejbName + "IgnoreDependency";
-      assertId(prefix, ignoreDependency);
-      assertDescriptions(prefix, ignoreDependency.getDescriptions());
-      assertResourceInjectionTargets(prefix, 2, ignoreDependency.getInjectionTargets());
-   }
+    protected void assertIgnoreDependency(String ejbName, IgnoreDependencyMetaData ignoreDependency) {
+        assertNotNull(ejbName, ignoreDependency);
+        String prefix = ejbName + "IgnoreDependency";
+        assertId(prefix, ignoreDependency);
+        assertDescriptions(prefix, ignoreDependency.getDescriptions());
+        assertResourceInjectionTargets(prefix, 2, ignoreDependency.getInjectionTargets());
+    }
 
-   protected void assertRemoteBinding(String ejbName, RemoteBindingMetaData remoteBinding)
-   {
-      assertNotNull(ejbName, remoteBinding);
-      String prefix = ejbName + "RemoteBinding";
-      assertId(prefix, remoteBinding);
-      assertDescriptions(prefix, remoteBinding.getDescriptions());
-      assertEquals(prefix + "JndiName", remoteBinding.getJndiName());
-      assertEquals(prefix + "ClientBindUrl", remoteBinding.getClientBindUrl());
-      assertEquals(prefix + "InterceptorStack", remoteBinding.getInterceptorStack());
-      assertEquals(prefix + "InvokerName", remoteBinding.getInvokerName());
-   }
+    protected void assertRemoteBinding(String ejbName, RemoteBindingMetaData remoteBinding) {
+        assertNotNull(ejbName, remoteBinding);
+        String prefix = ejbName + "RemoteBinding";
+        assertId(prefix, remoteBinding);
+        assertDescriptions(prefix, remoteBinding.getDescriptions());
+        assertEquals(prefix + "JndiName", remoteBinding.getJndiName());
+        assertEquals(prefix + "ClientBindUrl", remoteBinding.getClientBindUrl());
+        assertEquals(prefix + "InterceptorStack", remoteBinding.getInterceptorStack());
+        assertEquals(prefix + "InvokerName", remoteBinding.getInvokerName());
+    }
 
-   protected void assertRemoteBindings(String ejbName, List<RemoteBindingMetaData> remoteBindings)
-   {
-      assertNotNull(ejbName, remoteBindings);
-      assertEquals(1, remoteBindings.size());
-      for(RemoteBindingMetaData remoteBinding : remoteBindings)
-      {
-         assertRemoteBinding(ejbName, remoteBinding);
-      }
-   }
+    protected void assertRemoteBindings(String ejbName, List<RemoteBindingMetaData> remoteBindings) {
+        assertNotNull(ejbName, remoteBindings);
+        assertEquals(1, remoteBindings.size());
+        for (RemoteBindingMetaData remoteBinding : remoteBindings) {
+            assertRemoteBinding(ejbName, remoteBinding);
+        }
+    }
 
-   protected void assertMethodAttributes(String ejbName, MethodAttributesMetaData methodAttributes, Mode mode)
-   {
-      assertNotNull(ejbName, methodAttributes);
-      assertEquals(2, methodAttributes.size());
-      String prefix = ejbName + "MethodAttributes";
-      if(mode != Mode.JBOSS_DTD)
-         assertId(prefix, methodAttributes);
-      int count = 1;
-      for (MethodAttributeMetaData methodAttribute : methodAttributes)
-      {
-         if (count++ == 1)
-         {
-            assertEquals("get*", methodAttribute.getMethodName());
-            assertTrue(methodAttribute.isReadOnly());
-            assertTrue(methodAttribute.isIdempotent());
-            assertEquals(5000, methodAttribute.getTransactionTimeout());
-         }
-         else
-         {
-            assertEquals("*", methodAttribute.getMethodName());
-            assertFalse(methodAttribute.isReadOnly());
-            assertFalse(methodAttribute.isIdempotent());
-            assertEquals(0, methodAttribute.getTransactionTimeout());
-         }
-      }
-   }
+    protected void assertMethodAttributes(String ejbName, MethodAttributesMetaData methodAttributes, Mode mode) {
+        assertNotNull(ejbName, methodAttributes);
+        assertEquals(2, methodAttributes.size());
+        String prefix = ejbName + "MethodAttributes";
+        if (mode != Mode.JBOSS_DTD) { assertId(prefix, methodAttributes); }
+        int count = 1;
+        for (MethodAttributeMetaData methodAttribute : methodAttributes) {
+            if (count++ == 1) {
+                assertEquals("get*", methodAttribute.getMethodName());
+                assertTrue(methodAttribute.isReadOnly());
+                assertTrue(methodAttribute.isIdempotent());
+                assertEquals(5000, methodAttribute.getTransactionTimeout());
+            } else {
+                assertEquals("*", methodAttribute.getMethodName());
+                assertFalse(methodAttribute.isReadOnly());
+                assertFalse(methodAttribute.isIdempotent());
+                assertEquals(0, methodAttribute.getTransactionTimeout());
+            }
+        }
+    }
 
    /*
    protected void assertMethodAttributes(String ejbName, BeanMetaData bean)
@@ -1448,64 +1342,53 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-   private void assertEmptyIterator(Iterator i)
-   {
-      if (i != null && i.hasNext())
-         throw new AssertionFailedError("The iterator should be empty: " + i);
-   }
+    private void assertEmptyIterator(Iterator i) {
+        if (i != null && i.hasNext()) { throw new AssertionFailedError("The iterator should be empty: " + i); }
+    }
 
-   protected Logger getLog()
-   {
-      throw new RuntimeException("NYI");
-   }
+    protected Logger getLog() {
+        throw new RuntimeException("NYI");
+    }
 
-   @Deprecated
-   protected void setValidateSchema(boolean validateSchema)
-   {
-      throw new RuntimeException("NYI");
-   }
+    @Deprecated
+    protected void setValidateSchema(boolean validateSchema) {
+        throw new RuntimeException("NYI");
+    }
 
-   @Deprecated
-   public static Test suite(Class clazz)
-   {
-      TestSuite suite = new TestSuite(clazz);
-      return new AbstractTestSetup(clazz, suite);
-   }
+    @Deprecated
+    public static Test suite(Class clazz) {
+        TestSuite suite = new TestSuite(clazz);
+        return new AbstractTestSetup(clazz, suite);
+    }
 
-   @Deprecated
-   protected <T> T unmarshal(Class<T> expected) throws Exception
-   {
-      String name = getClass().getSimpleName();
-      int index = name.lastIndexOf("UnitTestCase");
-      if (index != -1)
-         name = name.substring(0, index);
-      name = name + "_" + getName() + ".xml";
-      return unmarshal(name, expected, null, PropertyReplacers.noop());
-   }
+    @Deprecated
+    protected <T> T unmarshal(Class<T> expected) throws Exception {
+        String name = getClass().getSimpleName();
+        int index = name.lastIndexOf("UnitTestCase");
+        if (index != -1) { name = name.substring(0, index); }
+        name = name + "_" + getName() + ".xml";
+        return unmarshal(name, expected, null, PropertyReplacers.noop());
+    }
 
-   @Deprecated
-   protected <T> T unmarshal(String name, Class<T> expected) throws Exception
-   {
-       return unmarshal(name, expected, PropertyReplacers.noop());
-   }
+    @Deprecated
+    protected <T> T unmarshal(String name, Class<T> expected) throws Exception {
+        return unmarshal(name, expected, PropertyReplacers.noop());
+    }
 
-   @Deprecated
-   protected <T> T unmarshal(String name, Class<T> expected, PropertyReplacer propertyReplacer) throws Exception
-   {
-      MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
-      XMLStreamReader reader = getReader(name, info);
-      if(EjbJarMetaData.class.isAssignableFrom(expected))
-      {
-         return expected.cast(EjbJarMetaDataParser.parse(reader, info, propertyReplacer));
-      }
-      fail("NYI: parsing for " + expected);
-      return null;
-   }
+    @Deprecated
+    protected <T> T unmarshal(String name, Class<T> expected, PropertyReplacer propertyReplacer) throws Exception {
+        MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
+        XMLStreamReader reader = getReader(name, info);
+        if (EjbJarMetaData.class.isAssignableFrom(expected)) {
+            return expected.cast(EjbJarMetaDataParser.parse(reader, info, propertyReplacer));
+        }
+        fail("NYI: parsing for " + expected);
+        return null;
+    }
 
-   @Deprecated
-   protected <T> T unmarshal(String name, Class<T> expected, Object resolver, PropertyReplacer propertyReplacer) throws Exception
-   {
-      assertNull("specifying a resolver is no longer supported", resolver);
-      return unmarshal(name, expected, propertyReplacer);
-   }
+    @Deprecated
+    protected <T> T unmarshal(String name, Class<T> expected, Object resolver, PropertyReplacer propertyReplacer) throws Exception {
+        assertNull("specifying a resolver is no longer supported", resolver);
+        return unmarshal(name, expected, propertyReplacer);
+    }
 }

@@ -21,12 +21,12 @@
  */
 package org.jboss.metadata.ejb.test.jbmeta332;
 
+import static org.junit.Assert.assertNull;
+
 import org.jboss.metadata.ejb.spec.AbstractEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.junit.Test;
-
-import static org.junit.Assert.assertNull;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

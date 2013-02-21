@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.web;
 
 import java.net.URL;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

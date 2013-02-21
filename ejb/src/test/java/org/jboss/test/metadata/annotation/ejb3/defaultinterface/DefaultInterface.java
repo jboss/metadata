@@ -27,7 +27,6 @@ package org.jboss.test.metadata.annotation.ejb3.defaultinterface;
  * @author <a href="mailto:carlo.dewolf@jboss.com">Carlo de Wolf</a>
  * @version $Revision: 67998 $
  */
-public interface DefaultInterface
-{
+public interface DefaultInterface {
 
 }

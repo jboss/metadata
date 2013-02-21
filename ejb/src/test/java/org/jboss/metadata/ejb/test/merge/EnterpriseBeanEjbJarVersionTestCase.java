@@ -21,10 +21,11 @@
  */
 package org.jboss.metadata.ejb.test.merge;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.xml.stream.XMLStreamException;
 
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
@@ -34,27 +35,21 @@ import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.test.common.UnmarshallingHelper;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
-public class EnterpriseBeanEjbJarVersionTestCase
-{
-   @Test
-   public void testEjbJarVersion() throws Exception
-   {
-      final EjbJarMetaData original = unmarshal(EjbJarMetaData.class, "ejb-jar-version-30.xml");
-      final EnterpriseBeanMetaData bean = original.getEnterpriseBean("Simple30Bean");
-      assertEquals(EjbJarVersion.EJB_3_0, bean.getEjbJarVersion());
-   }
+public class EnterpriseBeanEjbJarVersionTestCase {
+    @Test
+    public void testEjbJarVersion() throws Exception {
+        final EjbJarMetaData original = unmarshal(EjbJarMetaData.class, "ejb-jar-version-30.xml");
+        final EnterpriseBeanMetaData bean = original.getEnterpriseBean("Simple30Bean");
+        assertEquals(EjbJarVersion.EJB_3_0, bean.getEjbJarVersion());
+    }
 
-   private <T> T unmarshal(Class<T> expected, String resource) throws XMLStreamException
-   {
-      final InputStream in = getClass().getResourceAsStream(resource);
-      if (in == null)
-         throw new IllegalArgumentException("Can't find resource " + resource + " relative to " + getClass());
-      final Map<String, AbstractMetaDataParser<?>> parsers = new HashMap<String, AbstractMetaDataParser<?>>();
-      return UnmarshallingHelper.unmarshal(expected, in, parsers);
-   }
+    private <T> T unmarshal(Class<T> expected, String resource) throws XMLStreamException {
+        final InputStream in = getClass().getResourceAsStream(resource);
+        if (in == null) { throw new IllegalArgumentException("Can't find resource " + resource + " relative to " + getClass()); }
+        final Map<String, AbstractMetaDataParser<?>> parsers = new HashMap<String, AbstractMetaDataParser<?>>();
+        return UnmarshallingHelper.unmarshal(expected, in, parsers);
+    }
 }

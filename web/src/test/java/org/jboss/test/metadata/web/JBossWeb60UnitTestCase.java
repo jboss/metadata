@@ -35,41 +35,39 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 /**
  * @author Paul Ferraro
  */
-public class JBossWeb60UnitTestCase extends AbstractJavaEEEverythingTest
-{
-   public void testClustering() throws Exception
-   {
+public class JBossWeb60UnitTestCase extends AbstractJavaEEEverythingTest {
+    public void testClustering() throws Exception {
 //      System.out.println("JBossWeb60UnitTestCase.java skipped");
-      JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
-      ReplicationConfig replConfig = jbossWeb.getReplicationConfig();
-      assertNotNull(replConfig);
-      assertEquals("testCache", replConfig.getCacheName());
-      assertSame(ReplicationTrigger.SET, replConfig.getReplicationTrigger());
-      assertSame(ReplicationGranularity.SESSION, replConfig.getReplicationGranularity());
-      // Not parsed in AS6
-      assertNull(replConfig.getReplicationFieldBatchMode());
-      assertSame(ReplicationMode.SYNCHRONOUS, replConfig.getReplicationMode());
-      assertNotNull(replConfig.getBackups());
-      assertEquals(2, replConfig.getBackups().intValue());
-      assertNotNull(replConfig.getUseJK());
-      assertTrue(replConfig.getUseJK().booleanValue());
-      assertNotNull(replConfig.getMaxUnreplicatedInterval());
-      assertEquals(30, replConfig.getMaxUnreplicatedInterval().intValue());
-      assertSame(SnapshotMode.INSTANT, replConfig.getSnapshotMode());
-      assertNotNull(replConfig.getSnapshotInterval());
-      assertEquals(5, replConfig.getSnapshotInterval().intValue());
-      assertEquals("org.jboss.test.TestNotificationPolicy", replConfig.getSessionNotificationPolicy());
+        JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
+        ReplicationConfig replConfig = jbossWeb.getReplicationConfig();
+        assertNotNull(replConfig);
+        assertEquals("testCache", replConfig.getCacheName());
+        assertSame(ReplicationTrigger.SET, replConfig.getReplicationTrigger());
+        assertSame(ReplicationGranularity.SESSION, replConfig.getReplicationGranularity());
+        // Not parsed in AS6
+        assertNull(replConfig.getReplicationFieldBatchMode());
+        assertSame(ReplicationMode.SYNCHRONOUS, replConfig.getReplicationMode());
+        assertNotNull(replConfig.getBackups());
+        assertEquals(2, replConfig.getBackups().intValue());
+        assertNotNull(replConfig.getUseJK());
+        assertTrue(replConfig.getUseJK().booleanValue());
+        assertNotNull(replConfig.getMaxUnreplicatedInterval());
+        assertEquals(30, replConfig.getMaxUnreplicatedInterval().intValue());
+        assertSame(SnapshotMode.INSTANT, replConfig.getSnapshotMode());
+        assertNotNull(replConfig.getSnapshotInterval());
+        assertEquals(5, replConfig.getSnapshotInterval().intValue());
+        assertEquals("org.jboss.test.TestNotificationPolicy", replConfig.getSessionNotificationPolicy());
 
-      assertNotNull(jbossWeb.getMaxActiveSessions());
-      assertEquals(20, jbossWeb.getMaxActiveSessions().intValue());
+        assertNotNull(jbossWeb.getMaxActiveSessions());
+        assertEquals(20, jbossWeb.getMaxActiveSessions().intValue());
 
-      PassivationConfig passConfig = jbossWeb.getPassivationConfig();
-      assertNotNull(passConfig);
-      assertNotNull(passConfig.getUseSessionPassivation());
-      assertTrue(passConfig.getUseSessionPassivation().booleanValue());
-      assertNotNull(passConfig.getPassivationMinIdleTime());
-      assertEquals(2, passConfig.getPassivationMinIdleTime().intValue());
-      assertNotNull(passConfig.getPassivationMaxIdleTime());
-      assertEquals(5, passConfig.getPassivationMaxIdleTime().intValue());
-   }
+        PassivationConfig passConfig = jbossWeb.getPassivationConfig();
+        assertNotNull(passConfig);
+        assertNotNull(passConfig.getUseSessionPassivation());
+        assertTrue(passConfig.getUseSessionPassivation().booleanValue());
+        assertNotNull(passConfig.getPassivationMinIdleTime());
+        assertEquals(2, passConfig.getPassivationMinIdleTime().intValue());
+        assertNotNull(passConfig.getPassivationMaxIdleTime());
+        assertEquals(5, passConfig.getPassivationMaxIdleTime().intValue());
+    }
 }

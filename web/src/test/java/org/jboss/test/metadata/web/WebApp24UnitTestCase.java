@@ -24,7 +24,6 @@ package org.jboss.test.metadata.web;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.xml.stream.XMLStreamException;
 
 import org.jboss.metadata.web.spec.AuthConstraintMetaData;

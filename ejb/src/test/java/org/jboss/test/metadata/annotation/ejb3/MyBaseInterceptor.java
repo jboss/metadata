@@ -33,49 +33,50 @@ import javax.sql.DataSource;
 import javax.transaction.TransactionManager;
 
 /**
- *
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>
  * @author Scott.Stark@jboss.org
  * @version $Revision: 67165 $
  */
-public class MyBaseInterceptor
-{
-   @EJB MyStatelessLocal baseSession2;
-   @Resource(mappedName="java:/TransactionManager") TransactionManager baseTm;
-   @Resource(name="DefaultDS", mappedName="java:DefaultDS") DataSource baseDs;
-   @PersistenceContext(unitName="interceptors-test") EntityManager baseEm;
-   @PersistenceUnit(unitName="interceptors-test") EntityManagerFactory baseFactory;
+public class MyBaseInterceptor {
+    @EJB
+    MyStatelessLocal baseSession2;
+    @Resource(mappedName = "java:/TransactionManager")
+    TransactionManager baseTm;
+    @Resource(name = "DefaultDS", mappedName = "java:DefaultDS")
+    DataSource baseDs;
+    @PersistenceContext(unitName = "interceptors-test")
+    EntityManager baseEm;
+    @PersistenceUnit(unitName = "interceptors-test")
+    EntityManagerFactory baseFactory;
 
-   MyStatelessLocal baseSession2Method;
-   TransactionManager baseTmMethod;
-   DataSource baseDsMethod;
-   EntityManager baseEmMethod;
-   EntityManagerFactory baseFactoryMethod;
+    MyStatelessLocal baseSession2Method;
+    TransactionManager baseTmMethod;
+    DataSource baseDsMethod;
+    EntityManager baseEmMethod;
+    EntityManagerFactory baseFactoryMethod;
 
-   @EJB
-   public void setBaseSession2Method(MyStatelessLocal session2Method)
-   {
-      this.baseSession2Method = session2Method;
-   }
-   @Resource(name="DefaultDS", mappedName="java:DefaultDS")
-   public void setBaseDsMethod(DataSource dsMethod)
-   {
-      this.baseDsMethod = dsMethod;
-   }
-   @PersistenceContext(unitName="interceptors-test")
-   public void setBaseEmMethod(EntityManager emMethod)
-   {
-      this.baseEmMethod = emMethod;
-   }
-   @PersistenceUnit(unitName="interceptors-test")
-   public void setBaseFactoryMethod(EntityManagerFactory factoryMethod)
-   {
-      this.baseFactoryMethod = factoryMethod;
-   }
+    @EJB
+    public void setBaseSession2Method(MyStatelessLocal session2Method) {
+        this.baseSession2Method = session2Method;
+    }
 
-   @AroundInvoke
-   public Object baseInvoke(InvocationContext ctx) throws Exception
-   {
-      return null;
-   }
+    @Resource(name = "DefaultDS", mappedName = "java:DefaultDS")
+    public void setBaseDsMethod(DataSource dsMethod) {
+        this.baseDsMethod = dsMethod;
+    }
+
+    @PersistenceContext(unitName = "interceptors-test")
+    public void setBaseEmMethod(EntityManager emMethod) {
+        this.baseEmMethod = emMethod;
+    }
+
+    @PersistenceUnit(unitName = "interceptors-test")
+    public void setBaseFactoryMethod(EntityManagerFactory factoryMethod) {
+        this.baseFactoryMethod = factoryMethod;
+    }
+
+    @AroundInvoke
+    public Object baseInvoke(InvocationContext ctx) throws Exception {
+        return null;
+    }
 }

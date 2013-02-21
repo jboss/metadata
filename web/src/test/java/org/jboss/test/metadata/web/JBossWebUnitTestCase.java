@@ -36,24 +36,21 @@ import org.junit.Assert;
  * @author jfclere@gmail.com
  * @author navssurtani
  */
-public class JBossWebUnitTestCase extends AbstractJavaEEEverythingTest
-{
+public class JBossWebUnitTestCase extends AbstractJavaEEEverythingTest {
 
-   public void testValve() throws Exception
-   {
-      JBossWebMetaData metadata = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
-   }
+    public void testValve() throws Exception {
+        JBossWebMetaData metadata = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
+    }
 
-   // Test method to check for whether or not symbolic-linking has been enabled. This is for AS7-3414.
+    // Test method to check for whether or not symbolic-linking has been enabled. This is for AS7-3414.
 
-   public void testSymbolicLinking() throws Exception
-   {
-      final MetaDataElementParser.DTDInfo resolver = new MetaDataElementParser.DTDInfo();
-      final JBossWebMetaData metaData = JBossWebMetaDataParser.parse(getReader("symbolic-linking-web.xml", resolver), propertyReplacer);
-      final JBossWebMetaData mergedMetaData = new JBossWebMetaData();
-      JBossWebMetaDataMerger.merge(mergedMetaData, metaData, new WebMetaData());
-      Assert.assertTrue(metaData.isSymbolicLinkingEnabled());
-      Assert.assertTrue(mergedMetaData.isSymbolicLinkingEnabled());
-   }
+    public void testSymbolicLinking() throws Exception {
+        final MetaDataElementParser.DTDInfo resolver = new MetaDataElementParser.DTDInfo();
+        final JBossWebMetaData metaData = JBossWebMetaDataParser.parse(getReader("symbolic-linking-web.xml", resolver), propertyReplacer);
+        final JBossWebMetaData mergedMetaData = new JBossWebMetaData();
+        JBossWebMetaDataMerger.merge(mergedMetaData, metaData, new WebMetaData());
+        Assert.assertTrue(metaData.isSymbolicLinkingEnabled());
+        Assert.assertTrue(mergedMetaData.isSymbolicLinkingEnabled());
+    }
 
 }

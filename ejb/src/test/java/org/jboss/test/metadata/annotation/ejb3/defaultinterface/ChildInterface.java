@@ -28,7 +28,6 @@ package org.jboss.test.metadata.annotation.ejb3.defaultinterface;
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>
  * @version $Revision: 1.1 $
  */
-public interface ChildInterface
-{
+public interface ChildInterface {
 
 }
