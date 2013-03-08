@@ -39,10 +39,6 @@ import java.util.LinkedHashSet;
  */
 public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest
 {
-   public static Test suite()
-   {
-      return suite(EjbJar3xEverythingUnitTestCase.class);
-   }
 
    public EjbJar3xEverythingUnitTestCase(String name)
    {
