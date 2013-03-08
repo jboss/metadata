@@ -21,10 +21,6 @@
  */
 package org.jboss.test.metadata.ejb;
 
-import java.util.LinkedHashSet;
-import javax.ejb.TransactionManagementType;
-
-import junit.framework.Test;
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
 import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
@@ -57,6 +53,9 @@ import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 
+import javax.ejb.TransactionManagementType;
+import java.util.LinkedHashSet;
+
 /**
  * EjbJar3xUnitTestCase.
  *
@@ -64,9 +63,6 @@ import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
  * @version $Revision: 1.1 $
  */
 public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest {
-    public static Test suite() {
-        return suite(EjbJar3xEverythingUnitTestCase.class);
-    }
 
     public EjbJar3xEverythingUnitTestCase(String name) {
         super(name);
@@ -114,6 +110,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         assertInterceptors(ejbJarMetaData, mode);
         assertRelationships(ejbJarMetaData);
         assertAssemblyDescriptor(ejbJarMetaData);
+
 
       /*
       ApplicationMetaData applicationMetaData = new ApplicationMetaData(ejbJarMetaData);

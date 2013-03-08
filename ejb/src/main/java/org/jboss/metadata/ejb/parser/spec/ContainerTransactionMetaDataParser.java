@@ -54,7 +54,7 @@ public class ContainerTransactionMetaDataParser extends AbstractWithDescriptions
     @Override
     public ContainerTransactionMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ContainerTransactionMetaData containerTransactionMetaData = new ContainerTransactionMetaData();
-//      processAttributes(containerTransactionMetaData, reader, ATTRIBUTE_PROCESSOR);
+        AttributeProcessorHelper.processAttributes(containerTransactionMetaData, reader, ATTRIBUTE_PROCESSOR);
         this.processElements(containerTransactionMetaData, reader, propertyReplacer);
         return containerTransactionMetaData;
     }
