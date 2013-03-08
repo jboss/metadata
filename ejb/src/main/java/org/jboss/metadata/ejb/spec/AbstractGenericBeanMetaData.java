@@ -225,6 +225,8 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
 
     private StatefulTimeoutMetaData statefulTimeout;
 
+    private Boolean passivationCapable;
+
     /**
      * Create a new AbstractGenericBeanMetaData.
      */
@@ -1375,5 +1377,13 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
         if (queries == null)
             throw new IllegalArgumentException("Null queries");
         this.queries = queries;
+    }
+
+    public void setPassivationCapable(final Boolean passivationCapable) {
+        this.passivationCapable = passivationCapable;
+    }
+
+    public Boolean isPassivationCapable() {
+        return this.passivationCapable;
     }
 }

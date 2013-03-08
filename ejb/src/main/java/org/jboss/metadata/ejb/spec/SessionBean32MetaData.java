@@ -19,27 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.common.ejb.IScheduleTarget;
-
 /**
- * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
+ * @author Jaikiran Pai
  */
-// TODO: should not be public
-public class GenericBeanMetaData extends AbstractGenericBeanMetaData
-        implements IScheduleTarget, EntityBeanMetaData, MessageDrivenBean31MetaData, SessionBean32MetaData {
-    public GenericBeanMetaData() {
-    }
+public interface SessionBean32MetaData extends SessionBean31MetaData {
 
-    public GenericBeanMetaData(final EjbType ejbType) {
-        setEjbType(ejbType);
-    }
-
-    @Override
-    protected AbstractEnterpriseBeanMetaData createMerged(AbstractEnterpriseBeanMetaData original) {
-        final GenericBeanMetaData merged = new GenericBeanMetaData();
-        merged.merge(this, original);
-        return merged;
-    }
+    /**
+     * Returns the passivation-capable property of a stateful session bean
+     *
+     * @return
+     */
+    Boolean isPassivationCapable();
 }

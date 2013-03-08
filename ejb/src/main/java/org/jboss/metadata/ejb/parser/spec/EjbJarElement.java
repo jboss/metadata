@@ -128,6 +128,7 @@ public enum EjbJarElement {
     MONTH("month"),
     MULTIPLICITY("multiplicity"),
 
+    PASSIVATION_CAPABLE("passivation-capable"),
     PERSISTENCE_TYPE("persistence-type"),
     PERSISTENT("persistent"),
     PRIM_KEY_CLASS("prim-key-class"),
