@@ -286,6 +286,33 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     }
 
     /**
+     * Returns true if the version represented by this {@link EjbJarMetaData} is greater than the passed {@link EjbJarVersion version}
+     *
+     * @param version The version being compared
+     * @return
+     */
+    public boolean isVersionGreaterThan(final EjbJarVersion version) {
+        if (version == null) {
+            return false;
+        }
+        return this.ejbJarVersion.compareTo(version) > 0;
+    }
+
+    /**
+     * Returns true if the version represented by this {@link EjbJarMetaData} is greater than or equal to
+     * the passed {@link EjbJarVersion version}
+     *
+     * @param version The version being compared
+     * @return
+     */
+    public boolean isVersionGreaterThanOrEqual(final EjbJarVersion version) {
+        if (version == null) {
+            return false;
+        }
+        return this.ejbJarVersion.compareTo(version) >= 0;
+    }
+
+    /**
      * Get the ejbClientJar.
      *
      * @return the ejbClientJar.
