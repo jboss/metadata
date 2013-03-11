@@ -89,6 +89,8 @@ public enum Element {
     SERVLET("servlet"),
     SERVLET_NAME("servlet-name"),
     SERVLET_SECURITY("servlet-security"),
+    SERVLET_CONTAINER("servlet-container"),
+    SERVER_INSTANCE("server-instance"),
     SESSION_CONFIG("session-config"),
     SESSION_NOTIFICATION_POLICY("session-notification-policy"),
     SNAPSHOT_INTERVAL("snapshot-interval"),
