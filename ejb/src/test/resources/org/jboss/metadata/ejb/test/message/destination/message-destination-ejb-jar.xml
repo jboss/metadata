@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+         http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd"
+         version="2.1">
+    <enterprise-beans>
+    </enterprise-beans>
+
+    <assembly-descriptor>
+        <message-destination id="messageDestination1-id">
+            <description>en-messageDestination1-desc</description>
+            <description xml:lang="fr">fr-messageDestination1-desc</description>
+            <description xml:lang="de">de-messageDestination1-desc</description>
+            <display-name>en-messageDestination1-disp</display-name>
+            <display-name xml:lang="fr">fr-messageDestination1-disp</display-name>
+            <display-name xml:lang="de">de-messageDestination1-disp</display-name>
+            <icon id="en-messageDestination1-icon-id">
+                <small-icon>en-messageDestination1-small-icon</small-icon>
+                <large-icon>en-messageDestination1-large-icon</large-icon>
+            </icon>
+            <icon xml:lang="fr" id="fr-messageDestination1-icon-id">
+                <small-icon>fr-messageDestination1-small-icon</small-icon>
+                <large-icon>fr-messageDestination1-large-icon</large-icon>
+            </icon>
+            <icon xml:lang="de" id="de-messageDestination1-icon-id">
+                <small-icon>de-messageDestination1-small-icon</small-icon>
+                <large-icon>de-messageDestination1-large-icon</large-icon>
+            </icon>
+            <message-destination-name>one-message-dest</message-destination-name>
+            <jndi-name>foo-bar</jndi-name>
+        </message-destination>
+
+        <message-destination id="messageDestination2-id">
+            <description>en-messageDestination2-desc</description>
+            <description xml:lang="fr">fr-messageDestination2-desc</description>
+            <description xml:lang="de">de-messageDestination2-desc</description>
+            <display-name>en-messageDestination2-disp</display-name>
+            <display-name xml:lang="fr">fr-messageDestination2-disp</display-name>
+            <display-name xml:lang="de">de-messageDestination2-disp</display-name>
+            <icon id="en-messageDestination2-icon-id">
+                <small-icon>en-messageDestination2-small-icon</small-icon>
+                <large-icon>en-messageDestination2-large-icon</large-icon>
+            </icon>
+            <icon xml:lang="fr" id="fr-messageDestination2-icon-id">
+                <small-icon>fr-messageDestination2-small-icon</small-icon>
+                <large-icon>fr-messageDestination2-large-icon</large-icon>
+            </icon>
+            <icon xml:lang="de" id="de-messageDestination2-icon-id">
+                <small-icon>de-messageDestination2-small-icon</small-icon>
+                <large-icon>de-messageDestination2-large-icon</large-icon>
+            </icon>
+            <message-destination-name>two-message-dest</message-destination-name>
+            <jndi-name>another-foo-bar</jndi-name>
+        </message-destination>
+    </assembly-descriptor>
+</ejb-jar>

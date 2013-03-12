@@ -122,7 +122,6 @@
                                 <exclude>org/jboss/test/metadata/ejb/JBoss42UnitTestCase.java</exclude>
                                 <exclude>org/jboss/test/metadata/ejb/EjbJar21UnitTestCase.java</exclude>
                                 <exclude>org/jboss/test/metadata/jbmeta42/unit/Default2xNamingStrategyTestCase.java</exclude>
-                                <exclude>org/jboss/test/metadata/ejb/EjbJar3xEverythingUnitTestCase.java</exclude>
                                 <exclude>org/jboss/test/metadata/ejb/EjbJar21EverythingUnitTestCase.java</exclude>
                                 <exclude>org/jboss/test/metadata/ejb/EjbJar20UnitTestCase.java</exclude>
                                 <exclude>org/jboss/test/metadata/annotation/jbmeta98/OverrideRemoveMethodUnitTestCase.java</exclude>
@@ -135,5 +134,6 @@
         </profile>
 
     </profiles>
+
 
 </project>
