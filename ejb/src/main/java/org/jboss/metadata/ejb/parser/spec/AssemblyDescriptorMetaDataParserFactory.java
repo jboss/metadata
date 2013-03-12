@@ -39,10 +39,10 @@ class AssemblyDescriptorMetaDataParserFactory
       {
          case EJB_1_1:
          case EJB_2_0:
+             // TODO: Parser not yet implemented for EJB 1.x and EJB 2.0 versions, fallback to generic
+             return new AssemblyDescriptorMetaDataParser();
          case EJB_2_1:
-            // TODO: Parser not yet implemented for EJB 1.x and EJB 2.x versions, fallback to generic
-            return new AssemblyDescriptorMetaDataParser();
-
+            return new AssemblyDescriptor21MetaDataParser();
          case EJB_3_0:
          case EJB_3_1:
             return new AssemblyDescriptor30MetaDataParser();
