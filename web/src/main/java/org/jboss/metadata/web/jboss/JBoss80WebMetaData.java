@@ -19,14 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.metadata.web.jboss;
 
-package org.jboss.metadata.parser.jbossweb;
+/**
+ * @author Tomaz Cerar
+  */
+public class JBoss80WebMetaData extends JBossWebMetaData {
+    private static final long serialVersionUID = 1;
 
-public enum Version {
-    JBOSS_WEB_3_0, JBOSS_WEB_3_2,
-    JBOSS_WEB_4_0, JBOSS_WEB_4_2,
-    JBOSS_WEB_5_0, JBOSS_WEB_5_1,
-    JBOSS_WEB_6_0, JBOSS_WEB_7_0,
-    JBOSS_WEB_7_1,
-    JBOSS_WEB_8_0,
+
+
 }

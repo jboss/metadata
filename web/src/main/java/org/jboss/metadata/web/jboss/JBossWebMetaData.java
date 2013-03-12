@@ -160,6 +160,17 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private List<String> overlays;
 
     /**
+     * reference to servlet container name
+     */
+    private String servletContainerName;
+
+    /**
+     * reference to server instance name
+     */
+
+    private String serverInstanceName;
+
+    /**
      * Distinct name for this web application
      */
     private String distinctName;
@@ -735,6 +746,22 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setOverlays(List<String> overlays) {
         this.overlays = overlays;
+    }
+
+    public String getServletContainerName() {
+        return servletContainerName;
+    }
+
+    public void setServletContainerName(String servletContainerName) {
+        this.servletContainerName = servletContainerName;
+    }
+
+    public String getServerInstanceName() {
+        return serverInstanceName;
+    }
+
+    public void setServerInstanceName(String serverInstanceName) {
+        this.serverInstanceName = serverInstanceName;
     }
 
     /**

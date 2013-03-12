@@ -41,6 +41,7 @@ import org.jboss.metadata.web.jboss.JBoss50DTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50WebMetaData;
 import org.jboss.metadata.web.jboss.JBoss60WebMetaData;
 import org.jboss.metadata.web.jboss.JBoss70WebMetaData;
+import org.jboss.metadata.web.jboss.JBoss80WebMetaData;
 import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
 import org.jboss.metadata.web.jboss.JBossServletsMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
@@ -104,6 +105,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 break;
             case JBOSS_WEB_7_1:
                 wmd = new JBoss70WebMetaData();
+                break;
+            case JBOSS_WEB_8_0:
+                wmd = new JBoss80WebMetaData();
                 break;
         }
 
@@ -231,6 +235,12 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     break;
                 case SYMBOLIC_ENABLED:
                     wmd.setSymbolicLinkingEnabled(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
+                    break;
+                case SERVLET_CONTAINER:
+                    wmd.setServletContainerName(getElementText(reader, propertyReplacer));
+                    break;
+                case SERVER_INSTANCE:
+                    wmd.setServerInstanceName(getElementText(reader, propertyReplacer));
                     break;
                 default:
                     throw unexpectedElement(reader);
