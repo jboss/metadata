@@ -74,6 +74,7 @@ public class ExtendingMetaDataParser<MD extends ExtendableMetaData> extends Abst
         final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
         switch (namespace) {
             case SPEC:
+            case SPEC_7_0:
                 delegate.processElement(metaData, reader, propertyReplacer);
                 break;
             case JBOSS:

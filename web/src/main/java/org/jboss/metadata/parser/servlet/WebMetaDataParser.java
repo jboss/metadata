@@ -41,6 +41,7 @@ import org.jboss.metadata.web.spec.Web23MetaData;
 import org.jboss.metadata.web.spec.Web24MetaData;
 import org.jboss.metadata.web.spec.Web25MetaData;
 import org.jboss.metadata.web.spec.Web30MetaData;
+import org.jboss.metadata.web.spec.Web31MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 
 
@@ -98,11 +99,13 @@ public class WebMetaDataParser extends MetaDataElementParser {
                 version = Version.SERVLET_2_5;
             } else if ("3.0".equals(versionString)) {
                 version = Version.SERVLET_3_0;
+            } else if ("3.1".equals(versionString)) {
+                version = Version.SERVLET_3_1;
             }
         }
 
         if (version == null)
-            version = Version.SERVLET_3_0;
+            version = Version.SERVLET_3_1;
         // throw new IllegalStateException("Cannot obtain servlet version");
 
         WebMetaData wmd = null;
@@ -122,6 +125,11 @@ public class WebMetaDataParser extends MetaDataElementParser {
             case SERVLET_3_0:
                 wmd = new Web30MetaData();
                 break;
+            case SERVLET_3_1:
+                wmd = new Web31MetaData();
+                break;
+            default:
+                throw new IllegalArgumentException("No parser available for web metadata version: " + version.name());
         }
 
         // Set the publicId / systemId

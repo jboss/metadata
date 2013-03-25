@@ -25,28 +25,38 @@ package org.jboss.metadata.ear.spec;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
+
 /**
  * @author John Bailey
  */
 public enum EarVersion {
-    UNKNOWN(null, null),
-    APP_1_3("http://java.sun.com/dtd/application_1_3.dtd", "1.3"),
-    APP_1_4("http://java.sun.com/xml/ns/j2ee/application_1_4.xsd", "1.4"),
-    APP_5_0("http://java.sun.com/xml/ns/javaee/application_5.xsd", "5.0"),
-    APP_6_0("http://java.sun.com/xml/ns/javaee/application_6.xsd", "6.0");
+
+    UNKNOWN(null, null, JavaEEVersion.UNKNOWN),
+    APP_1_3("http://java.sun.com/dtd/application_1_3.dtd", "1.3", JavaEEVersion.UNKNOWN),
+    APP_1_4("http://java.sun.com/xml/ns/j2ee/application_1_4.xsd", "1.4", JavaEEVersion.V1_4),
+    APP_5_0("http://java.sun.com/xml/ns/javaee/application_5.xsd", "5.0", JavaEEVersion.V5),
+    APP_6_0("http://java.sun.com/xml/ns/javaee/application_6.xsd", "6.0", JavaEEVersion.V6),
+    APP_7_0("http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd", "7.0", JavaEEVersion.V7);
 
     private static final Map<String, EarVersion> bindings = new HashMap<String, EarVersion>();
 
     private final String location;
     private final String version;
+    private final JavaEEVersion javaEEVersion;
 
-    EarVersion(final String location, final String version) {
+    EarVersion(final String location, final String version, final JavaEEVersion javaEEVersion) {
         this.location = location;
         this.version = version;
+        this.javaEEVersion = javaEEVersion;
     }
 
     public String getVersion() {
         return version;
+    }
+
+    public JavaEEVersion getJavaEEVersion() {
+        return javaEEVersion;
     }
 
     static {
@@ -59,4 +69,5 @@ public enum EarVersion {
         final EarVersion version = bindings.get(location);
         return version != null ? version : UNKNOWN;
     }
+
 }

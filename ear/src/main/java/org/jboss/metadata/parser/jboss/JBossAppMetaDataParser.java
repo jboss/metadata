@@ -117,7 +117,7 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
             final Element element = Element.forName(reader.getLocalName());
             Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
-            if (namespace == Namespace.SPEC) {
+            if (namespace == Namespace.SPEC || namespace == Namespace.SPEC_7_0) {
                 super.handleElement(reader, appMetaData, propertyReplacer);
             } else {
                 switch (element) {

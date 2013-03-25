@@ -89,13 +89,13 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser {
         }
 
         // If we still haven't got the explicit version value, then default
-        // to latest version (==3.1)
+        // to latest version (==3.2)
         if (ejbJarVersion == null) {
-            ejbJarVersion = EjbJarVersion.EJB_3_1;
+            ejbJarVersion = EjbJarVersion.EJB_3_2;
         }
 
-        if (ejbJarVersion != EjbJarVersion.EJB_3_1)
-            throw new UnsupportedOperationException("Only EJB 3.1 descriptor is supported, found " + ejbJarVersion);
+        if (ejbJarVersion != EjbJarVersion.EJB_3_1 && ejbJarVersion != EjbJarVersion.EJB_3_2)
+            throw new UnsupportedOperationException("Only EJB 3.1 or 3.2 descriptor is supported, found " + ejbJarVersion);
 
         final EjbJarMetaData metaData = new EjbJarMetaData(ejbJarVersion);
         processAttributes(metaData, reader);
@@ -142,6 +142,7 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser {
                 }
                 break;
             case SPEC:
+            case SPEC_7_0:
                 switch (element) {
                     case ASSEMBLY_DESCRIPTOR:
                         metaData.setAssemblyDescriptor(parseAssemblyDescriptor(reader, propertyReplacer));

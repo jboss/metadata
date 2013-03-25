@@ -24,14 +24,24 @@ package org.jboss.metadata.merge.ejb.jboss;
 import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
 import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
+import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
+import org.jboss.metadata.javaee.spec.ConnectionFactoriesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationsMetaData;
+import org.jboss.metadata.javaee.spec.MailSessionsMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
+import org.jboss.metadata.merge.javaee.spec.AdministeredObjectsMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.ConnectionFactoriesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.EJBLocalReferencesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.JMSConnectionFactoriesMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.JMSDestinationsMetaDataMerger;
+import org.jboss.metadata.merge.javaee.spec.MailSessionsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.PersistenceContextReferencesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.RemoteEnvironmentRefsGroupMetaDataMerger;
 
@@ -84,19 +94,44 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
         EJBLocalReferencesMetaData jbossEjbLocalRefs = null;
         PersistenceContextReferencesMetaData specPersistenceContextRefs = null;
         PersistenceContextReferencesMetaData jbossPersistenceContextRefs = null;
+        AdministeredObjectsMetaData specAdministeredObjects = null;
+        AdministeredObjectsMetaData jbossAdministeredObjects = null;
+        ConnectionFactoriesMetaData specConnectionFactories = null;
+        ConnectionFactoriesMetaData jbossConnectionFactories = null;
+        JMSConnectionFactoriesMetaData specJmsConnectionFactories = null;
+        JMSConnectionFactoriesMetaData jbossJmsConnectionFactories = null;
+        JMSDestinationsMetaData specJmsDestinations = null;
+        JMSDestinationsMetaData jbossJmsDestinations = null;
+        MailSessionsMetaData specMailSessions = null;
+        MailSessionsMetaData jbossMailSessions = null;
 
         if (specEnv != null) {
             ejbLocalRefs = specEnv.getEjbLocalReferences();
             specPersistenceContextRefs = specEnv.getPersistenceContextRefs();
+            specAdministeredObjects = specEnv.getAdministeredObjects();
+            specConnectionFactories = specEnv.getConnectionFactories();
+            specJmsConnectionFactories = specEnv.getJmsConnectionFactories();
+            specJmsDestinations = specEnv.getJmsDestinations();
+            specMailSessions = specEnv.getMailSessions();
         }
 
         if (jbossEnv != null) {
             jbossEjbLocalRefs = jbossEnv.getEjbLocalReferences();
             jbossPersistenceContextRefs = jbossEnv.getPersistenceContextRefs();
+            jbossAdministeredObjects = jbossEnv.getAdministeredObjects();
+            jbossConnectionFactories = jbossEnv.getConnectionFactories();
+            jbossJmsConnectionFactories = jbossEnv.getJmsConnectionFactories();
+            jbossJmsDestinations = jbossEnv.getJmsDestinations();
+            jbossMailSessions = jbossEnv.getMailSessions();
         } else {
             // Use the merge target for the static merge methods
             jbossEjbLocalRefs = dest.getEjbLocalReferences();
             jbossPersistenceContextRefs = dest.getPersistenceContextRefs();
+            jbossAdministeredObjects = dest.getAdministeredObjects();
+            jbossConnectionFactories = dest.getConnectionFactories();
+            jbossJmsConnectionFactories = dest.getJmsConnectionFactories();
+            jbossJmsDestinations = dest.getJmsDestinations();
+            jbossMailSessions = dest.getMailSessions();
         }
 
         EJBLocalReferencesMetaData mergedEjbLocalRefs = EJBLocalReferencesMetaDataMerger.merge(jbossEjbLocalRefs, ejbLocalRefs,
@@ -122,6 +157,31 @@ public class JBossEnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRe
                 jbossPersistenceContextRefs, specPersistenceContextRefs, overridenFile, overrideFile);
         if (mergedPcRefs != null)
             dest.setPersistenceContextRefs(mergedPcRefs);
+
+        final AdministeredObjectsMetaData mergedAdministeredObjects = AdministeredObjectsMetaDataMerger.merge(
+                jbossAdministeredObjects, specAdministeredObjects, overridenFile, overrideFile);
+        if (mergedAdministeredObjects != null)
+            dest.setAdministeredObjects(mergedAdministeredObjects);
+
+        final ConnectionFactoriesMetaData mergedConnectionFactories = ConnectionFactoriesMetaDataMerger.merge(
+                jbossConnectionFactories, specConnectionFactories, overridenFile, overrideFile);
+        if (mergedConnectionFactories != null)
+            dest.setConnectionFactories(mergedConnectionFactories);
+
+        final JMSConnectionFactoriesMetaData mergedJmsConnectionFactories = JMSConnectionFactoriesMetaDataMerger.merge(
+                jbossJmsConnectionFactories, specJmsConnectionFactories, overridenFile, overrideFile);
+        if (mergedJmsConnectionFactories != null)
+            dest.setJmsConnectionFactories(mergedJmsConnectionFactories);
+
+        final JMSDestinationsMetaData mergedJmsDestinations = JMSDestinationsMetaDataMerger.merge(
+                jbossJmsDestinations, specJmsDestinations, overridenFile, overrideFile);
+        if (mergedJmsDestinations != null)
+            dest.setJmsDestinations(mergedJmsDestinations);
+
+        final MailSessionsMetaData mergedMailSessions = MailSessionsMetaDataMerger.merge(
+                jbossMailSessions, specMailSessions, overridenFile, overrideFile);
+        if (mergedMailSessions != null)
+            dest.setMailSessions(mergedMailSessions);
 
     }
 

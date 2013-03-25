@@ -42,6 +42,7 @@ public abstract class AbstractMethodsBoundMetaDataParser<MD extends AbstractMeth
         final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
         switch (namespace) {
             case SPEC:
+            case SPEC_7_0:
                 final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
                 switch (ejbJarElement) {
                     case METHOD:
