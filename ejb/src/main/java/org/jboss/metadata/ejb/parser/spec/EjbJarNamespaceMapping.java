@@ -41,6 +41,7 @@ public class EjbJarNamespaceMapping {
         bindings.put("http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd", EjbJarVersion.EJB_2_1);
         bindings.put("http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd", EjbJarVersion.EJB_3_0);
         bindings.put("http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd", EjbJarVersion.EJB_3_1);
+        bindings.put("http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd", EjbJarVersion.EJB_3_2);
     }
 
     public static EjbJarVersion getEjbJarVersion(String namespace) {
