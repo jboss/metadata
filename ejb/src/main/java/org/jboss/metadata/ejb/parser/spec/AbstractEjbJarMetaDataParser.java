@@ -85,8 +85,8 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
         switch (ejbJarElement) {
             case MODULE_NAME:
-                // only EJB 3.1 allows module-name
-                if (ejbJarMetaData.isEJB31()) {
+                // only EJB 3.1 or greater allows module-name
+                if (ejbJarMetaData.isVersionGreaterThanOrEqual(EjbJarVersion.EJB_3_1)) {
                     String moduleName = getElementText(reader, propertyReplacer);
                     ejbJarMetaData.setModuleName(moduleName);
                 } else {
@@ -181,6 +181,8 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
             ejbJarVersion = EjbJarVersion.EJB_3_0;
         } else if ("3.1".equals(versionString)) {
             ejbJarVersion = EjbJarVersion.EJB_3_1;
+        } else if ("3.2".equals(versionString)) {
+            ejbJarVersion = EjbJarVersion.EJB_3_2;
         }
 
         return ejbJarVersion;

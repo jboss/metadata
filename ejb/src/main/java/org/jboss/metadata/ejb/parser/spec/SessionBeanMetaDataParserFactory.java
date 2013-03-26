@@ -53,6 +53,8 @@ class SessionBeanMetaDataParserFactory {
 
             case EJB_3_1:
                 return new SessionBean31MetaDataParser();
+            case EJB_3_2:
+                return new SessionBean32MetaDataParser();
 
             default:
                 throw new IllegalArgumentException("No parser available for ejb-jar version: " + ejbJarVersion.name());

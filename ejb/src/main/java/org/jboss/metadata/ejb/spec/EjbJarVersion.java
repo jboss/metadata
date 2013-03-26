@@ -51,6 +51,11 @@ public enum EjbJarVersion {
     /**
      * 3.1 version of EJB
      */
-    EJB_3_1
+    EJB_3_1,
+
+    /**
+     * 3.2 version of EJB
+     */
+    EJB_3_2
 
 }

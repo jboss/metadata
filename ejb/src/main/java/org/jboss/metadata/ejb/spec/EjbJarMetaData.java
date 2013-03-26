@@ -273,7 +273,7 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
      * @return true when ejb3.x
      */
     public boolean isEJB3x() {
-        return ejbJarVersion == EjbJarVersion.EJB_3_0 || ejbJarVersion == EjbJarVersion.EJB_3_1;
+        return isVersionGreaterThanOrEqual(EjbJarVersion.EJB_3_0);
     }
 
     /**
@@ -283,6 +283,33 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
      */
     public boolean isEJB31() {
         return this.ejbJarVersion == EjbJarVersion.EJB_3_1;
+    }
+
+    /**
+     * Returns true if the version represented by this {@link EjbJarMetaData} is greater than the passed {@link EjbJarVersion version}
+     *
+     * @param version The version being compared
+     * @return
+     */
+    public boolean isVersionGreaterThan(final EjbJarVersion version) {
+        if (version == null) {
+            return false;
+        }
+        return this.ejbJarVersion.compareTo(version) > 0;
+    }
+
+    /**
+     * Returns true if the version represented by this {@link EjbJarMetaData} is greater than or equal to
+     * the passed {@link EjbJarVersion version}
+     *
+     * @param version The version being compared
+     * @return
+     */
+    public boolean isVersionGreaterThanOrEqual(final EjbJarVersion version) {
+        if (version == null) {
+            return false;
+        }
+        return this.ejbJarVersion.compareTo(version) >= 0;
     }
 
     /**
