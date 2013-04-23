@@ -94,6 +94,31 @@ public class RemoteEnvironmentRefsGroupMetaData implements Serializable, RemoteE
     private DataSourcesMetaData dataSources;
 
     /**
+    *
+    */
+   private AdministeredObjectsMetaData administeredObjects;
+
+   /**
+    *
+    */
+   private ConnectionFactoriesMetaData connectionFactories;
+
+   /**
+    *
+    */
+   private JMSConnectionFactoriesMetaData jmsConnectionFactories;
+
+   /**
+    *
+    */
+   private JMSDestinationsMetaData jmsDestinations;
+
+   /**
+    *
+    */
+   private MailSessionsMetaData mailSessions;
+
+    /**
      * Create a new EnvironmentRefsGroupMetaData.
      */
     public RemoteEnvironmentRefsGroupMetaData() {
@@ -388,5 +413,116 @@ public class RemoteEnvironmentRefsGroupMetaData implements Serializable, RemoteE
         if (env == null)
             return null;
         return env.getDataSources();
+    }
+
+    @Override
+    public AdministeredObjectsMetaData getAdministeredObjects() {
+        return administeredObjects;
+    }
+
+    /**
+     * Sets administeredObjects.
+     *
+     * @param administeredObjects
+     * @throws IllegalArgumentException for a null arg
+     */
+    public void setAdministeredObjects(AdministeredObjectsMetaData administeredObjects) throws IllegalArgumentException {
+        if (administeredObjects == null)
+            throw new IllegalArgumentException("Null administeredObjects");
+        this.administeredObjects = administeredObjects;
+    }
+
+    @Override
+    public AdministeredObjectMetaData getAdministeredObjectByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, administeredObjects);
+    }
+
+    @Override
+    public ConnectionFactoriesMetaData getConnectionFactories() {
+        return connectionFactories;
+    }
+
+    /**
+     * Sets connectionFactories.
+     *
+     * @param connectionFactories
+     * @throws IllegalArgumentException for a null arg
+     */
+    public void setConnectionFactories(ConnectionFactoriesMetaData connectionFactories) throws IllegalArgumentException {
+        if (connectionFactories == null)
+            throw new IllegalArgumentException("Null connectionFactories");
+        this.connectionFactories = connectionFactories;
+    }
+
+    @Override
+    public ConnectionFactoryMetaData getConnectionFactoryByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, connectionFactories);
+    }
+
+    @Override
+    public JMSConnectionFactoriesMetaData getJmsConnectionFactories() {
+        return jmsConnectionFactories;
+    }
+
+    /**
+     * Sets jmsConnectionFactories.
+     *
+     * @param jmsConnectionFactories
+     * @throws IllegalArgumentException for a null arg
+     */
+    public void setJmsConnectionFactories(JMSConnectionFactoriesMetaData jmsConnectionFactories)
+            throws IllegalArgumentException {
+        if (jmsConnectionFactories == null)
+            throw new IllegalArgumentException("Null jmsConnectionFactories");
+        this.jmsConnectionFactories = jmsConnectionFactories;
+    }
+
+    @Override
+    public JMSConnectionFactoryMetaData getJmsConnectionFactoryByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, jmsConnectionFactories);
+    }
+
+    @Override
+    public JMSDestinationsMetaData getJmsDestinations() {
+        return jmsDestinations;
+    }
+
+    /**
+     * Sets jmsDestinations.
+     *
+     * @param jmsDestinations
+     * @throws IllegalArgumentException for a null arg
+     */
+    public void setJmsDestinations(JMSDestinationsMetaData jmsDestinations) throws IllegalArgumentException {
+        if (jmsDestinations == null)
+            throw new IllegalArgumentException("Null jmsDestinations");
+        this.jmsDestinations = jmsDestinations;
+    }
+
+    @Override
+    public JMSDestinationMetaData getJmsDestinationByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, jmsDestinations);
+    }
+
+    @Override
+    public MailSessionsMetaData getMailSessions() {
+        return mailSessions;
+    }
+
+    /**
+     * Sets mailSessions.
+     *
+     * @param mailSessions
+     * @throws IllegalArgumentException for a null arg
+     */
+    public void setMailSessions(MailSessionsMetaData mailSessions) throws IllegalArgumentException {
+        if (mailSessions == null)
+            throw new IllegalArgumentException("Null mailSessions");
+        this.mailSessions = mailSessions;
+    }
+
+    @Override
+    public MailSessionMetaData getMailSessionByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, mailSessions);
     }
 }

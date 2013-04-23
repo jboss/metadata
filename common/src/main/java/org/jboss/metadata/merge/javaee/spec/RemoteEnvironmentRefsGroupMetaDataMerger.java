@@ -21,12 +21,17 @@
  */
 package org.jboss.metadata.merge.javaee.spec;
 
+import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ConnectionFactoriesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.MailSessionsMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RemoteEnvironment;
@@ -37,7 +42,7 @@ import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.merge.javaee.jboss.JBossServiceReferencesMetaDataMerger;
 
 /**
- * References which are only available remote (for application clients).
+ * References which are available remote (for application clients).
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
  * @author <a href="carlo.dewolf@jboss.com">Carlo de Wolf</a>
@@ -64,6 +69,16 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
         DataSourcesMetaData jbossDataSourceMetaData = null;
         LifecycleCallbacksMetaData postConstructs = null;
         LifecycleCallbacksMetaData preDestroys = null;
+        AdministeredObjectsMetaData specAdministeredObjects = null;
+        AdministeredObjectsMetaData jbossAdministeredObjects = null;
+        ConnectionFactoriesMetaData specConnectionFactories = null;
+        ConnectionFactoriesMetaData jbossConnectionFactories = null;
+        JMSConnectionFactoriesMetaData specJmsConnectionFactories = null;
+        JMSConnectionFactoriesMetaData jbossJmsConnectionFactories = null;
+        JMSDestinationsMetaData specJmsDestinations = null;
+        JMSDestinationsMetaData jbossJmsDestinations = null;
+        MailSessionsMetaData specMailSessions = null;
+        MailSessionsMetaData jbossMailSessions = null;
 
         if (jbossEnv != null) {
             postConstructs = dest.addAll(dest.getPostConstructs(), jbossEnv.getPostConstructs());
@@ -91,6 +106,11 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             messageDestinationRefs = specEnv.getMessageDestinationReferences();
             persistenceUnitRefs = specEnv.getPersistenceUnitRefs();
             dataSourceMetaData = specEnv.getDataSources();
+            specAdministeredObjects = specEnv.getAdministeredObjects();
+            specConnectionFactories = specEnv.getConnectionFactories();
+            specJmsConnectionFactories = specEnv.getJmsConnectionFactories();
+            specJmsDestinations = specEnv.getJmsDestinations();
+            specMailSessions = specEnv.getMailSessions();
         }
 
         if (jbossEnv != null) {
@@ -101,6 +121,11 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             jbossMessageDestinationRefs = jbossEnv.getMessageDestinationReferences();
             jbossPersistenceUnitRefs = jbossEnv.getPersistenceUnitRefs();
             jbossDataSourceMetaData = jbossEnv.getDataSources();
+            jbossAdministeredObjects = jbossEnv.getAdministeredObjects();
+            jbossConnectionFactories = jbossEnv.getConnectionFactories();
+            jbossJmsConnectionFactories = jbossEnv.getJmsConnectionFactories();
+            jbossJmsDestinations = jbossEnv.getJmsDestinations();
+            jbossMailSessions = jbossEnv.getMailSessions();
         } else {
             // Merge into this
             jbossEjbRefs = dest.getEjbReferences();
@@ -110,6 +135,11 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
             jbossMessageDestinationRefs = dest.getMessageDestinationReferences();
             jbossPersistenceUnitRefs = dest.getPersistenceUnitRefs();
             jbossDataSourceMetaData = dest.getDataSources();
+            jbossAdministeredObjects = dest.getAdministeredObjects();
+            jbossConnectionFactories = dest.getConnectionFactories();
+            jbossJmsConnectionFactories = dest.getJmsConnectionFactories();
+            jbossJmsDestinations = dest.getJmsDestinations();
+            jbossMailSessions = dest.getMailSessions();
         }
 
         EJBReferencesMetaData mergedEjbRefs = EJBReferencesMetaDataMerger.merge(jbossEjbRefs, ejbRefs, overrideFile, overridenFile,
@@ -181,6 +211,33 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
                 annotatedEjbRefs);
         if (annotatedRefs != null)
             dest.setAnnotatedEjbReferences(annotatedRefs);
+
+        final AdministeredObjectsMetaData mergedAdministeredObjects = AdministeredObjectsMetaDataMerger.merge(
+                jbossAdministeredObjects, specAdministeredObjects, overridenFile, overrideFile);
+        if (mergedAdministeredObjects != null)
+            dest.setAdministeredObjects(mergedAdministeredObjects);
+
+        final ConnectionFactoriesMetaData mergedConnectionFactories = ConnectionFactoriesMetaDataMerger.merge(
+                jbossConnectionFactories, specConnectionFactories, overridenFile, overrideFile);
+        if (mergedConnectionFactories != null)
+            dest.setConnectionFactories(mergedConnectionFactories);
+
+        final JMSConnectionFactoriesMetaData mergedJmsConnectionFactories = JMSConnectionFactoriesMetaDataMerger.merge(
+                jbossJmsConnectionFactories, specJmsConnectionFactories, overridenFile, overrideFile);
+        if (mergedJmsConnectionFactories != null)
+            dest.setJmsConnectionFactories(mergedJmsConnectionFactories);
+
+        final JMSDestinationsMetaData mergedJmsDestinations = JMSDestinationsMetaDataMerger.merge(
+                jbossJmsDestinations, specJmsDestinations, overridenFile, overrideFile);
+        if (mergedJmsDestinations != null)
+            dest.setJmsDestinations(mergedJmsDestinations);
+
+        final MailSessionsMetaData mergedMailSessions = MailSessionsMetaDataMerger.merge(
+                jbossMailSessions, specMailSessions, overridenFile, overrideFile);
+        if (mergedMailSessions != null)
+            dest.setMailSessions(mergedMailSessions);
+
+
     }
 
     public static void augment(RemoteEnvironmentRefsGroupMetaData dest, RemoteEnvironmentRefsGroupMetaData augment, RemoteEnvironmentRefsGroupMetaData main,
@@ -267,6 +324,44 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
         } else if (augment.getAnnotatedEjbReferences() != null) {
             AnnotatedEJBReferencesMetaDataMerger.augment(dest.getAnnotatedEjbReferences(), augment.getAnnotatedEjbReferences(),
                     (main != null) ? main.getAnnotatedEjbReferences() : null, resolveConflicts);
+        }
+
+        if (dest.getDataSources() == null) {
+            dest.setDataSources(augment.getDataSources());
+        } else if (augment.getDataSources() != null) {
+            DataSourcesMetaDataMerger.augment(dest.getDataSources(), augment.getDataSources(), (main != null) ? main.getDataSources() : null,
+                    resolveConflicts);
+        }
+
+        if (dest.getAdministeredObjects() == null) {
+            dest.setAdministeredObjects(augment.getAdministeredObjects());
+        } else if (augment.getAdministeredObjects() != null) {
+            AdministeredObjectsMetaDataMerger.augment(dest.getAdministeredObjects(), augment.getAdministeredObjects(), (main != null) ? main.getAdministeredObjects() : null,
+                    resolveConflicts);
+        }
+        if (dest.getConnectionFactories() == null) {
+            dest.setConnectionFactories(augment.getConnectionFactories());
+        } else if (augment.getConnectionFactories() != null) {
+            ConnectionFactoriesMetaDataMerger.augment(dest.getConnectionFactories(), augment.getConnectionFactories(), (main != null) ? main.getConnectionFactories() : null,
+                    resolveConflicts);
+        }
+        if (dest.getJmsConnectionFactories() == null) {
+            dest.setJmsConnectionFactories(augment.getJmsConnectionFactories());
+        } else if (augment.getJmsConnectionFactories() != null) {
+            JMSConnectionFactoriesMetaDataMerger.augment(dest.getJmsConnectionFactories(), augment.getJmsConnectionFactories(), (main != null) ? main.getJmsConnectionFactories() : null,
+                    resolveConflicts);
+        }
+        if (dest.getJmsDestinations() == null) {
+            dest.setJmsDestinations(augment.getJmsDestinations());
+        } else if (augment.getJmsDestinations() != null) {
+            JMSDestinationsMetaDataMerger.augment(dest.getJmsDestinations(), augment.getJmsDestinations(), (main != null) ? main.getJmsDestinations() : null,
+                    resolveConflicts);
+        }
+        if (dest.getMailSessions() == null) {
+            dest.setMailSessions(augment.getMailSessions());
+        } else if (augment.getMailSessions() != null) {
+            MailSessionsMetaDataMerger.augment(dest.getMailSessions(), augment.getMailSessions(), (main != null) ? main.getMailSessions() : null,
+                    resolveConflicts);
         }
     }
 

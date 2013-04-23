@@ -38,7 +38,7 @@ public class AppclientSpecDescriptorTestCase extends SpecDescriptorTestCase {
     @Parameters
     public static List<Object[]> parameters() {
         // The spec descriptor should be guarded in schema
-        return Arrays.asList(new Object[][]{{"schema/application-client_6.xsd"}});
+        return Arrays.asList(new Object[][]{{"schema/application-client_6.xsd"},{"schema/application-client_7.xsd"}});
     }
 
     public AppclientSpecDescriptorTestCase(String xsd) {

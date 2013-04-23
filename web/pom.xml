@@ -109,6 +109,11 @@
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>${javax.persistence.groupId}</groupId>
+            <artifactId>${javax.persistence.artifactId}</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

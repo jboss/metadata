@@ -43,6 +43,6 @@ public class WebSpecDescriptorTestCase extends SpecDescriptorTestCase {
     @Parameters
     public static List<Object[]> parameters() {
         // The spec descriptor should be guarded in schema
-        return Arrays.asList(new Object[][]{{"dtd/web-app_2_2.dtd"}, {"dtd/web-app_2_3.dtd"}, {"dtd/web-facesconfig_1_0.dtd"}, {"dtd/web-facesconfig_1_1.dtd"}, {"dtd/web-jsptaglibrary_1_1.dtd"}, {"dtd/web-jsptaglibrary_1_2.dtd"}, {"schema/jsp_2_0.xsd"}, {"schema/jsp_2_1.xsd"}, {"schema/jsp_2_2.xsd"}, {"schema/web-app_2_4.xsd"}, {"schema/web-app_2_5.xsd"}, {"schema/web-app_3_0.xsd"}, {"schema/web-common_3_0.xsd"}, {"schema/web-facesconfig_1_2.xsd"}, {"schema/web-fragment_3_0.xsd"}, {"schema/web-jsptaglibrary_2_0.xsd"}, {"schema/web-jsptaglibrary_2_1.xsd"}});
+        return Arrays.asList(new Object[][]{{"dtd/web-app_2_2.dtd"}, {"dtd/web-app_2_3.dtd"}, {"dtd/web-facesconfig_1_0.dtd"}, {"dtd/web-facesconfig_1_1.dtd"}, {"dtd/web-jsptaglibrary_1_1.dtd"}, {"dtd/web-jsptaglibrary_1_2.dtd"}, {"schema/jsp_2_0.xsd"}, {"schema/jsp_2_1.xsd"}, {"schema/jsp_2_2.xsd"}, {"schema/jsp_2_3.xsd"}, {"schema/web-app_2_4.xsd"}, {"schema/web-app_2_5.xsd"}, {"schema/web-app_3_0.xsd"}, {"schema/web-app_3_1.xsd"}, {"schema/web-common_3_0.xsd"}, {"schema/web-common_3_1.xsd"}, {"schema/web-facesconfig_1_2.xsd"}, {"schema/web-facesconfig_2_2.xsd"}, {"schema/web-fragment_3_0.xsd"}, {"schema/web-fragment_3_1.xsd"}, {"schema/web-jsptaglibrary_2_0.xsd"}, {"schema/web-jsptaglibrary_2_1.xsd"}});
     }
 }

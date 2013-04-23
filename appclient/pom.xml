@@ -22,16 +22,23 @@
         </dependency>
 
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>jboss-metadata-common</artifactId>
-            <type>test-jar</type>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
         </dependency>
-    </dependencies>
 
+	<dependency>
+            <groupId>org.jboss.metadata</groupId>
+            <artifactId>jboss-metadata-common</artifactId>
+            <version>${project.version}</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>${javax.persistence.groupId}</groupId>
+            <artifactId>${javax.persistence.artifactId}</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+        
 </project>

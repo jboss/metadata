@@ -29,7 +29,11 @@ import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
 
 import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
+import org.jboss.metadata.javaee.spec.AdministeredObjectMetaData;
+import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.ConnectionFactoryMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
@@ -40,7 +44,13 @@ import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoryMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.MailSessionMetaData;
+import org.jboss.metadata.javaee.spec.MailSessionsMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
@@ -663,6 +673,56 @@ public abstract class AbstractEnterpriseBeanMetaData extends NamedMetaDataWithDe
     @Override
     public DataSourceMetaData getDataSourceByName(String name) {
         return AbstractMappedMetaData.getByName(name, getDataSources());
+    }
+
+    @Override
+    public AdministeredObjectsMetaData getAdministeredObjects() {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getAdministeredObjects() : null;
+    }
+
+    @Override
+    public AdministeredObjectMetaData getAdministeredObjectByName(String name) throws IllegalArgumentException {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getAdministeredObjectByName(name) : null;
+    }
+
+    @Override
+    public ConnectionFactoriesMetaData getConnectionFactories() {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getConnectionFactories() : null;
+    }
+
+    @Override
+    public ConnectionFactoryMetaData getConnectionFactoryByName(String name) throws IllegalArgumentException {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getConnectionFactoryByName(name) : null;
+    }
+
+    @Override
+    public JMSConnectionFactoriesMetaData getJmsConnectionFactories() {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getJmsConnectionFactories() : null;
+    }
+
+    @Override
+    public JMSConnectionFactoryMetaData getJmsConnectionFactoryByName(String name) throws IllegalArgumentException {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getJmsConnectionFactoryByName(name) : null;
+    }
+
+    @Override
+    public JMSDestinationsMetaData getJmsDestinations() {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getJmsDestinations() : null;
+    }
+
+    @Override
+    public JMSDestinationMetaData getJmsDestinationByName(String name) throws IllegalArgumentException {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getJmsDestinationByName(name) : null;
+    }
+
+    @Override
+    public MailSessionsMetaData getMailSessions() {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getMailSessions() : null;
+    }
+
+    @Override
+    public MailSessionMetaData getMailSessionByName(String name) throws IllegalArgumentException {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getMailSessionByName(name) : null;
     }
 
     protected static <T> T override(T override, T original) {

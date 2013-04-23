@@ -25,12 +25,17 @@ package org.jboss.metadata.parser.ee;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
+import org.jboss.metadata.javaee.spec.ConnectionFactoriesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.MailSessionsMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
@@ -44,6 +49,7 @@ import org.jboss.metadata.property.PropertyReplacers;
 
 /**
  * @author Remy Maucherat
+ * @author Eduardo Martins
  */
 public class EnvironmentRefsGroupMetaDataParser {
 
@@ -164,6 +170,46 @@ public class EnvironmentRefsGroupMetaDataParser {
                     env.setDataSources(dataSources);
                 }
                 dataSources.add(DataSourceMetaDataParser.parse(reader, propertyReplacer));
+                break;
+            case ADMINISTERED_OBJECT:
+                AdministeredObjectsMetaData administeredObjectsMetaData = env.getAdministeredObjects();
+                if (administeredObjectsMetaData == null) {
+                    administeredObjectsMetaData = new AdministeredObjectsMetaData();
+                    env.setAdministeredObjects(administeredObjectsMetaData);
+                }
+                administeredObjectsMetaData.add(AdministeredObjectMetaDataParser.parse(reader, propertyReplacer));
+                break;
+            case CONNECTION_FACTORY:
+                ConnectionFactoriesMetaData connectionFactoriesMetaData = env.getConnectionFactories();
+                if (connectionFactoriesMetaData == null) {
+                    connectionFactoriesMetaData = new ConnectionFactoriesMetaData();
+                    env.setConnectionFactories(connectionFactoriesMetaData);
+                }
+                connectionFactoriesMetaData.add(ConnectionFactoryMetaDataParser.parse(reader, propertyReplacer));
+                break;
+            case JMS_CONNECTION_FACTORY:
+                JMSConnectionFactoriesMetaData jmsConnectionFactoriesMetaData = env.getJmsConnectionFactories();
+                if (jmsConnectionFactoriesMetaData == null) {
+                    jmsConnectionFactoriesMetaData = new JMSConnectionFactoriesMetaData();
+                    env.setJmsConnectionFactories(jmsConnectionFactoriesMetaData);
+                }
+                jmsConnectionFactoriesMetaData.add(JMSConnectionFactoryMetaDataParser.parse(reader, propertyReplacer));
+                break;
+            case JMS_DESTINATION:
+                JMSDestinationsMetaData jmsDestinationsMetaData = env.getJmsDestinations();
+                if (jmsDestinationsMetaData == null) {
+                    jmsDestinationsMetaData = new JMSDestinationsMetaData();
+                    env.setJmsDestinations(jmsDestinationsMetaData);
+                }
+                jmsDestinationsMetaData.add(JMSDestinationMetaDataParser.parse(reader, propertyReplacer));
+                break;
+            case MAIL_SESSION:
+                MailSessionsMetaData mailSessionsMetaData = env.getMailSessions();
+                if (mailSessionsMetaData == null) {
+                    mailSessionsMetaData = new MailSessionsMetaData();
+                    env.setMailSessions(mailSessionsMetaData);
+                }
+                mailSessionsMetaData.add(MailSessionMetaDataParser.parse(reader, propertyReplacer));
                 break;
             default:
                 return false;

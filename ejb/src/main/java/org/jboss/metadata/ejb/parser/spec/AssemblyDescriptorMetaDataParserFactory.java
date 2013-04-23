@@ -41,6 +41,7 @@ class AssemblyDescriptorMetaDataParserFactory {
                 return new AssemblyDescriptor21MetaDataParser();
             case EJB_3_0:
             case EJB_3_1:
+            case EJB_3_2:
                 return new AssemblyDescriptor30MetaDataParser();
             default:
                 throw new IllegalArgumentException("No parser available for ejb-jar version: " + ejbJarVersion.name());

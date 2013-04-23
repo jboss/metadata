@@ -25,14 +25,15 @@ package org.jboss.metadata.javaee.spec;
  * Constants.
  *
  * @author <a href="adrian@jboss.com">Adrian Brock</a>
- * @version $Revision: 1.1 $
+ * @author Eduardo Martins
+ * @version $Revision: 8.0 $
  */
 public interface JavaEEMetaDataConstants {
     /**
      * The javaee namespace
      */
     String JAVAEE_NS = "http://java.sun.com/xml/ns/javaee";
-
+    String JAVAEE_7_NS = "http://xmlns.jcp.org/xml/ns/javaee";
     /**
      * The j2ee namespace
      */

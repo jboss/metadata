@@ -29,21 +29,26 @@ import java.util.Map;
  * An enumeration of all the possible XML elements in the EE schema, by name.
  *
  * @author Remy Maucherat
+ * @author Eduardo Martins
  */
 public enum Element {
     // must be first
     UNKNOWN(null),
 
-    // javaee 6 elements in alpha order
+    // javaee 6 & 7 elements in alpha order
     ADDRESSING("addressing"),
+    ADMINISTERED_OBJECT("administered-object"),
 
     CLASS_NAME("class-name"),
+    CLIENT_ID("client-id"),
+    CONNECTION_FACTORY("connection-factory"),
     CONFIG_NAME("config-name"),
     CONFIG_FILE("config-file"),
 
     DATA_SOURCE("data-source"),
     DATABASE_NAME("database-name"),
     DESCRIPTION("description"),
+    DESTINATION_NAME("destination-name"),
     DISPLAY_NAME("display-name"),
 
     EJB_LINK("ejb-link"),
@@ -58,12 +63,15 @@ public enum Element {
     ENV_ENTRY_TYPE("env-entry-type"),
     ENV_ENTRY_VALUE("env-entry-value"),
 
+    FROM("from"),
+
     HANDLER("handler"),
     HANDLER_CHAIN("handler-chain"),
     HANDLER_CHAINS("handler-chains"),
     HANDLER_CLASS("handler-class"),
     HANDLER_NAME("handler-name"),
     HOME("home"),
+    HOST("host"),
 
     ICON("icon"),
     IGNORE_DEPENDECY("ignore-dependency"),
@@ -72,9 +80,12 @@ public enum Element {
     INJECTION_TARGET("injection-target"),
     INJECTION_TARGET_CLASS("injection-target-class"),
     INJECTION_TARGET_NAME("injection-target-name"),
+    INTERFACE_NAME("interface-name"),
     ISOLATION_LEVEL("isolation-level"),
 
     JAXRPC_MAPPING_FILE("jaxrpc-mapping-file"),
+    JMS_CONNECTION_FACTORY("jms-connection-factory"),
+    JMS_DESTINATION("jms-destination"),
     JNDI_NAME("jndi-name"),
 
     LARGE_ICON("large-icon"),
@@ -86,6 +97,7 @@ public enum Element {
     LOGIN_TIMEOUT("login-timeout"),
     LOOKUP_NAME("lookup-name"),
 
+    MAIL_SESSION("mail-session"),
     MAPPED_NAME("mapped-name"),
     MAX_IDLE_TIME("max-idle-time"),
     MAX_POOL_SIZE("max-pool-size"),
@@ -108,6 +120,7 @@ public enum Element {
     PERSISTENCE_CONTEXT_REF("persistence-context-ref"),
     PERSISTENCE_CONTEXT_REF_NAME("persistence-context-ref-name"),
     PERSISTENCE_CONTEXT_TYPE("persistence-context-type"),
+    PERSISTENCE_CONTEXT_SYNCHRONIZATION("persistence-context-synchronization"),
     PERSISTENCE_PROPERTY("persistence-property"),
     PERSISTENCE_UNIT_NAME("persistence-unit-name"),
     PERSISTENCE_UNIT_REF("persistence-unit-ref"),
@@ -133,6 +146,7 @@ public enum Element {
     RES_SHARING_SCOPE("res-sharing-scope"),
     RES_TYPE("res-type"),
     RES_URL("res-url"),
+    RESOURCE_ADAPTER("resource-adapter"),
     RESOURCE_ENV_REF("resource-env-ref"),
     RESOURCE_ENV_REF_NAME("resource-env-ref-name"),
     RESOURCE_ENV_REF_TYPE("resource-env-ref-type"),
@@ -155,9 +169,14 @@ public enum Element {
     SMALL_ICON("small-icon"),
     SOAP_HEADER("soap-header"),
     SOAP_ROLE("soap-role"),
+    STORE_PROTOCOL("store-protocol"),
+    STORE_PROTOCOL_CLASS("store-protocol-class"),
     STUB_PROPERTY("stub-property"),
 
+    TRANSACTION_SUPPORT("transaction-support"),
     TRANSACTIONAL("transactional"),
+    TRANSPORT_PROTOCOL("transport-protocol"),
+    TRANSPORT_PROTOCOL_CLASS("transport-protocol-class"),
 
     URL("url"),
     USER("user"),

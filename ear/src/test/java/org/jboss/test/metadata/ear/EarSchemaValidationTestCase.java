@@ -30,7 +30,7 @@ public class EarSchemaValidationTestCase extends SchemaValidationTestCase {
 
     @Parameters
     public static List<Object[]> parameters() {
-        String xsdFile = "schema/application_6.xsd";
+        String xsdFile = "schema/application_7.xsd";
         return getXSDFiles(xsdFile);
     }
 

@@ -36,6 +36,12 @@ import org.jboss.metadata.javaee.jboss.AnnotationPropertyMetaData;
 import org.jboss.metadata.javaee.jboss.AnnotationsMetaData;
 import org.jboss.metadata.javaee.jboss.JndiRefMetaData;
 import org.jboss.metadata.javaee.jboss.JndiRefsMetaData;
+import org.jboss.metadata.javaee.spec.AdministeredObjectMetaData;
+import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
+import org.jboss.metadata.javaee.spec.ConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.ConnectionFactoryMetaData;
+import org.jboss.metadata.javaee.spec.DataSourceMetaData;
+import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.DisplayNamesImpl;
@@ -49,8 +55,15 @@ import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
 import org.jboss.metadata.javaee.spec.IconsImpl;
+import org.jboss.metadata.javaee.spec.IsolationLevelType;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoryMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbackMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.MailSessionMetaData;
+import org.jboss.metadata.javaee.spec.MailSessionsMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
@@ -58,6 +71,7 @@ import org.jboss.metadata.javaee.spec.MessageDestinationUsageType;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextSynchronizationType;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PropertiesMetaData;
@@ -75,7 +89,9 @@ import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.TransactionSupportType;
 import org.jboss.metadata.javaee.support.IdMetaData;
+import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
 
 /**
  * AbstractJavaEEEverythingTest.
@@ -94,6 +110,14 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         JBOSS,
         JBOSS_DTD,
         SPEC
+    }
+
+    public enum Descriptor {
+        UNKNOWN,
+        APPLICATION_CLIENT,
+        APPLICATION,
+        EJB,
+        WEB
     }
 
     protected AbstractJavaEEEverythingTest() {
@@ -231,11 +255,19 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
    */
 
     protected void assertMessageDestinations(int size, MessageDestinationsMetaData messageDestinationsMetaData, Mode mode) {
+        assertMessageDestinations(size, messageDestinationsMetaData, mode, JavaEEVersion.UNKNOWN);
+    }
+
+    protected void assertMessageDestinations(int size, MessageDestinationsMetaData messageDestinationsMetaData, Mode mode, JavaEEVersion version) {
         assertNotNull("message destinations is null", messageDestinationsMetaData);
         assertEquals(size, messageDestinationsMetaData.size());
         int count = 1;
         for (MessageDestinationMetaData messageDestinationMetaData : messageDestinationsMetaData) {
-            assertMessageDestination("messageDestination" + count, messageDestinationMetaData, mode);
+            if(version == JavaEEVersion.V6 || version == JavaEEVersion.V7) {
+                assertMessageDestination60("messageDestination" + count, messageDestinationMetaData, mode);
+            } else {
+                assertMessageDestination("messageDestination" + count, messageDestinationMetaData, mode);
+            }
             ++count;
         }
     }
@@ -258,6 +290,11 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         assertEquals(prefix + "MappedName", messageDestinationMetaData.getMappedName());
     }
 
+    protected void assertMessageDestination60(String prefix, MessageDestinationMetaData messageDestinationMetaData, Mode mode) {
+        assertMessageDestination50(prefix, messageDestinationMetaData, mode);
+        assertEquals(prefix + "LookupName", messageDestinationMetaData.getLookupName());
+    }
+
     protected void assertLifecycleCallbacks(String ejbName, String type, int size, LifecycleCallbacksMetaData lifecycleCallbacksMetaData) {
         assertNotNull("no " + type + " lifecycle callbacks are set", lifecycleCallbacksMetaData);
         assertEquals(size, lifecycleCallbacksMetaData.size());
@@ -269,12 +306,32 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         }
     }
 
+    /**
+     * Use the version instead. This is method was kept to provide retro compatibility, thus it should not be used for testing {@link Environment} v7+
+     * @param prefix
+     * @param environment
+     * @param full
+     * @param mode
+     */
+    @Deprecated
     protected void assertEnvironment(String prefix, Environment environment, boolean full, Mode mode) {
-        assertRemoteEnvironment(prefix, environment, full, mode);
+        assertEnvironment(prefix, environment, full, Descriptor.UNKNOWN, mode, JavaEEVersion.V6);
+    }
+
+    /**
+     * Asserts expected {@link Environment}.
+     * @param prefix
+     * @param environment
+     * @param full
+     * @param descriptor
+     * @param mode
+     * @param version
+     */
+    protected void assertEnvironment(String prefix, Environment environment, boolean full, Descriptor descriptor, Mode mode, JavaEEVersion version) {
+        assertRemoteEnvironment(prefix, environment, full, descriptor, mode, version);
         assertEjbLocalRefs(prefix, 2, environment.getEjbLocalReferences(), full, mode);
-        // TODO service-refGroup
         if (full) {
-            assertPersistenceContextRefs(prefix, 2, environment.getPersistenceContextRefs(), mode);
+            assertPersistenceContextRefs(prefix, 2, environment.getPersistenceContextRefs(), mode, version);
         }
     }
 
@@ -291,10 +348,16 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
             assertNull(environment.getPersistenceUnitRefs());
             assertNull(environment.getPostConstructs());
             assertNull(environment.getPreDestroys());
+            assertNull(environment.getDataSources());
+            assertNull(environment.getAdministeredObjects());
+            assertNull(environment.getConnectionFactories());
+            assertNull(environment.getJmsConnectionFactories());
+            assertNull(environment.getJmsDestinations());
+            assertNull(environment.getMailSessions());
         }
     }
 
-    private void assertEnvEntries(String prefix, int size, EnvironmentEntriesMetaData environmentEntriesMetaData, boolean full, Mode mode) {
+    protected void assertEnvEntries(String prefix, int size, EnvironmentEntriesMetaData environmentEntriesMetaData, boolean full, Mode mode) {
         assertNotNull(environmentEntriesMetaData);
         assertEquals(size, environmentEntriesMetaData.size());
         int count = 1;
@@ -309,7 +372,12 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         }
     }
 
+    @Deprecated
     protected void assertRemoteEnvironment(String prefix, RemoteEnvironment environment, boolean full, Mode mode) {
+        assertRemoteEnvironment(prefix, environment, full, Descriptor.UNKNOWN, mode, JavaEEVersion.UNKNOWN);
+    }
+
+    protected void assertRemoteEnvironment(String prefix, RemoteEnvironment environment, boolean full, Descriptor descriptor, Mode mode, JavaEEVersion version) {
         assertNotNull(environment);
         if (full) { assertEnvEntries(prefix, 2, environment.getEnvironmentEntries(), full, mode); }
         assertEjbRefs(prefix, 2, environment.getEjbReferences(), full, mode);
@@ -319,12 +387,20 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         assertMessageDestinationRefs(prefix, 3, environment.getMessageDestinationReferences(), full, mode);
         if (full) {
             assertPersistenceUnitRefs(prefix, 2, environment.getPersistenceUnitRefs(), mode);
-            assertLifecycleCallbacks(prefix, "PostConstruct", 2, environment.getPostConstructs());
-            assertLifecycleCallbacks(prefix, "PreDestroy", 2, environment.getPreDestroys());
+            if(descriptor != Descriptor.APPLICATION) {
+                assertLifecycleCallbacks(prefix, "PostConstruct", 2, environment.getPostConstructs());
+                assertLifecycleCallbacks(prefix, "PreDestroy", 2, environment.getPreDestroys());
+            }
         }
+        assertDataSources(prefix, environment.getDataSources(), mode, full, version);
+        assertAdministeredObjects(prefix, environment.getAdministeredObjects(), mode, full, version);
+        assertConnectionFactories(prefix, environment.getConnectionFactories(), mode, full, version);
+        assertJMSConnectionFactories(prefix, environment.getJmsConnectionFactories(), mode, full, version);
+        assertJMSDestinations(prefix, environment.getJmsDestinations(), mode, full, version);
+        assertMailSessions(prefix, environment.getMailSessions(), mode, full, version);
     }
 
-    private void assertEjbRefs(String prefix, int size, EJBReferencesMetaData ejbReferencesMetaData, boolean full, Mode mode) {
+    protected void assertEjbRefs(String prefix, int size, EJBReferencesMetaData ejbReferencesMetaData, boolean full, Mode mode) {
         assertNotNull("no ejb-refs are set", ejbReferencesMetaData);
         assertEquals(size, ejbReferencesMetaData.size());
         int count = 1;
@@ -347,7 +423,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         }
     }
 
-    private void assertEjbLocalRefs(String prefix, int size, EJBLocalReferencesMetaData ejbReferencesMetaData, boolean full, Mode mode) {
+    protected void assertEjbLocalRefs(String prefix, int size, EJBLocalReferencesMetaData ejbReferencesMetaData, boolean full, Mode mode) {
         assertNotNull("no ejb local refs are set", ejbReferencesMetaData);
         assertEquals(size, ejbReferencesMetaData.size());
         int count = 1;
@@ -370,7 +446,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         }
     }
 
-    private void assertServiceRefs(String prefix, int size, ServiceReferencesMetaData serviceReferencesMetaData, boolean full) {
+    protected void assertServiceRefs(String prefix, int size, ServiceReferencesMetaData serviceReferencesMetaData, boolean full) {
         if (full == false) { return; }
 
         assertNotNull("no service refs are set for: " + prefix, serviceReferencesMetaData);
@@ -386,7 +462,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         }
     }
 
-    private void assertResourceRefs(String prefix, int size, ResourceReferencesMetaData resourceReferencesMetaData, boolean full, Mode mode) {
+    protected void assertResourceRefs(String prefix, int size, ResourceReferencesMetaData resourceReferencesMetaData, boolean full, Mode mode) {
         assertNotNull("no resource refs are set", resourceReferencesMetaData);
         assertEquals(size, resourceReferencesMetaData.size());
         int count = 1;
@@ -411,7 +487,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         }
     }
 
-    private void assertResourceEnvRefs(String prefix, int size, ResourceEnvironmentReferencesMetaData resourceEnvReferencesMetaData, boolean full, Mode mode) {
+    protected void assertResourceEnvRefs(String prefix, int size, ResourceEnvironmentReferencesMetaData resourceEnvReferencesMetaData, boolean full, Mode mode) {
         assertNotNull("no resource env refs are set", resourceEnvReferencesMetaData);
         assertEquals(size, resourceEnvReferencesMetaData.size());
         int count = 1;
@@ -427,7 +503,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         }
     }
 
-    private void assertMessageDestinationRefs(String prefix, int size, MessageDestinationReferencesMetaData messageDestinationReferencesMetaData, boolean full, Mode mode) {
+    protected void assertMessageDestinationRefs(String prefix, int size, MessageDestinationReferencesMetaData messageDestinationReferencesMetaData, boolean full, Mode mode) {
         assertNotNull("no message destination refs are set", messageDestinationReferencesMetaData);
         assertEquals(size, messageDestinationReferencesMetaData.size());
         int count = 1;
@@ -451,7 +527,12 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         }
     }
 
+    @Deprecated
     protected void assertPersistenceContextRefs(String prefix, int size, PersistenceContextReferencesMetaData persistenceContextReferencesMetaData, Mode mode) {
+        assertPersistenceContextRefs(prefix, size, persistenceContextReferencesMetaData, mode, JavaEEVersion.V6);
+    }
+
+    protected void assertPersistenceContextRefs(String prefix, int size, PersistenceContextReferencesMetaData persistenceContextReferencesMetaData, Mode mode, JavaEEVersion version) {
         assertNotNull(persistenceContextReferencesMetaData);
         assertEquals(size, persistenceContextReferencesMetaData.size());
         int count = 1;
@@ -460,11 +541,370 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
             assertDescriptions(prefix + "PersistenceContextRef" + count, persistenceContextReferenceMetaData.getDescriptions());
             assertEquals(prefix + "PersistenceContextRef" + count + "Name", persistenceContextReferenceMetaData.getPersistenceContextRefName());
             assertEquals(prefix + "PersistenceContextRef" + count + "Unit", persistenceContextReferenceMetaData.getPersistenceUnitName());
+            if (version == JavaEEVersion.V7) {
+                PersistenceContextSynchronizationType type = count % 2 == 0 ? PersistenceContextSynchronizationType.Unsynchronized
+                        : PersistenceContextSynchronizationType.Synchronized;
+                assertEquals(type, persistenceContextReferenceMetaData.getPersistenceContextSynchronization());
+            }
             if (count == 1) { assertEquals(PersistenceContextType.TRANSACTION, persistenceContextReferenceMetaData.getPersistenceContextType()); } else {
                 assertEquals(PersistenceContextType.EXTENDED, persistenceContextReferenceMetaData.getPersistenceContextType());
             }
             assertProperties(prefix + "PersistenceContextRef" + count, 2, persistenceContextReferenceMetaData.getProperties());
             assertResourceGroup(prefix + "PersistenceContextRef" + count, persistenceContextReferenceMetaData, true, count == 1, mode);
+            ++count;
+        }
+    }
+
+    protected void assertDataSources(String prefix, DataSourcesMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version != JavaEEVersion.V7 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        assertNotNull(metaDatas);
+        assertEquals(2, metaDatas.size());
+        int i = 1;
+        for (DataSourceMetaData metaData : metaDatas) {
+            assertNotNull(metaData);
+            String dsPrefix = prefix+"DataSource" + i;
+            //assertDescriptions(dsPrefix, ds.getDescriptions());
+            Descriptions desc = metaData.getDescriptions();
+            assertNotNull(desc);
+            Description[] descArr = desc.value();
+            assertNotNull(descArr);
+            assertEquals(1, descArr.length);
+            assertEquals("en-" + dsPrefix + "-desc", descArr[0].value());
+            assertEquals(dsPrefix + "Name", metaData.getName());
+            assertEquals(dsPrefix + "ClassName", metaData.getClassName());
+            assertEquals(dsPrefix + "ServerName", metaData.getServerName());
+            assertEquals(i, metaData.getPortNumber());
+            assertEquals(dsPrefix + "DatabaseName", metaData.getDatabaseName());
+            assertEquals("jdbc:" + dsPrefix + ":url", metaData.getUrl());
+            assertEquals(dsPrefix + "User", metaData.getUser());
+            assertEquals(dsPrefix + "Password", metaData.getPassword());
+            assertProperties(dsPrefix, 2, metaData.getProperties());
+            assertEquals(i, metaData.getLoginTimeout());
+            assertEquals(i % 2 == 0, metaData.isTransactional());
+            assertEquals(i % 2 == 0 ? IsolationLevelType.TRANSACTION_READ_COMMITTED : IsolationLevelType.TRANSACTION_READ_UNCOMMITTED, metaData.getIsolationLevel());
+            assertEquals(i, metaData.getInitialPoolSize());
+            assertEquals(i, metaData.getMaxPoolSize());
+            assertEquals(i, metaData.getMinPoolSize());
+            assertEquals(i, metaData.getMaxIdleTime());
+            assertEquals(i, metaData.getMaxStatements());
+            ++i;
+        }
+    }
+
+    protected void assertAdministeredObjects(String prefix, AdministeredObjectsMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version != JavaEEVersion.V7 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        prefix = prefix + "AdministeredObject";
+        assertNotNull(metaDatas);
+        assertTrue(metaDatas.size() < 4);
+        int count = 1;
+        for (AdministeredObjectMetaData metaData : metaDatas) {
+
+            assertNotNull(metaData);
+            final String metaDataPrefix = prefix + count;
+
+            final Descriptions desc = metaData.getDescriptions();
+            final String name = metaData.getName();
+            final String interfaceName = metaData.getInterfaceName();
+            final String className = metaData.getClassName();
+            final String resourceAdapter = metaData.getResourceAdapter();
+            final PropertiesMetaData properties = metaData.getProperties();
+
+            // name
+            assertEquals(metaDataPrefix + "Name", name);
+            // class-name
+            assertNotNull(className);
+            assertEquals(metaDataPrefix + "ClassName", className);
+            // resource-adapter
+            assertNotNull(resourceAdapter);
+            assertEquals(metaDataPrefix + "ResourceAdapter", resourceAdapter);
+            if (count<3) {
+                // interface-name
+                assertNotNull(interfaceName);
+                assertEquals(metaDataPrefix + "InterfaceName", interfaceName);
+                // desc
+                assertNotNull(desc);
+                Description[] descArr = desc.value();
+                assertNotNull(descArr);
+                assertEquals(1, descArr.length);
+                assertEquals(metaDataPrefix + "Desc", descArr[0].value());
+                // properties
+                assertProperties(metaDataPrefix,2,properties);
+            } else {
+                assertNull(interfaceName);
+                assertNull(desc);
+                assertNull(properties);
+            }
+            ++count;
+        }
+    }
+
+    protected void assertConnectionFactories(String prefix, ConnectionFactoriesMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version == JavaEEVersion.V5 || version == JavaEEVersion.V6 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        prefix = prefix + "ConnectionFactory";
+        assertNotNull(metaDatas);
+        assertTrue(metaDatas.size() < 5);
+        int count = 1;
+        for (ConnectionFactoryMetaData metaData : metaDatas) {
+
+            assertNotNull(metaData);
+            final String metaDataPrefix = prefix + count;
+
+            final Descriptions desc = metaData.getDescriptions();
+            final String name = metaData.getName();
+            final String className = metaData.getClassName();
+            final String resourceAdapter = metaData.getResourceAdapter();
+            final int maxPoolSize = metaData.getMaxPoolSize();
+            final int minPoolSize = metaData.getMinPoolSize();
+            final TransactionSupportType transactionSupport = metaData.getTransactionSupport();
+            final PropertiesMetaData properties = metaData.getProperties();
+
+            // name
+            assertEquals(metaDataPrefix + "Name", name);
+            // class-name
+            assertNotNull(className);
+            assertEquals(metaDataPrefix + "ClassName", className);
+            // resource-adapter
+            assertNotNull(resourceAdapter);
+            assertEquals(metaDataPrefix + "ResourceAdapter", resourceAdapter);
+            if (count<4) {
+                // desc
+                assertNotNull(desc);
+                Description[] descArr = desc.value();
+                assertNotNull(descArr);
+                assertEquals(1, descArr.length);
+                assertEquals(metaDataPrefix + "Desc", descArr[0].value());
+                // max-pool-size
+                assertEquals(count, maxPoolSize);
+                // min-pool-size
+                assertEquals(count, minPoolSize);
+                // transaction-support
+                assertNotNull(transactionSupport);
+                if (count==1) {
+                    assertEquals(TransactionSupportType.NoTransaction, transactionSupport);
+                } else if (count==2) {
+                    assertEquals(TransactionSupportType.LocalTransaction, transactionSupport);
+                } else {
+                    assertEquals(TransactionSupportType.XATransaction, transactionSupport);
+                }
+                // properties
+                assertProperties(metaDataPrefix,2,properties);
+            } else {
+                assertNull(desc);
+                assertEquals(JMSConnectionFactoryMetaData.DEFAULT_MAX_POOL_SIZE, maxPoolSize);
+                assertEquals(JMSConnectionFactoryMetaData.DEFAULT_MIN_POOL_SIZE, minPoolSize);
+                assertNotNull(transactionSupport);
+                assertEquals(TransactionSupportType.NoTransaction, transactionSupport);
+                assertNull(properties);
+            }
+            ++count;
+        }
+    }
+
+    protected void assertJMSConnectionFactories(String prefix, JMSConnectionFactoriesMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version == JavaEEVersion.V5 || version == JavaEEVersion.V6 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        assertNotNull(metaDatas);
+        assertTrue(metaDatas.size() < 4);
+        prefix = prefix + "JmsConnectionFactory";
+        int count = 1;
+        for (JMSConnectionFactoryMetaData metaData : metaDatas) {
+
+            assertNotNull(metaData);
+            final String metaDataPrefix = prefix + count;
+
+            final Descriptions desc = metaData.getDescriptions();
+            final String name = metaData.getName();
+            final String className = metaData.getClassName();
+            final String resourceAdapter = metaData.getResourceAdapter();
+            final String user = metaData.getUser();
+            final String password = metaData.getPassword();
+            final String clientId = metaData.getClientId();
+            final PropertiesMetaData properties = metaData.getProperties();
+            final boolean transactional = metaData.isTransactional();
+            final int maxPoolSize = metaData.getMaxPoolSize();
+            final int minPoolSize = metaData.getMinPoolSize();
+
+            assertEquals(metaDataPrefix + "Name", name);
+            if (count<3) {
+                // desc
+                assertNotNull(desc);
+                Description[] descArr = desc.value();
+                assertNotNull(descArr);
+                assertEquals(1, descArr.length);
+                assertEquals(metaDataPrefix + "Desc", descArr[0].value());
+                // class-name
+                assertNotNull(className);
+                assertEquals(metaDataPrefix + "ClassName", className);
+                // resource-adapter
+                assertNotNull(resourceAdapter);
+                assertEquals(metaDataPrefix + "ResourceAdapter", resourceAdapter);
+                // user
+                assertNotNull(user);
+                assertEquals(metaDataPrefix + "User", user);
+                // password
+                assertNotNull(password);
+                assertEquals(metaDataPrefix + "Password", password);
+                // client-id
+                assertNotNull(clientId);
+                assertEquals(metaDataPrefix + "ClientId", clientId);
+                // properties
+                assertProperties(metaDataPrefix,2,properties);
+                // transactional
+                assertEquals(count % 2 != 0, transactional);
+                // max-pool-size
+                assertEquals(count, maxPoolSize);
+                // min-pool-size
+                assertEquals(count, minPoolSize);
+            } else {
+                assertNull(desc);
+                assertNull(className);
+                assertNull(resourceAdapter);
+                assertNull(user);
+                assertNull(password);
+                assertNull(clientId);
+                assertNull(properties);
+                assertEquals(JMSConnectionFactoryMetaData.DEFAULT_TRANSACTIONAL, transactional);
+                assertEquals(JMSConnectionFactoryMetaData.DEFAULT_MAX_POOL_SIZE, maxPoolSize);
+                assertEquals(JMSConnectionFactoryMetaData.DEFAULT_MIN_POOL_SIZE, minPoolSize);
+            }
+            ++count;
+        }
+    }
+
+    protected void assertJMSDestinations(String prefix, JMSDestinationsMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version == JavaEEVersion.V5 || version == JavaEEVersion.V6 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        assertNotNull(metaDatas);
+        assertTrue(metaDatas.size() < 4);
+        prefix = prefix + "JmsDestination";
+        int count = 1;
+        for (JMSDestinationMetaData metaData : metaDatas) {
+
+            assertNotNull(metaData);
+            final String metaDataPrefix = prefix + count;
+
+            final Descriptions desc = metaData.getDescriptions();
+            final String name = metaData.getName();
+            final String className = metaData.getClassName();
+            final String resourceAdapter = metaData.getResourceAdapter();
+            final String destinationName = metaData.getDestinationName();
+            final PropertiesMetaData properties = metaData.getProperties();
+
+            assertEquals(metaDataPrefix + "Name", name);
+            if (count<3) {
+                // desc
+                assertNotNull(desc);
+                Description[] descArr = desc.value();
+                assertNotNull(descArr);
+                assertEquals(1, descArr.length);
+                assertEquals(metaDataPrefix + "Desc", descArr[0].value());
+                // class-name
+                assertNotNull(className);
+                assertEquals(metaDataPrefix + "ClassName", className);
+                // resource-adapter
+                assertNotNull(resourceAdapter);
+                assertEquals(metaDataPrefix + "ResourceAdapter", resourceAdapter);
+                // destination-name
+                assertNotNull(destinationName);
+                assertEquals(metaDataPrefix + "DestinationName", destinationName);
+                // properties
+                assertProperties(metaDataPrefix,2,properties);
+            } else {
+                assertNull(desc);
+                assertNull(className);
+                assertNull(resourceAdapter);
+                assertNull(destinationName);
+                assertNull(properties);
+            }
+            ++count;
+        }
+    }
+
+    protected void assertMailSessions(String prefix, MailSessionsMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version == JavaEEVersion.V5 || version == JavaEEVersion.V6 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        assertNotNull(metaDatas);
+        assertTrue(metaDatas.size() < 4);
+        prefix = prefix + "MailSession";
+        int count = 1;
+        for (MailSessionMetaData metaData : metaDatas) {
+
+            assertNotNull(metaData);
+            final String metaDataPrefix = prefix + count;
+
+            final Descriptions desc = metaData.getDescriptions();
+            final String name = metaData.getName();
+            final String storeProtocol = metaData.getStoreProtocol();
+            final String storeProtocolClass = metaData.getStoreProtocolClass();
+            final String transportProtocol = metaData.getTransportProtocol();
+            final String transportProtocolClass = metaData.getTransportProtocolClass();
+            final String host = metaData.getHost();
+            final String user = metaData.getUser();
+            final String password = metaData.getPassword();
+            final String from = metaData.getFrom();
+            final PropertiesMetaData properties = metaData.getProperties();
+
+            assertEquals(metaDataPrefix + "Name", name);
+            if (count<3) {
+                // desc
+                assertNotNull(desc);
+                Description[] descArr = desc.value();
+                assertNotNull(descArr);
+                assertEquals(1, descArr.length);
+                assertEquals(metaDataPrefix + "Desc", descArr[0].value());
+                // store-protocol
+                assertNotNull(storeProtocol);
+                assertEquals(metaDataPrefix + "StoreProtocol", storeProtocol);
+                // store-protocol-class
+                assertNotNull(storeProtocolClass);
+                assertEquals(metaDataPrefix + "StoreProtocolClass", storeProtocolClass);
+                // transport-protocol
+                assertNotNull(transportProtocol);
+                assertEquals(metaDataPrefix + "TransportProtocol", transportProtocol);
+                // transport-protocol-class
+                assertNotNull(transportProtocolClass);
+                assertEquals(metaDataPrefix + "TransportProtocolClass", transportProtocolClass);
+                // host
+                assertNotNull(host);
+                assertEquals(metaDataPrefix + "Host", host);
+                // user
+                assertNotNull(user);
+                assertEquals(metaDataPrefix + "User", user);
+                // password
+                assertNotNull(password);
+                assertEquals(metaDataPrefix + "Password", password);
+                // from
+                assertNotNull(from);
+                assertEquals(metaDataPrefix + "From", from);
+                // properties
+                assertProperties(metaDataPrefix,2,properties);
+            } else {
+                assertNull(desc);
+                assertNull(storeProtocol);
+                assertNull(storeProtocolClass);
+                assertNull(transportProtocol);
+                assertNull(transportProtocolClass);
+                assertNull(host);
+                assertNull(user);
+                assertNull(password);
+                assertNull(from);
+                assertNull(properties);
+            }
             ++count;
         }
     }
@@ -483,7 +923,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         }
     }
 
-    private void assertProperties(String prefix, int size, PropertiesMetaData propertiesMetaData) {
+    protected void assertProperties(String prefix, int size, PropertiesMetaData propertiesMetaData) {
         assertNotNull(propertiesMetaData);
         assertEquals(size, propertiesMetaData.size());
         int count = 1;

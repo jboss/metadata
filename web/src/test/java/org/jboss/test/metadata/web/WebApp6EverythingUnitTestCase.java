@@ -25,11 +25,10 @@ import java.util.List;
 
 import org.jboss.annotation.javaee.Icon;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
+import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
 import org.jboss.metadata.web.spec.AbsoluteOrderingMetaData;
 import org.jboss.metadata.web.spec.AuthConstraintMetaData;
 import org.jboss.metadata.web.spec.DispatcherType;
@@ -61,18 +60,15 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
 
     public void testEverything() throws Exception {
         Web30MetaData webApp = (Web30MetaData) unmarshal();
-        assertEverything(webApp, Mode.SPEC);
+        assertEverything(webApp, Mode.SPEC, JavaEEVersion.V6);
     }
 
-
-    protected void assertEverything(Web30MetaData webApp, Mode mode)
+    protected void assertEverything(WebMetaData webApp, Mode mode, JavaEEVersion javaEEVersion)
             throws Exception {
         assertModuleName(webApp);
         assertDescriptionGroup("web-app", webApp.getDescriptionGroup());
-      /* TODO we don't support the followings..
-      assertRemoteEnvironment("webApp", webApp, true, mode);
-      assertMessageDestinations5("webAppMessageDestination", 2, webApp.getMessageDestinations(), true);
-       */
+        assertEnvironment("webApp", webApp.getJndiEnvironmentRefsGroup(), true, Descriptor.WEB, Mode.SPEC, javaEEVersion);
+        assertMessageDestinations(2,webApp.getMessageDestinations(), Mode.SPEC, javaEEVersion);
         assertServlets(webApp);
         assertServletMappings(webApp);
         assertFilters(webApp);
@@ -99,17 +95,7 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         assertEquals("foo3", ordering.get(3).getName());
     }
 
-    private void assertMessageDestinations5(String prefix, int size, MessageDestinationsMetaData messageDestinations, boolean full) {
-        assertNotNull("no message destinations are set", messageDestinations);
-        assertEquals(size, messageDestinations.size());
-        int count = 1;
-        for (MessageDestinationMetaData messageDestinationMetaData : messageDestinations) {
-            assertMessageDestination50(prefix + count, messageDestinationMetaData, Mode.SPEC);
-            count++;
-        }
-    }
-
-    private void assertServlets(WebMetaData webApp)
+    protected void assertServlets(WebMetaData webApp)
             throws Exception {
         ServletsMetaData servlets = webApp.getServlets();
         int count = 0;
@@ -138,7 +124,7 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         }
     }
 
-    private void assertServletMappings(WebMetaData webApp)
+    protected void assertServletMappings(WebMetaData webApp)
             throws Exception {
         List<ServletMappingMetaData> mappings = webApp.getServletMappings();
         assertEquals(4, mappings.size());
@@ -156,7 +142,7 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         }
     }
 
-    private void assertFilters(WebMetaData webApp)
+    protected void assertFilters(WebMetaData webApp)
             throws Exception {
         FiltersMetaData filters = webApp.getFilters();
         assertEquals(2, filters.size());
@@ -176,7 +162,7 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         }
     }
 
-    private void assertFilterMappings(WebMetaData webApp)
+    protected void assertFilterMappings(WebMetaData webApp)
             throws Exception {
         List<FilterMappingMetaData> mappings = webApp.getFilterMappings();
         assertEquals(2, mappings.size());
@@ -194,7 +180,7 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
     }
 
     // Security Constraints
-    private void assertSecurityConstraints(WebMetaData webApp) {
+    protected void assertSecurityConstraints(WebMetaData webApp) {
         List<SecurityConstraintMetaData> scmdList = webApp.getSecurityConstraints();
         assertEquals(3, scmdList.size());
         for (SecurityConstraintMetaData scmd : scmdList) {
@@ -207,7 +193,7 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         }
     }
 
-    private void assertNormalSecurityConstraint(SecurityConstraintMetaData scmd) {
+    protected void assertNormalSecurityConstraint(SecurityConstraintMetaData scmd) {
         assertFalse(scmd.isExcluded());
         assertFalse(scmd.isUnchecked());
         assertEquals("security-constraint0-display-name", scmd.getDisplayName());
@@ -230,16 +216,16 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         assertEquals(TransportGuaranteeType.NONE, udcmd.getTransportGuarantee());
     }
 
-    private void assertExcludedSecurityConstraint(SecurityConstraintMetaData scmd) {
+    protected void assertExcludedSecurityConstraint(SecurityConstraintMetaData scmd) {
         assertTrue("Excluded Sec Constraint?", scmd.isExcluded());
     }
 
-    private void assertUncheckedSecurityConstraint(SecurityConstraintMetaData scmd) {
+    protected void assertUncheckedSecurityConstraint(SecurityConstraintMetaData scmd) {
         assertTrue("Unchecked Sec Constraint?", scmd.isUnchecked());
         assertNull(scmd.getAuthConstraint());
     }
 
-    private void assertModuleName(WebMetaData webApp) {
+    protected void assertModuleName(WebMetaData webApp) {
         Web30MetaData webApp30 = (Web30MetaData) webApp;
         assertEquals("foo", webApp30.getModuleName());
     }

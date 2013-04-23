@@ -49,6 +49,10 @@ public class PersistenceContextReferenceMetaDataMerger extends ResourceInjection
             dest.setPersistenceContextType(override.getPersistenceContextType());
         else if (original != null && original.getPersistenceContextType() != null)
             dest.setPersistenceContextType(original.getPersistenceContextType());
+        if (override != null && override.getPersistenceContextSynchronization() != null)
+            dest.setPersistenceContextSynchronization(override.getPersistenceContextSynchronization());
+        else if (original != null && original.getPersistenceContextSynchronization() != null)
+            dest.setPersistenceContextSynchronization(original.getPersistenceContextSynchronization());
         if (override != null && override.getProperties() != null) {
             if (dest.getProperties() == null)
                 dest.setProperties(new PropertiesMetaData());
