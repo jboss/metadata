@@ -72,6 +72,7 @@
         <module>ejb</module>
         <module>web</module>
         <module>appclient</module>
+        <module>permissions</module>
     </modules>
 
     <build>
