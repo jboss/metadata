@@ -21,7 +21,11 @@
  */
 package org.jboss.metadata.ejb.spec;
 
+import org.jboss.metadata.javaee.spec.AdministeredObjectMetaData;
+import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.ConnectionFactoryMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
@@ -32,7 +36,13 @@ import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoryMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
+import org.jboss.metadata.javaee.spec.MailSessionMetaData;
+import org.jboss.metadata.javaee.spec.MailSessionsMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
@@ -328,6 +338,56 @@ public class InterceptorMetaData extends NamedMetaDataWithDescriptions implement
         if (environment != null)
             return environment.getDataSources();
         return null;
+    }
+
+    @Override
+    public AdministeredObjectsMetaData getAdministeredObjects() {
+        return environment != null ? environment.getAdministeredObjects() : null;
+    }
+
+    @Override
+    public AdministeredObjectMetaData getAdministeredObjectByName(String name) throws IllegalArgumentException {
+        return environment != null ? environment.getAdministeredObjectByName(name) : null;
+    }
+
+    @Override
+    public ConnectionFactoriesMetaData getConnectionFactories() {
+        return environment != null ? environment.getConnectionFactories() : null;
+    }
+
+    @Override
+    public ConnectionFactoryMetaData getConnectionFactoryByName(String name) throws IllegalArgumentException {
+        return environment != null ? environment.getConnectionFactoryByName(name) : null;
+    }
+
+    @Override
+    public JMSConnectionFactoriesMetaData getJmsConnectionFactories() {
+        return environment != null ? environment.getJmsConnectionFactories() : null;
+    }
+
+    @Override
+    public JMSConnectionFactoryMetaData getJmsConnectionFactoryByName(String name) throws IllegalArgumentException {
+        return environment != null ? environment.getJmsConnectionFactoryByName(name) : null;
+    }
+
+    @Override
+    public JMSDestinationsMetaData getJmsDestinations() {
+        return environment != null ? environment.getJmsDestinations() : null;
+    }
+
+    @Override
+    public JMSDestinationMetaData getJmsDestinationByName(String name) throws IllegalArgumentException {
+        return environment != null ? environment.getJmsDestinationByName(name) : null;
+    }
+
+    @Override
+    public MailSessionsMetaData getMailSessions() {
+        return environment != null ? environment.getMailSessions() : null;
+    }
+
+    @Override
+    public MailSessionMetaData getMailSessionByName(String name) throws IllegalArgumentException {
+        return environment != null ? environment.getMailSessionByName(name) : null;
     }
 
     /**

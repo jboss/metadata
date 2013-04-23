@@ -32,6 +32,7 @@ public class Location {
         bindings.put("http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd", Version.TLD_1_2);
         bindings.put("http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd", Version.TLD_2_0);
         bindings.put("http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd", Version.TLD_2_1);
+        bindings.put("http://xmlns.jcp.org/xml/ns/javaee/web-jsptaglibrary_2_1.xsd", Version.TLD_2_1);
     }
 
     public static Version getVersion(String location) {

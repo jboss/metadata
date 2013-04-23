@@ -49,14 +49,6 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
      */
     private PersistenceContextReferencesMetaData persistenceContextRefs;
 
-
-    /**
-     * Create a new EnvironmentRefsGroupMetaData.
-     */
-    public EnvironmentRefsGroupMetaData() {
-        // For serialization
-    }
-
     /**
      * Get the ejbLocalReferences.
      *

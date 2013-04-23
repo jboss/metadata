@@ -52,6 +52,7 @@ import org.jboss.metadata.ejb.spec.CMRFieldMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;
@@ -103,8 +104,8 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
 
         final String sessionPrefix = mode == Mode.SPEC ? "session" : "jbossSession";
         assertNullSession(sessionPrefix + "0", enterpriseBeansMetaData, mode);
-        assertFullSession(sessionPrefix + "1", enterpriseBeansMetaData, mode);
-        assertFullSession(sessionPrefix + "2", enterpriseBeansMetaData, mode);
+        assertFullSession(sessionPrefix + "1", enterpriseBeansMetaData, mode, ejbJarMetaData.getEjbJarVersion());
+        assertFullSession(sessionPrefix + "2", enterpriseBeansMetaData, mode, ejbJarMetaData.getEjbJarVersion());
         SessionBeanMetaData session = assertSession(sessionPrefix + "3EjbName", enterpriseBeansMetaData);
         assertEquals(SessionType.Stateful, session.getSessionType());
         session = assertSession(sessionPrefix + "4EjbName", enterpriseBeansMetaData);
@@ -175,7 +176,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
    }
    */
 
-    protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
+    protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode, EjbJarVersion version) {
         throw new NotImplementedException();
     }
 

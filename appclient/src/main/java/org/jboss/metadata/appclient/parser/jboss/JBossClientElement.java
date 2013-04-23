@@ -35,7 +35,6 @@ import java.util.Map;
 public enum JBossClientElement {
     UNKNOWN(null),
 
-    CALLBACK_HANDLER("callback-handler"),
     DEPENDS("depends"),
     JNDI_NAME("jndi-name"),
     METADATA_COMPLETE("metadata-complete"),;

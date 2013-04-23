@@ -43,6 +43,6 @@ public class EarSpecDescriptorTestCase extends SpecDescriptorTestCase {
     @Parameters
     public static List<Object[]> parameters() {
         // The spec descriptor should be guarded in schema
-        return Arrays.asList(new Object[][]{{"dtd/application_1_2.dtd"},{"dtd/application_1_3.dtd"},{"schema/application_1_4.xsd"},{"schema/application_5.xsd"},{"schema/application_6.xsd"}});
+        return Arrays.asList(new Object[][]{{"dtd/application_1_2.dtd"},{"dtd/application_1_3.dtd"},{"schema/application_1_4.xsd"},{"schema/application_5.xsd"},{"schema/application_6.xsd"},{"schema/application_7.xsd"}});
     }
 }

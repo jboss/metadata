@@ -31,7 +31,8 @@ public enum Namespace {
     // must be first
     UNKNOWN(null),
     JBOSS("http://www.jboss.com/xml/ns/javaee"),
-    SPEC("http://java.sun.com/xml/ns/javaee"),;
+    SPEC("http://java.sun.com/xml/ns/javaee"),
+    SPEC_7_0("http://xmlns.jcp.org/xml/ns/javaee");
 
     private final String uri;
 

@@ -32,6 +32,7 @@ import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.CMPFieldMetaData;
 import org.jboss.metadata.ejb.spec.CMPFieldsMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.EntityBeanMetaData;
 import org.jboss.metadata.ejb.spec.InitMethodMetaData;
 import org.jboss.metadata.ejb.spec.InitMethodsMetaData;
@@ -51,7 +52,7 @@ import org.jboss.metadata.ejb.spec.RemoveMethodsMetaData;
 import org.jboss.metadata.ejb.spec.ResultTypeMapping;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
-import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
+import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
 
 import javax.ejb.TransactionManagementType;
 import java.util.LinkedHashSet;
@@ -80,7 +81,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest {
     }
 
     public void assertEverything(EjbJarMetaData ejbJarMetaData, Mode mode) {
-        assertEverything(ejbJarMetaData, mode, "3.0");
+        assertEverything(ejbJarMetaData, mode, "3.2");
     }
 
     public void assertEverything(EjbJarMetaData ejbJarMetaData, Mode mode, String expectedVersion) {
@@ -101,7 +102,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest {
     }
 
     public void assertEverythingWithAppMetaData(EjbJarMetaData ejbJarMetaData, Mode mode) {
-        assertVersion(ejbJarMetaData, "3.0");
+        assertVersion(ejbJarMetaData, "3.2");
         assertMetaDataComplete(ejbJarMetaData);
         assertId("ejb-jar", ejbJarMetaData);
         assertEjbClientJar(ejbJarMetaData);
@@ -144,13 +145,13 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest {
     }
 
     @Override
-    protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
+    protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode, EjbJarVersion version) {
         SessionBeanMetaData session = assertSession(ejbName + "EjbName", enterpriseBeansMetaData);
-        assertFullSessionBean(ejbName, session, mode);
+        assertFullSessionBean(ejbName, session, mode, version);
         return session;
     }
 
-    public void assertFullSessionBean(String ejbName, SessionBeanMetaData session, Mode mode) {
+    public void assertFullSessionBean(String ejbName, SessionBeanMetaData session, Mode mode, EjbJarVersion version) {
         assertId(ejbName, session);
         // TODO: enrich the jboss xml
         if (mode == Mode.SPEC) {
@@ -171,7 +172,7 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest {
             assertAroundInvokes(ejbName, 2, session.getAroundInvokes());
             assertLifecycleCallbacks(ejbName, "PostActivate", 2, session.getPostActivates());
             assertLifecycleCallbacks(ejbName, "PrePassivate", 2, session.getPrePassivates());
-            assertEnvironment(ejbName, session.getJndiEnvironmentRefsGroup(), true, mode);
+            assertEnvironment(ejbName, session.getJndiEnvironmentRefsGroup(), true, Descriptor.EJB, mode, version == EjbJarVersion.EJB_3_2 ? JavaEEVersion.V7 : JavaEEVersion.V6);
             assertContainerTransactions(ejbName, 6, 6, session.getContainerTransactions());
             assertMethodPermissions(ejbName, ejbName + "MethodPermission", 3, 3, session.getMethodPermissions());
             assertExcludeList(ejbName, 5, 5, session.getExcludeList());
@@ -454,17 +455,6 @@ public class EjbJar3xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         assertId(prefix + "InterceptorOrder", interceptorOrderMetaData);
         assertInterceptorClasses(prefix, size, interceptorOrderMetaData);
     }
-
-    protected void assertMessageDestination(String prefix, MessageDestinationMetaData messageDestinationMetaData) {
-        assertMessageDestination50(prefix, messageDestinationMetaData, Mode.SPEC);
-    }
-
-   /*
-   protected void assertMessageDestination(String prefix, org.jboss.metadata.MessageDestinationMetaData messageDestinationMetaData)
-   {
-      assertMessageDestination50(prefix, messageDestinationMetaData);
-   }
-   */
 
     private void assertApplicationExceptions(int size, ApplicationExceptionsMetaData applicationExceptionsMetaData) {
         assertNotNull(applicationExceptionsMetaData);

@@ -277,12 +277,29 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     }
 
     /**
+     * Whether this is EJB3.0 bean
+     *
+     * @return
+     */
+    public boolean isEJB30() {
+        return this.ejbJarVersion == EjbJarVersion.EJB_3_0;
+    }
+
+    /**
      * Whether this is EJB3.1 bean
      *
      * @return
      */
     public boolean isEJB31() {
         return this.ejbJarVersion == EjbJarVersion.EJB_3_1;
+    }
+
+    /** Whether this is EJB3.2 bean
+    *
+    * @return
+    */
+    public boolean isEJB32() {
+        return this.ejbJarVersion == EjbJarVersion.EJB_3_2;
     }
 
     /**

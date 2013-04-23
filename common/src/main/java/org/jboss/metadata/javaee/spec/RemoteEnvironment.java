@@ -178,4 +178,85 @@ public interface RemoteEnvironment {
      * @throws IllegalArgumentException for a null name
      */
     DataSourceMetaData getDataSourceByName(String name);
+
+    /**
+     * Retrieves the administeredObjects.
+     *
+     * @return
+     */
+    AdministeredObjectsMetaData getAdministeredObjects();
+
+    /**
+     * Retrieves by name.
+     *
+     * @param name the name
+     * @return the result or null if not found
+     * @throws IllegalArgumentException for a null name
+     */
+    AdministeredObjectMetaData getAdministeredObjectByName(String name) throws IllegalArgumentException;
+
+    /**
+     * Retrieves the connectionFactories.
+     *
+     * @return
+     */
+    ConnectionFactoriesMetaData getConnectionFactories();
+
+    /**
+     * Retrieves by name.
+     *
+     * @param name the name
+     * @return the result or null if not found
+     * @throws IllegalArgumentException for a null name
+     */
+    ConnectionFactoryMetaData getConnectionFactoryByName(String name) throws IllegalArgumentException;
+
+    /**
+     * Retrieves the jmsConnectionFactories.
+     *
+     * @return
+     */
+    JMSConnectionFactoriesMetaData getJmsConnectionFactories();
+
+    /**
+     * Retrieves by name.
+     *
+     * @param name the name
+     * @return the result or null if not found
+     * @throws IllegalArgumentException for a null name
+     */
+    JMSConnectionFactoryMetaData getJmsConnectionFactoryByName(String name) throws IllegalArgumentException;
+
+    /**
+     * Retrieves the jmsDestinations.
+     *
+     * @return
+     */
+    JMSDestinationsMetaData getJmsDestinations();
+
+    /**
+     * Retrieves by name.
+     *
+     * @param name the name
+     * @return the result or null if not found
+     * @throws IllegalArgumentException for a null name
+     */
+    JMSDestinationMetaData getJmsDestinationByName(String name) throws IllegalArgumentException;
+
+    /**
+     * Retrieves the mailSessions.
+     *
+     * @return
+     */
+    MailSessionsMetaData getMailSessions();
+
+    /**
+     * Retrieves by name.
+     *
+     * @param name the name
+     * @return the result or null if not found
+     * @throws IllegalArgumentException for a null name
+     */
+    MailSessionMetaData getMailSessionByName(String name) throws IllegalArgumentException;
+
 }

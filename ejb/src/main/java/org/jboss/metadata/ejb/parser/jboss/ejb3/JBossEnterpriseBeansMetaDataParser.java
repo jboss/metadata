@@ -55,6 +55,7 @@ public class JBossEnterpriseBeansMetaDataParser extends EnterpriseBeansMetaDataP
                 processJBossElement(metaData, reader, propertyReplacer);
                 break;
             case SPEC:
+            case SPEC_7_0:
                 super.processElement(metaData, reader, propertyReplacer);
                 break;
             case UNKNOWN:

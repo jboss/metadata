@@ -37,6 +37,7 @@ public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDa
      */
     private static final long serialVersionUID = 994249685587171979L;
 
+    private static PersistenceContextSynchronizationType DEFAULT_PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE = PersistenceContextSynchronizationType.Synchronized;
     /**
      * The persistence unit name
      */
@@ -46,6 +47,11 @@ public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDa
      * The persistence context type
      */
     private PersistenceContextType persistenceContextType;
+
+    /**
+     * The persistence context type, default is synchronized
+     */
+    private PersistenceContextSynchronizationType persistenceContextSynchronization = DEFAULT_PERSISTENCE_CONTEXT_SYNCHRONIZATION_TYPE;
 
     /**
      * The properties
@@ -118,6 +124,23 @@ public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDa
         if (persistenceContextType == null)
             throw new IllegalArgumentException("Null persistenceContextType");
         this.persistenceContextType = persistenceContextType;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public PersistenceContextSynchronizationType getPersistenceContextSynchronization() {
+        return persistenceContextSynchronization;
+    }
+
+    /**
+     *
+     * @param persistenceContextSynchronization
+     */
+    public void setPersistenceContextSynchronization(
+            PersistenceContextSynchronizationType persistenceContextSynchronization) {
+        this.persistenceContextSynchronization = persistenceContextSynchronization;
     }
 
     /**

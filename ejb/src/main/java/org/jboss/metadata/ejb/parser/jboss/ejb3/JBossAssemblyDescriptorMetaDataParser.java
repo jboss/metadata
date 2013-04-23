@@ -52,6 +52,7 @@ public class JBossAssemblyDescriptorMetaDataParser extends ExtendingMetaDataPars
         final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
         switch (namespace) {
             case SPEC:
+            case SPEC_7_0:
                 processSpecElement(assemblyDescriptor, reader, propertyReplacer);
                 break;
             default:

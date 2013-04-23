@@ -63,6 +63,7 @@ public class EnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRefsGro
             dest.setPersistenceContextRefs(persistenceContextRefs);
 
 
+
     }
 
     public static void augment(EnvironmentRefsGroupMetaData dest, RemoteEnvironmentRefsGroupMetaData augment, RemoteEnvironmentRefsGroupMetaData main,
@@ -70,14 +71,6 @@ public class EnvironmentRefsGroupMetaDataMerger extends RemoteEnvironmentRefsGro
         RemoteEnvironmentRefsGroupMetaDataMerger.augment(dest, augment, main, resolveConflicts);
         EnvironmentRefsGroupMetaData augmentE = (EnvironmentRefsGroupMetaData) augment;
         EnvironmentRefsGroupMetaData mainE = (EnvironmentRefsGroupMetaData) main;
-
-        // Data sources
-        if (dest.getDataSources() == null) {
-            dest.setDataSources(augmentE.getDataSources());
-        } else if (augmentE.getDataSources() != null) {
-            DataSourcesMetaDataMerger.augment(dest.getDataSources(), augmentE.getDataSources(), (mainE != null) ? mainE.getDataSources() : null,
-                    resolveConflicts);
-        }
 
         // EJB local references
         if (dest.getEjbLocalReferences() == null) {

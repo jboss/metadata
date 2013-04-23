@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ejb-jar xmlns="http://java.sun.com/xml/ns/javaee"
+<ejb-jar xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd"
-         version="3.0"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+      	  http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
+         version="3.2"
          metadata-complete="true"
          id="ejb-jar-id">
          
@@ -405,6 +406,7 @@
             <persistence-context-ref-name>session1PersistenceContextRef2Name</persistence-context-ref-name>
             <persistence-unit-name>session1PersistenceContextRef2Unit</persistence-unit-name>
             <persistence-context-type>Extended</persistence-context-type>
+            <persistence-context-synchronization>Unsynchronized</persistence-context-synchronization>
             <persistence-property id="session1PersistenceContextRef2Property1-id">
                <name>session1PersistenceContextRef2Property1Name</name>
                <value>session1PersistenceContextRef2Property1Value</value>
@@ -471,6 +473,276 @@
             <lifecycle-callback-class>session1PreDestroy2Class</lifecycle-callback-class>
             <lifecycle-callback-method>session1PreDestroy2Method</lifecycle-callback-method>
          </pre-destroy>
+         <!-- javaee:6:data-source -->
+         <data-source>
+			<description>en-session1DataSource1-desc</description>
+			<name>session1DataSource1Name</name>
+			<class-name>session1DataSource1ClassName</class-name>
+			<server-name>session1DataSource1ServerName</server-name>
+			<port-number>1</port-number>
+			<database-name>session1DataSource1DatabaseName</database-name>
+			<url>jdbc:session1DataSource1:url</url>
+			<user>session1DataSource1User</user>
+			<password>session1DataSource1Password</password>
+			<property id="session1DataSource1Property1-id">
+				<name>session1DataSource1Property1Name</name>
+				<value>session1DataSource1Property1Value</value>
+			</property>
+			<property id="session1DataSource1Property2-id">
+				<name>session1DataSource1Property2Name</name>
+				<value>session1DataSource1Property2Value</value>
+			</property>
+			<login-timeout>1</login-timeout>
+			<transactional>false</transactional>
+			<isolation-level>TRANSACTION_READ_UNCOMMITTED</isolation-level>
+			<initial-pool-size>1</initial-pool-size>
+			<max-pool-size>1</max-pool-size>
+			<min-pool-size>1</min-pool-size>
+			<max-idle-time>1</max-idle-time>
+			<max-statements>1</max-statements>
+		</data-source>
+		<data-source>
+			<description>en-session1DataSource2-desc</description>
+			<name>session1DataSource2Name</name>
+			<class-name>session1DataSource2ClassName</class-name>
+			<server-name>session1DataSource2ServerName</server-name>
+			<port-number>2</port-number>
+			<database-name>session1DataSource2DatabaseName</database-name>
+			<url>jdbc:session1DataSource2:url</url>
+			<user>session1DataSource2User</user>
+			<password>session1DataSource2Password</password>
+			<property id="session1DataSource2Property1-id">
+				<name>session1DataSource2Property1Name</name>
+				<value>session1DataSource2Property1Value</value>
+			</property>
+			<property id="session1DataSource2Property2-id">
+				<name>session1DataSource2Property2Name</name>
+				<value>session1DataSource2Property2Value</value>
+			</property>
+			<login-timeout>2</login-timeout>
+			<transactional>true</transactional>
+			<isolation-level>TRANSACTION_READ_COMMITTED</isolation-level>
+			<initial-pool-size>2</initial-pool-size>
+			<max-pool-size>2</max-pool-size>
+			<min-pool-size>2</min-pool-size>
+			<max-idle-time>2</max-idle-time>
+			<max-statements>2</max-statements>
+		</data-source>
+		<!-- javaee:7:jms-connection-factory -->			
+		<jms-connection-factory>
+			<description>session1JmsConnectionFactory1Desc</description>
+			<name>session1JmsConnectionFactory1Name</name>
+			<class-name>session1JmsConnectionFactory1ClassName</class-name>
+			<resource-adapter>session1JmsConnectionFactory1ResourceAdapter</resource-adapter>
+			<user>session1JmsConnectionFactory1User</user>
+			<password>session1JmsConnectionFactory1Password</password>
+			<client-id>session1JmsConnectionFactory1ClientId</client-id>
+			<property id="session1JmsConnectionFactory1Property1-id">
+				<name>session1JmsConnectionFactory1Property1Name</name>
+				<value>session1JmsConnectionFactory1Property1Value</value>
+			</property>
+			<property id="session1JmsConnectionFactory1Property2-id">
+				<name>session1JmsConnectionFactory1Property2Name</name>
+				<value>session1JmsConnectionFactory1Property2Value</value>
+			</property>
+			<transactional>true</transactional>
+			<max-pool-size>1</max-pool-size>
+			<min-pool-size>1</min-pool-size>
+		</jms-connection-factory>
+		<jms-connection-factory>
+			<description>session1JmsConnectionFactory2Desc</description>
+			<name>session1JmsConnectionFactory2Name</name>
+			<class-name>session1JmsConnectionFactory2ClassName</class-name>
+			<resource-adapter>session1JmsConnectionFactory2ResourceAdapter</resource-adapter>
+			<user>session1JmsConnectionFactory2User</user>
+			<password>session1JmsConnectionFactory2Password</password>
+			<client-id>session1JmsConnectionFactory2ClientId</client-id>
+			<property id="session1JmsConnectionFactory2Property1-id">
+				<name>session1JmsConnectionFactory2Property1Name</name>
+				<value>session1JmsConnectionFactory2Property1Value</value>
+			</property>
+			<property id="session1JmsConnectionFactory2Property2-id">
+				<name>session1JmsConnectionFactory2Property2Name</name>
+				<value>session1JmsConnectionFactory2Property2Value</value>
+			</property>
+			<transactional>false</transactional>
+			<max-pool-size>2</max-pool-size>
+			<min-pool-size>2</min-pool-size>
+		</jms-connection-factory>
+		<jms-connection-factory>
+			<name>session1JmsConnectionFactory3Name</name>
+		</jms-connection-factory>
+		<!-- javaee:7:jms-destination -->		
+		<jms-destination>
+			<description>session1JmsDestination1Desc</description>
+			<name>session1JmsDestination1Name</name>
+			<class-name>session1JmsDestination1ClassName</class-name>
+			<resource-adapter>session1JmsDestination1ResourceAdapter</resource-adapter>
+			<destination-name>session1JmsDestination1DestinationName</destination-name>
+			<property id="session1JmsDestination1Property1-id">
+				<name>session1JmsDestination1Property1Name</name>
+				<value>session1JmsDestination1Property1Value</value>
+			</property>
+			<property id="session1JmsDestination1Property2-id">
+				<name>session1JmsDestination1Property2Name</name>
+				<value>session1JmsDestination1Property2Value</value>
+			</property>
+		</jms-destination>
+		<jms-destination>
+			<description>session1JmsDestination2Desc</description>
+			<name>session1JmsDestination2Name</name>
+			<class-name>session1JmsDestination2ClassName</class-name>
+			<resource-adapter>session1JmsDestination2ResourceAdapter</resource-adapter>
+			<destination-name>session1JmsDestination2DestinationName</destination-name>
+			<property id="session1JmsDestination2Property1-id">
+				<name>session1JmsDestination2Property1Name</name>
+				<value>session1JmsDestination2Property1Value</value>
+			</property>
+			<property id="session1JmsDestination2Property2-id">
+				<name>session1JmsDestination2Property2Name</name>
+				<value>session1JmsDestination2Property2Value</value>
+			</property>
+		</jms-destination>
+		<jms-destination>
+			<name>session1JmsDestination3Name</name>
+		</jms-destination>
+		<!-- javaee:7:mail-session -->		
+		<mail-session>
+			<description>session1MailSession1Desc</description>
+			<name>session1MailSession1Name</name>
+			<store-protocol>session1MailSession1StoreProtocol</store-protocol>
+			<store-protocol-class>session1MailSession1StoreProtocolClass</store-protocol-class>
+			<transport-protocol>session1MailSession1TransportProtocol</transport-protocol>
+			<transport-protocol-class>session1MailSession1TransportProtocolClass</transport-protocol-class>
+			<host>session1MailSession1Host</host>
+			<user>session1MailSession1User</user>
+			<password>session1MailSession1Password</password>
+			<from>session1MailSession1From</from>
+			<property id="session1MailSession1Property1-id">
+				<name>session1MailSession1Property1Name</name>
+				<value>session1MailSession1Property1Value</value>
+			</property>
+			<property id="session1MailSession1Property2-id">
+				<name>session1MailSession1Property2Name</name>
+				<value>session1MailSession1Property2Value</value>
+			</property>
+		</mail-session>
+		<mail-session>
+			<description>session1MailSession2Desc</description>
+			<name>session1MailSession2Name</name>
+			<store-protocol>session1MailSession2StoreProtocol</store-protocol>
+			<store-protocol-class>session1MailSession2StoreProtocolClass</store-protocol-class>
+			<transport-protocol>session1MailSession2TransportProtocol</transport-protocol>
+			<transport-protocol-class>session1MailSession2TransportProtocolClass</transport-protocol-class>
+			<host>session1MailSession2Host</host>
+			<user>session1MailSession2User</user>
+			<password>session1MailSession2Password</password>
+			<from>session1MailSession2From</from>
+			<property id="session1MailSession2Property1-id">
+				<name>session1MailSession2Property1Name</name>
+				<value>session1MailSession2Property1Value</value>
+			</property>
+			<property id="session1MailSession2Property2-id">
+				<name>session1MailSession2Property2Name</name>
+				<value>session1MailSession2Property2Value</value>
+			</property>
+		</mail-session>
+		<mail-session>
+			<name>session1MailSession3Name</name>
+		</mail-session>
+		<!-- javaee:7:connection-factory -->
+		<connection-factory>
+			<description>session1ConnectionFactory1Desc</description>
+			<name>session1ConnectionFactory1Name</name>
+			<class-name>session1ConnectionFactory1ClassName</class-name>
+			<resource-adapter>session1ConnectionFactory1ResourceAdapter</resource-adapter>
+			<max-pool-size>1</max-pool-size>
+			<min-pool-size>1</min-pool-size>
+			<transaction-support>NoTransaction</transaction-support>
+			<property id="session1ConnectionFactory1Property1-id">
+				<name>session1ConnectionFactory1Property1Name</name>
+				<value>session1ConnectionFactory1Property1Value</value>
+			</property>
+			<property id="session1ConnectionFactory1Property2-id">
+				<name>session1ConnectionFactory1Property2Name</name>
+				<value>session1ConnectionFactory1Property2Value</value>
+			</property>
+		</connection-factory>
+		<connection-factory>
+			<description>session1ConnectionFactory2Desc</description>
+			<name>session1ConnectionFactory2Name</name>
+			<class-name>session1ConnectionFactory2ClassName</class-name>
+			<resource-adapter>session1ConnectionFactory2ResourceAdapter</resource-adapter>
+			<max-pool-size>2</max-pool-size>
+			<min-pool-size>2</min-pool-size>
+			<transaction-support>LocalTransaction</transaction-support>
+			<property id="session1ConnectionFactory2Property1-id">
+				<name>session1ConnectionFactory2Property1Name</name>
+				<value>session1ConnectionFactory2Property1Value</value>
+			</property>
+			<property id="session1ConnectionFactory2Property2-id">
+				<name>session1ConnectionFactory2Property2Name</name>
+				<value>session1ConnectionFactory2Property2Value</value>
+			</property>
+		</connection-factory>
+		<connection-factory>
+			<description>session1ConnectionFactory3Desc</description>
+			<name>session1ConnectionFactory3Name</name>
+			<class-name>session1ConnectionFactory3ClassName</class-name>
+			<resource-adapter>session1ConnectionFactory3ResourceAdapter</resource-adapter>
+			<max-pool-size>3</max-pool-size>
+			<min-pool-size>3</min-pool-size>
+			<transaction-support>XATransaction</transaction-support>
+			<property id="session1ConnectionFactory3Property1-id">
+				<name>session1ConnectionFactory3Property1Name</name>
+				<value>session1ConnectionFactory3Property1Value</value>
+			</property>
+			<property id="session1ConnectionFactory3Property2-id">
+				<name>session1ConnectionFactory3Property2Name</name>
+				<value>session1ConnectionFactory3Property2Value</value>
+			</property>
+		</connection-factory>
+		<connection-factory>
+			<name>session1ConnectionFactory4Name</name>
+			<class-name>session1ConnectionFactory4ClassName</class-name>
+			<resource-adapter>session1ConnectionFactory4ResourceAdapter</resource-adapter>
+		</connection-factory>
+		<!-- javaee:7:administered-object -->
+		<administered-object>
+			<description>session1AdministeredObject1Desc</description>
+			<name>session1AdministeredObject1Name</name>
+			<interface-name>session1AdministeredObject1InterfaceName</interface-name>
+			<class-name>session1AdministeredObject1ClassName</class-name>
+			<resource-adapter>session1AdministeredObject1ResourceAdapter</resource-adapter>
+			<property id="session1AdministeredObject1Property1-id">
+				<name>session1AdministeredObject1Property1Name</name>
+				<value>session1AdministeredObject1Property1Value</value>
+			</property>
+			<property id="session1AdministeredObject1Property2-id">
+				<name>session1AdministeredObject1Property2Name</name>
+				<value>session1AdministeredObject1Property2Value</value>
+			</property>
+		</administered-object>
+		<administered-object>
+			<description>session1AdministeredObject2Desc</description>
+			<name>session1AdministeredObject2Name</name>
+			<interface-name>session1AdministeredObject2InterfaceName</interface-name>
+			<class-name>session1AdministeredObject2ClassName</class-name>
+			<resource-adapter>session1AdministeredObject2ResourceAdapter</resource-adapter>
+			<property id="session1AdministeredObject2Property1-id">
+				<name>session1AdministeredObject2Property1Name</name>
+				<value>session1AdministeredObject2Property1Value</value>
+			</property>
+			<property id="session1AdministeredObject2Property2-id">
+				<name>session1AdministeredObject2Property2Name</name>
+				<value>session1AdministeredObject2Property2Value</value>
+			</property>
+		</administered-object>
+		<administered-object>
+			<name>session1AdministeredObject3Name</name>
+			<class-name>session1AdministeredObject3ClassName</class-name>
+			<resource-adapter>session1AdministeredObject3ResourceAdapter</resource-adapter>
+		</administered-object>
 
          <post-activate>
             <lifecycle-callback-class>session1PostActivate1Class</lifecycle-callback-class>
@@ -883,6 +1155,7 @@
             <persistence-context-ref-name>session2PersistenceContextRef2Name</persistence-context-ref-name>
             <persistence-unit-name>session2PersistenceContextRef2Unit</persistence-unit-name>
             <persistence-context-type>Extended</persistence-context-type>
+            <persistence-context-synchronization>Unsynchronized</persistence-context-synchronization>
             <persistence-property id="session2PersistenceContextRef2Property1-id">
                <name>session2PersistenceContextRef2Property1Name</name>
                <value>session2PersistenceContextRef2Property1Value</value>
@@ -949,6 +1222,276 @@
             <lifecycle-callback-class>session2PreDestroy2Class</lifecycle-callback-class>
             <lifecycle-callback-method>session2PreDestroy2Method</lifecycle-callback-method>
          </pre-destroy>
+         <!-- javaee:6:data-source -->
+         <data-source>
+			<description>en-session2DataSource1-desc</description>
+			<name>session2DataSource1Name</name>
+			<class-name>session2DataSource1ClassName</class-name>
+			<server-name>session2DataSource1ServerName</server-name>
+			<port-number>1</port-number>
+			<database-name>session2DataSource1DatabaseName</database-name>
+			<url>jdbc:session2DataSource1:url</url>
+			<user>session2DataSource1User</user>
+			<password>session2DataSource1Password</password>
+			<property id="session2DataSource1Property1-id">
+				<name>session2DataSource1Property1Name</name>
+				<value>session2DataSource1Property1Value</value>
+			</property>
+			<property id="session2DataSource1Property2-id">
+				<name>session2DataSource1Property2Name</name>
+				<value>session2DataSource1Property2Value</value>
+			</property>
+			<login-timeout>1</login-timeout>
+			<transactional>false</transactional>
+			<isolation-level>TRANSACTION_READ_UNCOMMITTED</isolation-level>
+			<initial-pool-size>1</initial-pool-size>
+			<max-pool-size>1</max-pool-size>
+			<min-pool-size>1</min-pool-size>
+			<max-idle-time>1</max-idle-time>
+			<max-statements>1</max-statements>
+		</data-source>
+		<data-source>
+			<description>en-session2DataSource2-desc</description>
+			<name>session2DataSource2Name</name>
+			<class-name>session2DataSource2ClassName</class-name>
+			<server-name>session2DataSource2ServerName</server-name>
+			<port-number>2</port-number>
+			<database-name>session2DataSource2DatabaseName</database-name>
+			<url>jdbc:session2DataSource2:url</url>
+			<user>session2DataSource2User</user>
+			<password>session2DataSource2Password</password>
+			<property id="session2DataSource2Property1-id">
+				<name>session2DataSource2Property1Name</name>
+				<value>session2DataSource2Property1Value</value>
+			</property>
+			<property id="session2DataSource2Property2-id">
+				<name>session2DataSource2Property2Name</name>
+				<value>session2DataSource2Property2Value</value>
+			</property>
+			<login-timeout>2</login-timeout>
+			<transactional>true</transactional>
+			<isolation-level>TRANSACTION_READ_COMMITTED</isolation-level>
+			<initial-pool-size>2</initial-pool-size>
+			<max-pool-size>2</max-pool-size>
+			<min-pool-size>2</min-pool-size>
+			<max-idle-time>2</max-idle-time>
+			<max-statements>2</max-statements>
+		</data-source>
+		<!-- javaee:7:jms-connection-factory -->			
+		<jms-connection-factory>
+			<description>session2JmsConnectionFactory1Desc</description>
+			<name>session2JmsConnectionFactory1Name</name>
+			<class-name>session2JmsConnectionFactory1ClassName</class-name>
+			<resource-adapter>session2JmsConnectionFactory1ResourceAdapter</resource-adapter>
+			<user>session2JmsConnectionFactory1User</user>
+			<password>session2JmsConnectionFactory1Password</password>
+			<client-id>session2JmsConnectionFactory1ClientId</client-id>
+			<property id="session2JmsConnectionFactory1Property1-id">
+				<name>session2JmsConnectionFactory1Property1Name</name>
+				<value>session2JmsConnectionFactory1Property1Value</value>
+			</property>
+			<property id="session2JmsConnectionFactory1Property2-id">
+				<name>session2JmsConnectionFactory1Property2Name</name>
+				<value>session2JmsConnectionFactory1Property2Value</value>
+			</property>
+			<transactional>true</transactional>
+			<max-pool-size>1</max-pool-size>
+			<min-pool-size>1</min-pool-size>
+		</jms-connection-factory>
+		<jms-connection-factory>
+			<description>session2JmsConnectionFactory2Desc</description>
+			<name>session2JmsConnectionFactory2Name</name>
+			<class-name>session2JmsConnectionFactory2ClassName</class-name>
+			<resource-adapter>session2JmsConnectionFactory2ResourceAdapter</resource-adapter>
+			<user>session2JmsConnectionFactory2User</user>
+			<password>session2JmsConnectionFactory2Password</password>
+			<client-id>session2JmsConnectionFactory2ClientId</client-id>
+			<property id="session2JmsConnectionFactory2Property1-id">
+				<name>session2JmsConnectionFactory2Property1Name</name>
+				<value>session2JmsConnectionFactory2Property1Value</value>
+			</property>
+			<property id="session2JmsConnectionFactory2Property2-id">
+				<name>session2JmsConnectionFactory2Property2Name</name>
+				<value>session2JmsConnectionFactory2Property2Value</value>
+			</property>
+			<transactional>false</transactional>
+			<max-pool-size>2</max-pool-size>
+			<min-pool-size>2</min-pool-size>
+		</jms-connection-factory>
+		<jms-connection-factory>
+			<name>session2JmsConnectionFactory3Name</name>
+		</jms-connection-factory>
+		<!-- javaee:7:jms-destination -->		
+		<jms-destination>
+			<description>session2JmsDestination1Desc</description>
+			<name>session2JmsDestination1Name</name>
+			<class-name>session2JmsDestination1ClassName</class-name>
+			<resource-adapter>session2JmsDestination1ResourceAdapter</resource-adapter>
+			<destination-name>session2JmsDestination1DestinationName</destination-name>
+			<property id="session2JmsDestination1Property1-id">
+				<name>session2JmsDestination1Property1Name</name>
+				<value>session2JmsDestination1Property1Value</value>
+			</property>
+			<property id="session2JmsDestination1Property2-id">
+				<name>session2JmsDestination1Property2Name</name>
+				<value>session2JmsDestination1Property2Value</value>
+			</property>
+		</jms-destination>
+		<jms-destination>
+			<description>session2JmsDestination2Desc</description>
+			<name>session2JmsDestination2Name</name>
+			<class-name>session2JmsDestination2ClassName</class-name>
+			<resource-adapter>session2JmsDestination2ResourceAdapter</resource-adapter>
+			<destination-name>session2JmsDestination2DestinationName</destination-name>
+			<property id="session2JmsDestination2Property1-id">
+				<name>session2JmsDestination2Property1Name</name>
+				<value>session2JmsDestination2Property1Value</value>
+			</property>
+			<property id="session2JmsDestination2Property2-id">
+				<name>session2JmsDestination2Property2Name</name>
+				<value>session2JmsDestination2Property2Value</value>
+			</property>
+		</jms-destination>
+		<jms-destination>
+			<name>session2JmsDestination3Name</name>
+		</jms-destination>
+		<!-- javaee:7:mail-session -->		
+		<mail-session>
+			<description>session2MailSession1Desc</description>
+			<name>session2MailSession1Name</name>
+			<store-protocol>session2MailSession1StoreProtocol</store-protocol>
+			<store-protocol-class>session2MailSession1StoreProtocolClass</store-protocol-class>
+			<transport-protocol>session2MailSession1TransportProtocol</transport-protocol>
+			<transport-protocol-class>session2MailSession1TransportProtocolClass</transport-protocol-class>
+			<host>session2MailSession1Host</host>
+			<user>session2MailSession1User</user>
+			<password>session2MailSession1Password</password>
+			<from>session2MailSession1From</from>
+			<property id="session2MailSession1Property1-id">
+				<name>session2MailSession1Property1Name</name>
+				<value>session2MailSession1Property1Value</value>
+			</property>
+			<property id="session2MailSession1Property2-id">
+				<name>session2MailSession1Property2Name</name>
+				<value>session2MailSession1Property2Value</value>
+			</property>
+		</mail-session>
+		<mail-session>
+			<description>session2MailSession2Desc</description>
+			<name>session2MailSession2Name</name>
+			<store-protocol>session2MailSession2StoreProtocol</store-protocol>
+			<store-protocol-class>session2MailSession2StoreProtocolClass</store-protocol-class>
+			<transport-protocol>session2MailSession2TransportProtocol</transport-protocol>
+			<transport-protocol-class>session2MailSession2TransportProtocolClass</transport-protocol-class>
+			<host>session2MailSession2Host</host>
+			<user>session2MailSession2User</user>
+			<password>session2MailSession2Password</password>
+			<from>session2MailSession2From</from>
+			<property id="session2MailSession2Property1-id">
+				<name>session2MailSession2Property1Name</name>
+				<value>session2MailSession2Property1Value</value>
+			</property>
+			<property id="session2MailSession2Property2-id">
+				<name>session2MailSession2Property2Name</name>
+				<value>session2MailSession2Property2Value</value>
+			</property>
+		</mail-session>
+		<mail-session>
+			<name>session2MailSession3Name</name>
+		</mail-session>
+		<!-- javaee:7:connection-factory -->
+		<connection-factory>
+			<description>session2ConnectionFactory1Desc</description>
+			<name>session2ConnectionFactory1Name</name>
+			<class-name>session2ConnectionFactory1ClassName</class-name>
+			<resource-adapter>session2ConnectionFactory1ResourceAdapter</resource-adapter>
+			<max-pool-size>1</max-pool-size>
+			<min-pool-size>1</min-pool-size>
+			<transaction-support>NoTransaction</transaction-support>
+			<property id="session2ConnectionFactory1Property1-id">
+				<name>session2ConnectionFactory1Property1Name</name>
+				<value>session2ConnectionFactory1Property1Value</value>
+			</property>
+			<property id="session2ConnectionFactory1Property2-id">
+				<name>session2ConnectionFactory1Property2Name</name>
+				<value>session2ConnectionFactory1Property2Value</value>
+			</property>
+		</connection-factory>
+		<connection-factory>
+			<description>session2ConnectionFactory2Desc</description>
+			<name>session2ConnectionFactory2Name</name>
+			<class-name>session2ConnectionFactory2ClassName</class-name>
+			<resource-adapter>session2ConnectionFactory2ResourceAdapter</resource-adapter>
+			<max-pool-size>2</max-pool-size>
+			<min-pool-size>2</min-pool-size>
+			<transaction-support>LocalTransaction</transaction-support>
+			<property id="session2ConnectionFactory2Property1-id">
+				<name>session2ConnectionFactory2Property1Name</name>
+				<value>session2ConnectionFactory2Property1Value</value>
+			</property>
+			<property id="session2ConnectionFactory2Property2-id">
+				<name>session2ConnectionFactory2Property2Name</name>
+				<value>session2ConnectionFactory2Property2Value</value>
+			</property>
+		</connection-factory>
+		<connection-factory>
+			<description>session2ConnectionFactory3Desc</description>
+			<name>session2ConnectionFactory3Name</name>
+			<class-name>session2ConnectionFactory3ClassName</class-name>
+			<resource-adapter>session2ConnectionFactory3ResourceAdapter</resource-adapter>
+			<max-pool-size>3</max-pool-size>
+			<min-pool-size>3</min-pool-size>
+			<transaction-support>XATransaction</transaction-support>
+			<property id="session2ConnectionFactory3Property1-id">
+				<name>session2ConnectionFactory3Property1Name</name>
+				<value>session2ConnectionFactory3Property1Value</value>
+			</property>
+			<property id="session2ConnectionFactory3Property2-id">
+				<name>session2ConnectionFactory3Property2Name</name>
+				<value>session2ConnectionFactory3Property2Value</value>
+			</property>
+		</connection-factory>
+		<connection-factory>
+			<name>session2ConnectionFactory4Name</name>
+			<class-name>session2ConnectionFactory4ClassName</class-name>
+			<resource-adapter>session2ConnectionFactory4ResourceAdapter</resource-adapter>
+		</connection-factory>
+		<!-- javaee:7:administered-object -->
+		<administered-object>
+			<description>session2AdministeredObject1Desc</description>
+			<name>session2AdministeredObject1Name</name>
+			<interface-name>session2AdministeredObject1InterfaceName</interface-name>
+			<class-name>session2AdministeredObject1ClassName</class-name>
+			<resource-adapter>session2AdministeredObject1ResourceAdapter</resource-adapter>
+			<property id="session2AdministeredObject1Property1-id">
+				<name>session2AdministeredObject1Property1Name</name>
+				<value>session2AdministeredObject1Property1Value</value>
+			</property>
+			<property id="session2AdministeredObject1Property2-id">
+				<name>session2AdministeredObject1Property2Name</name>
+				<value>session2AdministeredObject1Property2Value</value>
+			</property>
+		</administered-object>
+		<administered-object>
+			<description>session2AdministeredObject2Desc</description>
+			<name>session2AdministeredObject2Name</name>
+			<interface-name>session2AdministeredObject2InterfaceName</interface-name>
+			<class-name>session2AdministeredObject2ClassName</class-name>
+			<resource-adapter>session2AdministeredObject2ResourceAdapter</resource-adapter>
+			<property id="session2AdministeredObject2Property1-id">
+				<name>session2AdministeredObject2Property1Name</name>
+				<value>session2AdministeredObject2Property1Value</value>
+			</property>
+			<property id="session2AdministeredObject2Property2-id">
+				<name>session2AdministeredObject2Property2Name</name>
+				<value>session2AdministeredObject2Property2Value</value>
+			</property>
+		</administered-object>
+		<administered-object>
+			<name>session2AdministeredObject3Name</name>
+			<class-name>session2AdministeredObject3ClassName</class-name>
+			<resource-adapter>session2AdministeredObject3ResourceAdapter</resource-adapter>
+		</administered-object>
 
          <post-activate>
             <lifecycle-callback-class>session2PostActivate1Class</lifecycle-callback-class>
