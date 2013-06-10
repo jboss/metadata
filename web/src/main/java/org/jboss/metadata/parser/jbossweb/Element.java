@@ -53,6 +53,7 @@ public enum Element {
     DISTINCT_NAME("distinct-name"),
 
     EMPTY_ROLE_SEMANTIC("empty-role-semantic"),
+    EXECUTOR_NAME("executor-name"),
 
     HTTP_METHOD_CONSTRAINT("http-method-constraint"),
 

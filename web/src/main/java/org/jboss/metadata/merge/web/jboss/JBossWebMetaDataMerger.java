@@ -279,5 +279,9 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
                 dest.setDenyUncoveredHttpMethods(((Web31MetaData) original).getDenyUncoveredHttpMethods());
             }
         }
+
+        if(override != null && override.getExecutorName() != null) {
+            dest.setExecutorName(override.getExecutorName());
+        }
     }
 }

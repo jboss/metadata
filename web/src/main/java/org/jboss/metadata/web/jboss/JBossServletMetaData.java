@@ -36,6 +36,12 @@ public class JBossServletMetaData extends ServletMetaData {
     private String runAsPrincipal;
     private ServletSecurityMetaData servletSecurity;
 
+    /**
+     * The name of the executor to use to for requests on this
+     * servlet (Undertow only)
+     */
+    private String executorName;
+
     public String getRunAsPrincipal() {
         return runAsPrincipal;
     }
@@ -50,5 +56,13 @@ public class JBossServletMetaData extends ServletMetaData {
 
     public void setServletSecurity(ServletSecurityMetaData servletSecurity) {
         this.servletSecurity = servletSecurity;
+    }
+
+    public String getExecutorName() {
+        return executorName;
+    }
+
+    public void setExecutorName(final String executorName) {
+        this.executorName = executorName;
     }
 }

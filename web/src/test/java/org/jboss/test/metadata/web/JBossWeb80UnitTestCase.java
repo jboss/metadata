@@ -38,5 +38,8 @@ public class JBossWeb80UnitTestCase extends AbstractJavaEEEverythingTest {
         Assert.assertTrue(jbossWeb instanceof JBoss80WebMetaData);
         assertEquals("default", jbossWeb.getServletContainerName());
         assertEquals("default", jbossWeb.getServerInstanceName());
+        assertEquals("myexecutor", jbossWeb.getExecutorName());
+        assertEquals("otherexecutor", jbossWeb.getServlets().get("MyServlet").getExecutorName());
+
     }
 }

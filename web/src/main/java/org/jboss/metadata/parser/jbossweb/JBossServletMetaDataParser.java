@@ -50,6 +50,9 @@ public class JBossServletMetaDataParser extends MetaDataElementParser {
                 case SERVLET_SECURITY:
                     servlet.setServletSecurity(ServletSecurityMetaDataParser.parse(reader, propertyReplacer));
                     break;
+                case EXECUTOR_NAME:
+                    servlet.setExecutorName(getElementText(reader, propertyReplacer));
+                    break;
                 default:
                     throw unexpectedElement(reader);
             }

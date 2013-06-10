@@ -245,6 +245,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case DENY_UNCOVERED_HTTP_METHODS:
                     wmd.setDenyUncoveredHttpMethods(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
                     break;
+                case EXECUTOR_NAME:
+                    wmd.setExecutorName(getElementText(reader, propertyReplacer));
+                    break;
                 default:
                     throw unexpectedElement(reader);
             }

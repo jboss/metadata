@@ -108,6 +108,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private List<SecurityConstraintMetaData> securityConstraints;
     private WelcomeFileListMetaData welcomeFileList;
     private LocaleEncodingsMetaData localEncodings;
+    private Boolean denyUncoveredHttpMethods;
 
     // JBoss extended information
     private String dtdPublicId;
@@ -198,12 +199,16 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private Integer maxActiveSessions = null;
 
     /**
+     *
+     * The name of the executor to use to handle requests from this deployment (Undertow only)
+     */
+    private String executorName;
+
+    /**
      * Should the context use session cookies or use default
      */
     private int sessionCookies = SESSION_COOKIES_DEFAULT;
 
-
-    private Boolean denyUncoveredHttpMethods;
 
     public static final int SESSION_COOKIES_DEFAULT = 0;
     public static final int SESSION_COOKIES_ENABLED = 1;
@@ -1017,5 +1022,13 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setDenyUncoveredHttpMethods(final Boolean denyUncoveredHttpMethods) {
         this.denyUncoveredHttpMethods = denyUncoveredHttpMethods;
+    }
+
+    public String getExecutorName() {
+        return executorName;
+    }
+
+    public void setExecutorName(final String executorName) {
+        this.executorName = executorName;
     }
 }
