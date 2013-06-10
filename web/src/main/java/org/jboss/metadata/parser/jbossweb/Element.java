@@ -47,6 +47,7 @@ public enum Element {
     CONTEXT_ROOT("context-root"),
 
     DEPENDS("depends"),
+    DENY_UNCOVERED_HTTP_METHODS("deny-uncovered-http-methods"),
     DISABLE_AUDIT("disable-audit"),
     DISABLE_CROSS_CONTEXT("disable-cross-context"),
     DISTINCT_NAME("distinct-name"),

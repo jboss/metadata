@@ -229,6 +229,13 @@ public class WebMetaDataParser extends MetaDataElementParser {
                         throw unexpectedElement(reader);
                     }
                     break;
+                case DENY_UNCOVERED_HTTP_METHODS:
+                    if (wmd instanceof Web31MetaData) {
+                        ((Web31MetaData) wmd).setDenyUncoveredHttpMethods(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
+                    } else {
+                        throw unexpectedElement(reader);
+                    }
+                    break;
                 default:
                     throw unexpectedElement(reader);
             }

@@ -202,6 +202,9 @@ public class JBossWebMetaData extends NamedModuleImpl {
      */
     private int sessionCookies = SESSION_COOKIES_DEFAULT;
 
+
+    private Boolean denyUncoveredHttpMethods;
+
     public static final int SESSION_COOKIES_DEFAULT = 0;
     public static final int SESSION_COOKIES_ENABLED = 1;
     public static final int SESSION_COOKIES_DISABLED = 2;
@@ -1006,5 +1009,13 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setSymbolicLinkingEnabled(boolean symbolicLinkingEnabled) {
         this.symbolicLinkingEnabled = symbolicLinkingEnabled;
+    }
+
+    public Boolean getDenyUncoveredHttpMethods() {
+        return denyUncoveredHttpMethods;
+    }
+
+    public void setDenyUncoveredHttpMethods(final Boolean denyUncoveredHttpMethods) {
+        this.denyUncoveredHttpMethods = denyUncoveredHttpMethods;
     }
 }

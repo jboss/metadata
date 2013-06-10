@@ -37,6 +37,7 @@ import org.jboss.metadata.web.spec.AnnotationsMetaData;
 import org.jboss.metadata.web.spec.ServletsMetaData;
 import org.jboss.metadata.web.spec.Web25MetaData;
 import org.jboss.metadata.web.spec.Web30MetaData;
+import org.jboss.metadata.web.spec.Web31MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
@@ -270,5 +271,13 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
 
         if (override != null && override.isSymbolicLinkingEnabled())
             dest.setSymbolicLinkingEnabled(override.isSymbolicLinkingEnabled());
+
+        if(override != null && override.getDenyUncoveredHttpMethods() != null) {
+            dest.setDenyUncoveredHttpMethods(override.getDenyUncoveredHttpMethods());
+        } else if(original != null && original instanceof Web31MetaData) {
+            if(((Web31MetaData) original).getDenyUncoveredHttpMethods() != null) {
+                dest.setDenyUncoveredHttpMethods(((Web31MetaData) original).getDenyUncoveredHttpMethods());
+            }
+        }
     }
 }

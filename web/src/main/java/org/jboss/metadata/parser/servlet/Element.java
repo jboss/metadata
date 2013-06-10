@@ -50,6 +50,7 @@ public enum Element {
 
     DEFAULT_CONTENT_TYPE("default-content-type"),
     DEFERRED_SYNTAX_ALLOWED_AS_LITERAL("deferred-syntax-allowed-as-literal"),
+    DENY_UNCOVERED_HTTP_METHODS("deny-uncovered-http-methods"),
     DISPATCHER("dispatcher"),
     DISPLAY_NAME("display-name"),
     DISTRIBUTABLE("distributable"),

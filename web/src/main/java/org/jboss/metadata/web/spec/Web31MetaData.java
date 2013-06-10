@@ -32,4 +32,13 @@ public class Web31MetaData extends Web30MetaData {
 
     private static final long serialVersionUID = 1;
 
+    private Boolean denyUncoveredHttpMethods;
+
+    public Boolean getDenyUncoveredHttpMethods() {
+        return denyUncoveredHttpMethods;
+    }
+
+    public void setDenyUncoveredHttpMethods(final Boolean denyUncoveredHttpMethods) {
+        this.denyUncoveredHttpMethods = denyUncoveredHttpMethods;
+    }
 }
