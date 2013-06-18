@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.jboss.metadata</groupId>
         <artifactId>jboss-as-parent-metadata</artifactId>
-        <version> 	8.0.0.Beta1-SNAPSHOT</version>
+        <version>8.0.0.Beta1</version>
     </parent>
 
     <artifactId>jboss-metadata-web</artifactId>
