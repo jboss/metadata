@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application-client xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
       	http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd"
 	version="7" id="app" metadata-complete="true">
 
@@ -421,7 +421,8 @@
 	<jms-connection-factory>
 		<description>appJmsConnectionFactory1Desc</description>
 		<name>appJmsConnectionFactory1Name</name>
-		<class-name>appJmsConnectionFactory1ClassName</class-name>
+        <interface-name>javax.jms.QueueConnectionFactory</interface-name>
+        <class-name>appJmsConnectionFactory1ClassName</class-name>
 		<resource-adapter>appJmsConnectionFactory1ResourceAdapter</resource-adapter>
 		<user>appJmsConnectionFactory1User</user>
 		<password>appJmsConnectionFactory1Password</password>
@@ -441,7 +442,8 @@
 	<jms-connection-factory>
 		<description>appJmsConnectionFactory2Desc</description>
 		<name>appJmsConnectionFactory2Name</name>
-		<class-name>appJmsConnectionFactory2ClassName</class-name>
+        <interface-name>javax.jms.TopicConnectionFactory</interface-name>
+        <class-name>appJmsConnectionFactory2ClassName</class-name>
 		<resource-adapter>appJmsConnectionFactory2ResourceAdapter</resource-adapter>
 		<user>appJmsConnectionFactory2User</user>
 		<password>appJmsConnectionFactory2Password</password>
@@ -465,7 +467,8 @@
 	<jms-destination>
 		<description>appJmsDestination1Desc</description>
 		<name>appJmsDestination1Name</name>
-		<class-name>appJmsDestination1ClassName</class-name>
+        <interface-name>javax.jms.Queue</interface-name>
+        <class-name>appJmsDestination1ClassName</class-name>
 		<resource-adapter>appJmsDestination1ResourceAdapter</resource-adapter>
 		<destination-name>appJmsDestination1DestinationName</destination-name>
 		<property id="appJmsDestination1Property1-id">
@@ -480,7 +483,8 @@
 	<jms-destination>
 		<description>appJmsDestination2Desc</description>
 		<name>appJmsDestination2Name</name>
-		<class-name>appJmsDestination2ClassName</class-name>
+        <interface-name>javax.jms.Queue</interface-name>
+        <class-name>appJmsDestination2ClassName</class-name>
 		<resource-adapter>appJmsDestination2ResourceAdapter</resource-adapter>
 		<destination-name>appJmsDestination2DestinationName</destination-name>
 		<property id="appJmsDestination2Property1-id">
@@ -494,6 +498,7 @@
 	</jms-destination>
 	<jms-destination>
 		<name>appJmsDestination3Name</name>
+        <interface-name>javax.jms.Topic</interface-name>
 	</jms-destination>
 	<!-- javaee:7:mail-session -->
 	<mail-session>
@@ -543,7 +548,7 @@
 	<connection-factory>
 		<description>appConnectionFactory1Desc</description>
 		<name>appConnectionFactory1Name</name>
-		<class-name>appConnectionFactory1ClassName</class-name>
+		<interface-name>appConnectionFactory1InterfaceName</interface-name>
 		<resource-adapter>appConnectionFactory1ResourceAdapter</resource-adapter>
 		<max-pool-size>1</max-pool-size>
 		<min-pool-size>1</min-pool-size>
@@ -560,7 +565,7 @@
 	<connection-factory>
 		<description>appConnectionFactory2Desc</description>
 		<name>appConnectionFactory2Name</name>
-		<class-name>appConnectionFactory2ClassName</class-name>
+		<interface-name>appConnectionFactory2InterfaceName</interface-name>
 		<resource-adapter>appConnectionFactory2ResourceAdapter</resource-adapter>
 		<max-pool-size>2</max-pool-size>
 		<min-pool-size>2</min-pool-size>
@@ -577,7 +582,7 @@
 	<connection-factory>
 		<description>appConnectionFactory3Desc</description>
 		<name>appConnectionFactory3Name</name>
-		<class-name>appConnectionFactory3ClassName</class-name>
+		<interface-name>appConnectionFactory3InterfaceName</interface-name>
 		<resource-adapter>appConnectionFactory3ResourceAdapter</resource-adapter>
 		<max-pool-size>3</max-pool-size>
 		<min-pool-size>3</min-pool-size>
@@ -593,7 +598,7 @@
 	</connection-factory>
 	<connection-factory>
 		<name>appConnectionFactory4Name</name>
-		<class-name>appConnectionFactory4ClassName</class-name>
+		<interface-name>appConnectionFactory4InterfaceName</interface-name>
 		<resource-adapter>appConnectionFactory4ResourceAdapter</resource-adapter>
 	</connection-factory>
 	<!-- javaee:7:administered-object -->

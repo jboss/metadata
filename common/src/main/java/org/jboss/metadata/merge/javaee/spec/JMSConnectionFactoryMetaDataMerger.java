@@ -47,6 +47,11 @@ public class JMSConnectionFactoryMetaDataMerger {
 
         NamedMetaDataMerger.merge(dest, override, original);
 
+        if (override != null && override.getInterfaceName() != null)
+            dest.setInterfaceName(override.getInterfaceName());
+        else if (original != null && original.getInterfaceName() != null)
+            dest.setInterfaceName(original.getInterfaceName());
+
         if (override != null && override.getClassName() != null)
             dest.setClassName(override.getClassName());
         else if (original != null && original.getClassName() != null)

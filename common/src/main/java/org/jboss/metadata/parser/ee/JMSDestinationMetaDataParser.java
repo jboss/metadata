@@ -72,6 +72,9 @@ public class JMSDestinationMetaDataParser extends MetaDataElementParser {
                 case NAME:
                     metaData.setName(getElementText(reader, propertyReplacer));
                     break;
+                case INTERFACE_NAME:
+                    metaData.setInterfaceName(getElementText(reader, propertyReplacer));
+                    break;
                 case CLASS_NAME:
                     metaData.setClassName(getElementText(reader, propertyReplacer));
                     break;

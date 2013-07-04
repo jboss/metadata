@@ -40,10 +40,20 @@ public class JMSConnectionFactoryMetaData extends NamedMetaDataWithDescriptions 
     public static final int DEFAULT_MAX_POOL_SIZE = -1;
     public static final int DEFAULT_MIN_POOL_SIZE = -1;
 
+    public static final String CONNECTION_FACTORY_INTERFACE_NAME = "javax.jms.ConnectionFactory";
+    public static final String QUEUE_CONNECTION_FACTORY_INTERFACE_NAME = "javax.jms.QueueConnectionFactory";
+    public static final String TOPIC_CONNECTION_FACTORY_INTERFACE_NAME = "javax.jms.TopicConnectionFactory";
+    public static final String DEFAULT_INTERFACE_NAME = CONNECTION_FACTORY_INTERFACE_NAME;
+
     /**
      *
      */
     private String className;
+
+    /**
+     *
+     */
+    private String interfaceName = DEFAULT_INTERFACE_NAME;
 
     /**
      *
@@ -99,6 +109,29 @@ public class JMSConnectionFactoryMetaData extends NamedMetaDataWithDescriptions 
      */
     public void setClassName(String className) {
         this.className = className;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getInterfaceName() {
+        return interfaceName;
+    }
+
+    /**
+     *
+     * @param interfaceName
+     * @throws IllegalArgumentException if arg is null or unsupported
+     */
+    public void setInterfaceName(String interfaceName) throws IllegalArgumentException {
+        if (interfaceName == null) {
+            throw new IllegalArgumentException("Null interfaceName");
+        }
+        if(!interfaceName.equals(CONNECTION_FACTORY_INTERFACE_NAME) && !interfaceName.equals(QUEUE_CONNECTION_FACTORY_INTERFACE_NAME) && !interfaceName.equals(TOPIC_CONNECTION_FACTORY_INTERFACE_NAME)) {
+            throw new IllegalArgumentException("Unsupported interfaceName");
+        }
+        this.interfaceName = interfaceName;
     }
 
     /**

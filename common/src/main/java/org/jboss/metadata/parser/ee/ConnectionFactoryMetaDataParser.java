@@ -73,8 +73,8 @@ public class ConnectionFactoryMetaDataParser extends MetaDataElementParser {
                 case NAME:
                     metaData.setName(getElementText(reader, propertyReplacer));
                     break;
-                case CLASS_NAME:
-                    metaData.setClassName(getElementText(reader, propertyReplacer));
+                case INTERFACE_NAME:
+                    metaData.setInterfaceName(getElementText(reader, propertyReplacer));
                     break;
                 case RESOURCE_ADAPTER:
                     metaData.setResourceAdapter(getElementText(reader, propertyReplacer));

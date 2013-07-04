@@ -43,7 +43,7 @@ public class ConnectionFactoryMetaData extends NamedMetaDataWithDescriptions {
     /**
      *
      */
-    private String className;
+    private String interfaceName;
 
     /**
      *
@@ -74,20 +74,20 @@ public class ConnectionFactoryMetaData extends NamedMetaDataWithDescriptions {
      *
      * @return
      */
-    public String getClassName() {
-        return className;
+    public String getInterfaceName() {
+        return interfaceName;
     }
 
     /**
      *
-     * @param className
+     * @param interfaceName
      * @throws IllegalArgumentException if arg is null
      */
-    public void setClassName(String className) throws IllegalArgumentException {
-        if (className == null) {
-            throw new IllegalArgumentException("Null className");
+    public void setInterfaceName(String interfaceName) throws IllegalArgumentException {
+        if (interfaceName == null) {
+            throw new IllegalArgumentException("Null interfaceName");
         }
-        this.className = className;
+        this.interfaceName = interfaceName;
     }
 
     /**
