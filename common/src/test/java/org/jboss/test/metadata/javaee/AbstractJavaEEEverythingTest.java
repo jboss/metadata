@@ -660,7 +660,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
 
             final Descriptions desc = metaData.getDescriptions();
             final String name = metaData.getName();
-            final String className = metaData.getClassName();
+            final String interfaceName = metaData.getInterfaceName();
             final String resourceAdapter = metaData.getResourceAdapter();
             final int maxPoolSize = metaData.getMaxPoolSize();
             final int minPoolSize = metaData.getMinPoolSize();
@@ -669,9 +669,9 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
 
             // name
             assertEquals(metaDataPrefix + "Name", name);
-            // class-name
-            assertNotNull(className);
-            assertEquals(metaDataPrefix + "ClassName", className);
+            // interface-name
+            assertNotNull(interfaceName);
+            assertEquals(metaDataPrefix + "InterfaceName", interfaceName);
             // resource-adapter
             assertNotNull(resourceAdapter);
             assertEquals(metaDataPrefix + "ResourceAdapter", resourceAdapter);
@@ -726,6 +726,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
             final Descriptions desc = metaData.getDescriptions();
             final String name = metaData.getName();
             final String className = metaData.getClassName();
+            final String interfaceName = metaData.getInterfaceName();
             final String resourceAdapter = metaData.getResourceAdapter();
             final String user = metaData.getUser();
             final String password = metaData.getPassword();
@@ -743,6 +744,13 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
                 assertNotNull(descArr);
                 assertEquals(1, descArr.length);
                 assertEquals(metaDataPrefix + "Desc", descArr[0].value());
+                // interface-name
+                assertNotNull(interfaceName);
+                if (count == 1) {
+                    assertEquals(JMSConnectionFactoryMetaData.QUEUE_CONNECTION_FACTORY_INTERFACE_NAME, interfaceName);
+                } else {
+                    assertEquals(JMSConnectionFactoryMetaData.TOPIC_CONNECTION_FACTORY_INTERFACE_NAME, interfaceName);
+                }
                 // class-name
                 assertNotNull(className);
                 assertEquals(metaDataPrefix + "ClassName", className);
@@ -768,6 +776,8 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
                 assertEquals(count, minPoolSize);
             } else {
                 assertNull(desc);
+                assertNotNull(interfaceName);
+                assertEquals(JMSConnectionFactoryMetaData.DEFAULT_INTERFACE_NAME, interfaceName);
                 assertNull(className);
                 assertNull(resourceAdapter);
                 assertNull(user);
@@ -798,12 +808,14 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
 
             final Descriptions desc = metaData.getDescriptions();
             final String name = metaData.getName();
+            final String interfaceName = metaData.getInterfaceName();
             final String className = metaData.getClassName();
             final String resourceAdapter = metaData.getResourceAdapter();
             final String destinationName = metaData.getDestinationName();
             final PropertiesMetaData properties = metaData.getProperties();
 
             assertEquals(metaDataPrefix + "Name", name);
+            assertNotNull(interfaceName);
             if (count<3) {
                 // desc
                 assertNotNull(desc);
@@ -811,6 +823,8 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
                 assertNotNull(descArr);
                 assertEquals(1, descArr.length);
                 assertEquals(metaDataPrefix + "Desc", descArr[0].value());
+                // interface-name
+                assertEquals(JMSDestinationMetaData.QUEUE_INTERFACE_NAME, interfaceName);
                 // class-name
                 assertNotNull(className);
                 assertEquals(metaDataPrefix + "ClassName", className);
@@ -824,6 +838,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
                 assertProperties(metaDataPrefix,2,properties);
             } else {
                 assertNull(desc);
+                assertEquals(JMSDestinationMetaData.TOPIC_INTERFACE_NAME, interfaceName);
                 assertNull(className);
                 assertNull(resourceAdapter);
                 assertNull(destinationName);

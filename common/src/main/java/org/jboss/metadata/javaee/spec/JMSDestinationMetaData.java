@@ -36,6 +36,14 @@ public class JMSDestinationMetaData extends NamedMetaDataWithDescriptions {
      */
     private static final long serialVersionUID = -8828730452352230094L;
 
+    public static final String QUEUE_INTERFACE_NAME = "javax.jms.Queue";
+    public static final String TOPIC_INTERFACE_NAME = "javax.jms.Topic";
+
+    /**
+     *
+     */
+    private String interfaceName;
+
     /**
      *
      */
@@ -55,6 +63,29 @@ public class JMSDestinationMetaData extends NamedMetaDataWithDescriptions {
      *
      */
     private PropertiesMetaData properties;
+
+    /**
+     *
+     * @return
+     */
+    public String getInterfaceName() {
+        return interfaceName;
+    }
+
+    /**
+     *
+     * @param interfaceName
+     * @throws IllegalArgumentException if arg is null or unsupported
+     */
+    public void setInterfaceName(String interfaceName) throws IllegalArgumentException {
+        if (interfaceName == null) {
+            throw new IllegalArgumentException("Null interfaceName");
+        }
+        if(!interfaceName.equals(QUEUE_INTERFACE_NAME) && !interfaceName.equals(TOPIC_INTERFACE_NAME)) {
+            throw new IllegalArgumentException("Unsupported interfaceName");
+        }
+        this.interfaceName = interfaceName;
+    }
 
     /**
      *

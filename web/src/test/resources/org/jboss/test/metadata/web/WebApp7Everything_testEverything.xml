@@ -805,7 +805,8 @@
 	<jms-connection-factory>
 		<description>webAppJmsConnectionFactory1Desc</description>
 		<name>webAppJmsConnectionFactory1Name</name>
-		<class-name>webAppJmsConnectionFactory1ClassName</class-name>
+        <interface-name>javax.jms.QueueConnectionFactory</interface-name>
+        <class-name>webAppJmsConnectionFactory1ClassName</class-name>
 		<resource-adapter>webAppJmsConnectionFactory1ResourceAdapter
 		</resource-adapter>
 		<user>webAppJmsConnectionFactory1User</user>
@@ -826,7 +827,8 @@
 	<jms-connection-factory>
 		<description>webAppJmsConnectionFactory2Desc</description>
 		<name>webAppJmsConnectionFactory2Name</name>
-		<class-name>webAppJmsConnectionFactory2ClassName</class-name>
+        <interface-name>javax.jms.TopicConnectionFactory</interface-name>
+        <class-name>webAppJmsConnectionFactory2ClassName</class-name>
 		<resource-adapter>webAppJmsConnectionFactory2ResourceAdapter
 		</resource-adapter>
 		<user>webAppJmsConnectionFactory2User</user>
@@ -851,7 +853,8 @@
 	<jms-destination>
 		<description>webAppJmsDestination1Desc</description>
 		<name>webAppJmsDestination1Name</name>
-		<class-name>webAppJmsDestination1ClassName</class-name>
+        <interface-name>javax.jms.Queue</interface-name>
+        <class-name>webAppJmsDestination1ClassName</class-name>
 		<resource-adapter>webAppJmsDestination1ResourceAdapter
 		</resource-adapter>
 		<destination-name>webAppJmsDestination1DestinationName
@@ -868,7 +871,8 @@
 	<jms-destination>
 		<description>webAppJmsDestination2Desc</description>
 		<name>webAppJmsDestination2Name</name>
-		<class-name>webAppJmsDestination2ClassName</class-name>
+        <interface-name>javax.jms.Queue</interface-name>
+        <class-name>webAppJmsDestination2ClassName</class-name>
 		<resource-adapter>webAppJmsDestination2ResourceAdapter
 		</resource-adapter>
 		<destination-name>webAppJmsDestination2DestinationName
@@ -884,6 +888,7 @@
 	</jms-destination>
 	<jms-destination>
 		<name>webAppJmsDestination3Name</name>
+        <interface-name>javax.jms.Topic</interface-name>
 	</jms-destination>
 	<!-- javaee:7:mail-session -->
 	<mail-session>
@@ -939,7 +944,7 @@
 	<connection-factory>
 		<description>webAppConnectionFactory1Desc</description>
 		<name>webAppConnectionFactory1Name</name>
-		<class-name>webAppConnectionFactory1ClassName</class-name>
+		<interface-name>webAppConnectionFactory1InterfaceName</interface-name>
 		<resource-adapter>webAppConnectionFactory1ResourceAdapter
 		</resource-adapter>
 		<max-pool-size>1</max-pool-size>
@@ -957,7 +962,7 @@
 	<connection-factory>
 		<description>webAppConnectionFactory2Desc</description>
 		<name>webAppConnectionFactory2Name</name>
-		<class-name>webAppConnectionFactory2ClassName</class-name>
+		<interface-name>webAppConnectionFactory2InterfaceName</interface-name>
 		<resource-adapter>webAppConnectionFactory2ResourceAdapter
 		</resource-adapter>
 		<max-pool-size>2</max-pool-size>
@@ -975,7 +980,7 @@
 	<connection-factory>
 		<description>webAppConnectionFactory3Desc</description>
 		<name>webAppConnectionFactory3Name</name>
-		<class-name>webAppConnectionFactory3ClassName</class-name>
+		<interface-name>webAppConnectionFactory3InterfaceName</interface-name>
 		<resource-adapter>webAppConnectionFactory3ResourceAdapter
 		</resource-adapter>
 		<max-pool-size>3</max-pool-size>
@@ -992,7 +997,7 @@
 	</connection-factory>
 	<connection-factory>
 		<name>webAppConnectionFactory4Name</name>
-		<class-name>webAppConnectionFactory4ClassName</class-name>
+		<interface-name>webAppConnectionFactory4InterfaceName</interface-name>
 		<resource-adapter>webAppConnectionFactory4ResourceAdapter
 		</resource-adapter>
 	</connection-factory>
