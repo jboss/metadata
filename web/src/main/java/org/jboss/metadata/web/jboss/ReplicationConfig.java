@@ -32,41 +32,8 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  */
 public class ReplicationConfig extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
-    protected ReplicationTrigger trigger;
     protected ReplicationGranularity granularity;
-    protected Boolean fieldBatchMode;
     protected String cacheName;
-    protected Boolean useJK;
-    protected Integer maxUnreplicatedInterval;
-    protected SnapshotMode snapshotMode;
-    protected Integer snapshotInterval;
-    protected String sessionNotificationPolicy = null;
-    protected ReplicationMode mode;
-    protected Integer backups;
-
-    public Integer getBackups() {
-        return this.backups;
-    }
-
-    public void setBackups(Integer backups) {
-        this.backups = backups;
-    }
-
-    public ReplicationMode getReplicationMode() {
-        return this.mode;
-    }
-
-    public void setReplicationMode(ReplicationMode mode) {
-        this.mode = mode;
-    }
-
-    public ReplicationTrigger getReplicationTrigger() {
-        return trigger;
-    }
-
-    public void setReplicationTrigger(ReplicationTrigger trigger) {
-        this.trigger = trigger;
-    }
 
     public ReplicationGranularity getReplicationGranularity() {
         return granularity;
@@ -74,14 +41,6 @@ public class ReplicationConfig extends IdMetaDataImpl {
 
     public void setReplicationGranularity(ReplicationGranularity granularity) {
         this.granularity = granularity;
-    }
-
-    public Boolean getReplicationFieldBatchMode() {
-        return fieldBatchMode;
-    }
-
-    public void setReplicationFieldBatchMode(Boolean fieldBatchMode) {
-        this.fieldBatchMode = fieldBatchMode;
     }
 
     public String getCacheName() {
@@ -92,53 +51,9 @@ public class ReplicationConfig extends IdMetaDataImpl {
         this.cacheName = cacheName;
     }
 
-    public Integer getSnapshotInterval() {
-        return snapshotInterval;
-    }
-
-    public void setSnapshotInterval(Integer snapshotInterval) {
-        this.snapshotInterval = snapshotInterval;
-    }
-
-    public SnapshotMode getSnapshotMode() {
-        return snapshotMode;
-    }
-
-    public void setSnapshotMode(SnapshotMode snapshotMode) {
-        this.snapshotMode = snapshotMode;
-    }
-
-    public Boolean getUseJK() {
-        return useJK;
-    }
-
-    public void setUseJK(Boolean useJK) {
-        this.useJK = useJK;
-    }
-
-    public Integer getMaxUnreplicatedInterval() {
-        return maxUnreplicatedInterval;
-    }
-
-    public void setMaxUnreplicatedInterval(Integer maxUnreplicatedInterval) {
-        this.maxUnreplicatedInterval = maxUnreplicatedInterval;
-    }
-
-    public String getSessionNotificationPolicy() {
-        return sessionNotificationPolicy;
-    }
-
-    public void setSessionNotificationPolicy(String sessionNotificationPolicy) {
-        this.sessionNotificationPolicy = sessionNotificationPolicy;
-    }
-
     public String toString() {
-        StringBuffer sb = new StringBuffer(100);
-        sb.append("cacheName=").append(cacheName).append(";granularity=").append(granularity).append(";trigger=")
-                .append(trigger).append(";fieldBatchMode=").append(fieldBatchMode).append(";useJK=").append(useJK)
-                .append(";maxUnreplicatedInterval=").append(maxUnreplicatedInterval).append(";snapshotMode=")
-                .append(snapshotMode).append(";snapshotInterval=").append(snapshotInterval)
-                .append(";sessionNotificationPolicy=").append(sessionNotificationPolicy);
+        StringBuilder sb = new StringBuilder(100);
+        sb.append("cacheName=").append(cacheName).append(";granularity=").append(granularity);
         return sb.toString();
     }
 }

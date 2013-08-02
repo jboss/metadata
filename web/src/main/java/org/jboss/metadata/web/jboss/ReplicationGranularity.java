@@ -22,7 +22,7 @@
 package org.jboss.metadata.web.jboss;
 
 public enum ReplicationGranularity {
-    SESSION, ATTRIBUTE, FIELD;
+    SESSION, ATTRIBUTE;
 
     public static ReplicationGranularity fromString(String granularity) {
         return (granularity == null ? SESSION : Enum.valueOf(ReplicationGranularity.class, granularity));

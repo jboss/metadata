@@ -27,16 +27,4 @@ package org.jboss.metadata.web.jboss;
  */
 public class JBoss60WebMetaData extends JBossWebMetaData {
     private static final long serialVersionUID = 1;
-
-    // Use the AS 6 ReplicationConfig type
-    @Override
-    public ReplicationConfig getReplicationConfig() {
-        return super.getReplicationConfig();
-    }
-
-    @Override
-    public void setReplicationConfig(ReplicationConfig replicationConfig) {
-        super.setReplicationConfig(replicationConfig);
-    }
-
 }

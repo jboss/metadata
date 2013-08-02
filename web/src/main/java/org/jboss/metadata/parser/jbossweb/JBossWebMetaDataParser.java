@@ -23,11 +23,15 @@
 package org.jboss.metadata.parser.jbossweb;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.jboss.logging.Logger;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
@@ -51,6 +55,10 @@ import org.jboss.metadata.web.jboss.ValveMetaData;
  * @author Remy Maucherat
  */
 public class JBossWebMetaDataParser extends MetaDataElementParser {
+    private static final Logger log = Logger.getLogger(JBossWebMetaDataParser.class);
+    private static final Set<String> DEPRECATED_ELEMENTS = new HashSet<>(Arrays.asList(
+            "passivation-config"
+    ));
 
     public static JBossWebMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
 
@@ -138,7 +146,8 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 }
                 continue;
             }
-            final Element element = Element.forName(reader.getLocalName());
+            String localName = reader.getLocalName();
+            final Element element = Element.forName(localName);
             switch (element) {
                 case CONTEXT_ROOT:
                     wmd.setContextRoot(getElementText(reader, propertyReplacer));
@@ -226,9 +235,6 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case REPLICATION_CONFIG:
                     wmd.setReplicationConfig(ReplicationConfigParser.parse(reader, propertyReplacer));
                     break;
-                case PASSIVATION_CONFIG:
-                    wmd.setPassivationConfig(PassivationConfigParser.parse(reader, propertyReplacer));
-                    break;
                 case DISTINCT_NAME:
                     final String val = getElementText(reader, propertyReplacer);
                     wmd.setDistinctName(val);
@@ -248,8 +254,17 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case EXECUTOR_NAME:
                     wmd.setExecutorName(getElementText(reader, propertyReplacer));
                     break;
-                default:
-                    throw unexpectedElement(reader);
+                default: {
+                    if (DEPRECATED_ELEMENTS.contains(localName)) {
+                        log.warnf("<%s/> is no longer supported and will be ignored", localName);
+                        // Skip any nested content
+                        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+                            reader.getElementText();
+                        }
+                    } else {
+                        throw unexpectedElement(reader);
+                    }
+                }
             }
         }
 

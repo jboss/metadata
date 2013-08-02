@@ -231,9 +231,6 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         if (override != null && override.getReplicationConfig() != null)
             dest.setReplicationConfig(override.getReplicationConfig());
 
-        if (override != null && override.getPassivationConfig() != null)
-            dest.setPassivationConfig(override.getPassivationConfig());
-
         if (override != null && override.getWebserviceDescriptions() != null)
             dest.setWebserviceDescriptions(override.getWebserviceDescriptions());
 
