@@ -148,7 +148,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private List<String> virtualHosts;
     private boolean flushOnSessionInvalidation;
     private ReplicationConfig replicationConfig;
-    private PassivationConfig passivationConfig;
     private WebserviceDescriptionsMetaData webserviceDescriptions = new WebserviceDescriptionsMetaData();
     private Boolean jaccAllStoreRole;
     private JBossAnnotationsMetaData annotations;
@@ -689,14 +688,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setMaxActiveSessions(Integer maxActiveSessions) {
         this.maxActiveSessions = maxActiveSessions;
-    }
-
-    public PassivationConfig getPassivationConfig() {
-        return passivationConfig;
-    }
-
-    public void setPassivationConfig(PassivationConfig passivationConfig) {
-        this.passivationConfig = passivationConfig;
     }
 
     public ReplicationConfig getReplicationConfig() {

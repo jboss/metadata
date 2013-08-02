@@ -37,8 +37,6 @@ public enum Element {
     // jboss-web elements in alpha order
     ANNOTATION("annotation"),
 
-    BACKUPS("backups"),
-
     CACHE_NAME("cache-name"),
     CLASS_LOADING("class-loading"),
     CLASS_NAME("class-name"),
@@ -65,7 +63,6 @@ public enum Element {
     LOADER_REPOSITORY_CONFIG("loader-repository-config"),
 
     MAX_ACTIVE_SESSIONS("max-active-sessions"),
-    MAX_UNREPLICATED_INTERVAL("max-unreplicated-interval"),
     MESSAGE_DESTINATION("message-destination"),
     METHOD("method"),
     MODULE("module"),
@@ -74,14 +71,9 @@ public enum Element {
     OVERLAY("overlay"),
 
     PARAM("param"),
-    PASSIVATION_CONFIG("passivation-config"),
-    PASSIVATION_MAX_IDLE_TIME("passivation-max-idle-time"),
-    PASSIVATION_MIN_IDLE_TIME("passivation-min-idle-time"),
 
     REPLICATION_CONFIG("replication-config"),
     REPLICATION_GRANULARITY("replication-granularity"),
-    REPLICATION_MODE("replication-mode"),
-    REPLICATION_TRIGGER("replication-trigger"),
     ROLE_ALLOWED("role-allowed"),
     RUN_AS("run-as"),
     RUN_AS_PRINCIPAL("run-as-principal"),
@@ -94,16 +86,11 @@ public enum Element {
     SERVLET_CONTAINER("servlet-container"),
     SERVER_INSTANCE("server-instance"),
     SESSION_CONFIG("session-config"),
-    SESSION_NOTIFICATION_POLICY("session-notification-policy"),
-    SNAPSHOT_INTERVAL("snapshot-interval"),
-    SNAPSHOT_MODE("snapshot-mode"),
     SYMBOLIC_ENABLED("symbolic-linking-enabled"),
 
     TRANSPORT_GUARANTEE("transport-guarantee"),
 
     USE_JBOSS_AUTHORIZATION("use-jboss-authorization"),
-    USE_JK("use-jk"),
-    USE_SESSION_PASSIVATION("use-session-passivation"),
 
     VALVE("valve"),
     VIRTUAL_HOST("virtual-host"),

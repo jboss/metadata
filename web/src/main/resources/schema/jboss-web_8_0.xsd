@@ -115,9 +115,23 @@
          <xsd:element name="use-jboss-authorization" type="jboss:use-jboss-authorizationType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="disable-audit" type="jboss:disable-auditType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="servlet" type="jboss:servletType" minOccurs="0" maxOccurs="unbounded"/>
-         <xsd:element name="max-active-sessions" type="javaee:xsdIntegerType" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="max-active-sessions" type="javaee:xsdIntegerType" minOccurs="0" maxOccurs="1">
+            <xsd:annotation>
+               <xsd:documentation>
+                  Determines the maximum number of sessions to retain in memory. If the application attempts to exceed
+                  this limit, the resulting behavior is determined by the session manager.
+
+                  If the session manager supports passivation, then sessions accessed least recently will be
+                  passivated to make room for new sessions.
+                  If the session manager does not support passivation then any attempt to create more than
+                  max-active-sessions will fail.
+
+                  If undefined, or if set to -1, then no limit is placed on the number of sessions retained in memory,
+                  and sessions will never passivate.
+                </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
          <xsd:element name="replication-config" type="jboss:replication-configType" minOccurs="0" maxOccurs="1"/>
-         <xsd:element name="passivation-config" type="jboss:passivation-configType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="distinct-name" type="jboss:distinct-nameType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="symbolic-linking-enabled" type="jboss:symbolic-linked-allowedType" minOccurs="0" maxOccurs="1"/>
          <xsd:group ref="jboss:jndiEnvironmentRefsGroup"/>
@@ -347,322 +361,64 @@
       </xsd:annotation>
 
       <xsd:sequence>
-         <xsd:element name="cache-name" type="jboss:cache-nameType" minOccurs="0"/>
-         <xsd:element name="replication-trigger" type="jboss:replication-triggerType" minOccurs="0"/>
-         <xsd:element name="replication-granularity" type="jboss:replication-granularityType" minOccurs="0"/>
-         <xsd:element name="replication-mode" type="jboss:replication-modeType" minOccurs="0"/>
-         <xsd:element name="backups" type="jboss:backupsType" minOccurs="0"/>
-         <xsd:element name="use-jk" type="jboss:use-jkType" minOccurs="0"/>
-         <xsd:element name="max-unreplicated-interval" type="jboss:max-unreplicated-intervalType" minOccurs="0"/>
-         <xsd:element name="snapshot-mode" type="jboss:snapshot-modeType" minOccurs="0"/>
-         <xsd:element name="snapshot-interval" type="jboss:snapshot-intervalType" minOccurs="0"/>
-         <xsd:element name="session-notification-policy" type="jboss:session-notification-policyType" minOccurs="0"/>
+         <xsd:element name="cache-name" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+                <xsd:documentation>
+                    <![CDATA[
+
+                    Clustering only: Specifies the name of the Infinispan container/cache in which to store session data.
+
+                    Default value, if not explicitly set, is determined by the application server.
+
+                    To use a specific cache within a cache container, use the form "container/cache".
+                    If unqualified, the default cache of the specified container is used.
+
+                    e.g. <cache-name>web</cache-name>
+                         <cache-name>web/dist</cache-name>
+
+                    ]]>
+                </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
+         <xsd:element name="replication-granularity" type="jboss:replication-granularityType" minOccurs="0" default="SESSION">
+            <xsd:annotation>
+                <xsd:documentation>
+                    <![CDATA[
+
+                    Clustering only: Determines the session replication granularity level.
+                    Possible values are:
+                            1 - "SESSION" (default)
+                            2 - "ATTRIBUTE"
+
+                    Using SESSION granularity, all session attributes are replicated if any were modified within
+                    the scrope of a request. This policy is required if an object reference is shared by multiple
+                    session attributes. However, this can be inefficient if session attributes are sufficiently
+                    large and/org are modified infrequently, since all attributes must be replicated reglardless
+                    of  whether they were modified or not.
+
+                    Using ATTRIBUTE granularity, only those attributes that were modified within the scope of a
+                    request are replicated. This policy is not appropriate if an object reference is shared by
+                    multiple session attributes. This can be more efficient than SESSION granularity if the
+                    session attributes are sufficiently large and/or modified infrequently.
+
+                    Examples:
+                          <replication-granularity>SESSION</replication-granularity>
+                       or
+                          <replication-granularity>ATTRIBUTE</replication-granularity>
+
+                    ]]>
+                </xsd:documentation>
+            </xsd:annotation>
+         </xsd:element>
       </xsd:sequence>
    </xsd:complexType>
 
-   <xsd:complexType name="cache-nameType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Name of the JBoss Cache or PojoCache configuration that
-            should be used for storing distributable sessions and replicating them around the
-            cluster.
-
-            Default value if not explicitly set is the overall web container default
-            as set in the deployers/jbossweb.deployer service.
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:simpleContent>
-         <xsd:restriction base="javaee:string"/>
-      </xsd:simpleContent>
-   </xsd:complexType>
-
-   <xsd:complexType name="replication-triggerType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Determines when the container should consider that a session
-            must be replicated across the cluster.
-            Possible values are:
-               1 - "ACCESS"
-               2 - "SET_AND_GET"
-               3 - "SET_AND_NON_PRIMITIVE_GET" (default value)
-               4 - "SET"
-
-            The rationale for this setting is that after a mutable object stored as a session attribute
-            is accessed from the session, in the absence of a setAttribute call the container has no
-            clear way to know if the object (and hence the session state) has been modified.
-
-            In all cases, calling setAttribute marks the session as needing replication.
-
-            ACCESS - merely accessing the session marks the session as dirty.
-
-            SET_AND_GET is conservative but not optimal (performance-wise): it will always replicate the
-            session even if its content has not been modified but simply accessed.
-
-            SET_AND_NON_PRIMITIVE_GET is conservative but will only replicate if a non-primitive Object
-            has been accessed (i.e. the object is not of a well-known immutable JDK type such as Integer,
-            Long, String, etc.) This is the default value.
-
-            SET assumes that the developer will explicitly call setAttribute on the session
-            if it needs to be replicated. This setting prevents unnecessary replication, but requires very
-            good coding practices to ensure setAttribute is always called whenever an attribute value
-            is modified.
-
-            Examples:
-                  <replication-trigger>SET_AND_GET</replication-trigger>
-               or
-                  <replication-trigger>SET_AND_NON_PRIMITIVE_GET</replication-trigger>
-               or
-                  <replication-trigger>SET</replication-trigger>
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:simpleContent>
-         <xsd:restriction base="javaee:string">
-            <xsd:enumeration value="ACCESS"/>
-            <xsd:enumeration value="SET_AND_GET"/>
-            <xsd:enumeration value="SET_AND_NON_PRIMITIVE_GET"/>
-            <xsd:enumeration value="SET"/>
-         </xsd:restriction>
-      </xsd:simpleContent>
-   </xsd:complexType>
-
    <xsd:complexType name="replication-granularityType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Determines the session replication granularity level.
-            Possible values are:
-                    1 - "SESSION" (default)
-                    2 - "ATTRIBUTE"
-
-            The first option indicates that replication is done per session instance, i.e. when
-            the session is considered modified, the whole session object will be serialized
-            and replicated. This is the preferred policy when the sessions are generally small.
-
-            The second option indicates that replication is performed only for the the dirty
-            attributes in the session, plus some session data, like lastAccessTime. For sessions
-            carrying large amounts of data, parts of which are infrequently accessed,
-            this option can increase replication performance.
-
-            A third option, "FIELD" was available in AS 4.x and AS 5.x, but it
-            is not supported by AS 6.
-
-            Examples:
-                  <replication-granularity>SESSION</replication-granularity>
-               or
-                  <replication-granularity>ATTRIBUTE</replication-granularity>
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
       <xsd:simpleContent>
          <xsd:restriction base="javaee:string">
             <xsd:enumeration value="SESSION"/>
             <xsd:enumeration value="ATTRIBUTE"/>
          </xsd:restriction>
-      </xsd:simpleContent>
-   </xsd:complexType>
-
-   <xsd:complexType name="replication-modeType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Determines the session replication mode.
-            Possible values are:
-                1 - "SYNCHRONOUS"
-                2 - "ASYNCHRONOUS"
-
-            In SYNCHRONOUS mode, session replication occurs in the same thread that processes a given
-            request.  A request will not complete until the associated session is successfully replicated.
-
-            In ASYNCHRONOUS mode, session replication occurs in a separate thread from the one that processes
-            a given request.  The request thread only initiates replication, but does not wait for it to complete.
-
-            If not defined, the replication mode defined in the distributed cache configuration will be used.
-            In the default distributed session cache configuration, sessions replicate asynchronously.
-
-            Examples:
-                  <replication-mode>SYNCHRONOUS</replication-mode>
-               or
-                  <replication-mode>ASYNCHRONOUS</replication-mode>
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:simpleContent>
-         <xsd:restriction base="javaee:string">
-            <xsd:enumeration value="SYNCHRONOUS"/>
-            <xsd:enumeration value="ASYNCHRONOUS"/>
-         </xsd:restriction>
-      </xsd:simpleContent>
-   </xsd:complexType>
-
-   <xsd:simpleType name="backupsType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Defines the number of backup nodes on which to replicate
-            a given session.
-
-            Possible values are:
-                > 0 : Session will be replicated to *all* nodes (i.e. total replication)
-                  0 : Session will not be replicated (i.e. local mode)
-                < 0 : Session will be replicated only to the specified number of nodes (i.e. distribution mode)
-
-            Default value, if not explicitly set, is taken from the distributed cache
-            configuration.  By default, this is -1, i.e. total replication.
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:restriction base="xsd:integer"/>
-   </xsd:simpleType>
-
-   <xsd:complexType name="use-jkType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Whether the container should assume mod_jk is used for
-            load balancing for this webapp. If set to 'true', the container will examine
-            the session id associated with every request and replace the JvmRoute portion of
-            the session id if it detects a failover. In addition, for each host you will
-            need to set a unique JvmRoute inside the server.xml file, e.g.,
-
-            <Engine name="jboss.web" jvmRoute="Node1" defaultHost="localhost">
-               ...
-            </Engine>
-
-            Default value if not explicitly set is the overall web container default
-            as set in the deployers/jbossweb.deployer service. By default that is set
-            to "false".
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:simpleContent>
-         <xsd:restriction base="javaee:generic-booleanType"/>
-      </xsd:simpleContent>
-   </xsd:complexType>
-
-   <xsd:simpleType name="max-unreplicated-intervalType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Determines the maximum interval between requests, in
-            seconds, after which a request will trigger replication of the session's
-            timestamp and other metadata regardless of whether the request has otherwise
-            made the session dirty.  Such replication ensures that other nodes in the
-            cluster are aware of the most recent value for the session's timestamp
-            and won't incorrectly expire an unreplicated session upon failover. It also
-            results in correct values for HttpSession.getLastAccessedTime() calls
-            following failover.
-
-            The cost of this metadata replication depends on the configured
-            replication-granularity. With <code>SESSION</code>, the session's
-            attribute map is replicated along with the metadata, so it can be fairly
-            costly.  With other granularities, the metadata object is replicated
-            separately from the attributes and only contains a String, and a few longs,
-            ints and booleans.
-
-            A value of 0 means the metadata will be replicated whenever the session is
-            accessed.  A value of -1 means the metadata will be replicated only if some
-            other activity during the request (e.g. modifying an attribute) has
-            resulted in other replication work involving the session. A positive value
-            greater than the HttpSession.getMaxInactiveInterval() value will be treated
-            as a likely misconfiguration and converted to 0; i.e. replicate the
-            metadata on every request.
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:restriction base="xsd:integer"/>
-   </xsd:simpleType>
-
-   <xsd:complexType name="snapshot-modeType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Defines when the sessions are replicated to the other nodes.
-            The typical value, "instant", replicates changes to the other nodes at the end
-            of requests, using the request processing thread to perform the replication.
-            In this case, the "snapshot-interval" property is ignored.
-            With "interval" mode, a background process is created that runs every
-            "snapshot-interval" milliseconds, checking for modified sessions and replicating
-            them.
-
-            Default value if not explicitly set is the overall web container default
-            as set in the deployers/jbossweb.deployer service. By default that is set
-            to "instant".
-
-            Note that this property has no effect if replication-granularity
-            is set to FIELD. If it is FIELD, "instant" mode will be used.
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:simpleContent>
-         <xsd:restriction base="javaee:string">
-            <xsd:enumeration value="INSTANT"/>
-            <xsd:enumeration value="FIELD"/>
-         </xsd:restriction>
-      </xsd:simpleContent>
-   </xsd:complexType>
-
-   <xsd:simpleType name="snapshot-intervalType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Defines how often (in milliseconds) the background
-            process that replicates modified sessions should be started for this
-            web app.  Only meaningful if snapshot-mode is set to "interval".
-
-            Default value if not explicitly set is the overall web container default
-            as set in the deployers/jbossweb.deployer service. By default that is set
-            to "1000".
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:restriction base="xsd:integer"/>
-   </xsd:simpleType>
-
-   <xsd:complexType name="session-notification-policyType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Fully qualified class name of the implementation of the
-            org.jboss.web.tomcat.service.session.notification.ClusteredSessionNotificationPolicy
-            interface that should be used to govern whether servlet specification
-            notifications should be emitted to any registered HttpSessionListener,
-            HttpSessionAttributeListener and/or HttpSessionBindingListener.
-            Event notifications that may make sense in a non-clustered environment
-            may or may not make sense in a clustered environment; configuring an
-            appropriate ClusteredSessionNotificationPolicy gives the application
-            author fine-grained control over what notifications are issued.
-
-            Default value if not explicitly set is the
-            org.jboss.web.tomcat.service.session.notification.IgnoreUndeployLegacyClusteredSessionNotificationPolicy.
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:simpleContent>
-         <xsd:restriction base="javaee:fully-qualified-classType"/>
       </xsd:simpleContent>
    </xsd:complexType>
 
@@ -699,102 +455,6 @@
          <xsd:documentation>
             <![CDATA[
 
-            Clustering only: Determines the max number of active sessions allowed.
-            If the number of sessions managed by the the session manager exceeds this value and
-            passivation is enabled, the excess will be passivated based on the configured
-            passivation-min-idle-time.
-            If after passivation is completed (or if passivation is disabled), the number of
-            active sessions still exceeds this limit, attempts to create new sessions
-            will be rejected.
-            If set to -1, means no limit
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:restriction base="xsd:integer"/>
-   </xsd:simpleType>
-
-   <xsd:complexType name="passivation-configType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: HTTP Session passivation configuration.
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-
-      <xsd:sequence>
-         <xsd:element name="use-session-passivation" type="jboss:use-session-passivationType" minOccurs="0"/>
-         <xsd:element name="passivation-min-idle-time" type="jboss:passivation-idle-timeType" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation>
-                  <![CDATA[
-
-                  Determines the minimum time (in seconds) that a session must have been inactive
-                  before the container will consider passivating it in order to reduce the
-                  active session count below max-active-sessions.
-                  A value of -1 (the default) disables passivating sessions before
-                  passivation-max-idle-time.  Neither a value of -1 nor a high
-                  value are recommended if max-active-sessions is set
-
-                  Example:
-                     <passivation-min-idle-time>30</passivation-min-idle-time> (seconds)
-
-                  ]]>
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-         <xsd:element name="passivation-max-idle-time" type="jboss:passivation-idle-timeType" minOccurs="0">
-            <xsd:annotation>
-               <xsd:documentation>
-                  <![CDATA[
-
-                  Determines the maximum time (in seconds) that a session can be inactive before
-                  the container should attempt to passivate it to save memory. Passivation of such
-                  sessions will take place regardless of whether the active session count exceeds
-                  max-active-sessions.
-                  Should be less than the web.xml session-timeout setting.
-                  A value of -1 disables passivation based on maximum inactivity.
-
-                  Example:
-                     <passivation-max-idle-time>300</passivation-max-idle-time> (seconds)
-
-                  ]]>
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:element>
-      </xsd:sequence>
-   </xsd:complexType>
-
-   <xsd:complexType name="use-session-passivationType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Clustering only: Determines whether the web application should use session passivation or not
-
-            Examples:
-                  <use-session-passivation>true</use-session-passivation>
-               or
-                  <use-session-passivation>false</use-session-passivation> (default value)
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
-      <xsd:simpleContent>
-         <xsd:restriction base="javaee:generic-booleanType"/>
-      </xsd:simpleContent>
-   </xsd:complexType>
-
-   <xsd:simpleType name="passivation-idle-timeType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-            Determines the time (in seconds) that a session can be inactive before
-            the container should attempt to passivate it.
 
             ]]>
          </xsd:documentation>
