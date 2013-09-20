@@ -389,6 +389,27 @@ public class MetaDataElementParser implements XMLStreamConstants {
         }
     }
 
+    /**
+     * Consume the element content of an XML stream reader (e.g. in the event of a non-fatal parse error).
+     *
+     * @param reader the XML stream reader
+     */
+    protected static void consumeElementContent(final XMLStreamReader reader) throws XMLStreamException {
+        while (reader.hasNext()) {
+            switch (reader.next()) {
+                case END_ELEMENT: {
+                    return;
+                }
+                case START_ELEMENT: {
+                    consumeElementContent(reader);
+                    break;
+                }
+                default: {
+                    // ignore
+                }
+            }
+        }
+    }
 
     private static final Comparator<Object> NATURAL = new Comparator<Object>() {
         @SuppressWarnings("unchecked")

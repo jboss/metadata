@@ -128,7 +128,7 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                     }
                     case MODULE_ORDER: {
                         logger.warn("module-order element in jboss-app.xml is deprecated and has been ignored");
-                        //depricated
+                        consumeElementContent(reader);
                         break;
                     }
                     case SECURITY_DOMAIN: {
@@ -141,6 +141,7 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                     }
                     case JMX_NAME: {
                         logger.warn("jmx-name element in jboss-app.xml is deprecated and has been ignored");
+                        consumeElementContent(reader);
                         break;
                     }
                     case LIBRARY_DIRECTORY: {
@@ -148,8 +149,8 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                         break;
                     }
                     case LOADER_REPOSITORY: {
-                        parseLoaderRepository(reader, propertyReplacer);
                         logger.warn("loader-repository element in jboss-app.xml is deprecated and has been ignored");
+                        parseLoaderRepository(reader, propertyReplacer);
                         break;
                     }
                     case MODULE: {
