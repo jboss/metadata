@@ -86,6 +86,7 @@ public enum Element {
     SERVLET_CONTAINER("servlet-container"),
     SERVER_INSTANCE("server-instance"),
     SESSION_CONFIG("session-config"),
+    SHARED_SESSION_MANAGER("shared-session-manager"),
     SYMBOLIC_ENABLED("symbolic-linking-enabled"),
 
     TRANSPORT_GUARANTEE("transport-guarantee"),

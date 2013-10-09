@@ -208,6 +208,12 @@ public class JBossWebMetaData extends NamedModuleImpl {
      */
     private int sessionCookies = SESSION_COOKIES_DEFAULT;
 
+    /**
+     * If this is set it specifies the name of another deployment in the same ear who's session manager should be used instead of
+     * creating a new session manager for this deployment. This will result in the session being shared between the two deployments.
+     */
+    private String sharedSessionManager;
+
 
     public static final int SESSION_COOKIES_DEFAULT = 0;
     public static final int SESSION_COOKIES_ENABLED = 1;
@@ -1021,5 +1027,13 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setExecutorName(final String executorName) {
         this.executorName = executorName;
+    }
+
+    public String getSharedSessionManager() {
+        return sharedSessionManager;
+    }
+
+    public void setSharedSessionManager(String sharedSessionManager) {
+        this.sharedSessionManager = sharedSessionManager;
     }
 }

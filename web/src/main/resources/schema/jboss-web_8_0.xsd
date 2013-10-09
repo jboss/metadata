@@ -99,6 +99,7 @@
       <xsd:sequence>
          <xsd:element name="deny-uncovered-http-methods" type="xsd:boolean" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="executor-name" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="shared-session-manager" type="xsd:string" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="context-root" type="jboss:context-rootType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="virtual-host" type="jboss:virtual-hostType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="servlet-container" type="jboss:servlet-containerType" minOccurs="0" maxOccurs="1"/>
