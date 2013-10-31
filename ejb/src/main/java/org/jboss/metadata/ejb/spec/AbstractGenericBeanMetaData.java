@@ -669,8 +669,9 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
      * @throws IllegalArgumentException for a null timeoutMethod
      */
     public void setTimeoutMethod(NamedMethodMetaData timeoutMethod) {
-        if (getEjbType() != EjbType.MESSAGE_DRIVEN && getSessionType() != null && getSessionType() != SessionType.Stateless)
-            throw new IllegalStateException("EJB 3.1 FR 4.3.8: Only stateless beans can have timeouts: " + this);
+        if (getEjbType() != EjbType.MESSAGE_DRIVEN && getSessionType() != null
+                && getSessionType() != SessionType.Stateless && getSessionType() != SessionType.Singleton )
+            throw new IllegalStateException("EJB 3.1 FR 4.3.8: Only stateless or singleton beans can have timeouts: " + this);
         super.setTimeoutMethod(timeoutMethod);
     }
 
