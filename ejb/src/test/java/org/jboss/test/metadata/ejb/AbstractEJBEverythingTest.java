@@ -100,7 +100,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
         IEnterpriseBeansMetaData enterpriseBeansMetaData = ejbJarMetaData.getEnterpriseBeans();
         assertNotNull(enterpriseBeansMetaData);
         assertId(mode == Mode.SPEC ? "enterprise-beans" : "jboss-enterprise-beans", enterpriseBeansMetaData);
-        assertEquals(15, enterpriseBeansMetaData.size());
+        assertEquals(16, enterpriseBeansMetaData.size());
 
         final String sessionPrefix = mode == Mode.SPEC ? "session" : "jbossSession";
         assertNullSession(sessionPrefix + "0", enterpriseBeansMetaData, mode);

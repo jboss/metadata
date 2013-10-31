@@ -792,6 +792,18 @@
          </security-identity>
 
       </session>
+      
+      <session id="sessionSingleton-id">
+         <ejb-name>sessionSEjbName</ejb-name>
+         <ejb-class>sessionSEjbClass</ejb-class>
+         <session-type>Singleton</session-type>
+         <timeout-method id="sessionSingletonTimeoutMethod-id">
+            <method-name>sessionSingletonTimeoutMethod</method-name>
+            <method-params>
+               <method-param>sessionSingletonTimeoutMethodParam1</method-param>
+            </method-params>
+         </timeout-method>
+      </session>
 
       <session id="session2-id">
       
