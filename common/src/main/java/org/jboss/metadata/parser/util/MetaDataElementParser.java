@@ -344,6 +344,10 @@ public class MetaDataElementParser implements XMLStreamConstants {
             return null;
         }
         String loc = reader.getText();
+        if (loc == null
+                || loc.isEmpty()) {
+            return null;
+        }
         int end = loc.lastIndexOf('"');
         if (end > 0) {
             int begin = loc.lastIndexOf('"', end - 1);
