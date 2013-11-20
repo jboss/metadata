@@ -245,6 +245,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case SERVLET_CONTAINER:
                     wmd.setServletContainerName(getElementText(reader, propertyReplacer));
                     break;
+                case DEFAULT_ENCODING:
+                    wmd.setDefaultEncoding(getElementText(reader, propertyReplacer));
+                    break;
                 case SERVER_INSTANCE:
                     wmd.setServerInstanceName(getElementText(reader, propertyReplacer));
                     break;

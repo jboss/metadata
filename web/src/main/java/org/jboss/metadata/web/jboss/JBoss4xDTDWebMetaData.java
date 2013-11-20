@@ -33,7 +33,4 @@ public class JBoss4xDTDWebMetaData extends JBossWebMetaData {
      */
     private static final long serialVersionUID = 1L;
 
-    public void setEnvironmentRefsGroup4x(JBossWeb4xEnvironmentRefsGroupMetaData env) {
-        super.setEnvironmentRefsGroup(env);
-    }
 }

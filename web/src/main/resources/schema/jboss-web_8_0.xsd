@@ -23,7 +23,7 @@
 
 <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
             targetNamespace="http://www.jboss.com/xml/ns/javaee"
-            xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+            xmlns:javaee="http://xmlns.jcp.org/xml/ns/javaee"
             xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             elementFormDefault="qualified"
@@ -72,8 +72,7 @@
          consistency with the Servlet API. </xsd:documentation>
    </xsd:annotation>
 
-   <xsd:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="web-app_3_0.xsd"/>
-   <xsd:include schemaLocation="jboss-common_6_0.xsd"/>
+   <xsd:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="web-app_3_1.xsd"/>
 
    <xsd:element name="jboss-web" type="jboss:jboss-webType">
       <xsd:annotation>
@@ -104,10 +103,11 @@
          <xsd:element name="virtual-host" type="jboss:virtual-hostType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="servlet-container" type="jboss:servlet-containerType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="server-instance" type="jboss:server-instanceType" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="default-encoding" type="jboss:defaultEncodingType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="annotation" type="jboss:annotationType" minOccurs="0" maxOccurs="unbounded"/>
-         <xsd:element name="listener" type="jboss:container-listenerType" minOccurs="0" maxOccurs="unbounded"/>
+         <!--<xsd:element name="listener" type="jboss:container-listenerType" minOccurs="0" maxOccurs="unbounded"/>-->
          <xsd:element name="session-config" type="javaee:session-configType" minOccurs="0" maxOccurs="1"/>
-         <xsd:element name="valve" type="jboss:valveType" minOccurs="0" maxOccurs="unbounded"/>
+         <!--<xsd:element name="valve" type="jboss:valveType" minOccurs="0" maxOccurs="unbounded"/>-->
          <xsd:element name="overlay" type="jboss:overlayType" minOccurs="0" maxOccurs="unbounded"/>
          <xsd:element name="security-domain" type="jboss:security-domainType" minOccurs="0"/>
          <xsd:element name="security-role" type="jboss:security-roleType" minOccurs="0" maxOccurs="unbounded"/>
@@ -136,8 +136,6 @@
          <xsd:element name="distinct-name" type="jboss:distinct-nameType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="symbolic-linking-enabled" type="jboss:symbolic-linked-allowedType" minOccurs="0" maxOccurs="1"/>
          <xsd:group ref="jboss:jndiEnvironmentRefsGroup"/>
-         <xsd:element name="message-destination" type="jboss:message-destinationType" minOccurs="0" maxOccurs="unbounded"/>
-         <xsd:element name="webservice-description" type="jboss:webservice-descriptionType" minOccurs="0" maxOccurs="unbounded"/>
       </xsd:sequence>
       <xsd:attribute name="version" type="jboss:jboss-web-versionType" use="required"/>
    </xsd:complexType>
@@ -325,6 +323,17 @@
       <xsd:annotation>
          <xsd:documentation>
              The server-instance element specifies the which server instance configuration this application belongs to.
+         </xsd:documentation>
+      </xsd:annotation>
+      <xsd:simpleContent>
+         <xsd:restriction base="javaee:string"/>
+      </xsd:simpleContent>
+   </xsd:complexType>
+
+    <xsd:complexType name="defaultEncodingType">
+      <xsd:annotation>
+         <xsd:documentation>
+             Default encoding to use for this application
          </xsd:documentation>
       </xsd:annotation>
       <xsd:simpleContent>
