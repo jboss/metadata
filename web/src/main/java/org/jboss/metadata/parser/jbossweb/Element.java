@@ -85,6 +85,7 @@ public enum Element {
     SERVLET_SECURITY("servlet-security"),
     SERVLET_CONTAINER("servlet-container"),
     SERVER_INSTANCE("server-instance"),
+    DEFAULT_ENCODING("default-encoding"),
     SESSION_CONFIG("session-config"),
     SHARED_SESSION_MANAGER("shared-session-manager"),
     SYMBOLIC_ENABLED("symbolic-linking-enabled"),

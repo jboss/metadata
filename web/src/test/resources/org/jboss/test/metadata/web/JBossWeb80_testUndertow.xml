@@ -6,7 +6,7 @@
     <shared-session-manager>sessionManager</shared-session-manager>
     <servlet-container>default</servlet-container>
     <server-instance>default</server-instance>
-
+    <default-encoding>UTF-8</default-encoding>
     <servlet>
         <servlet-name>MyServlet</servlet-name>
         <executor-name>otherexecutor</executor-name>

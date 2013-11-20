@@ -24,10 +24,8 @@ package org.jboss.metadata.merge.web.jboss;
 import org.jboss.metadata.javaee.jboss.NamedModule;
 import org.jboss.metadata.javaee.spec.Environment;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.merge.javaee.spec.EnvironmentRefsGroupMetaDataMerger;
-import org.jboss.metadata.merge.javaee.spec.MessageDestinationsMetaDataMerger;
 import org.jboss.metadata.merge.javaee.spec.SecurityRolesMetaDataMerger;
 import org.jboss.metadata.merge.javaee.support.NamedModuleImplMerger;
 import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
@@ -176,8 +174,6 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         if (override != null && override.getJaccContextID() != null)
             dest.setJaccContextID(override.getJaccContextID());
 
-        if (override != null && override.getClassLoading() != null)
-            dest.setClassLoading(override.getClassLoading());
 
         if (override != null && override.getDepends() != null)
             dest.setDepends(override.getDepends());
@@ -203,15 +199,6 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
             soriginal = original.getServlets();
         dest.setServlets(JBossServletsMetaDataMerger.merge(soverride, soriginal));
 
-        MessageDestinationsMetaData overrideMsgDests = null;
-        MessageDestinationsMetaData originalMsgDests = null;
-        if (override != null && override.getMessageDestinations() != null)
-            overrideMsgDests = override.getMessageDestinations();
-        if (original != null && original.getMessageDestinations() != null)
-            originalMsgDests = original.getMessageDestinations();
-        dest.setMessageDestinations(MessageDestinationsMetaDataMerger.merge(overrideMsgDests, originalMsgDests, overridenFile,
-                overrideFile));
-
         if (dest.getJndiEnvironmentRefsGroup() == null)
             dest.setJndiEnvironmentRefsGroup(new EnvironmentRefsGroupMetaData());
         Environment env = null;
@@ -233,9 +220,6 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
 
         if (override != null && override.getWebserviceDescriptions() != null)
             dest.setWebserviceDescriptions(override.getWebserviceDescriptions());
-
-        if (override != null && override.getArbitraryMetadata() != null)
-            dest.setArbitraryMetadata(override.getArbitraryMetadata());
 
         if (override != null && override.getMaxActiveSessions() != null)
             dest.setMaxActiveSessions(override.getMaxActiveSessions());
@@ -290,6 +274,9 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         }
         if(override != null && override.getServletContainerName() != null) {
             dest.setServletContainerName(override.getServletContainerName());
+        }
+        if(override != null && override.getDefaultEncoding() != null) {
+            dest.setDefaultEncoding(override.getDefaultEncoding());
         }
     }
 }

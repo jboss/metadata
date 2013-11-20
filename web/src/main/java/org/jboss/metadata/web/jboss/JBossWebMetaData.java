@@ -32,37 +32,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.jboss.metadata.common.jboss.WebserviceDescriptionsMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferenceMetaData;
-import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.javaee.spec.Environment;
-import org.jboss.metadata.javaee.spec.EnvironmentEntriesMetaData;
-import org.jboss.metadata.javaee.spec.EnvironmentEntryMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.JavaEEMetaDataConstants;
-import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
-import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceUnitReferenceMetaData;
-import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceEnvironmentReferencesMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
-import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
-import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 import org.jboss.metadata.javaee.support.NamedModuleImpl;
 import org.jboss.metadata.web.spec.AnnotationMetaData;
 import org.jboss.metadata.web.spec.ErrorPageMetaData;
@@ -120,12 +98,9 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private String securityDomain;
     private String jaccContextID;
     /**
-     * The loader repository
-     */
-    private ClassLoadingMetaData classLoading;
-    /**
      * A list of extra dependencies to wait on
      */
+    @Deprecated
     private List<String> depends;
     /** */
     private Map<String, RunAsIdentityMetaData> runAsIdentity = new ConcurrentHashMap<String, RunAsIdentityMetaData>();
@@ -137,7 +112,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
     /**
      * The message destinations
      */
-    private MessageDestinationsMetaData messageDestinations = new MessageDestinationsMetaData();
     /**
      * The environment
      */
@@ -176,29 +150,11 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private String distinctName;
 
     /**
-     * The web context class loader used to create the java:comp context
-     */
-    @Deprecated
-    private transient ClassLoader encLoader;
-    /**
-     * The web context class loader, used to create the ws4ee service endpoint
-     */
-    @Deprecated
-    private transient ClassLoader cxtLoader;
-    /**
-     * this is really a hack for new injection code so that we can reparse
-     * web.xml/jbossweb.xml for JavaEE 5 injections todo remove this when we
-     * clean up
-     */
-    private HashMap<?, ?> arbitraryMetadata = new HashMap<Object, Object>();
-
-    /**
      * The maximum number of active sessions allowed, or -1 for no limit
      */
     private Integer maxActiveSessions = null;
 
     /**
-     *
      * The name of the executor to use to handle requests from this deployment (Undertow only)
      */
     private String executorName;
@@ -214,45 +170,13 @@ public class JBossWebMetaData extends NamedModuleImpl {
      */
     private String sharedSessionManager;
 
+    private String defaultEncoding;
+
 
     public static final int SESSION_COOKIES_DEFAULT = 0;
     public static final int SESSION_COOKIES_ENABLED = 1;
     public static final int SESSION_COOKIES_DISABLED = 2;
 
-    /**
-     * Callback for the DTD information
-     *
-     * @param root
-     * @param publicId
-     * @param systemId
-     */
-    public void setDTD(String root, String publicId, String systemId) {
-        this.dtdPublicId = publicId;
-        this.dtdSystemId = systemId;
-        // Set the version based on the public id
-        if (dtdPublicId != null && dtdPublicId.contains("3.0"))
-            setVersion("3.0");
-        else if (dtdPublicId != null && dtdPublicId.contains("3.2"))
-            setVersion("3.2");
-        else if (dtdPublicId != null && dtdPublicId.contains("2.4"))
-            setVersion("4.0");
-        else if (dtdPublicId != null && dtdPublicId.contains("4.2"))
-            setVersion("4.2");
-        else if (dtdPublicId != null && dtdPublicId.contains("5.0"))
-            setVersion("5.0");
-        else if (dtdSystemId != null && dtdSystemId.contains("3_0"))
-            setVersion("3.0");
-        else if (dtdSystemId != null && dtdSystemId.contains("3_2"))
-            setVersion("3.2");
-        else if (dtdSystemId != null && dtdSystemId.contains("4_0"))
-            setVersion("4.0");
-        else if (dtdSystemId != null && dtdSystemId.contains("4_2"))
-            setVersion("4.2");
-        else if (dtdSystemId != null && dtdSystemId.contains("5_0"))
-            setVersion("5.0");
-        else if (dtdSystemId != null && dtdSystemId.contains("6_0"))
-            setVersion("6.0");
-    }
 
     /**
      * Get the DTD public id if one was seen
@@ -431,8 +355,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public JBossServletMetaData getServletByName(String name) {
         JBossServletMetaData servlet = null;
-        if (servlets != null)
-            servlet = servlets.get(name);
+        if (servlets != null) { servlet = servlets.get(name); }
         return servlet;
     }
 
@@ -476,116 +399,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         this.welcomeFileList = welcomeFileList;
     }
 
-    public EJBLocalReferenceMetaData getEjbLocalReferenceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, getEjbLocalReferences());
-    }
-
-    public EJBLocalReferencesMetaData getEjbLocalReferences() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getEjbLocalReferences();
-        return null;
-    }
-
-    public EJBReferenceMetaData getEjbReferenceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, getEjbReferences());
-    }
-
-    public EJBReferencesMetaData getEjbReferences() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getEjbReferences();
-        return null;
-    }
-
-    public EnvironmentEntriesMetaData getEnvironmentEntries() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getEnvironmentEntries();
-        return null;
-    }
-
-    public EnvironmentEntryMetaData getEnvironmentEntryByName(String name) {
-        return AbstractMappedMetaData.getByName(name, getEnvironmentEntries());
-    }
-
-    public MessageDestinationReferenceMetaData getMessageDestinationReferenceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, getMessageDestinationReferences());
-    }
-
-    public MessageDestinationReferencesMetaData getMessageDestinationReferences() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getMessageDestinationReferences();
-        return null;
-    }
-
-    public PersistenceContextReferenceMetaData getPersistenceContextReferenceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, getPersistenceContextRefs());
-    }
-
-    public PersistenceContextReferencesMetaData getPersistenceContextRefs() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getPersistenceContextRefs();
-        return null;
-    }
-
-    public PersistenceUnitReferenceMetaData getPersistenceUnitReferenceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, getPersistenceUnitRefs());
-    }
-
-    public PersistenceUnitReferencesMetaData getPersistenceUnitRefs() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getPersistenceUnitRefs();
-        return null;
-    }
-
-    public LifecycleCallbacksMetaData getPostConstructs() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getPostConstructs();
-        return null;
-    }
-
-    public LifecycleCallbacksMetaData getPreDestroys() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getPreDestroys();
-        return null;
-    }
-
-    public ResourceEnvironmentReferenceMetaData getResourceEnvironmentReferenceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, getResourceEnvironmentReferences());
-    }
-
-    public ResourceEnvironmentReferencesMetaData getResourceEnvironmentReferences() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getResourceEnvironmentReferences();
-        return null;
-    }
-
-    public ResourceReferenceMetaData getResourceReferenceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, getResourceReferences());
-    }
-
-    public ResourceReferencesMetaData getResourceReferences() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getResourceReferences();
-        return null;
-    }
-
-    public ServiceReferenceMetaData getServiceReferenceByName(String name) {
-        return AbstractMappedMetaData.getByName(name, getServiceReferences());
-    }
-
-    public ServiceReferencesMetaData getServiceReferences() {
-        if (jndiEnvironmentRefsGroup != null)
-            return jndiEnvironmentRefsGroup.getServiceReferences();
-        return null;
-    }
-
-    public MessageDestinationsMetaData getMessageDestinations() {
-        return messageDestinations;
-    }
-
-    public void setMessageDestinations(MessageDestinationsMetaData messageDestinations) {
-        this.messageDestinations = messageDestinations;
-    }
-
     public String getAlternativeDD() {
         return alternativeDD;
     }
@@ -606,32 +419,8 @@ public class JBossWebMetaData extends NamedModuleImpl {
         return depends;
     }
 
-    public ClassLoader getENCLoader() {
-        return encLoader;
-    }
-
-    public void setENCLoader(ClassLoader encLoader) {
-        this.encLoader = encLoader;
-    }
-
-    public ClassLoader getContextLoader() {
-        return cxtLoader;
-    }
-
-    public void setContextLoader(ClassLoader cxtLoader) {
-        this.cxtLoader = cxtLoader;
-    }
-
     public void setDepends(List<String> depends) {
         this.depends = depends;
-    }
-
-    public ClassLoadingMetaData getClassLoading() {
-        return classLoading;
-    }
-
-    public void setClassLoading(ClassLoadingMetaData classLoading) {
-        this.classLoading = classLoading;
     }
 
     public String getJaccContextID() {
@@ -642,26 +431,13 @@ public class JBossWebMetaData extends NamedModuleImpl {
         this.jaccContextID = jaccContextID;
     }
 
-    public String getPublicID() {
-        return this.getDtdPublicId();
-    }
-
     public String getSecurityDomain() {
         return securityDomain;
     }
 
     public void setSecurityDomain(String securityDomain) {
-        if (securityDomain == null)
-            throw new IllegalArgumentException("securityDomain is null");
+        if (securityDomain == null) { throw new IllegalArgumentException("securityDomain is null"); }
         this.securityDomain = securityDomain.trim();
-    }
-
-    public HashMap<?, ?> getArbitraryMetadata() {
-        return arbitraryMetadata;
-    }
-
-    public void setArbitraryMetadata(HashMap<?, ?> arbitraryMetadata) {
-        this.arbitraryMetadata = arbitraryMetadata;
     }
 
     public boolean isUseJBossAuthorization() {
@@ -800,17 +576,15 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
         for (SecurityRoleMetaData srm : securityRoles) {
             String rolename = srm.getRoleName();
-            if (principalRolesMap == null)
-                principalRolesMap = new HashMap<String, Set<String>>();
-            if (srm.getPrincipals() != null)
+            if (principalRolesMap == null) { principalRolesMap = new HashMap<String, Set<String>>(); }
+            if (srm.getPrincipals() != null) {
                 for (String pr : srm.getPrincipals()) {
                     Set<String> roleset = principalRolesMap.get(pr);
-                    if (roleset == null)
-                        roleset = new HashSet<String>();
-                    if (!roleset.contains(rolename))
-                        roleset.add(rolename);
+                    if (roleset == null) { roleset = new HashSet<String>(); }
+                    if (!roleset.contains(rolename)) { roleset.add(rolename); }
                     principalRolesMap.put(pr, roleset);
                 }
+            }
         }
         return principalRolesMap;
     }
@@ -828,12 +602,11 @@ public class JBossWebMetaData extends NamedModuleImpl {
      * Set the jndiEnvironmentRefsGroup.
      * IT DOESN't MERGE...
      *
-     * @param jndiEnvironmentRefsGroup the jndiEnvironmentRefsGroup.
+     * @param env the jndiEnvironmentRefsGroup.
      * @throws IllegalArgumentException for a null jndiEnvironmentRefsGroup
      */
     public void setJndiEnvironmentRefsGroup(Environment env) {
-        if (env == null)
-            throw new IllegalArgumentException("Null jndiEnvironmentRefsGroup");
+        if (env == null) { throw new IllegalArgumentException("Null jndiEnvironmentRefsGroup"); }
         jndiEnvironmentRefsGroup = (EnvironmentRefsGroupMetaData) env;
     }
 
@@ -847,8 +620,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     }
 
     public boolean isJaccAllStoreRole() {
-        if (jaccAllStoreRole == null)
-            return Boolean.FALSE;
+        if (jaccAllStoreRole == null) { return Boolean.FALSE; }
         return jaccAllStoreRole;
     }
 
@@ -856,9 +628,6 @@ public class JBossWebMetaData extends NamedModuleImpl {
         this.jaccAllStoreRole = Boolean.valueOf(isJaccAllStoreRole);
     }
 
-    public MessageDestinationMetaData getMessageDestination(String name) {
-        return messageDestinations.get(name);
-    }
 
     /**
      * Access the RunAsIdentity associated with the given servlet
@@ -866,6 +635,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
      * @param servletName - the servlet-name from the web.xml
      * @return RunAsIdentity for the servet if one exists, null otherwise
      */
+    @Deprecated
     public RunAsIdentityMetaData getRunAsIdentity(String servletName) {
         RunAsIdentityMetaData identity = runAsIdentity.get(servletName);
         if (identity == null) {
@@ -966,6 +736,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
         }
     }
 
+    @Deprecated
     public void resolveRunAs() {
         // Update run-as indentity for a run-as-principal
         if (servlets != null) {
@@ -974,8 +745,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
                 String principalName = servlet.getRunAsPrincipal();
                 // Get the web.xml run-as primary role
                 String webXmlRunAs = null;
-                if (servlet.getRunAs() != null)
-                    webXmlRunAs = servlet.getRunAs().getRoleName();
+                if (servlet.getRunAs() != null) { webXmlRunAs = servlet.getRunAs().getRoleName(); }
                 if (principalName != null) {
                     // Update the run-as indentity to use the principal name
                     if (webXmlRunAs == null) {
@@ -1035,5 +805,13 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setSharedSessionManager(String sharedSessionManager) {
         this.sharedSessionManager = sharedSessionManager;
+    }
+
+    public String getDefaultEncoding() {
+        return defaultEncoding;
+    }
+
+    public void setDefaultEncoding(String defaultEncoding) {
+        this.defaultEncoding = defaultEncoding;
     }
 }
