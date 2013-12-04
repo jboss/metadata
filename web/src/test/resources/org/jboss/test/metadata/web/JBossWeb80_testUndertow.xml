@@ -11,4 +11,5 @@
         <servlet-name>MyServlet</servlet-name>
         <executor-name>otherexecutor</executor-name>
     </servlet>
+    <jacc-context-id>myContextID</jacc-context-id>
 </jboss-web>
