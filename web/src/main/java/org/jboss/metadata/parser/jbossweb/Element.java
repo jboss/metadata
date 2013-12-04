@@ -56,6 +56,7 @@ public enum Element {
     HTTP_METHOD_CONSTRAINT("http-method-constraint"),
 
     JACC_STAR_ROLE_ALLOW("jacc-star-role-allow"),
+    JACC_CONTEXT_ID("jacc-context-id"),
 
     LISTENER("listener"),
     LISTENER_TYPE("listener-type"),
