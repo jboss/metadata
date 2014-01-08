@@ -327,38 +327,44 @@ public class RemoteEnvironmentRefsGroupMetaDataMerger {
         }
 
         if (dest.getDataSources() == null) {
-            dest.setDataSources(augment.getDataSources());
+            if (augment.getDataSources() != null)
+                dest.setDataSources(augment.getDataSources());
         } else if (augment.getDataSources() != null) {
             DataSourcesMetaDataMerger.augment(dest.getDataSources(), augment.getDataSources(), (main != null) ? main.getDataSources() : null,
                     resolveConflicts);
         }
 
         if (dest.getAdministeredObjects() == null) {
-            dest.setAdministeredObjects(augment.getAdministeredObjects());
+            if (augment.getAdministeredObjects() != null)
+                dest.setAdministeredObjects(augment.getAdministeredObjects());
         } else if (augment.getAdministeredObjects() != null) {
             AdministeredObjectsMetaDataMerger.augment(dest.getAdministeredObjects(), augment.getAdministeredObjects(), (main != null) ? main.getAdministeredObjects() : null,
                     resolveConflicts);
         }
         if (dest.getConnectionFactories() == null) {
-            dest.setConnectionFactories(augment.getConnectionFactories());
+            if (augment.getConnectionFactories() != null)
+                dest.setConnectionFactories(augment.getConnectionFactories());
         } else if (augment.getConnectionFactories() != null) {
             ConnectionFactoriesMetaDataMerger.augment(dest.getConnectionFactories(), augment.getConnectionFactories(), (main != null) ? main.getConnectionFactories() : null,
                     resolveConflicts);
         }
         if (dest.getJmsConnectionFactories() == null) {
-            dest.setJmsConnectionFactories(augment.getJmsConnectionFactories());
+            if (augment.getJmsConnectionFactories() != null)
+                dest.setJmsConnectionFactories(augment.getJmsConnectionFactories());
         } else if (augment.getJmsConnectionFactories() != null) {
             JMSConnectionFactoriesMetaDataMerger.augment(dest.getJmsConnectionFactories(), augment.getJmsConnectionFactories(), (main != null) ? main.getJmsConnectionFactories() : null,
                     resolveConflicts);
         }
         if (dest.getJmsDestinations() == null) {
-            dest.setJmsDestinations(augment.getJmsDestinations());
+            if (augment.getJmsDestinations() != null)
+                dest.setJmsDestinations(augment.getJmsDestinations());
         } else if (augment.getJmsDestinations() != null) {
             JMSDestinationsMetaDataMerger.augment(dest.getJmsDestinations(), augment.getJmsDestinations(), (main != null) ? main.getJmsDestinations() : null,
                     resolveConflicts);
         }
         if (dest.getMailSessions() == null) {
-            dest.setMailSessions(augment.getMailSessions());
+            if (augment.getMailSessions() != null)
+                dest.setMailSessions(augment.getMailSessions());
         } else if (augment.getMailSessions() != null) {
             MailSessionsMetaDataMerger.augment(dest.getMailSessions(), augment.getMailSessions(), (main != null) ? main.getMailSessions() : null,
                     resolveConflicts);
