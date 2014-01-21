@@ -260,9 +260,6 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 case EXECUTOR_NAME:
                     wmd.setExecutorName(getElementText(reader, propertyReplacer));
                     break;
-                case SHARED_SESSION_MANAGER:
-                    wmd.setSharedSessionManager(getElementText(reader, propertyReplacer));
-                    break;
                 default: {
                     if (DEPRECATED_ELEMENTS.contains(localName)) {
                         log.warnf("<%s/> is no longer supported and will be ignored", localName);

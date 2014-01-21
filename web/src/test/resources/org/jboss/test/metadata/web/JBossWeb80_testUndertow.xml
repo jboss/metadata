@@ -3,7 +3,6 @@
            xsi:schemaLocation="http://www.jboss.org/j2ee/schema/jboss-web_8_0.xsd">
 
     <executor-name>myexecutor</executor-name>
-    <shared-session-manager>sessionManager</shared-session-manager>
     <servlet-container>default</servlet-container>
     <server-instance>default</server-instance>
     <default-encoding>UTF-8</default-encoding>

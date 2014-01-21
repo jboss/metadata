@@ -265,10 +265,6 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
             dest.setExecutorName(override.getExecutorName());
         }
 
-        if(override != null && override.getSharedSessionManager() != null) {
-            dest.setSharedSessionManager(override.getSharedSessionManager());
-        }
-
         if(override != null && override.getServerInstanceName() != null) {
             dest.setServerInstanceName(override.getServerInstanceName());
         }
