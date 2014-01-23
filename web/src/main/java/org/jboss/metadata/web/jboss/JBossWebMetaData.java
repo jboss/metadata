@@ -131,6 +131,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     private List<ContainerListenerMetaData> containerListeners;
     private List<ValveMetaData> valves;
+    private List<HttpHandlerMetaData> handlers;
     private List<String> overlays;
 
     /**
@@ -513,6 +514,14 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setValves(List<ValveMetaData> valves) {
         this.valves = valves;
+    }
+
+    public List<HttpHandlerMetaData> getHandlers() {
+        return handlers;
+    }
+
+    public void setHandlers(List<HttpHandlerMetaData> handlers) {
+        this.handlers = handlers;
     }
 
     public List<String> getOverlays() {

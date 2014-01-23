@@ -23,9 +23,11 @@ package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacers;
+import org.jboss.metadata.web.jboss.HttpHandlerMetaData;
 import org.jboss.metadata.web.jboss.JBoss80WebMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
+import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.junit.Assert;
 
 /**
@@ -41,5 +43,17 @@ public class JBossWeb80UnitTestCase extends AbstractJavaEEEverythingTest {
         assertEquals("myexecutor", jbossWeb.getExecutorName());
         assertEquals("otherexecutor", jbossWeb.getServlets().get("MyServlet").getExecutorName());
         assertEquals("myContextID", jbossWeb.getJaccContextID());
+
+        assertEquals(1, jbossWeb.getHandlers().size());
+        HttpHandlerMetaData handler = jbossWeb.getHandlers().get(0);
+        assertEquals("com.test.MyClass", handler.getHandlerClass());
+        assertEquals("com.foo.module", handler.getModule());
+        assertEquals(1, handler.getParams().size());
+        ParamValueMetaData param = handler.getParams().get(0);
+        assertEquals("MyName", param.getParamName());
+        assertEquals("MyValue", param.getParamValue());
+
+
+
     }
 }

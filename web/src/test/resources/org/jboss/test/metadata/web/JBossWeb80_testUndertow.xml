@@ -6,6 +6,14 @@
     <servlet-container>default</servlet-container>
     <server-instance>default</server-instance>
     <default-encoding>UTF-8</default-encoding>
+    <http-handler>
+        <class-name>com.test.MyClass</class-name>
+        <module>com.foo.module</module>
+        <param>
+            <param-name>MyName</param-name>
+            <param-value>MyValue</param-value>
+        </param>
+    </http-handler>
     <servlet>
         <servlet-name>MyServlet</servlet-name>
         <executor-name>otherexecutor</executor-name>

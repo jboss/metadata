@@ -107,6 +107,7 @@
          <!--<xsd:element name="listener" type="jboss:container-listenerType" minOccurs="0" maxOccurs="unbounded"/>-->
          <xsd:element name="session-config" type="javaee:session-configType" minOccurs="0" maxOccurs="1"/>
          <!--<xsd:element name="valve" type="jboss:valveType" minOccurs="0" maxOccurs="unbounded"/>-->
+         <xsd:element name="http-handler" type="jboss:httpHandlerType" minOccurs="0" maxOccurs="unbounded"/>
          <xsd:element name="overlay" type="jboss:overlayType" minOccurs="0" maxOccurs="unbounded"/>
          <xsd:element name="security-domain" type="jboss:security-domainType" minOccurs="0"/>
          <xsd:element name="security-role" type="jboss:security-roleType" minOccurs="0" maxOccurs="unbounded"/>
@@ -193,6 +194,27 @@
             module in the application server the specified class will be loaded. A container
             valve is used to intercept the request that will be processed by the servlet. It
             is invoked as part of a chain, before the invocation of the webapp's filter chain.
+         </xsd:documentation>
+      </xsd:annotation>
+
+      <xsd:sequence>
+         <xsd:element name="class-name" type="javaee:string" minOccurs="1" maxOccurs="1"/>
+         <xsd:element name="module" type="javaee:string" minOccurs="0" maxOccurs="1"/>
+         <xsd:element name="param" type="javaee:param-valueType" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+   </xsd:complexType>
+
+
+   <xsd:complexType name="httpHandlerType">
+      <xsd:annotation>
+         <xsd:documentation>
+            Defines a web container HTTPHandler. The module element allows specifying from which
+            module in the application server the specified class will be loaded. A handler
+            is used to intercept the request that will be processed by the servlet. It
+            is invoked as part of a chain, before the invocation of the webapp's filter chain.
+
+            The class specified can either be a HttpHandler that has a constructor that takes the
+             next HttpHandler, or can be a HandlerWrapper that produces the next handler.
          </xsd:documentation>
       </xsd:annotation>
 

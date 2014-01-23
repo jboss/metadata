@@ -241,6 +241,10 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         if (override != null && override.getValves() != null)
             dest.setValves(override.getValves());
 
+
+        if (override != null && override.getHandlers() != null)
+            dest.setHandlers(override.getHandlers());
+
         if (override != null && override.getOverlays() != null)
             dest.setOverlays(override.getOverlays());
 

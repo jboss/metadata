@@ -54,6 +54,7 @@ public enum Element {
     EXECUTOR_NAME("executor-name"),
 
     HTTP_METHOD_CONSTRAINT("http-method-constraint"),
+    HTTP_HANDLER("http-handler"),
 
     JACC_STAR_ROLE_ALLOW("jacc-star-role-allow"),
     JACC_CONTEXT_ID("jacc-context-id"),

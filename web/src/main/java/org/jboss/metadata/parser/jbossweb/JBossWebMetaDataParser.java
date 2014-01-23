@@ -40,6 +40,7 @@ import org.jboss.metadata.parser.servlet.SessionConfigMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.jboss.ContainerListenerMetaData;
+import org.jboss.metadata.web.jboss.HttpHandlerMetaData;
 import org.jboss.metadata.web.jboss.JBoss4xDTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50DTDWebMetaData;
 import org.jboss.metadata.web.jboss.JBoss50WebMetaData;
@@ -189,6 +190,14 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                         wmd.setValves(valves);
                     }
                     valves.add(ValveMetaDataParser.parse(reader, propertyReplacer));
+                    break;
+                case HTTP_HANDLER:
+                    List<HttpHandlerMetaData> handlers = wmd.getHandlers();
+                    if (handlers == null) {
+                        handlers = new ArrayList<HttpHandlerMetaData>();
+                        wmd.setHandlers(handlers);
+                    }
+                    handlers.add(HttpHandlerMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case OVERLAY:
                     List<String> overlays = wmd.getOverlays();
