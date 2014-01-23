@@ -53,6 +53,7 @@ class DefaultPropertyReplacer implements PropertyReplacer {
         int state = INITIAL;
         int start = -1;
         int nameStart = -1;
+        int expressionStart = -1;
         String resolvedValue = null;
         for (int i = 0; i < len; i = value.offsetByCodePoints(i, 1)) {
             final int ch = value.codePointAt(i);
@@ -79,7 +80,7 @@ class DefaultPropertyReplacer implements PropertyReplacer {
                         }
                         case '{': {
                             start = i + 1;
-                            nameStart = start;
+                            expressionStart = nameStart = start;
                             state = GOT_OPEN_BRACE;
                             continue;
                         }
@@ -140,7 +141,13 @@ class DefaultPropertyReplacer implements PropertyReplacer {
                 case DEFAULT: {
                     if (ch == '}') {
                         state = INITIAL;
-                        builder.append(value.substring(start, i));
+                        // JBMETA-371 check in case the whole expression was meant to be resolved
+                        final String val = resolver.resolve(value.substring(expressionStart, i));
+                        if (val != null) {
+                            builder.append(val);
+                        } else {
+                            builder.append(value.substring(start, i));
+                        }
                     }
                     continue;
                 }

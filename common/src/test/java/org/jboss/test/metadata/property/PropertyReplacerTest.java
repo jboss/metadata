@@ -4,6 +4,7 @@ import java.util.Properties;
 import org.jboss.metadata.property.PropertiesPropertyResolver;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
+import org.jboss.metadata.property.PropertyResolver;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -78,5 +79,23 @@ public class PropertyReplacerTest {
         final String initial = "Some string of stuff";
         final String after = replacer.replaceProperties(initial);
         assertEquals("SOME STRING OF STUFF", after);
+    }
+
+    /** Test for JBMETA-371 */
+    @Test
+    public void testFullExpressionReplacement() {
+        final String vaultExpression =  "VAULT::1:2";
+        final PropertyReplacer replacer = PropertyReplacers.resolvingReplacer(new PropertyResolver() {
+            @Override
+            public String resolve(String propertyName) {
+                return vaultExpression.equals(propertyName) ? "true" : null;
+            }
+        });
+        String after = replacer.replaceProperties("${" + vaultExpression + "}");
+        assertEquals("true", after);
+
+        final String nonVaultExpression = "RANDOM::1:2";
+        after = replacer.replaceProperties("${" + nonVaultExpression + "}");
+        assertEquals(":1:2", after);
     }
 }
