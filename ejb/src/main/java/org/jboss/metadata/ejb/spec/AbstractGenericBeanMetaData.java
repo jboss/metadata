@@ -1037,7 +1037,6 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     */
    public String[] getDependsOn()
    {
-      assertUnknownOrSessionBean();
       if (this.dependsOn == null || this.dependsOn.getEjbNames() == null)
       {
          return null;
