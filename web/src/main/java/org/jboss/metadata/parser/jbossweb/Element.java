@@ -52,6 +52,7 @@ public enum Element {
     DISTINCT_NAME("distinct-name"),
 
     EMPTY_ROLE_SEMANTIC("empty-role-semantic"),
+    ENABLE_WEBSOCKETS("enable-websockets"),
 
     HTTP_METHOD_CONSTRAINT("http-method-constraint"),
 

@@ -77,6 +77,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             case JBOSS_WEB_6_0: wmd = new JBoss60WebMetaData(); break;
             case JBOSS_WEB_7_0: wmd = new JBoss70WebMetaData(); break;
             case JBOSS_WEB_7_1: wmd = new JBoss70WebMetaData(); break;
+            case JBOSS_WEB_7_2: wmd = new JBoss70WebMetaData(); break;
         }
 
         // Handle attributes
@@ -172,6 +173,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                 	break;
                 case DISABLE_CROSS_CONTEXT:
                 	wmd.setDisableCrossContext(Boolean.valueOf(getElementText(reader, propertyReplacer)));
+                	break;
+                case ENABLE_WEBSOCKETS:
+                	wmd.setEnableWebSockets(Boolean.valueOf(getElementText(reader, propertyReplacer)));
                 	break;
                 case USE_JBOSS_AUTHORIZATION:
                 	wmd.setUseJBossAuthorization(Boolean.valueOf(getElementText(reader, propertyReplacer)));

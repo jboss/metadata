@@ -142,6 +142,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     private boolean useJBossAuthorization = false;
     private boolean disableAudit = true;
     private boolean symbolicLinkingEnabled = false;
+    private boolean enableWebSockets = false;
 
     private List<ContainerListenerMetaData> containerListeners;
     private List<ValveMetaData> valves;
@@ -287,6 +288,14 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     public void setDisableCrossContext(boolean disableCrossContext) {
         this.disableCrossContext = disableCrossContext;
+    }
+
+    public boolean isEnableWebSockets() {
+        return enableWebSockets && "1.6".compareTo(System.getProperty("java.version")) < 0;
+    }
+
+    public void setEnableWebSockets(boolean enableWebSockets) {
+        this.enableWebSockets = enableWebSockets;
     }
 
     public JBossAnnotationsMetaData getAnnotations() {
