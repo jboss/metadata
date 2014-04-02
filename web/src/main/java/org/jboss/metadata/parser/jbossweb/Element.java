@@ -52,6 +52,7 @@ public enum Element {
 
     EMPTY_ROLE_SEMANTIC("empty-role-semantic"),
     EXECUTOR_NAME("executor-name"),
+    ENABLE_WEBSOCKETS("enable-websockets"),
 
     HTTP_METHOD_CONSTRAINT("http-method-constraint"),
     HTTP_HANDLER("http-handler"),

@@ -138,6 +138,7 @@
          <xsd:element name="symbolic-linking-enabled" type="jboss:symbolic-linked-allowedType" minOccurs="0" maxOccurs="1"/>
           <xsd:element name="proactive-authentication" type="jboss:proactive-authenticationType" minOccurs="0" maxOccurs="1"/>
          <xsd:group ref="jboss:jndiEnvironmentRefsGroup"/>
+          <xsd:element name="enable-websockets" type="jboss:enable-websocketsType" minOccurs="0" maxOccurs="1"/>
       </xsd:sequence>
       <xsd:attribute name="version" type="jboss:jboss-web-versionType" use="required"/>
    </xsd:complexType>
@@ -583,4 +584,14 @@
     </xsd:sequence>
   </xsd:complexType>
 
+    <xsd:complexType name="enable-websocketsType">
+        <xsd:annotation>
+            <xsd:documentation>
+                Legacy enable-websockets option. Ignored as websockets are enabled by default.
+            </xsd:documentation>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="javaee:generic-booleanType"/>
+        </xsd:simpleContent>
+    </xsd:complexType>
 </xsd:schema>
