@@ -115,6 +115,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             case JBOSS_WEB_7_1:
                 wmd = new JBoss70WebMetaData();
                 break;
+            case JBOSS_WEB_7_2:
+                wmd = new JBoss70WebMetaData();
+                break;
             case JBOSS_WEB_8_0:
                 wmd = new JBoss80WebMetaData();
                 break;
