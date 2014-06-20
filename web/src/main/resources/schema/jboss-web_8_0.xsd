@@ -35,7 +35,7 @@
          <![CDATA[
 
 	This is the XML Schema for the JBoss AS 8.0 web application deployment descriptor.
-	The deployment descriptor must be named "META-INF/jboss-web.xml" in
+	The deployment descriptor must be named "WEB-INF/jboss-web.xml" in
 	the WAR file.  All JBoss Web deployment descriptors must indicate
 	the JBoss schema by using the Java EE namespace:
 
