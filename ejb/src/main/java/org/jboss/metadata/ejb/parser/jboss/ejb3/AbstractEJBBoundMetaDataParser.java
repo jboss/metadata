@@ -53,6 +53,9 @@ public abstract class AbstractEJBBoundMetaDataParser<MD extends AbstractEJBBound
                   reader.getElementText();
                   return;
                case EJB_NAME:
+                  if(metaData.getEjbName() != null) {
+                     throw unexpectedElement(reader);
+                  }
                   metaData.setEjbName(getElementText(reader, propertyReplacer));
                   return;
             }
