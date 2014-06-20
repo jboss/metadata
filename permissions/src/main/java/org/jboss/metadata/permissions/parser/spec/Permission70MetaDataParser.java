@@ -110,11 +110,11 @@ public class Permission70MetaDataParser extends MetaDataElementParser {
      * @param metaData
      * @param reader
      */
-    protected void validateMetadata(Permission70MetaData metaData, XMLStreamReader reader) {
+    protected void validateMetadata(Permission70MetaData metaData, XMLStreamReader reader) throws XMLStreamException {
         if (metaData.getClassName() == null) {
             Set<Element> required = new HashSet<Element>();
             required.add(Element.CLASS_NAME);
-            missingRequiredElement(reader, required);
+            throw missingRequiredElement(reader, required);
         }
     }
 
