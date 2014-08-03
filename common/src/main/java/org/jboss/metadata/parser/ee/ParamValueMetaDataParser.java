@@ -83,6 +83,11 @@ public class ParamValueMetaDataParser extends MetaDataElementParser {
             }
         }
 
+        boolean validParams = paramValue.validateParams();
+        if (!validParams) {
+            throw new XMLStreamException("<param-name> OR <param-value> are not defined properly in pair inside the web.xml",reader.getLocation());
+        }
+
         return paramValue;
     }
 
