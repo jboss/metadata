@@ -78,6 +78,17 @@ public class ServletMappingMetaDataParser extends MetaDataElementParser {
             }
         }
 
+        boolean validServletName = servletMapping.validateServletName();
+        boolean validUrlPatterns = servletMapping.validateUrlPatterns();
+
+        if (!validServletName) {
+            throw new XMLStreamException("<servlet-name> tag is missing while defining <servlet-mapping> inside the web.xml",reader.getLocation());
+        }
+
+        if (!validUrlPatterns) {
+            throw new XMLStreamException("<url-pattern> tag is missing while defining <servlet-mapping> inside the web.xml",reader.getLocation());
+        }
+
         return servletMapping;
     }
 
