@@ -50,6 +50,20 @@ public class ParamValueMetaData extends IdMetaDataImplWithDescriptions {
         this.paramValue = paramValue;
     }
 
+    public boolean validateParamName() {
+        if (this.paramName == null) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateParamValue() {
+        if (this.paramValue == null) {
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         StringBuilder tmp = new StringBuilder("ParamValueMetaData(id=");

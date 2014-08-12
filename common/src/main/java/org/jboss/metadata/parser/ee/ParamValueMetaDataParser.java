@@ -83,6 +83,17 @@ public class ParamValueMetaDataParser extends MetaDataElementParser {
             }
         }
 
+        boolean validParamName = paramValue.validateParamName();
+        boolean validParamValue = paramValue.validateParamValue();
+
+        if (!validParamName) {
+            throw new XMLStreamException("param-name element missing in context-param",reader.getLocation());
+        }
+
+        if (!validParamValue) {
+            throw new XMLStreamException("param-value element missing in context-param",reader.getLocation());
+        }
+
         return paramValue;
     }
 
