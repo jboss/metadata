@@ -59,6 +59,20 @@ public class ServletMappingMetaData extends IdMetaDataImpl {
         this.urlPatterns = urlPatterns;
     }
 
+    public boolean validateServletName() {
+        if (this.servletName == null) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateUrlPatterns() {
+        if (this.urlPatterns == null) {
+            return false;
+        }
+        return true;
+    }
+
     public String toString() {
         StringBuilder tmp = new StringBuilder("ServletMappingMetaData(id=");
         tmp.append(getId());
