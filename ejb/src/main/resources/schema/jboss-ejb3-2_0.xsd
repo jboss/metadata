@@ -29,7 +29,7 @@
            version="2.0">
    <!-- xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="ejb-jar_3_1.xsd"/ -->
    <!-- xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"/ -->
-   <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="jboss-ejb3-spec-2_0.xsd"/>
+   <xs:import namespace="http://java.sun.com/xml/ns/javaee"/>
 
    <xs:element name="ejb" type="javaee:jboss-ejb-beanType"/>
 
