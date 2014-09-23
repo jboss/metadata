@@ -23,9 +23,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            targetNamespace="http://java.sun.com/xml/ns/javaee"
            xmlns:javaee="http://java.sun.com/xml/ns/javaee"
-           xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd"
+           xmlns:jboss="http://www.jboss.com/xml/ns/javaee"           
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
            version="2.0">
@@ -35,7 +33,7 @@
    <xs:include schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd"/>
    -->
 
-   <xs:import namespace="http://www.jboss.com/xml/ns/javaee" schemaLocation="jboss-ejb3-2_0.xsd"/>
+   <xs:import namespace="http://www.jboss.com/xml/ns/javaee"/>
 
    <xs:redefine schemaLocation="http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd">
       <xs:complexType name="assembly-descriptorType">
@@ -128,7 +126,6 @@
          <xs:extension base="javaee:ejb-jarType">
             <xs:sequence>
                <xs:element ref="jboss:enterprise-beans" minOccurs="0"/>
-               <xs:element name="assembly-descriptor" type="javaee:assembly-descriptorType" minOccurs="0"/>
             </xs:sequence>
             <xs:attribute name="impl-version" type="javaee:dewey-versionType" fixed="2.0" use="required"/>
          </xs:extension>
