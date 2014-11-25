@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2012, Red Hat, Inc., and individual contributors
+ * Copyright 2014, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -23,23 +23,22 @@
 package org.jboss.metadata.property;
 
 /**
- * Attempt to resolve properties using system and environment properties.
+ * Converts between {@link org.jboss.metadata.property.PropertyResolver} by delegating the
+ * {@link #resolveExpressionContent(String)} call to a provided {@code PropertyResolver}.
  *
- * @author John Bailey
+ * @author Brian Stansberry (c) 2014 Red Hat Inc.
  */
-public class SystemPropertyResolver extends JBossASSimpleExpressionResolver {
-    public static final SystemPropertyResolver INSTANCE = new SystemPropertyResolver();
+public class CompatibilityExpressionResolver implements SimpleExpressionResolver {
 
-    private SystemPropertyResolver() {
+    private final PropertyResolver propertyResolver;
+
+    public CompatibilityExpressionResolver(PropertyResolver propertyResolver) {
+        this.propertyResolver = propertyResolver;
     }
 
     @Override
-    protected String resolveKey(String key) {
-        // First check for system property, then env variable
-        String val = System.getProperty(key);
-        if (val == null && key.startsWith("env.")) {
-            val = System.getenv(key.substring(4));
-        }
-        return val;
+    public ResolutionResult resolveExpressionContent(String expressionContent) {
+        String val = propertyResolver.resolve(expressionContent);
+        return val == null ? null : new ResolutionResult(val, false);
     }
 }

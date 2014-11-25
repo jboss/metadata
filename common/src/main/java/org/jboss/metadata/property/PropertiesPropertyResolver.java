@@ -29,14 +29,15 @@ import java.util.Properties;
  *
  * @author John Bailey
  */
-public class PropertiesPropertyResolver implements PropertyResolver {
+public class PropertiesPropertyResolver extends JBossASSimpleExpressionResolver {
     private final Properties deploymentProperties;
 
     public PropertiesPropertyResolver(final Properties deploymentProperties) {
         this.deploymentProperties = deploymentProperties;
     }
 
-    public String resolve(final String propertyName) {
-        return deploymentProperties.getProperty(propertyName);
+    @Override
+    protected String resolveKey(String key) {
+        return deploymentProperties.getProperty(key);
     }
 }
