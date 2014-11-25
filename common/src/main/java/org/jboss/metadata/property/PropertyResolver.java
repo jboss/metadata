@@ -26,8 +26,12 @@ package org.jboss.metadata.property;
  * Attempts to resolve a property based on a provided name.
  *
  * @author John Bailey
+ *
+ * @deprecated use {@link org.jboss.metadata.property.SimpleExpressionResolver}, which has a clearer contract
  */
+@Deprecated
 public interface PropertyResolver {
+
     /**
      * Attempt to resolve the provided property name.
      *
