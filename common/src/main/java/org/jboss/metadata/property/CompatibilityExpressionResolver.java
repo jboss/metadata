@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2013, Red Hat, Inc., and individual contributors
+ * Copyright 2014, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -23,18 +23,22 @@
 package org.jboss.metadata.property;
 
 /**
- * Replace any properties found within the provided text.
+ * Converts between {@link org.jboss.metadata.property.PropertyResolver} by delegating the
+ * {@link #resolveExpressionContent(String)} call to a provided {@code PropertyResolver}.
  *
- * @see org.jboss.metadata.property.PropertyReplacers
- *
- * @author John Bailey
+ * @author Brian Stansberry (c) 2014 Red Hat Inc.
  */
-public interface PropertyReplacer {
-    /**
-     * Replace any properties found within the text provided.
-     *
-     * @param text Text to replace properties within
-     * @return The text with properties replaced
-     */
-    String replaceProperties(final String text);
+public class CompatibilityExpressionResolver implements SimpleExpressionResolver {
+
+    private final PropertyResolver propertyResolver;
+
+    public CompatibilityExpressionResolver(PropertyResolver propertyResolver) {
+        this.propertyResolver = propertyResolver;
+    }
+
+    @Override
+    public ResolutionResult resolveExpressionContent(String expressionContent) {
+        String val = propertyResolver.resolve(expressionContent);
+        return val == null ? null : new ResolutionResult(val, false);
+    }
 }

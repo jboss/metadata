@@ -27,17 +27,19 @@ package org.jboss.metadata.property;
  *
  * @author John Bailey
  */
-public class SystemPropertyResolver implements PropertyResolver {
+public class SystemPropertyResolver extends JBossASSimpleExpressionResolver {
     public static final SystemPropertyResolver INSTANCE = new SystemPropertyResolver();
 
     private SystemPropertyResolver() {
     }
 
-    public String resolve(final String propertyName) {
+    @Override
+    protected String resolveKey(String key) {
         // First check for system property, then env variable
-        String val = System.getProperty(propertyName);
-        if (val == null && propertyName.startsWith("env."))
-            val = System.getenv(propertyName.substring(4));
+        String val = System.getProperty(key);
+        if (val == null && key.startsWith("env.")) {
+            val = System.getenv(key.substring(4));
+        }
         return val;
     }
 }
