@@ -3,6 +3,8 @@ package org.jboss.metadata.property;
 /**
  * Replace any properties found within the provided text.
  *
+ * @see org.jboss.metadata.property.PropertyReplacers
+ *
  * @author John Bailey
  */
 public interface PropertyReplacer {
