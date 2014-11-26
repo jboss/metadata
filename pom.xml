@@ -33,7 +33,7 @@
 
     <groupId>org.jboss.metadata</groupId>
     <artifactId>jboss-as-parent-metadata</artifactId>
-    <version>8.1.0.Final-SNAPSHOT</version>
+    <version>8.1.1.Final-SNAPSHOT</version>
 
     <name>JBoss Application Server: Metadata Aggregator</name>
     <description>JBoss Application Server: Metadata Aggregator</description>
