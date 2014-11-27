@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.jboss.metadata</groupId>
         <artifactId>jboss-as-parent-metadata</artifactId>
-        <version>8.1.1.Final</version>
+        <version>8.1.2.Final-SNAPSHOT</version>
     </parent>
 
     <artifactId>jboss-metadata-appclient</artifactId>
