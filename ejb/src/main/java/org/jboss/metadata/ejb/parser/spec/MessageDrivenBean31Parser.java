@@ -35,20 +35,10 @@ import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
 import org.jboss.metadata.property.PropertyReplacer;
 
-import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
-
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
 public class MessageDrivenBean31Parser extends AbstractMessageDrivenBeanParser<AbstractGenericBeanMetaData> {
-    @Override
-    public AbstractGenericBeanMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
-        AbstractGenericBeanMetaData bean = new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
-        processAttributes(bean, reader, this);
-        processElements(bean, reader, propertyReplacer);
-        return bean;
-    }
-
     @Override
     protected void processElement(AbstractGenericBeanMetaData bean, XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
@@ -77,5 +67,10 @@ public class MessageDrivenBean31Parser extends AbstractMessageDrivenBeanParser<A
                 super.processElement(bean, reader, propertyReplacer);
                 break;
         }
+    }
+
+    @Override
+    protected AbstractGenericBeanMetaData createMessageDrivenBeanMetaData() {
+        return new GenericBeanMetaData(EjbType.MESSAGE_DRIVEN);
     }
 }

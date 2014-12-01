@@ -31,10 +31,38 @@ import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.property.PropertyReplacer;
 
+import static org.jboss.metadata.ejb.parser.spec.AttributeProcessorHelper.processAttributes;
+
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
  */
 public abstract class AbstractMessageDrivenBeanParser<MD extends AbstractGenericBeanMetaData> extends AbstractEnterpriseBeanMetaDataParser<MD> {
+    /**
+     * Create and return the correct version of {@link org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData}
+     * <p/>
+     * Individual ejb-jar version specific implementations of {@link AbstractMessageDrivenBeanParser this class} should
+     * implement this method to return the appropriate version specific {@link org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData}
+     *
+     * @return
+     */
+    protected abstract MD createMessageDrivenBeanMetaData();
+
+    /**
+     * Creates and returns {@link org.jboss.metadata.ejb.spec.MessageDrivenBeanMetaData} after parsing the session element.
+     *
+     * @param reader
+     * @return
+     * @throws XMLStreamException
+     */
+    @Override
+    public MD parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
+        MD sessionBean = createMessageDrivenBeanMetaData();
+        processAttributes(sessionBean, reader, this);
+        this.processElements(sessionBean, reader, propertyReplacer);
+        // return the metadata created out of parsing
+        return sessionBean;
+    }
+
     @Override
     protected void processElement(MD bean, XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
