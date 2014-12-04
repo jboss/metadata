@@ -40,15 +40,16 @@ import org.jboss.metadata.property.PropertyReplacers;
 public class EnterpriseBeansMetaDataParser<MD extends EnterpriseBeansMetaData> extends AbstractMetaDataParser<MD>
 {
    private static final AttributeProcessor<EnterpriseBeansMetaData> ATTRIBUTE_PROCESSOR = new IdMetaDataAttributeProcessor<EnterpriseBeansMetaData>(UnexpectedAttributeProcessor.instance());
-   private static final MessageDrivenBean31Parser MESSAGE_DRIVEN_BEAN_PARSER = new MessageDrivenBean31Parser();
 
    private final SessionBeanMetaDataParser sessionBeanParser;
    private final EntityBeanMetaDataParser entityBeanMetaDataParser;
+   private final AbstractMessageDrivenBeanParser messageDrivenBeanParser;
 
    public EnterpriseBeansMetaDataParser(final EjbJarVersion ejbJarVersion)
    {
       sessionBeanParser = SessionBeanMetaDataParserFactory.getParser(ejbJarVersion);
       entityBeanMetaDataParser = new EntityBeanMetaDataParser();
+      messageDrivenBeanParser = MessageDrivenBeanMetaDataParserFactory.getParser(ejbJarVersion);
    }
 
    /**
@@ -96,7 +97,7 @@ public class EnterpriseBeansMetaDataParser<MD extends EnterpriseBeansMetaData> e
             enterpriseBeans.add(entityBeanMetaDataParser.parse(reader, propertyReplacer));
             break;
          case MESSAGE_DRIVEN:
-            enterpriseBeans.add(MESSAGE_DRIVEN_BEAN_PARSER.parse(reader, propertyReplacer));
+            enterpriseBeans.add(messageDrivenBeanParser.parse(reader, propertyReplacer));
             break;
 
          default:
