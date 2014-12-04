@@ -38,6 +38,7 @@ public enum EjbJarElement {
 
     ABSTRACT_SCHEMA_NAME("abstract-schema-name"),
     ACCESS_TIMEOUT("access-timeout"),
+    ACKNOWLEDGE_MODE("acknowledge-mode"),
     ACTIVATION_CONFIG("activation-config"),
     ACTIVATION_CONFIG_PROPERTY("activation-config-property"),
     ACTIVATION_CONFIG_PROPERTY_NAME("activation-config-property-name"),
@@ -72,6 +73,7 @@ public enum EjbJarElement {
     DAY_OF_WEEK("day-of-week"),
     DEPENDS_ON("depends-on"),
     DESCRIPTION("description"),
+    DESTINATION_TYPE("destination-type"),
 
 
     EJB_CLASS("ejb-class"),
@@ -116,6 +118,8 @@ public enum EjbJarElement {
     MESSAGE_DESTINATION_LINK("message-destination-link"),
     MESSAGE_DESTINATION_TYPE("message-destination-type"),
     MESSAGE_DRIVEN("message-driven"),
+    MESSAGE_DRIVEN_DESTINATION("message-driven-destination"),
+    MESSAGE_SELECTOR("message-selector"),
     MESSAGING_TYPE("messaging-type"),
     METHOD("method"),
     METHOD_INTF("method-intf"),
@@ -160,6 +164,7 @@ public enum EjbJarElement {
     SESSION_TYPE("session-type"),
     START("start"),
     STATEFUL_TIMEOUT("stateful-timeout"),
+    SUBSCRIPTION_DURABILITY("subscription-durability"),
 
     TIMEOUT("timeout"),
     TIMEOUT_METHOD("timeout-method"),
