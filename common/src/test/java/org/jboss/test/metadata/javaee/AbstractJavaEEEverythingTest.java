@@ -22,7 +22,6 @@
 package org.jboss.test.metadata.javaee;
 
 import java.util.Set;
-import javax.persistence.PersistenceContextType;
 
 import org.jboss.annotation.javaee.Description;
 import org.jboss.annotation.javaee.Descriptions;
@@ -72,6 +71,7 @@ import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextSynchronizationType;
+import org.jboss.metadata.javaee.spec.PersistenceContextTypeDescription;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PropertiesMetaData;
@@ -546,8 +546,8 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
                         : PersistenceContextSynchronizationType.Synchronized;
                 assertEquals(type, persistenceContextReferenceMetaData.getPersistenceContextSynchronization());
             }
-            if (count == 1) { assertEquals(PersistenceContextType.TRANSACTION, persistenceContextReferenceMetaData.getPersistenceContextType()); } else {
-                assertEquals(PersistenceContextType.EXTENDED, persistenceContextReferenceMetaData.getPersistenceContextType());
+            if (count == 1) { assertEquals(PersistenceContextTypeDescription.TRANSACTION, persistenceContextReferenceMetaData.getPersistenceContextType()); } else {
+                assertEquals(PersistenceContextTypeDescription.EXTENDED, persistenceContextReferenceMetaData.getPersistenceContextType());
             }
             assertProperties(prefix + "PersistenceContextRef" + count, 2, persistenceContextReferenceMetaData.getProperties());
             assertResourceGroup(prefix + "PersistenceContextRef" + count, persistenceContextReferenceMetaData, true, count == 1, mode);

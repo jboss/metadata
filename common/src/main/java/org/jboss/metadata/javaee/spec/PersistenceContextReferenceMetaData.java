@@ -21,8 +21,6 @@
  */
 package org.jboss.metadata.javaee.spec;
 
-import javax.persistence.PersistenceContextType;
-
 import org.jboss.metadata.javaee.support.ResourceInjectionMetaDataWithDescriptions;
 
 /**
@@ -46,7 +44,7 @@ public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDa
     /**
      * The persistence context type
      */
-    private PersistenceContextType persistenceContextType;
+    private PersistenceContextTypeDescription persistenceContextType;
 
     /**
      * The persistence context type, default is synchronized
@@ -110,7 +108,7 @@ public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDa
      *
      * @return the persistenceContextType.
      */
-    public PersistenceContextType getPersistenceContextType() {
+    public PersistenceContextTypeDescription getPersistenceContextType() {
         return persistenceContextType;
     }
 
@@ -120,7 +118,7 @@ public class PersistenceContextReferenceMetaData extends ResourceInjectionMetaDa
      * @param persistenceContextType the persistenceContextType.
      * @throws IllegalArgumentException for a null persistenceContextType
      */
-    public void setPersistenceContextType(PersistenceContextType persistenceContextType) {
+    public void setPersistenceContextType(PersistenceContextTypeDescription persistenceContextType) {
         if (persistenceContextType == null)
             throw new IllegalArgumentException("Null persistenceContextType");
         this.persistenceContextType = persistenceContextType;

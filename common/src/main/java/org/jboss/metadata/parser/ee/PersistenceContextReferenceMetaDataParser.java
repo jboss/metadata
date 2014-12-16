@@ -22,13 +22,13 @@
 
 package org.jboss.metadata.parser.ee;
 
-import javax.persistence.PersistenceContextType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextSynchronizationType;
+import org.jboss.metadata.javaee.spec.PersistenceContextTypeDescription;
 import org.jboss.metadata.javaee.spec.PropertiesMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
@@ -82,7 +82,7 @@ public class PersistenceContextReferenceMetaDataParser extends MetaDataElementPa
                     pcReference.setPersistenceContextRefName(getElementText(reader, propertyReplacer));
                     break;
                 case PERSISTENCE_CONTEXT_TYPE:
-                    pcReference.setPersistenceContextType(PersistenceContextType.valueOf(propertyReplacer.replaceProperties(getElementText(reader, propertyReplacer).toUpperCase())));
+                    pcReference.setPersistenceContextType(PersistenceContextTypeDescription.valueOf(propertyReplacer.replaceProperties(getElementText(reader, propertyReplacer).toUpperCase())));
                     break;
                 case PERSISTENCE_CONTEXT_SYNCHRONIZATION:
                     pcReference.setPersistenceContextSynchronization(PersistenceContextSynchronizationType.valueOf(getElementText(reader, propertyReplacer)));

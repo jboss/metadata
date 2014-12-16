@@ -25,8 +25,6 @@ package org.jboss.test.metadata.ear;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.PersistenceContextType;
-
 import org.jboss.annotation.javaee.Description;
 import org.jboss.annotation.javaee.Descriptions;
 import org.jboss.annotation.javaee.DisplayName;
@@ -63,6 +61,7 @@ import org.jboss.metadata.javaee.spec.MessageDestinationUsageType;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
+import org.jboss.metadata.javaee.spec.PersistenceContextTypeDescription;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PropertiesMetaData;
@@ -252,7 +251,7 @@ public class Ear6xEverythingUnitTestCase extends AbstractJavaEEMetaDataTest {
             assertInjectionTargets(pcrPrefix, pcr.getInjectionTargets());
             assertEquals(pcrPrefix + "Name", pcr.getPersistenceContextRefName());
             assertEquals(pcrPrefix + "Unit", pcr.getPersistenceUnitName());
-            PersistenceContextType type = i % 2 == 0 ? PersistenceContextType.EXTENDED : PersistenceContextType.TRANSACTION;
+            PersistenceContextTypeDescription type = i % 2 == 0 ? PersistenceContextTypeDescription.EXTENDED : PersistenceContextTypeDescription.TRANSACTION;
             assertEquals(type, pcr.getPersistenceContextType());
             assertEquals(pcrPrefix + "MappedName", pcr.getMappedName());
             PropertiesMetaData props = pcr.getProperties();

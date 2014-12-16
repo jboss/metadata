@@ -73,11 +73,6 @@
     <dependencies>
 
         <dependency>
-            <groupId>${javax.persistence.groupId}</groupId>
-            <artifactId>${javax.persistence.artifactId}</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.jboss.logging</groupId>
             <artifactId>jboss-logging</artifactId>
         </dependency>
