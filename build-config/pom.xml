@@ -29,5 +29,5 @@
     <groupId>org.jboss.metadata</groupId>
     <artifactId>metadata-build-config</artifactId>
     <name>Metadata Build Configuration</name>
-    <version>9.0.0.Beta1</version>
+    <version>9.0.0.Beta2-SNAPSHOT</version>
 </project>
