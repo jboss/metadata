@@ -29,6 +29,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -36,6 +37,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,6 +48,8 @@ import org.junit.runners.Parameterized;
  */
 @RunWith(Parameterized.class)
 public class ComparePreviousSchemasTestCase {
+    private static final Logger LOG = Logger.getLogger(ComparePreviousSchemasTestCase.class.getName());
+
     @Parameters(name = "{index}: {0}")
     public static List<Object[]> schemas() throws URISyntaxException {
         final List<Object[]> parameters = new ArrayList<>();
@@ -64,11 +68,18 @@ public class ComparePreviousSchemasTestCase {
 
     private static Collection<File[]> findFiles(final String dirName, final String suffix) {
         try {
+            final List<File[]> parameters = new ArrayList<>();
             final URL schemaURL = ComparePreviousSchemasTestCase.class.getResource("/" + dirName);
+            final URI schemaURI = schemaURL.toURI();
+            // If the URI is not hierarchical then it's probably within some jar, lets skip it.
+            // Note: the JDK exception in File is stupid
+            if (schemaURI.isOpaque()) {
+                LOG.warning("URI '" + schemaURI + "' is not hierarchical, ignoring");
+                return parameters;
+            }
             final File schemaDir = new File(schemaURL.toURI());
             final URL previousSchemaURL = ComparePreviousSchemasTestCase.class.getResource("/previous-release/" + dirName);
             final File previousSchemaDir = new File(previousSchemaURL.toURI());
-            final List<File[]> parameters = new ArrayList<>();
             for (final String name : schemaDir.list(new FilenameFilter() {
                 @Override
                 public boolean accept(final File dir, final String name) {
