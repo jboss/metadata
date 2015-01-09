@@ -41,5 +41,11 @@ public class JBossServletMetaDataMerger {
         if(override != null && override.getExecutorName() != null) {
             dest.setExecutorName(override.getExecutorName());
         }
+
+        if (override != null)
+            dest.setOverridable(override.isOverridable());
+        else
+            dest.setOverridable(original.isOverridable());
+
     }
 }
