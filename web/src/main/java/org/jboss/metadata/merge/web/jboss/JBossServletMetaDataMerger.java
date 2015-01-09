@@ -38,5 +38,9 @@ public class JBossServletMetaDataMerger {
             dest.setRunAsPrincipal(override.getRunAsPrincipal());
         if (override != null && override.getServletSecurity() != null)
             dest.setServletSecurity(override.getServletSecurity());
+        if (override != null)
+            dest.setOverridable(override.isOverridable());
+        else
+            dest.setOverridable(original.isOverridable());
     }
 }
