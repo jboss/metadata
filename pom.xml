@@ -73,6 +73,7 @@
         <module>web</module>
         <module>appclient</module>
         <module>permissions</module>
+        <module>test</module>
     </modules>
 
     <build>
@@ -192,6 +193,13 @@
                 <artifactId>jboss-metadata-common</artifactId>
                 <version>${project.version}</version>
                 <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>jboss-metadata-test</artifactId>
+                <version>${project.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -321,6 +329,54 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+    <profiles>
+        <profile>
+            <id>has-schemas</id>
+            <activation>
+                <file>
+                    <exists>src/main/resources/schema</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-previous-release</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifact>${project.groupId}:${project.artifactId}:RELEASE</artifact>
+                                    <outputDirectory>${project.build.testOutputDirectory}/previous-release</outputDirectory>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>unpack-jboss-metadata-test</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <includeArtifactIds>jboss-metadata-test</includeArtifactIds>
+                                    <outputDirectory>${project.build.testOutputDirectory}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>${project.groupId}</groupId>
+                    <artifactId>jboss-metadata-test</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <scm>
         <connection>scm:git:git@github.com:jboss/metadata.git</connection>
