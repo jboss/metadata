@@ -85,7 +85,7 @@
 
   <xsd:simpleType name="jboss-web-versionType">
       <xsd:restriction base="xsd:token">
-         <xsd:enumeration value="7.1"/>
+         <xsd:enumeration value="7.2"/>
       </xsd:restriction>
   </xsd:simpleType>
 
