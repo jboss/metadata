@@ -50,7 +50,6 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
     private String loadOnStartup = null;
     private int loadOnStartupInt = loadOnStartupDefault;
     private boolean loadOnStartupSet = false;
-    private boolean overridable = false;
     private RunAsMetaData runAs;
     /**
      * The security role ref
@@ -180,14 +179,6 @@ public class ServletMetaData extends NamedMetaDataWithDescriptionGroup {
 
     public void setMultipartConfig(MultipartConfigMetaData multipartConfig) {
         this.multipartConfig = multipartConfig;
-    }
-
-    public boolean isOverridable() {
-        return overridable;
-    }
-
-    public void setOverridable(boolean overridable) {
-        this.overridable = overridable;
     }
 
     public String toString() {
