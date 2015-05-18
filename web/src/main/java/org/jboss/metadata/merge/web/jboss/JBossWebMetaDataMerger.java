@@ -278,5 +278,8 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         if(override != null && override.getDefaultEncoding() != null) {
             dest.setDefaultEncoding(override.getDefaultEncoding());
         }
+        if(override != null && !override.isProactiveAuthentication()) {
+            dest.setProactiveAuthentication(override.isProactiveAuthentication());
+        }
     }
 }

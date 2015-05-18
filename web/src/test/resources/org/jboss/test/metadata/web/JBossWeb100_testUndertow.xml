@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web version="10.0" xmlns="http://www.jboss.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.jboss.org/j2ee/schema/jboss-web_10_0.xsd">
+
+    <executor-name>myexecutor</executor-name>
+    <servlet-container>default</servlet-container>
+    <server-instance>default</server-instance>
+    <default-encoding>UTF-8</default-encoding>
+    <http-handler>
+        <class-name>com.test.MyClass</class-name>
+        <module>com.foo.module</module>
+        <param>
+            <param-name>MyName</param-name>
+            <param-value>MyValue</param-value>
+        </param>
+    </http-handler>
+    <servlet>
+        <servlet-name>MyServlet</servlet-name>
+        <executor-name>otherexecutor</executor-name>
+    </servlet>
+    <jacc-context-id>myContextID</jacc-context-id>
+    <proactive-authentication>false</proactive-authentication>
+</jboss-web>

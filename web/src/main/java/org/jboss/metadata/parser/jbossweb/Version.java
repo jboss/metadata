@@ -29,4 +29,5 @@ public enum Version {
     JBOSS_WEB_6_0, JBOSS_WEB_7_0,
     JBOSS_WEB_7_1,
     JBOSS_WEB_8_0,
+    JBOSS_WEB_10_0,
 }

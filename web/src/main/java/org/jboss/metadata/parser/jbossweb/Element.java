@@ -73,6 +73,7 @@ public enum Element {
     OVERLAY("overlay"),
 
     PARAM("param"),
+    PROACTIVE_AUTHENTICATION("proactive-authentication"),
 
     REPLICATION_CONFIG("replication-config"),
     REPLICATION_GRANULARITY("replication-granularity"),

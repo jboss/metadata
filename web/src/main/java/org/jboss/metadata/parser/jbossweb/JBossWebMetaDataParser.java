@@ -118,6 +118,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             case JBOSS_WEB_8_0:
                 wmd = new JBoss80WebMetaData();
                 break;
+            case JBOSS_WEB_10_0:
+                wmd = new JBoss80WebMetaData();
+                break;
         }
 
         // Handle attributes
@@ -268,6 +271,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     break;
                 case EXECUTOR_NAME:
                     wmd.setExecutorName(getElementText(reader, propertyReplacer));
+                    break;
+                case PROACTIVE_AUTHENTICATION:
+                    wmd.setProactiveAuthentication(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
                     break;
                 default: {
                     if (DEPRECATED_ELEMENTS.contains(localName)) {
