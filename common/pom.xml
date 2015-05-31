@@ -28,6 +28,7 @@
         <groupId>org.jboss.metadata</groupId>
         <artifactId>jboss-as-parent-metadata</artifactId>
         <version>12.0.0.Alpha1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>jboss-metadata-common</artifactId>
     <packaging>jar</packaging>
@@ -88,8 +89,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-core</artifactId>
         </dependency>
 
         <dependency>

@@ -80,9 +80,9 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
-import org.jboss.test.AbstractTestSetup;
+import org.jboss.metadata.test.AbstractTestSetup;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
-import org.jboss.util.NotImplementedException;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * AbstractEJBEverythingTest.
@@ -131,53 +131,8 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
         assertFullMDB("mdb2", enterpriseBeansMetaData, mode);
     }
 
-   /*
-   protected void assertEnterpriseBeans(ApplicationMetaData applicationMetaData, Mode mode)
-   {
-      Iterator<BeanMetaData> i = applicationMetaData.getEnterpriseBeans();
-      assertNotNull(i);
-      int count = 0;
-      while (i.hasNext())
-      {
-         i.next();
-         ++count;
-      }
-
-      assertEquals(15, count);
-
-      assertNullSession("session0", applicationMetaData);
-      assertFullSession("session1", applicationMetaData, mode);
-      assertFullSession("session2", applicationMetaData, mode);
-      SessionMetaData session = assertSession("session3", applicationMetaData);
-      assertTrue(session.isStateful());
-      assertFalse(session.isStateless());
-      session = assertSession("session4", applicationMetaData);
-      assertTrue(session.isBeanManagedTx());
-      assertFalse(session.isContainerManagedTx());
-      session = assertSession("session5", applicationMetaData);
-      org.jboss.metadata.SecurityIdentityMetaData securityIdentityMetaData = session.getSecurityIdentityMetaData();
-      assertNotNull(securityIdentityMetaData);
-      assertTrue(securityIdentityMetaData.getUseCallerIdentity());
-
-      assertNullEntity("entity0", applicationMetaData);
-      assertFullEntity("entity1", applicationMetaData, mode);
-      assertFullEntity("entity2", applicationMetaData, mode);
-      EntityMetaData entity = assertEntity("entity3EjbName", applicationMetaData);
-      assertTrue(entity.isBMP());
-      entity = assertEntity("entity4EjbName", applicationMetaData);
-      assertFalse(entity.isReentrant());
-      entity = assertEntity("entity5EjbName", applicationMetaData);
-      assertTrue(entity.isCMP1x());
-      assertTrue(entity.isCMP1x());
-
-      assertNullMDB("mdb0", applicationMetaData);
-      assertFullMDB("mdb1", applicationMetaData, mode);
-      assertFullMDB("mdb2", applicationMetaData, mode);
-   }
-   */
-
     protected SessionBeanMetaData assertFullSession(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode, EjbJarVersion version) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("not implemented");
     }
 
     /**
@@ -239,72 +194,6 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
         return session;
     }
 
-   /*
-   private SessionMetaData assertFullSession(String ejbName, ApplicationMetaData applicationMetaData, Mode mode)
-   {
-      SessionMetaData session = assertSession(ejbName, applicationMetaData);
-      assertClass(ejbName, "Home", session.getHome());
-      assertClass(ejbName, "Remote", session.getRemote());
-      assertClass(ejbName, "LocalHome", session.getLocalHome());
-      assertClass(ejbName, "Local", session.getLocal());
-      assertClass(ejbName, "ServiceEndpoint", session.getServiceEndpoint());
-      assertClass(ejbName, "EjbClass", session.getEjbClass());
-      assertTrue(session.isStateless());
-      assertTrue(session.isContainerManagedTx());
-      assertEnvironment(ejbName, session, true, mode);
-      assertMethodAttributes(ejbName, session);
-      assertContainerTransactions(session.getTransactionMethods());
-      assertMethodPermissions(ejbName, 7, session);
-      assertExcludedMethods(ejbName, session.getExcludedMethods());
-      assertSecurityRoleRefs(ejbName, 2, session.getSecurityRoleReferences());
-      assertSecurityIdentity(ejbName, "SecurityIdentity", session.getSecurityIdentityMetaData(), true);
-
-      return session;
-   }
-   */
-
-    /**
-     * Assert a minimal session.
-     *
-     * @param ejbName
-     * @param applicationMetaData
-     * @return
-     */
-   /*
-   private SessionMetaData assertNullSession(String ejbName, ApplicationMetaData applicationMetaData)
-   {
-      SessionMetaData session = assertSession(ejbName, applicationMetaData);
-      assertTrue(session.isStateless());
-      assertTrue(session.isContainerManagedTx());
-      assertEquals(ejbName+"EjbClass", session.getEjbClass());
-      assertNotNull(session.getSecurityIdentityMetaData());
-
-      assertNull(session.getHome());
-      assertNull(session.getRemote());
-      assertNull(session.getLocalHome());
-      assertNull(session.getLocal());
-      assertNull(session.getServiceEndpoint());
-      assertNullEnvironment(session);
-      assertDefaultMethodAttributes(ejbName, session);
-      assertEmptyIterator(session.getTransactionMethods());
-      assertEmptyIterator(session.getPermissionMethods());
-      assertEmptyIterator(session.getExcludedMethods());
-      assertEmptyIterator(session.getSecurityRoleReferences());
-
-      return session;
-   }
-   */
-
-   /*
-   private SessionMetaData assertSession(String ejbName, ApplicationMetaData applicationMetaData)
-   {
-      SessionMetaData session = assertEnterpriseBean(ejbName + "EjbName", applicationMetaData, SessionMetaData.class);
-      assertTrue(session.isSession());
-      assertFalse(session.isEntity());
-      assertFalse(session.isMessageDriven());
-      return session;
-   }
-   */
     protected EntityBeanMetaData assertFullEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
         throw new NotImplementedException();
     }
@@ -1327,21 +1216,6 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
             }
         }
     }
-
-   /*
-   protected void assertMethodAttributes(String ejbName, BeanMetaData bean)
-   {
-      assertDefaultMethodAttributes(ejbName, bean);
-   }
-   */
-
-   /*
-   protected void assertDefaultMethodAttributes(String ejbName, BeanMetaData bean)
-   {
-      assertFalse(bean.isMethodReadOnly("getSomething"));
-      assertEquals(0, bean.getTransactionTimeout("getSomething"));
-   }
-   */
 
     private void assertEmptyIterator(Iterator i) {
         if (i != null && i.hasNext()) { throw new AssertionFailedError("The iterator should be empty: " + i); }

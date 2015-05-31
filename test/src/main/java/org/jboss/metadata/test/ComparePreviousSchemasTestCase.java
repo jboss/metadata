@@ -21,28 +21,30 @@
  */
 package org.jboss.metadata.test;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.runners.Parameterized.Parameters;
 
-import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.runners.Parameterized.Parameters;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -125,13 +127,10 @@ public class ComparePreviousSchemasTestCase {
             final File previousSchemaDir = new File(previousSchemaURL.toURI());
             final URL alternateSchemaURL = ComparePreviousSchemasTestCase.class.getResource("/alternate-previous/" + dirName);
             final File alternateSchemaDir = alternateSchemaURL != null ? new File(alternateSchemaURL.toURI()) : null;
-            for (final String name : schemaDir.list(new FilenameFilter() {
-                @Override
-                public boolean accept(final File dir, final String name) {
-                    final File previous = new File(previousSchemaDir, name);
-                    return name.endsWith(suffix) && previous.exists();
-                }
-            })) {
+            for (final String name : Objects.requireNonNull(schemaDir.list((dir, name) -> {
+                final File previous = new File(previousSchemaDir, name);
+                return name.endsWith(suffix) && previous.exists();
+            }))) {
                 final File current = new File(schemaDir, name);
                 final File previous = new File(previousSchemaDir, name);
                 final File alternate = alternateSchemaDir != null ? new File(alternateSchemaDir, name) : null;
@@ -149,13 +148,21 @@ public class ComparePreviousSchemasTestCase {
     private static byte[] md5(final File file) throws IOException {
         try {
             final MessageDigest digest = MessageDigest.getInstance("MD5");
-            final byte[] buffer = new byte[32768];
-            try(final BufferedInputStream in = new BufferedInputStream(new FileInputStream(file))) {
-                int l;
-                while((l = in.read(buffer)) >= 0){
-                    digest.update(buffer, 0, l);
+            if (file.getName().endsWith("xsd")) {
+                String xsd = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8).stream().collect(Collectors.joining("\n"));
+                String sb = xsd.replaceAll("<xsd:annotation>[\\s\\S]*?</xsd:annotation>", "") // we remove all docs
+                        .replaceAll("<xs:annotation>[\\s\\S]*?</xs:annotation>", "")
+                        .replaceAll("<!--[\\s\\S]*?-->", ""); //we remove comments
+                digest.update(sb.getBytes(StandardCharsets.UTF_8));
+            } else {
+                try (BufferedReader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        digest.update(line.getBytes(StandardCharsets.UTF_8));
+                    }
                 }
             }
+
             return digest.digest();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
