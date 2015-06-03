@@ -63,6 +63,8 @@
         <version.org.jboss.spec.javax.transaction.jboss-transaction-api_1.2_spec>1.0.0.Final</version.org.jboss.spec.javax.transaction.jboss-transaction-api_1.2_spec>
         <version.org.jboss.ejb3.ext-api>2.1.0</version.org.jboss.ejb3.ext-api>
         <version.sun.jaxb>2.2.5.jboss-1</version.sun.jaxb>
+        <!-- The last major release, used for tests that compare the schemas -->
+        <last-major-release>9.0.0.Final</last-major-release>
     </properties>
 
     <modules>
@@ -350,7 +352,7 @@
                                     <goal>unpack</goal>
                                 </goals>
                                 <configuration>
-                                    <artifact>${project.groupId}:${project.artifactId}:RELEASE</artifact>
+                                    <artifact>${project.groupId}:${project.artifactId}:${last-major-release}</artifact>
                                     <outputDirectory>${project.build.testOutputDirectory}/previous-release</outputDirectory>
                                 </configuration>
                             </execution>
