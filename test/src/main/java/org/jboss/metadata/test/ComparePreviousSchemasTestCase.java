@@ -39,6 +39,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -48,6 +49,48 @@ import org.junit.runners.Parameterized;
  */
 @RunWith(Parameterized.class)
 public class ComparePreviousSchemasTestCase {
+
+    /**
+     * because the version to test against needs to be manually updated this makes sure that it is not forgotten
+     */
+    @BeforeClass
+    public static void checkCorrectVersion() {
+        final String cv = System.getProperty("current-version");
+        if(cv == null) {
+            return;
+        }
+        String[] current = cv.split("\\.");
+        String[] test = System.getProperty("schema-test-version").split("\\.");
+
+        if(current[2].equals("0")) {
+            //not a point release, we want to test against a previous major
+            int m1 = Integer.parseInt(current[0]);
+            int m2 = Integer.parseInt(test[0]);
+            if(m1 == m2) {
+                //same major version, check the minor
+                m1 = Integer.parseInt(current[1]);
+                m2 = Integer.parseInt(test[1]);
+                if(m2 + 1 != m1) {
+                    failTestVersion();
+                }
+            } else {
+                if(m2 + 1 != m1) {
+                    failTestVersion();
+                }
+            }
+        } else {
+            //this is a point release, we should be testing against another version with the same major/minor
+           if(!current[0].equals(test[0]) || !current[1].equals(test[1])) {
+               failTestVersion();
+           }
+        }
+
+    }
+
+    private static void failTestVersion() {
+        throw new RuntimeException("last-major-release property in the POM is out of date. This should be set to the previous stable release, so testing can be done to make sure schemas have not been modified");
+    }
+
     private static final Logger LOG = Logger.getLogger(ComparePreviousSchemasTestCase.class.getName());
 
     @Parameters(name = "{index}: {0}")
