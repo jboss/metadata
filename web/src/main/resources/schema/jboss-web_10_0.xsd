@@ -587,7 +587,8 @@
     <xsd:complexType name="enable-websocketsType">
         <xsd:annotation>
             <xsd:documentation>
-                Legacy enable-websockets option. Ignored as websockets are enabled by default.
+                Legacy enable-websockets option. Websockets are enabled by default, this option allows them to be
+                turned off.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
