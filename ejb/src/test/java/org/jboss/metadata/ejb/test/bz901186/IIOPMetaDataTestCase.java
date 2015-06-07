@@ -20,7 +20,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-
 /**
  * Created by wmprice on 6/6/15.
  */
@@ -85,4 +84,5 @@ public class IIOPMetaDataTestCase {
         }catch(Exception ignore){}
 
     }
+
 }
