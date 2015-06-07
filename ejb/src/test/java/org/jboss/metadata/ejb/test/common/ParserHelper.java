@@ -38,7 +38,10 @@ public class ParserHelper implements EntityResolver, ErrorHandler {
 
             if(ext.equalsIgnoreCase("JSON")) {
                 candidate = new ValidationMapLoader.JsonMapLoader().loadMapSource(is);
-            } else {
+            } else if(ext.equalsIgnoreCase("PROPERTIES")) {
+                candidate = new ValidationMapLoader.PropertiesFileLoader().loadMapSource(is);
+            }
+            else {
                 candidate = new ValidationMapLoader.NullMapLoader().loadMapSource(is);
             }
 
@@ -63,14 +66,17 @@ public class ParserHelper implements EntityResolver, ErrorHandler {
 
     @Override public void warning(SAXParseException exception) throws SAXException {
         logger.warning(exception.getMessage());
+        throw exception;
     }
 
     @Override public void error(SAXParseException exception) throws SAXException {
         logger.severe(exception.getMessage());
+        throw exception;
     }
 
     @Override public void fatalError(SAXParseException exception) throws SAXException {
         logger.severe(exception.getMessage());
+        throw exception;
     }
 
     private static InputSource inputSource(final Class loader, final String systemId, final String resource) {
