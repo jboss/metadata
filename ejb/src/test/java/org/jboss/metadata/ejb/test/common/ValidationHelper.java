@@ -66,6 +66,7 @@ public class ValidationHelper {
         system.put("http://java.sun.com/xml/ns/javaee/javaee_web_services_client_1_3.xsd", "/schema/javaee_web_services_client_1_3.xsd");
         system.put("http://www.w3.org/2001/xml.xsd", "/schema/xml.xsd");
         system.put("http://www.jboss.org/j2ee/schema/trans-timeout-1_0.xsd", "/schema/trans-timeout-1_0.xsd");
+        system.put("http://www.jboss.org/j2ee/schema/jboss-ejb-iiop_1_0.xsd", "/schema/jboss-ejb-iiop_1_0.xsd");
         // Somehow this gives a broken URI, see http://en.wikipedia.org/wiki/File_URI_scheme
         system.put("file://" + new File(System.getProperty("user.dir")).toURI().getPath() + "cache-test.xsd", "cache-test.xsd");
         system.put("file://" + new File(System.getProperty("user.dir")).toURI().getPath() + "tx-test.xsd", "tx-test.xsd");
