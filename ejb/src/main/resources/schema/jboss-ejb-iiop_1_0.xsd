@@ -49,10 +49,15 @@
                   attribute service settings. If a wildcard "*" is used as bean-name, the IOR settings will be applied
                   to all beans in the deployment, except for the ones that override these settings in their own iiop
                   element.
+
+                  Prior to this version, ejb-name was a member of the iiopConfigType which was in error. ejb-name is provided
+                  as part of the extension base, jboss-assembly-descriptor-bean-entrytype.
                   ]]>
                </xs:documentation>
             </xs:annotation>
             <xs:sequence>
+              <!--Should not be provided, BZ-1192951 -->
+              <xs:element name="ejb-name" type="xs:string" minOccurs="0" maxOccurs="0"/>
                <xs:element name="binding-name" type="xs:string" minOccurs="0" maxOccurs="1"/>
                <xs:element name="ior-security-config" type="iorSecurityConfigType"/>
             </xs:sequence>
@@ -109,7 +114,7 @@
       <xs:attribute name="establish-trust-in-client" type="xs:string" use="required"/>
       <xs:attribute name="establish-trust-in-target" type="xs:string" use="required"/>
    </xs:complexType>
-    
+
     <xs:complexType name="iorASContextType">
        <xs:annotation>
           <xs:documentation>
