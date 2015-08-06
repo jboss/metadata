@@ -1,14 +1,23 @@
 package org.jboss.metadata.ejb.test.bz901186;
 
 import org.jboss.metadata.ejb.jboss.IIOPMetaData;
+import org.jboss.metadata.ejb.parser.jboss.ejb3.IIOPMetaDataParser;
+import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.test.common.ValidationHelper;
+import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.property.PropertyReplacers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
+import javax.ejb.EJBMetaData;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamReader;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshalJboss;
 import static org.junit.Assert.assertNotNull;
@@ -20,7 +29,10 @@ public class IIOPMetaDataTestCase {
 
     @Test
     public void testIIOPParser() throws Exception {
-        EjbJarMetaData metaData = unmarshalJboss(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/bz901186/jboss-ejb3.xml");
+        IIOPMetaDataParser parser = new IIOPMetaDataParser();
+        Map<String, AbstractMetaDataParser<?>> parsers = new HashMap<String, AbstractMetaDataParser<?>>();
+        parsers.put("urn:iiop", parser);
+        EjbJarMetaData metaData = unmarshalJboss(EjbJarMetaData.class, "/org/jboss/metadata/ejb/test/bz901186/jboss-ejb3.xml", parsers);
         System.out.println(metaData);
     }
 
