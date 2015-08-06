@@ -53,7 +53,9 @@
                </xs:documentation>
             </xs:annotation>
             <xs:sequence>
+               <!--
                <xs:element name="ejb-name" type="javaee:ejb-nameType" minOccurs="1" maxOccurs="1"/>
+               -->
                <xs:element name="binding-name" type="xs:string" minOccurs="0" maxOccurs="1"/>
                <xs:element name="ior-security-config" type="iorSecurityConfigType"/>
             </xs:sequence>

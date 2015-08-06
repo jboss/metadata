@@ -27,12 +27,11 @@
     <assembly-descriptor>
 		<iiop:iiop>
       <ejb-name>X</ejb-name>
-				<iiop:ejb-name>X</iiop:ejb-name>
-        <iiop:ior-security-config>
-          <iiop:transport-config integrity="NONE" confidentiality="NONE" establish-trust-in-client="NONE" establish-trust-in-target="NONE"/>
-          <iiop:as-context auth-method="" realm="" required=""/>
-          <iiop:sas-context caller-propagation=""/>
-        </iiop:ior-security-config>
+      <iiop:ior-security-config>
+        <iiop:transport-config integrity="NONE" confidentiality="NONE" establish-trust-in-client="NONE" establish-trust-in-target="NONE"/>
+        <iiop:as-context auth-method="USERNAME_PASSWORD" realm="TEST_REALM" required="false"/>
+        <iiop:sas-context caller-propagation="NONE"/>
+      </iiop:ior-security-config>
     </iiop:iiop>
     </assembly-descriptor>
 </jboss:ejb-jar>

@@ -80,28 +80,43 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
     protected IORSecurityConfigMetaData processIORSecurityConfig(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         IORSecurityConfigMetaData iorSecurityMetaData = new IORSecurityConfigMetaData();
 
-        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            Element element = Element.forName(reader.getLocalName());
-            switch (element) {
-                case TRANSPORT_CONFIG: {
-                    IORTransportConfigMetaData transportConfig = this.processTransportConfig(reader, propertyReplacer);
-                    iorSecurityMetaData.setTransportConfig(transportConfig);
+        boolean inStart = false;
+        int tag = 0;
+
+        while (reader.hasNext() ) {
+            tag = reader.nextTag();
+
+            if(tag == START_ELEMENT) {
+                inStart = true;
+                Element element = Element.forName(reader.getLocalName());
+                switch (element) {
+                    case TRANSPORT_CONFIG: {
+                        IORTransportConfigMetaData transportConfig = this.processTransportConfig(reader, propertyReplacer);
+                        iorSecurityMetaData.setTransportConfig(transportConfig);
+                        break;
+                    }
+                    case AS_CONTEXT: {
+                        IORASContextMetaData asContext = this.processASContext(reader, propertyReplacer);
+                        iorSecurityMetaData.setAsContext(asContext);
+                        break;
+                    }
+                    case SAS_CONTEXT: {
+                        IORSASContextMetaData sasContext = this.processSASContext(reader, propertyReplacer);
+                        iorSecurityMetaData.setSasContext(sasContext);
+                        break;
+                    }
+                    default: {
+                        throw unexpectedElement(reader);
+                    }
+                }
+
+            } else if(tag == END_ELEMENT) {
+                if(inStart)
+                    inStart = false;
+                else
                     break;
-                }
-                case AS_CONTEXT: {
-                    IORASContextMetaData asContext = this.processASContext(reader, propertyReplacer);
-                    iorSecurityMetaData.setAsContext(asContext);
-                    break;
-                }
-                case SAS_CONTEXT: {
-                    IORSASContextMetaData sasContext = this.processSASContext(reader, propertyReplacer);
-                    iorSecurityMetaData.setSasContext(sasContext);
-                    break;
-                }
-                default: {
-                    throw unexpectedElement(reader);
-                }
             }
+
         }
         return iorSecurityMetaData;
     }
