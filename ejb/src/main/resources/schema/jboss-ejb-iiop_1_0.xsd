@@ -56,8 +56,6 @@
                </xs:documentation>
             </xs:annotation>
             <xs:sequence>
-               <!--Should not be provided, BZ-1192951 -->
-               <xs:element name="ejb-name" type="xs:string" minOccurs="0" maxOccurs="0"/>
                <xs:element name="binding-name" type="xs:string" minOccurs="0" maxOccurs="1"/>
                <xs:element name="ior-security-config" type="iorSecurityConfigType"/>
             </xs:sequence>
