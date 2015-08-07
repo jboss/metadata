@@ -83,7 +83,7 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
         boolean inStart = false;
         int tag = 0;
 
-        while (reader.hasNext() ) {
+        while (reader.hasNext()) {
             tag = reader.nextTag();
 
             if(tag == START_ELEMENT) {
@@ -110,11 +110,10 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
                     }
                 }
 
-            } else if(tag == END_ELEMENT) {
-                if(inStart)
-                    inStart = false;
-                else
-                    break;
+            } else if(tag == END_ELEMENT && inStart) {
+                inStart = false;
+            } else {
+                break;
             }
 
         }
