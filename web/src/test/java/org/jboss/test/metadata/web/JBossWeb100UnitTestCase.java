@@ -52,7 +52,7 @@ public class JBossWeb100UnitTestCase extends AbstractJavaEEEverythingTest {
         ParamValueMetaData param = handler.getParams().get(0);
         assertEquals("MyName", param.getParamName());
         assertEquals("MyValue", param.getParamValue());
-        assertEquals(false, jbossWeb.isProactiveAuthentication());
+        assertEquals(false, jbossWeb.getProactiveAuthentication().booleanValue());
 
 
     }

@@ -171,7 +171,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     /**
      * If Undertow should always attempt to authenticate if credentials are present
      */
-    private boolean proactiveAuthentication = true;
+    private Boolean proactiveAuthentication = null;
 
 
     public static final int SESSION_COOKIES_DEFAULT = 0;
@@ -824,11 +824,11 @@ public class JBossWebMetaData extends NamedModuleImpl {
         this.defaultEncoding = defaultEncoding;
     }
 
-    public boolean isProactiveAuthentication() {
+    public Boolean getProactiveAuthentication() {
         return proactiveAuthentication;
     }
 
-    public void setProactiveAuthentication(boolean proactiveAuthentication) {
+    public void setProactiveAuthentication(Boolean proactiveAuthentication) {
         this.proactiveAuthentication = proactiveAuthentication;
     }
 }
