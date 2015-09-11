@@ -337,15 +337,12 @@
          <xsd:documentation>
             <![CDATA[
 
-            Clustering only: Specifies the name of the Infinispan container and cache in which to store session data.
+            Clustering only: Name of the JBoss Cache or PojoCache configuration that
+            should be used for storing distributable sessions and replicating them around the
+            cluster.
 
-            Default value, if not explicitly set, is determined by the application server.
-
-            To use a specific cache within a cache container, use the form "container.cache".
-            If unqualified, the default cache of the specified container is used.
-
-            e.g. <cache-name>web</cache-name>
-                 <cache-name>web.dist</cache-name>
+            Default value if not explicitly set is the overall web container default
+            as set in the deployers/jbossweb.deployer service.
 
             ]]>
          </xsd:documentation>
