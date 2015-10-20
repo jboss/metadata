@@ -34,7 +34,7 @@
       <xsd:documentation>
          <![CDATA[
 
-	This is the XML Schema for the Wildfly 10.0 web application deployment descriptor.
+	This is the XML Schema for the WildFly 10.0 web application deployment descriptor.
 	The deployment descriptor must be named "WEB-INF/jboss-web.xml" in
 	the WAR file.  All JBoss Web deployment descriptors must indicate
 	the JBoss schema by using the Java EE namespace:
@@ -84,7 +84,7 @@
 
   <xsd:simpleType name="jboss-web-versionType">
       <xsd:restriction base="xsd:token">
-         <xsd:enumeration value="8.0"/>
+         <xsd:enumeration value="10.0"/>
       </xsd:restriction>
   </xsd:simpleType>
 
@@ -117,7 +117,7 @@
          <xsd:element name="use-jboss-authorization" type="jboss:use-jboss-authorizationType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="disable-audit" type="jboss:disable-auditType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="servlet" type="jboss:servletType" minOccurs="0" maxOccurs="unbounded"/>
-         <xsd:element name="max-active-sessions" type="javaee:xsdIntegerType" minOccurs="0" maxOccurs="1">
+         <xsd:element name="max-active-sessions" type="javaee:xsdIntegerType" minOccurs="0" maxOccurs="1" default="-1">
             <xsd:annotation>
                <xsd:documentation>
                   Determines the maximum number of sessions to retain in memory. If the application attempts to exceed
