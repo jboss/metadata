@@ -25,7 +25,7 @@
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            attributeFormDefault="unqualified" elementFormDefault="qualified"
-           targetNamespace="urn:iiop" version="1.0"
+           targetNamespace="urn:iiop" version="1.1"
            xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd">
    <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd"/>
 
