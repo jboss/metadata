@@ -82,7 +82,4 @@ public class ValidationHelper {
             } System.out.println("The final count is " + count);
         }
     }
-    public static void main(String[] args) throws Exception {
-        compileCatalog("/Users/wmprice/Desktop/schema");
-    }
 }
