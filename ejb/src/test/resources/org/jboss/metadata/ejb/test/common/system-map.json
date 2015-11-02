@@ -1,0 +1,9 @@
+[
+  {"http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd" : "/schema/jboss-ejb3-2_0.xsd"},
+  {"http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd" : "/schema/jboss-ejb3-spec-2_0.xsd"},
+  {"http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd" : "/schema/ejb-jar_3_1.xsd"},
+  {"http://java.sun.com/xml/ns/javaee/javaee_6.xsd": "/schema/javaee_6.xsd"},
+  {"http://java.sun.com/xml/ns/javaee/javaee_web_services_client_1_3.xsd": "/schema/javaee_web_services_client_1_3.xsd"},
+  {"http://www.w3.org/2001/xml.xsd": "/schema/xml.xsd"},
+  {"http://www.jboss.org/j2ee/schema/trans-timeout-1_0.xsd": "/schema/trans-timeout-1_0.xsd"}
+]
