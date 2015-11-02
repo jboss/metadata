@@ -41,7 +41,7 @@ import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.MethodMetaData;
 import org.jboss.metadata.ejb.spec.MethodsMetaData;
-import org.jboss.metadata.ejb.test.common.ValidationHelper;
+import org.jboss.test.metadata.common.vdx.ValidationHelper;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;

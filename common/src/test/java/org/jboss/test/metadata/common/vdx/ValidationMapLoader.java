@@ -1,4 +1,4 @@
-package org.jboss.metadata.ejb.test.common;
+package org.jboss.test.metadata.common.vdx;
 
 import javax.json.Json;
 import javax.json.stream.JsonParser;

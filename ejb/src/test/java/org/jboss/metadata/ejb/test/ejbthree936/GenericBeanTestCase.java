@@ -38,7 +38,7 @@ import org.jboss.metadata.ejb.spec.EnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.spec.GenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
-import org.jboss.metadata.ejb.test.common.ValidationHelper;
+import org.jboss.test.metadata.common.vdx.ValidationHelper;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.junit.Test;
 import org.w3c.dom.Document;

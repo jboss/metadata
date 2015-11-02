@@ -38,7 +38,7 @@ import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.MethodInterfaceType;
 import org.jboss.metadata.ejb.spec.SessionBean31MetaData;
-import org.jboss.metadata.ejb.test.common.ValidationHelper;
+import org.jboss.test.metadata.common.vdx.ValidationHelper;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;

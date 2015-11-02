@@ -1,4 +1,4 @@
-package org.jboss.metadata.ejb.test.common;
+package org.jboss.test.metadata.common.vdx;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
