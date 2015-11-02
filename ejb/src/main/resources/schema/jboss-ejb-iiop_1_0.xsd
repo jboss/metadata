@@ -110,7 +110,7 @@
       <xs:attribute name="establish-trust-in-client" type="xs:string" use="required"/>
       <xs:attribute name="establish-trust-in-target" type="xs:string" use="required"/>
    </xs:complexType>
-
+    
     <xs:complexType name="iorASContextType">
        <xs:annotation>
           <xs:documentation>
@@ -144,4 +144,5 @@
        </xs:annotation>
        <xs:attribute name="caller-propagation" type="xs:string" use="required"/>
     </xs:complexType>
+
 </xs:schema>
