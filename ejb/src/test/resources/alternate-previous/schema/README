@@ -1,0 +1,2 @@
+This directory contains overrides for ComparePreviousSchemasTestCase. Only schemas that are fully backwards compatible
+may be added here.

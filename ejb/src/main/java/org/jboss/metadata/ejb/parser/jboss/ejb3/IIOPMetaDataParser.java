@@ -22,20 +22,18 @@
 
 package org.jboss.metadata.ejb.parser.jboss.ejb3;
 
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.ejb.jboss.IIOPMetaData;
 import org.jboss.metadata.ejb.jboss.IORASContextMetaData;
 import org.jboss.metadata.ejb.jboss.IORSASContextMetaData;
 import org.jboss.metadata.ejb.jboss.IORSecurityConfigMetaData;
 import org.jboss.metadata.ejb.jboss.IORTransportConfigMetaData;
 import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.property.PropertyReplacers;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -61,6 +59,14 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
             case EJB3_IIOP: {
                 Element element = Element.forName(reader.getLocalName());
                 switch (element) {
+                    case EJB_NAME:
+                        final String ejbName = getElementText(reader, propertyReplacer);
+                        /* TODO: maybe log a warning or something, for now ignore
+                        if (ejbName != null && !ejbName.equals(metaData.getEjbName())) {
+
+                        }
+                        */
+                        break;
                     case BINDING_NAME: {
                         metaData.setBindingName(getElementText(reader, propertyReplacer));
                         break;
@@ -329,6 +335,7 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
         UNKNOWN(null),
 
         BINDING_NAME("binding-name"),
+        @Deprecated EJB_NAME("ejb-name"),
         IOR_SECURITY_CONFIG("ior-security-config"),
         // transport configuration elements.
         TRANSPORT_CONFIG("transport-config"),
