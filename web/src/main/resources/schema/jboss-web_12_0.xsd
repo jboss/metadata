@@ -74,8 +74,9 @@
         </xsd:documentation>
     </xsd:annotation>
 
-    <xsd:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="web-app_4_0.xsd"/>
-    <xsd:include schemaLocation="jboss-common_7_0.xsd"/>
+
+    <xsd:import namespace="http://xmlns.jcp.org/xml/ns/javaee" schemaLocation="http://www.jboss.org/schema/jbossas/web-app_3_1.xsd"/>
+    <xsd:include schemaLocation="http://www.jboss.org/schema/jbossas/jboss-common_7_0.xsd"/>
 
     <xsd:element name="jboss-web" type="jboss:jboss-webType">
         <xsd:annotation>
@@ -251,7 +252,7 @@
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:extension base="javaee:string">
-                <xsd:attribute name="flushOnSessionInvalidation" type="javaee:generic-booleanType" use="optional" default="false">
+                <xsd:attribute name="flushOnSessionInvalidation" type="xsd:boolean" use="optional" default="false">
                     <xsd:annotation>
                         <xsd:documentation>
                             Whether the domain's cache should be flushed when the session invalidates.
@@ -330,7 +331,7 @@
             </xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
-            <xsd:restriction base="xsd:boolean"/>
+            <xsd:restriction base="javaee:generic-booleanType"/>
         </xsd:simpleContent>
     </xsd:complexType>
 
