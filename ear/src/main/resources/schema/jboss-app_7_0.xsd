@@ -113,11 +113,16 @@
     </xs:complexType>
 
     <xs:complexType name="moduleType">
-        <xs:sequence>
-            <xs:element name="service" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="har" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="web" type="javaee:webType" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
+        <xs:complexContent>
+            <xs:extension base="javaee:moduleType">
+		        <xs:sequence>
+		            <xs:element name="service" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		            <xs:element name="har" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+		            <xs:element name="web" type="javaee:webType" minOccurs="0" maxOccurs="unbounded"/>
+		        </xs:sequence>
+		    </xs:extension>
+		</xs:complexContent>
     </xs:complexType>
 
 </xs:schema>
+
