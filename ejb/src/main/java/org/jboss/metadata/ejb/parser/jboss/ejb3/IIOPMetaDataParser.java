@@ -272,7 +272,7 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
          *
          * @param namespaceURI a {@code String} representing the namespace {@code URI}.
          */
-        private Namespace(final String namespaceURI) {
+        Namespace(final String namespaceURI) {
             this.namespaceURI = namespaceURI;
         }
 
