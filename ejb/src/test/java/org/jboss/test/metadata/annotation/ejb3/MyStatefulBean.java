@@ -35,7 +35,6 @@ import javax.ejb.Remove;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import javax.persistence.PersistenceContext;
-import javax.xml.ws.WebServiceRef;
 
 import org.jboss.ejb3.annotation.Clustered;
 
@@ -68,7 +67,6 @@ public class MyStatefulBean {
     @PersistenceContext
     private String string;
 
-    @WebServiceRef
     private MyStateful webserviceRef;
 
     @PostConstruct

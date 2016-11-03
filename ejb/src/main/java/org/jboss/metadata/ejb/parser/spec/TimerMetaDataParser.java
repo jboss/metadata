@@ -22,11 +22,10 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-import javax.xml.bind.DatatypeConverter;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
@@ -127,35 +126,7 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData> {
 
         }
     }
-
-    //TODO: get rid of the javax.xml.bind reference
-    //TODO: because of CL issues we need to set the CL or DatatypeConverter will fail
     private static Calendar parseDateTime(String dateTime) {
-        final ClassLoader o = getTccl();
-        try {
-            setTccl(TimerMetaDataParser.class.getClassLoader());
-            return DatatypeConverter.parseDateTime(dateTime);
-        } finally {
-            setTccl(o);
-        }
-    }
-
-    private static ClassLoader getTccl() {
-        return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
-            @Override
-            public ClassLoader run() {
-                return Thread.currentThread().getContextClassLoader();
-            }
-        });
-    }
-
-    private static void setTccl(final ClassLoader classLoader) {
-        AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
-            @Override
-            public ClassLoader run() {
-                Thread.currentThread().setContextClassLoader(classLoader);
-                return null;
-            }
-        });
+        return GregorianCalendar.from(ZonedDateTime.parse(dateTime));
     }
 }
