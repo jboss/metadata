@@ -66,7 +66,7 @@ public class PermissionsMetaDataParser extends MetaDataElementParser {
             // version attribute is mandatory
             Set<Attribute> required = new HashSet<Attribute>();
             required.add(Attribute.VERSION);
-            throw missingRequired(reader, required);
+            throw missingRequiredAttributes(reader, required);
         }
 
         switch (version) {
