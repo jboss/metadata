@@ -13,7 +13,7 @@
 
 	This is the XML Schema for the JBoss 6.0 application client deployment descriptor.
 	The deployment descriptor must be named "META-INF/jboss-client.xml" in
-	the application client's jar file.  All the applicetion client deployment descriptors must indicate
+	the application client's jar file.  All the application client deployment descriptors must indicate
 	the JBoss schema by using the Java EE namespace:
 
 	http://www.jboss.com/xml/ns/javaee
