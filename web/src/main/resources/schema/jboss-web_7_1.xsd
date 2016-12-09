@@ -250,16 +250,14 @@
       </xsd:simpleContent>
    </xsd:complexType>
 
-   <xsd:complexType name="symbolic-linked-allowedType">
+   <xsd:simpleType name="symbolic-linked-allowedType">
        <xsd:annotation>
           <xsd:documentation>
              Thesymbolic-linked-allowed element specifies if symlinking is allowed in exploded deployments.
           </xsd:documentation>
        </xsd:annotation>
-       <xsd:simpleContent>
-          <xsd:restriction base="xsd:boolean"/>
-       </xsd:simpleContent>
-   </xsd:complexType>
+       <xsd:restriction base="xsd:boolean"/>
+   </xsd:simpleType>
 
    <xsd:complexType name="jacc-star-role-allowType">
       <xsd:annotation>
