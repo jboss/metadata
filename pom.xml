@@ -46,8 +46,8 @@
         <javax.persistence.version>1.0.0.Final</javax.persistence.version>
 
         <!-- Build configuration -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
         <maven.min.version>3.0.4</maven.min.version>
 
         <!-- Dependency versions. Please keep alphabetical -->
