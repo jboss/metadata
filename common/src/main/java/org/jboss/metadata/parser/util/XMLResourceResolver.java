@@ -640,7 +640,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         private final String baseURI;
         private final InputSource inputSource;
 
-        LSInputImpl(String publicID, String systemID, String baseURI, InputSource inputSource) {
+        public LSInputImpl(String publicID, String systemID, String baseURI, InputSource inputSource) {
             this.inputSource = inputSource;
             this.systemID = systemID;
             this.publicID = publicID;
