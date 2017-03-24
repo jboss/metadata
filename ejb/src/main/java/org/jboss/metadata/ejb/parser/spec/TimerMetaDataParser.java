@@ -22,13 +22,6 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 import org.jboss.metadata.ejb.spec.ScheduleMetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;
@@ -36,6 +29,18 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.Accessor;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import static java.time.temporal.ChronoField.OFFSET_SECONDS;
 
 /**
  * Parses and creates metadata out of &lt;timer&gt; element in ejb-jar.xml
@@ -58,6 +63,18 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData> {
         TimerMetaData timerMetaData = new TimerMetaData();
         this.processElements(timerMetaData, reader, propertyReplacer);
         return timerMetaData;
+    }
+
+    private static Calendar parseDateTime(String dateTime) {
+        final TemporalAccessor ta = DateTimeFormatter.ISO_DATE_TIME.parse(dateTime);
+        final LocalDateTime localDateTime = LocalDateTime.from(ta);
+        final ZoneId zoneId;
+        if (ta.isSupported(OFFSET_SECONDS)) {
+            zoneId = ZoneId.from(ta);
+        } else {
+            zoneId = ZoneId.systemDefault();
+        }
+        return GregorianCalendar.from(ZonedDateTime.of(localDateTime, zoneId));
     }
 
     /**
@@ -125,8 +142,5 @@ public class TimerMetaDataParser extends AbstractMetaDataParser<TimerMetaData> {
                 throw unexpectedElement(reader);
 
         }
-    }
-    private static Calendar parseDateTime(String dateTime) {
-        return GregorianCalendar.from(ZonedDateTime.parse(dateTime));
     }
 }
