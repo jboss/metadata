@@ -21,8 +21,10 @@
  */
 package org.jboss.metadata.test;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.runners.Parameterized.Parameters;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -39,10 +41,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.runners.Parameterized.Parameters;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
@@ -123,6 +123,8 @@ public class ComparePreviousSchemasTestCase {
             final File schemaDir = new File(schemaURL.toURI());
             final URL previousSchemaURL = ComparePreviousSchemasTestCase.class.getResource("/previous-release/" + dirName);
             final File previousSchemaDir = new File(previousSchemaURL.toURI());
+            final URL alternateSchemaURL = ComparePreviousSchemasTestCase.class.getResource("/alternate-previous/" + dirName);
+            final File alternateSchemaDir = alternateSchemaURL != null ? new File(alternateSchemaURL.toURI()) : null;
             for (final String name : schemaDir.list(new FilenameFilter() {
                 @Override
                 public boolean accept(final File dir, final String name) {
@@ -132,7 +134,11 @@ public class ComparePreviousSchemasTestCase {
             })) {
                 final File current = new File(schemaDir, name);
                 final File previous = new File(previousSchemaDir, name);
-                parameters.add(new File[]{previous, current});
+                final File alternate = alternateSchemaDir != null ? new File(alternateSchemaDir, name) : null;
+                if (alternate != null && alternate.exists())
+                    parameters.add(new File[]{alternate, current});
+                else
+                    parameters.add(new File[]{previous, current});
             }
             return parameters;
         } catch (URISyntaxException e) {
