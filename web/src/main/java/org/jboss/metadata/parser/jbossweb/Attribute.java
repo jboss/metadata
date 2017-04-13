@@ -37,6 +37,8 @@ public enum Attribute {
     // jboss-web attributes in alpha order
     CONFIG_PARSER_CLASS("configParserClass"),
 
+    FLUSH_ON_SESSION_INVALIDATION("flushOnSessionInvalidation"),
+
     ID("id"),
 
     JAVA_2_CLASS_LOADING_COMPLIANCE("java2ClassLoadingCompliance"),

@@ -124,6 +124,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             case JBOSS_WEB_10_0:
                 wmd = new JBoss80WebMetaData();
                 break;
+            case JBOSS_WEB_11_0:
+                wmd = new JBoss80WebMetaData();
+                break;
         }
 
         // Handle attributes
@@ -214,6 +217,24 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     overlays.add(getElementText(reader, propertyReplacer));
                     break;
                 case SECURITY_DOMAIN:
+                    // Handle security domain attributes
+                    final int k = reader.getAttributeCount();
+                    for (int i = 0; i < k; i++) {
+                        final String value = reader.getAttributeValue(i);
+                        if (attributeHasNamespace(reader, i)) {
+                            continue;
+                        }
+                        final org.jboss.metadata.parser.jbossweb.Attribute attribute = org.jboss.metadata.parser.jbossweb.Attribute.forName(reader.getAttributeLocalName(i));
+                        switch (attribute) {
+                            case FLUSH_ON_SESSION_INVALIDATION: {
+                                wmd.setFlushOnSessionInvalidation(Boolean.valueOf(value));
+                                break;
+                            }
+                            default:
+                                throw unexpectedAttribute(reader, i);
+                        }
+                    }
+                    // Handle security domain name
                     wmd.setSecurityDomain(getElementText(reader, propertyReplacer));
                     break;
                 case SECURITY_ROLE:
