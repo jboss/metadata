@@ -96,10 +96,13 @@ public class WebMetaDataParser extends MetaDataElementParser {
                 version = Version.SERVLET_3_0;
             } else if ("3.1".equals(versionString)) {
                 version = Version.SERVLET_3_1;
+            } else if ("4.0".equals(versionString)) {
+                version = Version.SERVLET_4_0;
             }
         }
-
-        wmd.setVersion(version.versionString());
+        if(version != null) {
+            wmd.setVersion(version.versionString());
+        }
         // Set the publicId / systemId
         if (info != null)
             wmd.setDTD(info.getBaseURI(), info.getPublicID(), info.getSystemID());
@@ -179,6 +182,15 @@ public class WebMetaDataParser extends MetaDataElementParser {
                     break;
                 case DENY_UNCOVERED_HTTP_METHODS:
                     wmd.setDenyUncoveredHttpMethods(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
+                    break;
+                case DEFAULT_CONTEXT_PATH:
+                    wmd.setDefaultContextPath(getElementText(reader, propertyReplacer));
+                    break;
+                case REQUEST_CHARACTER_ENCODING:
+                    wmd.setRequestCharacterEncoding(getElementText(reader, propertyReplacer));
+                    break;
+                case RESPONSE_CHARACTER_ENCODING:
+                    wmd.setResponseCharacterEncoding(getElementText(reader, propertyReplacer));
                     break;
                 default:
                     throw unexpectedElement(reader);

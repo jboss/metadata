@@ -49,6 +49,7 @@ public enum Element {
     COOKIE_CONFIG("cookie-config"),
 
     DEFAULT_CONTENT_TYPE("default-content-type"),
+    DEFAULT_CONTEXT_PATH("default-context-path"),
     DEFERRED_SYNTAX_ALLOWED_AS_LITERAL("deferred-syntax-allowed-as-literal"),
     DENY_UNCOVERED_HTTP_METHODS("deny-uncovered-http-methods"),
     DISPATCHER("dispatcher"),
@@ -114,6 +115,8 @@ public enum Element {
     PATH("path"),
 
     REALM_NAME("realm-name"),
+    REQUEST_CHARACTER_ENCODING("request-character-encoding"),
+    RESPONSE_CHARACTER_ENCODING("response-character-encoding"),
     ROLE_NAME("role-name"),
     RUN_AS("run-as"),
 

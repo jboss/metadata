@@ -168,6 +168,8 @@ public class JBossWebMetaData extends NamedModuleImpl {
 
     private String defaultEncoding;
 
+    private String requestCharacterEncoding;
+    private String responseCharacterEncoding;
     /**
      * If Undertow should always attempt to authenticate if credentials are present
      */
@@ -604,6 +606,22 @@ public class JBossWebMetaData extends NamedModuleImpl {
             }
         }
         return principalRolesMap;
+    }
+
+    public String getRequestCharacterEncoding() {
+        return requestCharacterEncoding;
+    }
+
+    public void setRequestCharacterEncoding(String requestCharacterEncoding) {
+        this.requestCharacterEncoding = requestCharacterEncoding;
+    }
+
+    public String getResponseCharacterEncoding() {
+        return responseCharacterEncoding;
+    }
+
+    public void setResponseCharacterEncoding(String responseCharacterEncoding) {
+        this.responseCharacterEncoding = responseCharacterEncoding;
     }
 
     /**

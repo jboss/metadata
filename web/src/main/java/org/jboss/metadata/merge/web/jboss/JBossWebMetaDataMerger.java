@@ -154,8 +154,11 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         else if (original != null && original.getVersion() != null)
             dest.setVersion(original.getVersion());
 
-        if (override != null && override.getContextRoot() != null)
+        if (override != null && override.getContextRoot() != null) {
             dest.setContextRoot(override.getContextRoot());
+        } else if(original != null && original.getDefaultContextPath() != null) {
+            dest.setContextRoot(original.getDefaultContextPath());
+        }
 
         if (override != null && override.getAlternativeDD() != null)
             dest.setAlternativeDD(override.getAlternativeDD());
@@ -270,6 +273,11 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         }
         if(override != null && override.getProactiveAuthentication() != null) {
             dest.setProactiveAuthentication(override.getProactiveAuthentication());
+        }
+
+        if(original != null) {
+            dest.setRequestCharacterEncoding(original.getRequestCharacterEncoding());
+            dest.setResponseCharacterEncoding(original.getResponseCharacterEncoding());
         }
     }
 }

@@ -31,12 +31,14 @@ import org.jboss.metadata.javaee.jboss.NamedModule;
  */
 public class WebMetaData extends WebCommonMetaData implements NamedModule {
 
-
     private Boolean denyUncoveredHttpMethods;
 
     private boolean metadataComplete;
     private AbsoluteOrderingMetaData absoluteOrdering;
     private String moduleName;
+    private String defaultContextPath;
+    private String requestCharacterEncoding;
+    private String responseCharacterEncoding;
 
     public boolean isMetadataComplete() {
         return metadataComplete;
@@ -69,4 +71,27 @@ public class WebMetaData extends WebCommonMetaData implements NamedModule {
         this.denyUncoveredHttpMethods = denyUncoveredHttpMethods;
     }
 
+    public String getDefaultContextPath() {
+        return defaultContextPath;
+    }
+
+    public void setDefaultContextPath(String defaultContextPath) {
+        this.defaultContextPath = defaultContextPath;
+    }
+
+    public String getRequestCharacterEncoding() {
+        return requestCharacterEncoding;
+    }
+
+    public void setRequestCharacterEncoding(String requestCharacterEncoding) {
+        this.requestCharacterEncoding = requestCharacterEncoding;
+    }
+
+    public String getResponseCharacterEncoding() {
+        return responseCharacterEncoding;
+    }
+
+    public void setResponseCharacterEncoding(String responseCharacterEncoding) {
+        this.responseCharacterEncoding = responseCharacterEncoding;
+    }
 }
