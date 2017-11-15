@@ -25,8 +25,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import org.jboss.metadata.common.jboss.LoaderRepositoryConfigMetaData;
-import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
 import org.jboss.metadata.common.jboss.WebserviceDescriptionMetaData;
 import org.jboss.metadata.common.jboss.WebserviceDescriptionsMetaData;
 import org.jboss.metadata.ejb.jboss.CacheConfigMetaData;
@@ -84,7 +82,6 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest {
         assertId("jboss", jbossMetaData);
         assertDescriptionGroup("jboss", jbossMetaData.getDescriptionGroup());
 
-        assertLoaderRepository(jbossMetaData.getLoaderRepository(), mode);
         assertEquals("jboss-jmx-name", jbossMetaData.getJmxName());
         assertEquals("jboss-security-domain", jbossMetaData.getSecurityDomain());
         assertFalse(jbossMetaData.isExcludeMissingMethods());
@@ -99,27 +96,6 @@ public class JBoss51EverythingUnitTestCase extends AbstractEJBEverythingTest {
 
     private void assertVersion(JBossMetaData jbossMetaData) {
         assertEquals("5.1", jbossMetaData.getVersion());
-    }
-
-    private void assertLoaderRepository(LoaderRepositoryMetaData loaderRepositoryMetaData, Mode mode) {
-        assertNotNull(loaderRepositoryMetaData);
-        assertId("loaderRepository", loaderRepositoryMetaData);
-        assertEquals("loaderRepositoryClass", loaderRepositoryMetaData.getLoaderRepositoryClass());
-        assertEquals("loaderRepositoryName", trim(loaderRepositoryMetaData.getName()));
-        assertLoaderRepositoryConfig(2, loaderRepositoryMetaData, mode);
-    }
-
-    private void assertLoaderRepositoryConfig(int size, LoaderRepositoryMetaData loaderRepositoryMetaData, Mode mode) {
-        Set<LoaderRepositoryConfigMetaData> configs = loaderRepositoryMetaData.getLoaderRepositoryConfig();
-        assertNotNull(configs);
-        assertEquals(size, configs.size());
-        for (int count = 1; count < configs.size(); ++count) {
-            LoaderRepositoryConfigMetaData config = new LoaderRepositoryConfigMetaData();
-            config.setId("loaderRepositoryConfig" + count + "-id");
-            config.setConfig("loaderRepositoryConfig" + count);
-            config.setConfigParserClass("loaderRepositoryConfigParserClass" + count);
-            assertTrue(configs + " contains " + config, configs.contains(config));
-        }
     }
 
     public void assertWebservices(WebservicesMetaData webservices, Mode mode) {

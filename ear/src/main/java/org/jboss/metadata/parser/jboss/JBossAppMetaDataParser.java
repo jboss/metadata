@@ -22,16 +22,11 @@
 
 package org.jboss.metadata.parser.jboss;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.logging.Logger;
-import org.jboss.metadata.common.jboss.LoaderRepositoryConfigMetaData;
-import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
 import org.jboss.metadata.ear.jboss.JBossAppMetaData;
 import org.jboss.metadata.ear.jboss.ServiceModuleMetaData;
 import org.jboss.metadata.ear.spec.EarEnvironmentRefsGroupMetaData;
@@ -170,8 +165,8 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
         return appMetaData;
     }
 
-    private static LoaderRepositoryMetaData parseLoaderRepository(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
-        final LoaderRepositoryMetaData repositoryMetaData = new LoaderRepositoryMetaData();
+    private static void parseLoaderRepository(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
+        //we still accept this for legacy reasons
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i++) {
             final String value = reader.getAttributeValue(i);
@@ -181,11 +176,11 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
             final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
             switch (attribute) {
                 case ID: {
-                    repositoryMetaData.setId(value);
+                    //ignore
                     break;
                 }
                 case LOADER_REPOSITORY_CLASS: {
-                    repositoryMetaData.setLoaderRepositoryClass(value);
+                    //ignore
                 }
                 default:
                     throw unexpectedAttribute(reader, i);
@@ -216,48 +211,40 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
                     throw new XMLStreamException("Unexpected event type "
                             + event, reader.getLocation());
                 }
-                repositoryMetaData.setName(builder.toString());
                 // }
             } else if (reader.isStartElement()) {
-                final Set<LoaderRepositoryConfigMetaData> loaderConfigs = new HashSet<LoaderRepositoryConfigMetaData>();
                 final Element element = Element.forName(reader.getLocalName());
                 switch (element) {
                     case LOADER_REPOSITORY_CONFIG: {
-                        loaderConfigs.add(parseLoaderRepositoryConfig(reader, propertyReplacer));
+                        parseLoaderRepositoryConfig(reader, propertyReplacer);
                         break;
                     }
                 }
-                repositoryMetaData.setLoaderRepositoryConfig(loaderConfigs);
             } else {
                 throw unexpectedElement(reader);
             }
         }
-        return repositoryMetaData;
     }
 
-    private static LoaderRepositoryConfigMetaData parseLoaderRepositoryConfig(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
-        final LoaderRepositoryConfigMetaData configMetaData = new LoaderRepositoryConfigMetaData();
+    private static void parseLoaderRepositoryConfig(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
+            reader.getAttributeValue(i);
             if (attributeHasNamespace(reader, i)) {
                 continue;
             }
             final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
             switch (attribute) {
                 case ID: {
-                    configMetaData.setId(value);
                     break;
                 }
                 case CONFIG_PARSER_CLASS: {
-                    configMetaData.setConfigParserClass(value);
                 }
                 default:
                     throw unexpectedAttribute(reader, i);
             }
         }
-        configMetaData.setConfig(getElementText(reader, propertyReplacer));
-        return configMetaData;
+        getElementText(reader, propertyReplacer);
     }
 
 

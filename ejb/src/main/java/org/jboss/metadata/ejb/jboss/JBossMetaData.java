@@ -31,7 +31,6 @@ import javax.interceptor.Interceptors;
 
 import org.jboss.logging.Logger;
 import org.jboss.metadata.common.ejb.IEjbJarMetaData;
-import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
@@ -91,11 +90,6 @@ public class JBossMetaData extends NamedModuleImpl
      * The relations
      */
     private RelationsMetaData relationships;
-
-    /**
-     * The loader repository
-     */
-    private LoaderRepositoryMetaData loaderRepository;
 
     /**
      * The jmx name
@@ -311,26 +305,6 @@ public class JBossMetaData extends NamedModuleImpl
         return ejbVersion != null && ejbVersion.trim().equals("3.1");
     }
 
-    /**
-     * Get the loaderRepository.
-     *
-     * @return the loaderRepository.
-     */
-    public LoaderRepositoryMetaData getLoaderRepository() {
-        return loaderRepository;
-    }
-
-    /**
-     * Set the loaderRepository.
-     *
-     * @param loaderRepository the loaderRepository.
-     * @throws IllegalArgumentException for a null loaderRepository
-     */
-    public void setLoaderRepository(LoaderRepositoryMetaData loaderRepository) {
-        if (loaderRepository == null)
-            throw new IllegalArgumentException("Null loaderRepository");
-        this.loaderRepository = loaderRepository;
-    }
 
     /**
      * Get the jmxName.
@@ -735,8 +709,6 @@ public class JBossMetaData extends NamedModuleImpl
                 jaccContextID = override.jaccContextID;
             if (override.jmxName != null)
                 jmxName = override.jmxName;
-            if (override.loaderRepository != null)
-                loaderRepository = override.loaderRepository;
             if (override.securityDomain != null)
                 securityDomain = override.securityDomain;
             if (override.unauthenticatedPrincipal != null)
@@ -834,8 +806,6 @@ public class JBossMetaData extends NamedModuleImpl
                 jaccContextID = original.jaccContextID;
             if (original.jmxName != null)
                 jmxName = original.jmxName;
-            if (original.loaderRepository != null)
-                loaderRepository = original.loaderRepository;
             if (original.securityDomain != null)
                 securityDomain = original.securityDomain;
             if (original.unauthenticatedPrincipal != null)
@@ -877,8 +847,6 @@ public class JBossMetaData extends NamedModuleImpl
                 jaccContextID = override.jaccContextID;
             if (override.jmxName != null)
                 jmxName = override.jmxName;
-            if (override.loaderRepository != null)
-                loaderRepository = override.loaderRepository;
             if (override.securityDomain != null)
                 securityDomain = override.securityDomain;
             if (override.unauthenticatedPrincipal != null)

@@ -28,8 +28,6 @@ import java.util.Map;
 import java.util.Set;
 
 import junit.framework.Test;
-import org.jboss.metadata.common.jboss.LoaderRepositoryConfigMetaData;
-import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
 import org.jboss.metadata.common.jboss.WebserviceDescriptionMetaData;
 import org.jboss.metadata.common.jboss.WebserviceDescriptionsMetaData;
 import org.jboss.metadata.ejb.jboss.CacheConfigMetaData;
@@ -154,17 +152,6 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         assertEquals("jboss-unauthenticated-principal-override", jbossMetaData.getUnauthenticatedPrincipal());
         // exception-on-rollback
         assertFalse(jbossMetaData.isExceptionOnRollback());
-        // loader-repository
-        LoaderRepositoryMetaData lrmd = jbossMetaData.getLoaderRepository();
-        //assertEquals("loaderRepository-id-override", lrmd.getId());
-        assertEquals("loaderRepositoryClass-override", lrmd.getLoaderRepositoryClass());
-        assertEquals("loaderRepositoryName-override", lrmd.getName());
-        Set<LoaderRepositoryConfigMetaData> lrmdConfigs = lrmd.getLoaderRepositoryConfig();
-        assertEquals(1, lrmdConfigs.size());
-        LoaderRepositoryConfigMetaData lrmdConfig = lrmdConfigs.iterator().next();
-        //assertEquals("loaderRepositoryConfig1-id", lrmdConfig.getId());
-        assertEquals("loaderRepositoryConfig1-override", lrmdConfig.getConfig());
-        assertEquals("loaderRepositoryConfigParserClass1-override", lrmdConfig.getConfigParserClass());
         // webservices
         // enterprise-beans
         // assembly-descriptor
@@ -284,7 +271,6 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest {
             assertId("jboss", jbossMetaData);
             assertDescriptionGroup("jboss", jbossMetaData.getDescriptionGroup());
         }
-        assertLoaderRepository(jbossMetaData.getLoaderRepository(), mode);
         assertEquals("jboss-jmx-name", jbossMetaData.getJmxName());
         assertEquals("jboss-security-domain", jbossMetaData.getSecurityDomain());
         assertFalse(jbossMetaData.isExcludeMissingMethods());
@@ -306,30 +292,6 @@ public class JBoss5xEverythingUnitTestCase extends AbstractEJBEverythingTest {
 
     private void assertVersion(JBossMetaData jbossMetaData) {
         assertEquals("5.0", jbossMetaData.getVersion());
-    }
-
-    private void assertLoaderRepository(LoaderRepositoryMetaData loaderRepositoryMetaData, Mode mode) {
-        assertNotNull(loaderRepositoryMetaData);
-        if (mode != Mode.JBOSS_DTD) { assertId("loaderRepository", loaderRepositoryMetaData); }
-        assertEquals("loaderRepositoryClass", loaderRepositoryMetaData.getLoaderRepositoryClass());
-        assertEquals("loaderRepositoryName", trim(loaderRepositoryMetaData.getName()));
-        assertLoaderRepositoryConfig(2, loaderRepositoryMetaData, mode);
-    }
-
-    private void assertLoaderRepositoryConfig(int size, LoaderRepositoryMetaData loaderRepositoryMetaData, Mode mode) {
-        Set<LoaderRepositoryConfigMetaData> configs = loaderRepositoryMetaData.getLoaderRepositoryConfig();
-        assertNotNull(configs);
-        assertEquals(size, configs.size());
-        for (int count = 1; count < configs.size(); ++count) {
-            LoaderRepositoryConfigMetaData config = new LoaderRepositoryConfigMetaData();
-            if (mode != Mode.JBOSS_DTD) { config.setId("loaderRepositoryConfig" + count + "-id"); }
-            config.setConfig("loaderRepositoryConfig" + count);
-            config.setConfigParserClass("loaderRepositoryConfigParserClass" + count);
-            assertTrue(configs + " contains " + config, configs.contains(config));
-//         assertId("loaderRepositoryConfig" + count, config);
-//         assertEquals("loaderRepositoryConfigParserClass" + count, config.getConfigParserClass());
-//         assertEquals("loaderRepositoryConfig" + count, trim(config.getConfig()));
-        }
     }
 
     public void assertWebservices(WebservicesMetaData webservices, Mode mode) {

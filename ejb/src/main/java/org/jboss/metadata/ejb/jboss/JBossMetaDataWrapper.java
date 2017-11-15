@@ -21,7 +21,6 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.metadata.common.jboss.LoaderRepositoryMetaData;
 import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
 import org.jboss.metadata.ejb.spec.RelationsMetaData;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;
@@ -162,14 +161,6 @@ public class JBossMetaDataWrapper extends JBossMetaData {
         if (jmxName == null && defaults != null)
             jmxName = defaults.getJmxName();
         return jmxName;
-    }
-
-    @Override
-    public LoaderRepositoryMetaData getLoaderRepository() {
-        LoaderRepositoryMetaData x = primary.getLoaderRepository();
-        if (x == null && defaults != null)
-            x = defaults.getLoaderRepository();
-        return x;
     }
 
     @Override
