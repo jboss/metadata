@@ -41,12 +41,6 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.jboss.ContainerListenerMetaData;
 import org.jboss.metadata.web.jboss.HttpHandlerMetaData;
-import org.jboss.metadata.web.jboss.JBoss4xDTDWebMetaData;
-import org.jboss.metadata.web.jboss.JBoss50DTDWebMetaData;
-import org.jboss.metadata.web.jboss.JBoss50WebMetaData;
-import org.jboss.metadata.web.jboss.JBoss60WebMetaData;
-import org.jboss.metadata.web.jboss.JBoss70WebMetaData;
-import org.jboss.metadata.web.jboss.JBoss80WebMetaData;
 import org.jboss.metadata.web.jboss.JBossAnnotationsMetaData;
 import org.jboss.metadata.web.jboss.JBossServletsMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
@@ -86,48 +80,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
         if (version == null) {
             version = Version.JBOSS_WEB_6_0;
         }
-        JBossWebMetaData wmd = null;
-        switch (version) {
-            case JBOSS_WEB_3_0:
-                wmd = new JBoss4xDTDWebMetaData();
-                break;
-            case JBOSS_WEB_3_2:
-                wmd = new JBoss4xDTDWebMetaData();
-                break;
-            case JBOSS_WEB_4_0:
-                wmd = new JBoss4xDTDWebMetaData();
-                break;
-            case JBOSS_WEB_4_2:
-                wmd = new JBoss4xDTDWebMetaData();
-                break;
-            case JBOSS_WEB_5_0:
-                wmd = new JBoss50DTDWebMetaData();
-                break;
-            case JBOSS_WEB_5_1:
-                wmd = new JBoss50WebMetaData();
-                break;
-            case JBOSS_WEB_6_0:
-                wmd = new JBoss60WebMetaData();
-                break;
-            case JBOSS_WEB_7_0:
-                wmd = new JBoss70WebMetaData();
-                break;
-            case JBOSS_WEB_7_1:
-                wmd = new JBoss70WebMetaData();
-                break;
-            case JBOSS_WEB_7_2:
-                wmd = new JBoss70WebMetaData();
-                break;
-            case JBOSS_WEB_8_0:
-                wmd = new JBoss80WebMetaData();
-                break;
-            case JBOSS_WEB_10_0:
-                wmd = new JBoss80WebMetaData();
-                break;
-            case JBOSS_WEB_11_0:
-                wmd = new JBoss80WebMetaData();
-                break;
-        }
+        JBossWebMetaData wmd = new JBossWebMetaData();
 
         // Handle attributes
         final int count = reader.getAttributeCount();

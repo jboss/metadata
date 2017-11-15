@@ -25,10 +25,8 @@ import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.jboss.HttpHandlerMetaData;
-import org.jboss.metadata.web.jboss.JBoss80WebMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
-import org.junit.Assert;
 
 /**
  * @author Tomaz Cerar
@@ -37,7 +35,6 @@ public class JBossWeb100UnitTestCase extends AbstractJavaEEEverythingTest {
 
     public void testUndertow() throws Exception {
         JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
-        Assert.assertTrue(jbossWeb instanceof JBoss80WebMetaData);
         assertEquals("default", jbossWeb.getServletContainerName());
         assertEquals("default", jbossWeb.getServerInstanceName());
         assertEquals("myexecutor", jbossWeb.getExecutorName());

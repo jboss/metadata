@@ -23,10 +23,8 @@ package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacers;
-import org.jboss.metadata.web.jboss.JBoss80WebMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
-import org.junit.Assert;
 
 /**
  * @author Ivo Studensky
@@ -35,7 +33,6 @@ public class JBossWeb110UnitTestCase extends AbstractJavaEEEverythingTest {
 
     public void testUndertow() throws Exception {
         JBossWebMetaData jbossWeb = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
-        Assert.assertTrue(jbossWeb instanceof JBoss80WebMetaData);
         assertEquals("other", jbossWeb.getSecurityDomain());
         assertTrue(jbossWeb.isFlushOnSessionInvalidation());
     }
