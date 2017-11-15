@@ -33,9 +33,6 @@ import org.jboss.metadata.web.jboss.JBossServletsMetaData;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
 import org.jboss.metadata.web.spec.AnnotationsMetaData;
 import org.jboss.metadata.web.spec.ServletsMetaData;
-import org.jboss.metadata.web.spec.Web25MetaData;
-import org.jboss.metadata.web.spec.Web30MetaData;
-import org.jboss.metadata.web.spec.Web31MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
@@ -64,16 +61,11 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
         else if (original != null && original.getDistributable() != null)
             dest.setDistributable(original.getDistributable());
 
-        if (override != null && override.isMetadataComplete() != false)
+        if (override != null && override.isMetadataComplete())
             dest.setMetadataComplete(override.isMetadataComplete());
-        if (original instanceof Web25MetaData) {
+        else if (original != null && original.isMetadataComplete()) {
             //if either original or override is MD complete the result is MD complete
-            Web25MetaData web25MD = (Web25MetaData) original;
-            dest.setMetadataComplete(web25MD.isMetadataComplete());
-        } else if (original instanceof Web30MetaData) {
-            //if either original or override is MD complete the result is MD complete
-            Web30MetaData web30MetaData = (Web30MetaData) original;
-            dest.setMetadataComplete(web30MetaData.isMetadataComplete());
+            dest.setMetadataComplete(original.isMetadataComplete());
         }
         if (override != null && override.isDisableCrossContext())
             dest.setDisableCrossContext(override.isDisableCrossContext());
@@ -259,10 +251,8 @@ public class JBossWebMetaDataMerger extends NamedModuleImplMerger {
 
         if(override != null && override.getDenyUncoveredHttpMethods() != null) {
             dest.setDenyUncoveredHttpMethods(override.getDenyUncoveredHttpMethods());
-        } else if(original != null && original instanceof Web31MetaData) {
-            if(((Web31MetaData) original).getDenyUncoveredHttpMethods() != null) {
-                dest.setDenyUncoveredHttpMethods(((Web31MetaData) original).getDenyUncoveredHttpMethods());
-            }
+        } else if(original != null && original.getDenyUncoveredHttpMethods() != null) {
+            dest.setDenyUncoveredHttpMethods(original.getDenyUncoveredHttpMethods());
         }
 
         if(override != null && override.getExecutorName() != null) {

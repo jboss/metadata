@@ -222,9 +222,9 @@ public class JBossWebMetaData extends NamedModuleImpl {
     }
 
     /**
-     * Is this a servlet 2.3 version application
+     * Is this a servlet 2.3 versionString application
      *
-     * @return true if this is a javaee 2.3 version application
+     * @return true if this is a javaee 2.3 versionString application
      */
     public boolean is23() {
         return servletVersion != null && servletVersion.equals(JavaEEMetaDataConstants.J2EE_13_WEB);
@@ -259,7 +259,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     }
 
     public boolean isEnableWebSockets() {
-        return enableWebSockets && "1.6".compareTo(System.getProperty("java.version")) < 0;
+        return enableWebSockets && "1.6".compareTo(System.getProperty("java.versionString")) < 0;
     }
 
     public void setEnableWebSockets(boolean enableWebSockets) {

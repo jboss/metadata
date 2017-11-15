@@ -154,9 +154,9 @@ public class WebCommonMetaData extends IdMetaDataImplWithDescriptionGroup implem
     }
 
     /**
-     * Is this a servlet 2.3 version application
+     * Is this a servlet 2.3 versionString application
      *
-     * @return true if this is a javaee 2.3 version application
+     * @return true if this is a javaee 2.3 versionString application
      */
     public boolean is23() {
         return dtdPublicId != null && dtdPublicId.equals(JavaEEMetaDataConstants.J2EE_13_WEB);

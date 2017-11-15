@@ -36,12 +36,6 @@ import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.JspConfigMetaData;
 import org.jboss.metadata.web.spec.TaglibMetaData;
-import org.jboss.metadata.web.spec.Web22MetaData;
-import org.jboss.metadata.web.spec.Web23MetaData;
-import org.jboss.metadata.web.spec.Web24MetaData;
-import org.jboss.metadata.web.spec.Web25MetaData;
-import org.jboss.metadata.web.spec.Web30MetaData;
-import org.jboss.metadata.web.spec.Web31MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 
 
@@ -80,8 +74,9 @@ public class WebMetaDataParser extends MetaDataElementParser {
         if (version == null && schemaLocation != null) {
             version = Version.fromSystemID(schemaLocation);
         }
+        WebMetaData wmd = new WebMetaData();
         if (version == null) {
-            // Look at the version attribute
+            // Look at the versionString attribute
             String versionString = null;
             final int count = reader.getAttributeCount();
             for (int i = 0; i < count; i++) {
@@ -104,34 +99,7 @@ public class WebMetaDataParser extends MetaDataElementParser {
             }
         }
 
-        if (version == null)
-            version = Version.SERVLET_3_1;
-        // throw new IllegalStateException("Cannot obtain servlet version");
-
-        WebMetaData wmd = null;
-        switch (version) {
-            case SERVLET_2_2:
-                wmd = new Web22MetaData();
-                break;
-            case SERVLET_2_3:
-                wmd = new Web23MetaData();
-                break;
-            case SERVLET_2_4:
-                wmd = new Web24MetaData();
-                break;
-            case SERVLET_2_5:
-                wmd = new Web25MetaData();
-                break;
-            case SERVLET_3_0:
-                wmd = new Web30MetaData();
-                break;
-            case SERVLET_3_1:
-                wmd = new Web31MetaData();
-                break;
-            default:
-                throw new IllegalArgumentException("No parser available for web metadata version: " + version.name());
-        }
-
+        wmd.setVersion(version.versionString());
         // Set the publicId / systemId
         if (info != null)
             wmd.setDTD(info.getBaseURI(), info.getPublicID(), info.getSystemID());
@@ -158,17 +126,8 @@ public class WebMetaDataParser extends MetaDataElementParser {
                     break;
                 }
                 case METADATA_COMPLETE: {
-                    if (wmd instanceof Web25MetaData || wmd instanceof Web30MetaData) {
-                        if (Boolean.TRUE.equals(Boolean.valueOf(value))) {
-                            if (wmd instanceof Web25MetaData) {
-                                ((Web25MetaData) wmd).setMetadataComplete(true);
-                            }
-                            if (wmd instanceof Web30MetaData) {
-                                ((Web30MetaData) wmd).setMetadataComplete(true);
-                            }
-                        }
-                    } else {
-                        throw unexpectedAttribute(reader, i);
+                    if (Boolean.TRUE.equals(Boolean.valueOf(value))) {
+                        wmd.setMetadataComplete(true);
                     }
                     break;
                 }
@@ -199,42 +158,27 @@ public class WebMetaDataParser extends MetaDataElementParser {
             final Element element = Element.forName(reader.getLocalName());
             switch (element) {
                 case ABSOLUTE_ORDERING:
-                    if (wmd instanceof Web30MetaData) {
-                        ((Web30MetaData) wmd).setAbsoluteOrdering(AbsoluteOrderingMetaDataParser.parse(reader, propertyReplacer));
-                    } else {
-                        throw unexpectedElement(reader);
-                    }
+                    wmd.setAbsoluteOrdering(AbsoluteOrderingMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case MODULE_NAME:
-                    if (wmd instanceof Web30MetaData) {
-                        ((Web30MetaData) wmd).setModuleName(getElementText(reader, propertyReplacer));
-                    } else {
-                        throw unexpectedElement(reader);
-                    }
+                    wmd.setModuleName(getElementText(reader, propertyReplacer));
                     break;
                 case TAGLIB:
-                    if (wmd instanceof Web22MetaData || wmd instanceof Web23MetaData) {
-                        JspConfigMetaData jspConfig = wmd.getJspConfig();
-                        if (jspConfig == null) {
-                            jspConfig = new JspConfigMetaData();
-                            wmd.setJspConfig(jspConfig);
-                        }
-                        List<TaglibMetaData> taglibs = jspConfig.getTaglibs();
-                        if (taglibs == null) {
-                            taglibs = new ArrayList<TaglibMetaData>();
-                            jspConfig.setTaglibs(taglibs);
-                        }
-                        taglibs.add(TaglibMetaDataParser.parse(reader, propertyReplacer));
-                    } else {
-                        throw unexpectedElement(reader);
+                    JspConfigMetaData jspConfig = wmd.getJspConfig();
+                    if (jspConfig == null) {
+                        jspConfig = new JspConfigMetaData();
+                        wmd.setJspConfig(jspConfig);
                     }
+                    List<TaglibMetaData> taglibs = jspConfig.getTaglibs();
+                    if (taglibs == null) {
+                        taglibs = new ArrayList<TaglibMetaData>();
+                        jspConfig.setTaglibs(taglibs);
+                    }
+                    taglibs.add(TaglibMetaDataParser.parse(reader, propertyReplacer));
+
                     break;
                 case DENY_UNCOVERED_HTTP_METHODS:
-                    if (wmd instanceof Web31MetaData) {
-                        ((Web31MetaData) wmd).setDenyUncoveredHttpMethods(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
-                    } else {
-                        throw unexpectedElement(reader);
-                    }
+                    wmd.setDenyUncoveredHttpMethods(Boolean.parseBoolean(getElementText(reader, propertyReplacer)));
                     break;
                 default:
                     throw unexpectedElement(reader);

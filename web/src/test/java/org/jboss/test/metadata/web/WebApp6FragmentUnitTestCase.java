@@ -48,7 +48,6 @@ import org.jboss.metadata.web.spec.ServletsMetaData;
 import org.jboss.metadata.web.spec.TransportGuaranteeType;
 import org.jboss.metadata.web.spec.UserDataConstraintMetaData;
 import org.jboss.metadata.web.spec.WebCommonMetaData;
-import org.jboss.metadata.web.spec.WebFragment30MetaData;
 import org.jboss.metadata.web.spec.WebFragmentMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionsMetaData;
@@ -87,7 +86,7 @@ public class WebApp6FragmentUnitTestCase extends AbstractJavaEEEverythingTest {
 
     protected void assertOrdering(WebCommonMetaData webApp)
             throws Exception {
-        WebFragment30MetaData webApp30 = (WebFragment30MetaData) webApp;
+        WebFragmentMetaData webApp30 = (WebFragmentMetaData) webApp;
         OrderingMetaData absoluteOrdering = webApp30.getOrdering();
         RelativeOrderingMetaData after = absoluteOrdering.getAfter();
         RelativeOrderingMetaData before = absoluteOrdering.getBefore();

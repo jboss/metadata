@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 public enum Version {
 
-    SERVLET_2_2, SERVLET_2_3, SERVLET_2_4, SERVLET_2_5, SERVLET_3_0, SERVLET_3_1;
+    SERVLET_2_2("2.2"), SERVLET_2_3("2.3"), SERVLET_2_4("2.4"), SERVLET_2_5("2.5"), SERVLET_3_0("3.0"), SERVLET_3_1("3.1");
 
     private static final HashMap<String, Version> systemIDmap = new HashMap<String, Version>();
 
@@ -46,11 +46,21 @@ public enum Version {
         publicIDmap.put("-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN", Version.SERVLET_2_3);
     }
 
+    Version(String version) {
+        this.version = version;
+    }
+
     public static Version fromSystemID(String systemID) {
         return systemIDmap.get(systemID);
     }
 
     public static Version fromPublicID(String publicID) {
         return publicIDmap.get(publicID);
+    }
+
+    private final String version;
+
+    public String versionString() {
+        return version;
     }
 }

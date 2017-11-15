@@ -31,7 +31,6 @@ import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
-import org.jboss.metadata.web.spec.WebFragment30MetaData;
 import org.jboss.metadata.web.spec.WebFragmentMetaData;
 
 
@@ -48,7 +47,7 @@ public class WebFragmentMetaDataParser extends MetaDataElementParser {
             // checkstyle
         }
 
-        WebFragmentMetaData wmd = new WebFragment30MetaData();
+        WebFragmentMetaData wmd = new WebFragmentMetaData();
 
         // Handle attributes
         final int count = reader.getAttributeCount();

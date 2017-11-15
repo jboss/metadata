@@ -22,7 +22,7 @@
 package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
-import org.jboss.metadata.web.spec.Web31MetaData;
+import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
  * Test all entries of javaee 7 web-app.
@@ -33,7 +33,7 @@ import org.jboss.metadata.web.spec.Web31MetaData;
 public class WebApp7EverythingUnitTestCase extends WebApp6EverythingUnitTestCase {
 
     public void testEverything() throws Exception {
-        Web31MetaData webApp = (Web31MetaData) unmarshal();
+        WebMetaData webApp = unmarshal();
         assertEverything(webApp, Mode.SPEC, JavaEEVersion.V7);
     }
 }

@@ -44,7 +44,6 @@ import org.jboss.metadata.web.spec.ServletMetaData;
 import org.jboss.metadata.web.spec.ServletsMetaData;
 import org.jboss.metadata.web.spec.TransportGuaranteeType;
 import org.jboss.metadata.web.spec.UserDataConstraintMetaData;
-import org.jboss.metadata.web.spec.Web30MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionMetaData;
 import org.jboss.metadata.web.spec.WebResourceCollectionsMetaData;
@@ -59,7 +58,7 @@ import org.jboss.metadata.web.spec.WebResourceCollectionsMetaData;
 public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
 
     public void testEverything() throws Exception {
-        Web30MetaData webApp = (Web30MetaData) unmarshal();
+        WebMetaData webApp = unmarshal();
         assertEverything(webApp, Mode.SPEC, JavaEEVersion.V6);
     }
 
@@ -81,8 +80,7 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
 
     protected void assertAbsoluteOrdering(WebMetaData webApp)
             throws Exception {
-        Web30MetaData webApp30 = (Web30MetaData) webApp;
-        AbsoluteOrderingMetaData absoluteOrdering = webApp30.getAbsoluteOrdering();
+        AbsoluteOrderingMetaData absoluteOrdering = webApp.getAbsoluteOrdering();
         List<OrderingElementMetaData> ordering = absoluteOrdering.getOrdering();
         assertEquals(4, ordering.size());
         assertEquals(NameMetaData.class.getName(), ordering.get(0).getClass().getName());
@@ -226,7 +224,6 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
     }
 
     protected void assertModuleName(WebMetaData webApp) {
-        Web30MetaData webApp30 = (Web30MetaData) webApp;
-        assertEquals("foo", webApp30.getModuleName());
+        assertEquals("foo", webApp.getModuleName());
     }
 }

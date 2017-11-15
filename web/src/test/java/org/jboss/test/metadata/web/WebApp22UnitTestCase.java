@@ -24,7 +24,6 @@ package org.jboss.test.metadata.web;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.web.spec.ServletMetaData;
-import org.jboss.metadata.web.spec.Web22MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
@@ -51,7 +50,7 @@ public class WebApp22UnitTestCase extends WebAppUnitTestCase {
 
     public void testVersion() throws Exception {
         MetaDataElementParser.DTDInfo info = new MetaDataElementParser.DTDInfo();
-        Web22MetaData webApp = (Web22MetaData) unmarshal();
+        WebMetaData webApp = unmarshal();
         DescriptionGroupMetaData dg = webApp.getDescriptionGroup();
         assertNotNull(dg);
         assertEquals("A servlet 2.2 descriptor", dg.getDescription());

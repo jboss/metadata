@@ -23,7 +23,6 @@ package org.jboss.test.metadata.web;
 
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.web.spec.ServletMetaData;
-import org.jboss.metadata.web.spec.Web23MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
@@ -49,7 +48,7 @@ public class WebApp23UnitTestCase extends WebAppUnitTestCase {
     }
 
     public void testVersion() throws Exception {
-        Web23MetaData webApp = (Web23MetaData) unmarshal();
+        WebMetaData webApp = unmarshal();
         DescriptionGroupMetaData dg = webApp.getDescriptionGroup();
         assertNotNull(dg);
         assertEquals("A servlet 2.3 descriptor", dg.getDescription());

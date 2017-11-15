@@ -24,7 +24,7 @@ package org.jboss.test.metadata.web;
 import junit.framework.TestCase;
 import org.jboss.metadata.merge.web.jboss.JBossWebMetaDataMerger;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
-import org.jboss.metadata.web.spec.Web30MetaData;
+import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
  * Tests of JBossWebMetaData's merge logic for module name.
@@ -84,16 +84,16 @@ public class JBossWebModuleNameUnitTestCase extends TestCase {
         JBossWebMetaData merged = new JBossWebMetaData();
         JBossWebMetaData override = new JBossWebMetaData();
 
-        JBossWebMetaDataMerger.merge(merged, override, (Web30MetaData) null);
+        JBossWebMetaDataMerger.merge(merged, override, (WebMetaData) null);
         assertNull(merged.getModuleName());
 
         merged = new JBossWebMetaData();
         override.setModuleName("over");
-        JBossWebMetaDataMerger.merge(merged, override, (Web30MetaData) null);
+        JBossWebMetaDataMerger.merge(merged, override, (WebMetaData) null);
         assertEquals("over", merged.getModuleName());
 
         merged = new JBossWebMetaData();
-        Web30MetaData spec = new Web30MetaData();
+        WebMetaData spec = new WebMetaData();
         spec.setModuleName("spec");
         JBossWebMetaDataMerger.merge(merged, override, spec);
         assertEquals("over", merged.getModuleName());
@@ -101,7 +101,7 @@ public class JBossWebModuleNameUnitTestCase extends TestCase {
 
     public void testSpec() {
         JBossWebMetaData merged = new JBossWebMetaData();
-        Web30MetaData spec = new Web30MetaData();
+        WebMetaData spec = new WebMetaData();
 
         JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, spec);
         assertNull(merged.getModuleName());
@@ -122,7 +122,7 @@ public class JBossWebModuleNameUnitTestCase extends TestCase {
     public void testNullSpec() {
         JBossWebMetaData merged = new JBossWebMetaData();
 
-        JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, (Web30MetaData) null);
+        JBossWebMetaDataMerger.merge(merged, (JBossWebMetaData) null, (WebMetaData) null);
         assertNull(merged.getModuleName());
     }
 

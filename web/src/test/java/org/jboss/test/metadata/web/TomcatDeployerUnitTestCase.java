@@ -33,9 +33,6 @@ import org.jboss.metadata.parser.servlet.WebMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.web.jboss.JBossWebMetaData;
-import org.jboss.metadata.web.spec.Web23MetaData;
-import org.jboss.metadata.web.spec.Web24MetaData;
-import org.jboss.metadata.web.spec.Web25MetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
 
 /**
@@ -52,7 +49,7 @@ public class TomcatDeployerUnitTestCase extends TestCase {
     }
 
     public void testConfweb23() throws Exception {
-        JBossWebMetaData webApp = unmarshal(Web23MetaData.class);
+        JBossWebMetaData webApp = unmarshal(WebMetaData.class);
         DescriptionGroupMetaData dg = webApp.getDescriptionGroup();
         assertNotNull(dg);
         assertEquals("TomcatDeployer_confweb.xml", dg.getDescription());
@@ -61,7 +58,7 @@ public class TomcatDeployerUnitTestCase extends TestCase {
     }
 
     public void testConfweb24() throws Exception {
-        JBossWebMetaData webApp = unmarshal(Web24MetaData.class);
+        JBossWebMetaData webApp = unmarshal(WebMetaData.class);
         DescriptionGroupMetaData dg = webApp.getDescriptionGroup();
         assertNotNull(dg);
         assertEquals("TomcatDeployer_confweb.xml", dg.getDescription());
@@ -72,7 +69,7 @@ public class TomcatDeployerUnitTestCase extends TestCase {
     }
 
     public void testConfweb25() throws Exception {
-        JBossWebMetaData webApp = unmarshal(Web25MetaData.class);
+        JBossWebMetaData webApp = unmarshal(WebMetaData.class);
         DescriptionGroupMetaData dg = webApp.getDescriptionGroup();
         assertNotNull(dg);
         assertEquals("TomcatDeployer_confweb.xml", dg.getDescription());
