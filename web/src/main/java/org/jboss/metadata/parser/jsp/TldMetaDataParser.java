@@ -35,10 +35,6 @@ import org.jboss.metadata.web.spec.FunctionMetaData;
 import org.jboss.metadata.web.spec.ListenerMetaData;
 import org.jboss.metadata.web.spec.TagFileMetaData;
 import org.jboss.metadata.web.spec.TagMetaData;
-import org.jboss.metadata.web.spec.Tld11MetaData;
-import org.jboss.metadata.web.spec.Tld12MetaData;
-import org.jboss.metadata.web.spec.Tld20MetaData;
-import org.jboss.metadata.web.spec.Tld21MetaData;
 import org.jboss.metadata.web.spec.TldExtensionMetaData;
 import org.jboss.metadata.web.spec.TldMetaData;
 
@@ -93,22 +89,7 @@ public class TldMetaDataParser extends MetaDataElementParser {
             // It is likely an error to not have a version at this point though
             version = Version.TLD_2_1;
         }
-        TldMetaData tld = null;
-        switch (version) {
-            case TLD_1_1:
-                tld = new Tld11MetaData();
-                break;
-            case TLD_1_2:
-                tld = new Tld12MetaData();
-                break;
-            case TLD_2_0:
-                tld = new Tld20MetaData();
-                break;
-            case TLD_2_1:
-                tld = new Tld21MetaData();
-                break;
-        }
-
+        TldMetaData tld = new TldMetaData();
         // Handle attributes
         final int count = reader.getAttributeCount();
         for (int i = 0; i < count; i++) {
@@ -190,7 +171,7 @@ public class TldMetaDataParser extends MetaDataElementParser {
                     break;
                 case INFO:
                     if (version == Version.TLD_1_1) {
-                        ((Tld11MetaData) tld).setInfo(getElementText(reader));
+                        getElementText(reader);//ignore
                     } else if (version == Version.TLD_1_2) {
                         // Ignore invalid legacy element
                         getElementText(reader);
@@ -200,14 +181,14 @@ public class TldMetaDataParser extends MetaDataElementParser {
                     break;
                 case SMALL_ICON:
                     if (version == Version.TLD_1_2) {
-                        ((Tld12MetaData) tld).setSmallIcon(getElementText(reader));
+                        getElementText(reader);//ignore
                     } else {
                         throw unexpectedElement(reader);
                     }
                     break;
                 case LARGE_ICON:
                     if (version == Version.TLD_1_2) {
-                        ((Tld12MetaData) tld).setLargeIcon(getElementText(reader));
+                        getElementText(reader);//ignore
                     } else {
                         throw unexpectedElement(reader);
                     }
