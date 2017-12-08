@@ -261,7 +261,7 @@ public class JBossWebMetaData extends NamedModuleImpl {
     }
 
     public boolean isEnableWebSockets() {
-        return enableWebSockets && "1.6".compareTo(System.getProperty("java.versionString")) < 0;
+        return enableWebSockets;
     }
 
     public void setEnableWebSockets(boolean enableWebSockets) {
