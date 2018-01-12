@@ -105,9 +105,7 @@
          <xsd:element name="server-instance" type="jboss:server-instanceType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="default-encoding" type="jboss:defaultEncodingType" minOccurs="0" maxOccurs="1"/>
          <xsd:element name="annotation" type="jboss:annotationType" minOccurs="0" maxOccurs="unbounded"/>
-         <!--<xsd:element name="listener" type="jboss:container-listenerType" minOccurs="0" maxOccurs="unbounded"/>-->
          <xsd:element name="session-config" type="javaee:session-configType" minOccurs="0" maxOccurs="1"/>
-         <!--<xsd:element name="valve" type="jboss:valveType" minOccurs="0" maxOccurs="unbounded"/>-->
          <xsd:element name="http-handler" type="jboss:httpHandlerType" minOccurs="0" maxOccurs="unbounded"/>
          <xsd:element name="overlay" type="jboss:overlayType" minOccurs="0" maxOccurs="unbounded"/>
          <xsd:element name="security-domain" type="jboss:security-domainType" minOccurs="0"/>
@@ -529,14 +527,6 @@
    </xsd:complexType>
 
    <xsd:simpleType name="max-active-sessionsType">
-      <xsd:annotation>
-         <xsd:documentation>
-            <![CDATA[
-
-
-            ]]>
-         </xsd:documentation>
-      </xsd:annotation>
       <xsd:restriction base="xsd:integer"/>
    </xsd:simpleType>
 
