@@ -2,6 +2,7 @@
 <xs:schema version="1.0beta"
    attributeFormDefault="unqualified"
    elementFormDefault="qualified"
+   targetNamespace="http://www.jboss.org/xml/ns/jbxb"
    xmlns:jbxb="http://www.jboss.org/xml/ns/jbxb"
    xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:annotation>
@@ -91,7 +92,7 @@
             </xs:choice>
         </xs:complexType>
     </xs:element>
-    <xs:element name="class" type="xs:NCName">
+    <xs:element name="class">
         <xs:annotation>
             <xs:documentation> Binds XML element or complex type to a Java class
                 which is specified as a value of attribute 'impl'. If jbxb:class
