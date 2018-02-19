@@ -133,7 +133,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
      * @param required a set of enums whose toString method returns the attribute name
      * @return the exception
      */
-    protected static XMLStreamException missingRequired(final XMLStreamReader reader, final Set<?> required) {
+    protected static XMLStreamException missingRequiredAttributes(final XMLStreamReader reader, final Set<?> required) {
         final StringBuilder b = new StringBuilder();
         Iterator<?> iterator = required.iterator();
         while (iterator.hasNext()) {
@@ -296,7 +296,7 @@ public class MetaDataElementParser implements XMLStreamConstants {
     private static void requireSingleAttribute(final XMLStreamReader reader, final String attributeName) throws XMLStreamException {
         final int count = reader.getAttributeCount();
         if (count == 0) {
-            throw missingRequired(reader, Collections.singleton(attributeName));
+            throw missingRequiredAttributes(reader, Collections.singleton(attributeName));
         }
         if (attributeHasNamespace(reader, 0) || !attributeName.equals(reader.getAttributeLocalName(0))) {
             throw unexpectedAttribute(reader, 0);
