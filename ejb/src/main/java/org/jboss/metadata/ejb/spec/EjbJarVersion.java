@@ -31,31 +31,39 @@ public enum EjbJarVersion {
     /**
      * 1.1 version of EJB
      */
-    EJB_1_1,
+    EJB_1_1("1.1"),
 
     /**
      * 2.0 version of EJB
      */
-    EJB_2_0,
+    EJB_2_0("2.0"),
 
     /**
      * 2.1 version of EJB
      */
-    EJB_2_1,
+    EJB_2_1("2.1"),
 
     /**
      * 3.0 version of EJB
      */
-    EJB_3_0,
+    EJB_3_0("3.0"),
 
     /**
      * 3.1 version of EJB
      */
-    EJB_3_1,
+    EJB_3_1("3.1"),
 
     /**
      * 3.2 version of EJB
      */
-    EJB_3_2
+    EJB_3_2("3.2");
+    private String version;
 
+    EjbJarVersion(String version) {
+        this.version = version;
+    }
+
+    public String getVersion() {
+        return version;
+    }
 }

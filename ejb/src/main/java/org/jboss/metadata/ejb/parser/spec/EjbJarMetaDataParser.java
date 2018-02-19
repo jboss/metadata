@@ -93,6 +93,9 @@ public class EjbJarMetaDataParser extends AbstractEjbJarMetaDataParser {
         EjbJarMetaData ejbJarMetaData = getEjbJarMetaData(ejbJarVersion);
 
         processAttributes(ejbJarMetaData, reader);
+        if (ejbJarMetaData.getVersion()==null){
+            ejbJarMetaData.setVersion(ejbJarVersion.getVersion());
+        }
 
         // parse and create metadata out of the elements under the root ejb-jar element
         processElements(ejbJarMetaData, reader, propertyReplacer);

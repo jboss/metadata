@@ -31,6 +31,7 @@ import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceAuthorityType;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
+import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.test.metadata.ejb.AbstractEJBEverythingTest;
 
 /**
@@ -47,10 +48,10 @@ public class EnvironmentTestCase extends AbstractEJBEverythingTest {
     }
 
     public void test() throws Exception {
-        EjbJarMetaData ejbJarMetaData = unmarshal("EnvironmentTestCase_testEnv.xml", EjbJarMetaData.class, null);
+        EjbJarMetaData ejbJarMetaData = unmarshal("EnvironmentTestCase_testEnv.xml", EjbJarMetaData.class, PropertyReplacers.noop());
         assertNotNull(ejbJarMetaData);
 
-        JBoss50DTDMetaData jbossMetaData = unmarshal("jboss.xml", JBoss50DTDMetaData.class, null);
+        JBoss50DTDMetaData jbossMetaData = unmarshal("jboss.xml", JBoss50DTDMetaData.class, PropertyReplacers.noop());
         assertNotNull(jbossMetaData);
         jbossMetaData.merge(null, ejbJarMetaData);
         JBossMessageDrivenBeanMetaData runMdb = (JBossMessageDrivenBeanMetaData) jbossMetaData.getEnterpriseBean("RunAsMDB");
