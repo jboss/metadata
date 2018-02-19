@@ -250,7 +250,7 @@
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:extension base="javaee:string">
-                <xsd:attribute name="flushOnSessionInvalidation" type="javaee:generic-booleanType" use="optional" default="false">
+                <xsd:attribute name="flushOnSessionInvalidation" type="xsd:boolean" use="optional" default="false">
                     <xsd:annotation>
                         <xsd:documentation>
                             Whether the domain's cache should be flushed when the session invalidates.
