@@ -36,5 +36,5 @@ public interface PropertyReplacer {
      * @param text Text to replace properties within
      * @return The text with properties replaced
      */
-    String replaceProperties(final String text);
+    String replaceProperties(String text);
 }

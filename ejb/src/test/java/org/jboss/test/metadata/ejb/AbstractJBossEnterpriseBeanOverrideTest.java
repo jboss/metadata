@@ -32,7 +32,7 @@ import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
-import org.jboss.util.Classes;
+import org.jboss.metadata.test.Classes;
 
 /**
  * @author <a href="alex@jboss.com">Alexey Loubyansky</a>

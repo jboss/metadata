@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>10</version>
+        <version>25</version>
     </parent>
 
     <groupId>org.jboss.metadata</groupId>
