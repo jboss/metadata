@@ -23,7 +23,7 @@ package org.jboss.test.metadata.ejb.whitespace;
 
 import java.util.Set;
 
-import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.common.IEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBoss50DTDMetaData;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;

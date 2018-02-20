@@ -77,7 +77,7 @@ import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
-import org.jboss.metadata.parser.spec.EarMetaDataParser;
+import org.jboss.metadata.ear.parser.spec.EarMetaDataParser;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 import static org.jboss.test.metadata.ear.Util.assertEqualsIgnoreOrder;

@@ -20,27 +20,38 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.metadata.parser.jboss;
+package org.jboss.metadata.ear.parser.jboss;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * An enumeration of all the possible XML attributes in the EE schema, by name.
- *
- * @author Remy Maucherat
+ * @author John Bailey
  */
-public enum Attribute {
-    // always first
+public enum Element {
+    // must be first
     UNKNOWN(null),
-    CONFIG_PARSER_CLASS("configParserClass"),
-    ID("id"),
-    LOADER_REPOSITORY_CLASS("loaderRepositoryClass"),
-    VERSION("version");
+    CONTEXT_ROOT("context-root"),
+    DISTINCT_NAME("distinct-name"),
+    HAR("har"),
+    JMX_NAME("jmx-name"),
+    LIBRARY_DIRECTORY("library-directory"),
+    LOADER_REPOSITORY("loader-repository"),
+    LOADER_REPOSITORY_CONFIG("loader-repository-config"),
+    MODULE("module"),
+    MODULE_ORDER("module-order"),
+    PRINCIPAL_NAME("principal-name"),
+    ROLE_NAME("role-name"),
+    SECURITY_DOMAIN("security-domain"),
+    SECURITY_ROLE("security-role"),
+    SERVICE("service"),
+    UNAUTHENTICATED_PRINCIPAL("unauthenticated-principal"),
+    WEB("web"),
+    WEB_URI("web-uri");
 
     private final String name;
 
-    Attribute(final String name) {
+    Element(final String name) {
         this.name = name;
     }
 
@@ -53,19 +64,19 @@ public enum Attribute {
         return name;
     }
 
-    private static final Map<String, Attribute> MAP;
+    private static final Map<String, Element> MAP;
 
     static {
-        final Map<String, Attribute> map = new HashMap<String, Attribute>();
-        for (Attribute element : values()) {
+        final Map<String, Element> map = new HashMap<String, Element>();
+        for (Element element : values()) {
             final String name = element.getLocalName();
             if (name != null) map.put(name, element);
         }
         MAP = map;
     }
 
-    public static Attribute forName(String localName) {
-        final Attribute element = MAP.get(localName);
+    public static Element forName(String localName) {
+        final Element element = MAP.get(localName);
         return element == null ? UNKNOWN : element;
     }
 }

@@ -28,7 +28,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
 
-import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.common.IEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.common.IAssemblyDescriptorMetaData;
 import org.jboss.metadata.javaee.spec.AdministeredObjectMetaData;
 import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
@@ -530,7 +531,7 @@ public abstract class AbstractEnterpriseBeanMetaData extends NamedMetaDataWithDe
      * @return the method permissions or null for no result
      */
     public MethodPermissionsMetaData getMethodPermissions() {
-        org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
+        IAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
         if (assemblyDescriptor == null)
             return null;
         return assemblyDescriptor.getMethodPermissionsByEjbName(getEjbName());
@@ -544,7 +545,7 @@ public abstract class AbstractEnterpriseBeanMetaData extends NamedMetaDataWithDe
     public ContainerTransactionsMetaData getContainerTransactions() {
         if (cachedContainerTransactions != null)
             return cachedContainerTransactions;
-        org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
+        IAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
         if (assemblyDescriptor == null)
             return null;
         return assemblyDescriptor.getContainerTransactionsByEjbName(getEjbName());
@@ -618,7 +619,7 @@ public abstract class AbstractEnterpriseBeanMetaData extends NamedMetaDataWithDe
      * @return the exclude list or null for no result
      */
     public ExcludeListMetaData getExcludeList() {
-        org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
+        IAssemblyDescriptorMetaData assemblyDescriptor = getAssemblyDescriptor();
         if (assemblyDescriptor == null)
             return null;
         return assemblyDescriptor.getExcludeListByEjbName(getEjbName());

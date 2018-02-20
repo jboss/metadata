@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.metadata.parser.spec;
+package org.jboss.metadata.ear.parser.jboss;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,12 +33,9 @@ import java.util.Map;
 public enum Attribute {
     // always first
     UNKNOWN(null),
-
-    // javaee 6 attributes in alpha order
+    CONFIG_PARSER_CLASS("configParserClass"),
     ID("id"),
-
-    LANG("lang"),
-
+    LOADER_REPOSITORY_CLASS("loaderRepositoryClass"),
     VERSION("version");
 
     private final String name;

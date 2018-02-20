@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright (c) 2013, Red Hat, Inc., and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,25 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.metadata.ear;
+package org.jboss.metadata.ejb.common;
 
-import org.jboss.metadata.ear.jboss.JBossAppMetaData;
-import org.jboss.metadata.ear.parser.jboss.JBossAppMetaDataParser;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
-import org.junit.Test;
+import java.util.List;
+
+import org.jboss.metadata.ejb.spec.TimerMetaData;
 
 /**
- * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
+ * IScheduleTarget
+ *
+ * @author Jaikiran Pai
+ * @version $Revision: $
  */
-public class ModuleOrderUnitTestCase extends AbstractJavaEEMetaDataTest {
-    protected JBossAppMetaData unmarshal() throws Exception {
-        final JBossAppMetaData earMetaData = JBossAppMetaDataParser.INSTANCE.parse(getReader());
-        assertTrue(earMetaData instanceof JBossAppMetaData);
-        return JBossAppMetaData.class.cast(earMetaData);
-    }
+public interface IScheduleTarget extends ITimeoutTarget {
 
-    @Test
-    public void testModuleOrderDeprecation() throws Exception {
-        unmarshal();
-    }
+    List<TimerMetaData> getTimers();
+
+    void setTimers(List<TimerMetaData> timers);
+
+    void addTimer(TimerMetaData timer);
 }

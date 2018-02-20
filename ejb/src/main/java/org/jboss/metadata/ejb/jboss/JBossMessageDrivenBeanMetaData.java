@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
-import org.jboss.metadata.common.ejb.ITimeoutTarget;
+import org.jboss.metadata.ejb.common.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.ActivationConfigMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;

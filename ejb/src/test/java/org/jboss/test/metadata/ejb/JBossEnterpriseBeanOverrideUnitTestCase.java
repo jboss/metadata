@@ -31,7 +31,7 @@ import org.jboss.metadata.ejb.jboss.InvokerBindingsMetaData;
 import org.jboss.metadata.ejb.jboss.JBoss50MetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeansMetaData;
-import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
+import org.jboss.metadata.common.ejb.JBossEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.jboss.MethodAttributeMetaData;
 import org.jboss.metadata.ejb.jboss.MethodAttributesMetaData;

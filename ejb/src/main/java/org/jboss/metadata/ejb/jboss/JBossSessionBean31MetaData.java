@@ -32,8 +32,8 @@ import javax.ejb.Lock;
 import javax.ejb.LockType;
 import javax.ejb.Schedule;
 
-import org.jboss.metadata.common.ejb.IScheduleTarget;
-import org.jboss.metadata.common.ejb.ITimeoutTarget;
+import org.jboss.metadata.ejb.common.IScheduleTarget;
+import org.jboss.metadata.ejb.common.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.AccessTimeoutMetaData;
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.ConcurrentMethodMetaData;

@@ -19,23 +19,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.common.ejb;
+package org.jboss.metadata.ejb.common;
 
-import java.util.List;
+import java.util.Collection;
 
-import org.jboss.metadata.ejb.spec.TimerMetaData;
+import org.jboss.metadata.javaee.support.IdMetaData;
 
 /**
- * IScheduleTarget
- *
- * @author Jaikiran Pai
- * @version $Revision: $
+ * @author Scott.Stark@jboss.org
+ * @version $Revision: 66420 $
  */
-public interface IScheduleTarget extends ITimeoutTarget {
+public interface IEnterpriseBeansMetaData<A extends IAssemblyDescriptorMetaData,
+        C extends IEnterpriseBeansMetaData<A, C, E, J>,
+        E extends IEnterpriseBeanMetaData<A, C, E, J>,
+        J extends IEjbJarMetaData<A, C, E, J>>
+        extends IdMetaData, Collection<E> {
+    /**
+     * Get the ejbJarMetaData.
+     *
+     * @return the ejbJarMetaData.
+     */
+    J getEjbJarMetaData();
 
-    List<TimerMetaData> getTimers();
+    /**
+     * Set the ejbJarMetaData.
+     *
+     * @param ejbJarMetaData the ejbJarMetaData.
+     * @throws IllegalArgumentException for a null ejbJarMetaData
+     */
+    void setEjbJarMetaData(J ejbJarMetaData);
 
-    void setTimers(List<TimerMetaData> timers);
-
-    void addTimer(TimerMetaData timer);
+    E get(String ejbName);
 }

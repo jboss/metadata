@@ -19,44 +19,56 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.parser.jboss;
+
+package org.jboss.metadata.ear.parser.spec;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
+ * An enumeration of all the possible XML attributes in the EE schema, by name.
+ *
+ * @author Remy Maucherat
  */
-public enum Namespace {
-    // must be first
+public enum Attribute {
+    // always first
     UNKNOWN(null),
-    JBOSS("http://www.jboss.com/xml/ns/javaee"),
-    SPEC("http://java.sun.com/xml/ns/javaee"),
-    SPEC_7_0("http://xmlns.jcp.org/xml/ns/javaee");
 
-    private final String uri;
+    // javaee 6 attributes in alpha order
+    ID("id"),
 
-    Namespace(String uri) {
-        this.uri = uri;
+    LANG("lang"),
+
+    VERSION("version");
+
+    private final String name;
+
+    Attribute(final String name) {
+        this.name = name;
     }
 
-    public String getUriString() {
-        return uri;
+    /**
+     * Get the local name of this element.
+     *
+     * @return the local name
+     */
+    public String getLocalName() {
+        return name;
     }
 
-    private static final Map<String, Namespace> MAP;
+    private static final Map<String, Attribute> MAP;
 
     static {
-        final Map<String, Namespace> map = new HashMap<String, Namespace>();
-        for (Namespace namespace : values()) {
-            final String name = namespace.getUriString();
-            if (name != null) map.put(name, namespace);
+        final Map<String, Attribute> map = new HashMap<String, Attribute>();
+        for (Attribute element : values()) {
+            final String name = element.getLocalName();
+            if (name != null) map.put(name, element);
         }
         MAP = map;
     }
 
-    public static Namespace forUri(String uri) {
-        final Namespace element = MAP.get(uri);
+    public static Attribute forName(String localName) {
+        final Attribute element = MAP.get(localName);
         return element == null ? UNKNOWN : element;
     }
 }

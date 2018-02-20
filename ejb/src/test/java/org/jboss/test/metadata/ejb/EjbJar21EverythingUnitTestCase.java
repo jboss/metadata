@@ -24,7 +24,7 @@ package org.jboss.test.metadata.ejb;
 import javax.ejb.TransactionManagementType;
 
 import junit.framework.Test;
-import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.common.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.CMPFieldMetaData;
@@ -43,7 +43,7 @@ import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ResourceInjectionMetaData;
-import org.jboss.metadata.merge.EjbMergeUtil;
+import org.jboss.metadata.ejb.merge.EjbMergeUtil;
 
 /**
  * EjbJar2xUnitTestCase.

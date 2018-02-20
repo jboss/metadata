@@ -30,7 +30,7 @@ import org.jboss.metadata.ear.spec.JavaModuleMetaData;
 import org.jboss.metadata.ear.spec.ModuleMetaData;
 import org.jboss.metadata.ear.spec.ModulesMetaData;
 import org.jboss.metadata.ear.spec.WebModuleMetaData;
-import org.jboss.metadata.parser.spec.EarMetaDataParser;
+import org.jboss.metadata.ear.parser.spec.EarMetaDataParser;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
 /**

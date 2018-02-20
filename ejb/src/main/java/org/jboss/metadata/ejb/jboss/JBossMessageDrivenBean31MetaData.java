@@ -27,8 +27,8 @@ import java.util.List;
 
 import javax.ejb.Schedule;
 
-import org.jboss.metadata.common.ejb.IScheduleTarget;
-import org.jboss.metadata.common.ejb.ITimeoutTarget;
+import org.jboss.metadata.ejb.common.IScheduleTarget;
+import org.jboss.metadata.ejb.common.ITimeoutTarget;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.spec.MessageDrivenBean31MetaData;
 import org.jboss.metadata.ejb.spec.TimerMetaData;

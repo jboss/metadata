@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.metadata.parser.jboss;
+package org.jboss.metadata.ear.parser.spec;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,21 +31,17 @@ import java.util.Map;
 public enum Element {
     // must be first
     UNKNOWN(null),
+    ALT_DD("alt-dd"),
+    APPLICATION_NAME("application-name"),
+    CONNECTOR("connector"),
     CONTEXT_ROOT("context-root"),
-    DISTINCT_NAME("distinct-name"),
-    HAR("har"),
-    JMX_NAME("jmx-name"),
+    EJB("ejb"),
+    INITIALIZATION_IN_ORDER("initialize-in-order"),
+    JAVA("java"),
     LIBRARY_DIRECTORY("library-directory"),
-    LOADER_REPOSITORY("loader-repository"),
-    LOADER_REPOSITORY_CONFIG("loader-repository-config"),
+    MESSAGE_DESTINATION("message-destination"),
     MODULE("module"),
-    MODULE_ORDER("module-order"),
-    PRINCIPAL_NAME("principal-name"),
-    ROLE_NAME("role-name"),
-    SECURITY_DOMAIN("security-domain"),
     SECURITY_ROLE("security-role"),
-    SERVICE("service"),
-    UNAUTHENTICATED_PRINCIPAL("unauthenticated-principal"),
     WEB("web"),
     WEB_URI("web-uri");
 

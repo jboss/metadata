@@ -22,9 +22,9 @@
 package org.jboss.test.metadata.ejb;
 
 import junit.framework.TestCase;
-import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
-import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
-import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
+import org.jboss.metadata.common.ejb.JBossEnvironmentRefsGroupMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagerMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagersMetaData;
 import org.jboss.metadata.javaee.spec.ResourceAuthorityType;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;

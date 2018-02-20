@@ -49,8 +49,8 @@ import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.jboss.MessagePropertiesMetaData;
 import org.jboss.metadata.ejb.jboss.ProducerMetaData;
 import org.jboss.metadata.ejb.jboss.RemoteBindingMetaData;
-import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
-import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagerMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagersMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarVersion;
 import org.jboss.metadata.ejb.spec.EjbType;
@@ -70,7 +70,7 @@ import org.jboss.metadata.javaee.spec.ResourceInjectionTargetMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferenceMetaData;
 import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
-import org.jboss.metadata.merge.EjbMergeUtil;
+import org.jboss.metadata.ejb.merge.EjbMergeUtil;
 
 /**
  * Miscellaneous tests with a JBoss 5 xml.

@@ -24,8 +24,8 @@ package org.jboss.test.metadata.ejb;
 import java.util.HashSet;
 
 import junit.framework.Test;
-import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
-import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.common.IEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.common.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.CommitOption;
 import org.jboss.metadata.ejb.jboss.ContainerConfigurationMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;

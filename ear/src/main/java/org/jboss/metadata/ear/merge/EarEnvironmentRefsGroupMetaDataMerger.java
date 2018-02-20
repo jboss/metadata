@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.merge;
+package org.jboss.metadata.ear.merge;
 
 import org.jboss.metadata.ear.spec.EarEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;

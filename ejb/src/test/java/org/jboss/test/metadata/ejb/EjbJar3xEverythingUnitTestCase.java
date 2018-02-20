@@ -21,8 +21,8 @@
  */
 package org.jboss.test.metadata.ejb;
 
-import org.jboss.metadata.common.ejb.IEjbJarMetaData;
-import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.common.IEjbJarMetaData;
+import org.jboss.metadata.ejb.common.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossSessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.ApplicationExceptionMetaData;
 import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;

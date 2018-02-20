@@ -27,7 +27,7 @@ import java.util.Map;
 import javax.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamException;
 
-import org.jboss.metadata.common.ejb.IEnterpriseBeansMetaData;
+import org.jboss.metadata.ejb.common.IEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.parser.spec.AbstractMetaDataParser;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;

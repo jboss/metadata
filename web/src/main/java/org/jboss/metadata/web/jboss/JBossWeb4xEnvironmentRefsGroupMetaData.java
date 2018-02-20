@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.web.jboss;
 
-import org.jboss.metadata.ejb.jboss.JBossEnvironmentRefsGroupMetaData;
+import org.jboss.metadata.common.ejb.JBossEnvironmentRefsGroupMetaData;
 
 /**
  * A JBossWeb4xEnvironmentRefsGroupMetaData. This is to address ordering issues

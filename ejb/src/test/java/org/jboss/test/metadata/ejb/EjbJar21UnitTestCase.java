@@ -22,8 +22,8 @@
 package org.jboss.test.metadata.ejb;
 
 import junit.framework.Test;
-import org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData;
-import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.common.IAssemblyDescriptorMetaData;
+import org.jboss.metadata.ejb.common.IEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeanMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEnterpriseBeansMetaData;
 import org.jboss.metadata.ejb.jboss.JBossEntityBeanMetaData;

@@ -30,7 +30,9 @@ import java.util.Set;
 import javax.interceptor.Interceptors;
 
 import org.jboss.logging.Logger;
-import org.jboss.metadata.common.ejb.IEjbJarMetaData;
+import org.jboss.metadata.ejb.common.IEjbJarMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagerMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagersMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokeMetaData;
 import org.jboss.metadata.ejb.spec.AroundInvokesMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;

@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.metadata.parser.jboss;
+package org.jboss.metadata.ear.parser.jboss;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -37,7 +37,7 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
 import org.jboss.metadata.parser.ee.SecurityRoleMetaDataParser;
-import org.jboss.metadata.parser.spec.EarMetaDataParser;
+import org.jboss.metadata.ear.parser.spec.EarMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
 
@@ -313,7 +313,7 @@ public class JBossAppMetaDataParser extends EarMetaDataParser {
         }
 
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            final org.jboss.metadata.parser.spec.Element element = org.jboss.metadata.parser.spec.Element.forName(reader.getLocalName());
+            final org.jboss.metadata.ear.parser.spec.Element element = org.jboss.metadata.ear.parser.spec.Element.forName(reader.getLocalName());
             switch (element) {
                 case CONTEXT_ROOT:
                     webModuleMetaData.setContextRoot(getElementText(reader, propertyReplacer));

@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import org.jboss.metadata.common.ejb.IScheduleTarget;
+import org.jboss.metadata.ejb.common.IScheduleTarget;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright (c) 2013, Red Hat, Inc., and individual contributors
+ * Copyright 2013, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,25 +19,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.metadata.ear;
+package org.jboss.metadata.ejb.merge;
 
-import org.jboss.metadata.ear.jboss.JBossAppMetaData;
-import org.jboss.metadata.ear.parser.jboss.JBossAppMetaDataParser;
-import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
-import org.junit.Test;
+
+import org.jboss.metadata.ejb.jboss.JBossMetaData;
+import org.jboss.metadata.ejb.spec.EjbJarMetaData;
 
 /**
- * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>
+ * @author Scott.Stark@jboss.org
+ * @version $Revision: 67878 $
  */
-public class ModuleOrderUnitTestCase extends AbstractJavaEEMetaDataTest {
-    protected JBossAppMetaData unmarshal() throws Exception {
-        final JBossAppMetaData earMetaData = JBossAppMetaDataParser.INSTANCE.parse(getReader());
-        assertTrue(earMetaData instanceof JBossAppMetaData);
-        return JBossAppMetaData.class.cast(earMetaData);
-    }
-
-    @Test
-    public void testModuleOrderDeprecation() throws Exception {
-        unmarshal();
+public class EjbMergeUtil {
+    public static JBossMetaData merge(JBossMetaData jboss, EjbJarMetaData spec) {
+        JBossMetaData merged = new JBossMetaData();
+        merged.merge(jboss, spec);
+        return merged;
     }
 }

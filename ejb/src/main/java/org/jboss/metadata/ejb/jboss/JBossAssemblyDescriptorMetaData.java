@@ -25,7 +25,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData;
+import org.jboss.metadata.ejb.common.IAssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;
 import org.jboss.metadata.ejb.spec.AssemblyDescriptorMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
@@ -48,7 +48,7 @@ import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
  * @version $Revision: 1.1 $
  */
 public class JBossAssemblyDescriptorMetaData extends IdMetaDataImpl
-        implements org.jboss.metadata.common.ejb.IAssemblyDescriptorMetaData {
+        implements IAssemblyDescriptorMetaData {
     /**
      * The serialVersionUID
      */

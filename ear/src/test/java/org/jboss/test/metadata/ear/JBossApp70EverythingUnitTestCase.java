@@ -33,9 +33,9 @@ import org.jboss.metadata.ear.spec.ModulesMetaData;
 import org.jboss.metadata.ear.spec.WebModuleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRolesMetaData;
-import org.jboss.metadata.merge.JBossAppMetaDataMerger;
-import org.jboss.metadata.parser.jboss.JBossAppMetaDataParser;
-import org.jboss.metadata.parser.spec.EarMetaDataParser;
+import org.jboss.metadata.ear.merge.JBossAppMetaDataMerger;
+import org.jboss.metadata.ear.parser.jboss.JBossAppMetaDataParser;
+import org.jboss.metadata.ear.parser.spec.EarMetaDataParser;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 import org.junit.Test;
 

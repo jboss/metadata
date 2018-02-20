@@ -21,6 +21,8 @@
  */
 package org.jboss.metadata.ejb.jboss;
 
+import org.jboss.metadata.common.ejb.ResourceManagerMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagersMetaData;
 import org.jboss.metadata.ejb.spec.InterceptorsMetaData;
 import org.jboss.metadata.ejb.spec.RelationsMetaData;
 import org.jboss.metadata.javaee.jboss.RunAsIdentityMetaData;

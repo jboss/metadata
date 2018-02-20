@@ -36,7 +36,7 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionImpl;
 import org.jboss.metadata.javaee.spec.DisplayNameImpl;
 import org.jboss.metadata.javaee.spec.IconImpl;
-import org.jboss.metadata.parser.spec.EarMetaDataParser;
+import org.jboss.metadata.ear.parser.spec.EarMetaDataParser;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 
 import static org.jboss.test.metadata.ear.Util.assertEqualsIgnoreOrder;

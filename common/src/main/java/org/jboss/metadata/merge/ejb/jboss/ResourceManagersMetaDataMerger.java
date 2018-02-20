@@ -21,8 +21,8 @@
  */
 package org.jboss.metadata.merge.ejb.jboss;
 
-import org.jboss.metadata.ejb.jboss.ResourceManagerMetaData;
-import org.jboss.metadata.ejb.jboss.ResourceManagersMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagerMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagersMetaData;
 
 /**
  * ResourceManagersMetaData.

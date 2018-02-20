@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.jboss.metadata.parser.jboss;
+package org.jboss.metadata.ear.parser.jboss;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -23,7 +23,7 @@
 package org.jboss.test.metadata.ear;
 
 import org.jboss.metadata.ear.jboss.JBossAppMetaData;
-import org.jboss.metadata.parser.jboss.JBossAppMetaDataParser;
+import org.jboss.metadata.ear.parser.jboss.JBossAppMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 import org.junit.Assert;

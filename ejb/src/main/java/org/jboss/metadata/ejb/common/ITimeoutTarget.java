@@ -19,35 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.common.ejb;
+package org.jboss.metadata.ejb.common;
 
-import java.util.Collection;
-
-import org.jboss.metadata.javaee.support.IdMetaData;
+import org.jboss.metadata.ejb.spec.NamedMethodMetaData;
 
 /**
+ * A bean that can be a target of an ejb timer
+ *
  * @author Scott.Stark@jboss.org
- * @version $Revision: 66420 $
+ * @version $Revision: 67275 $
  */
-public interface IEnterpriseBeansMetaData<A extends IAssemblyDescriptorMetaData,
-        C extends IEnterpriseBeansMetaData<A, C, E, J>,
-        E extends IEnterpriseBeanMetaData<A, C, E, J>,
-        J extends IEjbJarMetaData<A, C, E, J>>
-        extends IdMetaData, Collection<E> {
-    /**
-     * Get the ejbJarMetaData.
-     *
-     * @return the ejbJarMetaData.
-     */
-    J getEjbJarMetaData();
+public interface ITimeoutTarget {
+    NamedMethodMetaData getTimeoutMethod();
 
-    /**
-     * Set the ejbJarMetaData.
-     *
-     * @param ejbJarMetaData the ejbJarMetaData.
-     * @throws IllegalArgumentException for a null ejbJarMetaData
-     */
-    void setEjbJarMetaData(J ejbJarMetaData);
-
-    E get(String ejbName);
+    void setTimeoutMethod(NamedMethodMetaData timeoutMethod);
 }

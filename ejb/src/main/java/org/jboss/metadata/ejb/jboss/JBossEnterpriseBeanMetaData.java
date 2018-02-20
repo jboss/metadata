@@ -31,7 +31,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.ejb.TransactionAttributeType;
 import javax.ejb.TransactionManagementType;
 
-import org.jboss.metadata.common.ejb.IEnterpriseBeanMetaData;
+import org.jboss.metadata.ejb.common.IEnterpriseBeanMetaData;
+import org.jboss.metadata.common.ejb.JBossEnvironmentRefsGroupMetaData;
+import org.jboss.metadata.common.ejb.ResourceManagersMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;
