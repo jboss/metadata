@@ -43,6 +43,7 @@ public class Location {
         bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_11_0.xsd", Version.JBOSS_WEB_11_0);
         bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_12_0.xsd", Version.JBOSS_WEB_12_0);
         bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_12_1.xsd", Version.JBOSS_WEB_12_1);
+        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_13_0.xsd", Version.JBOSS_WEB_13_0);
     }
 
     public static Version getVersion(String location) {
