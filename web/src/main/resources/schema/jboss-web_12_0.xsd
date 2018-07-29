@@ -473,7 +473,7 @@
                     Using SESSION granularity, all session attributes are replicated if any were modified within
                     the scope of a request. This policy is required if an object reference is shared by multiple
                     session attributes. However, this can be inefficient if session attributes are sufficiently
-                    large and/org are modified infrequently, since all attributes must be replicated regardless
+                    large and/or are modified infrequently, since all attributes must be replicated regardless
                     of  whether they were modified or not.
 
                     Using ATTRIBUTE granularity, only those attributes that were modified within the scope of a
