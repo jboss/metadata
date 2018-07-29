@@ -148,7 +148,7 @@
          <xsd:documentation>
             Defines a web container listener. The module element allows specifying from which
             module in the application server the specified class will be loaded. The listener type
-            element defines which events the listener will recieve from the web container.
+            element defines which events the listener will receive from the web container.
          </xsd:documentation>
       </xsd:annotation>
 
@@ -169,7 +169,7 @@
                     1 - "LIFECYCLE": webapp lifecycle listener
                     2 - "CONTAINER": webapp container listener
                     3 - "SERVLET_INSTANCE": servlet instance listener
-                    4 - "SERVLET_LIFECYCLE": servlet lifecyle listener
+                    4 - "SERVLET_LIFECYCLE": servlet lifecycle listener
                     5 - "SERVLET_CONTAINER": servlet container (Catalina wrapper) listener
 
             Example:
@@ -305,7 +305,7 @@
    <xsd:complexType name="symbolic-linked-allowedType">
        <xsd:annotation>
           <xsd:documentation>
-             Thesymbolic-linked-allowed element specifies if symlinking is allowed in exploded deployments.
+             The symbolic-linked-allowed element specifies if symlinking is allowed in exploded deployments.
           </xsd:documentation>
        </xsd:annotation>
        <xsd:simpleContent>
@@ -449,9 +449,9 @@
                             2 - "ATTRIBUTE"
 
                     Using SESSION granularity, all session attributes are replicated if any were modified within
-                    the scrope of a request. This policy is required if an object reference is shared by multiple
+                    the scope of a request. This policy is required if an object reference is shared by multiple
                     session attributes. However, this can be inefficient if session attributes are sufficiently
-                    large and/org are modified infrequently, since all attributes must be replicated reglardless
+                    large and/or are modified infrequently, since all attributes must be replicated regardless
                     of  whether they were modified or not.
 
                     Using ATTRIBUTE granularity, only those attributes that were modified within the scope of a
