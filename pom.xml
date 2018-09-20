@@ -33,7 +33,7 @@
 
     <groupId>org.jboss.metadata</groupId>
     <artifactId>jboss-as-parent-metadata</artifactId>
-    <version>12.0.0.Beta2</version>
+    <version>12.0.0.Final-SNAPSHOT</version>
 
     <name>JBoss Application Server: Metadata Aggregator</name>
     <description>JBoss Application Server: Metadata Aggregator</description>
@@ -372,7 +372,7 @@
         <connection>scm:git:git@github.com:jboss/metadata.git</connection>
         <url>scm:git:git@github.com:jboss/metadata.git</url>
         <developerConnection>scm:git:git@github.com:jboss/metadata.git</developerConnection>
-      <tag>jboss-as-parent-metadata-12.0.0.Beta2</tag>
+      <tag>HEAD</tag>
   </scm>
 
 </project>

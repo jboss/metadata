@@ -29,9 +29,5 @@
     <groupId>org.jboss.metadata</groupId>
     <artifactId>metadata-build-config</artifactId>
     <name>Metadata Build Configuration</name>
-    <version>12.0.0.Beta2</version>
-
-  <scm>
-    <tag>jboss-as-parent-metadata-12.0.0.Beta2</tag>
-  </scm>
+    <version>12.0.0.Final-SNAPSHOT</version>
 </project>
