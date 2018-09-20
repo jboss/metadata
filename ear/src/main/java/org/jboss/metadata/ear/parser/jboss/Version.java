@@ -35,7 +35,7 @@ public enum Version {
     APP_4_0("http://www.jboss.org/j2ee/dtd/jboss-app_4_0.dtd", "4.0"),
     APP_4_2("http://www.jboss.org/j2ee/dtd/jboss-app_4_2.dtd", "4.2"),
     APP_5_0("http://www.jboss.org/j2ee/dtd/jboss-app_5_0.dtd", "5.0"),
-    APP_7_0("http://www.jboss.org/j2ee/schema/jboss-app_7_0.xsd", "7.0");
+    APP_7_0("http://www.jboss.org/j2ee/schema/jboss-app_7_1.xsd", "7.0");
 
     private static final Map<String, Version> bindings = new HashMap<String, Version>();
 
