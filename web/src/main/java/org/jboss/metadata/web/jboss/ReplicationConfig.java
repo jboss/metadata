@@ -30,6 +30,7 @@ import org.jboss.metadata.javaee.support.IdMetaDataImpl;
  * @author <a href="mailto:bdecoste@jboss.com">William DeCoste</a>
  * @version <tt>$Revision: 83549 $</tt>
  */
+@Deprecated
 public class ReplicationConfig extends IdMetaDataImpl {
     private static final long serialVersionUID = 1;
     protected ReplicationGranularity granularity;
