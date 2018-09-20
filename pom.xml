@@ -28,7 +28,7 @@
     <parent>
         <groupId>org.jboss</groupId>
         <artifactId>jboss-parent</artifactId>
-        <version>25</version>
+        <version>29</version>
     </parent>
 
     <groupId>org.jboss.metadata</groupId>
@@ -181,7 +181,6 @@
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>${project.groupId}</groupId>
                 <artifactId>jboss-metadata-common</artifactId>
@@ -222,6 +221,7 @@
                 </exclusions>
                 <scope>provided</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.jboss.spec.javax.annotation</groupId>
                 <artifactId>jboss-annotations-api_1.3_spec</artifactId>
@@ -283,7 +283,6 @@
                 <artifactId>jboss-logging</artifactId>
                 <version>${version.org.jboss.logging}</version>
             </dependency>
-
 
         </dependencies>
     </dependencyManagement>
@@ -372,7 +371,7 @@
         <connection>scm:git:git@github.com:jboss/metadata.git</connection>
         <url>scm:git:git@github.com:jboss/metadata.git</url>
         <developerConnection>scm:git:git@github.com:jboss/metadata.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
 </project>
