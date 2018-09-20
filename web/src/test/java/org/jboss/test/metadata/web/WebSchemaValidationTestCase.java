@@ -30,7 +30,7 @@ public class WebSchemaValidationTestCase extends SchemaValidationTestCase {
 
     @Parameters
     public static List<Object[]> parameters() {
-        String xsdFile = "schema/web-app_3_1.xsd";
+        String xsdFile = "schema/web-app_4_0.xsd";
         return getXSDFiles(xsdFile);
     }
 
