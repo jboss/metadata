@@ -87,54 +87,45 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
     protected IORSecurityConfigMetaData processIORSecurityConfig(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         IORSecurityConfigMetaData iorSecurityMetaData = new IORSecurityConfigMetaData();
 
-        boolean inStart = false;
-        int tag = 0;
-
-        while (reader.hasNext()) {
-            tag = reader.nextTag();
-
-            if(tag == START_ELEMENT) {
-                inStart = true;
-                Element element = Element.forName(reader.getLocalName());
-                switch (element) {
-                    case TRANSPORT_CONFIG: {
-                        IORTransportConfigMetaData transportConfig = this.processTransportConfig(reader, propertyReplacer);
-                        iorSecurityMetaData.setTransportConfig(transportConfig);
-                        break;
-                    }
-                    case AS_CONTEXT: {
-                        IORASContextMetaData asContext = this.processASContext(reader, propertyReplacer);
-                        iorSecurityMetaData.setAsContext(asContext);
-                        break;
-                    }
-                    case SAS_CONTEXT: {
-                        IORSASContextMetaData sasContext = this.processSASContext(reader, propertyReplacer);
-                        iorSecurityMetaData.setSasContext(sasContext);
-                        break;
-                    }
-                    default: {
-                        throw unexpectedElement(reader);
-                    }
+        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+            Element element = Element.forName(reader.getLocalName());
+            switch (element) {
+                case TRANSPORT_CONFIG: {
+                    IORTransportConfigMetaData transportConfig = this.processTransportConfig(reader, propertyReplacer);
+                    iorSecurityMetaData.setTransportConfig(transportConfig);
+                    break;
                 }
-
-            } else if(tag == END_ELEMENT && inStart) {
-                inStart = false;
-            } else {
-                break;
+                case AS_CONTEXT: {
+                    IORASContextMetaData asContext = this.processASContext(reader, propertyReplacer);
+                    iorSecurityMetaData.setAsContext(asContext);
+                    break;
+                }
+                case SAS_CONTEXT: {
+                    IORSASContextMetaData sasContext = this.processSASContext(reader, propertyReplacer);
+                    iorSecurityMetaData.setSasContext(sasContext);
+                    break;
+                }
+                default: {
+                    throw unexpectedElement(reader);
+                }
             }
-
         }
         return iorSecurityMetaData;
     }
 
     protected IORTransportConfigMetaData processTransportConfig(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
+        int count = reader.getAttributeCount();
+        if (count == 0) {
+            // TODO: This is legacy code conflicting with schema contract.
+            // TODO: We keep it only because of backward compatibility.
+            // TODO: Remove it in the future.
+            return processTransportConfigLegacy(reader, propertyReplacer);
+        }
 
         EnumSet<Attribute> requiredAttributes = EnumSet.of(Attribute.INTEGRITY, Attribute.CONFIDENTIALITY,
                 Attribute.ESTABLISH_TRUST_IN_CLIENT, Attribute.ESTABLISH_TRUST_IN_TARGET);
 
         IORTransportConfigMetaData transportConfig = new IORTransportConfigMetaData();
-
-        int count = reader.getAttributeCount();
 
         for(int i = 0; i < count; i++) {
 
@@ -179,16 +170,85 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
             throw missingRequiredAttributes(reader, requiredAttributes);
         }
 
+        if (reader.nextTag() != END_ELEMENT) throw unexpectedElement(reader);
+
+        return transportConfig;
+    }
+
+    protected IORTransportConfigMetaData processTransportConfigLegacy(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
+
+        // the transport-config element doesn't have attributes.
+        requireNoAttributes(reader);
+
+        EnumSet<Element> requiredElements = EnumSet.of(Element.INTEGRITY, Element.CONFIDENTIALITY,
+                Element.ESTABLISH_TRUST_IN_CLIENT, Element.ESTABLISH_TRUST_IN_TARGET);
+
+        IORTransportConfigMetaData transportConfig = new IORTransportConfigMetaData();
+
+        // process the transport config elements.
+        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+            Element element = Element.forName(reader.getLocalName());
+
+            // set the element text in the transport config metadata.
+            switch (element) {
+                case INTEGRITY: {
+                    requireNoAttributes(reader);
+                    transportConfig.setIntegrity(getElementText(reader, propertyReplacer));
+                    break;
+                }
+                case CONFIDENTIALITY: {
+                    requireNoAttributes(reader);
+                    transportConfig.setConfidentiality(getElementText(reader, propertyReplacer));
+                    break;
+                }
+                case DETECT_MISORDERING: {
+                    requireNoAttributes(reader);
+                    transportConfig.setDetectMisordering(getElementText(reader, propertyReplacer));
+                    break;
+                }
+                case DETECT_REPLAY: {
+                    requireNoAttributes(reader);
+                    transportConfig.setDetectReplay(getElementText(reader, propertyReplacer));
+                    break;
+                }
+                case ESTABLISH_TRUST_IN_CLIENT: {
+                    requireNoAttributes(reader);
+                    transportConfig.setEstablishTrustInClient(getElementText(reader, propertyReplacer));
+                    break;
+                }
+                case ESTABLISH_TRUST_IN_TARGET: {
+                    requireNoAttributes(reader);
+                    transportConfig.setEstablishTrustInTarget(getElementText(reader, propertyReplacer));
+                    break;
+                }
+                default: {
+                    throw unexpectedElement(reader);
+                }
+            }
+
+            requiredElements.remove(element);
+        }
+
+        // throw an exception if a required element wasn't found.
+        if (!requiredElements.isEmpty()) {
+            throw missingRequiredElement(reader, requiredElements);
+        }
+
         return transportConfig;
     }
 
     protected IORASContextMetaData processASContext(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
+        int count = reader.getAttributeCount();
+        if (count == 0) {
+            // TODO: This is legacy code conflicting with schema contract.
+            // TODO: We keep it only because of backward compatibility.
+            // TODO: Remove it in the future.
+            return processASContextLegacy(reader, propertyReplacer);
+        }
 
         EnumSet<Attribute> requiredAttributes = EnumSet.of(Attribute.AUTH_METHOD, Attribute.REALM, Attribute.REQUIRED);
 
         IORASContextMetaData asContext = new IORASContextMetaData();
-
-        int count = reader.getAttributeCount();
 
         for(int i = 0; i < count; i++) {
 
@@ -221,17 +281,72 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
         if (!requiredAttributes.isEmpty()) {
             throw missingRequiredAttributes(reader, requiredAttributes);
         }
+
+        if (reader.nextTag() != END_ELEMENT) throw unexpectedElement(reader);
+
+        return asContext;
+    }
+
+    protected IORASContextMetaData processASContextLegacy(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
+
+        // the as-context element doesn't have attributes.
+        requireNoAttributes(reader);
+
+        EnumSet<Element> requiredElements = EnumSet.of(Element.AUTH_METHOD, Element.REALM, Element.REQUIRED);
+
+        IORASContextMetaData asContext = new IORASContextMetaData();
+
+        // process the authentication service (AS) elements.
+        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+            Element element = Element.forName(reader.getLocalName());
+
+            // set the element text in the authentication service (AS) metadata.
+            switch (element) {
+                case AUTH_METHOD: {
+                    requireNoAttributes(reader);
+                    asContext.setAuthMethod(getElementText(reader, propertyReplacer));
+                    break;
+                }
+                case REALM: {
+                    requireNoAttributes(reader);
+                    asContext.setRealm(getElementText(reader, propertyReplacer));
+                    break;
+                }
+                case REQUIRED: {
+                    requireNoAttributes(reader);
+                    asContext.setRequired(Boolean.valueOf(getElementText(reader, propertyReplacer)));
+                    break;
+                }
+                default: {
+                    throw unexpectedElement(reader);
+                }
+            }
+
+            requiredElements.remove(element);
+        }
+
+        // throw an exception if a required element wasn't found.
+        if (!requiredElements.isEmpty()) {
+            throw missingRequiredElement(reader, requiredElements);
+        }
+
         return asContext;
 
     }
 
     protected IORSASContextMetaData processSASContext(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
+        int count = reader.getAttributeCount();
+        if (count == 0) {
+            // TODO: This is legacy code conflicting with schema contract.
+            // TODO: We keep it only because of backward compatibility.
+            // TODO: Remove it in the future.
+            return processSASContextLegacy(reader, propertyReplacer);
+        }
+
 
         EnumSet<Attribute> requiredAttributes = EnumSet.of(Attribute.CALLER_PROPAGATION);
 
         IORSASContextMetaData sasContext = new IORSASContextMetaData();
-
-        int count = reader.getAttributeCount();
 
         for(int i = 0; i < count; i++) {
 
@@ -254,7 +369,45 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
 
         // throw an exception if a required attribute wasn't found.
         if (!requiredAttributes.isEmpty()) {
-            throw missingRequiredElement(reader, requiredAttributes);
+            throw missingRequiredAttributes(reader, requiredAttributes);
+        }
+
+        if (reader.nextTag() != END_ELEMENT) throw unexpectedElement(reader);
+
+        return sasContext;
+    }
+
+    protected IORSASContextMetaData processSASContextLegacy(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
+
+        // the sas-context element doesn't have attributes.
+        requireNoAttributes(reader);
+
+        EnumSet<Element> requiredElements = EnumSet.of(Element.CALLER_PROPAGATION);
+
+        IORSASContextMetaData sasContext = new IORSASContextMetaData();
+
+        // process the security attribute service (SAS) elements.
+        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+            Element element = Element.forName(reader.getLocalName());
+
+            // set the element text in the security attribute service (SAS) metadata.
+            switch (element) {
+                case CALLER_PROPAGATION: {
+                    requireNoAttributes(reader);
+                    sasContext.setCallerPropagation(getElementText(reader, propertyReplacer));
+                    break;
+                }
+                default: {
+                    throw unexpectedElement(reader);
+                }
+            }
+
+            requiredElements.remove(element);
+        }
+
+        // throw an exception if a required attribute wasn't found.
+        if (!requiredElements.isEmpty()) {
+            throw missingRequiredElement(reader, requiredElements);
         }
 
         return sasContext;
@@ -407,10 +560,20 @@ public class IIOPMetaDataParser extends AbstractEJBBoundMetaDataParser<IIOPMetaD
         IOR_SECURITY_CONFIG("ior-security-config"),
         // transport configuration elements.
         TRANSPORT_CONFIG("transport-config"),
+        INTEGRITY("integrity"),
+        CONFIDENTIALITY("confidentiality"),
+        DETECT_MISORDERING("detect-misordering"),
+        DETECT_REPLAY("detect-replay"),
+        ESTABLISH_TRUST_IN_CLIENT("establish-trust-in-client"),
+        ESTABLISH_TRUST_IN_TARGET("establish-trust-in-target"),
         // authentication context configuration elements.
         AS_CONTEXT("as-context"),
+        AUTH_METHOD("auth-method"),
+        REALM("realm"),
+        REQUIRED("required"),
         // secure attribute service context configuration elements.
-        SAS_CONTEXT("sas-context");
+        SAS_CONTEXT("sas-context"),
+        CALLER_PROPAGATION("caller-propagation");
 
         private final String name;
 
