@@ -40,7 +40,7 @@ import org.jboss.test.metadata.javaee.AbstractJavaEEMetaDataTest;
 import org.junit.Test;
 
 /**
- * Test jboss-app.xml which uses jboss-app_7_0.xsd
+ * Test jboss-app.xml which uses jboss-app_7_1.xsd
  *
  * @author Jaikiran Pai
  */
