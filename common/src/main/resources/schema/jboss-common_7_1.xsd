@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://www.jboss.com/xml/ns/javaee "
+            targetNamespace="http://www.jboss.com/xml/ns/javaee"
             xmlns:javaee="http://xmlns.jcp.org/xml/ns/javaee"
             xmlns:jboss="http://www.jboss.com/xml/ns/javaee"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -31,7 +31,7 @@
 
 	http://www.jboss.com/xml/ns/javaee
 
-        Online URL http://www.jboss.org/j2ee/schema/jboss-common_7_0.xsd
+        Online URL http://www.jboss.org/j2ee/schema/jboss-common_7_1.xsd
 	]]>
       </xsd:documentation>
    </xsd:annotation>
