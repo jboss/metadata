@@ -6,7 +6,7 @@
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
-            version="7.0">
+            version="7.1">
 
    <xsd:annotation>
       <xsd:documentation> JBoss, Home of Professional Open Source Copyright 2005, JBoss Inc., and

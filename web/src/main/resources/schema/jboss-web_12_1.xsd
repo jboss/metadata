@@ -28,13 +28,13 @@
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
-            version="12.0">
+            version="12.1">
 
     <xsd:annotation>
         <xsd:documentation>
             <![CDATA[
 
-	This is the XML Schema for the WildFly 12.0 web application deployment descriptor.
+	This is the XML Schema for the WildFly 12.1 web application deployment descriptor.
 	The deployment descriptor must be named "WEB-INF/jboss-web.xml" in
 	the WAR file.  All JBoss Web deployment descriptors must indicate
 	the JBoss schema by using the Java EE namespace:
@@ -45,8 +45,8 @@
 
         <jboss-web xmlns="http://www.jboss.com/xml/ns/javaee"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/schema/jbossas/jboss-web_12_0.xsd"
-           version="12.0">
+           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/schema/jbossas/jboss-web_12_1.xsd"
+           version="12.1">
 
 	       ...
 
@@ -87,7 +87,7 @@
 
     <xsd:simpleType name="jboss-web-versionType">
         <xsd:restriction base="xsd:token">
-            <xsd:enumeration value="12.0"/>
+            <xsd:enumeration value="12.1"/>
         </xsd:restriction>
     </xsd:simpleType>
 
