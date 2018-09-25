@@ -38,6 +38,8 @@ public enum JavaEEVersion {
 
     V6,
 
-    V7
+    V7,
+
+    V8,
 
 }

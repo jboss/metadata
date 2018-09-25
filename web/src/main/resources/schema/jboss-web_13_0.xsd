@@ -28,13 +28,13 @@
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
-            version="12.1">
+            version="13.0">
 
     <xsd:annotation>
         <xsd:documentation>
             <![CDATA[
 
-	This is the XML Schema for the WildFly 12.1 web application deployment descriptor.
+	This is the XML Schema for the WildFly 13.0 web application deployment descriptor.
 	The deployment descriptor must be named "WEB-INF/jboss-web.xml" in
 	the WAR file.  All JBoss Web deployment descriptors must indicate
 	the JBoss schema by using the Java EE namespace:
@@ -45,8 +45,8 @@
 
         <jboss-web xmlns="http://www.jboss.com/xml/ns/javaee"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/schema/jbossas/jboss-web_12_1.xsd"
-           version="12.1">
+           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/schema/jbossas/jboss-web_13_0.xsd"
+           version="13.0">
 
 	       ...
 
@@ -56,7 +56,7 @@
 	the schema using the xsi:schemaLocation attribute for the
 	Java EE namespace with the following location:
 
-	http://www.jboss.org/j2ee/schema/jboss-web_12_1.xsd
+	http://www.jboss.org/j2ee/schema/jboss-web_13_0.xsd
 
 	]]>
         </xsd:documentation>
@@ -74,8 +74,8 @@
         </xsd:documentation>
     </xsd:annotation>
 
-    <xsd:import namespace="http://xmlns.jcp.org/xml/ns/javaee" schemaLocation="http://www.jboss.org/schema/jbossas/web-app_3_1.xsd"/>
-    <xsd:include schemaLocation="http://www.jboss.org/schema/jbossas/jboss-common_7_1.xsd"/>
+    <xsd:import namespace="http://xmlns.jcp.org/xml/ns/javaee" schemaLocation="http://www.jboss.org/schema/jbossas/web-app_4_0.xsd"/>
+    <xsd:include schemaLocation="http://www.jboss.org/schema/jbossas/jboss-common_8_0.xsd"/>
 
     <xsd:element name="jboss-web" type="jboss:jboss-webType">
         <xsd:annotation>
@@ -87,7 +87,7 @@
 
     <xsd:simpleType name="jboss-web-versionType">
         <xsd:restriction base="xsd:token">
-            <xsd:enumeration value="12.1"/>
+            <xsd:enumeration value="13.0"/>
         </xsd:restriction>
     </xsd:simpleType>
 

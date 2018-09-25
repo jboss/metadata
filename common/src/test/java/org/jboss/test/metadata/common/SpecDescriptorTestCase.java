@@ -48,7 +48,7 @@ public class SpecDescriptorTestCase {
     @Parameters
     public static List<Object[]> parameters() {
         // The spec descriptor should be guarded in schema
-        return Arrays.asList(new Object[][]{{"schema/j2ee_1_4.xsd"}, {"schema/javaee_5.xsd"}, {"schema/javaee_6.xsd"}, {"schema/javaee_7.xsd"}, {"schema/j2ee_jaxrpc_mapping_1_1.xsd"}, {"schema/j2ee_web_services_1_1.xsd"}, {"schema/j2ee_web_services_client_1_1.xsd"}, {"schema/javaee_web_services_1_2.xsd"}, {"schema/javaee_web_services_1_3.xsd"}, {"schema/javaee_web_services_1_4.xsd"}, {"schema/javaee_web_services_client_1_2.xsd"}, {"schema/javaee_web_services_client_1_3.xsd"}, {"schema/javaee_web_services_client_1_4.xsd"}});
+        return Arrays.asList(new Object[][]{{"schema/j2ee_1_4.xsd"}, {"schema/javaee_5.xsd"}, {"schema/javaee_6.xsd"}, {"schema/javaee_7.xsd"},{"schema/javaee_8.xsd"}, {"schema/j2ee_jaxrpc_mapping_1_1.xsd"}, {"schema/j2ee_web_services_1_1.xsd"}, {"schema/j2ee_web_services_client_1_1.xsd"}, {"schema/javaee_web_services_1_2.xsd"}, {"schema/javaee_web_services_1_3.xsd"}, {"schema/javaee_web_services_1_4.xsd"}, {"schema/javaee_web_services_client_1_2.xsd"}, {"schema/javaee_web_services_client_1_3.xsd"}, {"schema/javaee_web_services_client_1_4.xsd"}});
     }
 
     /**

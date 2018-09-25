@@ -541,7 +541,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
             assertDescriptions(prefix + "PersistenceContextRef" + count, persistenceContextReferenceMetaData.getDescriptions());
             assertEquals(prefix + "PersistenceContextRef" + count + "Name", persistenceContextReferenceMetaData.getPersistenceContextRefName());
             assertEquals(prefix + "PersistenceContextRef" + count + "Unit", persistenceContextReferenceMetaData.getPersistenceUnitName());
-            if (version == JavaEEVersion.V7) {
+            if (version == JavaEEVersion.V7 || version == JavaEEVersion.V8) {
                 PersistenceContextSynchronizationType type = count % 2 == 0 ? PersistenceContextSynchronizationType.Unsynchronized
                         : PersistenceContextSynchronizationType.Synchronized;
                 assertEquals(type, persistenceContextReferenceMetaData.getPersistenceContextSynchronization());
@@ -556,7 +556,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
     }
 
     protected void assertDataSources(String prefix, DataSourcesMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
-        if (version != JavaEEVersion.V7 || !full) {
+        if ((version != JavaEEVersion.V7 && version != JavaEEVersion.V8) || !full) {
             assertNull(metaDatas);
             return;
         }
@@ -595,7 +595,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
     }
 
     protected void assertAdministeredObjects(String prefix, AdministeredObjectsMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
-        if (version != JavaEEVersion.V7 || !full) {
+        if ((version != JavaEEVersion.V7 && version != JavaEEVersion.V8) || !full) {
             assertNull(metaDatas);
             return;
         }
