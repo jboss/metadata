@@ -56,7 +56,7 @@
 	the schema using the xsi:schemaLocation attribute for the
 	Java EE namespace with the following location:
 
-	http://www.jboss.org/j2ee/schema/jboss-web_12_0.xsd
+	http://www.jboss.org/j2ee/schema/jboss-web_12_1.xsd
 
 	]]>
         </xsd:documentation>
@@ -74,7 +74,7 @@
         </xsd:documentation>
     </xsd:annotation>
 
-    <xsd:import namespace="http://xmlns.jcp.org/xml/ns/javaee" schemaLocation="http://www.jboss.org/schema/jbossas/web-app_4_0.xsd"/>
+    <xsd:import namespace="http://xmlns.jcp.org/xml/ns/javaee" schemaLocation="http://www.jboss.org/schema/jbossas/web-app_3_1.xsd"/>
     <xsd:include schemaLocation="http://www.jboss.org/schema/jbossas/jboss-common_7_1.xsd"/>
 
     <xsd:element name="jboss-web" type="jboss:jboss-webType">

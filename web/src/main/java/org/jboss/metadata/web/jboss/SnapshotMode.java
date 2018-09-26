@@ -19,23 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.metadata.ear;
 
-import java.util.List;
+package org.jboss.metadata.web.jboss;
 
-import org.jboss.test.metadata.common.SchemaValidationTestCase;
-import org.junit.runners.Parameterized.Parameters;
+public enum SnapshotMode {
+    /**
+     * Merely accessing the session marks the session as dirty
+     */
+    INSTANT,
+    /**
+     * Calling setAttribute() or getAttribute() marks the session as dirty
+     */
+    INTERVAL;
 
-public class EarSchemaValidationTestCase extends SchemaValidationTestCase {
-
-    @Parameters
-    public static List<Object[]> parameters() {
-        String xsdFile = "schema/application_8.xsd";
-        return getXSDFiles(xsdFile);
+    public static SnapshotMode fromString(String mode) {
+        return (mode == null ? INSTANT : Enum.valueOf(SnapshotMode.class, mode));
     }
 
-    public EarSchemaValidationTestCase(String xsd) {
-        super(xsd);
+    public static SnapshotMode fromInt(int ordinal) {
+        switch (ordinal) {
+            case 0:
+                return INSTANT;
+            case 1:
+                return INTERVAL;
+            default:
+                throw new IllegalArgumentException("Unknown ordinal " + ordinal);
+        }
     }
-
 }

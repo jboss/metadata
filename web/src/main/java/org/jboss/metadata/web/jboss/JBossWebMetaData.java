@@ -483,12 +483,10 @@ public class JBossWebMetaData extends NamedModuleImpl {
         this.maxActiveSessions = maxActiveSessions;
     }
 
-    @Deprecated
     public ReplicationConfig getReplicationConfig() {
         return replicationConfig;
     }
 
-    @Deprecated
     public void setReplicationConfig(ReplicationConfig replicationConfig) {
         this.replicationConfig = replicationConfig;
     }

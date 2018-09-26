@@ -22,6 +22,7 @@
 
 package org.jboss.test.metadata.web;
 
+import static junit.framework.TestCase.assertNotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +39,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public class JBossWeb130UnitTestCase extends AbstractJavaEEEverythingTest {
+public class JBossWeb121UnitTestCase extends AbstractJavaEEEverythingTest {
 
     @Test
     public void testUndertow() throws Exception {
@@ -64,7 +65,7 @@ public class JBossWeb130UnitTestCase extends AbstractJavaEEEverythingTest {
 
     @Test
     public void testValidateDescriptor() throws IOException, SAXException, ParserConfigurationException, URISyntaxException {
-        InputStream in = getClass().getResourceAsStream("JBossWeb130_testUndertow.xml");
+        InputStream in = getClass().getResourceAsStream("JBossWeb121_testUndertow.xml");
         Document document = ValidationHelper.parse(new InputSource(in), getClass());
         assertNotNull(document);
     }

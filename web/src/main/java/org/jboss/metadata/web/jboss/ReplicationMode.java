@@ -19,23 +19,8 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.metadata.ear;
+package org.jboss.metadata.web.jboss;
 
-import java.util.List;
-
-import org.jboss.test.metadata.common.SchemaValidationTestCase;
-import org.junit.runners.Parameterized.Parameters;
-
-public class EarSchemaValidationTestCase extends SchemaValidationTestCase {
-
-    @Parameters
-    public static List<Object[]> parameters() {
-        String xsdFile = "schema/application_8.xsd";
-        return getXSDFiles(xsdFile);
-    }
-
-    public EarSchemaValidationTestCase(String xsd) {
-        super(xsd);
-    }
-
+public enum ReplicationMode {
+    SYNCHRONOUS, ASYNCHRONOUS;
 }

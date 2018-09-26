@@ -228,9 +228,6 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     wmd.setMaxActiveSessions(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case REPLICATION_CONFIG:
-                    if (version.compareTo(Version.JBOSS_WEB_13_0) >= 0) {
-                        throw unexpectedElement(reader);
-                    }
                     wmd.setReplicationConfig(ReplicationConfigParser.parse(reader, propertyReplacer));
                     break;
                 case DISTINCT_NAME:

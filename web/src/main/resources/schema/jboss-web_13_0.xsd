@@ -34,7 +34,7 @@
         <xsd:documentation>
             <![CDATA[
 
-	This is the XML Schema for the WildFly 12.0 web application deployment descriptor.
+	This is the XML Schema for the WildFly 13.0 web application deployment descriptor.
 	The deployment descriptor must be named "WEB-INF/jboss-web.xml" in
 	the WAR file.  All JBoss Web deployment descriptors must indicate
 	the JBoss schema by using the Java EE namespace:
@@ -75,7 +75,7 @@
     </xsd:annotation>
 
     <xsd:import namespace="http://xmlns.jcp.org/xml/ns/javaee" schemaLocation="http://www.jboss.org/schema/jbossas/web-app_4_0.xsd"/>
-    <xsd:include schemaLocation="http://www.jboss.org/schema/jbossas/jboss-common_7_1.xsd"/>
+    <xsd:include schemaLocation="http://www.jboss.org/schema/jbossas/jboss-common_8_0.xsd"/>
 
     <xsd:element name="jboss-web" type="jboss:jboss-webType">
         <xsd:annotation>
@@ -135,6 +135,7 @@
                     </xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
+            <xsd:element name="replication-config" type="jboss:replication-configType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="distinct-name" type="jboss:distinct-nameType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="symbolic-linking-enabled" type="jboss:symbolic-linked-allowedType" minOccurs="0" maxOccurs="1"/>
             <xsd:element name="proactive-authentication" type="jboss:proactive-authenticationType" minOccurs="0" maxOccurs="1"/>
@@ -424,6 +425,79 @@
         </xsd:annotation>
         <xsd:simpleContent>
             <xsd:restriction base="javaee:string"/>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="replication-configType">
+        <xsd:annotation>
+            <xsd:documentation>
+                <![CDATA[
+
+            HTTP Session clustering configuration (optional tags)
+
+            ]]>
+            </xsd:documentation>
+        </xsd:annotation>
+
+        <xsd:sequence>
+            <xsd:element name="cache-name" type="xsd:string" minOccurs="0">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+
+                    Clustering only: Specifies the name of the Infinispan container and cache in which to store session data.
+
+                    Default value, if not explicitly set, is determined by the application server.
+
+                    To use a specific cache within a cache container, use the form "container.cache".
+                    If unqualified, the default cache of the specified container is used.
+
+                    e.g. <cache-name>web</cache-name>
+                         <cache-name>web.dist</cache-name>
+
+                    ]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="replication-granularity" type="jboss:replication-granularityType" minOccurs="0" default="SESSION">
+                <xsd:annotation>
+                    <xsd:documentation>
+                        <![CDATA[
+
+                    Clustering only: Determines the session replication granularity level.
+                    Possible values are:
+                            1 - "SESSION" (default)
+                            2 - "ATTRIBUTE"
+
+                    Using SESSION granularity, all session attributes are replicated if any were modified within
+                    the scope of a request. This policy is required if an object reference is shared by multiple
+                    session attributes. However, this can be inefficient if session attributes are sufficiently
+                    large and/or are modified infrequently, since all attributes must be replicated regardless
+                    of  whether they were modified or not.
+
+                    Using ATTRIBUTE granularity, only those attributes that were modified within the scope of a
+                    request are replicated. This policy is not appropriate if an object reference is shared by
+                    multiple session attributes. This can be more efficient than SESSION granularity if the
+                    session attributes are sufficiently large and/or modified infrequently.
+
+                    Examples:
+                          <replication-granularity>SESSION</replication-granularity>
+                       or
+                          <replication-granularity>ATTRIBUTE</replication-granularity>
+
+                    ]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="replication-granularityType">
+        <xsd:simpleContent>
+            <xsd:restriction base="javaee:string">
+                <xsd:enumeration value="SESSION"/>
+                <xsd:enumeration value="ATTRIBUTE"/>
+            </xsd:restriction>
         </xsd:simpleContent>
     </xsd:complexType>
 

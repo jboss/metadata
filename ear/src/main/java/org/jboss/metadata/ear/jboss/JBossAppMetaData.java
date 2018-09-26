@@ -48,7 +48,7 @@ public class JBossAppMetaData extends EarMetaData {
     private String distinctName;
 
     public JBossAppMetaData() {
-        super(EarVersion.APP_7_0);
+        super(EarVersion.APP_8_0);
     }
 
     public JBossAppMetaData(EarVersion earVersion) {
