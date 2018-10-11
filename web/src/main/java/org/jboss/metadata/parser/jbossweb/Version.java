@@ -43,6 +43,7 @@ public enum Version {
     JBOSS_WEB_12_0(12, 0),
     JBOSS_WEB_12_1(12, 1),
     JBOSS_WEB_13_0(13, 0),
+    JBOSS_WEB_14_0(14, 0),
     ;
     private final String location;
 
