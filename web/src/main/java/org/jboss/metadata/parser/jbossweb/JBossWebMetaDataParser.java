@@ -64,7 +64,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             if (reader.getEventType() == DTD) {
                 String dtdLocation = readDTDLocation(reader);
                 if (dtdLocation != null) {
-                    version = Location.getVersion(dtdLocation);
+                    version = Version.findVersion(dtdLocation);
                 }
                 if (version == null) {
                     // DTD->getText() is incomplete and not parsable with Xerces from Sun JDK 6,
@@ -75,7 +75,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
         }
         String schemaLocation = readSchemaLocation(reader);
         if (schemaLocation != null) {
-            version = Location.getVersion(schemaLocation);
+            version = Version.findVersion(schemaLocation);
         }
         if (version == null) {
             version = Version.JBOSS_WEB_6_0;
@@ -228,6 +228,9 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     wmd.setMaxActiveSessions(Integer.valueOf(getElementText(reader, propertyReplacer)));
                     break;
                 case REPLICATION_CONFIG:
+                    if (version.compareTo(Version.JBOSS_WEB_14_0) >= 0) {
+                        throw unexpectedElement(reader);
+                    }
                     wmd.setReplicationConfig(ReplicationConfigParser.parse(reader, propertyReplacer));
                     break;
                 case DISTINCT_NAME:

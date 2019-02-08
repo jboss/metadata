@@ -21,6 +21,7 @@
  */
 package org.jboss.metadata.web.jboss;
 
+@Deprecated
 public enum ReplicationGranularity {
     SESSION, ATTRIBUTE;
 

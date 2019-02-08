@@ -38,6 +38,7 @@ import org.jboss.metadata.web.jboss.ReplicationGranularity;
 /**
  * @author Paul Ferraro
  */
+@Deprecated
 public class ReplicationConfigParser extends MetaDataElementParser {
     private static final Logger log = Logger.getLogger(JBossWebMetaDataParser.class);
     private static final Set<String> DEPRECATED_ELEMENTS = new HashSet<>(Arrays.asList(

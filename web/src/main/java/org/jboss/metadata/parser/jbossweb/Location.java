@@ -22,30 +22,13 @@
 
 package org.jboss.metadata.parser.jbossweb;
 
-import java.util.HashMap;
-
+@Deprecated
 public class Location {
-    private static final HashMap<String, Version> bindings = new HashMap<String, Version>();
-
-    static {
-        bindings.put("http://www.jboss.org/j2ee/dtd/jboss-web_3_0.dtd", Version.JBOSS_WEB_3_0);
-        bindings.put("http://www.jboss.org/j2ee/dtd/jboss-web_3_2.dtd", Version.JBOSS_WEB_3_2);
-        bindings.put("http://www.jboss.org/j2ee/dtd/jboss-web_4_0.dtd", Version.JBOSS_WEB_4_0);
-        bindings.put("http://www.jboss.org/j2ee/dtd/jboss-web_4_2.dtd", Version.JBOSS_WEB_4_2);
-        bindings.put("http://www.jboss.org/j2ee/dtd/jboss-web_5_0.dtd", Version.JBOSS_WEB_5_0);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_5_1.xsd", Version.JBOSS_WEB_5_1);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_6_0.xsd", Version.JBOSS_WEB_6_0);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_7_0.xsd", Version.JBOSS_WEB_7_0);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_7_1.xsd", Version.JBOSS_WEB_7_1);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_7_2.xsd", Version.JBOSS_WEB_7_2);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_8_0.xsd", Version.JBOSS_WEB_8_0);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_10_0.xsd", Version.JBOSS_WEB_10_0);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_11_0.xsd", Version.JBOSS_WEB_11_0);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_12_0.xsd", Version.JBOSS_WEB_12_0);
-        bindings.put("http://www.jboss.org/j2ee/schema/jboss-web_12_1.xsd", Version.JBOSS_WEB_12_1);
-    }
-
+    /**
+     * @deprecated Use {@link Version#getVersion(String)} instead.
+     */
+    @Deprecated
     public static Version getVersion(String location) {
-        return bindings.get(location);
+        return Version.findVersion(location);
     }
 }
