@@ -23,9 +23,9 @@
                xmlns="http://java.sun.com/xml/ns/javaee"
                xmlns:tx="urn:trans-timeout"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd
-                     http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd
-                     urn:trans-timeout http://www.jboss.org/j2ee/schema/trans-timeout-1_0.xsd"
+               xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-2_1.xsd
+                     http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_1.xsd
+                     urn:trans-timeout http://www.jboss.org/j2ee/schema/trans-timeout-1_1.xsd"
                version="3.1"
                impl-version="2.0">
    <assembly-descriptor>
