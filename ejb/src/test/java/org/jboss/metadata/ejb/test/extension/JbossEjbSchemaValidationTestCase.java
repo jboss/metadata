@@ -19,22 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.test.metadata.web;
+package org.jboss.metadata.ejb.test.extension;
 
 import java.util.List;
 
 import org.jboss.test.metadata.common.SchemaValidationTestCase;
 import org.junit.runners.Parameterized.Parameters;
 
-public class JbossWebSchemaValidationTestCase extends SchemaValidationTestCase {
+public class JbossEjbSchemaValidationTestCase extends SchemaValidationTestCase {
 
     @Parameters
     public static List<Object[]> parameters() {
-        String xsdFile = "schema/jboss-web_14_0.xsd";
+        String xsdFile = "schema/jboss-ejb3-2_1.xsd";
         return getXSDFiles(xsdFile);
     }
 
-    public JbossWebSchemaValidationTestCase(String xsd) {
+    public JbossEjbSchemaValidationTestCase(String xsd) {
         super(xsd);
     }
 

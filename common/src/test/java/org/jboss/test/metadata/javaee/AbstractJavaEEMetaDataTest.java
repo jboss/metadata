@@ -42,7 +42,7 @@ import org.jboss.metadata.property.SystemPropertyResolver;
  * @version $Revision: 1.2 $
  */
 public class AbstractJavaEEMetaDataTest extends TestCase {
-    protected final PropertyReplacer propertyReplacer = PropertyReplacers.resolvingReplacer(SystemPropertyResolver.INSTANCE);
+    protected final PropertyReplacer propertyReplacer = PropertyReplacers.resolvingExpressionReplacer(SystemPropertyResolver.INSTANCE);
 
     public AbstractJavaEEMetaDataTest() {
         super();
@@ -59,14 +59,17 @@ public class AbstractJavaEEMetaDataTest extends TestCase {
      * @throws Exception for any error
      */
     protected XMLStreamReader getReader() throws Exception {
-        String name = getClass().getSimpleName();
-        int index = name.lastIndexOf("UnitTestCase");
-        if (index != -1) { name = name.substring(0, index); }
-        name = name + "_" + getName() + ".xml";
-        return getReader(name);
+        return getReader(getXmlFileName(), NoopXMLResolver.create());
     }
 
-
+    private String getXmlFileName() {
+        String name = getClass().getSimpleName();
+        int index = name.lastIndexOf("UnitTestCase");
+        if (index != -1) {
+            name = name.substring(0, index);
+        }
+        return name + "_" + getName() + ".xml";
+    }
     /**
      * Open a xml file
      *
@@ -102,11 +105,7 @@ public class AbstractJavaEEMetaDataTest extends TestCase {
      * Find the xml
      */
     protected InputStream findXML() throws IOException {
-        String name = getClass().getSimpleName();
-        int index = name.lastIndexOf("UnitTestCase");
-        if (index != -1) { name = name.substring(0, index); }
-        name = name + "_" + getName() + ".xml";
-        return findXML(name);
+        return findXML(getXmlFileName());
     }
 
     public URL getResource(final String name) {
