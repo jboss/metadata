@@ -72,6 +72,7 @@ public class ValidationHelper {
         system.put("http://www.jboss.org/schema/jbossas/web-common_4_0.xsd", "/schema/web-common_4_0.xsd");
         system.put("http://www.jboss.org/j2ee/schema/jboss-web_13_0.xsd", "/schema/jboss-web_13_0.xsd");
         system.put("http://www.jboss.org/j2ee/schema/jboss-web_12_1.xsd", "/schema/jboss-web_12_1.xsd");
+        system.put("http://www.jboss.org/j2ee/schema/jboss-web_14_1.xsd", "/schema/jboss-web_14_1.xsd");
 
         parser.setEntityResolver(new EntityResolver() {
             @Override
