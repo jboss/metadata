@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2013, Red Hat, Inc., and individual contributors
+ * Copyright 2018, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,23 +19,32 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 package org.jboss.test.metadata.web;
 
-import java.util.List;
 
-import org.jboss.test.metadata.common.SchemaValidationTestCase;
-import org.junit.runners.Parameterized.Parameters;
+import javax.xml.stream.XMLStreamException;
 
-public class JbossWebSchemaValidationTestCase extends SchemaValidationTestCase {
+import org.jboss.metadata.parser.jbossweb.JBossWebMetaDataParser;
+import org.jboss.metadata.property.PropertyReplacers;
+import org.jboss.metadata.web.jboss.JBossWebMetaData;
+import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
+import org.junit.Assert;
 
-    @Parameters
-    public static List<Object[]> parameters() {
-        String xsdFile = "schema/jboss-web_14_1.xsd";
-        return getXSDFiles(xsdFile);
+public class JBossWeb141UnitTestCase extends AbstractJavaEEEverythingTest {
+
+    public void testReplicationConfig() throws Exception {
+        try {
+            JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
+            Assert.fail("<replication-config/> is no longer valid");
+        } catch (XMLStreamException e) {
+            // Expected
+        }
     }
 
-    public JbossWebSchemaValidationTestCase(String xsd) {
-        super(xsd);
+    @SuppressWarnings("deprecation")
+    public void testClustering() throws Exception {
+        JBossWebMetaData metaData = JBossWebMetaDataParser.parse(getReader(), PropertyReplacers.noop());
+        Assert.assertNull(metaData.getReplicationConfig());
     }
-
 }
