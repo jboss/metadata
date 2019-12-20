@@ -91,7 +91,7 @@ public class JBossWebApp24UnitTestCase extends AbstractJavaEEEverythingTest {
       ResourceReferenceMetaData jbossUrlRef = jbossWeb.getResourceReferenceByName("url/JBossHome");
       assertEquals("url/JBossHome", jbossUrlRef.getResourceRefName());
       assertEquals("JBoss Home Page", jbossUrlRef.getDescriptions().value()[0].value());
-      assertEquals("http://www.jboss.org", jbossUrlRef.getResUrl());
+      assertEquals("https://www.jboss.org", jbossUrlRef.getResUrl());
       assertEquals("java.net.URL", jbossUrlRef.getType());
       assertEquals(ResourceAuthorityType.Container, jbossUrlRef.getResAuth());
       // url/IndirectURL

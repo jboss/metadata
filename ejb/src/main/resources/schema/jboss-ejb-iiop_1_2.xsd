@@ -21,8 +21,8 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            attributeFormDefault="unqualified" elementFormDefault="qualified"
            targetNamespace="urn:iiop" version="1.2"
-           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_01.xsd">
-   <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="http://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_1.xsd"/>
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_01.xsd">
+   <xs:import namespace="http://java.sun.com/xml/ns/javaee" schemaLocation="https://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_1.xsd"/>
 
    <xs:element name="iiop" type="iiopConfigType" substitutionGroup="javaee:assembly-descriptor-entry"/>
 

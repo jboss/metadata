@@ -2,11 +2,11 @@
 
   <!DOCTYPE jboss PUBLIC
       "-//JBoss//DTD JBOSS 5.0//EN"
-      "http://www.jboss.org/j2ee/dtd/jboss_5_0.dtd">
+      "https://www.jboss.org/j2ee/dtd/jboss_5_0.dtd">
 <!--
 <jboss xmlns="http://www.jboss.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee https://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
     version="3.0">
 -->
 <jboss>

@@ -27,7 +27,7 @@
                 <wsdl-file>session1-wsdl-file</wsdl-file>
                 <!-- Java<->XML mapping file -->
                 <jaxrpc-mapping-file>META-INF/jaxrpc-mapping.xml</jaxrpc-mapping-file>
-                <service-qname xmlns:session1="http://www.jboss.org">session1:Session1Qname</service-qname>
+                <service-qname xmlns:session1="https://www.jboss.org">session1:Session1Qname</service-qname>
                 <port-component-ref>
                     <!-- service endpoint interface class -->
                     <service-endpoint-interface>org.jboss.test.security.interfaces.HelloEndPoint</service-endpoint-interface>
@@ -42,7 +42,7 @@
                                 <param-name>param1</param-name>
                                 <param-value>value1</param-value>
                             </init-param>
-                            <soap-header xmlns:session1="http://www.jboss.org">session1:soap-header</soap-header>
+                            <soap-header xmlns:session1="https://www.jboss.org">session1:soap-header</soap-header>
                             <soap-role>session1:soap-role</soap-role>
                             <port-name>session1:soap-role</port-name>
                         </handler>

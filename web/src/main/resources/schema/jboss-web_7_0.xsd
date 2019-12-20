@@ -45,7 +45,7 @@
 
         <jboss-web xmlns="http://www.jboss.com/xml/ns/javaee"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-web_7_0.xsd"
+           xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee https://www.jboss.org/j2ee/schema/jboss-web_7_0.xsd"
            version="7.0">                                     
 
 	       ...
@@ -56,7 +56,7 @@
 	the schema using the xsi:schemaLocation attribute for the
 	Java EE namespace with the following location:
 
-	http://www.jboss.org/j2ee/schema/jboss-web_7_0.xsd
+	https://www.jboss.org/j2ee/schema/jboss-web_7_0.xsd
 
 	]]>
       </xsd:documentation>

@@ -59,7 +59,7 @@ public class ValidationHelper {
         DocumentBuilder parser = factory.newDocumentBuilder();
         final Map<String, String> system = new HashMap<>();
         system.put("http://www.jboss.org/schema/jbossas/javaee_7.xsd", "/schema/javaee_7.xsd");
-        system.put("http://www.jboss.org/schema/jbossas/javaee_8.xsd", "/schema/javaee_8.xsd");
+        system.put("https://www.jboss.org/schema/jbossas/javaee_8.xsd", "/schema/javaee_8.xsd");
         system.put("http://www.jboss.org/schema/jbossas/javaee_web_services_client_1_4.xsd", "/schema/javaee_web_services_client_1_4.xsd");
         system.put("http://www.jboss.org/schema/jbossas/jsp_2_3.xsd", "/schema/jsp_2_3.xsd");
         system.put("http://www.w3.org/2001/xml.xsd", "/schema/xml.xsd");
@@ -67,12 +67,12 @@ public class ValidationHelper {
         system.put("http://www.jboss.org/schema/jbossas/web-app_4_0.xsd", "/schema/web-app_4_0.xsd");
         system.put("http://www.jboss.org/schema/jbossas/jboss-common_7_1.xsd", "/schema/jboss-common_7_1.xsd");
         system.put("http://www.jboss.org/schema/jbossas/jboss-common_8_0.xsd", "/schema/jboss-common_8_0.xsd");
-        system.put("http://www.jboss.org/schema/jbossas/jboss-common_8_1.xsd", "/schema/jboss-common_8_1.xsd");
+        system.put("https://www.jboss.org/schema/jbossas/jboss-common_8_1.xsd", "/schema/jboss-common_8_1.xsd");
         system.put("http://www.jboss.org/schema/jbossas/web-common_3_1.xsd", "/schema/web-common_3_1.xsd");
         system.put("http://www.jboss.org/schema/jbossas/web-common_4_0.xsd", "/schema/web-common_4_0.xsd");
         system.put("http://www.jboss.org/j2ee/schema/jboss-web_13_0.xsd", "/schema/jboss-web_13_0.xsd");
         system.put("http://www.jboss.org/j2ee/schema/jboss-web_12_1.xsd", "/schema/jboss-web_12_1.xsd");
-        system.put("http://www.jboss.org/j2ee/schema/jboss-web_14_1.xsd", "/schema/jboss-web_14_1.xsd");
+        system.put("https://www.jboss.org/j2ee/schema/jboss-web_14_1.xsd", "/schema/jboss-web_14_1.xsd");
 
         parser.setEntityResolver(new EntityResolver() {
             @Override

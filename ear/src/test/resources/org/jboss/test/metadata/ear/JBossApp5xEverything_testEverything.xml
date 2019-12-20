@@ -2,12 +2,12 @@
 <jboss-app xmlns="http://www.jboss.com/xml/ns/javaee"
     xmlns:jee="http://java.sun.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/noschema/jboss-app_5_0.xsd"
+    xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee https://www.jboss.org/noschema/jboss-app_5_0.xsd"
     version="5.0"
     id="jboss-app-id">
 
-<!--  this schema does not exist  xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee http://www.jboss.org/j2ee/schema/jboss-app_5_0.xsd" -->
-<!--  http://www.jboss.org/noschema is used to fool the validation -->
+<!--  this schema does not exist  xsi:schemaLocation="http://www.jboss.com/xml/ns/javaee https://www.jboss.org/j2ee/schema/jboss-app_5_0.xsd" -->
+<!--  https://www.jboss.org/noschema is used to fool the validation -->
 <!--  see JBMETA-190 -->
 
     <library-directory>jboss-app-lib0</library-directory>
