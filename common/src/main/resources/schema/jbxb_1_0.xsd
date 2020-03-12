@@ -2,8 +2,8 @@
 <xs:schema version="1.0beta"
    attributeFormDefault="unqualified"
    elementFormDefault="qualified"
-   targetNamespace="http://www.jboss.org/xml/ns/jbxb"
-   xmlns:jbxb="http://www.jboss.org/xml/ns/jbxb"
+   targetNamespace="https://www.jboss.org/xml/ns/jbxb"
+   xmlns:jbxb="https://www.jboss.org/xml/ns/jbxb"
    xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:annotation>
         <xs:documentation>The JBossXB schema customization

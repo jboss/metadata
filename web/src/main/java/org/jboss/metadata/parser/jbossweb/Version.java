@@ -49,7 +49,7 @@ public enum Version {
     private final String location;
 
     Version(int major, int minor) {
-        this(String.format("http://www.jboss.org/j2ee/schema/jboss-web_%d_%d.xsd", major, minor));
+        this(String.format("https://www.jboss.org/j2ee/schema/jboss-web_%d_%d.xsd", major, minor));
     }
 
     Version(String location) {

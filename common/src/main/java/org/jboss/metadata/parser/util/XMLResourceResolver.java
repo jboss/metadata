@@ -114,7 +114,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("-//JBoss//DTD Application Client 4.0//EN", "jboss-client_4_0.dtd");
         registerEntity("-//JBoss//DTD Application Client 4.2//EN", "jboss-client_4_2.dtd");
         registerEntity("-//JBoss//DTD Application Client 5.0//EN", "jboss-client_5_0.dtd");
-        registerEntity("http://www.jboss.org/j2ee/schema/jboss-client_5_1.xsd", "jboss-client_5_1.xsd");
+        registerEntity("https://www.jboss.org/j2ee/schema/jboss-client_5_1.xsd", "jboss-client_5_1.xsd");
 
         // beans
         registerEntity("http://java.sun.com/xml/ns/javaee/beans_1_0.xsd", "beans_1_0.xsd");
@@ -128,9 +128,9 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         // jboss-ds
         registerEntity("-//JBoss//DTD JBOSS JCA Config 1.0//EN", "jboss-ds_1_0.dtd");
         registerEntity("-//JBoss//DTD JBOSS JCA Config 1.5//EN", "jboss-ds_1_5.dtd");
-        registerEntity("http://www.jboss.org/j2ee/schema/jboss-ds_5_0.xsd", "jboss-ds_5_0.xsd");
+        registerEntity("https://www.jboss.org/j2ee/schema/jboss-ds_5_0.xsd", "jboss-ds_5_0.xsd");
         // jboss-ra
-        registerEntity("http://www.jboss.org/j2ee/schema/jboss-ra_1_0.xsd", "jboss-ra_1_0.xsd");
+        registerEntity("https://www.jboss.org/j2ee/schema/jboss-ra_1_0.xsd", "jboss-ra_1_0.xsd");
 
         // ejb
         registerEntity("-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 1.1//EN", "ejb-jar_1_1.dtd");
@@ -155,8 +155,8 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("-//JBoss//DTD JBOSSCMP-JDBC 4.0//EN", "jbosscmp-jdbc_4_0.dtd");
         registerEntity("-//JBoss//DTD JBOSSCMP-JDBC 4.2//EN", "jbosscmp-jdbc_4_2.dtd");
         // jboss ejb3
-        registerEntity("http://www.jboss.org/j2ee/schema/jboss_5_0.xsd", "jboss_5_0.xsd");
-        registerEntity("http://www.jboss.org/j2ee/schema/jboss_5_1.xsd", "jboss_5_1.xsd");
+        registerEntity("https://www.jboss.org/j2ee/schema/jboss_5_0.xsd", "jboss_5_0.xsd");
+        registerEntity("https://www.jboss.org/j2ee/schema/jboss_5_1.xsd", "jboss_5_1.xsd");
 
         // Java EE
         registerEntity("http://java.sun.com/xml/ns/j2ee/j2ee_1_4.xsd", "j2ee_1_4.xsd");
@@ -164,7 +164,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("http://java.sun.com/xml/ns/javaee/javaee_6.xsd", "javaee_6.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/javaee_7.xsd", "javaee_7.xsd");
         // JBoss common
-        registerEntity("http://www.jboss.org/j2ee/schema/jboss-common_5_1.xsd", "jboss-common_5_1.xsd");
+        registerEntity("https://www.jboss.org/j2ee/schema/jboss-common_5_1.xsd", "jboss-common_5_1.xsd");
 
         // Java EE WS
         registerEntity("http://schemas.xmlsoap.org/soap/encoding/", "soap-encoding_1_1.xsd");
@@ -198,7 +198,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("-//JBoss//DTD Web Application 2.4//EN", "jboss-web_4_0.dtd");
         registerEntity("-//JBoss//DTD Web Application 4.2//EN", "jboss-web_4_2.dtd");
         registerEntity("-//JBoss//DTD Web Application 5.0//EN", "jboss-web_5_0.dtd");
-        registerEntity("http://www.jboss.org/j2ee/schema/jboss-web_5_1.xsd", "jboss-web_5_1.xsd");
+        registerEntity("https://www.jboss.org/j2ee/schema/jboss-web_5_1.xsd", "jboss-web_5_1.xsd");
 
         // jboss-specific
         registerEntity("-//JBoss//DTD Web Service Reference 4.0//EN", "service-ref_4_0.dtd");
@@ -212,7 +212,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("-//JBoss//DTD JBOSS XMBEAN 1.1//EN", "jboss_xmbean_1_1.dtd");
         registerEntity("-//JBoss//DTD JBOSS XMBEAN 1.2//EN", "jboss_xmbean_1_2.dtd");
         registerEntity("-//JBoss//DTD JBOSS Security Config 3.0//EN", "security_config.dtd");
-        registerEntity("http://www.jboss.org/j2ee/schema/security-config_4_0.xsd", "security-config_4_0.xsd");
+        registerEntity("https://www.jboss.org/j2ee/schema/security-config_4_0.xsd", "security-config_4_0.xsd");
         registerEntity("urn:jboss:aop-deployer", "aop-deployer_1_1.xsd");
         registerEntity("urn:jboss:aop-beans:1.0", "aop-beans_1_0.xsd");
         registerEntity("urn:jboss:bean-deployer", "bean-deployer_1_0.xsd");

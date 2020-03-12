@@ -4,7 +4,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    elementFormDefault="qualified"
    targetNamespace="urn:jboss:user-roles:1.0"
-   xmlns:jbxb="http://www.jboss.org/xml/ns/jbxb"
+   xmlns:jbxb="https://www.jboss.org/xml/ns/jbxb"
    xmlns:ur="urn:jboss:user-roles:1.0">
 
    <xsd:element name="users">

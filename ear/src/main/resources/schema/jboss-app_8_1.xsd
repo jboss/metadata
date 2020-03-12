@@ -48,7 +48,7 @@
 	the schema using the xsi:schemaLocation attribute for the
 	Java EE namespace with the following location:
 
-	http://www.jboss.org/j2ee/schema/jboss-app_8_1.xsd
+	https://www.jboss.org/j2ee/schema/jboss-app_8_1.xsd
 
 	]]>
         </xs:documentation>
@@ -56,10 +56,10 @@
 
     <!-- Import the Java EE6 xsd -->
     <xs:import namespace="http://xmlns.jcp.org/xml/ns/javaee"
-               schemaLocation="http://www.jboss.org/schema/jbossas/application_8.xsd"/>
+               schemaLocation="https://www.jboss.org/schema/jbossas/application_8.xsd"/>
 
     <!-- Include the common JBoss EE elements -->
-    <xs:include schemaLocation="http://www.jboss.org/schema/jbossas/jboss-common_8_1.xsd"/>
+    <xs:include schemaLocation="https://www.jboss.org/schema/jbossas/jboss-common_8_1.xsd"/>
 
 
     <xs:element name="jboss-app" type="jboss-appType"/>

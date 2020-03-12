@@ -4,7 +4,7 @@
 <xs:schema version="1.0"
            targetNamespace="urn:jboss:java-properties"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:jbxb="http://www.jboss.org/xml/ns/jbxb"
+           xmlns:jbxb="https://www.jboss.org/xml/ns/jbxb"
            attributeFormDefault="unqualified"
            elementFormDefault="qualified"
         >

@@ -31,7 +31,7 @@
 
 	http://www.jboss.com/xml/ns/javaee
 
-        Online URL http://www.jboss.org/j2ee/schema/jboss-common_7_1.xsd
+        Online URL https://www.jboss.org/j2ee/schema/jboss-common_7_1.xsd
 	]]>
       </xsd:documentation>
    </xsd:annotation>
@@ -46,7 +46,7 @@
          consistency with the Servlet API. </xsd:documentation>
    </xsd:annotation>
 
-   <xsd:import namespace="http://xmlns.jcp.org/xml/ns/javaee" schemaLocation="http://www.jboss.org/schema/jbossas/javaee_7.xsd"/>
+   <xsd:import namespace="http://xmlns.jcp.org/xml/ns/javaee" schemaLocation="https://www.jboss.org/schema/jbossas/javaee_7.xsd"/>
 
    <xsd:group name="descriptionGroup">
       <xsd:sequence>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE jboss PUBLIC
    "-//JBoss//DTD JBOSS 4.0//EN"
-   "http://www.jboss.org/j2ee/dtd/jboss_4_0.dtd">
+   "https://www.jboss.org/j2ee/dtd/jboss_4_0.dtd">
    
 <!-- The jboss.xml descriptor for the caller info tests -->
 <jboss>

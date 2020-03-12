@@ -31,7 +31,7 @@
 
 	http://www.jboss.com/xml/ns/javaee
 
-        Online URL http://www.jboss.org/j2ee/schema/jboss-common_7_0.xsd
+        Online URL https://www.jboss.org/j2ee/schema/jboss-common_7_0.xsd
 	]]>
       </xsd:documentation>
    </xsd:annotation>

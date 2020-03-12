@@ -216,7 +216,7 @@ public class EjbJar3xUnitTestCase extends AbstractEJBEverythingTest {
         assertEquals("org.jboss.test.security.interfaces.HelloWorldService", srmd.getServiceInterface());
         assertEquals("session1-wsdl-file", srmd.getWsdlFile());
         assertEquals("META-INF/jaxrpc-mapping.xml", srmd.getJaxrpcMappingFile());
-        QName sqname = new QName("http://www.jboss.org", "Session1Qname");
+        QName sqname = new QName("https://www.jboss.org", "Session1Qname");
         assertEquals(sqname, srmd.getServiceQname());
 
     }
