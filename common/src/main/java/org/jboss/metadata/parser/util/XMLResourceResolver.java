@@ -97,6 +97,8 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("http://java.sun.com/xml/ns/javaee/application_5.xsd", "application_5.xsd");
         registerEntity("http://java.sun.com/xml/ns/javaee/application_6.xsd", "application_6.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/application_7.xsd", "application_7.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd", "application_8.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/application_9.xsd", "application_9.xsd");
         // jboss-app
         registerEntity("-//JBoss//DTD J2EE Application 1.3//EN", "jboss-app_3_0.dtd");
         registerEntity("-//JBoss//DTD J2EE Application 1.3V2//EN", "jboss-app_3_2.dtd");
@@ -109,6 +111,8 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("http://java.sun.com/xml/ns/javaee/application-client_5.xsd", "application-client_5.xsd");
         registerEntity("http://java.sun.com/xml/ns/javaee/application-client_6.xsd", "application-client_6.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/application-client_7.xsd", "application-client_7.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/application-client_8.xsd", "application-client_8.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd", "application-client_9.xsd");
         // jboss-client
         registerEntity("-//JBoss//DTD Application Client 3.2//EN", "jboss-client_3_2.dtd");
         registerEntity("-//JBoss//DTD Application Client 4.0//EN", "jboss-client_4_0.dtd");
@@ -140,6 +144,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("http://java.sun.com/xml/ns/javaee/ejb-jar_3_0.xsd", "ejb-jar_3_0.xsd");
         registerEntity("http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd", "ejb-jar_3_1.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd", "ejb-jar_3_2.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/ejb-jar_4_0.xsd", "ejb-jar_4_0.xsd");
         // jboss ejb2
         registerEntity("-//JBoss//DTD JBOSS//EN", "jboss.dtd");
         registerEntity("-//JBoss//DTD JBOSS 2.4//EN", "jboss_2_4.dtd");
@@ -163,6 +168,8 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("http://java.sun.com/xml/ns/javaee/javaee_5.xsd", "javaee_5.xsd");
         registerEntity("http://java.sun.com/xml/ns/javaee/javaee_6.xsd", "javaee_6.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/javaee_7.xsd", "javaee_7.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/javaee_8.xsd", "javaee_8.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/jakartaee_9.xsd", "jakartaee_9.xsd");
         // JBoss common
         registerEntity("https://www.jboss.org/j2ee/schema/jboss-common_5_1.xsd", "jboss-common_5_1.xsd");
 
@@ -176,13 +183,17 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("http://java.sun.com/xml/ns/javaee/javaee_web_services_1_3.xsd", "javaee_web_services_1_3.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/javaee_web_services_client_1_4.xsd", "javaee_web_services_client_1_4.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/javaee_web_services_1_4.xsd", "javaee_web_services_1_4.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_client_2_0.xsd", "jakartaee_web_services_client_2_0.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_2_0.xsd", "jakartaee_web_services_2_0.xsd");
 
         // jsp
         registerEntity("http://java.sun.com/xml/ns/javaee/jsp_2_2.xsd", "jsp_2_2.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/jsp_2_3.xsd", "jsp_2_3.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/jsp_3_0.xsd", "jsp_3_0.xsd");
 
         // permissions
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/permissions_7.xsd", "permissions_7.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/permissions_9.xsd", "permissions_9.xsd");
 
         // web
         registerEntity("-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN", "web-app_2_2.dtd");
@@ -191,6 +202,28 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd", "web-app_2_5.xsd");
         registerEntity("http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd", "web-app_3_0.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd", "web-app_3_1.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd", "web-app_4_0.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd", "web-app_5_0.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-common_3_0.xsd", "web-common_3_0.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-common_3_1.xsd", "web-common_3_1.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-common_4_0.xsd", "web-common_4_0.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-common_5_0.xsd", "web-common_5_0.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_2.xsd", "web-facelettaglibrary_2_2.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_3.xsd", "web-facelettaglibrary_2_3.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_3_0.xsd", "web-facelettaglibrary_3_0.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_1_2.xsd", "web-facesconfig_1_2.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd", "web-facesconfig_2_2.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd", "web-facesconfig_3_0.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_0.xsd", "web-fragment_3_0.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd", "web-fragment_3_1.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-fragment_4_0.xsd", "web-fragment_4_0.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-fragment_5_0.xsd", "web-fragment_5_0.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-jsptaglibrary_2_1.xsd", "web-jsptaglibrary_2_1.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_3_0.xsd", "web-jsptaglibrary_3_0.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-partialresponse_2_2.xsd", "web-partialresponse_2_2.xsd");
+        registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-partialresponse_2_3.xsd", "web-partialresponse_2_3.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-partialresponse_3_0.xsd", "web-partialresponse_3_0.xsd");
+
         // jboss-web
         registerEntity("-//JBoss//DTD Web Application 2.2//EN", "jboss-web.dtd");
         registerEntity("-//JBoss//DTD Web Application 2.3//EN", "jboss-web_3_0.dtd");
