@@ -183,6 +183,8 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
             ejbJarVersion = EjbJarVersion.EJB_3_1;
         } else if ("3.2".equals(versionString)) {
             ejbJarVersion = EjbJarVersion.EJB_3_2;
+        } else if ("4.0".equals(versionString)) {
+            ejbJarVersion = EjbJarVersion.EJB_4_0;
         }
 
         return ejbJarVersion;

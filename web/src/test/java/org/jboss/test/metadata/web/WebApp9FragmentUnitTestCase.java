@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2013, Red Hat, Inc., and individual contributors
+ * Copyright 2020, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,57 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.test.metadata.web;
 
-package org.jboss.metadata.ejb.spec;
+import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
+import org.jboss.metadata.web.spec.WebFragmentMetaData;
 
 /**
- * Various ejb-jar spec versions
- * <p/>
- * User: Jaikiran Pai
+ * Test all entries of javaee 9 web-fragment.
+ *
+ * @author Eduardo Martins
+ *
  */
-public enum EjbJarVersion {
-    /**
-     * 1.1 version of EJB
-     */
-    EJB_1_1("1.1"),
+public class WebApp9FragmentUnitTestCase extends WebApp6FragmentUnitTestCase {
 
-    /**
-     * 2.0 version of EJB
-     */
-    EJB_2_0("2.0"),
-
-    /**
-     * 2.1 version of EJB
-     */
-    EJB_2_1("2.1"),
-
-    /**
-     * 3.0 version of EJB
-     */
-    EJB_3_0("3.0"),
-
-    /**
-     * 3.1 version of EJB
-     */
-    EJB_3_1("3.1"),
-
-    /**
-     * 3.2 version of EJB
-     */
-    EJB_3_2("3.2"),
-
-    /**
-     * 4.0 version of EJB
-     */
-    EJB_4_0("4.0");
-
-    private String version;
-
-    EjbJarVersion(String version) {
-        this.version = version;
+    public void testEverything() throws Exception {
+        WebFragmentMetaData webApp = unmarshal();
+        assertEverything(webApp, Mode.SPEC, JavaEEVersion.V9);
     }
 
-    public String getVersion() {
-        return version;
-    }
 }

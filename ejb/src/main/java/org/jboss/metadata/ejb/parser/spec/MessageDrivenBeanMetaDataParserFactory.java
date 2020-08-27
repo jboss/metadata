@@ -52,6 +52,7 @@ class MessageDrivenBeanMetaDataParserFactory {
             case EJB_3_0:
             case EJB_3_1:
             case EJB_3_2:
+            case EJB_4_0:
                 return new MessageDrivenBean31Parser();
 
             default:

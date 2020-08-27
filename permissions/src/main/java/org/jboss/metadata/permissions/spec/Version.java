@@ -31,7 +31,9 @@ public enum Version {
     // always first
     UNKNOWN(null),
 
-    PERMISSIONS_7_0("7");
+    PERMISSIONS_7_0("7"),
+
+    PERMISSIONS_9_0("9");
 
     private final String name;
 
@@ -47,6 +49,8 @@ public enum Version {
     public static Version fromString(String s) {
         if(s.equals(PERMISSIONS_7_0.name)) {
             return PERMISSIONS_7_0;
+        } else if (s.equals(PERMISSIONS_9_0.name)) {
+            return PERMISSIONS_9_0;
         }
         return UNKNOWN;
     }
