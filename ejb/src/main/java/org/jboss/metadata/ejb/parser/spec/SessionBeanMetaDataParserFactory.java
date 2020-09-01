@@ -54,6 +54,7 @@ class SessionBeanMetaDataParserFactory {
             case EJB_3_1:
                 return new SessionBean31MetaDataParser();
             case EJB_3_2:
+            case EJB_4_0:
                 return new SessionBean32MetaDataParser();
 
             default:

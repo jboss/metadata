@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2013, Red Hat, Inc., and individual contributors
+ * Copyright 2020, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,57 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.test.metadata.permissions;
 
-package org.jboss.metadata.ejb.spec;
+import java.util.List;
 
-/**
- * Various ejb-jar spec versions
- * <p/>
- * User: Jaikiran Pai
- */
-public enum EjbJarVersion {
-    /**
-     * 1.1 version of EJB
-     */
-    EJB_1_1("1.1"),
+import org.jboss.test.metadata.common.SchemaValidationTestCase;
+import org.junit.runners.Parameterized;
 
-    /**
-     * 2.0 version of EJB
-     */
-    EJB_2_0("2.0"),
+public class Permissions90SchemaValidationTestCase extends SchemaValidationTestCase {
 
-    /**
-     * 2.1 version of EJB
-     */
-    EJB_2_1("2.1"),
-
-    /**
-     * 3.0 version of EJB
-     */
-    EJB_3_0("3.0"),
-
-    /**
-     * 3.1 version of EJB
-     */
-    EJB_3_1("3.1"),
-
-    /**
-     * 3.2 version of EJB
-     */
-    EJB_3_2("3.2"),
-
-    /**
-     * 4.0 version of EJB
-     */
-    EJB_4_0("4.0");
-
-    private String version;
-
-    EjbJarVersion(String version) {
-        this.version = version;
+    @Parameterized.Parameters
+    public static List<Object[]> parameters() {
+        String xsdFile = "schema/permissions_7.xsd";
+        return getXSDFiles(xsdFile);
     }
 
-    public String getVersion() {
-        return version;
+    public Permissions90SchemaValidationTestCase(String xsd) {
+        super(xsd);
     }
+
 }

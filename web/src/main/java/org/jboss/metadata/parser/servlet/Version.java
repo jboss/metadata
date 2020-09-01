@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 public enum Version {
 
-    SERVLET_2_2("2.2"), SERVLET_2_3("2.3"), SERVLET_2_4("2.4"), SERVLET_2_5("2.5"), SERVLET_3_0("3.0"), SERVLET_3_1("3.1"), SERVLET_4_0("4.0");
+    SERVLET_2_2("2.2"), SERVLET_2_3("2.3"), SERVLET_2_4("2.4"), SERVLET_2_5("2.5"), SERVLET_3_0("3.0"), SERVLET_3_1("3.1"), SERVLET_4_0("4.0"), SERVLET_5_0("5.0");
 
     private static final HashMap<String, Version> systemIDmap = new HashMap<String, Version>();
 
@@ -38,6 +38,7 @@ public enum Version {
         systemIDmap.put("http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd", Version.SERVLET_3_0);
         systemIDmap.put("http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd", Version.SERVLET_3_1);
         systemIDmap.put("http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd", Version.SERVLET_4_0);
+        systemIDmap.put("https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd", Version.SERVLET_5_0);
     }
 
     private static final HashMap<String, Version> publicIDmap = new HashMap<String, Version>();

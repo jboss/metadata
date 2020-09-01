@@ -98,6 +98,8 @@ public class WebMetaDataParser extends MetaDataElementParser {
                 version = Version.SERVLET_3_1;
             } else if ("4.0".equals(versionString)) {
                 version = Version.SERVLET_4_0;
+            } else if ("5.0".equals(versionString)) {
+                version = Version.SERVLET_5_0;
             }
         }
         if(version != null) {

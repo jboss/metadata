@@ -87,7 +87,7 @@ public class EjbJarMetaDataParser extends AbstractEjbJarMetaDataParser {
         // If we still haven't got the explicit version value, then default
         // to latest version (==3.2)
         if (ejbJarVersion == null) {
-            ejbJarVersion = EjbJarVersion.EJB_3_2;
+            ejbJarVersion = EjbJarVersion.EJB_4_0;
         }
         // Now get the EjbJarMetaData corresponding to the version
         EjbJarMetaData ejbJarMetaData = getEjbJarMetaData(ejbJarVersion);

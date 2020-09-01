@@ -302,6 +302,14 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
         return this.ejbJarVersion == EjbJarVersion.EJB_3_2;
     }
 
+    /** Whether this is EJB4.0 bean
+     *
+     * @return
+     */
+    public boolean isEJB40() {
+        return this.ejbJarVersion == EjbJarVersion.EJB_4_0;
+    }
+
     /**
      * Returns true if the version represented by this {@link EjbJarMetaData} is greater than the passed {@link EjbJarVersion version}
      *

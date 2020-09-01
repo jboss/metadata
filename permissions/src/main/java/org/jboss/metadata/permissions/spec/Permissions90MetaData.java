@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2013, Red Hat, Inc., and individual contributors
+ * Copyright 2020, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,57 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.jboss.metadata.ejb.spec;
+package org.jboss.metadata.permissions.spec;
 
 /**
- * Various ejb-jar spec versions
- * <p/>
- * User: Jaikiran Pai
+ * Metadata for Jakarta EE 9 permissions.xml
+ *
+ * @author Brian Stansberry
+ *
  */
-public enum EjbJarVersion {
-    /**
-     * 1.1 version of EJB
-     */
-    EJB_1_1("1.1"),
+public class Permissions90MetaData extends Permissions70MetaData {
 
     /**
-     * 2.0 version of EJB
+     *
      */
-    EJB_2_0("2.0"),
+    private static final long serialVersionUID = 2479654434987744459L;
 
-    /**
-     * 2.1 version of EJB
-     */
-    EJB_2_1("2.1"),
-
-    /**
-     * 3.0 version of EJB
-     */
-    EJB_3_0("3.0"),
-
-    /**
-     * 3.1 version of EJB
-     */
-    EJB_3_1("3.1"),
-
-    /**
-     * 3.2 version of EJB
-     */
-    EJB_3_2("3.2"),
-
-    /**
-     * 4.0 version of EJB
-     */
-    EJB_4_0("4.0");
-
-    private String version;
-
-    EjbJarVersion(String version) {
-        this.version = version;
-    }
-
-    public String getVersion() {
-        return version;
+    public Version getVersion() {
+        return Version.PERMISSIONS_9_0;
     }
 }
