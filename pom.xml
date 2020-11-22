@@ -50,7 +50,7 @@
 
         <!-- Dependency versions. Please keep alphabetical -->
         <version.org.jboss.logging>3.4.0.Final</version.org.jboss.logging>
-        <version.junit>4.12</version.junit>
+        <version.junit>4.13.1</version.junit>
 
         <linkXRef>false</linkXRef>
         <version.org.jboss.spec.javax.annotation.jboss-annotations-api_1.3_spec>1.0.1.Final</version.org.jboss.spec.javax.annotation.jboss-annotations-api_1.3_spec>
