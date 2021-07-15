@@ -228,7 +228,7 @@ public class ScheduleTestCase {
             Assert.assertNotNull("Timeout method params are null", timeoutMethodParams);
             Assert.assertEquals("Unexpected number of method params for timeout method", 1, timeoutMethodParams.size());
             String timeoutMethodParam = timeoutMethodParams.get(0);
-            Assert.assertEquals("Unexpected method param for timeout method", Timer.class.getName(), timeoutMethodParam);
+            assertTimeoutMethodParam(timeoutMethodParam);
 
             String timeoutMethodName = timeoutMethod.getMethodName();
             ScheduleMetaData schedule = timerMetaData.getSchedule();
@@ -300,7 +300,7 @@ public class ScheduleTestCase {
             Assert.assertNotNull("Timeout method params are null", timeoutMethodParams);
             Assert.assertEquals("Unexpected number of method params for timeout method", 1, timeoutMethodParams.size());
             String timeoutMethodParam = timeoutMethodParams.get(0);
-            Assert.assertEquals("Unexpected method param for timeout method", Timer.class.getName(), timeoutMethodParam);
+            assertTimeoutMethodParam(timeoutMethodParam);
 
             String timeoutMethodName = timeoutMethod.getMethodName();
             ScheduleMetaData schedule = timerMetaData.getSchedule();
@@ -371,7 +371,7 @@ public class ScheduleTestCase {
             Assert.assertNotNull("Timeout method params are null", timeoutMethodParams);
             Assert.assertEquals("Unexpected number of method params for timeout method", 1, timeoutMethodParams.size());
             String timeoutMethodParam = timeoutMethodParams.get(0);
-            Assert.assertEquals("Unexpected method param for timeout method", Timer.class.getName(), timeoutMethodParam);
+            assertTimeoutMethodParam(timeoutMethodParam);
 
             String timeoutMethodName = timeoutMethod.getMethodName();
             ScheduleMetaData schedule = timerMetaData.getSchedule();
@@ -541,5 +541,16 @@ public class ScheduleTestCase {
         Assert.assertTrue("Timer in merged metadata is not persistent", mergedTimers.get(0).isPersistent());
 
 
+    }
+
+    private static void assertTimeoutMethodParam(String timeoutMethodParam) {
+        // Convoluted assert to allow this test to work even if its source is bytecode transformed.
+        // The expected string is the javax EJB Timer classname.
+        // An actual app running in an EE > 8 server would not be able to use such a value in its descriptor,
+        // but that app would itself be transformed before running. But I don't want to get into transforming
+        // the XML files that this test uses, so we just test that the javax string in the xml is passed in.
+        Assert.assertTrue("Unexpected method param for timeout method", timeoutMethodParam != null
+                && timeoutMethodParam.startsWith("javax")
+                && timeoutMethodParam.substring(5).equals(".ejb.Timer"));
     }
 }

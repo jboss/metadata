@@ -73,6 +73,8 @@ import org.jboss.metadata.ejb.spec.SecurityIdentityMetaData;
 import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.javaee.jboss.IgnoreDependencyMetaData;
+import org.jboss.metadata.javaee.spec.JMSConnectionFactoryMetaData;
+import org.jboss.metadata.javaee.spec.JMSDestinationMetaData;
 import org.jboss.metadata.javaee.spec.PortComponent;
 import org.jboss.metadata.javaee.spec.RunAsMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
@@ -1228,6 +1230,26 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
     @Deprecated
     protected void setValidateSchema(boolean validateSchema) {
         throw new RuntimeException("NYI");
+    }
+
+    protected String getQueueInterfaceName() {
+        return JMSDestinationMetaData.QUEUE_INTERFACE_NAME;
+    }
+
+    protected String getTopicInterfaceName() {
+        return JMSDestinationMetaData.TOPIC_INTERFACE_NAME;
+    }
+
+    protected String getQueueConnectionFactoryInterfaceName() {
+        return JMSConnectionFactoryMetaData.QUEUE_CONNECTION_FACTORY_INTERFACE_NAME;
+    }
+
+    protected String getTopicConnectionFactoryInterfaceName() {
+        return JMSConnectionFactoryMetaData.TOPIC_CONNECTION_FACTORY_INTERFACE_NAME;
+    }
+
+    protected String getDefaultInterfaceName() {
+        return JMSConnectionFactoryMetaData.DEFAULT_INTERFACE_NAME;
     }
 
     @Deprecated

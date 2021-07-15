@@ -81,8 +81,14 @@ public class JMSDestinationMetaData extends NamedMetaDataWithDescriptions {
         if (interfaceName == null) {
             throw new IllegalArgumentException("Null interfaceName");
         }
+
+        // If this class has been transformed to the jakarta namespace, translate the input
+        if (QUEUE_INTERFACE_NAME.startsWith("jakarta.") && interfaceName.startsWith("javax.")) {
+            interfaceName = interfaceName.replaceFirst("javax", "jakarta");
+        }
+
         if(!interfaceName.equals(QUEUE_INTERFACE_NAME) && !interfaceName.equals(TOPIC_INTERFACE_NAME)) {
-            throw new IllegalArgumentException("Unsupported interfaceName");
+            throw new IllegalArgumentException("Unsupported interfaceName " + interfaceName);
         }
         this.interfaceName = interfaceName;
     }

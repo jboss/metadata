@@ -747,9 +747,9 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
                 // interface-name
                 assertNotNull(interfaceName);
                 if (count == 1) {
-                    assertEquals(JMSConnectionFactoryMetaData.QUEUE_CONNECTION_FACTORY_INTERFACE_NAME, interfaceName);
+                    assertEquals(getQueueConnectionFactoryInterfaceName(), interfaceName);
                 } else {
-                    assertEquals(JMSConnectionFactoryMetaData.TOPIC_CONNECTION_FACTORY_INTERFACE_NAME, interfaceName);
+                    assertEquals(getTopicConnectionFactoryInterfaceName(), interfaceName);
                 }
                 // class-name
                 assertNotNull(className);
@@ -777,7 +777,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
             } else {
                 assertNull(desc);
                 assertNotNull(interfaceName);
-                assertEquals(JMSConnectionFactoryMetaData.DEFAULT_INTERFACE_NAME, interfaceName);
+                assertEquals(getDefaultInterfaceName(), interfaceName);
                 assertNull(className);
                 assertNull(resourceAdapter);
                 assertNull(user);
@@ -790,6 +790,18 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
             }
             ++count;
         }
+    }
+
+    protected String getQueueConnectionFactoryInterfaceName() {
+        return JMSConnectionFactoryMetaData.QUEUE_CONNECTION_FACTORY_INTERFACE_NAME;
+    }
+
+    protected String getTopicConnectionFactoryInterfaceName() {
+        return JMSConnectionFactoryMetaData.TOPIC_CONNECTION_FACTORY_INTERFACE_NAME;
+    }
+
+    protected String getDefaultInterfaceName() {
+        return JMSConnectionFactoryMetaData.DEFAULT_INTERFACE_NAME;
     }
 
     protected void assertJMSDestinations(String prefix, JMSDestinationsMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
@@ -824,7 +836,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
                 assertEquals(1, descArr.length);
                 assertEquals(metaDataPrefix + "Desc", descArr[0].value());
                 // interface-name
-                assertEquals(JMSDestinationMetaData.QUEUE_INTERFACE_NAME, interfaceName);
+                assertEquals(getQueueInterfaceName(), interfaceName);
                 // class-name
                 assertNotNull(className);
                 assertEquals(metaDataPrefix + "ClassName", className);
@@ -838,7 +850,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
                 assertProperties(metaDataPrefix,2,properties);
             } else {
                 assertNull(desc);
-                assertEquals(JMSDestinationMetaData.TOPIC_INTERFACE_NAME, interfaceName);
+                assertEquals(getTopicInterfaceName(), interfaceName);
                 assertNull(className);
                 assertNull(resourceAdapter);
                 assertNull(destinationName);
@@ -846,6 +858,14 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
             }
             ++count;
         }
+    }
+
+    protected String getQueueInterfaceName() {
+        return JMSDestinationMetaData.QUEUE_INTERFACE_NAME;
+    }
+
+    protected String getTopicInterfaceName() {
+        return JMSDestinationMetaData.TOPIC_INTERFACE_NAME;
     }
 
     protected void assertMailSessions(String prefix, MailSessionsMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {

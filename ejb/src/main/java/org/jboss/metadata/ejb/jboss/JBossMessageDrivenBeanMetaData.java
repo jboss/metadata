@@ -45,6 +45,8 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
      */
     private static final long serialVersionUID = -4006016148034278681L;
 
+    private static final String DEFAULT_MESSAGING_TYPE = "javax.jms.MessageListener";
+
     /**
      * The messaging type
      */
@@ -165,7 +167,7 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
      */
     public boolean isJMS() {
         String messagingType = getMessagingType();
-        return messagingType == null || "javax.jms.MessageListener".equals(messagingType);
+        return messagingType == null || DEFAULT_MESSAGING_TYPE.equals(messagingType);
     }
 
 
@@ -178,6 +180,14 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
     public void setMessagingType(String messagingType) {
         if (messagingType == null)
             throw new IllegalArgumentException("Null messagingType");
+
+        // If this class has been transformed to the jakarta namespace, translate the input
+        if (DEFAULT_MESSAGING_TYPE.startsWith("jakarta.") && messagingType.startsWith("javax.")) {
+            String tmp = messagingType.replaceFirst("javax", "jakarta");
+            if (DEFAULT_MESSAGING_TYPE.equals(tmp)) {
+                messagingType = tmp;
+            }
+        }
         this.messagingType = messagingType;
     }
 
