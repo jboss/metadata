@@ -40,6 +40,8 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
      */
     private static final long serialVersionUID = 1L;
 
+    private static final String DEFAULT_MESSAGING_TYPE = "javax.jms.MessageListener";
+
     // EntityBean
     /**
      * The persistence type
@@ -284,7 +286,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     public boolean isJMS() {
         assertUnknownOrMessageDrivenBean();
         String messagingType = getMessagingType();
-        return messagingType == null || "javax.jms.MessageListener".equals(messagingType);
+        return messagingType == null || DEFAULT_MESSAGING_TYPE.equals(messagingType);
     }
 
 
@@ -298,6 +300,15 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
         assertUnknownOrMessageDrivenBean();
         if (messagingType == null)
             throw new IllegalArgumentException("Null messagingType");
+
+        // If this class has been transformed to the jakarta namespace, translate the input
+        if (DEFAULT_MESSAGING_TYPE.startsWith("jakarta.") && messagingType.startsWith("javax.")) {
+            String tmp = messagingType.replaceFirst("javax", "jakarta");
+            if (DEFAULT_MESSAGING_TYPE.equals(tmp)) {
+                messagingType = tmp;
+            }
+        }
+
         this.messagingType = messagingType;
     }
 
