@@ -210,6 +210,14 @@
 
             <dependency>
                 <groupId>${project.groupId}</groupId>
+                <artifactId>jboss-metadata-common-jakarta</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>${project.groupId}</groupId>
                 <artifactId>jboss-metadata-test</artifactId>
                 <version>${project.version}</version>
                 <scope>test</scope>

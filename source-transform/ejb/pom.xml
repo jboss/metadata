@@ -66,8 +66,14 @@
 
         <dependency>
             <groupId>org.jboss.metadata</groupId>
-            <artifactId>jboss-metadata-common</artifactId>
+            <artifactId>jboss-metadata-common-jakarta</artifactId>
             <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.metadata</groupId>
+            <artifactId>jboss-metadata-test</artifactId>
             <scope>test</scope>
         </dependency>
 
