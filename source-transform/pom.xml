@@ -46,19 +46,6 @@
         <module>ejb</module>
     </modules>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.transformer</groupId>
-            <artifactId>org.eclipse.transformer.cli</artifactId>
-            <version>${version.org.eclipse.transformer}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.eclipse.transformer</groupId>
-            <artifactId>org.eclipse.transformer</artifactId>
-            <version>${version.org.eclipse.transformer}</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <plugins>
             <plugin>
