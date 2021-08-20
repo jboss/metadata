@@ -33,7 +33,7 @@
 
     <groupId>org.jboss.metadata</groupId>
     <artifactId>jboss-as-parent-metadata</artifactId>
-    <version>14.0.0.Final</version>
+    <version>15.0.0.Final-SNAPSHOT</version>
 
     <name>JBoss Application Server: Metadata Aggregator</name>
     <description>JBoss Application Server: Metadata Aggregator</description>
@@ -441,7 +441,7 @@
         <connection>scm:git:git@github.com:jboss/metadata.git</connection>
         <url>scm:git:git@github.com:jboss/metadata.git</url>
         <developerConnection>scm:git:git@github.com:jboss/metadata.git</developerConnection>
-        <tag>14.0.0.Final</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>

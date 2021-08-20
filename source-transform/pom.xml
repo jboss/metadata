@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.jboss.metadata</groupId>
         <artifactId>jboss-as-parent-metadata</artifactId>
-        <version>14.0.0.Final</version>
+        <version>15.0.0.Final-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
