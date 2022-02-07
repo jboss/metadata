@@ -61,5 +61,11 @@ public enum MethodInterfaceType {
     /**
      * MessageEndpoint
      */
-    MessageEndpoint
+    MessageEndpoint,
+
+    /**
+     * Used by internal implementation to indicate a direct call to the Jakarta Enterprise Beans.
+     * Not specified by the spec.
+     */
+    Bean
 }
