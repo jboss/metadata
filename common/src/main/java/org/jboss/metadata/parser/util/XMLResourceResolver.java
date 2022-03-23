@@ -195,6 +195,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         // permissions
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/permissions_7.xsd", "permissions_7.xsd");
         registerEntity("https://jakarta.ee/xml/ns/jakartaee/permissions_9.xsd", "permissions_9.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/permissions_10.xsd", "permissions_10.xsd");
 
         // web
         registerEntity("-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN", "web-app_2_2.dtd");
