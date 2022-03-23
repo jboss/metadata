@@ -556,7 +556,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
     }
 
     protected void assertDataSources(String prefix, DataSourcesMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
-        if ((version != JavaEEVersion.V7 && version != JavaEEVersion.V8 && version != JavaEEVersion.V9) || !full) {
+        if ((version != JavaEEVersion.V7 && version != JavaEEVersion.V8 && version != JavaEEVersion.V9 && version != JavaEEVersion.V10) || !full) {
             assertNull(metaDatas);
             return;
         }
@@ -595,7 +595,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
     }
 
     protected void assertAdministeredObjects(String prefix, AdministeredObjectsMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
-        if ((version != JavaEEVersion.V7 && version != JavaEEVersion.V8 && version != JavaEEVersion.V9) || !full) {
+        if ((version != JavaEEVersion.V7 && version != JavaEEVersion.V8 && version != JavaEEVersion.V9 && version != JavaEEVersion.V10) || !full) {
             assertNull(metaDatas);
             return;
         }
