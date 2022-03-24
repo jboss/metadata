@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<permissions xmlns="https://jakarta.ee/xml/ns/jakartae"
+<permissions xmlns="https://jakarta.ee/xml/ns/jakartaee"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartae
-      	https://jakarta.ee/xml/ns/jakartae/permissions_9.xsd"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+      	https://jakarta.ee/xml/ns/jakartaee/permissions_9.xsd"
              version="9">
     <permission>
         <class-name>java.io.FilePermission</class-name>
