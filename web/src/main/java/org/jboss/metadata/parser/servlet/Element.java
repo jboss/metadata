@@ -58,8 +58,10 @@ public enum Element {
     DOMAIN("domain"),
 
     EL_IGNORED("el-ignored"),
+    ERROR_ON_EL_NOT_FOUND("error-on-el-not-found"),
     ENABLED("enabled"),
     ENCODING("encoding"),
+
     ERROR_CODE("error-code"),
     ERROR_ON_UNDECLARED_NAMESPACE("error-on-undeclared-namespace"),
     ERROR_PAGE("error-page"),

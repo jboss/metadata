@@ -35,6 +35,7 @@ public class JspPropertyGroupMetaData extends IdMetaDataImplWithDescriptionGroup
     private List<String> urlPatterns;
     private String scriptingInvalid;
     private String elIgnored;
+    private String errorOnElNotFound;
     private String isXml;
     private String deferredSyntaxAllowedAsLiteral;
     private String trimDirectiveWhitespaces;
@@ -59,6 +60,14 @@ public class JspPropertyGroupMetaData extends IdMetaDataImplWithDescriptionGroup
 
     public void setElIgnored(String elIgnored) {
         this.elIgnored = elIgnored;
+    }
+
+    public String getErrorOnElNotFound() {
+        return errorOnElNotFound;
+    }
+
+    public void setErrorOnElNotFound(String errorOnElNotFound) {
+        this.errorOnElNotFound = errorOnElNotFound;
     }
 
     public List<String> getIncludeCodas() {
