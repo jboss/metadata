@@ -29,5 +29,5 @@
     <groupId>org.jboss.metadata</groupId>
     <artifactId>metadata-build-config</artifactId>
     <name>Metadata Build Configuration</name>
-    <version>15.0.0.Final</version>
+    <version>15.1.0.Alpha1</version>
 </project>

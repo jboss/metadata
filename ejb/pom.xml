@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.jboss.metadata</groupId>
         <artifactId>jboss-as-parent-metadata</artifactId>
-        <version>15.0.0.Final</version>
+        <version>15.1.0.Alpha1</version>
     </parent>
 
     <artifactId>jboss-metadata-ejb</artifactId>
