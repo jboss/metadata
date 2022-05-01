@@ -82,6 +82,9 @@ public class JspPropertyGroupMetaDataParser extends MetaDataElementParser {
                 case EL_IGNORED:
                     jspPropertyGroup.setElIgnored(getElementText(reader, propertyReplacer));
                     break;
+                case ERROR_ON_EL_NOT_FOUND:
+                    jspPropertyGroup.setErrorOnElNotFound(getElementText(reader, propertyReplacer));
+                    break;
                 case PAGE_ENCODING:
                     jspPropertyGroup.setPageEncoding(getElementText(reader, propertyReplacer));
                     break;

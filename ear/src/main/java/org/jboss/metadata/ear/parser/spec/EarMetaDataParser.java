@@ -94,6 +94,8 @@ public class EarMetaDataParser extends MetaDataElementParser {
                 version = EarVersion.APP_8_0;
             } else if ("9".equals(versionString)) {
                 version = EarVersion.APP_9_0;
+            } else if ("10".equals(versionString)) {
+                version = EarVersion.APP_10_0;
             }
         }
 

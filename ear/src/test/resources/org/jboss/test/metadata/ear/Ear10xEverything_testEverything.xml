@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application-client xmlns="https://jakarta.ee/xml/ns/jakartaee"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-      	https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd"
-                    version="9" id="app" metadata-complete="true">
+<application xmlns="https://jakarta.ee/xml/ns/jakartaee"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+      	https://jakarta.ee/xml/ns/jakartaee/application_10.xsd"
+             version="10" id="application-test-everything">
 
-    <module-name>appModuleName</module-name>
+    <application-name>ApplicationName</application-name>
 
     <description>en-app-desc</description>
     <description xml:lang="fr">fr-app-desc</description>
@@ -26,6 +26,53 @@
         <large-icon>de-app-large-icon</large-icon>
     </icon>
 
+    <initialize-in-order>true</initialize-in-order>
+
+    <module id="connector0">
+        <connector>rar0.rar</connector>
+        <alt-dd>META-INF/alt-ra.xml</alt-dd>
+    </module>
+    <module id="java0">
+        <java>client0.jar</java>
+        <alt-dd>META-INF/alt-application-client.xml</alt-dd>
+    </module>
+    <module id="ejb0">
+        <ejb>ejb-jar0.jar</ejb>
+        <alt-dd>META-INF/alt-ejb-jar.xml</alt-dd>
+    </module>
+    <module id="ejb1">
+        <ejb>ejb-jar1.jar</ejb>
+        <alt-dd>META-INF/alt-ejb-jar.xml</alt-dd>
+    </module>
+    <module id="web0">
+        <web>
+            <web-uri>web-app0.war</web-uri>
+            <context-root>/web0</context-root>
+        </web>
+        <alt-dd>WEB-INF/alt-web.xml</alt-dd>
+    </module>
+    <module id="web1">
+        <web>
+            <web-uri>web-app1.war</web-uri>
+            <context-root>/web1</context-root>
+        </web>
+        <alt-dd>WEB-INF/alt-web.xml</alt-dd>
+    </module>
+
+    <security-role id="securityRole1-id">
+        <description>en-securityRole1-desc</description>
+        <description xml:lang="fr">fr-securityRole1-desc</description>
+        <description xml:lang="de">de-securityRole1-desc</description>
+        <role-name>securityRoleRef1RoleLink</role-name>
+    </security-role>
+    <security-role id="securityRole2-id">
+        <description>en-securityRole2-desc</description>
+        <description xml:lang="fr">fr-securityRole2-desc</description>
+        <description xml:lang="de">de-securityRole2-desc</description>
+        <role-name>securityRoleRef2RoleLink</role-name>
+    </security-role>
+
+    <library-directory>lib0</library-directory>
 
     <env-entry id="appEnvEntry1-id">
         <description>en-appEnvEntry1-desc</description>
@@ -38,12 +85,16 @@
         <env-entry-value>appEnvEntry1Value</env-entry-value>
         <mapped-name>appEnvEntry1MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appEnvEntry1Injection1Class</injection-target-class>
-            <injection-target-name>appEnvEntry1Injection1Name</injection-target-name>
+            <injection-target-class>appEnvEntry1Injection1Class
+            </injection-target-class>
+            <injection-target-name>appEnvEntry1Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appEnvEntry1Injection2Class</injection-target-class>
-            <injection-target-name>appEnvEntry1Injection2Name</injection-target-name>
+            <injection-target-class>appEnvEntry1Injection2Class
+            </injection-target-class>
+            <injection-target-name>appEnvEntry1Injection2Name
+            </injection-target-name>
         </injection-target>
     </env-entry>
     <env-entry id="appEnvEntry2-id">
@@ -57,12 +108,16 @@
         <env-entry-value>appEnvEntry2Value</env-entry-value>
         <mapped-name>appEnvEntry2MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appEnvEntry2Injection1Class</injection-target-class>
-            <injection-target-name>appEnvEntry2Injection1Name</injection-target-name>
+            <injection-target-class>appEnvEntry2Injection1Class
+            </injection-target-class>
+            <injection-target-name>appEnvEntry2Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appEnvEntry2Injection2Class</injection-target-class>
-            <injection-target-name>appEnvEntry2Injection2Name</injection-target-name>
+            <injection-target-class>appEnvEntry2Injection2Class
+            </injection-target-class>
+            <injection-target-name>appEnvEntry2Injection2Name
+            </injection-target-name>
         </injection-target>
     </env-entry>
     <ejb-ref id="appEjbRef1-id">
@@ -76,12 +131,16 @@
         <ejb-link>appEjbRef1EjbLink</ejb-link>
         <mapped-name>appEjbRef1MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appEjbRef1Injection1Class</injection-target-class>
-            <injection-target-name>appEjbRef1Injection1Name</injection-target-name>
+            <injection-target-class>appEjbRef1Injection1Class
+            </injection-target-class>
+            <injection-target-name>appEjbRef1Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appEjbRef1Injection2Class</injection-target-class>
-            <injection-target-name>appEjbRef1Injection2Name</injection-target-name>
+            <injection-target-class>appEjbRef1Injection2Class
+            </injection-target-class>
+            <injection-target-name>appEjbRef1Injection2Name
+            </injection-target-name>
         </injection-target>
     </ejb-ref>
     <ejb-ref id="appEjbRef2-id">
@@ -95,15 +154,71 @@
         <ejb-link>appEjbRef2EjbLink</ejb-link>
         <mapped-name>appEjbRef2MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appEjbRef2Injection1Class</injection-target-class>
-            <injection-target-name>appEjbRef2Injection1Name</injection-target-name>
+            <injection-target-class>appEjbRef2Injection1Class
+            </injection-target-class>
+            <injection-target-name>appEjbRef2Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appEjbRef2Injection2Class</injection-target-class>
-            <injection-target-name>appEjbRef2Injection2Name</injection-target-name>
+            <injection-target-class>appEjbRef2Injection2Class
+            </injection-target-class>
+            <injection-target-name>appEjbRef2Injection2Name
+            </injection-target-name>
         </injection-target>
     </ejb-ref>
+    <ejb-local-ref id="appEjbLocalRef1-id">
+        <description>en-appEjbLocalRef1-desc</description>
+        <description xml:lang="fr">fr-appEjbLocalRef1-desc
+        </description>
+        <description xml:lang="de">de-appEjbLocalRef1-desc
+        </description>
+        <ejb-ref-name>appEjbLocalRef1Name</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <local-home>appEjbLocalRef1LocalHome</local-home>
+        <local>appEjbLocalRef1Local</local>
+        <ejb-link>appEjbLocalRef1EjbLink</ejb-link>
+        <mapped-name>appEjbLocalRef1MappedName</mapped-name>
+        <injection-target>
+            <injection-target-class>appEjbLocalRef1Injection1Class
+            </injection-target-class>
+            <injection-target-name>appEjbLocalRef1Injection1Name
+            </injection-target-name>
+        </injection-target>
+        <injection-target>
+            <injection-target-class>appEjbLocalRef1Injection2Class
+            </injection-target-class>
+            <injection-target-name>appEjbLocalRef1Injection2Name
+            </injection-target-name>
+        </injection-target>
+    </ejb-local-ref>
+    <ejb-local-ref id="appEjbLocalRef2-id">
+        <description>en-appEjbLocalRef2-desc</description>
+        <description xml:lang="fr">fr-appEjbLocalRef2-desc
+        </description>
+        <description xml:lang="de">de-appEjbLocalRef2-desc
+        </description>
+        <ejb-ref-name>appEjbLocalRef2Name</ejb-ref-name>
+        <ejb-ref-type>Entity</ejb-ref-type>
+        <local-home>appEjbLocalRef2LocalHome</local-home>
+        <local>appEjbLocalRef2Local</local>
+        <ejb-link>appEjbLocalRef2EjbLink</ejb-link>
+        <mapped-name>appEjbLocalRef2MappedName</mapped-name>
+        <injection-target>
+            <injection-target-class>appEjbLocalRef2Injection1Class
+            </injection-target-class>
+            <injection-target-name>appEjbLocalRef2Injection1Name
+            </injection-target-name>
+        </injection-target>
+        <injection-target>
+            <injection-target-class>appEjbLocalRef2Injection2Class
+            </injection-target-class>
+            <injection-target-name>appEjbLocalRef2Injection2Name
+            </injection-target-name>
+        </injection-target>
+    </ejb-local-ref>
 
+    <!-- service ref -->
+    <!-- TODO: full service-ref contents -->
     <service-ref id="appServiceRef1-id">
         <description>en-appServiceRef1-desc</description>
         <description xml:lang="fr">fr-appServiceRef1-desc
@@ -135,12 +250,16 @@
         <res-sharing-scope>Shareable</res-sharing-scope>
         <mapped-name>appResourceRef1MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appResourceRef1Injection1Class</injection-target-class>
-            <injection-target-name>appResourceRef1Injection1Name</injection-target-name>
+            <injection-target-class>appResourceRef1Injection1Class
+            </injection-target-class>
+            <injection-target-name>appResourceRef1Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appResourceRef1Injection2Class</injection-target-class>
-            <injection-target-name>appResourceRef1Injection2Name</injection-target-name>
+            <injection-target-class>appResourceRef1Injection2Class
+            </injection-target-class>
+            <injection-target-name>appResourceRef1Injection2Name
+            </injection-target-name>
         </injection-target>
     </resource-ref>
     <resource-ref id="appResourceRef2-id">
@@ -155,12 +274,16 @@
         <res-sharing-scope>Unshareable</res-sharing-scope>
         <mapped-name>appResourceRef2MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appResourceRef2Injection1Class</injection-target-class>
-            <injection-target-name>appResourceRef2Injection1Name</injection-target-name>
+            <injection-target-class>appResourceRef2Injection1Class
+            </injection-target-class>
+            <injection-target-name>appResourceRef2Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appResourceRef2Injection2Class</injection-target-class>
-            <injection-target-name>appResourceRef2Injection2Name</injection-target-name>
+            <injection-target-class>appResourceRef2Injection2Class
+            </injection-target-class>
+            <injection-target-name>appResourceRef2Injection2Name
+            </injection-target-name>
         </injection-target>
     </resource-ref>
     <resource-env-ref id="appResourceEnvRef1-id">
@@ -169,16 +292,22 @@
         </description>
         <description xml:lang="de">de-appResourceEnvRef1-desc
         </description>
-        <resource-env-ref-name>appResourceEnvRef1Name</resource-env-ref-name>
-        <resource-env-ref-type>appResourceEnvRef1Type</resource-env-ref-type>
+        <resource-env-ref-name>appResourceEnvRef1Name
+        </resource-env-ref-name>
+        <resource-env-ref-type>appResourceEnvRef1Type
+        </resource-env-ref-type>
         <mapped-name>appResourceEnvRef1MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appResourceEnvRef1Injection1Class</injection-target-class>
-            <injection-target-name>appResourceEnvRef1Injection1Name</injection-target-name>
+            <injection-target-class>appResourceEnvRef1Injection1Class
+            </injection-target-class>
+            <injection-target-name>appResourceEnvRef1Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appResourceEnvRef1Injection2Class</injection-target-class>
-            <injection-target-name>appResourceEnvRef1Injection2Name</injection-target-name>
+            <injection-target-class>appResourceEnvRef1Injection2Class
+            </injection-target-class>
+            <injection-target-name>appResourceEnvRef1Injection2Name
+            </injection-target-name>
         </injection-target>
     </resource-env-ref>
     <resource-env-ref id="appResourceEnvRef2-id">
@@ -187,16 +316,22 @@
         </description>
         <description xml:lang="de">de-appResourceEnvRef2-desc
         </description>
-        <resource-env-ref-name>appResourceEnvRef2Name</resource-env-ref-name>
-        <resource-env-ref-type>appResourceEnvRef2Type</resource-env-ref-type>
+        <resource-env-ref-name>appResourceEnvRef2Name
+        </resource-env-ref-name>
+        <resource-env-ref-type>appResourceEnvRef2Type
+        </resource-env-ref-type>
         <mapped-name>appResourceEnvRef2MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appResourceEnvRef2Injection1Class</injection-target-class>
-            <injection-target-name>appResourceEnvRef2Injection1Name</injection-target-name>
+            <injection-target-class>appResourceEnvRef2Injection1Class
+            </injection-target-class>
+            <injection-target-name>appResourceEnvRef2Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appResourceEnvRef2Injection2Class</injection-target-class>
-            <injection-target-name>appResourceEnvRef2Injection2Name</injection-target-name>
+            <injection-target-class>appResourceEnvRef2Injection2Class
+            </injection-target-class>
+            <injection-target-name>appResourceEnvRef2Injection2Name
+            </injection-target-name>
         </injection-target>
     </resource-env-ref>
     <message-destination-ref id="appMessageDestinationRef1-id">
@@ -205,18 +340,25 @@
         </description>
         <description xml:lang="de">de-appMessageDestinationRef1-desc
         </description>
-        <message-destination-ref-name>appMessageDestinationRef1Name</message-destination-ref-name>
-        <message-destination-type>appMessageDestinationRef1Type</message-destination-type>
+        <message-destination-ref-name>appMessageDestinationRef1Name
+        </message-destination-ref-name>
+        <message-destination-type>appMessageDestinationRef1Type
+        </message-destination-type>
         <message-destination-usage>Consumes</message-destination-usage>
-        <message-destination-link>appMessageDestinationRef1Link</message-destination-link>
+        <message-destination-link>appMessageDestinationRef1Link
+        </message-destination-link>
         <mapped-name>appMessageDestinationRef1MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appMessageDestinationRef1Injection1Class</injection-target-class>
-            <injection-target-name>appMessageDestinationRef1Injection1Name</injection-target-name>
+            <injection-target-class>appMessageDestinationRef1Injection1Class
+            </injection-target-class>
+            <injection-target-name>appMessageDestinationRef1Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appMessageDestinationRef1Injection2Class</injection-target-class>
-            <injection-target-name>appMessageDestinationRef1Injection2Name</injection-target-name>
+            <injection-target-class>appMessageDestinationRef1Injection2Class
+            </injection-target-class>
+            <injection-target-name>appMessageDestinationRef1Injection2Name
+            </injection-target-name>
         </injection-target>
     </message-destination-ref>
     <message-destination-ref id="appMessageDestinationRef2-id">
@@ -225,18 +367,25 @@
         </description>
         <description xml:lang="de">de-appMessageDestinationRef2-desc
         </description>
-        <message-destination-ref-name>appMessageDestinationRef2Name</message-destination-ref-name>
-        <message-destination-type>appMessageDestinationRef2Type</message-destination-type>
+        <message-destination-ref-name>appMessageDestinationRef2Name
+        </message-destination-ref-name>
+        <message-destination-type>appMessageDestinationRef2Type
+        </message-destination-type>
         <message-destination-usage>Produces</message-destination-usage>
-        <message-destination-link>appMessageDestinationRef2Link</message-destination-link>
+        <message-destination-link>appMessageDestinationRef2Link
+        </message-destination-link>
         <mapped-name>appMessageDestinationRef2MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appMessageDestinationRef2Injection1Class</injection-target-class>
-            <injection-target-name>appMessageDestinationRef2Injection1Name</injection-target-name>
+            <injection-target-class>appMessageDestinationRef2Injection1Class
+            </injection-target-class>
+            <injection-target-name>appMessageDestinationRef2Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appMessageDestinationRef2Injection2Class</injection-target-class>
-            <injection-target-name>appMessageDestinationRef2Injection2Name</injection-target-name>
+            <injection-target-class>appMessageDestinationRef2Injection2Class
+            </injection-target-class>
+            <injection-target-name>appMessageDestinationRef2Injection2Name
+            </injection-target-name>
         </injection-target>
     </message-destination-ref>
     <message-destination-ref id="appMessageDestinationRef3-id">
@@ -245,36 +394,117 @@
         </description>
         <description xml:lang="de">de-appMessageDestinationRef3-desc
         </description>
-        <message-destination-ref-name>appMessageDestinationRef3Name</message-destination-ref-name>
-        <message-destination-type>appMessageDestinationRef3Type</message-destination-type>
+        <message-destination-ref-name>appMessageDestinationRef3Name
+        </message-destination-ref-name>
+        <message-destination-type>appMessageDestinationRef3Type
+        </message-destination-type>
         <message-destination-usage>ConsumesProduces</message-destination-usage>
-        <message-destination-link>appMessageDestinationRef3Link</message-destination-link>
+        <message-destination-link>appMessageDestinationRef3Link
+        </message-destination-link>
         <mapped-name>appMessageDestinationRef3MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appMessageDestinationRef3Injection1Class</injection-target-class>
-            <injection-target-name>appMessageDestinationRef3Injection1Name</injection-target-name>
+            <injection-target-class>appMessageDestinationRef3Injection1Class
+            </injection-target-class>
+            <injection-target-name>appMessageDestinationRef3Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appMessageDestinationRef3Injection2Class</injection-target-class>
-            <injection-target-name>appMessageDestinationRef3Injection2Name</injection-target-name>
+            <injection-target-class>appMessageDestinationRef3Injection2Class
+            </injection-target-class>
+            <injection-target-name>appMessageDestinationRef3Injection2Name
+            </injection-target-name>
         </injection-target>
     </message-destination-ref>
+    <persistence-context-ref id="appPersistenceContextRef1-id">
+        <description>en-appPersistenceContextRef1-desc</description>
+        <description xml:lang="fr">fr-appPersistenceContextRef1-desc
+        </description>
+        <description xml:lang="de">de-appPersistenceContextRef1-desc
+        </description>
+        <persistence-context-ref-name>appPersistenceContextRef1Name
+        </persistence-context-ref-name>
+        <persistence-unit-name>appPersistenceContextRef1Unit
+        </persistence-unit-name>
+        <persistence-context-type>Transaction</persistence-context-type>
+        <persistence-property id="appPersistenceContextRef1Property1-id">
+            <name>appPersistenceContextRef1Property1Name</name>
+            <value>appPersistenceContextRef1Property1Value</value>
+        </persistence-property>
+        <persistence-property id="appPersistenceContextRef1Property2-id">
+            <name>appPersistenceContextRef1Property2Name</name>
+            <value>appPersistenceContextRef1Property2Value</value>
+        </persistence-property>
+        <mapped-name>appPersistenceContextRef1MappedName</mapped-name>
+        <injection-target>
+            <injection-target-class>appPersistenceContextRef1Injection1Class
+            </injection-target-class>
+            <injection-target-name>appPersistenceContextRef1Injection1Name
+            </injection-target-name>
+        </injection-target>
+        <injection-target>
+            <injection-target-class>appPersistenceContextRef1Injection2Class
+            </injection-target-class>
+            <injection-target-name>appPersistenceContextRef1Injection2Name
+            </injection-target-name>
+        </injection-target>
+    </persistence-context-ref>
+    <persistence-context-ref id="appPersistenceContextRef2-id">
+        <description>en-appPersistenceContextRef2-desc</description>
+        <description xml:lang="fr">fr-appPersistenceContextRef2-desc
+        </description>
+        <description xml:lang="de">de-appPersistenceContextRef2-desc
+        </description>
+        <persistence-context-ref-name>appPersistenceContextRef2Name
+        </persistence-context-ref-name>
+        <persistence-unit-name>appPersistenceContextRef2Unit
+        </persistence-unit-name>
+        <persistence-context-type>Extended</persistence-context-type>
+        <persistence-context-synchronization>Unsynchronized
+        </persistence-context-synchronization>
+        <persistence-property id="appPersistenceContextRef2Property1-id">
+            <name>appPersistenceContextRef2Property1Name</name>
+            <value>appPersistenceContextRef2Property1Value</value>
+        </persistence-property>
+        <persistence-property id="appPersistenceContextRef2Property2-id">
+            <name>appPersistenceContextRef2Property2Name</name>
+            <value>appPersistenceContextRef2Property2Value</value>
+        </persistence-property>
+        <mapped-name>appPersistenceContextRef2MappedName</mapped-name>
+        <injection-target>
+            <injection-target-class>appPersistenceContextRef2Injection1Class
+            </injection-target-class>
+            <injection-target-name>appPersistenceContextRef2Injection1Name
+            </injection-target-name>
+        </injection-target>
+        <injection-target>
+            <injection-target-class>appPersistenceContextRef2Injection2Class
+            </injection-target-class>
+            <injection-target-name>appPersistenceContextRef2Injection2Name
+            </injection-target-name>
+        </injection-target>
+    </persistence-context-ref>
     <persistence-unit-ref id="appPersistenceUnitRef1-id">
         <description>en-appPersistenceUnitRef1-desc</description>
         <description xml:lang="fr">fr-appPersistenceUnitRef1-desc
         </description>
         <description xml:lang="de">de-appPersistenceUnitRef1-desc
         </description>
-        <persistence-unit-ref-name>appPersistenceUnitRef1Name</persistence-unit-ref-name>
-        <persistence-unit-name>appPersistenceUnitRef1Unit</persistence-unit-name>
+        <persistence-unit-ref-name>appPersistenceUnitRef1Name
+        </persistence-unit-ref-name>
+        <persistence-unit-name>appPersistenceUnitRef1Unit
+        </persistence-unit-name>
         <mapped-name>appPersistenceUnitRef1MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appPersistenceUnitRef1Injection1Class</injection-target-class>
-            <injection-target-name>appPersistenceUnitRef1Injection1Name</injection-target-name>
+            <injection-target-class>appPersistenceUnitRef1Injection1Class
+            </injection-target-class>
+            <injection-target-name>appPersistenceUnitRef1Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appPersistenceUnitRef1Injection2Class</injection-target-class>
-            <injection-target-name>appPersistenceUnitRef1Injection2Name</injection-target-name>
+            <injection-target-class>appPersistenceUnitRef1Injection2Class
+            </injection-target-class>
+            <injection-target-name>appPersistenceUnitRef1Injection2Name
+            </injection-target-name>
         </injection-target>
     </persistence-unit-ref>
     <persistence-unit-ref id="appPersistenceUnitRef2-id">
@@ -283,34 +513,25 @@
         </description>
         <description xml:lang="de">de-appPersistenceUnitRef2-desc
         </description>
-        <persistence-unit-ref-name>appPersistenceUnitRef2Name</persistence-unit-ref-name>
-        <persistence-unit-name>appPersistenceUnitRef2Unit</persistence-unit-name>
+        <persistence-unit-ref-name>appPersistenceUnitRef2Name
+        </persistence-unit-ref-name>
+        <persistence-unit-name>appPersistenceUnitRef2Unit
+        </persistence-unit-name>
         <mapped-name>appPersistenceUnitRef2MappedName</mapped-name>
         <injection-target>
-            <injection-target-class>appPersistenceUnitRef2Injection1Class</injection-target-class>
-            <injection-target-name>appPersistenceUnitRef2Injection1Name</injection-target-name>
+            <injection-target-class>appPersistenceUnitRef2Injection1Class
+            </injection-target-class>
+            <injection-target-name>appPersistenceUnitRef2Injection1Name
+            </injection-target-name>
         </injection-target>
         <injection-target>
-            <injection-target-class>appPersistenceUnitRef2Injection2Class</injection-target-class>
-            <injection-target-name>appPersistenceUnitRef2Injection2Name</injection-target-name>
+            <injection-target-class>appPersistenceUnitRef2Injection2Class
+            </injection-target-class>
+            <injection-target-name>appPersistenceUnitRef2Injection2Name
+            </injection-target-name>
         </injection-target>
     </persistence-unit-ref>
-    <post-construct>
-        <lifecycle-callback-class>appPostConstruct1Class</lifecycle-callback-class>
-        <lifecycle-callback-method>appPostConstruct1Method</lifecycle-callback-method>
-    </post-construct>
-    <post-construct>
-        <lifecycle-callback-class>appPostConstruct2Class</lifecycle-callback-class>
-        <lifecycle-callback-method>appPostConstruct2Method</lifecycle-callback-method>
-    </post-construct>
-    <pre-destroy>
-        <lifecycle-callback-class>appPreDestroy1Class</lifecycle-callback-class>
-        <lifecycle-callback-method>appPreDestroy1Method</lifecycle-callback-method>
-    </pre-destroy>
-    <pre-destroy>
-        <lifecycle-callback-class>appPreDestroy2Class</lifecycle-callback-class>
-        <lifecycle-callback-method>appPreDestroy2Method</lifecycle-callback-method>
-    </pre-destroy>
+
     <message-destination id="messageDestination1-id">
         <description>en-messageDestination1-desc</description>
         <description xml:lang="fr">fr-messageDestination1-desc
@@ -318,8 +539,10 @@
         <description xml:lang="de">de-messageDestination1-desc
         </description>
         <display-name>en-messageDestination1-disp</display-name>
-        <display-name xml:lang="fr">fr-messageDestination1-disp</display-name>
-        <display-name xml:lang="de">de-messageDestination1-disp</display-name>
+        <display-name xml:lang="fr">fr-messageDestination1-disp
+        </display-name>
+        <display-name xml:lang="de">de-messageDestination1-disp
+        </display-name>
         <icon id="en-messageDestination1-icon-id">
             <small-icon>en-messageDestination1-small-icon</small-icon>
             <large-icon>en-messageDestination1-large-icon</large-icon>
@@ -332,7 +555,8 @@
             <small-icon>de-messageDestination1-small-icon</small-icon>
             <large-icon>de-messageDestination1-large-icon</large-icon>
         </icon>
-        <message-destination-name>messageDestination1Name</message-destination-name>
+        <message-destination-name>messageDestination1Name
+        </message-destination-name>
         <mapped-name>messageDestination1MappedName</mapped-name>
         <lookup-name>messageDestination1LookupName</lookup-name>
     </message-destination>
@@ -343,8 +567,10 @@
         <description xml:lang="de">de-messageDestination2-desc
         </description>
         <display-name>en-messageDestination2-disp</display-name>
-        <display-name xml:lang="fr">fr-messageDestination2-disp</display-name>
-        <display-name xml:lang="de">de-messageDestination2-disp</display-name>
+        <display-name xml:lang="fr">fr-messageDestination2-disp
+        </display-name>
+        <display-name xml:lang="de">de-messageDestination2-disp
+        </display-name>
         <icon id="en-messageDestination2-icon-id">
             <small-icon>en-messageDestination2-small-icon</small-icon>
             <large-icon>en-messageDestination2-large-icon</large-icon>
@@ -357,7 +583,8 @@
             <small-icon>de-messageDestination2-small-icon</small-icon>
             <large-icon>de-messageDestination2-large-icon</large-icon>
         </icon>
-        <message-destination-name>messageDestination2Name</message-destination-name>
+        <message-destination-name>messageDestination2Name
+        </message-destination-name>
         <mapped-name>messageDestination2MappedName</mapped-name>
         <lookup-name>messageDestination2LookupName</lookup-name>
     </message-destination>
@@ -423,7 +650,8 @@
         <name>appJmsConnectionFactory1Name</name>
         <interface-name>javax.jms.QueueConnectionFactory</interface-name>
         <class-name>appJmsConnectionFactory1ClassName</class-name>
-        <resource-adapter>appJmsConnectionFactory1ResourceAdapter</resource-adapter>
+        <resource-adapter>appJmsConnectionFactory1ResourceAdapter
+        </resource-adapter>
         <user>appJmsConnectionFactory1User</user>
         <password>appJmsConnectionFactory1Password</password>
         <client-id>appJmsConnectionFactory1ClientId</client-id>
@@ -444,7 +672,8 @@
         <name>appJmsConnectionFactory2Name</name>
         <interface-name>javax.jms.TopicConnectionFactory</interface-name>
         <class-name>appJmsConnectionFactory2ClassName</class-name>
-        <resource-adapter>appJmsConnectionFactory2ResourceAdapter</resource-adapter>
+        <resource-adapter>appJmsConnectionFactory2ResourceAdapter
+        </resource-adapter>
         <user>appJmsConnectionFactory2User</user>
         <password>appJmsConnectionFactory2Password</password>
         <client-id>appJmsConnectionFactory2ClientId</client-id>
@@ -469,8 +698,10 @@
         <name>appJmsDestination1Name</name>
         <interface-name>javax.jms.Queue</interface-name>
         <class-name>appJmsDestination1ClassName</class-name>
-        <resource-adapter>appJmsDestination1ResourceAdapter</resource-adapter>
-        <destination-name>appJmsDestination1DestinationName</destination-name>
+        <resource-adapter>appJmsDestination1ResourceAdapter
+        </resource-adapter>
+        <destination-name>appJmsDestination1DestinationName
+        </destination-name>
         <property id="appJmsDestination1Property1-id">
             <name>appJmsDestination1Property1Name</name>
             <value>appJmsDestination1Property1Value</value>
@@ -485,8 +716,10 @@
         <name>appJmsDestination2Name</name>
         <interface-name>javax.jms.Queue</interface-name>
         <class-name>appJmsDestination2ClassName</class-name>
-        <resource-adapter>appJmsDestination2ResourceAdapter</resource-adapter>
-        <destination-name>appJmsDestination2DestinationName</destination-name>
+        <resource-adapter>appJmsDestination2ResourceAdapter
+        </resource-adapter>
+        <destination-name>appJmsDestination2DestinationName
+        </destination-name>
         <property id="appJmsDestination2Property1-id">
             <name>appJmsDestination2Property1Name</name>
             <value>appJmsDestination2Property1Value</value>
@@ -505,9 +738,12 @@
         <description>appMailSession1Desc</description>
         <name>appMailSession1Name</name>
         <store-protocol>appMailSession1StoreProtocol</store-protocol>
-        <store-protocol-class>appMailSession1StoreProtocolClass</store-protocol-class>
-        <transport-protocol>appMailSession1TransportProtocol</transport-protocol>
-        <transport-protocol-class>appMailSession1TransportProtocolClass</transport-protocol-class>
+        <store-protocol-class>appMailSession1StoreProtocolClass
+        </store-protocol-class>
+        <transport-protocol>appMailSession1TransportProtocol
+        </transport-protocol>
+        <transport-protocol-class>appMailSession1TransportProtocolClass
+        </transport-protocol-class>
         <host>appMailSession1Host</host>
         <user>appMailSession1User</user>
         <password>appMailSession1Password</password>
@@ -525,9 +761,12 @@
         <description>appMailSession2Desc</description>
         <name>appMailSession2Name</name>
         <store-protocol>appMailSession2StoreProtocol</store-protocol>
-        <store-protocol-class>appMailSession2StoreProtocolClass</store-protocol-class>
-        <transport-protocol>appMailSession2TransportProtocol</transport-protocol>
-        <transport-protocol-class>appMailSession2TransportProtocolClass</transport-protocol-class>
+        <store-protocol-class>appMailSession2StoreProtocolClass
+        </store-protocol-class>
+        <transport-protocol>appMailSession2TransportProtocol
+        </transport-protocol>
+        <transport-protocol-class>appMailSession2TransportProtocolClass
+        </transport-protocol-class>
         <host>appMailSession2Host</host>
         <user>appMailSession2User</user>
         <password>appMailSession2Password</password>
@@ -549,7 +788,8 @@
         <description>appConnectionFactory1Desc</description>
         <name>appConnectionFactory1Name</name>
         <interface-name>appConnectionFactory1InterfaceName</interface-name>
-        <resource-adapter>appConnectionFactory1ResourceAdapter</resource-adapter>
+        <resource-adapter>appConnectionFactory1ResourceAdapter
+        </resource-adapter>
         <max-pool-size>1</max-pool-size>
         <min-pool-size>1</min-pool-size>
         <transaction-support>NoTransaction</transaction-support>
@@ -566,7 +806,8 @@
         <description>appConnectionFactory2Desc</description>
         <name>appConnectionFactory2Name</name>
         <interface-name>appConnectionFactory2InterfaceName</interface-name>
-        <resource-adapter>appConnectionFactory2ResourceAdapter</resource-adapter>
+        <resource-adapter>appConnectionFactory2ResourceAdapter
+        </resource-adapter>
         <max-pool-size>2</max-pool-size>
         <min-pool-size>2</min-pool-size>
         <transaction-support>LocalTransaction</transaction-support>
@@ -583,7 +824,8 @@
         <description>appConnectionFactory3Desc</description>
         <name>appConnectionFactory3Name</name>
         <interface-name>appConnectionFactory3InterfaceName</interface-name>
-        <resource-adapter>appConnectionFactory3ResourceAdapter</resource-adapter>
+        <resource-adapter>appConnectionFactory3ResourceAdapter
+        </resource-adapter>
         <max-pool-size>3</max-pool-size>
         <min-pool-size>3</min-pool-size>
         <transaction-support>XATransaction</transaction-support>
@@ -599,15 +841,18 @@
     <connection-factory>
         <name>appConnectionFactory4Name</name>
         <interface-name>appConnectionFactory4InterfaceName</interface-name>
-        <resource-adapter>appConnectionFactory4ResourceAdapter</resource-adapter>
+        <resource-adapter>appConnectionFactory4ResourceAdapter
+        </resource-adapter>
     </connection-factory>
     <!-- javaee:7:administered-object -->
     <administered-object>
         <description>appAdministeredObject1Desc</description>
         <name>appAdministeredObject1Name</name>
-        <interface-name>appAdministeredObject1InterfaceName</interface-name>
+        <interface-name>appAdministeredObject1InterfaceName
+        </interface-name>
         <class-name>appAdministeredObject1ClassName</class-name>
-        <resource-adapter>appAdministeredObject1ResourceAdapter</resource-adapter>
+        <resource-adapter>appAdministeredObject1ResourceAdapter
+        </resource-adapter>
         <property id="appAdministeredObject1Property1-id">
             <name>appAdministeredObject1Property1Name</name>
             <value>appAdministeredObject1Property1Value</value>
@@ -620,9 +865,11 @@
     <administered-object>
         <description>appAdministeredObject2Desc</description>
         <name>appAdministeredObject2Name</name>
-        <interface-name>appAdministeredObject2InterfaceName</interface-name>
+        <interface-name>appAdministeredObject2InterfaceName
+        </interface-name>
         <class-name>appAdministeredObject2ClassName</class-name>
-        <resource-adapter>appAdministeredObject2ResourceAdapter</resource-adapter>
+        <resource-adapter>appAdministeredObject2ResourceAdapter
+        </resource-adapter>
         <property id="appAdministeredObject2Property1-id">
             <name>appAdministeredObject2Property1Name</name>
             <value>appAdministeredObject2Property1Value</value>
@@ -635,7 +882,8 @@
     <administered-object>
         <name>appAdministeredObject3Name</name>
         <class-name>appAdministeredObject3ClassName</class-name>
-        <resource-adapter>appAdministeredObject3ResourceAdapter</resource-adapter>
+        <resource-adapter>appAdministeredObject3ResourceAdapter
+        </resource-adapter>
     </administered-object>
 
-</application-client>
+</application>

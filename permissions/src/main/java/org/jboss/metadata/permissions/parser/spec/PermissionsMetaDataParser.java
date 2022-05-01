@@ -28,6 +28,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.permissions.spec.Permissions100MetaData;
 import org.jboss.metadata.permissions.spec.Permissions70MetaData;
 import org.jboss.metadata.permissions.spec.Permissions90MetaData;
 import org.jboss.metadata.permissions.spec.Version;
@@ -75,6 +76,8 @@ public class PermissionsMetaDataParser extends MetaDataElementParser {
                 return new Permissions70MetaDataParser().parse(new Permissions70MetaData(), reader, propertyReplacer);
             case PERMISSIONS_9_0:
                 return new Permissions70MetaDataParser().parse(new Permissions90MetaData(), reader, propertyReplacer);
+            case PERMISSIONS_10_0:
+                return new Permissions70MetaDataParser().parse(new Permissions100MetaData(), reader, propertyReplacer);
             default:
                 throw unexpectedValue(reader, new Exception("Unexpected value: " + version + " for version"));
         }

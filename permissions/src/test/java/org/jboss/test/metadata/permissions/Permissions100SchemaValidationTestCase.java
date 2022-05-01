@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2013, Red Hat, Inc., and individual contributors
+ * Copyright 2022, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,44 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.jboss.metadata.permissions.spec;
+package org.jboss.test.metadata.permissions;
 
-/**
- *
- * @author Eduardo Martins
- *
- */
-public enum Version {
+import org.jboss.test.metadata.common.SchemaValidationTestCase;
+import org.junit.runners.Parameterized;
 
-    // always first
-    UNKNOWN(null),
+import java.util.List;
 
-    PERMISSIONS_7_0("7"),
+public class Permissions100SchemaValidationTestCase extends SchemaValidationTestCase {
 
-    PERMISSIONS_9_0("9"),
-
-    PERMISSIONS_10_0("10");
-
-    private final String name;
-
-    Version(final String name) {
-        this.name = name;
+    @Parameterized.Parameters
+    public static List<Object[]> parameters() {
+        String xsdFile = "schema/permissions_10.xsd";
+        return getXSDFiles(xsdFile);
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
-    public static Version fromString(String s) {
-        if(s.equals(PERMISSIONS_7_0.name)) {
-            return PERMISSIONS_7_0;
-        } else if (s.equals(PERMISSIONS_9_0.name)) {
-            return PERMISSIONS_9_0;
-        } else if (s.equals(PERMISSIONS_10_0.name)) {
-            return PERMISSIONS_10_0;
-        }
-        return UNKNOWN;
+    public Permissions100SchemaValidationTestCase(String xsd) {
+        super(xsd);
     }
 
 }
