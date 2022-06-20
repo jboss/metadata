@@ -230,6 +230,11 @@
                 web application. The content of the element should be a folder in the
                 filesystem containing the static files that will overlay the webapp's
                 static files, similar to what happens with regular JAR overlays.
+                If a file is found in both the deployment and in the overlay folder,
+                the file in the deployment takes precedence. If more than one overlay
+                is provided, the order in which the overlay elements are declared
+                determines precedence for files that can be found in multiple overlay
+                folders.
             </xsd:documentation>
         </xsd:annotation>
         <xsd:simpleContent>
