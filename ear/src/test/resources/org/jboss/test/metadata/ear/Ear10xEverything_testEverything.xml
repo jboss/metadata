@@ -886,4 +886,141 @@
         </resource-adapter>
     </administered-object>
 
+    <!-- jakartaee:10:context-service -->
+    <context-service id="appContextService1-id">
+        <description>appContextService1-desc</description>
+        <name>appContextService1-name</name>
+        <cleared>appContextService1-cleared</cleared>
+        <propagated>appContextService1-propagated</propagated>
+        <unchanged>appContextService1-unchanged</unchanged>
+        <property id="appContextService1Property1-id">
+            <name>appContextService1Property1Name</name>
+            <value>appContextService1Property1Value</value>
+        </property>
+        <property id="appContextService1Property2-id">
+            <name>appContextService1Property2Name</name>
+            <value>appContextService1Property2Value</value>
+        </property>
+    </context-service>
+    <context-service id="appContextService2-id">
+        <description>appContextService2-desc</description>
+        <name>appContextService2-name</name>
+        <cleared>appContextService2-cleared</cleared>
+        <propagated>appContextService2-propagated</propagated>
+        <unchanged>appContextService2-unchanged</unchanged>
+        <property id="appContextService2Property1-id">
+            <name>appContextService2Property1Name</name>
+            <value>appContextService2Property1Value</value>
+        </property>
+        <property id="appContextService2Property2-id">
+            <name>appContextService2Property2Name</name>
+            <value>appContextService2Property2Value</value>
+        </property>
+    </context-service>
+    <context-service id="appContextService3-id">
+        <name>appContextService3-name</name>
+    </context-service>
+
+    <!-- jakartaee:10:managed-executor -->
+    <managed-executor id="appManagedExecutor1-id">
+        <description>appManagedExecutor1-desc</description>
+        <name>appManagedExecutor1-name</name>
+        <context-service-ref>appManagedExecutor1-contextServiceRef</context-service-ref>
+        <hung-task-threshold>1</hung-task-threshold>
+        <max-async>1</max-async>
+        <property id="appManagedExecutor1Property1-id">
+            <name>appManagedExecutor1Property1Name</name>
+            <value>appManagedExecutor1Property1Value</value>
+        </property>
+        <property id="appManagedExecutor1Property2-id">
+            <name>appManagedExecutor1Property2Name</name>
+            <value>appManagedExecutor1Property2Value</value>
+        </property>
+    </managed-executor>
+    <managed-executor id="appManagedExecutor2-id">
+        <description>appManagedExecutor2-desc</description>
+        <name>appManagedExecutor2-name</name>
+        <context-service-ref>appManagedExecutor2-contextServiceRef</context-service-ref>
+        <hung-task-threshold>2</hung-task-threshold>
+        <max-async>2</max-async>
+        <property id="appManagedExecutor2Property1-id">
+            <name>appManagedExecutor2Property1Name</name>
+            <value>appManagedExecutor2Property1Value</value>
+        </property>
+        <property id="appManagedExecutor2Property2-id">
+            <name>appManagedExecutor2Property2Name</name>
+            <value>appManagedExecutor2Property2Value</value>
+        </property>
+    </managed-executor>
+    <managed-executor id="appManagedExecutor3-id">
+        <name>appManagedExecutor3-name</name>
+    </managed-executor>
+
+    <!-- jakartaee:10:managed-scheduled-executor -->
+    <managed-scheduled-executor id="appManagedScheduledExecutor1-id">
+        <description>appManagedScheduledExecutor1-desc</description>
+        <name>appManagedScheduledExecutor1-name</name>
+        <context-service-ref>appManagedScheduledExecutor1-contextServiceRef</context-service-ref>
+        <hung-task-threshold>1</hung-task-threshold>
+        <max-async>1</max-async>
+        <property id="appManagedScheduledExecutor1Property1-id">
+            <name>appManagedScheduledExecutor1Property1Name</name>
+            <value>appManagedScheduledExecutor1Property1Value</value>
+        </property>
+        <property id="appManagedScheduledExecutor1Property2-id">
+            <name>appManagedScheduledExecutor1Property2Name</name>
+            <value>appManagedScheduledExecutor1Property2Value</value>
+        </property>
+    </managed-scheduled-executor>
+    <managed-scheduled-executor id="appManagedScheduledExecutor2-id">
+        <description>appManagedScheduledExecutor2-desc</description>
+        <name>appManagedScheduledExecutor2-name</name>
+        <context-service-ref>appManagedScheduledExecutor2-contextServiceRef</context-service-ref>
+        <hung-task-threshold>2</hung-task-threshold>
+        <max-async>2</max-async>
+        <property id="appManagedScheduledExecutor2Property1-id">
+            <name>appManagedScheduledExecutor2Property1Name</name>
+            <value>appManagedScheduledExecutor2Property1Value</value>
+        </property>
+        <property id="appManagedScheduledExecutor2Property2-id">
+            <name>appManagedScheduledExecutor2Property2Name</name>
+            <value>appManagedScheduledExecutor2Property2Value</value>
+        </property>
+    </managed-scheduled-executor>
+    <managed-scheduled-executor id="appManagedScheduledExecutor3-id">
+        <name>appManagedScheduledExecutor3-name</name>
+    </managed-scheduled-executor>
+
+    <!-- jakartaee:10:managed-thread-factory -->
+    <managed-thread-factory id="appManagedThreadFactory1-id">
+        <description>appManagedThreadFactory1-desc</description>
+        <name>appManagedThreadFactory1-name</name>
+        <context-service-ref>appManagedThreadFactory1-contextServiceRef</context-service-ref>
+        <priority>1</priority>
+        <property id="appManagedThreadFactory1Property1-id">
+            <name>appManagedThreadFactory1Property1Name</name>
+            <value>appManagedThreadFactory1Property1Value</value>
+        </property>
+        <property id="appManagedThreadFactory1Property2-id">
+            <name>appManagedThreadFactory1Property2Name</name>
+            <value>appManagedThreadFactory1Property2Value</value>
+        </property>
+    </managed-thread-factory>
+    <managed-thread-factory id="appManagedThreadFactory2-id">
+        <description>appManagedThreadFactory2-desc</description>
+        <name>appManagedThreadFactory2-name</name>
+        <context-service-ref>appManagedThreadFactory2-contextServiceRef</context-service-ref>
+        <priority>2</priority>
+        <property id="appManagedThreadFactory2Property1-id">
+            <name>appManagedThreadFactory2Property1Name</name>
+            <value>appManagedThreadFactory2Property1Value</value>
+        </property>
+        <property id="appManagedThreadFactory2Property2-id">
+            <name>appManagedThreadFactory2Property2Name</name>
+            <value>appManagedThreadFactory2Property2Value</value>
+        </property>
+    </managed-thread-factory>
+    <managed-thread-factory id="appManagedThreadFactory3-id">
+        <name>appManagedThreadFactory3-name</name>
+    </managed-thread-factory>
 </application>

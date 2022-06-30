@@ -40,10 +40,13 @@ public enum Element {
     ADMINISTERED_OBJECT("administered-object"),
 
     CLASS_NAME("class-name"),
+    CLEARED("cleared"),
     CLIENT_ID("client-id"),
     CONNECTION_FACTORY("connection-factory"),
     CONFIG_NAME("config-name"),
     CONFIG_FILE("config-file"),
+    CONTEXT_SERVICE("context-service"),
+    CONTEXT_SERVICE_REF("context-service-ref"),
 
     DATA_SOURCE("data-source"),
     DATABASE_NAME("database-name"),
@@ -72,6 +75,7 @@ public enum Element {
     HANDLER_NAME("handler-name"),
     HOME("home"),
     HOST("host"),
+    HUNG_TASK_THRESHOLD("hung-task-threshold"),
 
     ICON("icon"),
     IGNORE_DEPENDECY("ignore-dependency"),
@@ -98,7 +102,12 @@ public enum Element {
     LOOKUP_NAME("lookup-name"),
 
     MAIL_SESSION("mail-session"),
+    MANAGED_EXECUTOR("managed-executor"),
+    MANAGED_SCHEDULED_EXECUTOR("managed-scheduled-executor"),
+    MANAGED_THREAD_FACTORY("managed-thread-factory"),
+
     MAPPED_NAME("mapped-name"),
+    MAX_ASYNC("max-async"),
     MAX_IDLE_TIME("max-idle-time"),
     MAX_POOL_SIZE("max-pool-size"),
     MAX_STATEMENTS("max-statements"),
@@ -136,6 +145,8 @@ public enum Element {
     PROP_VALUE("prop-value"),
     PRE_DESTROY("pre-destroy"),
     PRINCIPAL_NAME("principal-name"),
+    PRIORITY("priority"),
+    PROPAGATED("propagated"),
     PROPERTY("property"),
     PROTOCOL_BINDINGS("protocol-bindings"),
 
@@ -178,6 +189,7 @@ public enum Element {
     TRANSPORT_PROTOCOL("transport-protocol"),
     TRANSPORT_PROTOCOL_CLASS("transport-protocol-class"),
 
+    UNCHANGED("unchanged"),
     URL("url"),
     USER("user"),
 

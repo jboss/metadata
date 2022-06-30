@@ -50,6 +50,26 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
     private PersistenceContextReferencesMetaData persistenceContextRefs;
 
     /**
+     *
+     */
+    private ContextServicesMetaData contextServices;
+
+    /**
+     *
+     */
+    private ManagedExecutorsMetaData managedExecutors;
+
+    /**
+     *
+     */
+    private ManagedScheduledExecutorsMetaData managedScheduledExecutors;
+
+    /**
+     *
+     */
+    private ManagedThreadFactoriesMetaData managedThreadFactories;
+
+    /**
      * Get the ejbLocalReferences.
      *
      * @return the ejbLocalReferences.
@@ -111,4 +131,71 @@ public class EnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGroupMeta
         return AbstractMappedMetaData.getByName(name, persistenceContextRefs);
     }
 
+    @Override
+    public ContextServicesMetaData getContextServices() {
+        return contextServices;
+    }
+
+    @Override
+    public ContextServiceMetaData getContextServiceByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, contextServices);
+    }
+
+    @Override
+    public void setContextServices(ContextServicesMetaData contextServices) {
+        if (contextServices == null)
+            throw new IllegalArgumentException("Null contextServices");
+        this.contextServices = contextServices;
+    }
+
+    @Override
+    public ManagedExecutorsMetaData getManagedExecutors() {
+        return managedExecutors;
+    }
+
+    @Override
+    public ManagedExecutorMetaData getManagedExecutorByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, managedExecutors);
+    }
+
+    @Override
+    public void setManagedExecutors(ManagedExecutorsMetaData managedExecutors) {
+        if (managedExecutors == null)
+            throw new IllegalArgumentException("Null managedExecutors");
+        this.managedExecutors = managedExecutors;
+    }
+
+    @Override
+    public ManagedScheduledExecutorsMetaData getManagedScheduledExecutors() {
+        return managedScheduledExecutors;
+    }
+
+    @Override
+    public ManagedScheduledExecutorMetaData getManagedScheduledExecutorByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, managedScheduledExecutors);
+    }
+
+    @Override
+    public void setManagedScheduledExecutors(ManagedScheduledExecutorsMetaData managedScheduledExecutors) {
+        if (managedScheduledExecutors == null)
+            throw new IllegalArgumentException("Null managedScheduledExecutors");
+        this.managedScheduledExecutors = managedScheduledExecutors;
+    }
+
+    @Override
+    public ManagedThreadFactoriesMetaData getManagedThreadFactories() {
+        return managedThreadFactories;
+    }
+
+    @Override
+    public ManagedThreadFactoryMetaData getManagedThreadFactoryByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, managedThreadFactories);
+    }
+
+    @Override
+    public void setManagedThreadFactories(ManagedThreadFactoriesMetaData managedThreadFactories) {
+        if (managedThreadFactories == null)
+            throw new IllegalArgumentException("Null managedThreadFactories");
+        this.managedThreadFactories = managedThreadFactories;
+    }
 }

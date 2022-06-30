@@ -22,11 +22,9 @@
 
 package org.jboss.metadata.parser.ee;
 
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
 import org.jboss.metadata.javaee.spec.ConnectionFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.ContextServicesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.EJBReferencesMetaData;
@@ -36,6 +34,9 @@ import org.jboss.metadata.javaee.spec.JMSConnectionFactoriesMetaData;
 import org.jboss.metadata.javaee.spec.JMSDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.MailSessionsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedExecutorsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedScheduledExecutorsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedThreadFactoriesMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceUnitReferencesMetaData;
@@ -45,6 +46,9 @@ import org.jboss.metadata.javaee.spec.ResourceReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
+
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 
 /**
@@ -76,6 +80,38 @@ public class EnvironmentRefsGroupMetaDataParser {
                     env.setPersistenceContextRefs(pcReferences);
                 }
                 pcReferences.add(PersistenceContextReferenceMetaDataParser.parse(reader, propertyReplacer));
+                break;
+            case CONTEXT_SERVICE:
+                ContextServicesMetaData contextServicesMetaData = env.getContextServices();
+                if (contextServicesMetaData == null) {
+                    contextServicesMetaData = new ContextServicesMetaData();
+                    env.setContextServices(contextServicesMetaData);
+                }
+                contextServicesMetaData.add(ContextServiceMetaDataParser.parse(reader, propertyReplacer));
+                break;
+            case MANAGED_EXECUTOR:
+                ManagedExecutorsMetaData managedExecutorsMetaData = env.getManagedExecutors();
+                if (managedExecutorsMetaData == null) {
+                    managedExecutorsMetaData = new ManagedExecutorsMetaData();
+                    env.setManagedExecutors(managedExecutorsMetaData);
+                }
+                managedExecutorsMetaData.add(ManagedExecutorMetaDataParser.parse(reader, propertyReplacer));
+                break;
+            case MANAGED_SCHEDULED_EXECUTOR:
+                ManagedScheduledExecutorsMetaData managedScheduledExecutorsMetaData = env.getManagedScheduledExecutors();
+                if (managedScheduledExecutorsMetaData == null) {
+                    managedScheduledExecutorsMetaData = new ManagedScheduledExecutorsMetaData();
+                    env.setManagedScheduledExecutors(managedScheduledExecutorsMetaData);
+                }
+                managedScheduledExecutorsMetaData.add(ManagedScheduledExecutorMetaDataParser.parse(reader, propertyReplacer));
+                break;
+            case MANAGED_THREAD_FACTORY:
+                ManagedThreadFactoriesMetaData managedThreadFactoriesMetaData = env.getManagedThreadFactories();
+                if (managedThreadFactoriesMetaData == null) {
+                    managedThreadFactoriesMetaData = new ManagedThreadFactoriesMetaData();
+                    env.setManagedThreadFactories(managedThreadFactoriesMetaData);
+                }
+                managedThreadFactoriesMetaData.add(ManagedThreadFactoryMetaDataParser.parse(reader, propertyReplacer));
                 break;
             default:
                 return parseRemote(reader, env, propertyReplacer);
