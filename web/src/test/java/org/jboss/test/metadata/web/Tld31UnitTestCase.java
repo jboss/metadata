@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source.
- * Copyright 2013, Red Hat, Inc., and individual contributors
+ * Copyright 2020, Red Hat, Inc., and individual contributors
  * as indicated by the @author tags. See the copyright.txt file in the
  * distribution for a full listing of individual contributors.
  *
@@ -19,9 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+package org.jboss.test.metadata.web;
 
-package org.jboss.metadata.parser.jsp;
+import org.jboss.metadata.parser.jsp.TldMetaDataParser;
+import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
 
-public enum Version {
-    TLD_1_1, TLD_1_2, TLD_2_0, TLD_2_1, TLD_3_0, TLD_3_1
+/**
+ * Tests of 3.1 taglib elements
+ *
+ * @author Brian Stansberry
+ */
+public class Tld31UnitTestCase extends AbstractJavaEEEverythingTest {
+    public void testEverything() throws Exception {
+        TldMetaDataParser.parse(getReader());
+    }
 }
