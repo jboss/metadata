@@ -36,5 +36,24 @@ public interface MutableEnvironment extends MutableRemoteEnvironment, Environmen
      */
     void setPersistenceContextRefs(PersistenceContextReferencesMetaData refs);
 
+    /**
+     *
+     * @param contextServices
+     */
+    void setContextServices(ContextServicesMetaData contextServices);
 
+    /**
+     * @param managedExecutorMetaData
+     */
+    void setManagedExecutors(ManagedExecutorsMetaData managedExecutorMetaData);
+
+    /**
+     * @param managedScheduledExecutorsMetaData
+     */
+    void setManagedScheduledExecutors(ManagedScheduledExecutorsMetaData managedScheduledExecutorsMetaData);
+
+    /**
+     * @param managedThreadFactoriesMetaData
+     */
+    void setManagedThreadFactories(ManagedThreadFactoriesMetaData managedThreadFactoriesMetaData);
 }

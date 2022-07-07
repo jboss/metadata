@@ -24,13 +24,22 @@ package org.jboss.metadata.common.ejb;
 import java.io.Serializable;
 
 import org.jboss.metadata.javaee.jboss.JBossServiceReferencesMetaData;
+import org.jboss.metadata.javaee.spec.ContextServiceMetaData;
+import org.jboss.metadata.javaee.spec.ContextServicesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferencesMetaData;
 import org.jboss.metadata.javaee.spec.Environment;
+import org.jboss.metadata.javaee.spec.ManagedExecutorMetaData;
+import org.jboss.metadata.javaee.spec.ManagedExecutorsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedScheduledExecutorMetaData;
+import org.jboss.metadata.javaee.spec.ManagedScheduledExecutorsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedThreadFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.ManagedThreadFactoryMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferencesMetaData;
 import org.jboss.metadata.javaee.spec.RemoteEnvironmentRefsGroupMetaData;
 import org.jboss.metadata.javaee.spec.ServiceReferencesMetaData;
+import org.jboss.metadata.javaee.support.AbstractMappedMetaData;
 
 /**
  * JBossEnvironmentRefsGroupMetaData.
@@ -58,6 +67,26 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
      * The persistence context reference
      */
     private PersistenceContextReferencesMetaData persistenceContextRefs;
+
+    /**
+     *
+     */
+    private ContextServicesMetaData contextServices;
+
+    /**
+     *
+     */
+    private ManagedExecutorsMetaData managedExecutors;
+
+    /**
+     *
+     */
+    private ManagedScheduledExecutorsMetaData managedScheduledExecutors;
+
+    /**
+     *
+     */
+    private ManagedThreadFactoriesMetaData managedThreadFactories;
 
     @Override
     public EJBLocalReferenceMetaData getEjbLocalReferenceByName(String name) {
@@ -103,4 +132,43 @@ public class JBossEnvironmentRefsGroupMetaData extends RemoteEnvironmentRefsGrou
         this.persistenceContextRefs = persistenceContextRefs;
     }
 
+    @Override
+    public ContextServicesMetaData getContextServices() {
+        return contextServices;
+    }
+
+    @Override
+    public ContextServiceMetaData getContextServiceByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, contextServices);
+    }
+
+    @Override
+    public ManagedExecutorsMetaData getManagedExecutors() {
+        return managedExecutors;
+    }
+
+    @Override
+    public ManagedExecutorMetaData getManagedExecutorByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, managedExecutors);
+    }
+
+    @Override
+    public ManagedScheduledExecutorsMetaData getManagedScheduledExecutors() {
+        return managedScheduledExecutors;
+    }
+
+    @Override
+    public ManagedScheduledExecutorMetaData getManagedScheduledExecutorByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, managedScheduledExecutors);
+    }
+
+    @Override
+    public ManagedThreadFactoriesMetaData getManagedThreadFactories() {
+        return managedThreadFactories;
+    }
+
+    @Override
+    public ManagedThreadFactoryMetaData getManagedThreadFactoryByName(String name) throws IllegalArgumentException {
+        return AbstractMappedMetaData.getByName(name, managedThreadFactories);
+    }
 }

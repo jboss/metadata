@@ -35,6 +35,8 @@ import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.ConnectionFactoriesMetaData;
 import org.jboss.metadata.javaee.spec.ConnectionFactoryMetaData;
+import org.jboss.metadata.javaee.spec.ContextServiceMetaData;
+import org.jboss.metadata.javaee.spec.ContextServicesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.EJBLocalReferenceMetaData;
@@ -52,6 +54,12 @@ import org.jboss.metadata.javaee.spec.JMSDestinationsMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.MailSessionMetaData;
 import org.jboss.metadata.javaee.spec.MailSessionsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedExecutorMetaData;
+import org.jboss.metadata.javaee.spec.ManagedExecutorsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedScheduledExecutorMetaData;
+import org.jboss.metadata.javaee.spec.ManagedScheduledExecutorsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedThreadFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.ManagedThreadFactoryMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
 import org.jboss.metadata.javaee.spec.PersistenceContextReferenceMetaData;
@@ -724,6 +732,46 @@ public abstract class AbstractEnterpriseBeanMetaData extends NamedMetaDataWithDe
     @Override
     public MailSessionMetaData getMailSessionByName(String name) throws IllegalArgumentException {
         return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getMailSessionByName(name) : null;
+    }
+
+    @Override
+    public ContextServicesMetaData getContextServices() {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getContextServices() : null;
+    }
+
+    @Override
+    public ContextServiceMetaData getContextServiceByName(String name) throws IllegalArgumentException {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getContextServiceByName(name) : null;
+    }
+
+    @Override
+    public ManagedExecutorsMetaData getManagedExecutors() {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getManagedExecutors() : null;
+    }
+
+    @Override
+    public ManagedExecutorMetaData getManagedExecutorByName(String name) throws IllegalArgumentException {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getManagedExecutorByName(name) : null;
+    }
+
+    @Override
+    public ManagedScheduledExecutorsMetaData getManagedScheduledExecutors() {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getManagedScheduledExecutors() : null;
+    }
+
+    @Override
+    public ManagedScheduledExecutorMetaData getManagedScheduledExecutorByName(String name) throws IllegalArgumentException {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getManagedScheduledExecutorByName(name) : null;
+    }
+
+    @Override
+    public ManagedThreadFactoriesMetaData getManagedThreadFactories() {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getManagedThreadFactories() : null;
+    }
+
+    @Override
+    public ManagedThreadFactoryMetaData getManagedThreadFactoryByName(String name) throws IllegalArgumentException {
+        return jndiEnvironmentRefsGroup != null ? jndiEnvironmentRefsGroup.getManagedThreadFactoryByName(name) : null;
     }
 
     protected static <T> T override(T override, T original) {

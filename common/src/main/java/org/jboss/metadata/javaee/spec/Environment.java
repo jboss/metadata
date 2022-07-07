@@ -60,5 +60,67 @@ public interface Environment extends RemoteEnvironment {
      */
     PersistenceContextReferenceMetaData getPersistenceContextReferenceByName(String name);
 
+    /**
+     * Retrieves the context services.
+     *
+     * @return
+     */
+    ContextServicesMetaData getContextServices();
 
+    /**
+     * Retrieves the context service by name.
+     *
+     * @param name the name
+     * @return the result or null if not found
+     * @throws IllegalArgumentException for a null name
+     */
+    ContextServiceMetaData getContextServiceByName(String name) throws IllegalArgumentException;
+
+    /**
+     * Retrieves the managed executors.
+     *
+     * @return
+     */
+    ManagedExecutorsMetaData getManagedExecutors();
+
+    /**
+     * Retrieves the managed executor by name.
+     *
+     * @param name the name
+     * @return the result or null if not found
+     * @throws IllegalArgumentException for a null name
+     */
+    ManagedExecutorMetaData getManagedExecutorByName(String name) throws IllegalArgumentException;
+
+    /**
+     * Retrieves the managed scheduled executors.
+     *
+     * @return
+     */
+    ManagedScheduledExecutorsMetaData getManagedScheduledExecutors();
+
+    /**
+     * Retrieves the managed scheduled executor by name.
+     *
+     * @param name the name
+     * @return the result or null if not found
+     * @throws IllegalArgumentException for a null name
+     */
+    ManagedScheduledExecutorMetaData getManagedScheduledExecutorByName(String name) throws IllegalArgumentException;
+
+    /**
+     * Retrieves the managed thread factories.
+     *
+     * @return
+     */
+    ManagedThreadFactoriesMetaData getManagedThreadFactories();
+
+    /**
+     * Retrieves the managed thread factory by name.
+     *
+     * @param name the name
+     * @return the result or null if not found
+     * @throws IllegalArgumentException for a null name
+     */
+    ManagedThreadFactoryMetaData getManagedThreadFactoryByName(String name) throws IllegalArgumentException;
 }

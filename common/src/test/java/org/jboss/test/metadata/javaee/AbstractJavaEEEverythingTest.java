@@ -39,6 +39,8 @@ import org.jboss.metadata.javaee.spec.AdministeredObjectMetaData;
 import org.jboss.metadata.javaee.spec.AdministeredObjectsMetaData;
 import org.jboss.metadata.javaee.spec.ConnectionFactoriesMetaData;
 import org.jboss.metadata.javaee.spec.ConnectionFactoryMetaData;
+import org.jboss.metadata.javaee.spec.ContextServiceMetaData;
+import org.jboss.metadata.javaee.spec.ContextServicesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;
 import org.jboss.metadata.javaee.spec.DataSourcesMetaData;
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
@@ -63,6 +65,11 @@ import org.jboss.metadata.javaee.spec.LifecycleCallbackMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
 import org.jboss.metadata.javaee.spec.MailSessionMetaData;
 import org.jboss.metadata.javaee.spec.MailSessionsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedExecutorMetaData;
+import org.jboss.metadata.javaee.spec.ManagedExecutorsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedScheduledExecutorsMetaData;
+import org.jboss.metadata.javaee.spec.ManagedThreadFactoriesMetaData;
+import org.jboss.metadata.javaee.spec.ManagedThreadFactoryMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferenceMetaData;
 import org.jboss.metadata.javaee.spec.MessageDestinationReferencesMetaData;
@@ -333,6 +340,10 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         if (full) {
             assertPersistenceContextRefs(prefix, 2, environment.getPersistenceContextRefs(), mode, version);
         }
+        assertContextServices(prefix, environment.getContextServices(), mode, full, version);
+        assertManagedExecutors(prefix, environment.getManagedExecutors(), mode, full, version);
+        assertManagedScheduledExecutors(prefix, environment.getManagedScheduledExecutors(), mode, full, version);
+        assertManagedThreadFactories(prefix, environment.getManagedThreadFactories(), mode, full, version);
     }
 
     protected void assertNullEnvironment(Environment environment) {
@@ -354,6 +365,10 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
             assertNull(environment.getJmsConnectionFactories());
             assertNull(environment.getJmsDestinations());
             assertNull(environment.getMailSessions());
+            assertNull(environment.getContextServices());
+            assertNull(environment.getManagedExecutors());
+            assertNull(environment.getManagedScheduledExecutors());
+            assertNull(environment.getManagedThreadFactories());
         }
     }
 
@@ -938,6 +953,207 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
                 assertNull(user);
                 assertNull(password);
                 assertNull(from);
+                assertNull(properties);
+            }
+            ++count;
+        }
+    }
+
+    protected void assertContextServices(String prefix, ContextServicesMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version != JavaEEVersion.V10 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        assertNotNull(metaDatas);
+        assertTrue(metaDatas.size() < 4);
+        prefix = prefix + "ContextService";
+        int count = 1;
+        for (ContextServiceMetaData metaData : metaDatas) {
+
+            assertNotNull(metaData);
+            final String metaDataPrefix = prefix + count;
+
+            final Descriptions desc = metaData.getDescriptions();
+            final String name = metaData.getName();
+            final Set<String> cleared = metaData.getCleared();
+            final Set<String> propagated = metaData.getPropagated();
+            final Set<String> unchanged = metaData.getUnchanged();
+            final PropertiesMetaData properties = metaData.getProperties();
+
+            assertEquals(metaDataPrefix + "-name", name);
+            if (count<3) {
+                // desc
+                assertNotNull(desc);
+                Description[] descArr = desc.value();
+                assertNotNull(descArr);
+                assertEquals(1, descArr.length);
+                assertEquals(metaDataPrefix + "-desc", descArr[0].value());
+                // cleared
+                assertNotNull(cleared);
+                assertEquals(cleared.size(), 1);
+                assertEquals(metaDataPrefix + "-cleared", cleared.iterator().next());
+                // propagated
+                assertNotNull(propagated);
+                assertEquals(propagated.size(), 1);
+                assertEquals(metaDataPrefix + "-propagated", propagated.iterator().next());
+                // unchanged
+                assertNotNull(unchanged);
+                assertEquals(unchanged.size(), 1);
+                assertEquals(metaDataPrefix + "-unchanged", unchanged.iterator().next());
+                // properties
+                assertProperties(metaDataPrefix,2,properties);
+            } else {
+                assertNull(desc);
+                assertNull(cleared);
+                assertNull(propagated);
+                assertNull(unchanged);
+                assertNull(properties);
+            }
+            ++count;
+        }
+    }
+
+    protected void assertManagedExecutors(String prefix, ManagedExecutorsMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version != JavaEEVersion.V10 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        assertNotNull(metaDatas);
+        assertTrue(metaDatas.size() < 4);
+        prefix = prefix + "ManagedExecutor";
+        int count = 1;
+        for (ManagedExecutorMetaData metaData : metaDatas) {
+
+            assertNotNull(metaData);
+            final String metaDataPrefix = prefix + count;
+
+            final Descriptions desc = metaData.getDescriptions();
+            final String name = metaData.getName();
+            final String contextServiceRef = metaData.getContextServiceRef();
+            final Integer hungTaskThreshold = metaData.getHungTaskThreshold();
+            final Integer maxAsync = metaData.getMaxAsync();
+            final PropertiesMetaData properties = metaData.getProperties();
+
+            assertEquals(metaDataPrefix + "-name", name);
+            if (count<3) {
+                // desc
+                assertNotNull(desc);
+                Description[] descArr = desc.value();
+                assertNotNull(descArr);
+                assertEquals(1, descArr.length);
+                assertEquals(metaDataPrefix + "-desc", descArr[0].value());
+                // contextServiceRef
+                assertNotNull(contextServiceRef);
+                assertEquals(metaDataPrefix + "-contextServiceRef", contextServiceRef);
+                // hungTaskThreshold
+                assertNotNull(hungTaskThreshold);
+                assertEquals(count, hungTaskThreshold.intValue());
+                // maxAsync
+                assertNotNull(maxAsync);
+                assertEquals(count, maxAsync.intValue());
+                // properties
+                assertProperties(metaDataPrefix,2,properties);
+            } else {
+                assertNull(desc);
+                assertNull(contextServiceRef);
+                assertNull(hungTaskThreshold);
+                assertNull(maxAsync);
+                assertNull(properties);
+            }
+            ++count;
+        }
+    }
+
+    protected void assertManagedScheduledExecutors(String prefix, ManagedScheduledExecutorsMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version != JavaEEVersion.V10 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        assertNotNull(metaDatas);
+        assertTrue(metaDatas.size() < 4);
+        prefix = prefix + "ManagedScheduledExecutor";
+        int count = 1;
+        for (ManagedExecutorMetaData metaData : metaDatas) {
+
+            assertNotNull(metaData);
+            final String metaDataPrefix = prefix + count;
+
+            final Descriptions desc = metaData.getDescriptions();
+            final String name = metaData.getName();
+            final String contextServiceRef = metaData.getContextServiceRef();
+            final Integer hungTaskThreshold = metaData.getHungTaskThreshold();
+            final Integer maxAsync = metaData.getMaxAsync();
+            final PropertiesMetaData properties = metaData.getProperties();
+
+            assertEquals(metaDataPrefix + "-name", name);
+            if (count<3) {
+                // desc
+                assertNotNull(desc);
+                Description[] descArr = desc.value();
+                assertNotNull(descArr);
+                assertEquals(1, descArr.length);
+                assertEquals(metaDataPrefix + "-desc", descArr[0].value());
+                // contextServiceRef
+                assertNotNull(contextServiceRef);
+                assertEquals(metaDataPrefix + "-contextServiceRef", contextServiceRef);
+                // hungTaskThreshold
+                assertNotNull(hungTaskThreshold);
+                assertEquals(count, hungTaskThreshold.intValue());
+                // maxAsync
+                assertNotNull(maxAsync);
+                assertEquals(count, maxAsync.intValue());
+                // properties
+                assertProperties(metaDataPrefix,2,properties);
+            } else {
+                assertNull(desc);
+                assertNull(contextServiceRef);
+                assertNull(hungTaskThreshold);
+                assertNull(maxAsync);
+                assertNull(properties);
+            }
+            ++count;
+        }
+    }
+
+    protected void assertManagedThreadFactories(String prefix, ManagedThreadFactoriesMetaData metaDatas, Mode mode, boolean full, JavaEEVersion version) {
+        if (version != JavaEEVersion.V10 || !full) {
+            assertNull(metaDatas);
+            return;
+        }
+        assertNotNull(metaDatas);
+        assertTrue(metaDatas.size() < 4);
+        prefix = prefix + "ManagedThreadFactory";
+        int count = 1;
+        for (ManagedThreadFactoryMetaData metaData : metaDatas) {
+
+            assertNotNull(metaData);
+            final String metaDataPrefix = prefix + count;
+
+            final Descriptions desc = metaData.getDescriptions();
+            final String name = metaData.getName();
+            final String contextServiceRef = metaData.getContextServiceRef();
+            final int priority = metaData.getPriority();
+            final PropertiesMetaData properties = metaData.getProperties();
+
+            assertEquals(metaDataPrefix + "-name", name);
+            if (count<3) {
+                // desc
+                assertNotNull(desc);
+                Description[] descArr = desc.value();
+                assertNotNull(descArr);
+                assertEquals(1, descArr.length);
+                assertEquals(metaDataPrefix + "-desc", descArr[0].value());
+                // contextServiceRef
+                assertNotNull(contextServiceRef);
+                assertEquals(metaDataPrefix + "-contextServiceRef", contextServiceRef);
+                // priority
+                assertEquals(count, priority);
+                // properties
+                assertProperties(metaDataPrefix,2,properties);
+            } else {
+                assertNull(desc);
+                assertNull(contextServiceRef);
+                assertEquals(priority, Thread.NORM_PRIORITY);
                 assertNull(properties);
             }
             ++count;
