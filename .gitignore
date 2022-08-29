@@ -20,3 +20,5 @@ transaction.log
 /.gitk-tmp.*
 # Gedit backups
 *~
+# Mac OS folders
+*.DS_Store
