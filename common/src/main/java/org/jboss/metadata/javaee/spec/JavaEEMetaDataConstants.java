@@ -30,6 +30,10 @@ package org.jboss.metadata.javaee.spec;
  */
 public interface JavaEEMetaDataConstants {
     /**
+     * The jakartaee namespace
+     */
+    String JAKARTAEE_NS = "https://jakarta.ee/xml/ns/jakartaee";
+    /**
      * The javaee namespace
      */
     String JAVAEE_NS = "http://java.sun.com/xml/ns/javaee";
@@ -52,6 +56,10 @@ public interface JavaEEMetaDataConstants {
      * The jboss javaee namespaces
      */
     String JBOSS_NS = "http://www.jboss.com/xml/ns/javaee";
+    /**
+     * The jboss jakartaee namespaces
+     */
+    String JBOSS_JAKARTAEE_NS = "http://www.jboss.com/xml/ns/jakartaee";
 
     /**
      * The jbosscmp-jdbc namespace

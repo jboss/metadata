@@ -75,9 +75,11 @@ public class ExtendingMetaDataParser<MD extends ExtendableMetaData> extends Abst
         switch (namespace) {
             case SPEC:
             case SPEC_7_0:
+            case JAKARTAEE:
                 delegate.processElement(metaData, reader, propertyReplacer);
                 break;
             case JBOSS:
+            case JBOSS_JAKARTA:
             case UNKNOWN:
                 AbstractMetaDataParser<?> parser = getParser(reader.getNamespaceURI());
                 metaData.addAny(parser.parse(reader, propertyReplacer));

@@ -43,6 +43,7 @@ public abstract class AbstractEJBBoundMetaDataParser<MD extends AbstractEJBBound
         switch (namespace) {
             case SPEC:
             case SPEC_7_0:
+            case JAKARTAEE:
                 final EjbJarElement ejbJarElement = EjbJarElement.forName(reader.getLocalName());
                 switch (ejbJarElement) {
                     case DESCRIPTION:

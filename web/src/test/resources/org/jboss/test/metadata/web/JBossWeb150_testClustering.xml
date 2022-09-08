@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web version="15.0" xmlns="http://www.jboss.com/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.jboss.com/xml/ns/jakartaee https://www.jboss.org/j2ee/schema/jboss-web_15_0.xsd">
+
+    <max-active-sessions>10</max-active-sessions>
+
+</jboss-web>
