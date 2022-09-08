@@ -52,6 +52,7 @@ public class ReplicationConfig extends IdMetaDataImpl {
         this.cacheName = cacheName;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(100);
         sb.append("cacheName=").append(cacheName).append(";granularity=").append(granularity);

@@ -116,7 +116,8 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
     public enum Mode {
         JBOSS,
         JBOSS_DTD,
-        SPEC
+        SPEC,
+        JAKARTAEE
     }
 
     public enum Descriptor {

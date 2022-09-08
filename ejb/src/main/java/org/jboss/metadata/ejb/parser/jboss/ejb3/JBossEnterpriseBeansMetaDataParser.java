@@ -52,10 +52,12 @@ public class JBossEnterpriseBeansMetaDataParser extends EnterpriseBeansMetaDataP
         final Namespace namespace = Namespace.forUri(reader.getNamespaceURI());
         switch (namespace) {
             case JBOSS:
+            case JBOSS_JAKARTA:
                 processJBossElement(metaData, reader, propertyReplacer);
                 break;
             case SPEC:
             case SPEC_7_0:
+            case JAKARTAEE:
                 super.processElement(metaData, reader, propertyReplacer);
                 break;
             case UNKNOWN:

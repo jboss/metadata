@@ -129,6 +129,7 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser {
         final Element element = Element.forName(reader.getLocalName());
         switch (namespace) {
             case JBOSS:
+            case JBOSS_JAKARTA:
                 switch (element) {
                     case ENTERPRISE_BEANS:
                         metaData.setEnterpriseBeans(parseEnterpriseBeans(reader, metaData.getEjbJarVersion(), propertyReplacer));
@@ -143,6 +144,7 @@ public class JBossEjb3MetaDataParser extends AbstractEjbJarMetaDataParser {
                 break;
             case SPEC:
             case SPEC_7_0:
+            case JAKARTAEE:
                 switch (element) {
                     case ASSEMBLY_DESCRIPTOR:
                         metaData.setAssemblyDescriptor(parseAssemblyDescriptor(reader, propertyReplacer));

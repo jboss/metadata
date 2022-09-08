@@ -53,6 +53,7 @@ public class JBossAssemblyDescriptorMetaDataParser extends ExtendingMetaDataPars
         switch (namespace) {
             case SPEC:
             case SPEC_7_0:
+            case JAKARTAEE:
                 processSpecElement(assemblyDescriptor, reader, propertyReplacer);
                 break;
             default:
