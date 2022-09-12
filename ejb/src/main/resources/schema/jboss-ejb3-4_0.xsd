@@ -23,13 +23,13 @@
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
            version="4.0">
-   <xs:import namespace="https://jakarta.ee/xml/ns/jakartaee"/>
+   <xs:import namespace="https://jakarta.ee/xml/ns/jakartaee" schemaLocation="https://jakarta.ee/xml/ns/jakartaee/ejb-jar_4_0.xsd"/>
 
-   <xs:element name="ejb" type="jboss-ejb-beanType"/>
+   <xs:element name="ejb" type="jakartaee:ejb-beanType"/>
 
-   <xs:element name="ejb-jar" type="jboss-ejb-jarType"/>
+   <xs:element name="ejb-jar" type="jakartaee:ejb-jarType"/>
 
-   <xs:element name="enterprise-beans" type="jboss-enterprise-beansType"/>
+   <xs:element name="enterprise-beans" type="jakartaee:enterprise-beansType"/>
 
    <xs:element name="destination-jndi-name" type="xs:string" />
 
