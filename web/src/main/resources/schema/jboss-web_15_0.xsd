@@ -17,9 +17,9 @@
 ~ limitations under the License.
 -->
 <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://www.jboss.com/xml/ns/jakartaee"
+            targetNamespace="urn:jboss:jakartaee:1.0"
             xmlns:jakartaee="https://jakarta.ee/xml/ns/jakartaee"
-            xmlns:jboss="http://www.jboss.com/xml/ns/jakartaee"
+            xmlns:jboss="urn:jboss:jakartaee:1.0"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
@@ -32,15 +32,15 @@
 	This is the XML Schema for the 15.0 version of the WildFly web application deployment descriptor.
 	The deployment descriptor must be named "WEB-INF/jboss-web.xml" in
 	the WAR file.  All JBoss Web deployment descriptors must indicate
-	the JBoss schema by using the Java EE namespace:
+	the JBoss schema by using the Jakarta EE namespace:
 
-        http://www.jboss.com/xml/ns/jakartaee
+        urn:jboss:jakartaee:1.0
 
 	and by indicating the version of the schema using the version element as shown below:
 
-        <jboss-web xmlns="http://www.jboss.com/xml/ns/jakartaee"
+        <jboss-web xmlns="urn:jboss:jakartaee:1.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.jboss.com/xml/ns/jakartaee https://www.jboss.org/schema/jbossas/jboss-web_15_0.xsd"
+           xsi:schemaLocation="urn:jboss:jakartaee:1.0 https://www.jboss.org/schema/jbossas/jboss-web_15_0.xsd"
            version="15.0">
 
 	       ...

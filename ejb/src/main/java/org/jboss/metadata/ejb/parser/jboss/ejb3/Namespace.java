@@ -31,7 +31,7 @@ public enum Namespace {
     // must be first
     UNKNOWN(null),
     JBOSS("http://www.jboss.com/xml/ns/javaee"),
-    JBOSS_JAKARTA("http://www.jboss.com/xml/ns/jakartaee"),
+    JBOSS_JAKARTA("urn:jboss:jakartaee:1.0"),
     SPEC("http://java.sun.com/xml/ns/javaee"),
     SPEC_7_0("http://xmlns.jcp.org/xml/ns/javaee"),
     JAKARTAEE("https://jakarta.ee/xml/ns/jakartaee");
@@ -49,7 +49,7 @@ public enum Namespace {
     private static final Map<String, Namespace> MAP;
 
     static {
-        final Map<String, Namespace> map = new HashMap<String, Namespace>();
+        final Map<String, Namespace> map = new HashMap<>();
         for (Namespace namespace : values()) {
             final String name = namespace.getUriString();
             if (name != null) map.put(name, namespace);

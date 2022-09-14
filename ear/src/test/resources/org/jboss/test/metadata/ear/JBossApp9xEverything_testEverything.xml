@@ -21,9 +21,9 @@
 ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-<jboss-app xmlns="http://www.jboss.com/xml/ns/jakartaee"
+<jboss-app xmlns="urn:jboss:jakartaee:1.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.jboss.com/xml/ns/jakartaee https://www.jboss.org/schema/jbossas/jboss-app_9_0.xsd"
+           xsi:schemaLocation="urn:jboss:jakartaee:1.0 https://www.jboss.org/schema/jbossas/jboss-app_9_0.xsd"
            version="9.0"
            id="jboss-app-id">
 

@@ -42,7 +42,7 @@ public enum EarVersion {
     APP_9_0("https://jakarta.ee/xml/ns/jakartaee/application_9.xsd", "9.0", JavaEEVersion.V9),
     APP_10_0("https://jakarta.ee/xml/ns/jakartaee/application_10.xsd", "10.0", JavaEEVersion.V10);
 
-    private static final Map<String, EarVersion> bindings = new HashMap<String, EarVersion>();
+    private static final Map<String, EarVersion> bindings = new HashMap<>();
 
     private final String location;
     private final String version;

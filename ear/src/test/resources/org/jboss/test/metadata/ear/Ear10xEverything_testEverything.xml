@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="https://jakarta.ee/xml/ns/jakartaee"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-      	https://jakarta.ee/xml/ns/jakartaee/application_10.xsd"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application_10.xsd"
              version="10" id="application-test-everything">
 
     <application-name>ApplicationName</application-name>
@@ -926,8 +925,8 @@
         <description>appManagedExecutor1-desc</description>
         <name>appManagedExecutor1-name</name>
         <context-service-ref>appManagedExecutor1-contextServiceRef</context-service-ref>
-        <hung-task-threshold>1</hung-task-threshold>
         <max-async>1</max-async>
+        <hung-task-threshold>1</hung-task-threshold>
         <property id="appManagedExecutor1Property1-id">
             <name>appManagedExecutor1Property1Name</name>
             <value>appManagedExecutor1Property1Value</value>
@@ -941,8 +940,8 @@
         <description>appManagedExecutor2-desc</description>
         <name>appManagedExecutor2-name</name>
         <context-service-ref>appManagedExecutor2-contextServiceRef</context-service-ref>
-        <hung-task-threshold>2</hung-task-threshold>
         <max-async>2</max-async>
+        <hung-task-threshold>2</hung-task-threshold>
         <property id="appManagedExecutor2Property1-id">
             <name>appManagedExecutor2Property1Name</name>
             <value>appManagedExecutor2Property1Value</value>
@@ -961,8 +960,8 @@
         <description>appManagedScheduledExecutor1-desc</description>
         <name>appManagedScheduledExecutor1-name</name>
         <context-service-ref>appManagedScheduledExecutor1-contextServiceRef</context-service-ref>
-        <hung-task-threshold>1</hung-task-threshold>
         <max-async>1</max-async>
+        <hung-task-threshold>1</hung-task-threshold>
         <property id="appManagedScheduledExecutor1Property1-id">
             <name>appManagedScheduledExecutor1Property1Name</name>
             <value>appManagedScheduledExecutor1Property1Value</value>
@@ -976,8 +975,8 @@
         <description>appManagedScheduledExecutor2-desc</description>
         <name>appManagedScheduledExecutor2-name</name>
         <context-service-ref>appManagedScheduledExecutor2-contextServiceRef</context-service-ref>
-        <hung-task-threshold>2</hung-task-threshold>
         <max-async>2</max-async>
+        <hung-task-threshold>2</hung-task-threshold>
         <property id="appManagedScheduledExecutor2Property1-id">
             <name>appManagedScheduledExecutor2Property1Name</name>
             <value>appManagedScheduledExecutor2Property1Value</value>
