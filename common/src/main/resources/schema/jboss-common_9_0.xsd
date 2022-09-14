@@ -17,9 +17,9 @@
 ~ limitations under the License.
 -->
 <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://www.jboss.com/xml/ns/jakartaee"
+            targetNamespace="urn:jboss:jakartaee:1.0"
             xmlns:jakartaee="https://jakarta.ee/xml/ns/jakartaee"
-            xmlns:jboss="http://www.jboss.com/xml/ns/jakartaee"
+            xmlns:jboss="urn:jboss:jakartaee:1.0"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             elementFormDefault="qualified"
             attributeFormDefault="unqualified"
@@ -31,7 +31,7 @@
 	This XML Schema defines types, elements and model groups that common to all application-specific JBoss schemas.
         The target namespace is
 
-	http://www.jboss.com/xml/ns/jakartaaee
+	urn:jboss:jakartaee:1.0
 
         Online URL https://www.jboss.org/schema/jbossas/jboss-common_9_0.xsd
 	]]>

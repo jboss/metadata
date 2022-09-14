@@ -18,8 +18,8 @@
 -->
 <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:jboss="https://www.jboss.com/xml/ns/jakartaee"
-            targetNamespace="https://www.jboss.com/xml/ns/jakartaee"
+            xmlns:jboss="urn:jboss:jakartaee:1.0"
+            targetNamespace="urn:jboss:jakartaee:1.0"
             version="9.0"
             elementFormDefault="qualified"
         >
@@ -28,29 +28,29 @@
       <xsd:documentation>
          <![CDATA[
 
-	This is the XML Schema for the JBoss 8.0 application client deployment descriptor.
+	This is the XML Schema for the JBoss 9.0 application client deployment descriptor.
 	The deployment descriptor must be named "META-INF/jboss-client.xml" in
 	the application client's jar file.  All the application client deployment descriptors must indicate
-	the JBoss schema by using the Java EE namespace:
+	the JBoss schema by using the Jakarta EE namespace:
 
-	https://www.jboss.com/xml/ns/jakartaee
+	urn:jboss:jakartaee:1.0
 
 	and by indicating the version of the schema by
 	using the version attribute as shown below:
 
-	    <jboss-client xmlns="https://www.jboss.com/xml/ns/jakartaee"
+	    <jboss-client xmlns="urn:jboss:jakartaee:1.0"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="https://www.jboss.com/xml/ns/jakartaee
-                            https://www.jboss.org/j2ee/schema/jboss-client_9_0.xsd"
-             version="8.1">
+             xsi:schemaLocation="urn:jboss:jakartaee:1.0
+                            https://www.jboss.org/schema/jbossas/jboss-client_9_0.xsd"
+             version="9.0">
 	       ...
             </jboss-client>
 
 	The instance documents may indicate the published version of
 	the schema using the xsi:schemaLocation attribute for the
-	Java EE namespace with the following location:
+	Jakarta EE namespace with the following location:
 
-	https://www.jboss.org/j2ee/schema/jboss-client_9_0.xsd
+	https://www.jboss.org/schema/jbossas/jboss-client_9_0.xsd
 
 	]]>
       </xsd:documentation>

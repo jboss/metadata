@@ -17,8 +17,8 @@
 ~ limitations under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://www.jboss.com/xml/ns/jakartaee"
-           xmlns="http://www.jboss.com/xml/ns/jakartaee"
+           targetNamespace="urn:jboss:jakartaee:1.0"
+           xmlns="urn:jboss:jakartaee:1.0"
            xmlns:jakartaee="https://jakarta.ee/xml/ns/jakartaee"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"

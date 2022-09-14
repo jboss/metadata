@@ -59,7 +59,7 @@ public interface JavaEEMetaDataConstants {
     /**
      * The jboss jakartaee namespaces
      */
-    String JBOSS_JAKARTAEE_NS = "http://www.jboss.com/xml/ns/jakartaee";
+    String JBOSS_JAKARTAEE_NS = "urn:jboss:jakartaee:1.0";
 
     /**
      * The jbosscmp-jdbc namespace
