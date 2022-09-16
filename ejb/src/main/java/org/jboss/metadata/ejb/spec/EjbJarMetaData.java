@@ -92,7 +92,7 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
     /**
      * The latest available ejb-jar xsd version
      */
-    public static final String LATEST_EJB_JAR_XSD_VERSION = "3.1";
+    public static final String LATEST_EJB_JAR_XSD_VERSION = "4.0";
 
     /**
      * Create a new EjbJarMetaData.
@@ -273,7 +273,7 @@ public class EjbJarMetaData extends IdMetaDataImplWithDescriptionGroup
      * @return true when ejb3.x
      */
     public boolean isEJB3x() {
-        return isVersionGreaterThanOrEqual(EjbJarVersion.EJB_3_0);
+        return getEjbJarVersion() == EjbJarVersion.EJB_3_0 || getEjbJarVersion() == EjbJarVersion.EJB_3_1 || getEjbJarVersion() == EjbJarVersion.EJB_3_2;
     }
 
     /**

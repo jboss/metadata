@@ -61,8 +61,10 @@ public class ValidationHelper {
         final Map<String, String> system = new HashMap<String, String>();
         system.put("https://www.jboss.org/j2ee/schema/jboss-ejb3-2_0.xsd", "/schema/jboss-ejb3-2_0.xsd");
         system.put("https://www.jboss.org/j2ee/schema/jboss-ejb3-2_1.xsd", "/schema/jboss-ejb3-2_1.xsd");
+        system.put("https://www.jboss.org/schema/jbossas/jboss-ejb3-4_0.xsd", "/schema/jboss-ejb3-4_0.xsd");
         system.put("https://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_0.xsd", "/schema/jboss-ejb3-spec-2_0.xsd");
         system.put("https://www.jboss.org/j2ee/schema/jboss-ejb3-spec-2_1.xsd", "/schema/jboss-ejb3-spec-2_1.xsd");
+        system.put("https://www.jboss.org/schema/jbossas/jboss-ejb3-spec-4_0.xsd", "/schema/jboss-ejb3-spec-4_0.xsd");
         system.put("http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd", "/schema/ejb-jar_3_1.xsd");
         system.put("http://java.sun.com/xml/ns/javaee/javaee_6.xsd", "/schema/javaee_6.xsd");
         system.put("http://java.sun.com/xml/ns/javaee/javaee_web_services_client_1_3.xsd", "/schema/javaee_web_services_client_1_3.xsd");
@@ -70,9 +72,11 @@ public class ValidationHelper {
         system.put("https://www.jboss.org/j2ee/schema/jboss-ejb-iiop_1_02.xsd", "/schema/jboss-ejb-iiop_1_2.xsd");
         system.put("https://www.jboss.org/j2ee/schema/trans-timeout-1_0.xsd", "/schema/trans-timeout-1_0.xsd");
         system.put("https://www.jboss.org/j2ee/schema/trans-timeout-1_1.xsd", "/schema/trans-timeout-1_1.xsd");
+        system.put("https://www.jboss.org/schema/jbossas/trans-timeout-2_0.xsd", "/schema/trans-timeout-2_0.xsd");
         system.put("https://www.jboss.org/j2ee/schema/jboss-ejb-iiop_1_0.xsd", "/schema/jboss-ejb-iiop_1_0.xsd");
         system.put("https://www.jboss.org/j2ee/schema/jboss-ejb-iiop_1_1.xsd", "/schema/jboss-ejb-iiop_1_1.xsd");
         system.put("https://www.jboss.org/j2ee/schema/jboss-ejb-iiop_1_2.xsd", "/schema/jboss-ejb-iiop_1_2.xsd");
+        system.put("https://www.jboss.org/schema/jbossas/jboss-ejb-iiop_2_0.xsd", "/schema/jboss-ejb-iiop_2_0.xsd");
 
         // Somehow this gives a broken URI, see http://en.wikipedia.org/wiki/File_URI_scheme
         system.put("file://" + new File(System.getProperty("user.dir")).toURI().getPath() + "cache-test.xsd", "cache-test.xsd");

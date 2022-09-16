@@ -1267,7 +1267,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
     public boolean isCMP1x() {
         assertUnknownOrEntityBean();
         if (cmpVersion == null) {
-            if (getEjbJarMetaData().isEJB2x() || getEjbJarMetaData().isEJB3x())
+            if (getEjbJarMetaData().isEJB2x() || getEjbJarMetaData().isEJB3x() || getEjbJarMetaData().isEJB40())
                 return false;
             else
                 return true;

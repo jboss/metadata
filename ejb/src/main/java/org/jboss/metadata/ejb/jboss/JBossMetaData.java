@@ -307,6 +307,9 @@ public class JBossMetaData extends NamedModuleImpl
         return ejbVersion != null && ejbVersion.trim().equals("3.1");
     }
 
+    public boolean isEJB40() {
+        return ejbVersion != null && ejbVersion.trim().equals("4.0");
+    }
 
     /**
      * Get the jmxName.
@@ -740,7 +743,7 @@ public class JBossMetaData extends NamedModuleImpl
         if (original != null)
             beans = original.getEnterpriseBeans();
 
-        boolean isEJB3x = (original == null || original.isEJB3x());
+        boolean isEJB3x = (original == null || original.isEJB3x() || original.isEJB40());
         enterpriseBeans.merge(jbeans, beans, "ejb-jar.xml", "jboss.xml", !isEJB3x);
 
         // Update run-as indentity for a run-as-principal

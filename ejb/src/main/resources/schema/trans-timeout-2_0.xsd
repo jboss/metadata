@@ -17,27 +17,27 @@
 ~ limitations under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="urn:jboss:jakartaee:1.0"
-           xmlns="urn:jboss:jakartaee:1.0"
+           targetNamespace="urn:trans-timeout"
+           xmlns="urn:trans-timeout"
            xmlns:jakartaee="https://jakarta.ee/xml/ns/jakartaee"
            elementFormDefault="qualified"
            attributeFormDefault="unqualified"
-           version="4.0">
+           version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://www.jboss.org/schema/jbossas/jboss-ejb3-spec-4_0.xsd">
    <xs:import namespace="https://jakarta.ee/xml/ns/jakartaee" schemaLocation="https://www.jboss.org/schema/jbossas/jboss-ejb3-spec-4_0.xsd"/>
 
-   <xs:element name="ejb" type="jakartaee:jboss-ejb-beanType"/>
+   <xs:element name="trans-timeout" type="trans-timeoutType" substitutionGroup="jakartaee:container-transaction-entry"/>
 
-   <xs:element name="ejb-jar" type="jakartaee:jboss-ejb-jarType"/>
-
-   <xs:element name="enterprise-beans" type="jakartaee:jboss-enterprise-beansType"/>
-
-   <xs:element name="destination-jndi-name" type="xs:string" />
-
-   <xs:element name="distinct-name" type="xs:string">
-       <xs:annotation>
-           <xs:documentation>
-               The distinct-name for this EJB module.
-           </xs:documentation>
-       </xs:annotation>
-   </xs:element>
+   <xs:complexType name="trans-timeoutType">
+      <xs:complexContent>
+         <xs:extension base="jakartaee:jboss-container-transaction-entryType">
+            <xs:sequence>
+               <xs:element name="timeout"
+                           type="jakartaee:xsdIntegerType"/>
+               <xs:element name="unit"
+                           type="jakartaee:time-unit-typeType"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
 </xs:schema>

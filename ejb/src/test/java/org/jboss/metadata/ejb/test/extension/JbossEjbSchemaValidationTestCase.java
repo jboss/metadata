@@ -30,7 +30,7 @@ public class JbossEjbSchemaValidationTestCase extends SchemaValidationTestCase {
 
     @Parameters
     public static List<Object[]> parameters() {
-        String xsdFile = "schema/jboss-ejb3-2_1.xsd";
+        String xsdFile = "schema/jboss-ejb3-4_0.xsd";
         return getXSDFiles(xsdFile);
     }
 
