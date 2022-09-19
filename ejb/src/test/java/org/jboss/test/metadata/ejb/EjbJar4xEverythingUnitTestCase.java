@@ -58,9 +58,8 @@ import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
 
 /**
- * EjbJar3xUnitTestCase.
  *
- * @author <a href="adrian@jboss.com">Adrian Brock</a>
+ * @author Emmanuel Hugonnet (c) 2022 Red Hat, Inc.
  */
 public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
 
@@ -73,8 +72,6 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
     }
 
     public void testEverything() throws Exception {
-        //enableTrace("org.jboss.xb");
-        //enableTrace("org.jboss.xb.builder");
         EjbJarMetaData ejbJarMetaData = unmarshal();
         assertEverythingWithAppMetaData(ejbJarMetaData, Mode.SPEC);
     }
@@ -110,15 +107,6 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         assertInterceptors(ejbJarMetaData, mode);
         assertRelationships(ejbJarMetaData);
         assertAssemblyDescriptor(ejbJarMetaData);
-
-
-      /*
-      ApplicationMetaData applicationMetaData = new ApplicationMetaData(ejbJarMetaData);
-      assertVersion(applicationMetaData);
-      assertEnterpriseBeans(applicationMetaData, mode);
-      assertRelationships(applicationMetaData);
-      assertAssemblyDescriptor(applicationMetaData);
-      */
     }
 
     protected void assertVersion(EjbJarMetaData EjbJarMetaData, String expectedVersion) {
@@ -126,18 +114,9 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         assertFalse(EjbJarMetaData.isEJB1x());
         assertFalse(EjbJarMetaData.isEJB2x());
         assertFalse(EjbJarMetaData.isEJB21());
-        assertTrue(EjbJarMetaData.isEJB3x());
+        assertFalse(EjbJarMetaData.isEJB3x());
+        assertTrue(EjbJarMetaData.isEJB40());
     }
-
-   /*
-   private void assertVersion(ApplicationMetaData applicationMetadata)
-   {
-      assertFalse(applicationMetadata.isEJB1x());
-      assertFalse(applicationMetadata.isEJB2x());
-      assertFalse(applicationMetadata.isEJB21());
-      assertTrue(applicationMetadata.isEJB3x());
-   }
-   */
 
     protected void assertMetaDataComplete(EjbJarMetaData EjbJarMetaData) {
         assertEquals(true, EjbJarMetaData.isMetadataComplete());
@@ -171,7 +150,7 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
             assertAroundInvokes(ejbName, 2, session.getAroundInvokes());
             assertLifecycleCallbacks(ejbName, "PostActivate", 2, session.getPostActivates());
             assertLifecycleCallbacks(ejbName, "PrePassivate", 2, session.getPrePassivates());
-            assertEnvironment(ejbName, session.getJndiEnvironmentRefsGroup(), true, Descriptor.EJB, mode, (version == EjbJarVersion.EJB_3_2 || version == EjbJarVersion.EJB_4_0) ? JavaEEVersion.V7 : JavaEEVersion.V6);
+            assertEnvironment(ejbName, session.getJndiEnvironmentRefsGroup(), true, Descriptor.EJB, mode, JavaEEVersion.V10);
             assertContainerTransactions(ejbName, 6, 6, session.getContainerTransactions());
             assertMethodPermissions(ejbName, ejbName + "MethodPermission", 3, 3, session.getMethodPermissions());
             assertExcludeList(ejbName, 5, 5, session.getExcludeList());
@@ -250,7 +229,11 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         for (RemoveMethodMetaData removeMethod : removeMethodsMetaData) {
             assertId(ejbName + "RemoveMethod" + count, removeMethod);
             assertNamedMethod(ejbName + "RemoveBeanMethod" + count, 0, removeMethod.getBeanMethod());
-            if (count == 1) { assertTrue(removeMethod.getRetainIfException()); } else if (count == 2) { assertFalse(removeMethod.getRetainIfException()); } else {
+            if (count == 1) {
+                assertTrue(removeMethod.getRetainIfException());
+            } else if (count == 2) {
+                assertFalse(removeMethod.getRetainIfException());
+            } else {
                 assertNull(removeMethod.getRetainIfException());
             }
             ++count;
@@ -310,7 +293,9 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         for (QueryMetaData query : queriesMetaData) {
             assertId(ejbName + "Query" + count, query);
             assertQueryMethod(ejbName + "Query" + count, 2, query.getQueryMethod());
-            if (count == 1 || count == 3) { assertEquals(ResultTypeMapping.Local, query.getResultTypeMapping()); } else {
+            if (count == 1 || count == 3) {
+                assertEquals(ResultTypeMapping.Local, query.getResultTypeMapping());
+            } else {
                 assertEquals(ResultTypeMapping.Remote, query.getResultTypeMapping());
             }
             assertEquals(ejbName + "Query" + count + "EjbQL", query.getEjbQL());
@@ -322,7 +307,9 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         assertNotNull(queryMethodMetaData);
         assertId(ejbName + "QueryMethod", queryMethodMetaData);
         assertEquals(ejbName + "QueryMethod", queryMethodMetaData.getMethodName());
-        if (size > 0) { assertMethodParams(ejbName + "QueryMethod", size, queryMethodMetaData.getMethodParams()); }
+        if (size > 0) {
+            assertMethodParams(ejbName + "QueryMethod", size, queryMethodMetaData.getMethodParams());
+        }
     }
 
     @Override
@@ -368,7 +355,9 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         assertDescriptions("interceptors", interceptorsMetaData.getDescriptions());
         assertEquals(2, interceptorsMetaData.size());
         int count = 1;
-        for (InterceptorMetaData interceptor : interceptorsMetaData) { assertInterceptor("interceptor" + (count++), interceptor, mode); }
+        for (InterceptorMetaData interceptor : interceptorsMetaData) {
+            assertInterceptor("interceptor" + (count++), interceptor, mode);
+        }
     }
 
     private void assertInterceptor(String prefix, InterceptorMetaData interceptorMetaData, Mode mode) {
@@ -434,7 +423,9 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
                 assertTrue(interceptorBindingMetaData.isExcludeClassInterceptors());
                 assertFalse(interceptorBindingMetaData.isTotalOrdering());
             }
-            if (count <= 2) { assertNamedMethod("interceptorBinding" + count + "Method", 2, interceptorBindingMetaData.getMethod()); }
+            if (count <= 2) {
+                assertNamedMethod("interceptorBinding" + count + "Method", 2, interceptorBindingMetaData.getMethod());
+            }
             ++count;
         }
     }
@@ -462,7 +453,11 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         for (ApplicationExceptionMetaData applicationExceptionMetaData : applicationExceptionsMetaData) {
             assertId("applicationException" + count, applicationExceptionMetaData);
             assertEquals("applicationException" + count + "Class", applicationExceptionMetaData.getExceptionClass());
-            if (count == 1) { assertTrue(applicationExceptionMetaData.isRollback()); } else { assertFalse(applicationExceptionMetaData.isRollback()); }
+            if (count == 1) {
+                assertTrue(applicationExceptionMetaData.isRollback());
+            } else {
+                assertFalse(applicationExceptionMetaData.isRollback());
+            }
             ++count;
         }
     }
@@ -475,13 +470,17 @@ public class EjbJar4xEverythingUnitTestCase extends AbstractEJBEverythingTest {
         assertNotNull(classes);
         assertEquals(size, classes.size());
         int count = 1;
-        for (String className : classes) { assertClass(prefix, type + count++, className); }
+        for (String className : classes) {
+            assertClass(prefix, type + count++, className);
+        }
     }
 
     protected void assertNamedMethod(String prefix, int size, NamedMethodMetaData namedMethodMetaData) {
         assertNotNull(namedMethodMetaData);
         assertId(prefix, namedMethodMetaData);
         assertEquals(prefix, namedMethodMetaData.getMethodName());
-        if (size > 0) { assertMethodParams(prefix, size, namedMethodMetaData.getMethodParams()); }
+        if (size > 0) {
+            assertMethodParams(prefix, size, namedMethodMetaData.getMethodParams());
+        }
     }
 }

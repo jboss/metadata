@@ -341,10 +341,12 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
         if (full) {
             assertPersistenceContextRefs(prefix, 2, environment.getPersistenceContextRefs(), mode, version);
         }
-        assertContextServices(prefix, environment.getContextServices(), mode, full, version);
-        assertManagedExecutors(prefix, environment.getManagedExecutors(), mode, full, version);
-        assertManagedScheduledExecutors(prefix, environment.getManagedScheduledExecutors(), mode, full, version);
-        assertManagedThreadFactories(prefix, environment.getManagedThreadFactories(), mode, full, version);
+        if(Descriptor.APPLICATION == descriptor) {
+            assertContextServices(prefix, environment.getContextServices(), mode, full, version);
+            assertManagedExecutors(prefix, environment.getManagedExecutors(), mode, full, version);
+            assertManagedScheduledExecutors(prefix, environment.getManagedScheduledExecutors(), mode, full, version);
+            assertManagedThreadFactories(prefix, environment.getManagedThreadFactories(), mode, full, version);
+        }
     }
 
     protected void assertNullEnvironment(Environment environment) {
@@ -557,7 +559,7 @@ public abstract class AbstractJavaEEEverythingTest extends AbstractJavaEEMetaDat
             assertDescriptions(prefix + "PersistenceContextRef" + count, persistenceContextReferenceMetaData.getDescriptions());
             assertEquals(prefix + "PersistenceContextRef" + count + "Name", persistenceContextReferenceMetaData.getPersistenceContextRefName());
             assertEquals(prefix + "PersistenceContextRef" + count + "Unit", persistenceContextReferenceMetaData.getPersistenceUnitName());
-            if (version == JavaEEVersion.V7 || version == JavaEEVersion.V8) {
+            if (version == JavaEEVersion.V7 || version == JavaEEVersion.V8 || version == JavaEEVersion.V9 || version == JavaEEVersion.V10) {
                 PersistenceContextSynchronizationType type = count % 2 == 0 ? PersistenceContextSynchronizationType.Unsynchronized
                         : PersistenceContextSynchronizationType.Synchronized;
                 assertEquals(type, persistenceContextReferenceMetaData.getPersistenceContextSynchronization());

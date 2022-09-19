@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ~ JBoss, Home of Professional Open Source
-~ Copyright 2019, Red Hat, Inc., and individual contributors as indicated
+~ Copyright 2022, Red Hat, Inc., and individual contributors as indicated
 ~ by the @authors tag.
 ~
 ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,7 +49,7 @@
 
 	Instance documents may indicate the published version of
 	the schema using the xsi:schemaLocation attribute for the
-	Java EE namespace with the following location:
+	Jakarta EE namespace with the following location:
 
 	https://www.jboss.org/schema/jbossas/jboss-web_15_0.xsd
 
@@ -59,7 +59,7 @@
 
     <xsd:annotation>
         <xsd:documentation>
-            The following conventions apply to all Java EE deployment descriptor
+            The following conventions apply to all Jakarta EE deployment descriptor
             elements unless indicated otherwise. - In elements that specify a pathname to a file within
             the same JAR file, relative filenames (i.e., those not starting with "/") are considered
             relative to the root of the JAR file's namespace. Absolute filenames (i.e., those starting

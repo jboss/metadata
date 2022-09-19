@@ -41,9 +41,12 @@ import org.junit.Test;
 public class EnterpriseBeanEjbJarVersionTestCase {
     @Test
     public void testEjbJarVersion() throws Exception {
-        final EjbJarMetaData original = unmarshal(EjbJarMetaData.class, "ejb-jar-version-30.xml");
-        final EnterpriseBeanMetaData bean = original.getEnterpriseBean("Simple30Bean");
+        EjbJarMetaData original = unmarshal(EjbJarMetaData.class, "ejb-jar-version-30.xml");
+        EnterpriseBeanMetaData bean = original.getEnterpriseBean("Simple30Bean");
         assertEquals(EjbJarVersion.EJB_3_0, bean.getEjbJarVersion());
+        original = unmarshal(EjbJarMetaData.class, "ejb-jar-version-40.xml");
+        bean = original.getEnterpriseBean("Simple40Bean");
+        assertEquals(EjbJarVersion.EJB_4_0, bean.getEjbJarVersion());
     }
 
     private <T> T unmarshal(Class<T> expected, String resource) throws XMLStreamException {

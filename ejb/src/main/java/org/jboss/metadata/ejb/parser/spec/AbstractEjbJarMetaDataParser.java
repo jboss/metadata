@@ -58,7 +58,7 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
             }
             case METADATA_COMPLETE: {
                 // metadata-complete applies only to EJB 3.x
-                if (ejbJarMetaData.isEJB3x()) {
+                if (ejbJarMetaData.isEJB3x() || ejbJarMetaData.isEJB40()) {
                     if (Boolean.TRUE.equals(Boolean.valueOf(value))) {
                         ejbJarMetaData.setMetadataComplete(true);
                     }
@@ -105,7 +105,7 @@ public abstract class AbstractEjbJarMetaDataParser extends AbstractMetaDataParse
 
             case INTERCEPTORS:
                 // only applicable for EJB 3.x
-                if (ejbJarMetaData.isEJB3x()) {
+                if (ejbJarMetaData.isEJB3x() || ejbJarMetaData.isEJB40()) {
                     InterceptorsMetaData intercpetors = InterceptorsMetaDataParser.INSTANCE.parse(reader, propertyReplacer);
                     ejbJarMetaData.setInterceptors(intercpetors);
                 } else {
