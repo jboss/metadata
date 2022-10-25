@@ -39,6 +39,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.junit.BeforeClass;
@@ -57,12 +58,14 @@ public class ComparePreviousSchemasTestCase {
      */
     @BeforeClass
     public static void checkCorrectVersion() {
+        // version value (e.g., 15.3.0-SNAPSHOT) may contain . and - as delimiters
+        final Pattern versionPattern = Pattern.compile("[.-]");
         final String cv = System.getProperty("current-version");
         if(cv == null) {
             return;
         }
-        String[] current = cv.split("\\.");
-        String[] test = System.getProperty("schema-test-version").split("\\.");
+        String[] current = versionPattern.split(cv);
+        String[] test = versionPattern.split(System.getProperty("schema-test-version"));
 
         if(current[2].equals("0")) {
             //not a point release, we want to test against a previous major
