@@ -40,6 +40,14 @@
 
     <packaging>pom</packaging>
 
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License v2.1 or later</name>
+            <url>http://repository.jboss.org/licenses/lgpl-2.1.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <properties>
         <javax.persistence.groupId>org.hibernate.javax.persistence</javax.persistence.groupId>
         <javax.persistence.artifactId>hibernate-jpa-2.1-api</javax.persistence.artifactId>
