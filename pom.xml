@@ -62,7 +62,7 @@
         <version.org.jboss.ejb3.ext-api>2.3.0.Final</version.org.jboss.ejb3.ext-api>
         <version.sun.jaxb>2.2.11</version.sun.jaxb>
         <!-- The last major release, used for tests that compare the schemas -->
-        <last-major-release>13.0.0.Final</last-major-release>
+        <last-major-release>13.1.0.Final</last-major-release>
     </properties>
 
     <modules>
