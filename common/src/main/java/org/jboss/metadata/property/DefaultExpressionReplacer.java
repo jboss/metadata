@@ -46,14 +46,6 @@ public class DefaultExpressionReplacer implements PropertyReplacer {
         this.resolver = getDefaultCompatibleResolver(resolver);
     }
 
-    @SuppressWarnings("deprecation")
-    DefaultExpressionReplacer(final PropertyResolver resolver) {
-        SimpleExpressionResolver ser = resolver instanceof SimpleExpressionResolver
-                ? (SimpleExpressionResolver) resolver
-                : new CompatibilityExpressionResolver(resolver);
-        this.resolver = getDefaultCompatibleResolver(ser);
-    }
-
     // DefaultPropertyReplacer used to provide the key1,key2:default semantics, so if the
     // configured resolver doesn't, make sure something does
     private static SimpleExpressionResolver getDefaultCompatibleResolver(SimpleExpressionResolver resolver) {

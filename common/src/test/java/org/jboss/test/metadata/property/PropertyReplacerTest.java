@@ -32,7 +32,6 @@ import org.jboss.metadata.property.CompositePropertyResolver;
 import org.jboss.metadata.property.PropertiesPropertyResolver;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
-import org.jboss.metadata.property.PropertyResolver;
 import org.jboss.metadata.property.SimpleExpressionResolver;
 import org.junit.After;
 import org.junit.Before;
@@ -44,7 +43,7 @@ import org.junit.Test;
 public class PropertyReplacerTest {
 
     final Properties properties = new Properties();
-    final PropertyReplacer replacer = PropertyReplacers.resolvingReplacer(new PropertiesPropertyResolver(properties));
+    final PropertyReplacer replacer = PropertyReplacers.resolvingExpressionReplacer(new PropertiesPropertyResolver(properties));
 
     @Before
     public void setupProperties() {
@@ -114,7 +113,7 @@ public class PropertyReplacerTest {
     @Test
     public void testFullExpressionReplacementWithCompositeResolver() {
         final String vaultExpression =  "VAULT::1:2";
-        final PropertyReplacer replacer = PropertyReplacers.resolvingReplacer(new CompositePropertyResolver(
+        final PropertyReplacer replacer = PropertyReplacers.resolvingExpressionReplacer(new CompositePropertyResolver(
                 new SimpleExpressionResolver() {
                     @Override
                     public ResolutionResult resolveExpressionContent(String expressionContent) {
@@ -131,36 +130,16 @@ public class PropertyReplacerTest {
         assertEquals(":1:2", after);
     }
 
-    @Test
-    public void testFullExpressionReplacementWithCompositeLegacyResolver() {
-        final String vaultExpression =  "VAULT::1:2";
-        final PropertyReplacer replacer = PropertyReplacers.resolvingReplacer(new CompositePropertyResolver(
-                new PropertyResolver() {
-                    @Override
-                    public String resolve(String propertyName) {
-                        return vaultExpression.equals(propertyName) ? "true" : null;
-                    }
-                },
-                new PropertiesPropertyResolver(properties)
-        ));
-        String after = replacer.replaceProperties("${" + vaultExpression + "}");
-        assertEquals("true", after);
-
-        final String nonVaultExpression = "RANDOM::1:2";
-        after = replacer.replaceProperties("${" + nonVaultExpression + "}");
-        assertEquals(":1:2", after);
-    }
-
     /** Test for JBMETA-371 */
     @Test
     public void testFullExpressionReplacementWithoutDefaultResolver() {
         final String vaultExpression =  "VAULT::1:2";
-        final PropertyReplacer replacer = PropertyReplacers.resolvingReplacer(new PropertyResolver() {
-            @Override
-            public String resolve(String propertyName) {
-                return vaultExpression.equals(propertyName) ? "true" : null;
-            }
-        });
+        final PropertyReplacer replacer = PropertyReplacers.resolvingExpressionReplacer(new SimpleExpressionResolver() {
+                    @Override
+                    public SimpleExpressionResolver.ResolutionResult resolveExpressionContent(String expressionContent) {
+                        return vaultExpression.equals(expressionContent) ? new SimpleExpressionResolver.ResolutionResult("true", false) : null;
+                    }
+                });
         String after = replacer.replaceProperties("${" + vaultExpression + "}");
         assertEquals("true", after);
 

@@ -30,15 +30,14 @@ package org.jboss.metadata.property;
  */
 public class CompatibilityExpressionResolver implements SimpleExpressionResolver {
 
-    private final PropertyResolver propertyResolver;
+    private final SimpleExpressionResolver propertyResolver;
 
-    public CompatibilityExpressionResolver(PropertyResolver propertyResolver) {
+    public CompatibilityExpressionResolver(SimpleExpressionResolver propertyResolver) {
         this.propertyResolver = propertyResolver;
     }
 
     @Override
     public ResolutionResult resolveExpressionContent(String expressionContent) {
-        String val = propertyResolver.resolve(expressionContent);
-        return val == null ? null : new ResolutionResult(val, false);
+        return propertyResolver.resolveExpressionContent(expressionContent);
     }
 }

@@ -38,26 +38,10 @@ import java.io.File;
  *
  * @author Brian Stansberry (c) 2014 Red Hat Inc.
  */
-public abstract class JBossASSimpleExpressionResolver implements SimpleExpressionResolver, PropertyResolver {
+public abstract class JBossASSimpleExpressionResolver implements SimpleExpressionResolver {
 
     private static final int INITIAL = 0;
     private static final int DEFAULT = 1;
-
-    /**
-     * Treats {@code propertyName} as expression key and passes it to {@link #resolveExpressionKey(String)}.
-     * This method is retained for compatibility with legacy {@link org.jboss.metadata.property.PropertyResolver} usage.
-     *
-     * @param propertyName the expression
-     *
-     * {@inheritDoc}
-     *
-     * @deprecated use {@link org.jboss.metadata.property.SimpleExpressionResolver} and {@link #resolveExpressionContent(String)}
-     */
-    @Override
-    @Deprecated
-    public String resolve(String propertyName) {
-        return resolveExpressionKey(propertyName);
-    }
 
     /**
      * Parses the given expression, extracting any key if present and returning the resolved
