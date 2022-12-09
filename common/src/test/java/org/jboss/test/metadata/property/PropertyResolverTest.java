@@ -29,7 +29,7 @@ import java.util.Properties;
 
 import org.jboss.metadata.property.CompositePropertyResolver;
 import org.jboss.metadata.property.PropertiesPropertyResolver;
-import org.jboss.metadata.property.PropertyResolver;
+import org.jboss.metadata.property.SimpleExpressionResolver;
 import org.jboss.metadata.property.SystemPropertyResolver;
 import org.junit.Test;
 
@@ -44,12 +44,12 @@ public class PropertyResolverTest {
         System.setProperty("test3", "testValue3");
 
 
-        final PropertyResolver propertyResolver = SystemPropertyResolver.INSTANCE;
+        final SimpleExpressionResolver propertyResolver = SystemPropertyResolver.INSTANCE;
 
-        assertNull(propertyResolver.resolve("test"));
-        assertEquals("testValue1", propertyResolver.resolve("test1"));
-        assertEquals("testValue2", propertyResolver.resolve("test2"));
-        assertEquals("testValue3", propertyResolver.resolve("test3"));
+        assertNull(propertyResolver.resolveExpressionContent("test"));
+        assertEquals("testValue1", propertyResolver.resolveExpressionContent("test1").getValue());
+        assertEquals("testValue2", propertyResolver.resolveExpressionContent("test2").getValue());
+        assertEquals("testValue3", propertyResolver.resolveExpressionContent("test3").getValue());
 
         System.clearProperty("test1");
         System.clearProperty("test2");
@@ -64,12 +64,12 @@ public class PropertyResolverTest {
         properties.setProperty("test3", "testValue3");
 
 
-        final PropertyResolver propertyResolver = new PropertiesPropertyResolver(properties);
+        final SimpleExpressionResolver propertyResolver = new PropertiesPropertyResolver(properties);
 
-        assertNull(propertyResolver.resolve("test"));
-        assertEquals("testValue1", propertyResolver.resolve("test1"));
-        assertEquals("testValue2", propertyResolver.resolve("test2"));
-        assertEquals("testValue3", propertyResolver.resolve("test3"));
+        assertNull(propertyResolver.resolveExpressionContent("test"));
+        assertEquals("testValue1", propertyResolver.resolveExpressionContent("test1").getValue());
+        assertEquals("testValue2", propertyResolver.resolveExpressionContent("test2").getValue());
+        assertEquals("testValue3", propertyResolver.resolveExpressionContent("test3").getValue());
     }
 
 
@@ -79,22 +79,22 @@ public class PropertyResolverTest {
         properties.setProperty("test1", "testValue1");
         properties.setProperty("test2", "testValue2");
         properties.setProperty("test3", "testValue3");
-        final PropertyResolver resolver1 = new PropertiesPropertyResolver(properties);
+        final SimpleExpressionResolver resolver1 = new PropertiesPropertyResolver(properties);
 
         System.setProperty("test4", "testValue4");
         System.setProperty("test5", "testValue5");
         System.setProperty("test6", "testValue6");
 
-        final PropertyResolver propertyResolver = new CompositePropertyResolver(resolver1, SystemPropertyResolver.INSTANCE);
+        final SimpleExpressionResolver propertyResolver = new CompositePropertyResolver(resolver1, SystemPropertyResolver.INSTANCE);
 
-        assertNull(propertyResolver.resolve("test"));
-        assertEquals("testValue1", propertyResolver.resolve("test1"));
-        assertEquals("testValue2", propertyResolver.resolve("test2"));
-        assertEquals("testValue3", propertyResolver.resolve("test3"));
+        assertNull(propertyResolver.resolveExpressionContent("test"));
+        assertEquals("testValue1", propertyResolver.resolveExpressionContent("test1").getValue());
+        assertEquals("testValue2", propertyResolver.resolveExpressionContent("test2").getValue());
+        assertEquals("testValue3", propertyResolver.resolveExpressionContent("test3").getValue());
 
-        assertEquals("testValue4", propertyResolver.resolve("test4"));
-        assertEquals("testValue5", propertyResolver.resolve("test5"));
-        assertEquals("testValue6", propertyResolver.resolve("test6"));
+        assertEquals("testValue4", propertyResolver.resolveExpressionContent("test4").getValue());
+        assertEquals("testValue5", propertyResolver.resolveExpressionContent("test5").getValue());
+        assertEquals("testValue6", propertyResolver.resolveExpressionContent("test6").getValue());
 
 
         System.clearProperty("test4");
@@ -104,14 +104,10 @@ public class PropertyResolverTest {
 
     @Test
     public void testCustomResolver() throws Exception {
-        final PropertyResolver propertyResolver = new PropertyResolver() {
-            public String resolve(String propertyName) {
-                return propertyName.toUpperCase();
-            }
-        };
+        final SimpleExpressionResolver propertyResolver = (String propertyName) -> new SimpleExpressionResolver.ResolutionResult(propertyName.toUpperCase(), false);
 
-        assertEquals("TEST1", propertyResolver.resolve("test1"));
-        assertEquals("TEST2", propertyResolver.resolve("test2"));
-        assertEquals("TEST3", propertyResolver.resolve("test3"));
+        assertEquals("TEST1", propertyResolver.resolveExpressionContent("test1").getValue());
+        assertEquals("TEST2", propertyResolver.resolveExpressionContent("test2").getValue());
+        assertEquals("TEST3", propertyResolver.resolveExpressionContent("test3").getValue());
     }
 }

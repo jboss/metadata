@@ -23,7 +23,6 @@
 package org.jboss.metadata.property;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -35,40 +34,9 @@ import java.util.Iterator;
  *
  * @author John Bailey
  */
-public class CompositePropertyResolver implements SimpleExpressionResolver, PropertyResolver {
+public class CompositePropertyResolver implements SimpleExpressionResolver {
     private final Collection<SimpleExpressionResolver> expressionResolvers;
     final boolean hasJBossASExpressionSupport;
-
-    @Deprecated
-    public CompositePropertyResolver(final Collection<PropertyResolver> resolvers) {
-        if (resolvers == null) {
-            this.expressionResolvers = null;
-            this.hasJBossASExpressionSupport = false;
-        } else {
-            this.expressionResolvers = new ArrayList<SimpleExpressionResolver>(resolvers.size());
-            boolean jbossSupport = false;
-            for (PropertyResolver pr : resolvers) {
-                if (pr instanceof SimpleExpressionResolver) {
-                    SimpleExpressionResolver ser = (SimpleExpressionResolver) pr;
-                    expressionResolvers.add(ser);
-                    if (ser instanceof JBossASSimpleExpressionResolver) {
-                        jbossSupport = true;
-                    } else if (ser instanceof CompositePropertyResolver
-                            && ((CompositePropertyResolver) ser).hasJBossASExpressionSupport) {
-                        jbossSupport = true;
-                    }
-                } else {
-                    expressionResolvers.add(new CompatibilityExpressionResolver(pr));
-                }
-            }
-            this.hasJBossASExpressionSupport = jbossSupport;
-        }
-    }
-
-    @Deprecated
-    public CompositePropertyResolver(PropertyResolver... resolvers) {
-        this(Arrays.asList(resolvers));
-    }
 
     public CompositePropertyResolver(SimpleExpressionResolver... resolvers) {
         this.expressionResolvers = new ArrayList<SimpleExpressionResolver>(resolvers.length);
@@ -85,23 +53,6 @@ public class CompositePropertyResolver implements SimpleExpressionResolver, Prop
             }
         }
         this.hasJBossASExpressionSupport = jbossSupport;
-    }
-
-    /**
-     * Treats {@code propertyName} as expression content and passes it to {@link #resolveExpressionContent(String)}.
-     * This method is retained for compatibility with legacy {@link org.jboss.metadata.property.PropertyResolver} usage.
-     *
-     * @param propertyName the expression
-     *
-     * {@inheritDoc}
-     *
-     * @deprecated use {@link org.jboss.metadata.property.SimpleExpressionResolver} and {@link #resolveExpressionContent(String)}
-     */
-    @Override
-    @Deprecated
-    public String resolve(String propertyName) {
-        ResolutionResult rr = resolveExpressionContent(propertyName);
-        return rr == null ? null : rr.getValue();
     }
 
     @Override
