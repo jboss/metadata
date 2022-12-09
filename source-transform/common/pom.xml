@@ -27,7 +27,7 @@
     <parent>
         <groupId>org.jboss.metadata</groupId>
         <artifactId>jboss-metadata-source-transform-parent</artifactId>
-        <version>15.3.0</version>
+        <version>15.4.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>jboss-metadata-common-jakarta</artifactId>
