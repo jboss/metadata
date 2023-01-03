@@ -188,6 +188,7 @@ public class WebMetaDataParser extends MetaDataElementParser {
                     //https://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-app_4_0.xsd
                     //<xsd:element name="deny-uncovered-http-methods" type="javaee:emptyType">
                     wmd.setDenyUncoveredHttpMethods(Boolean.TRUE);
+                    requireNoContent(reader);
                     break;
                 case DEFAULT_CONTEXT_PATH:
                     wmd.setDefaultContextPath(getElementText(reader, propertyReplacer));

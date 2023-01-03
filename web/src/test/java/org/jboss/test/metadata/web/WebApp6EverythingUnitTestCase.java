@@ -72,6 +72,7 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         assertServletMappings(webApp);
         assertFilters(webApp);
         assertFilterMappings(webApp);
+        assertDenyUncoveredHttpMethods(webApp);
         assertSecurityConstraints(webApp);
         assertAbsoluteOrdering(webApp);
         assertNotNull("no session config set", webApp.getSessionConfig());
@@ -175,6 +176,10 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         assertEquals(2, dispatchers.size());
         assertEquals(DispatcherType.FORWARD, dispatchers.get(0));
         assertEquals(DispatcherType.REQUEST, dispatchers.get(1));
+    }
+
+    protected void assertDenyUncoveredHttpMethods(WebMetaData webApp) {
+        assertNull(webApp.getDenyUncoveredHttpMethods());
     }
 
     // Security Constraints
