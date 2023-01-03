@@ -215,7 +215,9 @@
        </jsp-property-group>
     </jsp-config>
 
-	<deny-uncovered-http-methods/>
+	<!-- invalid -->
+    <deny-uncovered-http-methods>true</deny-uncovered-http-methods>
+
     <security-constraint id="security-constraint0">
        <display-name>security-constraint0-display-name</display-name>
        <web-resource-collection id="web-resource-collection0">
