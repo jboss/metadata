@@ -75,7 +75,7 @@
         <version.org.jboss.spec.javax.transaction.jboss-transaction-api_1.2_spec>1.1.1.Final</version.org.jboss.spec.javax.transaction.jboss-transaction-api_1.2_spec>
         <version.org.jboss.ejb3.ext-api>2.3.0.Final</version.org.jboss.ejb3.ext-api>
         <!-- The last major release, used for tests that compare the schemas -->
-        <last-major-release>15.2.0.Final</last-major-release>
+        <last-major-release>15.3.0.Final</last-major-release>
     </properties>
 
     <modules>
