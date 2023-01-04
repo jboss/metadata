@@ -21,6 +21,8 @@
  */
 package org.jboss.test.metadata.web;
 
+import javax.xml.stream.XMLStreamException;
+
 import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
 import org.jboss.metadata.web.spec.WebMetaData;
 
@@ -35,5 +37,20 @@ public class WebApp8EverythingUnitTestCase extends WebApp6EverythingUnitTestCase
     public void testEverything() throws Exception {
         WebMetaData webApp = unmarshal();
         assertEverything(webApp, Mode.SPEC, JavaEEVersion.V8);
+    }
+
+    public void testInvalidElement() throws Exception {
+        XMLStreamException expectedException = null;
+        try {
+            org.jboss.metadata.web.spec.WebMetaData webApp = unmarshal();
+        } catch (XMLStreamException e) {
+            expectedException = e;
+        }
+        assertNotNull(expectedException);
+    }
+
+    @Override
+    protected void assertDenyUncoveredHttpMethods(org.jboss.metadata.web.spec.WebMetaData webApp) {
+        assertTrue(webApp.getDenyUncoveredHttpMethods());
     }
 }
