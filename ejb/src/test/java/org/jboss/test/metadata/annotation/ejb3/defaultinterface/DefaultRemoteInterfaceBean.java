@@ -21,8 +21,8 @@
  */
 package org.jboss.test.metadata.annotation.ejb3.defaultinterface;
 
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import jakarta.ejb.Remote;
+import jakarta.ejb.Stateless;
 
 /**
  * Bean has an empty Remote, so the implemented interface should

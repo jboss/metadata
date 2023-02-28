@@ -21,7 +21,7 @@
  */
 package org.jboss.test.metadata.annotation.ejb3.jbas5124;
 
-import javax.ejb.EJBHome;
+import jakarta.ejb.EJBHome;
 
 /**
  * @author <a href="mailto:emuckenh@redhat.com">Emanuel Muckenhuber</a>

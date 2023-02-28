@@ -21,16 +21,16 @@
  */
 package org.jboss.test.metadata.annotation.ejb3;
 
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.InvocationContext;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
+import jakarta.annotation.Resource;
+import jakarta.ejb.EJB;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.InvocationContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.PersistenceUnit;
 import javax.sql.DataSource;
-import javax.transaction.TransactionManager;
+import jakarta.transaction.TransactionManager;
 
 /**
  * @author <a href="kabir.khan@jboss.com">Kabir Khan</a>

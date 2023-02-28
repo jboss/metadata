@@ -548,7 +548,7 @@
             <jms-connection-factory>
                 <description>session1JmsConnectionFactory1Desc</description>
                 <name>session1JmsConnectionFactory1Name</name>
-                <interface-name>javax.jms.QueueConnectionFactory</interface-name>
+                <interface-name>jakarta.jms.QueueConnectionFactory</interface-name>
                 <class-name>session1JmsConnectionFactory1ClassName</class-name>
                 <resource-adapter>session1JmsConnectionFactory1ResourceAdapter</resource-adapter>
                 <user>session1JmsConnectionFactory1User</user>
@@ -569,7 +569,7 @@
             <jms-connection-factory>
                 <description>session1JmsConnectionFactory2Desc</description>
                 <name>session1JmsConnectionFactory2Name</name>
-                <interface-name>javax.jms.TopicConnectionFactory</interface-name>
+                <interface-name>jakarta.jms.TopicConnectionFactory</interface-name>
                 <class-name>session1JmsConnectionFactory2ClassName</class-name>
                 <resource-adapter>session1JmsConnectionFactory2ResourceAdapter</resource-adapter>
                 <user>session1JmsConnectionFactory2User</user>
@@ -594,7 +594,7 @@
             <jms-destination>
                 <description>session1JmsDestination1Desc</description>
                 <name>session1JmsDestination1Name</name>
-                <interface-name>javax.jms.Queue</interface-name>
+                <interface-name>jakarta.jms.Queue</interface-name>
                 <class-name>session1JmsDestination1ClassName</class-name>
                 <resource-adapter>session1JmsDestination1ResourceAdapter</resource-adapter>
                 <destination-name>session1JmsDestination1DestinationName</destination-name>
@@ -610,7 +610,7 @@
             <jms-destination>
                 <description>session1JmsDestination2Desc</description>
                 <name>session1JmsDestination2Name</name>
-                <interface-name>javax.jms.Queue</interface-name>
+                <interface-name>jakarta.jms.Queue</interface-name>
                 <class-name>session1JmsDestination2ClassName</class-name>
                 <resource-adapter>session1JmsDestination2ResourceAdapter</resource-adapter>
                 <destination-name>session1JmsDestination2DestinationName</destination-name>
@@ -625,7 +625,7 @@
             </jms-destination>
             <jms-destination>
                 <name>session1JmsDestination3Name</name>
-                <interface-name>javax.jms.Topic</interface-name>
+                <interface-name>jakarta.jms.Topic</interface-name>
             </jms-destination>
             <!-- javaee:7:mail-session -->
             <mail-session>
@@ -1314,7 +1314,7 @@
             <jms-connection-factory>
                 <description>session2JmsConnectionFactory1Desc</description>
                 <name>session2JmsConnectionFactory1Name</name>
-                <interface-name>javax.jms.QueueConnectionFactory</interface-name>
+                <interface-name>jakarta.jms.QueueConnectionFactory</interface-name>
                 <class-name>session2JmsConnectionFactory1ClassName</class-name>
                 <resource-adapter>session2JmsConnectionFactory1ResourceAdapter</resource-adapter>
                 <user>session2JmsConnectionFactory1User</user>
@@ -1335,7 +1335,7 @@
             <jms-connection-factory>
                 <description>session2JmsConnectionFactory2Desc</description>
                 <name>session2JmsConnectionFactory2Name</name>
-                <interface-name>javax.jms.TopicConnectionFactory</interface-name>
+                <interface-name>jakarta.jms.TopicConnectionFactory</interface-name>
                 <class-name>session2JmsConnectionFactory2ClassName</class-name>
                 <resource-adapter>session2JmsConnectionFactory2ResourceAdapter</resource-adapter>
                 <user>session2JmsConnectionFactory2User</user>
@@ -1360,7 +1360,7 @@
             <jms-destination>
                 <description>session2JmsDestination1Desc</description>
                 <name>session2JmsDestination1Name</name>
-                <interface-name>javax.jms.Queue</interface-name>
+                <interface-name>jakarta.jms.Queue</interface-name>
                 <class-name>session2JmsDestination1ClassName</class-name>
                 <resource-adapter>session2JmsDestination1ResourceAdapter</resource-adapter>
                 <destination-name>session2JmsDestination1DestinationName</destination-name>
@@ -1376,7 +1376,7 @@
             <jms-destination>
                 <description>session2JmsDestination2Desc</description>
                 <name>session2JmsDestination2Name</name>
-                <interface-name>javax.jms.Queue</interface-name>
+                <interface-name>jakarta.jms.Queue</interface-name>
                 <class-name>session2JmsDestination2ClassName</class-name>
                 <resource-adapter>session2JmsDestination2ResourceAdapter</resource-adapter>
                 <destination-name>session2JmsDestination2DestinationName</destination-name>
@@ -1391,7 +1391,7 @@
             </jms-destination>
             <jms-destination>
                 <name>session2JmsDestination3Name</name>
-                <interface-name>javax.jms.Topic</interface-name>
+                <interface-name>jakarta.jms.Topic</interface-name>
             </jms-destination>
             <!-- javaee:7:mail-session -->
             <mail-session>

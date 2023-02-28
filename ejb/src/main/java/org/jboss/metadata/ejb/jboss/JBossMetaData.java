@@ -27,7 +27,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.interceptor.Interceptors;
+import jakarta.interceptor.Interceptors;
 
 import org.jboss.logging.Logger;
 import org.jboss.metadata.ejb.common.IEjbJarMetaData;

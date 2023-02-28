@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import javax.ejb.LockType;
+import jakarta.ejb.LockType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 

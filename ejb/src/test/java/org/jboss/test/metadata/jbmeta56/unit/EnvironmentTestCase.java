@@ -76,7 +76,7 @@ public class EnvironmentTestCase extends AbstractEJBEverythingTest {
         assertEquals(1, resources.size());
         ResourceReferenceMetaData resource = resources.get("jms/QueFactory");
         assertNotNull(resource);
-        assertEquals("javax.jms.QueueConnectionFactory", resource.getType());
+        assertEquals("jakarta.jms.QueueConnectionFactory", resource.getType());
         assertEquals(ResourceAuthorityType.Container, resource.getResAuth());
     }
 
@@ -100,7 +100,7 @@ public class EnvironmentTestCase extends AbstractEJBEverythingTest {
         assertEquals(1, resources.size());
         ResourceReferenceMetaData resource = resources.get("jms/QueFactory");
         assertNotNull(resource);
-        assertEquals("javax.jms.QueueConnectionFactory", resource.getType());
+        assertEquals("jakarta.jms.QueueConnectionFactory", resource.getType());
         assertEquals(ResourceAuthorityType.Container, resource.getResAuth());
     }
 }

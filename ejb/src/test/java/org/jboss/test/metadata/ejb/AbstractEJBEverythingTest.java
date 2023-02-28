@@ -24,8 +24,8 @@ package org.jboss.test.metadata.ejb;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionAttributeType;
+import jakarta.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamReader;
 
 import junit.framework.AssertionFailedError;

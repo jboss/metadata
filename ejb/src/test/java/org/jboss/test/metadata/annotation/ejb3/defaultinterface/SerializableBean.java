@@ -22,8 +22,8 @@
 package org.jboss.test.metadata.annotation.ejb3.defaultinterface;
 
 import java.io.Serializable;
-import javax.ejb.Local;
-import javax.ejb.Stateless;
+import jakarta.ejb.Local;
+import jakarta.ejb.Stateless;
 
 /**
  * @author <a href="mailto:cdewolf@redhat.com">Carlo de Wolf</a>

@@ -21,8 +21,8 @@
  */
 package org.jboss.test.metadata.annotation.ejb3;
 
-import javax.ejb.LocalHome;
-import javax.ejb.Stateless;
+import jakarta.ejb.LocalHome;
+import jakarta.ejb.Stateless;
 
 /**
  * An EJB 2.1 local stateless bean

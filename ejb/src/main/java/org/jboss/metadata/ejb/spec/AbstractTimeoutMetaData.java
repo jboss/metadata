@@ -25,7 +25,7 @@ import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Metadata for {@link javax.ejb.AccessTimeout}'s xml equivalent
+ * Metadata for {@link jakarta.ejb.AccessTimeout}'s xml equivalent
  *
  * @author Jaikiran Pai
  */

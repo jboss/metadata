@@ -21,7 +21,7 @@
  */
 package org.jboss.test.metadata.annotation.ejb3;
 
-import javax.ejb.Stateless;
+import jakarta.ejb.Stateless;
 
 /**
  * This bean has a postConstruct in the descriptor.

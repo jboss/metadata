@@ -21,7 +21,7 @@
  */
 package org.jboss.test.metadata.annotation.ejb3;
 
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 /**
  * Comment

@@ -36,8 +36,8 @@ public class JMSDestinationMetaData extends NamedMetaDataWithDescriptions {
      */
     private static final long serialVersionUID = -8828730452352230094L;
 
-    public static final String QUEUE_INTERFACE_NAME = "javax.jms.Queue";
-    public static final String TOPIC_INTERFACE_NAME = "javax.jms.Topic";
+    public static final String QUEUE_INTERFACE_NAME = "jakarta.jms.Queue";
+    public static final String TOPIC_INTERFACE_NAME = "jakarta.jms.Topic";
 
     /**
      *

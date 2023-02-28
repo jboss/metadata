@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import javax.ejb.TransactionAttributeType;
+import jakarta.ejb.TransactionAttributeType;
 
 import org.jboss.metadata.ejb.jboss.ejb3.TransactionTimeoutMetaData;
 import org.jboss.metadata.ejb.parser.jboss.ejb3.TransactionTimeoutMetaDataParser;

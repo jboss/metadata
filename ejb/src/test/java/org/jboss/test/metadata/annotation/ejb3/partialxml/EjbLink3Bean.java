@@ -21,7 +21,7 @@
  */
 package org.jboss.test.metadata.annotation.ejb3.partialxml;
 
-import javax.ejb.Stateless;
+import jakarta.ejb.Stateless;
 
 @Stateless(name = "EjbLink3Bean")
 /**

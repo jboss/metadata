@@ -26,9 +26,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import javax.ejb.Schedule;
-import javax.ejb.Schedules;
-import javax.ejb.Timer;
+import jakarta.ejb.Schedule;
+import jakarta.ejb.Schedules;
+import jakarta.ejb.Timer;
 
 import org.jboss.metadata.ejb.jboss.ejb3.JBossGenericBeanMetaData;
 import org.jboss.metadata.ejb.spec.EjbJarMetaData;

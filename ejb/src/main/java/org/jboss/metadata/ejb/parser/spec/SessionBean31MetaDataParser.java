@@ -25,7 +25,7 @@ package org.jboss.metadata.ejb.parser.spec;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.ConcurrencyManagementType;
+import jakarta.ejb.ConcurrencyManagementType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 

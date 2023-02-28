@@ -24,8 +24,8 @@ package org.jboss.metadata.ejb.spec;
 import java.util.Collection;
 import java.util.List;
 
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.LockType;
+import jakarta.ejb.ConcurrencyManagementType;
+import jakarta.ejb.LockType;
 
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 import org.jboss.metadata.javaee.spec.LifecycleCallbacksMetaData;
@@ -40,7 +40,7 @@ public abstract class AbstractGenericBeanMetaData extends AbstractCommonMessageD
      */
     private static final long serialVersionUID = 1L;
 
-    private static final String DEFAULT_MESSAGING_TYPE = "javax.jms.MessageListener";
+    private static final String DEFAULT_MESSAGING_TYPE = "jakarta.jms.MessageListener";
 
     // EntityBean
     /**

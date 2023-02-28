@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.ejb.spec;
 
-import javax.ejb.AccessTimeout;
+import jakarta.ejb.AccessTimeout;
 
 /**
  * Metadata for {@link AccessTimeout}'s xml equivalent

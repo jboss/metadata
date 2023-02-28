@@ -6,8 +6,8 @@
    <enterprise-beans>
       <message-driven>
          <ejb-name>UnknownMessageListenerInterfaceMDB</ejb-name>
-         <messaging-type>javax.jms.MessageListener</messaging-type>
-         <message-destination-type>javax.jms.Queue</message-destination-type>
+         <messaging-type>jakarta.jms.MessageListener</messaging-type>
+         <message-destination-type>jakarta.jms.Queue</message-destination-type>
          <message-destination-link>two_ejb.jar#MsgBeanInQueue</message-destination-link>
          <activation-config>
             <activation-config-property>
@@ -17,7 +17,7 @@
          </activation-config>
          <message-destination-ref>
             <description>test destination</description>
-            <message-destination-ref-name>replyQueue</message-destination-ref-name> <message-destination-type>javax.jms.Queue</message-destination-type>
+            <message-destination-ref-name>replyQueue</message-destination-ref-name> <message-destination-type>jakarta.jms.Queue</message-destination-type>
             <message-destination-usage>Produces</message-destination-usage>
             <message-destination-link>two_ejb.jar#MsgBeanOutQueue</message-destination-link>
          </message-destination-ref>

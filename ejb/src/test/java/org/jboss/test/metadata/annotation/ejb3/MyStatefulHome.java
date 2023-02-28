@@ -21,7 +21,7 @@
  */
 package org.jboss.test.metadata.annotation.ejb3;
 
-import javax.ejb.EJBHome;
+import jakarta.ejb.EJBHome;
 
 /**
  * @author Scott.Stark@jboss.org

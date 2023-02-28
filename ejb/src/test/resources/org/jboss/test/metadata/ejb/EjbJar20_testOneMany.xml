@@ -304,7 +304,7 @@
         <method-intf>Home</method-intf>
         <method-name>remove</method-name>
         <method-params>
-          <method-param>javax.ejb.Handle</method-param>
+          <method-param>jakarta.ejb.Handle</method-param>
         </method-params>
       </method>
       <trans-attribute>Required</trans-attribute>

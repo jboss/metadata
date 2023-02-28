@@ -21,11 +21,11 @@
  */
 package org.jboss.test.metadata.annotation.ejb3.messagelistenerinterface;
 
-import javax.annotation.Resource;
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
-import javax.jms.Queue;
-import javax.jms.QueueConnectionFactory;
+import jakarta.annotation.Resource;
+import jakarta.ejb.ActivationConfigProperty;
+import jakarta.ejb.MessageDriven;
+import jakarta.jms.Queue;
+import jakarta.jms.QueueConnectionFactory;
 
 /**
  * This bean does not define a message listener interface or implement one,
@@ -35,7 +35,7 @@ import javax.jms.QueueConnectionFactory;
  * @version $Revision: 68485 $
  */
 @MessageDriven(activationConfig =
-        {@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
+        {@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "jakarta.jms.Queue"),
                 @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")})
 public class UnknownMessageListenerInterfaceMDB {
     @Resource(name = "qFactory")

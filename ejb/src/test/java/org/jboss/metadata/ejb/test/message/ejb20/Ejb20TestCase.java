@@ -69,7 +69,7 @@ public class Ejb20TestCase {
 
         final ActivationConfigPropertyMetaData destinationTypeProperty1 = activationProperties1.get("destinationType");
         Assert.assertNotNull("QueueMDB: activation property 'destinationType' wasn't expected to be null", destinationTypeProperty1);
-        Assert.assertEquals("QueueMDB: unexpected value in destinationType", "javax.jms.Queue", destinationTypeProperty1.getValue());
+        Assert.assertEquals("QueueMDB: unexpected value in destinationType", "jakarta.jms.Queue", destinationTypeProperty1.getValue());
 
         final ActivationConfigPropertyMetaData acknowledgeModeProperty1 = activationProperties1.get("acknowledgeMode");
         Assert.assertNotNull("QueueMDB: activation property 'acknowledgeMode' wasn't expected to be null", acknowledgeModeProperty1);
@@ -90,7 +90,7 @@ public class Ejb20TestCase {
 
         final ActivationConfigPropertyMetaData destinationTypeProperty2 = activationProperties2.get("destinationType");
         Assert.assertNotNull("TopicMDB: activation property 'destinationType' wasn't expected to be null", destinationTypeProperty2);
-        Assert.assertEquals("TopicMDB: unexpected value in destinationType", "javax.jms.Topic", destinationTypeProperty2.getValue());
+        Assert.assertEquals("TopicMDB: unexpected value in destinationType", "jakarta.jms.Topic", destinationTypeProperty2.getValue());
 
         final ActivationConfigPropertyMetaData subscriptionDurabilityProperty2 = activationProperties2.get("subscriptionDurability");
         Assert.assertNotNull("TopicMDB: activation property 'subscriptionDurability' wasn't expected to be null", subscriptionDurabilityProperty2);

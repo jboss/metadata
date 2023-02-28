@@ -25,8 +25,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Set;
 
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionAttributeType;
+import jakarta.ejb.TransactionManagementType;
 
 import org.jboss.metadata.ejb.spec.AsyncMethodsMetaData;
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;

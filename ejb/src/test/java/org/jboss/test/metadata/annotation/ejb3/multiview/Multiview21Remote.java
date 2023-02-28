@@ -22,7 +22,7 @@
 package org.jboss.test.metadata.annotation.ejb3.multiview;
 
 import java.rmi.RemoteException;
-import javax.ejb.EJBObject;
+import jakarta.ejb.EJBObject;
 
 /**
  * EJB 3 4.6.7

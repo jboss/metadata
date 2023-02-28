@@ -28,11 +28,11 @@
                <service-endpoint-interface>org.jboss.tests.ws.jaxws.webserviceref.SecureEndpoint</service-endpoint-interface>
                <port-qname>{http://org.jboss.ws/wsref}SecureEndpointPort</port-qname>
                <stub-property>
-                  <prop-name>javax.xml.ws.security.auth.username</prop-name>
+                  <prop-name>jakarta.xml.ws.security.auth.username</prop-name>
                   <prop-value>kermit</prop-value>
                </stub-property>
                <stub-property>
-                  <prop-name>javax.xml.ws.security.auth.password</prop-name>
+                  <prop-name>jakarta.xml.ws.security.auth.password</prop-name>
                   <prop-value>thefrog</prop-value>
                </stub-property>
             </port-component-ref>
@@ -116,11 +116,11 @@
                <service-endpoint-interface>org.jboss.test.ws.jaxws.webserviceref.TestEndpoint</service-endpoint-interface>
                <port-qname>{http://org.jboss.ws/wsref}TestEndpointPort</port-qname>
                <stub-property>
-                  <prop-name>javax.xml.ws.security.auth.username</prop-name>
+                  <prop-name>jakarta.xml.ws.security.auth.username</prop-name>
                   <prop-value>kermit</prop-value>
                </stub-property>
                <stub-property>
-                  <prop-name>javax.xml.ws.security.auth.password</prop-name>
+                  <prop-name>jakarta.xml.ws.security.auth.password</prop-name>
                   <prop-value>thefrog</prop-value>
                </stub-property>
             </port-component-ref>

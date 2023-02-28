@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.ejb.Schedule;
+import jakarta.ejb.Schedule;
 
 import org.jboss.metadata.ejb.common.IScheduleTarget;
 import org.jboss.metadata.ejb.common.ITimeoutTarget;

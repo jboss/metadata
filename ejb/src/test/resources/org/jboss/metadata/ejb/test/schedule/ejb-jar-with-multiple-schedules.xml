@@ -16,7 +16,7 @@
 				<timeout-method>
 					<method-name>dummySLSBMethod</method-name>
 					<method-params>
-						<method-param>javax.ejb.Timer</method-param>
+						<method-param>jakarta.ejb.Timer</method-param>
 					</method-params>
 				</timeout-method>
 				<persistent>true</persistent>
@@ -29,7 +29,7 @@
 				<timeout-method>
 					<method-name>anotherDummyMethod</method-name>
 					<method-params>
-						<method-param>javax.ejb.Timer</method-param>
+						<method-param>jakarta.ejb.Timer</method-param>
 					</method-params>
 				</timeout-method>
 				<persistent>true</persistent>
@@ -48,7 +48,7 @@
 				<timeout-method>
 					<method-name>dummySingletonMethod</method-name>
 					<method-params>
-						<method-param>javax.ejb.Timer</method-param>
+						<method-param>jakarta.ejb.Timer</method-param>
 					</method-params>
 				</timeout-method>
 				<info>1</info>
@@ -60,7 +60,7 @@
 				<timeout-method>
 					<method-name>dummySingletonMethod</method-name>
 					<method-params>
-						<method-param>javax.ejb.Timer</method-param>
+						<method-param>jakarta.ejb.Timer</method-param>
 					</method-params>
 				</timeout-method>
 				<persistent>false</persistent>
@@ -85,7 +85,7 @@
 				<timeout-method>
 					<method-name>dummyMDBMethod</method-name>
 					<method-params>
-						<method-param>javax.ejb.Timer</method-param>
+						<method-param>jakarta.ejb.Timer</method-param>
 					</method-params>
 				</timeout-method>
 				<persistent>false</persistent>
@@ -97,7 +97,7 @@
 				<timeout-method>
 					<method-name>dummyMDBMethod</method-name>
 					<method-params>
-						<method-param>javax.ejb.Timer</method-param>
+						<method-param>jakarta.ejb.Timer</method-param>
 					</method-params>
 				</timeout-method>
 				<persistent>false</persistent>

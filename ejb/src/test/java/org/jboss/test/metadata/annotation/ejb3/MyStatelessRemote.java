@@ -21,7 +21,7 @@
  */
 package org.jboss.test.metadata.annotation.ejb3;
 
-import javax.ejb.Remote;
+import jakarta.ejb.Remote;
 
 /**
  * MyStatelessRemote

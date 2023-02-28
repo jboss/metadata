@@ -23,7 +23,7 @@ package org.jboss.metadata.ejb.spec;
 
 import java.io.Serializable;
 
-import javax.ejb.Schedule;
+import jakarta.ejb.Schedule;
 
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 

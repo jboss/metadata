@@ -23,7 +23,7 @@ package org.jboss.test.metadata.ejb;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionManagementType;
 
 import org.jboss.metadata.ejb.jboss.IORSecurityConfigMetaData;
 import org.jboss.metadata.ejb.jboss.InvokerBindingMetaData;

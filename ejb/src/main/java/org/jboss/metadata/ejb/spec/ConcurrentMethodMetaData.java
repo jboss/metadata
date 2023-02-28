@@ -23,8 +23,8 @@ package org.jboss.metadata.ejb.spec;
 
 import java.io.Serializable;
 
-import javax.ejb.Lock;
-import javax.ejb.LockType;
+import jakarta.ejb.Lock;
+import jakarta.ejb.LockType;
 
 /**
  * Metadata for methods which specify {@link Lock} for concurrency management

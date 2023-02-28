@@ -27,10 +27,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.Lock;
-import javax.ejb.LockType;
-import javax.ejb.Schedule;
+import jakarta.ejb.ConcurrencyManagementType;
+import jakarta.ejb.Lock;
+import jakarta.ejb.LockType;
+import jakarta.ejb.Schedule;
 
 import org.jboss.metadata.ejb.common.IScheduleTarget;
 import org.jboss.metadata.ejb.common.ITimeoutTarget;
@@ -156,7 +156,7 @@ public class JBossSessionBean31MetaData extends JBossSessionBeanMetaData impleme
     }
 
     /**
-     * @return Returns true if a singleton bean is marked for init-on-startup ({@link javax.ejb.Startup})
+     * @return Returns true if a singleton bean is marked for init-on-startup ({@link jakarta.ejb.Startup})
      */
     public boolean isInitOnStartup() {
         return this.initOnStartup == null ? Boolean.FALSE : this.initOnStartup;

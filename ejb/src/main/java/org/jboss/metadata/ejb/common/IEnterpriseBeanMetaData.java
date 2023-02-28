@@ -23,8 +23,8 @@ package org.jboss.metadata.ejb.common;
 
 import java.lang.reflect.Method;
 
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionAttributeType;
+import jakarta.ejb.TransactionManagementType;
 
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.ExcludeListMetaData;

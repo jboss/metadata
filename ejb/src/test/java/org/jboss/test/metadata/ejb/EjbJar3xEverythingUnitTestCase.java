@@ -54,7 +54,7 @@ import org.jboss.metadata.ejb.spec.SessionBeanMetaData;
 import org.jboss.metadata.ejb.spec.SessionType;
 import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
 
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionManagementType;
 import java.util.LinkedHashSet;
 
 /**

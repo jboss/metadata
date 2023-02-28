@@ -23,8 +23,8 @@ package org.jboss.metadata.ejb.spec;
 
 import java.lang.reflect.Method;
 
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionAttributeType;
+import jakarta.ejb.TransactionManagementType;
 
 import org.jboss.metadata.javaee.spec.AnnotatedEJBReferencesMetaData;
 import org.jboss.metadata.javaee.spec.DataSourceMetaData;

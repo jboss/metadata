@@ -33,13 +33,13 @@
             <resource-ref>
                 <description>A Queue ConnectionFactory</description>
                 <res-ref-name>jms/MyQueueConnection</res-ref-name>
-                <res-type>javax.jms.QueueConnectionFactory</res-type>
+                <res-type>jakarta.jms.QueueConnectionFactory</res-type>
                 <res-auth>Container</res-auth>
             </resource-ref>
             <resource-ref>
                 <description>A Queue </description>
                 <res-ref-name>jms/QueueName</res-ref-name>
-                <res-type>javax.jms.Queue</res-type>
+                <res-type>jakarta.jms.Queue</res-type>
                 <res-auth>Container</res-auth>
             </resource-ref>
         </session>
@@ -61,13 +61,13 @@
             <resource-ref>
                 <description>A Topic ConnectionFactory</description>
                 <res-ref-name>jms/MyTopicConnection</res-ref-name>
-                <res-type>javax.jms.TopicConnectionFactory</res-type>
+                <res-type>jakarta.jms.TopicConnectionFactory</res-type>
                 <res-auth>Container</res-auth>
             </resource-ref>
             <resource-ref>
                 <description>A Topic </description>
                 <res-ref-name>jms/TopicName</res-ref-name>
-                <res-type>javax.jms.Topic</res-type>
+                <res-type>jakarta.jms.Topic</res-type>
                 <res-auth>Container</res-auth>
             </resource-ref>
         </session>
@@ -82,13 +82,13 @@
             <resource-ref>
                 <description>A Queue ConnectionFactory</description>
                 <res-ref-name>jms/MyQueueConnection</res-ref-name>
-                <res-type>javax.jms.QueueConnectionFactory</res-type>
+                <res-type>jakarta.jms.QueueConnectionFactory</res-type>
                 <res-auth>Container</res-auth>
             </resource-ref>
             <resource-ref>
                 <description>A Queue </description>
                 <res-ref-name>jms/QueueName</res-ref-name>
-                <res-type>javax.jms.Queue</res-type>
+                <res-type>jakarta.jms.Queue</res-type>
                 <res-auth>Container</res-auth>
             </resource-ref>
         </session>
@@ -114,19 +114,19 @@
             <transaction-type>Container</transaction-type>
             <message-selector></message-selector>
             <message-driven-destination>
-                <destination-type>javax.jms.Topic</destination-type>
+                <destination-type>jakarta.jms.Topic</destination-type>
                 <subscription-durability>NonDurable</subscription-durability>
             </message-driven-destination>
             <resource-ref>
                 <description>A Queue ConnectionFactory</description>
                 <res-ref-name>jms/MyQueueConnection</res-ref-name>
-                <res-type>javax.jms.QueueConnectionFactory</res-type>
+                <res-type>jakarta.jms.QueueConnectionFactory</res-type>
                 <res-auth>Container</res-auth>
             </resource-ref>
             <resource-ref>
                 <description>A Queue </description>
                 <res-ref-name>jms/QueueName</res-ref-name>
-                <res-type>javax.jms.Queue</res-type>
+                <res-type>jakarta.jms.Queue</res-type>
                 <res-auth>Container</res-auth>
             </resource-ref>
         </message-driven>

@@ -21,9 +21,9 @@
  */
 package org.jboss.test.metadata.annotation.ejb3.multiview;
 
-import javax.ejb.Init;
-import javax.ejb.RemoteHome;
-import javax.ejb.Stateful;
+import jakarta.ejb.Init;
+import jakarta.ejb.RemoteHome;
+import jakarta.ejb.Stateful;
 
 /**
  * MultiviewBean provides both an EJB 3 and an EJB 2.1

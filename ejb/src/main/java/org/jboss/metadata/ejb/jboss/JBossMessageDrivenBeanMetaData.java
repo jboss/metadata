@@ -45,7 +45,7 @@ public class JBossMessageDrivenBeanMetaData extends JBossEnterpriseBeanMetaData 
      */
     private static final long serialVersionUID = -4006016148034278681L;
 
-    private static final String DEFAULT_MESSAGING_TYPE = "javax.jms.MessageListener";
+    private static final String DEFAULT_MESSAGING_TYPE = "jakarta.jms.MessageListener";
 
     /**
      * The messaging type

@@ -24,7 +24,7 @@ package org.jboss.metadata.ejb.spec;
 import java.io.Serializable;
 import java.util.Calendar;
 
-import javax.ejb.ScheduleExpression;
+import jakarta.ejb.ScheduleExpression;
 
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;
 

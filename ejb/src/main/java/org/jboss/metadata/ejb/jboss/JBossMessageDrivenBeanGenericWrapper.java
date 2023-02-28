@@ -24,8 +24,8 @@ package org.jboss.metadata.ejb.jboss;
 import java.lang.reflect.Method;
 import java.util.Set;
 
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionAttributeType;
+import jakarta.ejb.TransactionManagementType;
 
 import org.jboss.metadata.ejb.spec.ContainerTransactionsMetaData;
 import org.jboss.metadata.ejb.spec.EnterpriseBeanMetaData;

@@ -24,7 +24,7 @@ package org.jboss.metadata.ejb.test.application.exception.unit;
 import static org.jboss.metadata.ejb.test.common.UnmarshallingHelper.unmarshal;
 import static org.junit.Assert.assertNotNull;
 
-import javax.ejb.ApplicationException;
+import jakarta.ejb.ApplicationException;
 
 import org.jboss.metadata.ejb.spec.ApplicationExceptionMetaData;
 import org.jboss.metadata.ejb.spec.ApplicationExceptionsMetaData;

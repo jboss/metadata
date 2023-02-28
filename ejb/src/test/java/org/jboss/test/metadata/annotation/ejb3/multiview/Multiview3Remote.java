@@ -21,7 +21,7 @@
  */
 package org.jboss.test.metadata.annotation.ejb3.multiview;
 
-import javax.ejb.Remote;
+import jakarta.ejb.Remote;
 
 /**
  * EJB 4.6.6

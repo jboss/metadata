@@ -21,8 +21,8 @@
  */
 package org.jboss.test.metadata.annotation.ejb3.defaultinterface;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
+import jakarta.ejb.Local;
+import jakarta.ejb.Stateless;
 
 /**
  * Bean has an empty Local, so the implemented interface should

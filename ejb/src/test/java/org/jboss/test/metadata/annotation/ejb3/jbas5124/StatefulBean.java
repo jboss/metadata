@@ -22,9 +22,9 @@
 package org.jboss.test.metadata.annotation.ejb3.jbas5124;
 
 import java.util.Properties;
-import javax.ejb.Remote;
-import javax.ejb.RemoteHome;
-import javax.ejb.Stateful;
+import jakarta.ejb.Remote;
+import jakarta.ejb.RemoteHome;
+import jakarta.ejb.Stateful;
 
 /**
  * @author Scott.Stark@jboss.org

@@ -22,7 +22,7 @@
 package org.jboss.metadata.ejb.spec;
 
 
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionManagementType;
 
 /**
  * MessageDrivenBeanMetaData.

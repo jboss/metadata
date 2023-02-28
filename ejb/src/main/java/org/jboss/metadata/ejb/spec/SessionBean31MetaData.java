@@ -24,8 +24,8 @@ package org.jboss.metadata.ejb.spec;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.LockType;
+import jakarta.ejb.ConcurrencyManagementType;
+import jakarta.ejb.LockType;
 
 import org.jboss.metadata.javaee.spec.EmptyMetaData;
 

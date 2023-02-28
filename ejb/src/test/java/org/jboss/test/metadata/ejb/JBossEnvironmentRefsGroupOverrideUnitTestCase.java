@@ -43,12 +43,12 @@ public class JBossEnvironmentRefsGroupOverrideUnitTestCase extends TestCase {
         spec.setResourceReferences(refs);
         ResourceReferenceMetaData ref = new ResourceReferenceMetaData();
         ref.setResourceRefName("jms/MyQueueConnection");
-        ref.setType("javax.jms.QueueConnectionFactory");
+        ref.setType("jakarta.jms.QueueConnectionFactory");
         ref.setResAuth(ResourceAuthorityType.Container);
         refs.add(ref);
         ref = new ResourceReferenceMetaData();
         ref.setResourceRefName("jms/QueueName");
-        ref.setType("javax.jms.Queue");
+        ref.setType("jakarta.jms.Queue");
         ref.setResAuth(ResourceAuthorityType.Container);
         refs.add(ref);
 
@@ -81,13 +81,13 @@ public class JBossEnvironmentRefsGroupOverrideUnitTestCase extends TestCase {
         assertEquals(2, refs.size());
         ref = refs.get("jms/MyQueueConnection");
         assertNotNull(ref);
-        assertEquals("javax.jms.QueueConnectionFactory", ref.getType());
+        assertEquals("jakarta.jms.QueueConnectionFactory", ref.getType());
         assertEquals(ResourceAuthorityType.Container, ref.getResAuth());
         assertEquals("queuefactoryref", ref.getResourceName());
         assertEquals("java:/JmsXA", ref.getJndiName());
         ref = refs.get("jms/QueueName");
         assertNotNull(ref);
-        assertEquals("javax.jms.Queue", ref.getType());
+        assertEquals("jakarta.jms.Queue", ref.getType());
         assertEquals(ResourceAuthorityType.Container, ref.getResAuth());
         assertEquals("queueref", ref.getResourceName());
         assertEquals("queue/testQueue", ref.getJndiName());

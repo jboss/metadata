@@ -21,7 +21,7 @@
  */
 package org.jboss.metadata.ejb.parser.spec;
 
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 

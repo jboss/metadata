@@ -21,9 +21,9 @@
  */
 package org.jboss.test.metadata.ejb;
 
-import javax.annotation.security.RunAs;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import jakarta.annotation.security.RunAs;
+import jakarta.ejb.Remote;
+import jakarta.ejb.Stateless;
 
 //$Id$
 

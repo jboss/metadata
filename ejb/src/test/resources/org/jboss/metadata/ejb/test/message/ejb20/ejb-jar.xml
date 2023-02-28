@@ -32,14 +32,14 @@
             <acknowledge-mode>DUPS_OK_ACKNOWLEDGE</acknowledge-mode>
             <message-selector>MessageFormat = 'Version 1.1'</message-selector>
             <message-driven-destination>
-                <destination-type>javax.jms.Queue</destination-type>
+                <destination-type>jakarta.jms.Queue</destination-type>
             </message-driven-destination>
         </message-driven>
         <message-driven>
             <ejb-name>TopicMDB</ejb-name>
             <transaction-type>Container</transaction-type>
             <message-driven-destination>
-                <destination-type>javax.jms.Topic</destination-type>
+                <destination-type>jakarta.jms.Topic</destination-type>
                 <subscription-durability>NonDurable</subscription-durability>
             </message-driven-destination>
         </message-driven>

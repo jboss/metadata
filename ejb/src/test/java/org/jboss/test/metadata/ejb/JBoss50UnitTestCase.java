@@ -108,7 +108,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest {
         assertTrue(bean.isConsumer());
         assertEquals("org.jboss.ejb3.test.consumer.DeploymentDescriptorQueueTestConsumer", bean.getEjbClass());
         assertEquals("queue/consumertest", bean.getMessageDestination());
-        assertEquals("javax.jms.Queue", bean.getMessageDestinationType());
+        assertEquals("jakarta.jms.Queue", bean.getMessageDestinationType());
 
         assertEquals(2, bean.getProducers().size());
         {
@@ -194,7 +194,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest {
         {
             assertEquals(1, bean.getResourceEnvironmentReferences().size());
             ResourceEnvironmentReferenceMetaData resourceEnvRef = bean.getResourceEnvironmentReferenceByName("res/aQueue");
-            assertEquals("javax.jms.Queue", resourceEnvRef.getType());
+            assertEquals("jakarta.jms.Queue", resourceEnvRef.getType());
             assertEquals("queue/mdbtest", resourceEnvRef.getJndiName());
         }
 
@@ -392,7 +392,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest {
         {
             assertEquals(1, bean.getResourceEnvironmentReferences().size());
             ResourceEnvironmentReferenceMetaData resourceEnvRef = bean.getResourceEnvironmentReferenceByName("res/aQueue");
-            assertEquals("javax.jms.Queue", resourceEnvRef.getType());
+            assertEquals("jakarta.jms.Queue", resourceEnvRef.getType());
             assertEquals("queue/mdbtest", resourceEnvRef.getJndiName());
         }
 
@@ -583,7 +583,7 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest {
         assertTrue(strictlyPooledMDB.isMessageDriven());
         assertTrue(strictlyPooledMDB instanceof JBossMessageDrivenBeanMetaData);
         assertEquals("AUTO_ACKNOWLEDGE", strictlyPooledMDBMD.getAcknowledgeMode());
-        assertEquals("javax.jms.Queue", strictlyPooledMDBMD.getMessageDestinationType());
+        assertEquals("jakarta.jms.Queue", strictlyPooledMDBMD.getMessageDestinationType());
         assertEquals(SubscriptionDurability.NonDurable, strictlyPooledMDBMD.getSubscriptionDurability());
         EnvironmentEntryMetaData maxActiveCount = strictlyPooledMDBMD.getEnvironmentEntryByName("maxActiveCount");
         assertEquals("maxActiveCountID", maxActiveCount.getId());
@@ -751,14 +751,14 @@ public class JBoss50UnitTestCase extends AbstractEJBEverythingTest {
         ResourceReferenceMetaData jmsRef1 = resources.get("jms/MyTopicConnection");
         assertNotNull(jmsRef1);
         assertEquals("jms/MyTopicConnection", jmsRef1.getResourceRefName());
-        assertEquals("javax.jms.TopicConnectionFactory", jmsRef1.getType());
+        assertEquals("jakarta.jms.TopicConnectionFactory", jmsRef1.getType());
         assertEquals(ResourceAuthorityType.Container, jmsRef1.getResAuth());
         assertEquals("topicfactoryref", jmsRef1.getResourceName());
         assertEquals("java:/JmsXA", jmsRef1.getJndiName());
         ResourceReferenceMetaData jmsRef2 = resources.get("jms/TopicName");
         assertNotNull(jmsRef2);
         assertEquals("jms/TopicName", jmsRef2.getResourceRefName());
-        assertEquals("javax.jms.Topic", jmsRef2.getType());
+        assertEquals("jakarta.jms.Topic", jmsRef2.getType());
         assertEquals(ResourceAuthorityType.Container, jmsRef2.getResAuth());
         assertEquals("topicref", jmsRef2.getResourceName());
         assertEquals("topic/testTopic", jmsRef2.getJndiName());

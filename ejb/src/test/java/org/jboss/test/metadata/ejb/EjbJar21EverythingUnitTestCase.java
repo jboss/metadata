@@ -21,7 +21,7 @@
  */
 package org.jboss.test.metadata.ejb;
 
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionManagementType;
 
 import junit.framework.Test;
 import org.jboss.metadata.ejb.common.IEnterpriseBeansMetaData;

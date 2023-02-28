@@ -22,7 +22,7 @@
 package org.jboss.test.metadata.ejb;
 
 import java.util.LinkedHashSet;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionManagementType;
 
 import org.jboss.metadata.ejb.common.IEjbJarMetaData;
 import org.jboss.metadata.ejb.common.IEnterpriseBeansMetaData;

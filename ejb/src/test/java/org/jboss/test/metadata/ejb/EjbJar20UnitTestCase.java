@@ -93,7 +93,7 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest {
         assertTrue(strictlyPooledMDB instanceof MessageDrivenBeanMetaData);
         MessageDrivenBeanMetaData strictlyPooledMDBMD = (MessageDrivenBeanMetaData) strictlyPooledMDB;
         assertEquals("AUTO_ACKNOWLEDGE", strictlyPooledMDBMD.getAcknowledgeMode());
-        assertEquals("javax.jms.Queue", strictlyPooledMDBMD.getMessageDestinationType());
+        assertEquals("jakarta.jms.Queue", strictlyPooledMDBMD.getMessageDestinationType());
         assertEquals(SubscriptionDurability.NonDurable, strictlyPooledMDBMD.getSubscriptionDurability());
         EnvironmentEntryMetaData maxActiveCount = strictlyPooledMDBMD.getEnvironmentEntryByName("maxActiveCount");
         assertEquals("maxActiveCountID", maxActiveCount.getId());
@@ -108,7 +108,7 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest {
         assertTrue(subclassMDB.isMessageDriven());
         MessageDrivenBeanMetaData mdbMD2 = (MessageDrivenBeanMetaData) subclassMDB;
         assertEquals("AUTO_ACKNOWLEDGE", mdbMD2.getAcknowledgeMode());
-        assertEquals("javax.jms.Topic", mdbMD2.getMessageDestinationType());
+        assertEquals("jakarta.jms.Topic", mdbMD2.getMessageDestinationType());
         assertEquals(SubscriptionDurability.Durable, mdbMD2.getSubscriptionDurability());
 
       /*
@@ -117,7 +117,7 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest {
       assertNotNull(strictlyPooledMDB2);
       assertTrue(strictlyPooledMDB2.getClass()+" instanceof MessageDrivenMetaData", strictlyPooledMDB2 instanceof MessageDrivenMetaData);
       MessageDrivenMetaData strictlyPooledMDMD = (MessageDrivenMetaData) strictlyPooledMDB2;
-      assertEquals("javax.jms.Queue", strictlyPooledMDMD.getDestinationType());
+      assertEquals("jakarta.jms.Queue", strictlyPooledMDMD.getDestinationType());
       */
     }
 
@@ -129,12 +129,12 @@ public class EjbJar20UnitTestCase extends AbstractEJBEverythingTest {
         ResourceReferenceMetaData jmsRef1 = resources.get("jms/MyTopicConnection");
         assertNotNull(jmsRef1);
         assertEquals("jms/MyTopicConnection", jmsRef1.getResourceRefName());
-        assertEquals("javax.jms.TopicConnectionFactory", jmsRef1.getType());
+        assertEquals("jakarta.jms.TopicConnectionFactory", jmsRef1.getType());
         assertEquals(ResourceAuthorityType.Container, jmsRef1.getResAuth());
         ResourceReferenceMetaData jmsRef2 = resources.get("jms/TopicName");
         assertNotNull(jmsRef2);
         assertEquals("jms/TopicName", jmsRef2.getResourceRefName());
-        assertEquals("javax.jms.Topic", jmsRef2.getType());
+        assertEquals("jakarta.jms.Topic", jmsRef2.getType());
         assertEquals(ResourceAuthorityType.Container, jmsRef2.getResAuth());
     }
 

@@ -28,8 +28,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionAttributeType;
+import jakarta.ejb.TransactionManagementType;
 
 import org.jboss.metadata.ejb.common.IEnterpriseBeanMetaData;
 import org.jboss.metadata.common.ejb.JBossEnvironmentRefsGroupMetaData;

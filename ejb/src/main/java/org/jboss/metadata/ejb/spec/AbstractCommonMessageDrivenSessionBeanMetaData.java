@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionManagementType;
 
 import org.jboss.metadata.merge.MergeUtil;
 
@@ -53,7 +53,7 @@ abstract class AbstractCommonMessageDrivenSessionBeanMetaData extends AbstractEn
     // EJB 3.1
 
     /**
-     * Represents metadata for {@link javax.ejb.Schedule}
+     * Represents metadata for {@link jakarta.ejb.Schedule}
      */
     private List<TimerMetaData> timers;
 

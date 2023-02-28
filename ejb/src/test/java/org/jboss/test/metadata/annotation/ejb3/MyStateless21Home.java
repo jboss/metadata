@@ -22,8 +22,8 @@
 package org.jboss.test.metadata.annotation.ejb3;
 
 import java.rmi.RemoteException;
-import javax.ejb.CreateException;
-import javax.ejb.EJBLocalHome;
+import jakarta.ejb.CreateException;
+import jakarta.ejb.EJBLocalHome;
 
 /**
  * EJB 3 4.6.10

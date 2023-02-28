@@ -24,7 +24,7 @@ package org.jboss.metadata.ejb.test.merge;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.TransactionManagementType;
 import javax.xml.stream.XMLStreamException;
 
 import org.jboss.metadata.ejb.common.IEnterpriseBeansMetaData;

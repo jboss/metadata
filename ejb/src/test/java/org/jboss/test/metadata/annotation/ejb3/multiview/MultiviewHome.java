@@ -22,8 +22,8 @@
 package org.jboss.test.metadata.annotation.ejb3.multiview;
 
 import java.rmi.RemoteException;
-import javax.ejb.CreateException;
-import javax.ejb.EJBHome;
+import jakarta.ejb.CreateException;
+import jakarta.ejb.EJBHome;
 
 /**
  * EJB 3 4.6.8

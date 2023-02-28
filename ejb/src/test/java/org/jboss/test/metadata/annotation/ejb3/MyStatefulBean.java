@@ -21,20 +21,20 @@
  */
 package org.jboss.test.metadata.annotation.ejb3;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.EJBs;
-import javax.ejb.Init;
-import javax.ejb.PostActivate;
-import javax.ejb.PrePassivate;
-import javax.ejb.Remote;
-import javax.ejb.RemoteHome;
-import javax.ejb.Remove;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateful;
-import javax.persistence.PersistenceContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
+import jakarta.ejb.EJB;
+import jakarta.ejb.EJBs;
+import jakarta.ejb.Init;
+import jakarta.ejb.PostActivate;
+import jakarta.ejb.PrePassivate;
+import jakarta.ejb.Remote;
+import jakarta.ejb.RemoteHome;
+import jakarta.ejb.Remove;
+import jakarta.ejb.SessionContext;
+import jakarta.ejb.Stateful;
+import jakarta.persistence.PersistenceContext;
 
 import org.jboss.ejb3.annotation.Clustered;
 

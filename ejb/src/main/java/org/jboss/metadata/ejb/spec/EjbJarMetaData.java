@@ -24,7 +24,7 @@ package org.jboss.metadata.ejb.spec;
 import java.util.Collection;
 import java.util.HashSet;
 
-import javax.interceptor.Interceptors;
+import jakarta.interceptor.Interceptors;
 
 import org.jboss.metadata.ejb.common.IEjbJarMetaData;
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptionGroup;

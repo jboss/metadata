@@ -22,7 +22,7 @@
 
 package org.jboss.metadata.ejb.parser.spec;
 
-import javax.ejb.TransactionAttributeType;
+import jakarta.ejb.TransactionAttributeType;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 

@@ -23,7 +23,7 @@ package org.jboss.metadata.ejb.spec;
 
 import java.util.List;
 
-import javax.ejb.TransactionAttributeType;
+import jakarta.ejb.TransactionAttributeType;
 
 import org.jboss.metadata.javaee.support.IdMetaDataImplWithDescriptions;
 

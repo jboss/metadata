@@ -22,11 +22,11 @@
 package org.jboss.test.metadata.annotation.ejb3.jbas5124;
 
 import java.util.Properties;
-import javax.ejb.Remote;
-import javax.ejb.RemoteHome;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
+import jakarta.ejb.Remote;
+import jakarta.ejb.RemoteHome;
+import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionManagement;
+import jakarta.ejb.TransactionManagementType;
 
 /**
  * @author Scott.Stark@jboss.org

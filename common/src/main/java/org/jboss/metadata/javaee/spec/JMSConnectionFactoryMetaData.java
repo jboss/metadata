@@ -40,9 +40,9 @@ public class JMSConnectionFactoryMetaData extends NamedMetaDataWithDescriptions 
     public static final int DEFAULT_MAX_POOL_SIZE = -1;
     public static final int DEFAULT_MIN_POOL_SIZE = -1;
 
-    public static final String CONNECTION_FACTORY_INTERFACE_NAME = "javax.jms.ConnectionFactory";
-    public static final String QUEUE_CONNECTION_FACTORY_INTERFACE_NAME = "javax.jms.QueueConnectionFactory";
-    public static final String TOPIC_CONNECTION_FACTORY_INTERFACE_NAME = "javax.jms.TopicConnectionFactory";
+    public static final String CONNECTION_FACTORY_INTERFACE_NAME = "jakarta.jms.ConnectionFactory";
+    public static final String QUEUE_CONNECTION_FACTORY_INTERFACE_NAME = "jakarta.jms.QueueConnectionFactory";
+    public static final String TOPIC_CONNECTION_FACTORY_INTERFACE_NAME = "jakarta.jms.TopicConnectionFactory";
     public static final String DEFAULT_INTERFACE_NAME = CONNECTION_FACTORY_INTERFACE_NAME;
 
     /**
