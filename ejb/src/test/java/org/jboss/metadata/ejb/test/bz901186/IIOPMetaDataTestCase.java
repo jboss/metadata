@@ -1,3 +1,8 @@
+/*
+ * Copyright The WildFly Authors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 package org.jboss.metadata.ejb.test.bz901186;
 
 import org.jboss.metadata.ejb.jboss.IIOPMetaData;
