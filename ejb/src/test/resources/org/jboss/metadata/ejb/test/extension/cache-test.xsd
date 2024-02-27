@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright The WildFly Authors
+  ~ Copyright The JBoss Metadata Authors
   ~ SPDX-License-Identifier: Apache-2.0
   -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
