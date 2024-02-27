@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!DOCTYPE jboss PUBLIC
+  <!--
+  ~ Copyright The WildFly Authors
+  ~ SPDX-License-Identifier: Apache-2.0
+  -->
+
+<!DOCTYPE jboss PUBLIC
       "-//JBoss//DTD JBOSS 3.2//EN"
       "https://www.jboss.org/j2ee/dtd/jboss_3_2.dtd">
 

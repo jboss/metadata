@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright The WildFly Authors
+  ~ SPDX-License-Identifier: Apache-2.0
+  -->
+
 <!DOCTYPE jboss-web
     PUBLIC "-//JBoss//DTD Web Application 4.2//EN"
     "https://www.jboss.org/j2ee/dtd/jboss-web_4_2.dtd">
