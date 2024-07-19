@@ -24,23 +24,7 @@ public class ServiceReferenceHandlerChainMetaDataParser extends MetaDataElementP
     public static ServiceReferenceHandlerChainMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ServiceReferenceHandlerChainMetaData handlerChain = new ServiceReferenceHandlerChainMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    handlerChain.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, handlerChain);
 
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {

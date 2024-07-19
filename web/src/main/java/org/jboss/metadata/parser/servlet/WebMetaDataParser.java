@@ -15,6 +15,7 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
+import org.jboss.metadata.parser.ee.IdMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.JspConfigMetaData;
@@ -107,10 +108,6 @@ public class WebMetaDataParser extends MetaDataElementParser {
             }
             final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
             switch (attribute) {
-                case ID: {
-                    wmd.setId(value);
-                    break;
-                }
                 case VERSION: {
                     wmd.setVersion(value);
                     break;
@@ -122,7 +119,7 @@ public class WebMetaDataParser extends MetaDataElementParser {
                     break;
                 }
                 default:
-                    throw unexpectedAttribute(reader, i);
+                    IdMetaDataParser.parseAttribute(reader, i, wmd);
             }
         }
 

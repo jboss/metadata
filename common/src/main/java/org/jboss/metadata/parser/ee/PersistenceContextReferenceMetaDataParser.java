@@ -29,23 +29,7 @@ public class PersistenceContextReferenceMetaDataParser extends MetaDataElementPa
     public static PersistenceContextReferenceMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         PersistenceContextReferenceMetaData pcReference = new PersistenceContextReferenceMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    pcReference.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, pcReference);
 
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements

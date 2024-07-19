@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLResolver;
 import javax.xml.stream.XMLStreamConstants;
@@ -357,7 +358,8 @@ public class MetaDataElementParser implements XMLStreamConstants {
     }
 
     protected static boolean attributeHasNamespace(final XMLStreamReader reader, final int i) {
-        return !(reader.getAttributeNamespace(i) == null || "".equals(reader.getAttributeNamespace(i)));
+        String namespace = reader.getAttributeNamespace(i);
+        return !(namespace == null || XMLConstants.NULL_NS_URI.equals(namespace));
     }
 
     /**

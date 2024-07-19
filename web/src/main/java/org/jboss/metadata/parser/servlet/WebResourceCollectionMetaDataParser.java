@@ -13,6 +13,7 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.javaee.spec.DescriptionsImpl;
 import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
+import org.jboss.metadata.parser.ee.IdMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.WebResourceCollectionMetaData;
@@ -25,23 +26,7 @@ public class WebResourceCollectionMetaDataParser extends MetaDataElementParser {
     public static WebResourceCollectionMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         WebResourceCollectionMetaData webResourceCollection = new WebResourceCollectionMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    webResourceCollection.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, webResourceCollection);
 
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements
