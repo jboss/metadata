@@ -1155,8 +1155,8 @@
         <description>webAppManagedExecutor1-desc</description>
         <name>webAppManagedExecutor1-name</name>
         <context-service-ref>webAppManagedExecutor1-contextServiceRef</context-service-ref>
-        <hung-task-threshold>1</hung-task-threshold>
         <max-async>1</max-async>
+        <hung-task-threshold>1</hung-task-threshold>
         <property id="webAppManagedExecutor1Property1-id">
             <name>webAppManagedExecutor1Property1Name</name>
             <value>webAppManagedExecutor1Property1Value</value>
@@ -1170,8 +1170,8 @@
         <description>webAppManagedExecutor2-desc</description>
         <name>webAppManagedExecutor2-name</name>
         <context-service-ref>webAppManagedExecutor2-contextServiceRef</context-service-ref>
-        <hung-task-threshold>2</hung-task-threshold>
         <max-async>2</max-async>
+        <hung-task-threshold>2</hung-task-threshold>
         <property id="webAppManagedExecutor2Property1-id">
             <name>webAppManagedExecutor2Property1Name</name>
             <value>webAppManagedExecutor2Property1Value</value>
@@ -1190,8 +1190,8 @@
         <description>webAppManagedScheduledExecutor1-desc</description>
         <name>webAppManagedScheduledExecutor1-name</name>
         <context-service-ref>webAppManagedScheduledExecutor1-contextServiceRef</context-service-ref>
-        <hung-task-threshold>1</hung-task-threshold>
         <max-async>1</max-async>
+        <hung-task-threshold>1</hung-task-threshold>
         <property id="webAppManagedScheduledExecutor1Property1-id">
             <name>webAppManagedScheduledExecutor1Property1Name</name>
             <value>webAppManagedScheduledExecutor1Property1Value</value>
@@ -1205,8 +1205,8 @@
         <description>webAppManagedScheduledExecutor2-desc</description>
         <name>webAppManagedScheduledExecutor2-name</name>
         <context-service-ref>webAppManagedScheduledExecutor2-contextServiceRef</context-service-ref>
-        <hung-task-threshold>2</hung-task-threshold>
         <max-async>2</max-async>
+        <hung-task-threshold>2</hung-task-threshold>
         <property id="webAppManagedScheduledExecutor2Property1-id">
             <name>webAppManagedScheduledExecutor2Property1Name</name>
             <value>webAppManagedScheduledExecutor2Property1Value</value>
