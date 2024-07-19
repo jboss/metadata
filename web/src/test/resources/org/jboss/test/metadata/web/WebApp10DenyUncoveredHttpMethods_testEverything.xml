@@ -162,6 +162,7 @@
     </servlet-mapping>
 
     <session-config id="session-config0">
+        <session-timeout>-1</session-timeout>
         <cookie-config>
             <name>session</name>
             <domain>.jboss.org</domain>

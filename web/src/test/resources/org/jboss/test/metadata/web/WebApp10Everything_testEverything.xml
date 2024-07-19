@@ -5,8 +5,6 @@
   -->
 
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0" id="web-app-everything" metadata-complete="true">
 
     <module-name>foo</module-name>
@@ -162,7 +160,8 @@
     </servlet-mapping>
 
     <session-config id="session-config0">
-        <cookie-config>
+        <session-timeout>-1</session-timeout>
+        <cookie-config id="cookie-config0">
             <name>session</name>
             <domain>.jboss.org</domain>
             <path>/</path>
@@ -170,6 +169,14 @@
             <http-only>true</http-only>
             <secure>true</secure>
             <max-age>10</max-age>
+            <attribute id="attribute0">
+                <attribute-name>SameSite</attribute-name>
+                <attribute-value>None</attribute-value>
+            </attribute>
+            <attribute id="attribute1">
+                <attribute-name>foo</attribute-name>
+                <attribute-value>bar</attribute-value>
+            </attribute>
         </cookie-config>
         <tracking-mode>COOKIE</tracking-mode>
     </session-config>
