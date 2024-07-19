@@ -9,16 +9,20 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.parser.ee.IdMetaDataParser;
-import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.CookieConfigMetaData;
 
 /**
  * @author Remy Maucherat
  */
-public class CookieConfigMetaDataParser extends MetaDataElementParser {
+public class CookieConfigMetaDataParser extends AbstractVersionedMetaDataParser<CookieConfigMetaData> {
 
-    public static CookieConfigMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
+    CookieConfigMetaDataParser(Version version) {
+        super(version);
+    }
+
+    @Override
+    public CookieConfigMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         CookieConfigMetaData cookieConfig = new CookieConfigMetaData();
 
         IdMetaDataParser.parseAttributes(reader, cookieConfig);
@@ -67,5 +71,4 @@ public class CookieConfigMetaDataParser extends MetaDataElementParser {
 
         return cookieConfig;
     }
-
 }

@@ -5,6 +5,8 @@
 
 package org.jboss.metadata.parser.servlet;
 
+import java.util.Optional;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
@@ -57,11 +59,12 @@ public class WebFragmentMetaDataParser extends MetaDataElementParser {
             }
         }
 
+        Version version = Optional.ofNullable(wmd.getVersion()).map(Version::fromString).orElse(Version.LATEST);
         DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
         EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (WebCommonMetaDataParser.parse(reader, wmd, propertyReplacer)) {
+            if (WebCommonMetaDataParser.parse(reader, version, wmd, propertyReplacer)) {
                 continue;
             }
             if (EnvironmentRefsGroupMetaDataParser.parse(reader, env, propertyReplacer)) {

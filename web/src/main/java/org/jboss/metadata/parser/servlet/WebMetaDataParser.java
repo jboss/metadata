@@ -60,40 +60,16 @@ public class WebMetaDataParser extends MetaDataElementParser {
         }
         WebMetaData wmd = new WebMetaData();
         if (version == null) {
-            // Look at the versionString attribute
-            String versionString = null;
-            final int count = reader.getAttributeCount();
-            for (int i = 0; i < count; i++) {
-                if (attributeHasNamespace(reader, i)) {
-                    continue;
-                }
-                final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-                if (attribute == Attribute.VERSION) {
-                    versionString = reader.getAttributeValue(i);
-                }
-            }
-            if ("2.4".equals(versionString)) {
-                version = Version.SERVLET_2_4;
-            } else if ("2.5".equals(versionString)) {
-                version = Version.SERVLET_2_5;
-            } else if ("3.0".equals(versionString)) {
-                version = Version.SERVLET_3_0;
-            } else if ("3.1".equals(versionString)) {
-                version = Version.SERVLET_3_1;
-            } else if ("4.0".equals(versionString)) {
-                version = Version.SERVLET_4_0;
-            } else if ("5.0".equals(versionString)) {
-                version = Version.SERVLET_5_0;
-            } else if ("6.0".equals(versionString)) {
-                version = Version.SERVLET_6_0;
+            String versionString = reader.getAttributeValue(null, Attribute.VERSION.getLocalName());
+            if (versionString != null) {
+                version = Version.fromString(versionString);
             }
         }
-        if(version != null) {
-            wmd.setVersion(version.versionString());
+        if (version != null) {
+            wmd.setVersion(version.toString());
         }
         // Set the publicId / systemId
-        if (info != null)
-            wmd.setDTD(info.getBaseURI(), info.getPublicID(), info.getSystemID());
+        wmd.setDTD(info.getBaseURI(), info.getPublicID(), info.getSystemID());
 
         // Set the schema location if we have one
         if (schemaLocation != null)
@@ -127,7 +103,7 @@ public class WebMetaDataParser extends MetaDataElementParser {
         EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (WebCommonMetaDataParser.parse(reader, wmd, propertyReplacer)) {
+            if (WebCommonMetaDataParser.parse(reader, version, wmd, propertyReplacer)) {
                 continue;
             }
             if (EnvironmentRefsGroupMetaDataParser.parse(reader, env, propertyReplacer)) {
