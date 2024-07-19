@@ -13,6 +13,7 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
 import org.jboss.metadata.web.spec.AbsoluteOrderingMetaData;
+import org.jboss.metadata.web.spec.AttributeValueMetaData;
 import org.jboss.metadata.web.spec.AuthConstraintMetaData;
 import org.jboss.metadata.web.spec.CookieConfigMetaData;
 import org.jboss.metadata.web.spec.DispatcherType;
@@ -236,5 +237,10 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         assertTrue(metaData.getSecure());
         assertTrue(metaData.getMaxAgeSet());
         assertEquals(10, metaData.getMaxAge());
+        assertCookieAttributes(metaData.getAttributes());
+    }
+
+    protected void assertCookieAttributes(List<AttributeValueMetaData> attributes) {
+        assertNull(attributes);
     }
 }

@@ -21,6 +21,7 @@ public enum Element {
     ABSOLUTE_ORDERING("absolute-ordering"),
     AFTER("after"),
     ASYNC_SUPPORTED("async-supported"),
+    ATTRIBUTE("attribute"),
     AUTH_CONSTRAINT("auth-constraint"),
     AUTH_METHOD("auth-method"),
 

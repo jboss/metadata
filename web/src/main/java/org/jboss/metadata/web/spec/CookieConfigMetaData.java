@@ -4,6 +4,8 @@
  */
 package org.jboss.metadata.web.spec;
 
+import java.util.List;
+
 import org.jboss.metadata.javaee.support.IdMetaDataImpl;
 
 /**
@@ -23,6 +25,7 @@ public class CookieConfigMetaData extends IdMetaDataImpl {
     private boolean secureSet = false;
     private int maxAge = -1;
     private boolean maxAgeSet = false;
+    private List<AttributeValueMetaData> attributes;
 
     public String getName() {
         return name;
@@ -81,6 +84,14 @@ public class CookieConfigMetaData extends IdMetaDataImpl {
     public void setMaxAge(int maxAge) {
         this.maxAge = maxAge;
         maxAgeSet = true;
+    }
+
+    public List<AttributeValueMetaData> getAttributes() {
+        return this.attributes;
+    }
+
+    public void setAttributes(List<AttributeValueMetaData> attributes) {
+        this.attributes = attributes;
     }
 
     public boolean getHttpOnlySet() {

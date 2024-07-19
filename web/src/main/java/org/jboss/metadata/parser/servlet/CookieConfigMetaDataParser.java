@@ -5,11 +5,17 @@
 
 package org.jboss.metadata.parser.servlet;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+import org.jboss.metadata.javaee.spec.DescriptionsImpl;
+import org.jboss.metadata.parser.ee.DescriptionsMetaDataParser;
 import org.jboss.metadata.parser.ee.IdMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
+import org.jboss.metadata.web.spec.AttributeValueMetaData;
 import org.jboss.metadata.web.spec.CookieConfigMetaData;
 
 /**
@@ -64,11 +70,49 @@ public class CookieConfigMetaDataParser extends AbstractVersionedMetaDataParser<
                         throw unexpectedValue(reader, e);
                     }
                     break;
+                case ATTRIBUTE:
+                    if (this.since(Version.SERVLET_6_0)) {
+                        List<AttributeValueMetaData> attributes = cookieConfig.getAttributes();
+                        if (attributes == null) {
+                            attributes = new LinkedList<>();
+                            cookieConfig.setAttributes(attributes);
+                        }
+                        attributes.add(this.parseAttribute(reader, propertyReplacer));
+                        break;
+                    } // else fall through
                 default:
                     throw unexpectedElement(reader);
             }
         }
 
         return cookieConfig;
+    }
+
+    private static final String ATTRIBUTE_NAME = "attribute-name";
+    private static final String ATTRIBUTE_VALUE = "attribute-value";
+
+    protected AttributeValueMetaData parseAttribute(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
+        AttributeValueMetaData metaData = new AttributeValueMetaData();
+
+        IdMetaDataParser.parseAttributes(reader, metaData);
+
+        DescriptionsImpl descriptions = new DescriptionsImpl();
+        while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
+            switch (reader.getLocalName()) {
+                case ATTRIBUTE_NAME:
+                    metaData.setAttributeName(getElementText(reader, propertyReplacer));
+                    break;
+                case ATTRIBUTE_VALUE:
+                    metaData.setAttributeValue(getElementText(reader, propertyReplacer));
+                    break;
+                default:
+                    if (DescriptionsMetaDataParser.parse(reader, descriptions, propertyReplacer)) {
+                        metaData.setDescriptions(descriptions);
+                    } else {
+                        throw unexpectedElement(reader);
+                    }
+            }
+        }
+        return metaData;
     }
 }
