@@ -18,6 +18,17 @@ To build with your own Maven installation:
 
     mvn install
 
+Releasing
+-------------------
+
+To release 
+```
+mvn release:prepare -Prelease
+mvn release:perform -Prelease
+```
+
+Don't forget to put Final in the release tag name.
+
 License
 -------
-* [GNU Lesser General Public License Version 2.1](http://www.gnu.org/licenses/lgpl-2.1-standalone.html)
+* [Apache License Version 2.0](https://www.apache.org/licenses/LICENSE-2.0)
