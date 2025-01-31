@@ -67,7 +67,6 @@ import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.property.PropertyReplacers;
 import org.jboss.metadata.test.AbstractTestSetup;
 import org.jboss.test.metadata.javaee.AbstractJavaEEEverythingTest;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * AbstractEJBEverythingTest.
@@ -180,7 +179,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
     }
 
     protected EntityBeanMetaData assertFullEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("not implemented");
     }
 
     private EntityBeanMetaData assertNullEntity(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData) {
@@ -346,7 +345,7 @@ public abstract class AbstractEJBEverythingTest extends AbstractJavaEEEverything
     }
 
     protected MessageDrivenBeanMetaData assertFullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData, Mode mode) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException("not implemented");
     }
 
     private MessageDrivenBeanMetaData assertNullMDB(String ejbName, IEnterpriseBeansMetaData<?, ?, ?, ?> enterpriseBeansMetaData) {
