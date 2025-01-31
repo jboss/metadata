@@ -4,7 +4,10 @@
  */
 package org.jboss.metadata.merge.web.spec;
 
+import java.util.List;
+
 import org.jboss.metadata.merge.javaee.support.IdMetaDataImplMerger;
+import org.jboss.metadata.web.spec.AttributeValueMetaData;
 import org.jboss.metadata.web.spec.CookieConfigMetaData;
 
 /**
@@ -82,6 +85,14 @@ public class CookieConfigMetaDataMerger extends IdMetaDataImplMerger {
                 throw new IllegalStateException("Unresolved conflict on max age");
             }
         }
+        List<AttributeValueMetaData> fragmentAttributes = webFragmentMetaData.getAttributes();
+        if (fragmentAttributes != null) {
+            List<AttributeValueMetaData> destinationAttributes = dest.getAttributes();
+            if (destinationAttributes == null) {
+                dest.setAttributes(fragmentAttributes);
+            } else if (!resolveConflicts && !destinationAttributes.equals(fragmentAttributes) && (webMetaData == null || webMetaData.getAttributes() == null)) {
+                throw new IllegalStateException("Unresolved conflict on cookie attributes: " + destinationAttributes);
+            }
+        }
     }
-
 }

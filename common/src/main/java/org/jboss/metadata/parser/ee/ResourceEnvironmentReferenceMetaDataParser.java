@@ -21,23 +21,7 @@ public class ResourceEnvironmentReferenceMetaDataParser extends MetaDataElementP
     public static ResourceEnvironmentReferenceMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ResourceEnvironmentReferenceMetaData resourceReference = new ResourceEnvironmentReferenceMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    resourceReference.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, resourceReference);
 
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements

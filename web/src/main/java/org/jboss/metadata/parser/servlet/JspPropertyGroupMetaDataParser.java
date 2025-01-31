@@ -13,6 +13,7 @@ import javax.xml.stream.XMLStreamReader;
 
 import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
+import org.jboss.metadata.parser.ee.IdMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.JspPropertyGroupMetaData;
@@ -25,23 +26,7 @@ public class JspPropertyGroupMetaDataParser extends MetaDataElementParser {
     public static JspPropertyGroupMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         JspPropertyGroupMetaData jspPropertyGroup = new JspPropertyGroupMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    jspPropertyGroup.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, jspPropertyGroup);
 
         DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
         // Handle elements

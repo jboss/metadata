@@ -47,7 +47,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
             if (reader.getEventType() == DTD) {
                 String dtdLocation = readDTDLocation(reader);
                 if (dtdLocation != null) {
-                    version = Version.findVersion(dtdLocation);
+                    version = Version.fromLocation(dtdLocation);
                 }
                 if (version == null) {
                     // DTD->getText() is incomplete and not parsable with Xerces from Sun JDK 6,
@@ -58,7 +58,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
         }
         String schemaLocation = readSchemaLocation(reader);
         if (schemaLocation != null) {
-            version = Version.findVersion(schemaLocation);
+            version = Version.fromLocation(schemaLocation);
         }
         if (version == null) {
             version = Version.JBOSS_WEB_6_0;
@@ -126,7 +126,7 @@ public class JBossWebMetaDataParser extends MetaDataElementParser {
                     listeners.add(ContainerListenerMetaDataParser.parse(reader, propertyReplacer));
                     break;
                 case SESSION_CONFIG:
-                    wmd.setSessionConfig(SessionConfigMetaDataParser.parse(reader, propertyReplacer));
+                    wmd.setSessionConfig(new SessionConfigMetaDataParser(version.getServletVersion()).parse(reader, propertyReplacer));
                     break;
                 case VALVE:
                     List<ValveMetaData> valves = wmd.getValves();

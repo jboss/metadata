@@ -36,7 +36,7 @@ import org.jboss.metadata.web.spec.WebCommonMetaData;
  */
 public class WebCommonMetaDataParser extends MetaDataElementParser {
 
-    public static boolean parse(XMLStreamReader reader, WebCommonMetaData wmd, PropertyReplacer propertyReplacer) throws XMLStreamException {
+    public static boolean parse(XMLStreamReader reader, Version version, WebCommonMetaData wmd, PropertyReplacer propertyReplacer) throws XMLStreamException {
         // Only look at the current element, no iteration
         final Element element = Element.forName(reader.getLocalName());
         switch (element) {
@@ -95,7 +95,7 @@ public class WebCommonMetaDataParser extends MetaDataElementParser {
             case SESSION_CONFIG:
                 if (wmd.getSessionConfig() != null)
                     throw new XMLStreamException("Multiple session-config elements detected", reader.getLocation());
-                wmd.setSessionConfig(SessionConfigMetaDataParser.parse(reader, propertyReplacer));
+                wmd.setSessionConfig(new SessionConfigMetaDataParser(version).parse(reader, propertyReplacer));
                 break;
             case MIME_MAPPING:
                 List<MimeMappingMetaData> mimeMappings = wmd.getMimeMappings();

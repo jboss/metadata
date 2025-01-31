@@ -29,23 +29,7 @@ public class ServiceReferenceMetaDataParser extends MetaDataElementParser {
     public static ServiceReferenceMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         JBossServiceReferenceMetaData serviceReference = new JBossServiceReferenceMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    serviceReference.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, serviceReference);
 
         DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
         // Handle elements

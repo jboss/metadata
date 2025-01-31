@@ -5,6 +5,8 @@
 
 package org.jboss.metadata.parser.servlet;
 
+import java.util.Optional;
+
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
@@ -12,6 +14,7 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.EnvironmentRefsGroupMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
 import org.jboss.metadata.parser.ee.EnvironmentRefsGroupMetaDataParser;
+import org.jboss.metadata.parser.ee.IdMetaDataParser;
 import org.jboss.metadata.parser.util.MetaDataElementParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.WebFragmentMetaData;
@@ -41,10 +44,6 @@ public class WebFragmentMetaDataParser extends MetaDataElementParser {
             }
             final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
             switch (attribute) {
-                case ID: {
-                    wmd.setId(value);
-                    break;
-                }
                 case VERSION: {
                     wmd.setVersion(value);
                     break;
@@ -56,15 +55,16 @@ public class WebFragmentMetaDataParser extends MetaDataElementParser {
                     break;
                 }
                 default:
-                    throw unexpectedAttribute(reader, i);
+                    IdMetaDataParser.parseAttribute(reader, i, wmd);
             }
         }
 
+        Version version = Optional.ofNullable(wmd.getVersion()).map(Version::fromString).orElse(Version.LATEST);
         DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
         EnvironmentRefsGroupMetaData env = new EnvironmentRefsGroupMetaData();
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
-            if (WebCommonMetaDataParser.parse(reader, wmd, propertyReplacer)) {
+            if (WebCommonMetaDataParser.parse(reader, version, wmd, propertyReplacer)) {
                 continue;
             }
             if (EnvironmentRefsGroupMetaDataParser.parse(reader, env, propertyReplacer)) {

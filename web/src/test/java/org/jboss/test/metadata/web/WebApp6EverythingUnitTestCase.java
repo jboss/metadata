@@ -13,7 +13,9 @@ import org.jboss.metadata.javaee.spec.SecurityRoleRefMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.merge.javaee.spec.JavaEEVersion;
 import org.jboss.metadata.web.spec.AbsoluteOrderingMetaData;
+import org.jboss.metadata.web.spec.AttributeValueMetaData;
 import org.jboss.metadata.web.spec.AuthConstraintMetaData;
+import org.jboss.metadata.web.spec.CookieConfigMetaData;
 import org.jboss.metadata.web.spec.DispatcherType;
 import org.jboss.metadata.web.spec.FilterMappingMetaData;
 import org.jboss.metadata.web.spec.FilterMetaData;
@@ -25,6 +27,8 @@ import org.jboss.metadata.web.spec.SecurityConstraintMetaData;
 import org.jboss.metadata.web.spec.ServletMappingMetaData;
 import org.jboss.metadata.web.spec.ServletMetaData;
 import org.jboss.metadata.web.spec.ServletsMetaData;
+import org.jboss.metadata.web.spec.SessionConfigMetaData;
+import org.jboss.metadata.web.spec.SessionTrackingModeType;
 import org.jboss.metadata.web.spec.TransportGuaranteeType;
 import org.jboss.metadata.web.spec.UserDataConstraintMetaData;
 import org.jboss.metadata.web.spec.WebMetaData;
@@ -58,8 +62,7 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
         assertDenyUncoveredHttpMethods(webApp);
         assertSecurityConstraints(webApp);
         assertAbsoluteOrdering(webApp);
-        assertNotNull("no session config set", webApp.getSessionConfig());
-        assertEquals(30, webApp.getSessionConfig().getSessionTimeout());
+        assertSessionConfig(webApp.getSessionConfig());
     }
 
     protected void assertAbsoluteOrdering(WebMetaData webApp)
@@ -213,5 +216,31 @@ public class WebApp6EverythingUnitTestCase extends WebAppUnitTestCase {
 
     protected void assertModuleName(WebMetaData webApp) {
         assertEquals("foo", webApp.getModuleName());
+    }
+
+    protected void assertSessionConfig(SessionConfigMetaData metaData) {
+        assertNotNull("no session config set", metaData);
+        assertEquals(-1, metaData.getSessionTimeout());
+        assertCookieConfig(metaData.getCookieConfig());
+        assertEquals(List.of(SessionTrackingModeType.COOKIE), metaData.getSessionTrackingModes());
+    }
+
+    protected void assertCookieConfig(CookieConfigMetaData metaData) {
+        assertNotNull("no cookie config set", metaData);
+        assertEquals("session", metaData.getName());
+        assertEquals(".jboss.org", metaData.getDomain());
+        assertEquals("/", metaData.getPath());
+        assertEquals("Test", metaData.getComment());
+        assertTrue(metaData.getHttpOnlySet());
+        assertTrue(metaData.getHttpOnly());
+        assertTrue(metaData.getSecureSet());
+        assertTrue(metaData.getSecure());
+        assertTrue(metaData.getMaxAgeSet());
+        assertEquals(10, metaData.getMaxAge());
+        assertCookieAttributes(metaData.getAttributes());
+    }
+
+    protected void assertCookieAttributes(List<AttributeValueMetaData> attributes) {
+        assertNull(attributes);
     }
 }

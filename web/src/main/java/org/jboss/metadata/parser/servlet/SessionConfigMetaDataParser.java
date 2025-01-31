@@ -5,13 +5,13 @@
 
 package org.jboss.metadata.parser.servlet;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
-import org.jboss.metadata.parser.util.MetaDataElementParser;
+import org.jboss.metadata.parser.ee.IdMetaDataParser;
 import org.jboss.metadata.property.PropertyReplacer;
 import org.jboss.metadata.web.spec.SessionConfigMetaData;
 import org.jboss.metadata.web.spec.SessionTrackingModeType;
@@ -19,28 +19,17 @@ import org.jboss.metadata.web.spec.SessionTrackingModeType;
 /**
  * @author Remy Maucherat
  */
-public class SessionConfigMetaDataParser extends MetaDataElementParser {
+public class SessionConfigMetaDataParser extends AbstractVersionedMetaDataParser<SessionConfigMetaData> {
 
-    public static SessionConfigMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
+    public SessionConfigMetaDataParser(Version version) {
+        super(version);
+    }
+
+    @Override
+    public SessionConfigMetaData parse(XMLStreamReader reader, PropertyReplacer propertyReplacer) throws XMLStreamException {
         SessionConfigMetaData sessionConfig = new SessionConfigMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    sessionConfig.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, sessionConfig);
 
         // Handle elements
         while (reader.hasNext() && reader.nextTag() != END_ELEMENT) {
@@ -54,12 +43,12 @@ public class SessionConfigMetaDataParser extends MetaDataElementParser {
                     }
                     break;
                 case COOKIE_CONFIG:
-                    sessionConfig.setCookieConfig(CookieConfigMetaDataParser.parse(reader, propertyReplacer));
+                    sessionConfig.setCookieConfig(new CookieConfigMetaDataParser(this.getVersion()).parse(reader, propertyReplacer));
                     break;
                 case TRACKING_MODE:
                     List<SessionTrackingModeType> trackingModes = sessionConfig.getSessionTrackingModes();
                     if (trackingModes == null) {
-                        trackingModes = new ArrayList<SessionTrackingModeType>();
+                        trackingModes = new LinkedList<>();
                         sessionConfig.setSessionTrackingModes(trackingModes);
                     }
                     try {
@@ -75,5 +64,4 @@ public class SessionConfigMetaDataParser extends MetaDataElementParser {
 
         return sessionConfig;
     }
-
 }

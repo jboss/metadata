@@ -15,6 +15,7 @@ import org.jboss.metadata.javaee.spec.DescriptionGroupMetaData;
 import org.jboss.metadata.javaee.spec.ParamValueMetaData;
 import org.jboss.metadata.javaee.spec.SecurityRoleRefsMetaData;
 import org.jboss.metadata.parser.ee.DescriptionGroupMetaDataParser;
+import org.jboss.metadata.parser.ee.IdMetaDataParser;
 import org.jboss.metadata.parser.ee.ParamValueMetaDataParser;
 import org.jboss.metadata.parser.ee.RunAsMetaDataParser;
 import org.jboss.metadata.parser.ee.SecurityRoleRefMetaDataParser;
@@ -30,23 +31,7 @@ public class ServletMetaDataParser extends MetaDataElementParser {
     public static ServletMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         ServletMetaData servlet = new ServletMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    servlet.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, servlet);
 
         DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
         // Handle elements

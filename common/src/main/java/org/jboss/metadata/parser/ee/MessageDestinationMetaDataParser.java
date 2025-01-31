@@ -21,23 +21,7 @@ public class MessageDestinationMetaDataParser extends MetaDataElementParser {
     public static MessageDestinationMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         MessageDestinationMetaData messageDestination = new MessageDestinationMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    messageDestination.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, messageDestination);
 
         DescriptionGroupMetaData descriptionGroup = new DescriptionGroupMetaData();
         // Handle elements

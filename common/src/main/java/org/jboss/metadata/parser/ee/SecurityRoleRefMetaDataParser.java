@@ -26,23 +26,7 @@ public class SecurityRoleRefMetaDataParser extends MetaDataElementParser {
     public static SecurityRoleRefMetaData parse(XMLStreamReader reader, final PropertyReplacer propertyReplacer) throws XMLStreamException {
         SecurityRoleRefMetaData securityRoleRef = new SecurityRoleRefMetaData();
 
-        // Handle attributes
-        final int count = reader.getAttributeCount();
-        for (int i = 0; i < count; i++) {
-            final String value = reader.getAttributeValue(i);
-            if (attributeHasNamespace(reader, i)) {
-                continue;
-            }
-            final Attribute attribute = Attribute.forName(reader.getAttributeLocalName(i));
-            switch (attribute) {
-                case ID: {
-                    securityRoleRef.setId(value);
-                    break;
-                }
-                default:
-                    throw unexpectedAttribute(reader, i);
-            }
-        }
+        IdMetaDataParser.parseAttributes(reader, securityRoleRef);
 
         DescriptionsImpl descriptions = new DescriptionsImpl();
         // Handle elements

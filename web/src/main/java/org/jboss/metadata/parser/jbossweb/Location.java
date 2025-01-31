@@ -12,6 +12,6 @@ public class Location {
      */
     @Deprecated
     public static Version getVersion(String location) {
-        return Version.findVersion(location);
+        return Version.fromLocation(location);
     }
 }
