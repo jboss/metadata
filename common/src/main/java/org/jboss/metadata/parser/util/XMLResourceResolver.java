@@ -205,10 +205,12 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-facelettaglibrary_2_3.xsd", "web-facelettaglibrary_2_3.xsd");
         registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_3_0.xsd", "web-facelettaglibrary_3_0.xsd");
         registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_0.xsd", "web-facelettaglibrary_4_0.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_1.xsd", "web-facelettaglibrary_4_1.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_1_2.xsd", "web-facesconfig_1_2.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd", "web-facesconfig_2_2.xsd");
         registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd", "web-facesconfig_3_0.xsd");
         registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd", "web-facesconfig_4_0.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd", "web-facesconfig_4_1.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_0.xsd", "web-fragment_3_0.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-fragment_3_1.xsd", "web-fragment_3_1.xsd");
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-fragment_4_0.xsd", "web-fragment_4_0.xsd");
@@ -221,6 +223,7 @@ public class XMLResourceResolver implements XMLResolver, EntityResolver, LSResou
         registerEntity("http://xmlns.jcp.org/xml/ns/javaee/web-partialresponse_2_3.xsd", "web-partialresponse_2_3.xsd");
         registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-partialresponse_3_0.xsd", "web-partialresponse_3_0.xsd");
         registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-partialresponse_4_0.xsd", "web-partialresponse_4_0.xsd");
+        registerEntity("https://jakarta.ee/xml/ns/jakartaee/web-partialresponse_4_1.xsd", "web-partialresponse_4_1.xsd");
 
         // jboss-web
         registerEntity("-//JBoss//DTD Web Application 2.2//EN", "jboss-web.dtd");
